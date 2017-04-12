@@ -1,0 +1,233 @@
+@font-face {
+  font-family: IRANSansMedium;
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/eot/IRANSansWeb_Medium.eot');
+  src: url('../fonts/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/woff2/IRANSansWeb_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/woff/IRANSansWeb_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/ttf/IRANSansWeb_Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: IRANSansLight;
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/eot/IRANSansWeb_Light.eot');
+  src: url('../fonts/eot/IRANSansWeb_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/woff2/IRANSansWeb_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/woff/IRANSansWeb_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/ttf/IRANSansWeb_Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/eot/IRANSansWeb.eot');
+  src: url('../fonts/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/woff2/IRANSansWeb.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/woff/IRANSansWeb.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/ttf/IRANSansWeb.ttf') format('truetype');
+}
+@font-face {
+  font-family: OCRA;
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/ttf/OCRA.ttf') format('truetype');
+}
+
+
+
+@font-face {
+  font-family: 'zarinpal';
+  src:  url('../fonts/zarinpal.eot');
+  src:  url('../fonts/zarinpal.eot') format('embedded-opentype'),
+  url('../fonts/zarinpal.ttf') format('truetype'),
+  url('../fonts/zarinpal.woff') format('woff'),
+  url('../fonts/zarinpal.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+i[class^="icon-"], i[class*=" icon-"],
+span[class^="icon-"], span[class*=" icon-"]{
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'zarinpal' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ic_search_black_48px {
+  &:before {
+    content: $icon-ic_search_black_48px;
+  }
+}
+.icon-ic_settings_black_48px {
+  &:before {
+    content: $icon-ic_settings_black_48px;
+  }
+}
+.icon-ic_exit_to_app_black_48px {
+  &:before {
+    content: $icon-ic_exit_to_app_black_48px;
+  }
+}
+.icon-ic_credit_card_black_48px {
+  &:before {
+    content: $icon-ic_credit_card_black_48px;
+  }
+}
+.icon-ic_delete_black_48px {
+  &:before {
+    content: $icon-ic_delete_black_48px;
+  }
+}
+.icon-ic_add_circle_black_48px {
+  &:before {
+    content: $icon-ic_add_circle_black_48px;
+  }
+}
+.icon-ic_account_balance_wallet_black_48px {
+  &:before {
+    content: $icon-ic_account_balance_wallet_black_48px;
+  }
+}
+.icon-ic_phone_iphone_black_48px {
+  &:before {
+    content: $icon-ic_phone_iphone_black_48px;
+  }
+}
+.icon-ic_public_black_48px {
+  &:before {
+    content: $icon-ic_public_black_48px;
+  }
+}
+.icon-ic_cloud_upload_black_48px {
+  &:before {
+    content: $icon-ic_cloud_upload_black_48px;
+  }
+}
+.icon-ic_close_black_48px {
+  &:before {
+    content: $icon-ic_close_black_48px;
+  }
+}
+.icon-ic_receipt_black_48px {
+  &:before {
+    content: $icon-ic_receipt_black_48px;
+  }
+}
+.icon-ic_open_in_browser_black_48px {
+  &:before {
+    content: $icon-ic_open_in_browser_black_48px;
+  }
+}
+.icon-ic_content_copy_black_48px {
+&:before {
+  content: $icon-ic_content_copy_black_48px;
+}
+}
+.icon-ic_check_circle_black_48px {
+&:before {
+  content: $icon-ic_check_circle_black_48px;
+}
+}
+.icon-ic_remove_circle_black_48px {
+  &:before {
+    content: $icon-ic_remove_circle_black_48px;
+  }
+}
+.icon-ic_home_black_48px {
+  &:before {
+    content: $icon-ic_home_black_48px;
+  }
+}
+.icon-ic_refresh_black_48px {
+  &:before {
+    content: $icon-ic_refresh_black_48px;
+  }
+}
+.icon-ic_arrow_forward_black_48px {
+  &:before {
+    content: $icon-ic_arrow_forward_black_48px;
+  }
+}
+.icon-ic_flash_on_black_48px {
+  &:before {
+    content: $icon-ic_flash_on_black_48px;
+  }
+}
+.icon-ic_edit_black_48px {
+  &:before {
+    content: $icon-ic_edit_black_48px;
+  }
+}
+.icon-ic_keyboard_arrow_left_black_48px {
+  &:before {
+    content: $icon-ic_keyboard_arrow_left_black_48px;
+  }
+}
+.icon-ic_keyboard_arrow_down_black_48px {
+  &:before {
+    content: $icon-ic_keyboard_arrow_down_black_48px;
+  }
+}
+.icon-ic_keyboard_arrow_up_black_48px {
+  &:before {
+    content: $icon-ic_keyboard_arrow_up_black_48px;
+  }
+}
+.icon-ic_more_vert_black_48px {
+  &:before {
+    content: $icon-ic_more_vert_black_48px;
+  }
+}
+.icon-ic_info_black_48px {
+  &:before {
+    content: $icon-ic_info_black_48px;
+  }
+}
+.icon-ic_check_circle_black_48px {
+  &:before {
+    content: $icon-ic_check_circle_black_48px;
+  }
+}
+.icon-ic_warning_black_48px {
+  &:before {
+    content: $icon-ic_warning_black_48px;
+  }
+}
+.icon-ic_lock_outline_black_48px {
+  &:before {
+    content: $icon-ic_lock_outline_black_48px;
+  }
+}
+.icon-ic_perm_identity_black_48px {
+  &:before {
+    content: $icon-ic_perm_identity_black_48px;
+  }
+}
+.icon-ic_menu_black_48px {
+  &:before {
+    content: $icon-ic_menu_black_48px;
+  }
+}
+.icon-ic_notifications_black_48px {
+  &:before {
+    content: $icon-ic_notifications_black_48px;
+  }
+}
+.icon-zarinpal-flat {
+  &:before {
+    content: $icon-zarinpal-flat;
+  }
+}
+

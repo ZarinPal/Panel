@@ -1,0 +1,137 @@
+// Inputs
+$border-color : #cecece;
+$border-color-hover : #ffd600;
+
+// Shadow
+$boxShadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.15);
+
+
+// Radius
+$boxBorderRadiusSize: 5px;
+
+// Fonts
+$font-color:#424242;
+$font-size: 13px;
+$font-weight: normal;
+
+// BANK COLORS
+$eghtesadnovin : #701e72;
+$parsian : #98120f;
+$karafarin : #157215;
+$saman : #02aae8;
+$pasargad : #f7a61a;
+$sina : #17479c;
+$sarmayeh : #010068;
+$cutybank : #ed1b24;
+$ansar : #c5000a;
+$tejarat : #02006f;
+$refah : #004b7f;
+$saderat : #29166f;
+$mellat : #e41839;
+$hekmat : #004e98;
+$ghardeshgari : #b20f14;
+$ghavamin : #008040;
+$ayandeh : #572600;
+$tosesaderat : #056c11;
+$sanatmadan : #37589f;
+$keshavarzi : #499f06;
+$maskan : #f35722;
+$tosetavon : #078a93;
+$postbank : #008840;
+$mehr : #1e8910;
+$resalat : #0f86a8;
+$melli : #dc3c00;
+$sepah : #ff7d00;
+$zarincard : #ffb012;
+
+
+// ZarinPal Icon Fonts
+$icon-ic_search_black_48px: "\e915";
+$icon-ic_settings_black_48px: "\e916";
+$icon-ic_exit_to_app_black_48px: "\e917";
+$icon-ic_credit_card_black_48px: "\e918";
+$icon-ic_delete_black_48px: "\e919";
+$icon-ic_add_circle_black_48px: "\e91a";
+$icon-ic_account_balance_wallet_black_48px: "\e91c";
+$icon-ic_phone_iphone_black_48px: "\e91d";
+$icon-ic_public_black_48px: "\e91e";
+$icon-ic_cloud_upload_black_48px: "\e91f";
+$icon-ic_close_black_48px: "\e920";
+$icon-ic_receipt_black_48px: "\e912";
+$icon-ic_open_in_browser_black_48px: "\e913";
+$icon-ic_content_copy_black_48px: "\e914";
+$icon-ic_check_circle_black_48px: "\e910";
+$icon-ic_remove_circle_black_48px: "\e911";
+$icon-ic_home_black_48px: "\e91b";
+$icon-ic_refresh_black_48px: "\e90f";
+$icon-ic_arrow_forward_black_48px: "\e900";
+$icon-ic_flash_on_black_48px: "\e901";
+$icon-ic_edit_black_48px: "\e902";
+$icon-ic_keyboard_arrow_left_black_48px: "\e903";
+$icon-ic_keyboard_arrow_down_black_48px: "\e904";
+$icon-ic_keyboard_arrow_up_black_48px: "\e905";
+$icon-ic_more_vert_black_48px: "\e906";
+$icon-ic_info_black_48px: "\e907";
+$icon-ic_check_circle_black_48px: "\e908";
+$icon-ic_warning_black_48px: "\e909";
+$icon-ic_lock_outline_black_48px: "\e90a";
+$icon-ic_perm_identity_black_48px: "\e90b";
+$icon-ic_menu_black_48px: "\e90c";
+$icon-ic_notifications_black_48px: "\e90d";
+$icon-zarinpal-flat: "\e90e";
+
+
+
+//Colors and sizes
+//Common
+$boxBgColo: #fefefe;
+$boxBorderColor:#ebeef0;
+$boxShadowColor: rgba(0, 0, 0, 0.15);
+$labelColor: #424242;
+$labelGroupBorderColor: #eceff1;
+
+
+//Home
+$boxBorderColor:#ebeef0;
+$closeDropDownColor: #8A8A8A;
+$itemColor: #8A8A8A;
+$itemIconColor: #424242;
+$dropDownBorderRadius: 5px;
+
+//Countainer
+$innerContentWidth: 90%;
+$innerContentMaxWidth: 1024px;
+
+$fontName:"IRANSans";
+$mobileSize:768px;
+$smallWidth: 768px;
+$mediumWidth: 992px;
+$largeWidth: 1024px;
+$animateTime: 0.4s;
+
+$goldColor: #ffd600;
+$silverColor: #BDC3C7;
+
+$sideItemColor: #8e8e8e;
+$sidebarWith:250px;
+$smallSidebarWidth: 60px;
+$sidebarBgColor: #fff;
+$sidebarFontSize: 13px;
+$sidebarHoverBgColor:  #f4f4f4;
+$smallSubMenuWidth: 150px;
+$smallSidebarIconSize: 18px !important;
+
+
+//Transactions
+$closeIcon: $icon-ic_close_black_48px;
+$iconPrinter: $icon-ic_search_black_48px;
+$iconTick: $icon-ic_check_circle_black_48px;
+
+$depositColorIn: #2dcc70;
+$depositColorInFrom: #22bf65;
+
+$depositColorOut: #F44336;
+$depositColorFrom: #d23532;
+
+$depositColorP2p: #9C9C9C;
+$depositColorP2pFrom: #8B8B8B;

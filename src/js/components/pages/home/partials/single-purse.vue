@@ -1,0 +1,119 @@
+<template lang="pug">
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+        div.box
+            div.top-xs.header
+                div.row
+                    div.col-xs.right-box
+                        p
+                            span.wallet-color(v-bind:class="'color-' + purse.purse")
+
+                            span(v-if="purse.purse == 1")
+                                span.header-title {{ purse.name }}
+
+                            span(v-else-if="purse.purse == 99")
+                                span.header-title {{ purse.name }}
+
+                            span(v-else)
+                                span.header-title(v-if="!isEditingPurseName" @click="toggleEditPurse()") {{ purse.name }}
+
+                            span.nav-edit-wallet(v-show="isEditingPurseName")
+                                input.txt-wallet-name(v-bind:value="purse.name" v-model="newPurseName")
+                                span.save(@click="send()") {{ $t('common.save') }}
+                                span.cancel(@click="toggleEditPurse()") {{ $t('common.cancel') }}
+
+
+                    div.left-box
+                        span.icon-more(@click="showOptions = !showOptions")
+                        transition( name="bounce"
+                                    enter-active-class="drop-down-show"
+                                    leave-active-class="drop-down-hide")
+                            span.drop-down(v-if="showOptions")
+                                span.close-drop-down.drop-down-item(@click="showOptions = !showOptions")
+                                span.drop-down-item.add-fund(@click="isAddFunding = true") {{ $t('transaction.addFunds') }}
+                                router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $t('transaction.title') }}
+
+
+            div.middle-xs.body
+                router-link(tag="li" v-bind:to="{ name: 'transaction.index', params: {type: 'purse', id: purse.purse} }")
+                    div.nav-balance
+                        div.txt-balance {{ $t('common.balance') }}
+                        div.balance-amount {{balance.balance | numberFormat | persianNumbers }}
+                        div.nav-show-chart
+                            span.chart-icon
+                            span {{ $t('common.showChart')}}
+
+
+            div.bottom-xs.footer
+                div.row
+                    div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
+                        span.icon-input-trans
+                        span.amount {{balance.today_income  | numberFormat | persianNumbers }}
+
+                    div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
+                        span.icon-output-trans
+                        span.amount  {{balance.today_outcome  | numberFormat | persianNumbers }}
+
+                    div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
+                        span.icon-moving-trans
+                        span.amount  {{balance.total_to_exit  | numberFormat | persianNumbers }}
+</template>
+
+<script>
+    export default {
+        name: 'pages-home-partials-singlePurse',
+        data(){
+            return {
+                balance: {},
+                loading: true,
+                showOptions: false,
+                isEditingPurseName: false,
+                newPurseName: this.purse.name,
+            }
+        },
+        props: ['purse'],
+        created(){
+            this.getBalance();
+        },
+        methods: {
+            changePurseName(){
+                let vm = this;
+                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+                    return purse.purse === vm.purse.purse
+                });
+                this.$store.state.auth.user.purses[purseIndex].name
+                    = this.purse.name
+                    = this.newPurseName;
+            },
+            getBalance(){
+                this.$store.state.http.requests['purse.getBalance'].get({purseId: this.purse.purse}).then(response => {
+                    this.balance = response.data.data;
+                    this.loading = false;
+                });
+            },
+
+            toggleEditPurse(){
+                this.isEditingPurseName = !this.isEditingPurseName;
+            },
+            send(){
+                let sendContent = {
+                    name: this.newPurseName
+                };
+
+                this.$store.state.http.requests['purse.postEdit']
+                    .update({'purse_number': this.purse.purse}, sendContent)
+                    .then(() => {
+                        this.changePurseName();
+                        this.toggleEditPurse();
+                    },
+                    (response) => {
+                        store.commit('flashMessage', {
+                            text: response.data.meta.error_message,
+                            type: 'danger'
+                        });
+                        this.toggleEditPurse();
+                    }
+                );
+            },
+        }
+    }
+</script>

@@ -1,0 +1,145 @@
+$homeIcon: $iconAttach;
+$amountIcon: $iconAttach;
+$purseIcon: $iconAttach;
+
+
+//Easypay index
+.tag-deposit-to{
+  border-radius: 30px;
+  background-color: #f6f6f6;
+  padding: 4px 9px;
+  >img{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+  }
+
+  .purse-color{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    border-radius: 50%;
+    top: 4px;
+    margin-left: 5px;
+  }
+
+  >span{
+    position: relative;
+    font-size: 13px;
+    color: #777;
+    display: inline-block;
+  }
+}
+
+//Easypay create
+.create-easypay{
+  textarea {
+    width: 100% !important;
+  }
+
+  input, .selectbox{
+    margin: 6px 0;
+    width: 100%;
+  }
+
+  .selectbox {
+    width: 100%;
+    float: left;
+    text-indent: 13px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"] {
+    text-indent: 13px;
+  }
+
+  .input-icon {
+    &:before {
+      font-family: 'zarinpal';
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 16px;
+      color: #979797;
+    }
+  }
+
+  @mixin easypay-input-icon($fontName) {
+    &:before {
+      content: $fontName;
+    }
+  }
+
+  .home-icon {
+    @include easypay-input-icon($homeIcon);
+  }
+
+  .amount-icon {
+    @include easypay-input-icon($amountIcon);
+  }
+
+  .purse-icon{
+    @include easypay-input-icon($purseIcon);
+  }
+
+  .form-title {
+    font-size: 13px;
+  }
+
+  .form-message{
+    font-size: 11px;
+    margin-bottom: 20px;
+  }
+
+  .f-row{
+    .row {
+      margin: 10px 0;
+    }
+  }
+
+  .nav-required-fields {
+    .ta-right:first-child{
+      margin: 10px;
+    }
+  }
+
+  .nav-limit-checkbox {
+    .ta-right {
+      margin: 15px 0;
+    }
+  }
+
+}
+
+.inactive-step {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.step-number{
+  padding: 2px;
+  display: inline-block;
+  width: 22px;
+  color: #fff;
+  border-radius: 50%;
+  margin-left: 2px;
+  background-color: #C2C8CC;
+}
+
+.step-line{
+  width: 2px !important;
+  margin: 10px 12px;
+  height: 90%;
+  background-color: #c2c8cc;
+}
+
+.active-step-line {
+  background-color: #ffc107 !important;
+}
+
+.active-step-number{
+  background-color: #ffc107 !important;
+}

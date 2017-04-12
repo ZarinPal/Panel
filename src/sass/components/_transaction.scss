@@ -1,0 +1,343 @@
+ .search-box{
+  .icon-search{
+    &:before{
+      content: $iconSearch;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 20px;
+      padding: 3px;
+      color: #505050;
+    }
+  }
+
+  .row:last-child{
+    margin-top: 20px !important;
+  }
+
+  .search-title{
+    font-size: 14px;
+    margin: 0 8px;
+  }
+
+  .search-title:last-child{
+    color: #9e9e9e;
+  }
+}
+
+.filter-row{
+  margin: 20px 0;
+  border-bottom: 1px solid #cbcbcb;
+  padding-bottom: 20px;
+
+  .text{
+    font-size: 13px;
+    margin: 0 10px;
+  }
+  .purse-name{
+    font-size: 13px;
+    margin-right: -7px;
+    /* display: inline-block; */
+    /* margin-top: 7px; */
+    position: relative;
+  }
+
+}
+
+.transaction-fields-title{
+  text-align: center;
+  color: $labelColor;
+  font-size: 13px;
+}
+
+.transaction-row{
+  font-size: 13px;
+  color: $labelColor;
+  background-color: #fefefe;
+  border-radius: $boxBorderRadiusSize;
+  box-shadow: $boxShadow;
+  padding: 10px 0;
+  text-align: right;
+  margin: 8px 0;
+
+  @mixin transaction-icon-color($iconName, $iconColor){
+    &:before{
+      content: $iconName;
+      color: $iconColor;
+      margin-left: 3px;
+      font-size: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+  }
+
+  .icon-income-trans{
+    @include transaction-icon-color($inputTransIcon, #00c853)
+  }
+
+  .icon-outcome-trans{
+    @include transaction-icon-color($outputTransIcon, #ff1744)
+  }
+
+  .icon-internal-trans{
+    @include transaction-icon-color($internalTransactionIcon, #656565)
+  }
+
+  .icon-pending-trans{
+    @include transaction-icon-color($pendingTransactionIcon, #ff9800)
+  }
+
+  .text{
+    display: inline-block;
+    margin-top:5px;
+    padding: 0 5px;
+  }
+  .nav-to-from{
+    .col-xs{
+      padding: 0;
+    }
+  }
+
+
+  .user-image{
+    width: 25px;
+    height:25px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+
+  .icon-forward{
+    &:before{
+      content: $iconForward;
+      font-family: 'zarinpal';
+      color: #3d86ff !important;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 14px;
+      margin-top: 8px;
+      margin-left: 20px;
+      position: relative;
+      width: 20px;
+      left: 40px;
+    }
+  }
+}
+
+.transaction-detail{
+  .content {
+    /*BODY*/
+    .body {
+      .deposit-background{
+        background-color: #f8f9fa;
+        padding: 20px;
+
+        .nav-deposit{
+          margin: 0;
+          color: #FFFFFF;
+          font-size: 13px;
+          height: 50px;
+          border-radius: $boxBorderRadiusSize;
+
+          .user-image{
+            img{
+              width: 30px;
+              height: 30px;
+              border: 1px solid #fff;
+              border-radius: 50%;
+              margin: 10px;
+            }
+          }
+
+          .nav-user-info{
+            margin: 6px;
+            margin-right: -3px;
+            text-align: right;
+            .user-zp-id{
+              font-size: 11px;
+              font-family: IRANSansLight;
+            }
+          }
+
+          .from{
+            display: inline-block;
+            position: relative;
+            border-radius: 0 $boxBorderRadiusSize $boxBorderRadiusSize 0;
+            &:before{
+              content: "\A";
+              border-style: solid;
+              border-width: 25px 26px 25px 19px;
+              position: absolute;
+              left: -45px;
+              top: 0px;
+            }
+          }
+
+          .to{
+            .user-image{
+              margin-right: 25px;
+            }
+          }
+        }
+
+        .nav-deposit-in{
+          background-color: $depositColorIn;
+          .from {
+            background-color: $depositColorInFrom;
+            &:before{
+              border-color: transparent $depositColorInFrom transparent transparent;
+            }
+          }
+        }
+
+        .nav-deposit-out{
+          background-color: $depositColorOut;
+          .from {
+            background-color: $depositColorFrom;
+            &:before{
+              border-color: transparent $depositColorFrom transparent transparent;
+            }
+          }
+        }
+
+        .nav-deposit-internal{
+          background-color: $depositColorP2p;
+          .from {
+            background-color: $depositColorP2pFrom;
+            &:before{
+              border-color: transparent $depositColorP2pFrom transparent transparent;
+            }
+          }
+        }
+      }
+
+      .amount{
+        font-size: 40px;
+        display: inline-block;
+        color: $labelColor;
+        margin: 30px 0 -10px 5px;
+      }
+
+      .nav-rows{
+        .row {
+          .value {
+            font-family: IRANSansLight;
+          }
+
+          .tick{
+            &:before{
+              content: $iconTick;
+              font-family: 'zarinpal';
+              display: inline-block;
+              vertical-align: middle;
+              color: #00c853;
+              border-radius: 50%;
+              font-size: 18px;
+              margin-left: 5px;
+            }
+          }
+
+        }
+
+      }
+    }
+
+    /*FOOTER*/
+    .footer{
+
+      .print{
+        color: #757575;
+
+        &:before{
+          content: $iconPrinter;
+          font-family: 'zarinpal';
+          display: inline-block;
+          vertical-align: middle;
+          color: #757575;
+          padding: 3px;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: $mobileSize) {
+  .show-xs{
+    display: inline-block;
+  }
+
+  /*Transaction row in mobile width*/
+  .transaction-row{
+    height: 56px;
+    padding: 0 !important;
+
+    span[class^="icon-"]{
+      position: relative;
+      top: 12px;
+      margin: 10px 10px 10px 0;
+    }
+
+    .ta-center{
+      text-align: right !important;
+    }
+
+    .transaction-id{
+      margin-top:-5px;
+    }
+
+    .created{
+      margin-right: 26px !important;
+    }
+
+    .nav-amount{
+      float: left;
+      position: relative;
+      top: -55px;
+      left:0 ;
+    }
+  }
+
+  //Transaction Detail
+  .transaction-detail {
+    .nav-deposit {
+
+      .user-image img {
+        width: 20px !important;;
+        height: 20px !important;
+        margin: 16px 5px !important;;
+      }
+
+      .nav-user-info {
+        padding: 0!important;
+        margin: 0 !important;
+        .user-name {
+          font-size: 9px;
+          margin-top: 12px !important;
+        }
+
+        .user-zp-id{
+          font-size: 9px !important;
+          margin-top: 3px;
+        }
+      }
+
+    }
+  }
+
+
+}
+
+
+//Delete forward icon
+@media (max-width: 1200px) {
+  .hidden-title-md{
+    display: none !important;
+  }
+
+  .icon-forward {
+    display: none !important;
+  }
+}

@@ -1,0 +1,383 @@
+$zarinFromColor:#ffb012;
+$zarinToColor:#ffd600;
+
+$eghtesadnovinFromColor:#701e72;
+$eghtesadnovinToColor:#c917cd;
+
+$parsianFromColor:#98120f;
+$parsianToColor:#f83a35;
+
+$karafarinFromColor:#157215;
+$karafarinToColor:#08a608;
+
+$samanFromColor:#02aae8;
+$samanToColor:#5dcaf2;
+
+$pasargadFromColor:#fd8e2f;
+$pasargadToColor:#ffaa0d;
+
+$sinaFromColor:#17479c;
+$sinaToColor:#2e6ee0;
+
+$sarmayehFromColor:#010068;
+$sarmayehToColor:#4341de;
+
+$citybankFromColor:#ed1b24;
+$citybankToColor:#ff5c63;
+
+$ansarFromColor:#c5000a;
+$ansarToColor:#ff5059;
+
+$tejaratFromColor:#02006f;
+$tejaratToColor:#4a47da;
+
+$refahFromColor:#004b7f;
+$refahToColor:#0077cb;
+
+$saderatFromColor:#29166f;
+$saderatToColor:#6f54d4;
+
+$mellatFromColor:#e41839;
+$mellatToColor:#ff6d85;
+
+$hekmatFromColor:#004e98;
+$hekmatToColor:#004e98;
+
+$gardeshgariFromColor:#b20f14;
+$gardeshgariToColor:#ee555a;
+
+$ghavaminFromColor:#008040;
+$ghavaminToColor:#26c676;
+
+$ayandehFromColor:#572600;
+$ayandehToColor:#ab5f24;
+
+$tosesaderatFromColor:#056c11;
+$tosesaderatToColor:#09ab1c;
+
+$sanatmadanFromColor:#37589f;
+$sanatmadanToColor:#4f87ff;
+
+$agricultureFromColor:#499f06;
+$agricultureToColor:#89d54f;
+
+$maskanFromColor:#f35722;
+$maskanToColor:#ff855c;
+
+$tosetavonFromColor:#078a93;
+$tosetavonToColor:#10bbc7;
+
+$postbankFromColor:#008840;
+$postbankToColor:#1dc96e;
+
+$mehrFromColor:#1e8910;
+$mehrToColor:#3fc72d;
+
+$resalatFromColor:#0f86a8;
+$resalatToColor:#35c0e7;
+
+$melliFromColor:#dc3c00;
+$melliToColor:#ed7b51;
+
+$sepahFromColor:#ff7d00;
+$sepahToColor:#feb773;
+
+
+/*
+
+  Index
+
+*/
+
+.card{
+  overflow: hidden;
+  .ta-right{
+
+    .logo{
+      width: 30px;
+      height: 30px;
+    }
+
+    .bank-name{
+      font-size: 14px;
+      position: relative;
+      top: -11px;
+      right: 11px;
+    }
+
+    span:last-child{
+      color: #777;
+    }
+  }
+
+  .ta-left{
+    span:last-child{
+      color: #777;
+    }
+  }
+
+  .accepted-card{
+    span{
+      color: #00c853 !important;
+      font-size: 13px;
+      &:after{
+        content: $activeTagIcon;
+        font-family: 'zarinpal';
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        margin-left: 5px;
+        color: #00c853;
+        font-size: 17px;
+
+      }
+    }
+  }
+}
+
+.card-number{
+  font-family: OCRA;
+  width: 70%;
+  padding: 4px 30px;
+  text-align: center;
+  background-color: #f6f6f6;
+  color: #424242;
+  display: inline-block;
+  margin: 15px auto;
+  font-size: 18px;
+  border-radius: $boxBorderRadiusSize;
+  direction: ltr;
+}
+
+.bank-card{
+  border-right: none !important;
+  border-left: none !important ;
+  border-bottom: none !important;
+  padding: 15px 18px !important;
+  border-width: 6px;
+  border-style: solid;
+
+  .account-id{
+    float: left;
+    margin-right: 5px;
+  }
+}
+
+@mixin card-border-color($fromColor, $toColor) {
+  -webkit-border-image:
+          -webkit-gradient(linear, 100% 0, 0 100%, from($fromColor), to($toColor)) 1 100%;
+  -webkit-border-image:
+          -webkit-linear-gradient($fromColor, $toColor) 1 100%;
+  -moz-border-image:
+          -moz-linear-gradient($fromColor, $toColor) 1 100%;
+  -o-border-image:
+          -o-linear-gradient($fromColor, $toColor) 1 100%;
+  border-image: linear-gradient(to right, $fromColor, $toColor) 1 0 0;
+}
+
+.zarincard{
+  @include card-border-color($zarinFromColor, $zarinToColor);
+}
+
+.eghtesadnovin{
+  @include card-border-color($eghtesadnovinFromColor, $eghtesadnovinToColor);
+}
+
+.parsian{
+  @include card-border-color($parsianFromColor, $parsianToColor);
+}
+
+.karafarin{
+  @include card-border-color($karafarinFromColor, $karafarinToColor);
+}
+
+.saman{
+  @include card-border-color($samanFromColor, $samanToColor);
+}
+
+.pasargad{
+  @include card-border-color($pasargadFromColor, $pasargadToColor);
+}
+
+.sina{
+  @include card-border-color($sinaFromColor, $sinaToColor);
+}
+
+.sarmayeh{
+  @include card-border-color($sarmayehFromColor, $sarmayehToColor);
+}
+
+.citybank{
+  @include card-border-color($citybankFromColor, $citybankToColor);
+}
+
+.ansar{
+  @include card-border-color($ansarFromColor, $ansarToColor);
+}
+
+.tejarat{
+  @include card-border-color($tejaratFromColor, $tejaratToColor);
+}
+
+.refah{
+  @include card-border-color($refahFromColor, $refahToColor);
+}
+
+.saderat{
+  @include card-border-color($saderatFromColor, $saderatToColor);
+}
+
+.mellat{
+  @include card-border-color($mellatFromColor, $mellatToColor);
+}
+
+.hekmat{
+  @include card-border-color($hekmatFromColor, $hekmatToColor);
+}
+
+.gardeshgari{
+  @include card-border-color($gardeshgariFromColor, $gardeshgariToColor);
+}
+
+.ghavamin{
+  @include card-border-color($ghavaminFromColor, $ghavaminToColor);
+}
+
+.ayandeh{
+  @include card-border-color($ayandehFromColor, $ayandehToColor);
+}
+
+.tosesaderat{
+  @include card-border-color($tosesaderatFromColor, $tosesaderatToColor);
+}
+
+.sanatmadan{
+  @include card-border-color($sanatmadanFromColor, $sanatmadanToColor);
+}
+
+.agriculture{
+  @include card-border-color($agricultureFromColor, $agricultureToColor);
+}
+
+.maskan{
+  @include card-border-color($maskanFromColor, $maskanToColor);
+}
+
+.tosetavon{
+  @include card-border-color($tosetavonFromColor, $tosetavonToColor);
+}
+
+.postbank{
+  @include card-border-color($postbankFromColor, $postbankToColor);
+}
+
+.mehr{
+  @include card-border-color($mehrFromColor, $mehrToColor);
+}
+
+.resalat{
+  @include card-border-color($resalatFromColor, $resalatToColor);
+}
+
+.melli{
+  @include card-border-color($melliFromColor, $melliToColor);
+}
+
+.sepah{
+  @include card-border-color($sepahFromColor, $sepahToColor);
+}
+
+
+/*
+
+  Create Card Modal
+
+*/
+.card {
+  .body {
+    border-radius: 0 0 $boxBorderRadiusSize $boxBorderRadiusSize;
+
+    .contains {
+      //Edit Card
+      .bank-logo{
+        width: 40px !important;
+      }
+
+      .bank-name{
+        display: inline-block;
+        position: relative;
+        top: -15px !important;
+        margin-right: 0;
+      }
+
+      .row{
+        margin: 5px 0;
+      }
+
+      input[type="text"] {
+        margin: 5px 0;
+      }
+
+      .nav-expiration-label{
+        margin: 23px 0;
+        .expiration-label{
+          display: inline-block;
+        }
+      }
+
+
+      .nav-expiration-input{
+        margin: 20px 0;
+        .label{
+          margin-left: 5px;
+        }
+
+        input[type="number"] {
+          text-align: center;
+
+        }
+
+        input[type="number"]:first-child {
+            width: 50px;
+        }
+
+        input[type="number"]:last-child {
+            width: 90px;
+        }
+      }
+
+    }
+  }
+}
+
+
+/*
+
+  Media Queries
+
+*/
+
+//XS
+@media(max-width:767px){
+  .nav-account-type{
+    .account-label {
+      text-align: center !important;
+    }
+  }
+
+  .nav-expiration-label{
+    margin: 0 !important;
+    text-align: center !important;
+  }
+}
+
+//Sm
+@media(min-width:768px){
+
+
+}
+//Md
+@media(min-width:992px){
+
+}
+@media(min-width:1200px){}

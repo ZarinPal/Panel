@@ -1,0 +1,717 @@
+//Font
+.iransans-light{
+  font-family: IRANSansLight !important;
+}
+
+.iransans{
+  font-family: "IRANSans";
+}
+
+//Colors
+.color-success{
+  color: #00c853;
+}
+
+.color-pending{
+  color: #ff9800;
+}
+
+.color-danger{
+  color: #FF1744;
+}
+
+
+//Purse color
+.wallet-color{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  border-radius: 50%;
+  top: 6px;
+  margin-top: 2px;
+}
+
+.color-1{
+  background-color: #ffd600;
+}
+
+.color-2{
+  background-color: #FF5722;
+}
+
+.color-3{
+  background-color: #2196f3;
+}
+
+.color-4{
+  background-color: #4CAF50;
+}
+
+.color-5{
+  background-color: #00BCD4;
+}
+
+.color-6{
+  background-color: #009688;
+}
+
+.color-7{
+  background-color: #CDDC39;
+}
+
+.color-8{
+  background-color: #3f51b5;
+}
+
+.color-9{
+  background-color: #03A9F4;
+}
+
+.color-10{
+  background-color: #607d8b;
+}
+
+.color-99{
+  background-color: #444;
+}
+
+//Positions
+.cb{
+  clear: both;
+}
+
+.break{
+  display: block;
+  margin: 20px 0;
+}
+
+.pull-left{
+  float: left !important;
+}
+
+.pull-right{
+  float: right;
+}
+
+.ta-right{
+  text-align: right !important;
+}
+
+.ta-left{
+  text-align: left !important;
+}
+
+.ta-center{
+  text-align: center !important;
+}
+
+
+//Boxes
+.no-margin{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.disable {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.section{
+  margin: 10px 0;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p{
+    margin: 0;
+  }
+
+  .code{
+    padding: 5px;
+    direction: ltr;
+    background-color: #eee;
+    text-align: left;
+    margin:5px 0;
+  }
+
+  .box{
+    background-color: #fefefe;
+    border:1px solid $boxBorderColor;
+    box-shadow: $boxShadow;
+    border-radius: $boxBorderRadiusSize;
+
+    .header{
+      background-color: #f8f9fa;
+      border-radius: $boxBorderRadiusSize $boxBorderRadiusSize 0 0;
+      padding: 0 15px !important;
+      height: 50px;
+
+      .right-box{
+        p{
+          margin-top: 9px;
+          .header-title{
+            font-size: 13px;
+            color: #777;
+            display: inline-block;
+            margin-right: 15px;
+            margin-top: 5px;
+          }
+        }
+      }
+
+      .left-box{
+        .icon-more{
+          float: left;
+          margin-top: 19px;
+          display: inline-block;
+          cursor: pointer;
+          &:before{
+            content: $moreIcon;
+            font-family:'zarinpal';
+            color: #777777;
+          }
+        }
+
+        .drop-down{
+          background-color: #fff;
+          color: $itemColor !important;
+          display: inline-block;
+          position: relative;
+          top: 7px;
+          left: -16px;
+          box-shadow: 0 2px 9px rgba(0, 0, 0, 0.15);;
+          border-radius: $dropDownBorderRadius;
+
+          .close-drop-down{
+            text-align: left;
+            padding: 4px 0 !important;
+            cursor: pointer;
+            &:before{
+              content: $iconCloseDropDown;
+              font-family: 'zarinpal';
+              color: $closeDropDownColor !important;
+            }
+          }
+
+          .drop-down-item{
+            font-style: normal;
+            font-size: 13px;
+            display: block;
+            padding: 8px 15px;
+            transition: $animateTime;
+
+            &:before{
+              color: $itemIconColor;
+              padding-left: 10px;
+              font-size: 14px;
+              font-family: 'zarinpal';
+              position: relative;
+              display: inline-block;
+              top: 3px;
+            }
+          }
+
+          .drop-down-item:hover{
+            background-color: #F2F2F2;
+            transition: $animateTime;
+          }
+
+          .add-fund{
+            &:before{
+              content: $iconAddFund;
+            }
+          }
+
+          .transaction{
+            color: $itemColor !important;
+            &:before{
+              content: $iconTransaction;
+
+            }
+          }
+        }
+      }
+    }
+
+    .body{
+      padding: 15px;
+      color: $labelColor;
+      font-size: 13px;
+
+      .box-row{
+        border-bottom: 1px solid $boxBorderColor;
+        padding: 10px;
+      }
+
+      .box-row:last-child{
+        border-bottom: none !important;
+      }
+
+    }
+
+    .footer{
+      border-top: 1px solid $boxBorderColor;
+    }
+  }
+
+  .nav-buttons{
+    margin: 20px 10px;
+  }
+}
+
+.box-footer{
+  background-color: #f8f9fa;
+  text-align: center;
+
+  span{
+    padding: 15px 0;
+    display: inline-block;
+    color: #757575;
+    font-size: 13px;
+    cursor: pointer;
+
+    &:before{
+      font-family: 'zarinpal';
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 5px;
+      color: #757575;
+    }
+  }
+  .transaction{
+    &:before{
+      content: $iconTransaction;
+    }
+  }
+
+  .edit{
+    &:before{
+      content: $iconEdit;
+    }
+  }
+
+  .delete{
+    &:before{
+      content: $iconDelete;
+    }
+  }
+
+  .more{
+    &:before{
+      content: $moreIcon;
+    }
+  }
+
+  .details{
+    &:before{
+      content: $iconDetails;
+    }
+  }
+
+  .edit-bank-account{
+    &:before{
+      content: $iconEditBank;
+    }
+  }
+}
+
+.tag{
+  padding: 5px 10px;
+  border-radius: 30px;
+  background-color: #f6f6f6;
+  font-size: 13px;
+  color: #757575;
+  margin: 5px;
+  display: inline-block;
+}
+
+.tag-active{
+  &:before{
+    content: $activeTagIcon;
+    font-family: 'zarinpal';
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    color: #00c853;
+    border-radius: 50%;
+    font-size: 17px;
+  }
+}
+
+.tag-inactive{
+
+  &:before{
+    content: $activeTagIcon;
+    font-family: 'zarinpal';
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    color: #8b8b8b;
+    border-radius: 50%;
+    font-size: 17px;
+  }
+
+}
+
+.header-link{
+  font-size: 13px;
+  color: #2962ff;
+  display: inline-block;
+  direction: ltr !important;
+  vertical-align: middle;
+  cursor: pointer;
+  margin: 15px 0;
+  float: left;
+  text-align: left !important;
+}
+
+.green-small-circle{
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: 3px solid #0cca5b;
+  border-radius: 50%;
+  background-color: #adeac8;
+  vertical-align: middle;
+}
+
+.label-group{
+  border: 1px solid $labelGroupBorderColor;
+  border-radius: 3px;
+  width: 220px;
+  text-align: center;
+
+  .icon{
+    border-right: 1px solid $labelGroupBorderColor;
+    display: inline-block;
+    padding: 4px 10px;
+    float: left;
+
+
+    &:before{
+      content: $iconCopy;
+      font-family: 'zarinpal';
+      color: $labelColor !important;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  .text{
+    color: $labelColor;
+    display: inline-block;
+    padding: 6px;
+    font-size: 13px;
+
+  }
+}
+
+.label{
+  color: $labelColor;
+  font-size: 13px;
+}
+
+.text-value{
+  color: $labelColor;
+  font-size: 13px;
+}
+
+.nav-page-header{
+  p{
+    padding: 0 10px;
+  }
+
+  .page-title{
+    color: #666666;
+    font-size: 15px;
+    margin-bottom: -9px;
+  }
+
+  .page-description{
+    color: #8e8e8e;
+    font-size: 11px;
+  }
+}
+
+//MODAL
+.modal{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  .content {
+    background-color: #FFFFFF;
+    padding: 0;
+    border-radius: $boxBorderRadiusSize;
+    margin-top: 100px;
+
+    /*Header*/
+    .header{
+      text-align: right;
+      font-size: 13px;
+      background-color: #4a5459;
+      padding: 14px 20px;
+      border-radius:4px 4px 0 0;
+      .title{
+        color: #FFFFFF;
+      }
+
+      .icon-close {
+        &:before {
+          content: $closeIcon;
+          font-family: 'zarinpal';
+          display: inline-block;
+          vertical-align: middle;
+          margin-top: -2px;
+          color: #ffffff;
+          background-color: #5c656a;
+          padding: 3px;
+          font-size: 20px;
+          border-radius: 50%;
+          float: left;
+        }
+      }
+    }
+
+    /*BODY*/
+    .body {
+      background-color: #fff;
+
+      .contains {
+        padding: 20px;
+      }
+
+      .nav-rows{
+        padding: 20px;
+
+        .row {
+          border-bottom: 1px solid #f5f5f5;
+          padding: 20px 0;
+
+          .value {
+            font-size: 14px;
+          }
+        }
+
+        .row:last-child {
+          border-bottom: none;
+        }
+
+      }
+    }
+
+    /*FOOTER*/
+    .footer{
+      background-color: #f8f9fa;
+      padding: 10px 20px;
+      border-radius: 0 0 4px 4px;
+    }
+  }
+}
+//Animate of modal
+.fade-in{
+  animation: fadeIn 0.2s;
+}
+
+.fade-out{
+  animation: fadeOut 0.3s;
+}
+
+.zoom-in {
+  animation: zoomIn 0.3s;
+}
+
+.zoom-out {
+  animation: zoomOut .1s;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+//Query media
+//LG
+@media (min-width: $largeWidth) {
+  .hidden-lg {
+    display: none !important;
+  }
+
+  .show-lg{
+    display: block;
+  }
+}
+
+
+//MD
+@media (min-width: $mediumWidth) {
+  .hidden-md {
+    display: none !important;
+  }
+
+  .show-md{
+    display: block;
+  }
+}
+
+
+//SM
+@media (min-width: $smallWidth) {
+  .hidden-md {
+    display: none !important;
+  }
+
+  .show-md{
+    display: block;
+  }
+}
+
+//XS
+@media (min-width: $mobileSize) {
+  .hidden-md {
+    display: none !important;
+  }
+
+  .show-md{
+    display: block;
+  }
+}
+
+//File Drag and drop
+.file-zone{
+  border: 1px dashed #babfc2;
+  border-radius: $boxBorderRadiusSize;
+  padding-top: 20px;
+  width: 100%;
+  color: #c2c8cc;
+
+  p{
+    font-size: 16px;
+  }
+
+  .upload-icon{
+    &:before{
+      content: $iconCloud;
+      font-family: 'zarinpal';
+      color: #c2c8cc;
+      display: inline-block;
+      margin: 12px;
+      font-size: 40px;
+    }
+  }
+
+  .nav-file-input{
+    span {
+      position: relative !important;
+      top: -19px !important;
+      font-size: 16px;
+    }
+
+    #attach{
+      padding: 0 !important;
+      margin-right: 10px;
+      cursor: pointer;
+      color: #2962ff;
+      font-size: 13px;
+      border: none;
+      position: relative;
+      width: 80px;
+      height: 30px;
+      outline: none;
+      overflow: hidden;
+      top: -6px;
+      right: -10px;
+
+      &:before{
+        content: 'انتخاب کنید';
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 15px;;
+        padding: 3px;
+        color: #2962ff;
+        outline: none;
+        white-space: nowrap;
+        -webkit-user-select: none;
+        cursor: pointer;
+      }
+    }
+
+    #attach::-webkit-file-upload-button{
+      visibility: hidden;
+    }
+
+    .file-name{
+      overflow: hidden;
+      height: 26px;
+      font-size: 13px;
+    }
+  }
+
+}
+
+.file-zone-hover{
+  background-color: #fefcf1;
+  border:1px dashed #ffd600;
+  z-index: 3;
+  padding-bottom: 20px !important;
+
+  .ta-center{
+    max-width: 100% !important;
+    min-width: 100%;
+
+    .upload-icon{
+      &:before{
+        color: #ffd600;
+      }
+    }
+  }
+
+  .nav-texts{
+    min-width: 0;
+    max-width: 0;
+    display: none;
+  }
+}

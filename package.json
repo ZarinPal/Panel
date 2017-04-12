@@ -1,0 +1,29 @@
+{
+    "name": "zarinpal-panel-v2-vue",
+    "version": "0.0.1",
+    "main": "main.js",
+    "scripts": {
+        "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
+        "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
+        "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
+        "production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    },
+    "dependencies": {
+        "clipboard": "^1.6.1",
+        "cross-env": "^4.0.0",
+        "flexboxgrid-sass": "^8.0.5",
+        "laravel-mix": "^0.10.0",
+        "lodash": "^4.16.2",
+        "moment": "^2.17.1",
+        "moment-jalaali": "^0.4.0",
+        "path": "^0.12.7",
+        "pug": "^2.0.0-beta11",
+        "stickyfill": "^1.1.1",
+        "url": "^0.11.0",
+        "vue": "^2.2.6",
+        "vue-i18n": "^6.0.0",
+        "vue-resource": "^1.0.3",
+        "vue-router": "^2.4.0",
+        "vuex": "^2.2.1"
+    }
+}

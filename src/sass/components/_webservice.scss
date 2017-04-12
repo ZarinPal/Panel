@@ -1,0 +1,136 @@
+$ipIcon: $iconAttach;
+$homeIcon: $iconAttach;
+$earthIcon: $iconAttach;
+$mobileIcon: $iconAttach;
+$purseIcon: $iconAttach;
+$webserviceCatIcon: $iconAttach;
+
+//Webservice Index(single webservice)
+.box {
+  .header {
+    .ta-left-box{
+      overflow: hidden;
+    }
+  }
+
+  .body {
+    .picker {
+      font-size: 13px;
+      padding: 3px 14px;
+      border-radius: 16px;
+      margin: 5px;
+      cursor: default;
+    }
+
+    .picker-active{
+      color: #5a4c01;
+      background-color: #ffd600;
+    }
+
+    .picker-inactive{
+      background-color: #f7e793;
+    }
+
+    span.merchant-code{
+      width: 174px;
+      overflow: hidden;
+      height: 10px;
+    }
+  }
+
+  .box-footer {
+    span {
+      margin: 0 15px;
+    }
+  }
+
+  .webservice-box-footer {
+    .edit {
+      padding-top: 15px !important;
+    }
+  }
+
+}
+
+//Create Webservice(and edit)
+.create-webservice {
+
+  textarea {
+    width: 100% !important;
+  }
+
+  input, .selectbox{
+    margin: 6px 0;
+  }
+
+  .selectbox {
+    width: 100%;
+    float: left;
+    text-indent: 13px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"] {
+    text-indent: 13px;
+  }
+
+  .input-icon {
+    &:before {
+      font-family: 'zarinpal';
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 16px;
+      color: #979797;
+    }
+  }
+
+  @mixin webservice-input-icon($fontName) {
+    &:before {
+      content: $fontName;
+    }
+  }
+
+  .ip-icon {
+    @include webservice-input-icon($ipIcon);
+  }
+
+  .home-icon {
+    @include webservice-input-icon($homeIcon);
+  }
+
+  .earth-icon{
+    @include webservice-input-icon($earthIcon);
+  }
+
+  .mobile-icon{
+    @include webservice-input-icon($mobileIcon);
+  }
+
+  .purse-icon{
+    @include webservice-input-icon($purseIcon);
+  }
+
+  .webservice-cat-icon{
+    @include webservice-input-icon($webserviceCatIcon);
+  }
+
+  .picker {
+    background-color: #f4f4f4;
+  }
+
+  .webservice-logo{
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    margin: 30px auto !important;
+  }
+
+  .file-zone {
+    #attach {
+      position: relative !important;
+      top: 0 !important;
+      right: -8px !important;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+//Sidebar Submenu animations
+.drop-down-show {
+  overflow: hidden;
+  -moz-animation: slide-open 0.2s ease-in 0s forwards;
+  -webkit-animation: slide-open 0.2s ease-in 0s forwards;
+  -o-animation: slide-open 0.2s ease-in 0s forwards;
+  -ms-animation: slide-open 0.2s ease-in 0s forwards;
+  animation: slide-open 0.2s ease-in 0s forwards;
+}
+
+.drop-down-hide {
+  overflow: hidden;
+  -moz-animation: slide-close 0.2s ease-out 0s forwards;
+  -webkit-animation: slide-close 0.2s ease-out 0s forwards;
+  -o-animation: slide-close 0.2s ease-out 0s forwards;
+  -ms-animation: slide-close 0.2s ease-out 0s forwards;
+  animation: slide-close 0.2s ease-out 0s forwards;
+}
+
+@keyframes slide-open
+{
+  from {height: 0; width: 0;}
+  to {height: 110px; width: 110px;}
+}
+
+@keyframes slide-close
+{
+  from {height: 110px; width: 110px;}
+  to {height: 0; width: 0;}
+}

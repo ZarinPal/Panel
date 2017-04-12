@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+html(lang="fa-IR" dir="rtl")
+    head
+        meta(charset="UTF-8")
+
+        title درگاه پرداخت اینترنتی زرین‌پال
+        meta(name="publisher" content= "ZarinPal.Com")
+        meta(name="keywords" content="تراکنش،درگاه پرداخت،پرداخت،درگاه،امن")
+        meta(name='description' content="گذرگاه تراکنش‌های مالی امن")
+
+        meta(name="robots" content="index follow")
+        meta(http-equiv='X-UA-Compatible' content='IE=edge')
+        meta(name="viewport" content="initial-scale=1.0 user-scalable=no width=device-width")
+
+        meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
+        meta(name="apple-mobile-web-app-capable" content="yes")
+
+        link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+        link(rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32")
+        link(rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16")
+        link(rel="manifest" href="/manifest.json")
+        link(rel="mask-icon" href="/safari-pinned-tab.svg")
+        meta(name="theme-color" content="#ffffff")
+
+        link(rel="stylesheet", href="{{asset('assets/css/app.css')}}")
+    body
+        section#app
+            router-view
+            flash-message
+
+
+        script(src="{{asset('assets/js/app.js')}}")

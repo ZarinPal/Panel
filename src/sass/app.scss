@@ -1,0 +1,32 @@
+@import "../../node_modules/flexboxgrid-sass/flexboxgrid";
+@import "components/_variables";
+@import "global/_icon";
+@import "components/_fonts";
+@import "components/_container";
+@import "global/_common";
+@import "components/_auth";
+@import "components/_home";
+@import "components/input";
+@import "global/_button";
+@import "components/forms";
+@import "animation/_element";
+@import "global/_icon";
+@import "components/_card";
+@import "components/_easypay";
+@import "components/_webservice";
+@import "components/_ticket";
+@import "components/_transaction";
+@import "global/flash_message";
+@import "global/ripple";
+
+
+
+a {
+  font-family: $fontName;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 200;
+  font-size: 13px;
+  color: #2979ff;
+}
