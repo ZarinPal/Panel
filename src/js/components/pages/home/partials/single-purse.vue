@@ -18,8 +18,8 @@
 
                             span.nav-edit-wallet(v-show="isEditingPurseName")
                                 input.txt-wallet-name(v-bind:value="purse.name" v-model="newPurseName")
-                                span.save(@click="send()") {{ $t('common.save') }}
-                                span.cancel(@click="toggleEditPurse()") {{ $t('common.cancel') }}
+                                span.save(@click="send()") {{ $i18n.t('common.save') }}
+                                span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
 
 
                     div.left-box
@@ -29,18 +29,18 @@
                                     leave-active-class="drop-down-hide")
                             span.drop-down(v-if="showOptions")
                                 span.close-drop-down.drop-down-item(@click="showOptions = !showOptions")
-                                span.drop-down-item.add-fund(@click="isAddFunding = true") {{ $t('transaction.addFunds') }}
-                                router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $t('transaction.title') }}
+                                span.drop-down-item.add-fund(@click="isAddFunding = true") {{ $i18n.t('transaction.addFunds') }}
+                                router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
 
 
             div.middle-xs.body
                 router-link(tag="li" v-bind:to="{ name: 'transaction.index', params: {type: 'purse', id: purse.purse} }")
                     div.nav-balance
-                        div.txt-balance {{ $t('common.balance') }}
+                        div.txt-balance {{ $i18n.t('common.balance') }}
                         div.balance-amount {{balance.balance | numberFormat | persianNumbers }}
                         div.nav-show-chart
                             span.chart-icon
-                            span {{ $t('common.showChart')}}
+                            span {{ $i18n.t('common.showChart')}}
 
 
             div.bottom-xs.footer

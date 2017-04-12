@@ -3,11 +3,11 @@
 
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title {{ $t('common.tickets') }}
-                p.page-description ٖ{{ $t('ticket.sendDescription') }}
+                p.page-title {{ $i18n.t('common.tickets') }}
+                p.page-description ٖ{{ $i18n.t('ticket.sendDescription') }}
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 div.break
-                router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'}") {{ $t('common.returnToDashboard') }}
+                router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'}") {{ $i18n.t('common.returnToDashboard') }}
 
         div.nav-ticket-create.col-lg-12.col-xs-12
             div.row
@@ -25,11 +25,11 @@
                 div.left-box.col-lg-5.col-md-6.col-sm-12.col-xs-12
                     div.row
                         div
-                            span.label {{$t('ticket.priority')}}:
+                            span.label {{$i18n.t('ticket.priority')}}:
                         div.col-xs.nav-picker
-                            span.picker(v-ripple @click="priority = '1'" v-bind:class="{ 'picker-active': priority == '1' }") {{$t('ticket.important')}}
-                            span.picker(v-ripple @click="priority = '0'" v-bind:class="{ 'picker-active': priority == '0' }") {{$t('ticket.normal')}}
-                            span.picker(v-ripple @click="priority = '2'" v-bind:class="{ 'picker-active': priority == '2' }") {{$t('ticket.very-important')}}
+                            span.picker(v-ripple @click="priority = '1'" v-bind:class="{ 'picker-active': priority == '1' }") {{$i18n.t('ticket.important')}}
+                            span.picker(v-ripple @click="priority = '0'" v-bind:class="{ 'picker-active': priority == '0' }") {{$i18n.t('ticket.normal')}}
+                            span.picker(v-ripple @click="priority = '2'" v-bind:class="{ 'picker-active': priority == '2' }") {{$i18n.t('ticket.very-important')}}
 
 
                         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
@@ -47,7 +47,7 @@
 
                     div.row.nav-button
                         div.col-xs.no-margin
-                            button.btn.success.pull-left(v-ripple @click="send") {{$t('ticket.createTicket')}}
+                            button.btn.success.pull-left(v-ripple @click="send") {{$i18n.t('ticket.createTicket')}}
 
 </template>
 

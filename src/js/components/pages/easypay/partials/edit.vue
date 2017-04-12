@@ -2,8 +2,8 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $t('easypay.editEasyPay') }}
-                p.page-description ٖ{{ $t('easypay.editEasyPayDescription') }}
+                p.page-title ٖ{{ $i18n.t('easypay.editEasyPay') }}
+                p.page-description ٖ{{ $i18n.t('easypay.editEasyPayDescription') }}
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
             div.box
@@ -11,8 +11,8 @@
                 div.body
                     div.row
                         div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                            p.form-title.ta-right {{$t('easypay.firstInfo')}}
-                            p.form-message.ta-right {{$t('easypay.firstInfoMessage')}}
+                            p.form-title.ta-right {{$i18n.t('easypay.firstInfo')}}
+                            p.form-message.ta-right {{$i18n.t('easypay.firstInfoMessage')}}
 
 
                             input(type="text" v-model="site_name" placeholder= "نام وب‌سایت")
@@ -26,7 +26,7 @@
                             div.row
                                 div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                     div.nav-picker
-                                        span.picker.pull-right {{$t('webservice.uploadLogo')}}
+                                        span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
 
                                 div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                     img.webservice-logo(src="")
@@ -48,15 +48,15 @@
 
                 div.row
                     div.col-xs.nav-buttons
-                        button.btn.success.pull-right(@click="createEasypay") {{$t('easypay.createEasypay')}}
+                        button.btn.success.pull-right(@click="createEasypay") {{$i18n.t('easypay.createEasypay')}}
 
 
                 div.body
                     <!--2-->
                     div.row
                         div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                            p.form-title.ta-right {{$t('easypay.orderForm')}}
-                            p.form-message.ta-right {{$t('easypay.orderFormMessage')}}
+                            p.form-title.ta-right {{$i18n.t('easypay.orderForm')}}
+                            p.form-message.ta-right {{$i18n.t('easypay.orderFormMessage')}}
 
                             div.row
                                 div.col-lg-5.col-md-5.col-sm-12.col-xs-12.nav-required-fields
@@ -64,19 +64,19 @@
                                         input(name="optional" type="checkbox" id="chkEmail")
                                         label(for="chkEmail")
                                             span
-                                            |{{ $t('common.email')}}
+                                            |{{ $i18n.t('common.email')}}
 
                                     div.ta-right
                                         input(name="optional" type="checkbox" id="chkUserName")
                                         label(for="chkUserName")
                                             span
-                                            |{{ $t('easypay.username')}}
+                                            |{{ $i18n.t('easypay.username')}}
 
                                     div.ta-right
                                         input(name="optional" type="checkbox" id="chkMobile")
                                         label(for="chkMobile")
                                             span
-                                            |{{ $t('easypay.mobile')}}
+                                            |{{ $i18n.t('easypay.mobile')}}
 
 
 
@@ -86,24 +86,24 @@
                                             input(name="optional" type="radio" id="rdoOptional")
                                             label(for="rdoOptional")
                                                 span
-                                                |{{ $t('easypay.optional')}}
+                                                |{{ $i18n.t('easypay.optional')}}
 
                                         div.col-xs.ta-right
                                             input(name="optional" type="radio" id="rdoMandatory")
                                             label(for="rdoMandatory")
                                                 span
-                                                |{{ $t('easypay.mandatory')}}
+                                                |{{ $i18n.t('easypay.mandatory')}}
 
 
                                 div.row
                                     div.col-xs.nav-buttons
-                                        button.btn.success.pull-right(@click="") {{$t('common.save')}}
+                                        button.btn.success.pull-right(@click="") {{$i18n.t('common.save')}}
 
                     <!--3-->
                     div.row
                         div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                            p.form-title.ta-right {{$t('easypay.limits')}}
-                            p.form-message.ta-right {{$t('easypay.limitsMessage')}}
+                            p.form-title.ta-right {{$i18n.t('easypay.limits')}}
+                            p.form-message.ta-right {{$i18n.t('easypay.limitsMessage')}}
 
                             div.row
                                 div.col-lg-7.col-md-7.col-sm-12.col-xs-12.nav-required-fields
@@ -111,13 +111,13 @@
                                         input(name="optional" type="checkbox" id="chkLimitNumber")
                                         label(for="chkLimitNumber")
                                             span
-                                            |{{ $t('easypay.limitInNumber')}}
+                                            |{{ $i18n.t('easypay.limitInNumber')}}
 
                                     div.ta-right
                                         input(name="optional" type="checkbox" id="chkEasypayReceipt")
                                         label(for="chkEasypayReceipt")
                                             span
-                                            |{{ $t('easypay.showEasypayReceipt')}}
+                                            |{{ $i18n.t('easypay.showEasypayReceipt')}}
 
 
 
@@ -133,7 +133,7 @@
 
                             div.row
                                 div.col-xs.nav-buttons
-                                    button.btn.success.pull-right(@click="") {{$t('common.save')}}
+                                    button.btn.success.pull-right(@click="") {{$i18n.t('common.save')}}
 
 </template>
 

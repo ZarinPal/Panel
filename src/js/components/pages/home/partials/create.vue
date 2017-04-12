@@ -10,7 +10,7 @@
                     div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
                         div.header
                             span.icon-close(@click="closeModal()")
-                            span.title {{ $t('purse.addPurseTitle') }}
+                            span.title {{ $i18n.t('purse.addPurseTitle') }}
 
                         div.body
                             div.contains
@@ -21,7 +21,7 @@
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(@click="createPurse") {{$t('purse.addPurse')}}
+                                        button.btn.success.pull-left(@click="createPurse") {{$i18n.t('purse.addPurse')}}
 
 </template>
 

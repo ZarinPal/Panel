@@ -24,8 +24,14 @@ Vue.use(Vuex);
 
 
 import VueI18n from 'vue-i18n';
-window.VueI18n = VueI18n;
 Vue.use(VueI18n);
+
+
+const i18n = new VueI18n({
+    locale: 'fa',
+    fallbackLocale: 'en',
+});
+window.i18n = i18n;
 
 Vue.directive(
     'clipboard',

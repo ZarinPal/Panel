@@ -10,7 +10,7 @@
                     div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
                         div.header
                             span.icon-close(@click="closeModal()")
-                            span.title {{ $t('coupon.createCoupon') }}
+                            span.title {{ $i18n.t('coupon.createCoupon') }}
                         div.body
                             div.contains
                                 div.row
@@ -18,7 +18,7 @@
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple @click="createCoupon") {{$t('common.save')}}
+                                        button.btn.success.pull-left(v-ripple @click="createCoupon") {{$i18n.t('common.save')}}
 
 </template>
 

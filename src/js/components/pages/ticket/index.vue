@@ -16,13 +16,13 @@
                                         div.iransans-light.title {{ticket.public_id | persianNumbers}}
                                     div.nav-details
                                         div
-                                            span.status {{$t('ticket.' + ticket.status)}}
-                                            span.priority {{ $t('ticket.' + kebabCase(ticket.priority)) }}
+                                            span.status {{$i18n.t('ticket.' + ticket.status)}}
+                                            span.priority {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
                                         span.date.iransans-light {{ticket.created_at | fromNow | persianNumbers}}
 
 
                             div.ta-center
-                                router-link.btn.success(v-if="this.$store.state.app.isTicketEmptyPage" tag="button" v-bind:to="{ name: 'ticket.create'}")  {{$t('ticket.addTicket')}}
+                                router-link.btn.success(v-if="this.$store.state.app.isTicketEmptyPage" tag="button" v-bind:to="{ name: 'ticket.create'}")  {{$i18n.t('ticket.addTicket')}}
                                 router-link.btn.success.rounded(v-else tag="button" v-bind:to="{ name: 'ticket.create'}")
 
                     div.col-xs.nav-tickets.full-height

@@ -25,6 +25,7 @@ require('./store');
 const app = new Vue({
     name:'application',
     store,
+    i18n,
     router: require('./router').default,
     http: {
         root: 'https://api.zarinpal.com/rest/v3',

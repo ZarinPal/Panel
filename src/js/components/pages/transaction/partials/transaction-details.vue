@@ -9,7 +9,7 @@
                 div.row.center-xs(v-if="!closeModalContent" v-on:click.self="closeModal()")
                     div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
                         div.header
-                            span.title {{$t('transaction.id')}} : {{ transaction.public_id | persianNumbers}}
+                            span.title {{$i18n.t('transaction.id')}} : {{ transaction.public_id | persianNumbers}}
                             span.icon-close(@click="closeModal()")
 
                         div.body
@@ -18,7 +18,7 @@
                                     div.col-lg-6.col-md-6.col-sm-6.col-xs-6.from
                                         div.row
                                             div.user-image
-                                                img(v-bind:src="transaction.from_user.avatar")
+                                                img(v-bind:src="'https:'+transaction.from_user.avatar")
                                             div.col-xs.nav-user-info
                                                 div.user-name {{transaction.from_user.name}}
                                                 div.user-zp-id ZP.{{transaction.from_user.public_id}}
@@ -26,9 +26,9 @@
                                         div.row
                                             div.user-image
                                                 span(v-if="transaction.to_merchant")
-                                                    img(v-bind:src="transaction.to_merchant.avatar")
+                                                    img(v-bind:src="'https:'+transaction.to_merchant.avatar")
                                                 span(v-if="transaction.to_user")
-                                                    img(v-bind:src="transaction.to_user.avatar")
+                                                    img(v-bind:src="'https:'+transaction.to_user.avatar")
 
                                             div.col-xs.nav-user-info
                                                 span(v-if="transaction.to_user")
@@ -39,30 +39,30 @@
                                                     div.user-name {{transaction.to_merchant.name}}
 
                             span.amount {{ transaction.amount | numberFormat | persianNumbers }}
-                            span {{$t('transaction.toman')}}
+                            span {{$i18n.t('transaction.toman')}}
 
                             div.nav-rows
                                 div.row
                                     div.col-xs.ta-right
-                                        span.title.tick(v-if="transaction.confirmed == 'confirmed' ") {{ $t('transaction.confirmed') }}
+                                        span.title.tick(v-if="transaction.confirmed == 'confirmed' ") {{ $i18n.t('transaction.confirmed') }}
                                     div.col-xs.ta-left
                                         span.value {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD') | persianNumbers}}
 
                                 div.row
                                     div.col-xs.ta-right
-                                        span.title {{$t('common.ip')}}
+                                        span.title {{$i18n.t('common.ip')}}
                                     div.col-xs.ta-left
                                         span.value  {{ transaction.from_ip}}
 
                                 div.row
                                     div.col-xs.ta-right
-                                        span.title {{$t('common.description')}}
+                                        span.title {{$i18n.t('common.description')}}
                                     div.col-xs.ta-left
                                         span.value  {{ transaction.description}}
 
 
                         div.footer.bottom-xs
-                            span.print(@click="printDetail") {{$t('transaction.print')}}
+                            span.print(@click="printDetail") {{$i18n.t('transaction.print')}}
 
 </template>
 

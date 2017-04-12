@@ -2,8 +2,8 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $t('webservice.create') }}
-                p.page-description ٖ{{ $t('common.webserviceCreateDescription') }}
+                p.page-title ٖ{{ $i18n.t('webservice.create') }}
+                p.page-description ٖ{{ $i18n.t('common.webserviceCreateDescription') }}
 
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
@@ -25,7 +25,7 @@
 
                 div.row
                     div.col-xs.nav-buttons
-                        button.btn.success.pull-right(v-ripple @click="createWebservice") {{$t('webservice.create')}}
+                        button.btn.success.pull-right(v-ripple @click="createWebservice") {{$i18n.t('webservice.create')}}
 
 </template>
 

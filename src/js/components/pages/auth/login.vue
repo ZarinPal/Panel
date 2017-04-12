@@ -86,7 +86,7 @@ div.row.auth-container
                     .save(postData)
                     .then((response)=>{
                         this.step = 2;
-                        this.avatar = response.data.data.avatar;
+                        this.avatar = 'https:'+response.data.data.avatar;
                         this.channel = response.data.data.channel;
                         if(response.data.data.ussd_code) {
                             this.ussdCode = response.data.data.ussd_code;

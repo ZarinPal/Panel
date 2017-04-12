@@ -2,13 +2,13 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title {{ $t('common.coupons') }}
-                p.page-description {{$t('coupon.couponsDescription')}}
+                p.page-title {{ $i18n.t('common.coupons') }}
+                p.page-description {{$i18n.t('coupon.couponsDescription')}}
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 span.btn.btn-success(@click="visibleCreateCoupon = true")
                     span.icon-add-circle
-                    span.text {{ $t('coupon.createCoupon') }}
+                    span.text {{ $i18n.t('coupon.createCoupon') }}
 
         div.row
 

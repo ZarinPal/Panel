@@ -10,16 +10,16 @@ span
         div.ver-line
         div.row.bottom-row
             div.col-lg-3.col-md-3.col-xs-12
-                span.title {{ $t('ticket.updated') }} :
+                span.title {{ $i18n.t('ticket.updated') }} :
                 span.value {{ticket.updated_at | fromNow | persianNumbers}}
             div.col-lg-3.col-md-3.col-xs-12
-                span.title {{ $t('ticket.created') }} :
+                span.title {{ $i18n.t('ticket.created') }} :
                 span.value {{ticket.created_at | fromNow | persianNumbers}}
             div.col-lg-3.col-md-3.col-xs-12
-                span.title {{ $t('ticket.status') }} :
-                span.value {{ $t('ticket.' + kebabCase(ticket.status)) }}
+                span.title {{ $i18n.t('ticket.status') }} :
+                span.value {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
             div.col-lg-3.col-md-3.col-xs-12
-                span.priority.pull-left {{ $t('ticket.' + kebabCase(ticket.priority)) }}
+                span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
                 button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
 
 
@@ -31,7 +31,7 @@ span
                     div.top-xs.header
                         div.row
                             span.image
-                                img(v-bind:src="reply.user_info.avatar")
+                                img(v-bind:src="'https:'+reply.user_info.avatar")
                             span.nav-ticket-status
                                 p.username {{ reply.user_info.name }}
                                 p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
@@ -46,7 +46,7 @@ span
                     div.top-xs.header.admin-header
                         div.row
                             span.image.admin-image
-                                img(v-bind:src="reply.user_info.avatar")
+                                img(v-bind:src="'https:'+reply.user_info.avatar")
                                 img.zarinpal-sign(src="assets/img/zarin-logo.png")
 
                             span.nav-ticket-status
@@ -66,7 +66,7 @@ span
                     span.value {{ ticket.title }}
                 div
                     textarea(placeholder="متن پاسخ تیکت..." v-model="content")
-                button.submit(@click="send") {{ $t('ticket.send')}}
+                button.submit(@click="send") {{ $i18n.t('ticket.send')}}
                 input.attach(type="file")
 
 </template>

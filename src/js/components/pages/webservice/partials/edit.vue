@@ -2,8 +2,8 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $t('webservice.editTitle') }}
-                p.page-description ٖ{{ $t('webservice.editWebserviceDescription') }}
+                p.page-title ٖ{{ $i18n.t('webservice.editTitle') }}
+                p.page-description ٖ{{ $i18n.t('webservice.editWebserviceDescription') }}
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
             div.box
                 div.body
@@ -27,7 +27,7 @@
                             div.row
                                 div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                     div.nav-picker
-                                        span.picker.pull-right {{$t('webservice.uploadLogo')}}
+                                        span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
 
                                 div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                     span(v-if="selectedLogo")
@@ -55,7 +55,7 @@
 
                 div.row
                     div.col-xs.nav-buttons
-                        button.btn.success.pull-left(v-bind:class="{'disable': disableSubmit}" v-ripple @click="editWebservice") {{$t('webservice.edit')}}
+                        button.btn.success.pull-left(v-bind:class="{'disable': disableSubmit}" v-ripple @click="editWebservice") {{$i18n.t('webservice.edit')}}
 
 </template>
 

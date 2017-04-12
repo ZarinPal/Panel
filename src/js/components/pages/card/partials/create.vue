@@ -10,25 +10,25 @@
                     div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
                         div.header
                             span.icon-close(@click="closeModal()")
-                            span.title {{ $t('card.addAccountTitle') }}
+                            span.title {{ $i18n.t('card.addAccountTitle') }}
                         div.body
                             div.contains
                                 div.row.nav-account-type
                                     div.col-lg-6.col-md-4.col-sm-12.col-xs-12.ta-right.account-label
-                                        span.label {{$t('card.accountType')}}:
+                                        span.label {{$i18n.t('card.accountType')}}:
                                     div.col-lg-6.col-md-8.col-sm-12.col-xs-12
                                         div.row
                                             div.col-xs.ta-center
                                                 input(v-model="isLegal" name="optional" value="0" type="radio" id="rdoًReal")
                                                 label(for="rdoًReal")
                                                     span
-                                                    |{{ $t('card.real')}}
+                                                    |{{ $i18n.t('card.real')}}
 
                                             div.col-xs.ta-center
                                                 input(v-model="isLegal" value="1" name="optional" type="radio" id="rdoLegal")
                                                 label(for="rdoLegal")
                                                     span
-                                                    |{{ $t('card.legal')}}
+                                                    |{{ $i18n.t('card.legal')}}
 
 
                                 div.row
@@ -37,19 +37,19 @@
 
                                 div.row.no-margin
                                     div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
-                                        span.label.expiration-label {{ $t('card.expiredDate') }}:
+                                        span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
                                     div.col-lg-6.col-md-8.col-xs-12.no-margin
                                         div.row.nav-expiration-input
                                             div.col-xs.no-margin
-                                                span.label {{$t('card.month')}}:
+                                                span.label {{$i18n.t('card.month')}}:
                                                 input#month(type="number" v-model="month" placeholder="۰۰" maxlength="2" @keyup="changeMonthFocus")
                                             div.col-xs.no-margin
-                                                span.label {{$t('card.year')}}:
+                                                span.label {{$i18n.t('card.year')}}:
                                                 input#year(type="number" v-model="year" placeholder="۰۰۰۰" maxlength="4" @keyup="changeYearFocus")
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple @click="createCard") {{$t('card.createCard')}}
+                                        button.btn.success.pull-left(v-ripple @click="createCard") {{$i18n.t('card.createCard')}}
 
 </template>
 

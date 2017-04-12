@@ -5,7 +5,7 @@
 
                 div.row.box-row
                     div.col-xs.ta-right
-                        span.label  {{$t('coupon.offCode')}}
+                        span.label  {{$i18n.t('coupon.offCode')}}
 
                     div.col-xs.ta-ta-left
                         div.label-group.pull-left
@@ -15,31 +15,31 @@
 
                 div.row.box-row(v-if="coupon.limit")
                     div.right
-                        span.label {{$t('easypay.limit')}}
+                        span.label {{$i18n.t('easypay.limit')}}
                     div.col-xs.ta-left
                         span.text-value {{coupon.limit}}
 
                 div.row.box-row(v-else)
                     div.right
-                        span.text-value {{$t('easypay.noLimit')}}
+                        span.text-value {{$i18n.t('easypay.noLimit')}}
 
                 div.row.box-row(v-if="coupon.webservice_id")
                     div.right
-                        span.label {{$t('coupon.webservice')}}
+                        span.label {{$i18n.t('coupon.webservice')}}
 
                     div.col-xs.ta-left
                         span.text-value {{coupon.webservice_name}}
 
                 div.row.box-row(v-if="coupon.easypay_id")
                     div.right
-                        span.label {{$t('coupon.easypayName')}}
+                        span.label {{$i18n.t('coupon.easypayName')}}
 
                     div.col-xs.ta-left
                         span.text-value {{coupon.easypay_name}}
 
                 div.row.box-row
                     div.right
-                        span.label {{$t('coupon.expirationDate')}}
+                        span.label {{$i18n.t('coupon.expirationDate')}}
 
                     div.col-xs.ta-left
                         span.text-value {{coupon.expired_at | jalali("jYYYY/jM/jD") | persianNumbers}}
@@ -47,9 +47,9 @@
             div.bottom-xs.box-footer
                 div.row
                     div.col-xs
-                        router-link.edit(tag="span" v-bind:to="{ name: 'auth.register'}") {{$t('common.edit')}}
+                        router-link.edit(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('common.edit')}}
                     div.col-xs
-                        router-link.details(tag="span" v-bind:to="{ name: 'auth.register'}") {{$t('coupon.showDetails')}}
+                        router-link.details(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('coupon.showDetails')}}
 
 </template>
 <script>

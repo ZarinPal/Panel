@@ -178,7 +178,7 @@ let rules = [
                         /((.*(node_modules|bower_components))|fonts|font|assets)\//g, ''
                     ) + '?[hash]';
             },
-            publicPath: Mix.options.resourceRoot
+            publicPath: '../../'
         }
     },
 

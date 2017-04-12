@@ -2,13 +2,13 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title {{ $t('common.cards') }}
-                p.page-description {{$t('card.cardsDescription')}}
+                p.page-title {{ $i18n.t('common.cards') }}
+                p.page-description {{$i18n.t('card.cardsDescription')}}
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 span.btn.btn-success(@click="visibleCreateCard = true")
                     span.icon-add-circle
-                    span.text {{ $t('card.createCard') }}
+                    span.text {{ $i18n.t('card.createCard') }}
 
         div.row
             singleCard(v-for="card in user.cards" v-bind:card="card")

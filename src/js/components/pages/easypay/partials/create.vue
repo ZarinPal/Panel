@@ -2,8 +2,8 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $t('easypay.createEasypay') }}
-                p.page-description ٖ{{ $t('easypay.createEasypayDescription') }}
+                p.page-title ٖ{{ $i18n.t('easypay.createEasypay') }}
+                p.page-description ٖ{{ $i18n.t('easypay.createEasypayDescription') }}
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay
             div.box
@@ -18,8 +18,8 @@
                                     div.step-line(v-bind:class="{'active-step-line' : step == 1}")
 
                                 div.col-lg-11.col-md-11.sm-11.col-xs-11
-                                    p.form-title.ta-right {{$t('easypay.firstInfo')}}
-                                    p.form-message.ta-right {{$t('easypay.firstInfoMessage')}}
+                                    p.form-title.ta-right {{$i18n.t('easypay.firstInfo')}}
+                                    p.form-message.ta-right {{$i18n.t('easypay.firstInfoMessage')}}
 
                                     input(type="text" v-model="title" placeholder= "عنوان محصول یا خدمات")
                                     span.input-icon.home-icon
@@ -30,12 +30,12 @@
                                     span.input-icon.purse-icon
                                     div.cb
                                     div.row.nav-buttons
-                                        button.btn.success.pull-right(v-ripple @click="createEasypay") {{$t('easypay.createEasypay')}}
+                                        button.btn.success.pull-right(v-ripple @click="createEasypay") {{$i18n.t('easypay.createEasypay')}}
                         div.col-lg-5.col-md-5.col-sm-12.col-xs-12
                             <!--div.row-->
                                 <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
                                     <!--div.nav-picker-->
-                                        <!--span.picker.pull-right {{$t('webservice.uploadLogo')}}-->
+                                        <!--span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}-->
 
                                 <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
                                     <!--img.webservice-logo(src="")-->
@@ -65,8 +65,8 @@
                                     div.step-line(v-bind:class="{'active-step-line' : step == 2}")
 
                                 div.col-lg-11.col-md-11.col-sm-11.col-xs-11
-                                    p.form-title.ta-right {{$t('easypay.orderForm')}}
-                                    p.form-message.ta-right {{$t('easypay.orderFormMessage')}}
+                                    p.form-title.ta-right {{$i18n.t('easypay.orderForm')}}
+                                    p.form-message.ta-right {{$i18n.t('easypay.orderFormMessage')}}
                                     <!--2-1-->
                                     div.row.f-row
                                         div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
@@ -74,7 +74,7 @@
                                                 input(name="email-optional" v-model="requiredFields.email" value="-1" type="checkbox" id="chkEmail")
                                                 label(for="chkEmail")
                                                     span
-                                                    |{{ $t('common.email')}}
+                                                    |{{ $i18n.t('common.email')}}
 
                                         div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.email")
                                             div.row
@@ -82,13 +82,13 @@
                                                     input(name="email-optional" v-model="requiredFields.email" value="0" type="radio" id="rdoEmailOptional")
                                                     label(for="rdoEmailOptional")
                                                         span
-                                                        |{{ $t('easypay.optional')}}
+                                                        |{{ $i18n.t('easypay.optional')}}
 
                                                 div.col-xs.ta-right
                                                     input(name="email-optional" v-model="requiredFields.email" value="1" type="radio" id="rdoEmailMandatory")
                                                     label(for="rdoEmailMandatory")
                                                         span
-                                                        |{{ $t('easypay.mandatory')}}
+                                                        |{{ $i18n.t('easypay.mandatory')}}
 
                                     <!--2-2-->
                                     div.row.f-row(v-bind:disabled="step > 3 ? true : false" v-bind:class="{'inactive-step' : step > 3}")
@@ -97,7 +97,7 @@
                                                 input(name="usernameOptional" v-model="requiredFields.name" value="-1"  type="checkbox" id="chkUserName")
                                                 label(for="chkUserName")
                                                     span
-                                                    |{{ $t('easypay.username')}}
+                                                    |{{ $i18n.t('easypay.username')}}
 
                                         div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.name")
                                             div.row
@@ -105,13 +105,13 @@
                                                     input(name="usernameOptional" v-model="requiredFields.name" value="0" type="radio" id="rdoUsernameOptional")
                                                     label(for="rdoUsernameOptional")
                                                         span
-                                                        |{{ $t('easypay.optional')}}
+                                                        |{{ $i18n.t('easypay.optional')}}
 
                                                 div.col-xs.ta-right
                                                     input(name="usernameOptional" v-model="requiredFields.name" value="1" type="radio" id="rdoUsernameMandatory")
                                                     label(for="rdoUsernameMandatory")
                                                         span
-                                                        |{{ $t('easypay.mandatory')}}
+                                                        |{{ $i18n.t('easypay.mandatory')}}
 
                                     <!--2-3-->
                                     div.row.f-row
@@ -120,7 +120,7 @@
                                                 input(name="mobileOptional" value='-1' v-model="requiredFields.mobile"  type="checkbox"  id="chkMobile")
                                                 label(for="chkMobile")
                                                     span
-                                                    |{{ $t('easypay.mobile') }}
+                                                    |{{ $i18n.t('easypay.mobile') }}
 
                                         div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.mobile")
                                             div.row
@@ -128,18 +128,18 @@
                                                     input(name="mobileOptional" v-model="requiredFields.mobile" value="0" type="radio" id="rdoMobileOptional")
                                                     label(for="rdoMobileOptional")
                                                         span
-                                                        |{{ $t('easypay.optional')}}
+                                                        |{{ $i18n.t('easypay.optional')}}
 
                                                 div.col-xs.ta-right
                                                     input(name="mobileOptional" v-model="requiredFields.mobile" value="1" type="radio" id="rdoMobileMandatory")
                                                     label(for="rdoMobileMandatory")
                                                         span
-                                                        |{{ $t('easypay.mandatory')}}
+                                                        |{{ $i18n.t('easypay.mandatory')}}
 
 
                                     div.row
                                         div.col-xs.nav-buttons
-                                            button.btn.success.pull-right(v-ripple @click="createEasypay") {{$t('common.save')}}
+                                            button.btn.success.pull-right(v-ripple @click="createEasypay") {{$i18n.t('common.save')}}
 
 
                 div.body
@@ -152,8 +152,8 @@
                                     div.step-line(v-bind:class="{'active-step-line' : step == 3}")
 
                                 div.col-lg-11.col-md-11.col-sm-11.col-xs-11
-                                    p.form-title.ta-right {{$t('easypay.limits')}}
-                                    p.form-message.ta-right {{$t('easypay.limitsMessage')}}
+                                    p.form-title.ta-right {{$i18n.t('easypay.limits')}}
+                                    p.form-message.ta-right {{$i18n.t('easypay.limitsMessage')}}
 
                                     div.row
                                         div.col-lg-7.col-md-7.col-sm-12.col-xs-12.nav-limit-checkbox
@@ -161,13 +161,13 @@
                                                 input(name="optional"  v-model="visibleLimit" value='true' type="checkbox" id="chkLimitNumber")
                                                 label(for="chkLimitNumber")
                                                     span
-                                                    |{{ $t('easypay.limitInNumber')}}
+                                                    |{{ $i18n.t('easypay.limitInNumber')}}
 
                                             div.ta-right
                                                 input(name="optional" v-model="showReceipt" value='hello' type="checkbox" id="chkEasypayReceipt")
                                                 label(for="chkEasypayReceipt")
                                                     span
-                                                    |{{ $t('easypay.showEasypayReceipt')}}
+                                                    |{{ $i18n.t('easypay.showEasypayReceipt')}}
 
 
 
@@ -183,7 +183,7 @@
 
                                     div.row
                                         div.col-xs.nav-buttons
-                                            button.btn.success.pull-right.button(v-ripple) {{$t('common.save')}}
+                                            button.btn.success.pull-right.button(v-ripple) {{$i18n.t('common.save')}}
 
 </template>
 

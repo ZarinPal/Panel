@@ -50,7 +50,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-6.no-margin
                     router-link.edit.no-margin(tag="span" v-bind:to="{ name: 'transactionsession.index', params: { id:webservice.entity_id}}") سشن های پرداخت
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.no-margin
-                    router-link.edit(tag="span" v-bind:to="{ name: 'webservice.edit', params: { merchantCode:webservice.entity_id}}") {{$t('webservice.edit')}}
+                    router-link.edit(tag="span" v-bind:to="{ name: 'webservice.edit', params: { merchantCode:webservice.entity_id}}") {{$i18n.t('webservice.edit')}}
 
 </template>
     <script>

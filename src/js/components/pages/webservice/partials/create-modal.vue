@@ -10,7 +10,7 @@
                     div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
                         div.header
                             span.icon-close(@click="closeModal()")
-                            span.title {{ $t('webservice.create') }}
+                            span.title {{ $i18n.t('webservice.create') }}
                         div.body
                             div.contains
 
@@ -25,7 +25,7 @@
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(@click="createWebservice") {{$t('webservice.create')}}
+                                        button.btn.success.pull-left(@click="createWebservice") {{$i18n.t('webservice.create')}}
 
 </template>
 

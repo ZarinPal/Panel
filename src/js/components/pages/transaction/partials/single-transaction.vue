@@ -20,12 +20,12 @@ div
         div.col-lg-6.col-md-3.col-sm-4.hidden-xs.nav-to-from(v-if="transaction.confirmed =='confirmed'")
             div.row
                 div.col-lg-6.col-md-12.col-sm-12.col-xs-12.no-margin
-                    img.user-image(v-bind:src="transaction.from_user.avatar")
+                    img.user-image(v-bind:src="'https:'+transaction.from_user.avatar")
                     span.text {{transaction.from_user.name | less}}
 
                 div.col-lg-6.col-md-12.col-sm-12.col-xs-12.no-margin(v-if="transaction.to_user")
                     span.icon-forward.hidden-sm.hidden-xs
-                    img.user-image(v-bind:src="transaction.to_user.avatar")
+                    img.user-image(v-bind:src="'https:'+transaction.to_user.avatar")
                     span.text {{transaction.to_user.name | less}}
 
 
@@ -35,7 +35,7 @@ div
                     span.text {{transaction.to_merchant.name | less}}
 
         div.col-lg-2.col-md-2.col-sm-2.hidden-xs(v-else)
-            span.text {{ $t('common.pending') }}
+            span.text {{ $i18n.t('common.pending') }}
 
         div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
             span.text.created {{transaction.created | fromNow | persianNumbers}}
@@ -54,7 +54,7 @@ div
                         span.text.color-danger {{transaction.amount | numberFormat | persianNumbers}}
 
 
-                small.hidden-lg.show-xs {{ $t('transaction.toman') }}
+                small.hidden-lg.show-xs {{ $i18n.t('transaction.toman') }}
 
         div.col-lg-1.col-md-2.col-sm-2.ta-center.hidden-xs
             span.text {{transaction.balance | numberFormat | persianNumbers}}

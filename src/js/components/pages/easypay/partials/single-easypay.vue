@@ -15,7 +15,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
             div.row.box-row
                 div.col-xs.ta-right
-                    span.label {{$t('easypay.amount')}}
+                    span.label {{$i18n.t('easypay.amount')}}
 
                 div.col-xs.ta-left
                     span.text-value {{easypay.price | numberFormat | persianNumbers}} تومان
@@ -23,7 +23,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
             div.row.box-row
                 div.col-xs.ta-right
-                    span.label {{$t('easypay.depositTo')}}
+                    span.label {{$i18n.t('easypay.depositTo')}}
 
                 div.col-xs.ta-left.no-margin
                     span.tag-deposit-to.pull-left
@@ -34,11 +34,11 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
             div.row.box-row
                 div.right
-                    span.label {{$t('easypay.limit')}}
+                    span.label {{$i18n.t('easypay.limit')}}
 
                 div.col-xs.ta-left
                     span.text-value(v-if="easypay.limit") {{easypay.limit}}
-                    span.text-value(v-else) {{$t('easypay.noLimit')}}
+                    span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
 
             br
         div.bottom-xs.box-footer
@@ -46,9 +46,9 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs-4.no-margin
                     router-link.transaction(tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
                 div.col-xs-4.no-margin
-                    router-link.edit(tag="span" v-bind:to="{ name: 'easypay.edit'}") {{$t('common.edit')}}
+                    router-link.edit(tag="span" v-bind:to="{ name: 'easypay.edit'}") {{$i18n.t('common.edit')}}
                 div.col-xs-4.no-margin
-                    span.delete(@click="deleteEasypay") {{$t('common.delete')}}
+                    span.delete(@click="deleteEasypay") {{$i18n.t('common.delete')}}
 </template>
 
 <script>
