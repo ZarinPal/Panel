@@ -169,7 +169,7 @@ let rules = [
         options: {
             name: path => {
                 if (! /node_modules|bower_components/.test(path)) {
-                    return 'assets/fonts/[name].[ext]';
+                    return 'assets/fonts/[name].[ext]?[hash]';
                 }
 
                 return 'fonts/vendor/' + path

@@ -41,10 +41,5 @@ const app = new Vue({
     },
     components: {
         "flash-message": require('./components/pages/partials/flash-message.vue')
-    },
-    directives: {
-        clipboard: require('./directives/clipboard').default,
-        sticky: require('./directives/sticky').default,
-        ripple: require('./directives/ripple').default
     }
 }).$mount('#app');

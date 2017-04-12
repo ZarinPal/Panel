@@ -10,18 +10,37 @@ window.moment.loadPersian();
  * using reactive data binding and reusable components. Vue's API is clean
  * and simple, leaving you to focus on building your next great project.
  */
-
-window.Vue = require('vue');
+import Vue from 'vue';
+window.Vue = Vue;
 require('vue-resource');
 
 import VueRouter from 'vue-router';
 window.VueRouter = VueRouter;
 Vue.use(window.VueRouter);
 
-window.Vuex = require('vuex');
+import Vuex from 'vuex';
+window.Vuex = Vuex;
+Vue.use(Vuex);
 
-window.VueI18n = require('vue-i18n');
+
+import VueI18n from 'vue-i18n';
+window.VueI18n = VueI18n;
 Vue.use(VueI18n);
+
+Vue.directive(
+    'clipboard',
+    require('./directives/clipboard')
+);
+
+Vue.directive(
+    'sticky',
+    require('./directives/sticky')
+);
+
+Vue.directive(
+    'ripple',
+    require('./directives/ripple').default
+);
 
 
 

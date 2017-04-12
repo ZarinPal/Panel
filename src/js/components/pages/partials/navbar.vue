@@ -1,7 +1,7 @@
 <template lang="pug">
     div.navbar.row
         div.col-lg-4.col-sm-4.col-xs-4
-            span.normal-sidebar-collapse.hidden-xs(v-ripple @click="toggleSidebar()")
+            span.normal-sidebar-collapse.hidden-xs(v-ripple="" @click="toggleSidebar()")
             span.mobile-sidebar-collapse(@click="toggleMobileSidebar()")
             h4.hidden-xs.navbar-title پیشخوان
 
