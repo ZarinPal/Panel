@@ -583,12 +583,12 @@ body {
     display: block !important;
     width: 85% !important;
     height: 100%;
-    position: absolute !important;
+    position: fixed;
     z-index: 999;
     top: -60px !important;
     right: 0;
     background-color: #fff;
-    overflow-x: scroll !important;
+    overflow-x: auto !important;
     padding-top: 60px;
 
 

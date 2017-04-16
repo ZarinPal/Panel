@@ -16,32 +16,32 @@
                         span(v-else-if="user.level == 'silver'") {{$i18n.t('user.user_level_2')}}
 
                 ul
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" title="پیشخوان")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" title="پیشخوان")
                         div
                             i.icon-ic_flash_on_black_48px
                             span.item-label پیشخوان
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" title="درگاه های پرداخت")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" title="درگاه های پرداخت")
                         div
                             i.icon-ic_flash_on_black_48px
                             span.item-label درگاه های پرداخت
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" title="حساب های بانکی")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" title="حساب های بانکی")
                         div
                             i.icon-ic_flash_on_black_48px
                             span.item-label حساب های بانکی
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}" title="آسان پرداخت")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}" title="آسان پرداخت")
                         div
                             i.icon-ic_flash_on_black_48px
                             span.item-label آسان پرداخت
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" title="کپن ها")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" title="کپن ها")
                         div
                             i.icon-ic_flash_on_black_48px
                             span.item-label کوپن های تخفیف
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}" title="تیکت ها")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}" title="تیکت ها")
                         div
                             i.icon-ic_flash_on_black_48px
                             span.item-label تیکت ها

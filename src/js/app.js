@@ -11,7 +11,6 @@ require('./filters');
 require('./store');
 
 
-
 // Vue.transition('list-item', {
 //     enterClass: 'lightSpeedIn',
 //     leaveClass: 'lightSpeedOut'
@@ -23,22 +22,26 @@ require('./store');
 
 
 const app = new Vue({
-    name:'application',
+    name: 'application',
     store,
     i18n,
     router: require('./router').default,
     http: {
-        root: 'https://api.zarinpal.com/rest/v3',
+        root: 'https://api.zarinpal.dev/rest/v3',
     },
     created() {
         this.$store.commit('app/loading');
         this.$store.commit('http/boot', this);
-        if(!this.$route.meta.standAlone){
-            this.$store.dispatch('auth/fetch');
+        if (!this.$route.meta.standAlone) {
+            this.$store.dispatch('auth/fetch',
+                () => {
+                    require('./i18n').default(this, function (vm) {
+                        vm.$store.commit('app/ready')
+                    });
+                }
+            );
         }
-        require('./i18n').default(this, function (vm) {
-            vm.$store.commit('app/ready')
-        });
+
     },
     components: {
         "flash-message": require('./components/pages/partials/flash-message.vue')

@@ -23,10 +23,11 @@ export default {
         },
     },
     actions: {
-        fetch ({commit, rootState}) {
+        fetch ({commit, rootState}, callback) {
             rootState.http.requests['app.getBasicInfo'].get().then(
                 (response) => {
                     commit('fill', response.data.data);
+                    callback();
                 }
             ).catch(()=>{});
         },

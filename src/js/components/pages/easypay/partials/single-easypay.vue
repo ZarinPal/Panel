@@ -46,7 +46,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs-4.no-margin
                     router-link.transaction(tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
                 div.col-xs-4.no-margin
-                    router-link.edit(tag="span" v-bind:to="{ name: 'easypay.edit'}") {{$i18n.t('common.edit')}}
+                    router-link.edit(tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
                 div.col-xs-4.no-margin
                     span.delete(@click="deleteEasypay") {{$i18n.t('common.delete')}}
 </template>

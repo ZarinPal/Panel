@@ -28,6 +28,13 @@
                 visibleCreateCoupon: false,
             }
         },
+        created() {
+            this.$store.state.http.requests['coupon.getIndex'].get().then(
+                (response) => {
+                    console.log(response);
+                }
+            );
+        },
         computed:{
             user(){
                 return this.$store.state.auth.user;
