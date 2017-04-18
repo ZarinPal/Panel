@@ -16,12 +16,16 @@
                             div.contains
 
                                 div.row
-                                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
                                     input(type="text" v-model="purseName" placeholder="نام کیف پول")
+                                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
+
+                                div.row
+                                    p.create-description {{ $i18n.t('purse.createPurseSilverUsersDescription') }}
+
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(@click="createPurse") {{$i18n.t('purse.addPurse')}}
+                                        button.btn.success.pull-left(v-ripple="" @click="createPurse") {{$i18n.t('purse.addPurse')}}
 
 </template>
 
@@ -45,7 +49,7 @@
             pursesSelection() {
                 return this.$store.state.auth.user.purses.map(function (purse) {
                     return {
-                        'title': purse.name,
+                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
                         'value': purse.purse
                     }
                 });

@@ -235,6 +235,18 @@
   .body {
     border-radius: 0 0 $boxBorderRadiusSize $boxBorderRadiusSize;
 
+    .create-description{
+      font-size: 13px;
+      text-align: right;
+      padding: 0 6px;
+      color: #424242;
+    }
+
+    .wallet-color{
+      top: 3px;
+      right: -8px;
+    }
+
     .purses{
       margin: 10px 0;
     }

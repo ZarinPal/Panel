@@ -25,7 +25,7 @@
 
                 div.row
                     div.col-xs.nav-buttons
-                        button.btn.success.pull-right(v-ripple @click="createWebservice") {{$i18n.t('webservice.create')}}
+                        button.btn.success.pull-right(v-ripple="" @click="createWebservice") {{$i18n.t('webservice.create')}}
 
 </template>
 
