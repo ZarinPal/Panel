@@ -14,7 +14,8 @@ export default {
     props: [
         'placeholder',
         'data',
-        'selected'
+        'selected',
+        'selectedItem'
     ],
     data() {
         return {
@@ -26,9 +27,13 @@ export default {
         if (this.placeholder) {
             this.selectBoxTitle = this.placeholder;
         }
+//        if (this.selectedItem) {
+//            this.selectItem(selectedItem);
+//        }
     },
     methods: {
         selectItem(item) {
+//            alert(item);
             this.selectBoxTitle = item.title;
             this.isOpen = false;
             this.$emit('select', item.value);
