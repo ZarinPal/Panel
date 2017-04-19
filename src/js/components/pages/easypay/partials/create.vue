@@ -2,8 +2,8 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $i18n.t('easypay.createEasypay') }}
-                p.page-description ٖ{{ $i18n.t('easypay.createEasypayDescription') }}
+                p.page-title {{ $i18n.t('easypay.createEasypay') }}
+                p.page-description {{ $i18n.t('easypay.createEasypayDescription') }}
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay
             div.box
@@ -91,7 +91,7 @@
                                                         |{{ $i18n.t('easypay.mandatory')}}
 
                                     <!--2-2-->
-                                    div.row.f-row(v-bind:disabled="step > 3 ? true : false" v-bind:class="{'inactive-step' : step > 3}")
+                                    div.row.f-row(v-bind:class="{'inactive-step' : step > 3}")
                                         div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
                                             div.ta-right
                                                 input(name="usernameOptional" v-model="requiredFields.name" type="checkbox" id="chkUserName")
@@ -177,9 +177,9 @@
 
                                         div.col-lg-12.col-md-12.col-xs-12
                                             input(v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                            span.input-icon.home-icon
+                                            span.input-icon.globe-icon
                                             input(v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                            span.input-icon.home-icon
+                                            span.input-icon.globe-icon
 
                                     div.row
                                         div.col-xs.nav-buttons
@@ -224,7 +224,7 @@
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         return {
-                            'title': purse.name,
+                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
                             'value': purse.purse
                         }
                     });

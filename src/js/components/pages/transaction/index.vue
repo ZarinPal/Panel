@@ -8,8 +8,7 @@
                 p.page-description {{ $i18n.t('transaction.description') }}
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 div.break
-                button.btn.default.pull-left {{ $i18n.t('common.returnToDashboard') }}
-
+                    router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
 
         div.row
             div.col-xs
@@ -29,7 +28,7 @@
                                     selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" placeholder="انتخاب کنید ...")
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-3
-                                    button.btn.info.pull-right(v-ripple @click="search()")
+                                    button.btn.info.pull-right(v-ripple="" @click="search()")
                                         span {{ $i18n.t('common.search') }}
                                     div.cb
 
@@ -44,10 +43,10 @@
 
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 ul.select_item.pull-left
-                    li(v-ripple @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
-                    li(v-ripple @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
-                    li(v-ripple @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
-                    li(v-ripple @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
+                    li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
+                    li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
+                    li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
+                    li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
 
 
         div.row.transaction-fields-title

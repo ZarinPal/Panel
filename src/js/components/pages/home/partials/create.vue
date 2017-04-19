@@ -39,7 +39,8 @@
             return {
                 closeModalContent: true,
                 purse: 1,
-                purseName: ''
+                purseName: '',
+                pursesBalance: {},
             }
         },
         mounted(){
@@ -49,7 +50,7 @@
             pursesSelection() {
                 return this.$store.state.auth.user.purses.map(function (purse) {
                     return {
-                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
+                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left">' + purse.balance +  ' تومان</span>',
                         'value': purse.purse
                     }
                 });

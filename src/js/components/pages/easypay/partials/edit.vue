@@ -2,20 +2,20 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $i18n.t('easypay.editEasyPay') }}
-                p.page-description ٖ{{ $i18n.t('easypay.editEasyPayDescription') }}
+                p.page-title {{ $i18n.t('easypay.editEasyPay') }}
+                p.page-description {{ $i18n.t('easypay.editEasyPayDescription') }}
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay
             div.box
                 <!--1-->
-                div.body(v-bind:class="{'inactive-step' : step !== 1}")
+                div.body
                     div.row
                         div.col-lg-7.col-md-7.col-sm-12.col-xs-12
 
                             div.row
                                 div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-                                    div.step-number(v-ripple=""  v-bind:class="{'active-step-number' : step == 1}") ۱
-                                    div.step-line(v-bind:class="{'active-step-line' : step == 1}")
+                                    div.step-number ۱
+                                    div.step-line
 
                                 div.col-lg-11.col-md-11.sm-11.col-xs-11
                                     p.form-title.ta-right {{$i18n.t('easypay.firstInfo')}}
@@ -30,7 +30,6 @@
                                     span.input-icon.purse-icon
                                     div.cb
                                     div.row.nav-buttons
-                                        button.btn.success.pull-right(v-ripple=""  @click="stepTwo") {{$i18n.t('easypay.createEasypay')}}
                         div.col-lg-5.col-md-5.col-sm-12.col-xs-12
                             <!--div.row-->
                                 <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
@@ -57,12 +56,12 @@
 
                 div.body
                     <!--2-->
-                    div.row(v-bind:class="{'inactive-step' : step !== 2}")
+                    div.row
                         div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                             div.row
                                 div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-                                    div.step-number(v-ripple=""  v-bind:class="{'active-step-number' : step == 2}") ۲
-                                    div.step-line(v-bind:class="{'active-step-line' : step == 2}")
+                                    div.step-number ۲
+                                    div.step-line
 
                                 div.col-lg-11.col-md-11.col-sm-11.col-xs-11
                                     p.form-title.ta-right {{$i18n.t('easypay.orderForm')}}
@@ -91,7 +90,7 @@
                                                         |{{ $i18n.t('easypay.mandatory')}}
 
                                     <!--2-2-->
-                                    div.row.f-row(v-bind:disabled="step > 3 ? true : false" v-bind:class="{'inactive-step' : step > 3}")
+                                    div.row.f-row
                                         div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
                                             div.ta-right
                                                 input(name="usernameOptional" v-model="requiredFields.name" type="checkbox" id="chkUserName")
@@ -139,17 +138,16 @@
 
                                     div.row
                                         div.col-xs.nav-buttons
-                                            button.btn.success.pull-right(v-ripple=""  @click="stepThree") {{$i18n.t('common.save')}}
 
 
                 div.body
                     <!--3-->
-                    div.row(v-bind:class="{'inactive-step' : step !== 3}")
+                    div.row
                         div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                             div.row
                                 div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-                                    div.step-number(v-bind:class="{'active-step-number' : step == 3}") ۳
-                                    div.step-line(v-bind:class="{'active-step-line' : step == 3}")
+                                    div.step-number ۳
+                                    div.step-line
 
                                 div.col-lg-11.col-md-11.col-sm-11.col-xs-11
                                     p.form-title.ta-right {{$i18n.t('easypay.limits')}}
@@ -158,7 +156,7 @@
                                     div.row
                                         div.col-lg-7.col-md-7.col-sm-12.col-xs-12.nav-limit-checkbox
                                             div.ta-right
-                                                input(name="optional"  v-model="visibleLimit" value='true' type="checkbox" id="chkLimitNumber")
+                                                input(name="optional" v-model="limited" value='true' type="checkbox" id="chkLimitNumber")
                                                 label(for="chkLimitNumber")
                                                     span
                                                     |{{ $i18n.t('easypay.limitInNumber')}}
@@ -172,18 +170,18 @@
 
 
                                         div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                            input(v-show="visibleLimit" type="number" v-model="limit" placeholder="تعداد")
+                                            input(v-show="limited" type="number" v-model="limit" placeholder="تعداد")
 
 
                                         div.col-lg-12.col-md-12.col-xs-12
                                             input(v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                            span.input-icon.home-icon
+                                            span.input-icon.globe-icon
                                             input(v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                            span.input-icon.home-icon
+                                            span.input-icon.globe-icon
 
                                     div.row
                                         div.col-xs.nav-buttons
-                                            button.btn.success.pull-right.button(v-ripple=""  @click="createEasypay") {{$i18n.t('common.save')}}
+                                            button.btn.success.pull-right.button(v-ripple=""  @click="editEasypay") {{$i18n.t('common.edit')}}
 
 </template>
 
@@ -195,7 +193,6 @@
         name: 'pages-easypay-partials-edit',
         data() {
             return {
-                step: 1,
                 fileHover: '',
                 visibleEmail: '',   //  visible email options
                 messages: {},
@@ -222,10 +219,15 @@
             this.description = this.easypay.description;
             this.purse = this.easypay.purse;
 
-            this.limited = this.easypay.limit;
 
             this.successfulRedirectUrl = this.easypay.successful_redirect_url;
             this.failedRedirectUrl = this.easypay.failed_redirect_url;
+
+            this.limit = this.easypay.limit;
+
+            if(this.easypay.limit) {
+                this.limited = true;
+            }
         },
         computed:{
             easypay() {
@@ -235,7 +237,7 @@
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         return {
-                            'title': purse.name,
+                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
                             'value': purse.purse
                         }
                     });
@@ -246,21 +248,7 @@
             selectedPurse(purseId) {
                 this.purse = purseId;
             },
-            stepTwo() {
-                if(this.title && this.price && this.description && this.purse) {
-                    this.step ++;
-                } else {
-                    store.commit('flashMessage',{
-                        text: 'please fill all fields',
-                        important: false,
-                        type: 'danger'
-                    });
-                }
-            },
-            stepThree() {
-                this.step ++;
-            },
-            createEasypay() {
+            editEasypay() {
                 this.handleOrderOptions();
                 this.handleShowReceipt();
 
@@ -283,7 +271,7 @@
                     limit: this.limit,
                 };
 
-                this.$store.state.http.requests['easypay.getList'].save(easyPayData).then(
+                this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
                     ()=> {
                         this.isLoading = false;
                         this.$router.push({name: 'easypay.index'})
@@ -316,7 +304,14 @@
                 } else {
                     this.showReceipt = '1';
                 }
-            }
+
+                if (this.limited === false) {
+                    this.limited = '0';
+                    this.limit = '';
+                } else {
+                    this.limited = '1';
+                }
+            },
         },
         components: {
             selectbox

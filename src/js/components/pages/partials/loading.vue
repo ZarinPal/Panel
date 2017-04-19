@@ -1,7 +1,6 @@
-<template lang="pug">
-    h1 this is loading
+<template>
 </template>
 
-<script>
 
-</script>
+<style>
+</style>

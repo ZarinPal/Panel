@@ -29,9 +29,15 @@
   .box{
     .header{
       .right-box{
-        p{
 
+        .wallet-color{
+          position: relative !important;
+          top: 4px !important;
+        }
+
+        > p {
           .nav-edit-wallet{
+
             .txt-wallet-name{
               border: none;
               background-color: #F4F4F4;
@@ -240,11 +246,6 @@
       text-align: right;
       padding: 0 6px;
       color: #424242;
-    }
-
-    .wallet-color{
-      top: 3px;
-      right: -8px;
     }
 
     .purses{

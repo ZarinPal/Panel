@@ -62,7 +62,7 @@
 
 
                         div.footer.bottom-xs
-                            span.print(@click="printDetail") {{$i18n.t('transaction.print')}}
+                            span.print(@click="printDetail(transaction.public_id)") {{$i18n.t('transaction.print')}}
 
 </template>
 
@@ -75,31 +75,22 @@
                 closeModalContent: true,
             }
         },
+        props: ['transaction'],
         mounted(){
             this.closeModalContent = false
-
         },
         methods: {
             closeModal() {
                 this.$emit('closeModal')
             },
             printDetail(documentId) {
-                alert('sldfj');
-//                let doc = document.getElementById(documentId);
-//
-//                //Wait until PDF is ready to print
-//                if (typeof doc.print === 'undefined') {
-//                    setTimeout(function(){
-//                            printDocument(documentId);
-//                    }
-//                    , 1000);
-//
-//                } else {
-//                    doc.print();
-//                }
+                this.$store.state.http.requests['transaction.getInfoPdf'].get({transactionId: documentId}).then(
+                    (response) => {
+                        this.coupons = response.data.data;
+                    }
+                );
             }
         },
-        props: ['transaction'],
     }
 
 </script>

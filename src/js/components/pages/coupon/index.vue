@@ -6,51 +6,42 @@
                 p.page-description {{$i18n.t('coupon.couponsDescription')}}
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                span.btn.btn-success(@click="visibleCreateCoupon = true")
+                router-link.btn.btn-success(tag="span" v-bind:to="{ name: 'coupon.create'}")
                     span.icon-add-circle
                     span.text {{ $i18n.t('coupon.createCoupon') }}
 
         div.row
-
-        createCoupon(v-if="visibleCreateCoupon" v-on:closeModal="closeModal()")
+            singleCoupon(v-for="coupon in coupons" v-bind:coupon="coupon")
 
 </template>
 
 <script>
     import singleCoupon from './partials/single-coupon.vue';
-    import createCoupon from './partials/create.vue';
-
 
     export default {
         name: 'coupon-index',
         data(){
             return{
-                visibleCreateCoupon: false,
+                coupons: '',
             }
-        },
-        created() {
-            this.$store.state.http.requests['coupon.getIndex'].get().then(
-                (response) => {
-                    console.log(response);
-                }
-            );
         },
         computed:{
             user(){
                 return this.$store.state.auth.user;
             },
-            coupons() {
-                return this.$store.state.auth.user.coupons;
-            }
+        },
+        beforeCreate() {
+            this.$store.state.http.requests['coupon.getIndex'].get().then(
+                (response) => {
+                    this.coupons = response.data.data;
+                }
+            );
         },
         methods: {
-            closeModal(){
-                this.visibleCreateCoupon = false;
-            }
+
         },
         components: {
-            singleCoupon,
-            createCoupon
+            singleCoupon
         }
     }
 </script>

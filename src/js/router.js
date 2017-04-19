@@ -120,9 +120,9 @@ export default new VueRouter({
                     component: require('./components/pages/coupon/test.vue')
                 },
                 {
-                    path: '/coupon/create',
+                    path: 'coupon/create',
                     name: 'coupon.create',
-                    // component: require('./components/views/dashboard/coupon/create.vue')
+                    component: require('./components/pages/coupon/partials/create.vue')
                 },
                 {
                     path: '/coupon/edit/:coupon',
