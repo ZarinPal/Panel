@@ -15,7 +15,7 @@
                             div.contains
                                 div.row
                                     div.col-xs.ta-right
-                                        img.bank-logo(v-bind:src="'/assets/img/banks/' + card.issuer.slug  + '.png'")
+                                        img.bank-logo(v-bind:src="'assets/img/banks/' + card.issuer.slug  + '.png'")
                                         span.label.bank-name {{card.issuer.name}}
 
                                 div.row

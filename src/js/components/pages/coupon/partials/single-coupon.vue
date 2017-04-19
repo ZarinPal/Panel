@@ -12,12 +12,11 @@
                             span.text {{coupon.code}}
                             span.icon
 
-
                 div.row.box-row(v-if="coupon.limit")
                     div.right
                         span.label {{$i18n.t('easypay.limit')}}
                     div.col-xs.ta-left
-                        span.text-value {{coupon.limit}}
+                        span.text-value {{coupon.limit | persianNumbers}}
 
                 div.row.box-row(v-else)
                     div.right
@@ -42,25 +41,36 @@
                         span.label {{$i18n.t('coupon.expirationDate')}}
 
                     div.col-xs.ta-left
-                        span.text-value {{coupon.expired_at | jalali("jYYYY/jM/jD") | persianNumbers}}
+                        span.text-value {{coupon.expired_at  | jalali('jYYYY-jMM-jDD') | persianNumbers}}
 
             div.bottom-xs.box-footer
                 div.row
                     div.col-xs
                         router-link.edit(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('common.edit')}}
                     div.col-xs
-                        router-link.details(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('coupon.showDetails')}}
+                        span.details(@click="visibleCouponDetails = true") {{$i18n.t('coupon.showDetails')}}
+
+        couponDetails(v-if="visibleCouponDetails" v-on:closeModal="closeModal()" v-bind:coupon="coupon")
 
 </template>
 <script>
+    import couponDetails from '../partials/details.vue';
+
     export default {
         name:'pages-coupon-partials-singleCoupon',
         data(){
             return{
+                visibleCouponDetails: false,
             }
         },
         props:['coupon'],
         methods:{
+            closeModal(){
+                this.visibleCouponDetails = false;
+            }
+        },
+        components:{
+            couponDetails
         }
     }
 </script>

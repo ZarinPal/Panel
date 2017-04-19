@@ -239,6 +239,7 @@ body {
 .small-user-image{
   zoom: 0.15 !important;
   margin-right: -55px !important;
+  animation: userInfoFade 0.8s ease-in-out;
 }
 
 /*Small sidebar*/
@@ -290,13 +291,15 @@ body {
       width: 45px !important;
       height: 45px !important;
       margin: 30px auto;
-      transition: none !important;
 
       img{
         margin-left: auto;
         margin-right: auto;
         width: 45px;
         display: block;
+
+
+
       }
     }
 
@@ -320,7 +323,7 @@ body {
       text-align: center !important;
       transition: $animateTime;
       color: $sideItemColor;
-      font-size: $sidebarFontSize;
+      font-size: 20px;
       cursor: pointer;
 
       .dot-show{
@@ -384,6 +387,8 @@ body {
   }
 
   .user-info{
+    animation: userInfoFade 0.8s ease-in-out;
+
     .user-image{
       height: 90px;
       text-align: center;
@@ -583,12 +588,12 @@ body {
     display: block !important;
     width: 85% !important;
     height: 100%;
-    position: absolute !important;
+    position: fixed;
     z-index: 999;
     top: -60px !important;
     right: 0;
     background-color: #fff;
-    overflow-x: scroll !important;
+    overflow-x: auto !important;
     padding-top: 60px;
 
 

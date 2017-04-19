@@ -2,8 +2,8 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $i18n.t('easypay.createEasypay') }}
-                p.page-description ٖ{{ $i18n.t('easypay.createEasypayDescription') }}
+                p.page-title {{ $i18n.t('easypay.createEasypay') }}
+                p.page-description {{ $i18n.t('easypay.createEasypayDescription') }}
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay
             div.box
@@ -14,7 +14,7 @@
 
                             div.row
                                 div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-                                    div.step-number(v-ripple v-bind:class="{'active-step-number' : step == 1}") ۱
+                                    div.step-number(v-ripple=""  v-bind:class="{'active-step-number' : step == 1}") ۱
                                     div.step-line(v-bind:class="{'active-step-line' : step == 1}")
 
                                 div.col-lg-11.col-md-11.sm-11.col-xs-11
@@ -30,7 +30,7 @@
                                     span.input-icon.purse-icon
                                     div.cb
                                     div.row.nav-buttons
-                                        button.btn.success.pull-right(v-ripple @click="createEasypay") {{$i18n.t('easypay.createEasypay')}}
+                                        button.btn.success.pull-right(v-ripple=""  @click="stepTwo") {{$i18n.t('easypay.createEasypay')}}
                         div.col-lg-5.col-md-5.col-sm-12.col-xs-12
                             <!--div.row-->
                                 <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
@@ -61,7 +61,7 @@
                         div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                             div.row
                                 div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-                                    div.step-number(v-ripple v-bind:class="{'active-step-number' : step == 2}") ۲
+                                    div.step-number(v-ripple=""  v-bind:class="{'active-step-number' : step == 2}") ۲
                                     div.step-line(v-bind:class="{'active-step-line' : step == 2}")
 
                                 div.col-lg-11.col-md-11.col-sm-11.col-xs-11
@@ -71,7 +71,7 @@
                                     div.row.f-row
                                         div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
                                             div.ta-right
-                                                input(name="email-optional" v-model="requiredFields.email" value="-1" type="checkbox" id="chkEmail")
+                                                input(name="email-optional" v-model="requiredFields.email" type="checkbox" id="chkEmail")
                                                 label(for="chkEmail")
                                                     span
                                                     |{{ $i18n.t('common.email')}}
@@ -91,10 +91,10 @@
                                                         |{{ $i18n.t('easypay.mandatory')}}
 
                                     <!--2-2-->
-                                    div.row.f-row(v-bind:disabled="step > 3 ? true : false" v-bind:class="{'inactive-step' : step > 3}")
+                                    div.row.f-row(v-bind:class="{'inactive-step' : step > 3}")
                                         div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
                                             div.ta-right
-                                                input(name="usernameOptional" v-model="requiredFields.name" value="-1"  type="checkbox" id="chkUserName")
+                                                input(name="usernameOptional" v-model="requiredFields.name" type="checkbox" id="chkUserName")
                                                 label(for="chkUserName")
                                                     span
                                                     |{{ $i18n.t('easypay.username')}}
@@ -117,7 +117,7 @@
                                     div.row.f-row
                                         div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
                                             div.ta-right
-                                                input(name="mobileOptional" value='-1' v-model="requiredFields.mobile"  type="checkbox"  id="chkMobile")
+                                                input(name="mobileOptional" v-model="requiredFields.mobile"  type="checkbox"  id="chkMobile")
                                                 label(for="chkMobile")
                                                     span
                                                     |{{ $i18n.t('easypay.mobile') }}
@@ -139,7 +139,7 @@
 
                                     div.row
                                         div.col-xs.nav-buttons
-                                            button.btn.success.pull-right(v-ripple @click="createEasypay") {{$i18n.t('common.save')}}
+                                            button.btn.success.pull-right(v-ripple=""  @click="stepThree") {{$i18n.t('common.save')}}
 
 
                 div.body
@@ -164,7 +164,7 @@
                                                     |{{ $i18n.t('easypay.limitInNumber')}}
 
                                             div.ta-right
-                                                input(name="optional" v-model="showReceipt" value='hello' type="checkbox" id="chkEasypayReceipt")
+                                                input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")
                                                 label(for="chkEasypayReceipt")
                                                     span
                                                     |{{ $i18n.t('easypay.showEasypayReceipt')}}
@@ -177,13 +177,13 @@
 
                                         div.col-lg-12.col-md-12.col-xs-12
                                             input(v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                            span.input-icon.home-icon
+                                            span.input-icon.globe-icon
                                             input(v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                            span.input-icon.home-icon
+                                            span.input-icon.globe-icon
 
                                     div.row
                                         div.col-xs.nav-buttons
-                                            button.btn.success.pull-right.button(v-ripple) {{$i18n.t('common.save')}}
+                                            button.btn.success.pull-right.button(v-ripple=""  @click="createEasypay") {{$i18n.t('common.save')}}
 
 </template>
 
@@ -207,9 +207,9 @@
                 price: '',
                 purse: null,
                 requiredFields: {
-                    email: '',
-                    name: '',
-                    mobile: null
+                    email: false,
+                    name: false,
+                    mobile: false
                 },
                 type: '0',
                 showReceipt: '',
@@ -224,7 +224,7 @@
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         return {
-                            'title': purse.name,
+                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
                             'value': purse.purse
                         }
                     });
@@ -235,8 +235,26 @@
             selectedPurse(purseId) {
                 this.purse = purseId;
             },
+            stepTwo() {
+                if(this.title && this.price && this.description && this.purse) {
+                    this.step ++;
+                } else {
+                    store.commit('flashMessage',{
+                        text: 'please fill all fields',
+                        important: false,
+                        type: 'danger'
+                    });
+                }
+            },
+            stepThree() {
+                this.step ++;
+            },
             createEasypay() {
+                this.handleOrderOptions();
+                this.handleShowReceipt();
+
                 let easyPayData = {
+                    isLoading: false,
                     title: this.title,
                     description: this.description,
                     price: this.price,
@@ -254,11 +272,10 @@
                     limit: this.limit,
                 };
 
-
                 this.$store.state.http.requests['easypay.getList'].save(easyPayData).then(
                     ()=> {
-                        this.step ++;
-//                        this.$router.push({name: 'easypay.index'})
+                        this.isLoading = false;
+                        this.$router.push({name: 'easypay.index'})
                     },
                     (response) => {
                         store.commit('flashMessage',{
@@ -269,11 +286,25 @@
                     }
                 );
             },
-            createOrders() {
+            handleOrderOptions() {
+                if(this.requiredFields.email === false) {
+                    this.requiredFields.email = '-1';
+                }
 
+                if(this.requiredFields.name === false) {
+                    this.requiredFields.name = '-1';
+                }
+
+                if(this.requiredFields.mobile === false) {
+                    this.requiredFields.mobile = '-1';
+                }
             },
-            createLimits() {
-
+            handleShowReceipt() {
+                if (this.showReceipt === false) {
+                    this.showReceipt = '0';
+                } else {
+                    this.showReceipt = '1';
+                }
             }
         },
         components: {

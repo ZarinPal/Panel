@@ -39,8 +39,8 @@
                         div.txt-balance {{ $i18n.t('common.balance') }}
                         div.balance-amount {{balance.balance | numberFormat | persianNumbers }}
                         div.nav-show-chart
-                            span.chart-icon
-                            span {{ $i18n.t('common.showChart')}}
+                            <!--span.chart-icon-->
+                            <!--span {{ $i18n.t('common.showChart')}}-->
 
 
             div.bottom-xs.footer
@@ -85,12 +85,19 @@
                     = this.newPurseName;
             },
             getBalance(){
-                this.$store.state.http.requests['purse.getBalance'].get({purseId: this.purse.purse}).then(response => {
-                    this.balance = response.data.data;
-                    this.loading = false;
-                });
-            },
+                if(this.$store.state.auth.user.purses) {
+                    this.$store.state.http.requests['purse.getBalance'].get({purseId: this.purse.purse}).then(response => {
+                        this.balance = response.data.data;
+                        this.loading = false;
 
+                        let vm = this;
+                        let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+                            return purse.purse === vm.purse.purse
+                        });
+                        this.$store.state.auth.user.purses[purseIndex].balance = response.data.data.balance;
+                    });
+                }
+            },
             toggleEditPurse(){
                 this.isEditingPurseName = !this.isEditingPurseName;
             },

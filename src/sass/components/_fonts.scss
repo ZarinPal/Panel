@@ -36,9 +36,8 @@
 }
 
 
-
 @font-face {
-  font-family: 'zarinpal';
+  font-family: 'ZarinPal';
   src:  url('../fonts/zarinpal.eot');
   src:  url('../fonts/zarinpal.eot') format('embedded-opentype'),
   url('../fonts/zarinpal.ttf') format('truetype'),
@@ -65,6 +64,52 @@ span[class^="icon-"], span[class*=" icon-"]{
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+
+//New Font icon class
+.icon-zp-web-service {
+  &:before {
+    content: $icon_zp-web-service;
+  }
+}
+
+.icon-zp-easy-pay {
+  &:before {
+    content: $icon_zp-easy-pay;
+  }
+}
+
+.icon-zp-tickets {
+  &:before {
+    content: $icon_zp-tickets;
+  }
+}
+
+.icon-zp-copouns {
+  &:before {
+    content: $icon_zp-copouns;
+  }
+}
+
+.icon-zp-card {
+  &:before {
+    content: $icon_zp-card;
+  }
+}
+
+.icon-zp-dashboard {
+  &:before {
+    content: $icon_zp-dashboard;
+  }
+}
+
+.icon-zp-wallet {
+  &:before {
+    content: $icon_zp-wallet;
+  }
+}
+
+
 .icon-ic_search_black_48px {
   &:before {
     content: $icon-ic_search_black_48px;
@@ -72,7 +117,7 @@ span[class^="icon-"], span[class*=" icon-"]{
 }
 .icon-ic_settings_black_48px {
   &:before {
-    content: $icon-ic_settings_black_48px;
+    content: $icon_zp-setting;
   }
 }
 .icon-ic_exit_to_app_black_48px {

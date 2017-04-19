@@ -31,25 +31,29 @@
                                                     |{{ $i18n.t('card.legal')}}
 
 
+
                                 div.row
                                     input(type="text" v-model="iban" placeholder="شماره شبا")
-                                    input(type="text" v-model="pan" placeholder="شماره کارت")
 
-                                div.row.no-margin
-                                    div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
-                                        span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
-                                    div.col-lg-6.col-md-8.col-xs-12.no-margin
-                                        div.row.nav-expiration-input
-                                            div.col-xs.no-margin
-                                                span.label {{$i18n.t('card.month')}}:
-                                                input#month(type="number" v-model="month" placeholder="۰۰" maxlength="2" @keyup="changeMonthFocus")
-                                            div.col-xs.no-margin
-                                                span.label {{$i18n.t('card.year')}}:
-                                                input#year(type="number" v-model="year" placeholder="۰۰۰۰" maxlength="4" @keyup="changeYearFocus")
+                                div(v-if="isLegal == 0")
+                                    div.row
+                                        input(type="text" v-model="pan" placeholder="شماره کارت")
+
+                                    div.row.no-margin
+                                        div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
+                                            span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
+                                        div.col-lg-6.col-md-8.col-xs-12.no-margin
+                                            div.row.nav-expiration-input
+                                                div.col-xs.no-margin
+                                                    span.label {{$i18n.t('card.month')}}:
+                                                    input#month(type="number" v-model="month" placeholder="۰۰" maxlength="2" @keyup="changeMonthFocus")
+                                                div.col-xs.no-margin
+                                                    span.label {{$i18n.t('card.year')}}:
+                                                    input#year(type="number" v-model="year" placeholder="۰۰۰۰" maxlength="4" @keyup="changeYearFocus")
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple @click="createCard") {{$i18n.t('card.createCard')}}
+                                        button.btn.success.pull-left(v-ripple="" @click="createCard") {{$i18n.t('card.createCard')}}
 
 </template>
 
@@ -64,7 +68,7 @@
                 pan: '',
                 year: '',
                 month: '',
-                isLegal: '',
+                isLegal: '0',
                 yearFocus: false
             }
         },
@@ -77,12 +81,20 @@
                 this.$emit('closeModal')
             },
             createCard() {
+
+                if(this.isLegal == 1) {
+                    this.pan = '';
+                    this.year = '';
+                    this.month = '';
+                }
+
                 let cardData = {
                     iban : this.iban,
                     pan : this.pan,
                     isLegal : this.isLegal,
                     expired_at : this.year + '-' + this.month,
                 };
+
                 this.$store.state.http.requests['card.getList'].save(cardData).then(
                     ()=> {
                         this.$router.push({name: 'card.index'})
