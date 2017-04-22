@@ -13,7 +13,7 @@
                             span.title {{ $i18n.t('card.addAccountTitle') }}
                         div.body
                             div.contains
-                                div.row.nav-account-type
+                                div.row.nav-account-type(v-if="user.company_info")
                                     div.col-lg-6.col-md-4.col-sm-12.col-xs-12.ta-right.account-label
                                         span.label {{$i18n.t('card.accountType')}}:
                                     div.col-lg-6.col-md-8.col-sm-12.col-xs-12
@@ -33,11 +33,11 @@
 
 
                                 div.row
-                                    input(type="text" v-model="iban" placeholder="شماره شبا")
+                                    input.ta-left(type="text" v-model="iban" placeholder="شماره شبا" maxlength="26")
 
                                 div(v-if="isLegal == 0")
                                     div.row
-                                        input(type="text" v-model="pan" placeholder="شماره کارت")
+                                        input.ta-left(type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
 
                                     div.row.no-margin
                                         div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
@@ -64,7 +64,7 @@
         data() {
             return {
                 closeModalContent: false,
-                iban: '',
+                iban: 'IR',
                 pan: '',
                 year: '',
                 month: '',
@@ -73,15 +73,30 @@
             }
         },
         props:['card'],
+        computed:{
+            user(){
+                return this.$store.state.auth.user;
+            }
+        },
         mounted() {
             this.closeModalContent = false
         },
         methods: {
+            cardNumberFormat() {
+                let text = document.getElementById("pan").value;
+                let result = [];
+                text = this.pan.replace(/[^\d]/g, "");
+                while (text.length > 4 && text.length <= 16) {
+                    result.push(text.substring(0, 4));
+                    text = text.substring(4);
+                }
+                if (this.pan.length > 0) result.push(text);
+                this.pan = result.join("-");
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
             createCard() {
-
                 if(this.isLegal == 1) {
                     this.pan = '';
                     this.year = '';

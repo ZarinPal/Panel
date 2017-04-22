@@ -29,6 +29,7 @@
                 visibleCreatePurse: false,
             }
         },
+        props: ['more'],
         computed:{
             user(){
                 return this.$store.state.auth.user;

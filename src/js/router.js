@@ -125,9 +125,9 @@ export default new VueRouter({
                     component: require('./components/pages/coupon/partials/create.vue')
                 },
                 {
-                    path: '/coupon/edit/:coupon',
+                    path: 'coupon/edit/:entity_id',
                     name: 'coupon.edit',
-                    // component: require('./components/views/dashboard/coupon/edit.vue')
+                    component: require('./components/pages/coupon/partials/edit.vue')
                 },
                 {
                     path: 'ticket/create',

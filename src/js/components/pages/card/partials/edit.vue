@@ -21,11 +21,11 @@
                                 div.row
                                     div.col-xs.ta-right
                                         span.label {{$i18n.t('card.iban')}}:
-                                    div.col-xs
+                                    div.col-xs.ta-left
                                         span.label {{card.iban}}
 
                                 div.row
-                                    input(type="text" v-model="pan" placeholder="شماره کارت")
+                                    input.ta-left(type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
 
                                 div.row.no-margin
                                     div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
@@ -42,7 +42,7 @@
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple @click="editCard") {{$i18n.t('common.save')}}
+                                        button.btn.success.pull-left(v-ripple="" @click="editCard") {{$i18n.t('common.save')}}
 
 </template>
 
@@ -53,6 +53,7 @@
         data() {
             return {
                 closeModalContent: true,
+                pan: ''
             }
         },
         props:['card'],
@@ -60,6 +61,17 @@
             this.closeModalContent = false
         },
         methods: {
+            cardNumberFormat() {
+                let text = document.getElementById("pan").value;
+                let result = [];
+                text = this.pan.replace(/[^\d]/g, "");
+                while (text.length > 4 && text.length <= 16) {
+                    result.push(text.substring(0, 4));
+                    text = text.substring(4);
+                }
+                if (this.pan.length > 0) result.push(text);
+                this.pan = result.join("-");
+            },
             closeModal() {
                 this.$emit('closeModal')
             },

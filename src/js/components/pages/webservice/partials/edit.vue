@@ -9,7 +9,7 @@
                 div.body
                     div.row
                         div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                            input(type="text" v-model="site_ip" placeholder= "IP")
+                            input#ip(type="text" v-model="site_ip" placeholder= "IP" @keyup="ipFormat()" maxlength="15")
                             span.input-icon.ip-icon
                             input(type="text" v-model="site_name" placeholder= "نام وب‌سایت")
                             span.input-icon.home-icon
@@ -36,10 +36,6 @@
                                         img.webservice-logo(:src="site_logo")
 
 
-
-
-
-
                                 div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                     div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
                                         div.row
@@ -55,7 +51,7 @@
 
                 div.row
                     div.col-xs.nav-buttons
-                        button.btn.success.pull-left(v-bind:class="{'disable': disableSubmit}" v-ripple @click="editWebservice") {{$i18n.t('webservice.edit')}}
+                        button.btn.success.pull-left( v-ripple="" @click="editWebservice") {{$i18n.t('webservice.edit')}}
 
 </template>
 
@@ -71,7 +67,6 @@
                 fileUploadFormData: new FormData(),
                 messages: {},
                 fileHover: false,
-                disableSubmit: true,
                 purse: '',
                 webservice_category_id: '',
                 site_ip: '',
@@ -122,6 +117,18 @@
             },
         },
         methods: {
+            ipFormat() {
+                let text = document.getElementById("ip").value;
+                let result = [];
+                text = this.site_ip.replace(/[^\d]/g, "");
+
+                while (text.length > 3) {
+                    result.push(text.substring(0, 3));
+                    text = text.substring(3);
+                }
+                if (this.site_ip.length > 0) result.push(text);
+                this.site_ip = result.join(".");
+            },
             selectedPurse(purseId) {
                 this.purse = purseId;
             },
@@ -203,7 +210,6 @@
 
                 this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
                     this.site_logo = response.data.meta.file_id;
-                    this.disableSubmit = false;
                 }, (response) => {
                     console.log('Error occurred...');
                 });

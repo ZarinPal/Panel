@@ -46,7 +46,7 @@
             div.bottom-xs.box-footer
                 div.row
                     div.col-xs
-                        router-link.edit(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('common.edit')}}
+                        router-link.edit(tag="span" v-bind:to="{ name: 'coupon.edit', params:{entity_id: coupon.entity_id}}") {{$i18n.t('common.edit')}}
                     div.col-xs
                         span.details(@click="visibleCouponDetails = true") {{$i18n.t('coupon.showDetails')}}
 

@@ -36,7 +36,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     span.label {{$i18n.t('easypay.limit')}}
 
                 div.col-xs.ta-left
-                    span.text-value(v-if="easypay.limit") {{easypay.limit}}
+                    span.text-value(v-if="easypay.limit") {{easypay.limit | persianNumbers}}
                     span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
 
             br

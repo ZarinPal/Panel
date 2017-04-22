@@ -2,8 +2,8 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title {{ $i18n.t('coupon.createCoupon') }}
-                p.page-description {{ $i18n.t('coupon.createCouponDescription') }}
+                p.page-title {{ $i18n.t('coupon.editCoupon') }}
+                p.page-description {{ $i18n.t('coupon.editCouponDescription') }}
 
         div.row.section.nav-create-coupon
             div.row.box
@@ -14,7 +14,6 @@
                             span.label {{ $i18n.t('coupon.offCode') }}
                         div.col-lg-8.col-md-8.col-sm-12.col-xs-12
                             input(type="text" v-model="code" placeholder="مثال:zarinfriends")
-
 
                     div.row
                         div.col-lg-4.col-md-4.col-sm-12.col-xs-12
@@ -45,7 +44,7 @@
                 div.right-box.col-lg-6.col-md-6.col-sm-12.col-xs-12
                     div.row
                         div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(type="checkbox" v-model="visibleLimit" id= "chkLimit")
+                            input(type="checkbox" v-model="visibleLimit" id= "chkLimit" @change="emptyLimitValue()")
                             label(for="chkLimit")
                                 span
                                 |{{ $i18n.t('coupon.limit') }}
@@ -73,7 +72,7 @@
 
                     div.row.nav-button
                         div.col-xs
-                            button.btn.success.pull-left(v-ripple="" @click="createCoupon") {{$i18n.t('coupon.createCoupon')}}
+                            button.btn.success.pull-left(v-ripple="" @click="editCoupon") {{$i18n.t('coupon.editCoupon')}}
 
 </template>
 
@@ -82,7 +81,7 @@
     import selectbox from '../../partials/selectbox.vue';
 
     export default {
-        name: 'pages-coupon-partials-create',
+        name: 'pages-coupon-partials-edit',
         data() {
             return {
                 code: '',
@@ -119,10 +118,29 @@
                 }
             }
         },
-        mounted(){
-            this.closeModalContent = false
+        beforeCreate() {
+            this.$store.state.http.requests['coupon.getShow'].get({'coupon_id' : this.$route.params.entity_id}).then(
+                (response) => {
+                    this.code = response.data.data.code;
+                    this.max_amount = response.data.data.discount.max_amount;
+                    this.min_amount = response.data.data.min_amount;
+                    this.webservice_id = response.data.data.webservice_id;
+                    this.easypay_id = response.data.data.easypay_id;
+                    this.expired_at = response.data.data.expired_at;
+                    this.limit = response.data.data.limit;
+                    this.type = response.data.data.type;
+                    this.percent = response.data.data.discount.percent;
+
+                    if(response.data.data.limit){
+                        this.visibleLimit = true;
+                    }
+                }
+            );
         },
         methods: {
+            emptyLimitValue() {
+                this.limit = '';
+            },
             selectedWebservice(entityId) {
                 this.webservice_id = entityId;
                 this.easypay_id = '';
@@ -131,7 +149,7 @@
                 this.easypay_id = entityId;
                 this.webservice_id = '';
             },
-            createCoupon() {
+            editCoupon() {
                 let couponData = {
                     code: this.code,
                     discount: {
@@ -146,7 +164,11 @@
                     type: this.type,
                 };
 
-                this.$store.state.http.requests['coupon.getIndex'].save(couponData).then(
+                let params = {
+                    coupon_id: this.$route.params.entity_id
+                };
+
+                this.$store.state.http.requests['coupon.getShow'].update(params, couponData).then(
                     ()=> {
                         this.$router.push({name: 'coupon.index'})
                     },

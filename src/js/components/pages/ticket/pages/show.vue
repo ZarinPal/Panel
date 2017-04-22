@@ -123,7 +123,7 @@ span
 
                 this.$store.state.http.requests['ticket.Reply'].save(params, ticketData).then(
                     ()=> {
-                        this.$router.push({name: 'ticket.index'})
+                        this.getReplies(this.$route.params.id);
                     },
                     (response) => {
                         store.commit('flashMessage',{

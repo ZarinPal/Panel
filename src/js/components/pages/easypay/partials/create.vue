@@ -158,7 +158,7 @@
                                     div.row
                                         div.col-lg-7.col-md-7.col-sm-12.col-xs-12.nav-limit-checkbox
                                             div.ta-right
-                                                input(name="optional"  v-model="visibleLimit" value='true' type="checkbox" id="chkLimitNumber")
+                                                input(name="optional"  v-model="limited" value='true' type="checkbox" id="chkLimitNumber")
                                                 label(for="chkLimitNumber")
                                                     span
                                                     |{{ $i18n.t('easypay.limitInNumber')}}
@@ -172,7 +172,7 @@
 
 
                                         div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                            input(v-show="visibleLimit" type="number" v-model="limit" placeholder="تعداد")
+                                            input(v-show="limited" type="number" v-model="limit" placeholder="تعداد")
 
 
                                         div.col-lg-12.col-md-12.col-xs-12
@@ -200,7 +200,6 @@
                 visibleEmail: '',   //  visible email options
                 visibleName: '',    //  "   name    "
                 visiblePhone: '',   //  "   phone   "
-                visibleLimit: '',   //  "   limit   "
                 messages: {},
                 title: '',
                 description: '',
@@ -211,11 +210,11 @@
                     name: false,
                     mobile: false
                 },
-                type: '0',
+                type: '1',
                 showReceipt: '',
                 successfulRedirectUrl: '',
                 failedRedirectUrl: '',
-                limited: '',
+                limited: false,
                 limit: '',
             }
         },
@@ -252,6 +251,12 @@
             createEasypay() {
                 this.handleOrderOptions();
                 this.handleShowReceipt();
+                if(this.limited === true) {
+                    this.limited = 1;
+                } else {
+                    this.limited = 0;
+                    this.limit = '';
+                }
 
                 let easyPayData = {
                     isLoading: false,
@@ -301,9 +306,9 @@
             },
             handleShowReceipt() {
                 if (this.showReceipt === false) {
-                    this.showReceipt = '0';
+                    this.showReceipt = 0;
                 } else {
-                    this.showReceipt = '1';
+                    this.showReceipt = 1;
                 }
             }
         },
