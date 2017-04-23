@@ -27,9 +27,9 @@
                         div
                             span.label {{$i18n.t('ticket.priority')}}:
                         div.col-xs.nav-picker
-                            span.picker(v-ripple @click="priority = '1'" v-bind:class="{ 'picker-active': priority == '1' }") {{$i18n.t('ticket.important')}}
-                            span.picker(v-ripple @click="priority = '0'" v-bind:class="{ 'picker-active': priority == '0' }") {{$i18n.t('ticket.normal')}}
-                            span.picker(v-ripple @click="priority = '2'" v-bind:class="{ 'picker-active': priority == '2' }") {{$i18n.t('ticket.very-important')}}
+                            span.picker(v-ripple="" @click="priority = '1'" v-bind:class="{ 'picker-active': priority == '1' }") {{$i18n.t('ticket.important')}}
+                            span.picker(v-ripple="" @click="priority = '0'" v-bind:class="{ 'picker-active': priority == '0' }") {{$i18n.t('ticket.normal')}}
+                            span.picker(v-ripple="" @click="priority = '2'" v-bind:class="{ 'picker-active': priority == '2' }") {{$i18n.t('ticket.very-important')}}
 
 
                         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
@@ -42,12 +42,12 @@
                                         p فایل لوگو را اینجا رها کنید
                                         div.nav-file-input
                                             span یا از کامپیوتر
-                                            input#attach(type="file" @change="onFileChange")
+                                            input#attach(type="file" name="file" @change="onFileChange")
                                             div.file-name(v-if="fileName") {{fileName}}
 
                     div.row.nav-button
                         div.col-xs.no-margin
-                            button.btn.success.pull-left(v-ripple @click="send") {{$i18n.t('ticket.createTicket')}}
+                            button.btn.success.pull-left(v-ripple="" @click="send") {{$i18n.t('ticket.createTicket')}}
 
 </template>
 
@@ -66,7 +66,8 @@
                 selectedDepartment: '',
                 fileHover: false,
                 file: '',
-                fileName: ''
+                fileName: '',
+                attachment: '',
             }
         },
         created(){
@@ -107,16 +108,23 @@
                 this.createFile(files[0]);
             },
             createFile(file) {
-                let image = new Image();
                 let reader = new FileReader();
                 let vm = this;
-                this.fileName = file.name;
-
 
                 reader.onload = (e) => {
-                    vm.file = e.target.result;
+                    vm.attachment = e.target.result;
                 };
                 reader.readAsDataURL(file);
+
+                let formData = new FormData();
+                formData.append('type', 'document');
+                formData.append('file', file);
+
+                this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+                    this.attachment = response.data.meta.file_id;
+                }, (response) => {
+                    console.log('Error occurred...');
+                });
             },
             send() {
                 let ticketData = {
@@ -125,6 +133,7 @@
                     ticket_department_id : this.selectedDepartment,
                     priority : this.priority,
                     status : this.status,
+                    attachment: this.attachment,
                 };
                 this.$store.state.http.requests['ticket.postAdd'].save(ticketData).then(
                     ()=> {

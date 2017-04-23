@@ -45,6 +45,7 @@
                                 div.row
                                     div.col-xs.ta-right
                                         span.title.tick(v-if="transaction.confirmed == 'confirmed' ") {{ $i18n.t('transaction.confirmed') }}
+                                        span.title.unverified(v-else) {{ $i18n.t('transaction.notConfirmed') }}
                                     div.col-xs.ta-left
                                         span.value {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD') | persianNumbers}}
 

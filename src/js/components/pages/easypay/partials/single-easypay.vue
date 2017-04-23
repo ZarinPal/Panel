@@ -9,7 +9,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                         span.header-title {{easypay.title}}
 
                 div.col-xs.ta-left-box
-                    router-link.header-link(tag="span" v-bind:to="{ name: 'auth.register'}") https://zarinp.al/{{easypay.public_id}}
+                    span.header-link(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="'https://zarinp.al/' + easypay.public_id") https://zarinp.al/{{easypay.public_id}}
 
         div.middle-xs.body
 
@@ -36,7 +36,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     span.label {{$i18n.t('easypay.limit')}}
 
                 div.col-xs.ta-left
-                    span.text-value(v-if="easypay.limit") {{easypay.limit}}
+                    span.text-value(v-if="easypay.limit") {{easypay.limit | persianNumbers}}
                     span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
 
             br
@@ -66,8 +66,13 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         },
         props: ['easypay'],
         methods: {
-            sayHello(){
-                alert('hello');
+            clipboardMessage() {
+                store.commit('flashMessage',{
+                    text: 'copied',
+                    type: 'success',
+                    timeout: '500'
+
+                });
             },
             closeModal(){
                 this.confirmVisible = false;

@@ -67,7 +67,10 @@ span
                 div
                     textarea(placeholder="متن پاسخ تیکت..." v-model="content")
                 button.submit(@click="send") {{ $i18n.t('ticket.send')}}
-                input.attach(type="file")
+                input.attach(type="file" name="file" @change="onFileChange")
+
+
+    button.btn.success(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
 
 </template>
 
@@ -79,7 +82,7 @@ span
               ticket: {},
               content: '',
               errorMessage: '',
-              unsafeString: '<p>Hello World</p>'
+              attachment: '',
           }
         },
         computed: {
@@ -115,6 +118,7 @@ span
             send() {
                 let ticketData = {
                     content : this.content,
+                    attachment: this.attachment,
                 };
 
                 let params = {
@@ -123,7 +127,7 @@ span
 
                 this.$store.state.http.requests['ticket.Reply'].save(params, ticketData).then(
                     ()=> {
-                        this.$router.push({name: 'ticket.index'})
+                        this.getReplies(this.$route.params.id);
                     },
                     (response) => {
                         store.commit('flashMessage',{
@@ -138,6 +142,48 @@ span
             },
             kebabCase(value) {
                 return _.kebabCase(value);
+            },
+            onFileChange(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createFile(files[0]);
+            },
+            createFile(file) {
+                let reader = new FileReader();
+                let vm = this;
+
+                reader.onload = (e) => {
+                    vm.attachment = e.target.result;
+                };
+                reader.readAsDataURL(file);
+
+                let formData = new FormData();
+                formData.append('type', 'document');
+                formData.append('file', file);
+
+                this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+                    this.attachment = response.data.meta.file_id;
+                }, (response) => {
+                    console.log('Error occurred...');
+                });
+            },
+            closeTicket() {
+                let params = {
+                    ticketId: this.$route.params.id
+                };
+
+                this.$store.state.http.requests['ticket.postClose'].update(params , {}).then(
+                    ()=> {
+                        this.$router.push({name: 'ticket.index'})
+                    },
+                    (response) => {
+                        store.commit('flashMessage',{
+                            text: response.data.meta.error_message,
+                            type: 'danger'
+                        });
+                    }
+                )
             }
         },
         watch: {

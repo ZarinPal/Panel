@@ -205,7 +205,7 @@
                     name: false,
                     mobile: false
                 },
-                type: '0',
+                type: '1',
                 showReceipt: '',
                 successfulRedirectUrl: '',
                 failedRedirectUrl: '',
@@ -219,17 +219,20 @@
             this.description = this.easypay.description;
             this.purse = this.easypay.purse;
 
+            this.requiredFields.email = this.easypay.required_fields.email;
+            this.requiredFields.mobile = this.easypay.required_fields.mobile;
+            this.requiredFields.name = this.easypay.required_fields.name;
 
             this.successfulRedirectUrl = this.easypay.successful_redirect_url;
             this.failedRedirectUrl = this.easypay.failed_redirect_url;
-
             this.limit = this.easypay.limit;
 
-            if(this.easypay.limit) {
-                this.limited = true;
-            }
+            this.handleOrderOptions('email');
+            this.handleOrderOptions('mobile');
+            this.handleOrderOptions('name');
+            this.handleShowReceipt();
         },
-        computed:{
+        computed: {
             easypay() {
                 return _.find(this.$store.state.auth.user.easypays, {'entity_id': this.$route.params.public_id});
             },
@@ -249,11 +252,12 @@
                 this.purse = purseId;
             },
             editEasypay() {
-                this.handleOrderOptions();
-                this.handleShowReceipt();
+                this.handleOrderOptionsSave('email');
+                this.handleOrderOptionsSave('mobile');
+                this.handleOrderOptionsSave('name');
+                this.handleShowReceiptSave();
 
                 let easyPayData = {
-                    isLoading: false,
                     title: this.title,
                     description: this.description,
                     price: this.price,
@@ -273,8 +277,8 @@
 
                 this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
                     ()=> {
-                        this.isLoading = false;
-                        this.$router.push({name: 'easypay.index'})
+                        this.$router.push({name: 'easypay.index'});
+                        this.changeEasypayState();
                     },
                     (response) => {
                         store.commit('flashMessage',{
@@ -285,32 +289,86 @@
                     }
                 );
             },
-            handleOrderOptions() {
-                if(this.requiredFields.email === false) {
-                    this.requiredFields.email = '-1';
-                }
+            handleOrderOptions(requireFieldName) {
+                switch(this.requiredFields[requireFieldName])
+                {
+                    case '-1':
+                    case 'hidden':
+                        this.requiredFields[requireFieldName] = false;
+                        break;
 
-                if(this.requiredFields.name === false) {
-                    this.requiredFields.name = '-1';
-                }
+                    case 'optional':
+                        this.requiredFields[requireFieldName] = '0';
+                        break;
 
-                if(this.requiredFields.mobile === false) {
-                    this.requiredFields.mobile = '-1';
+                    case 'required':
+                        this.requiredFields[requireFieldName] = '1';
+                        break;
+                }
+            },
+            handleOrderOptionsSave(requireFieldName) {
+                switch(this.requiredFields[requireFieldName])
+                {
+                    case false:
+                    case 'hidden':
+                        this.requiredFields[requireFieldName] = '-1';
+                        break;
+
+                    case 'optional':
+                        this.requiredFields[requireFieldName] = '0';
+                        break;
+
+                    case 'required':
+                        this.requiredFields[requireFieldName] = '1';
+                        break;
                 }
             },
             handleShowReceipt() {
-                if (this.showReceipt === false) {
-                    this.showReceipt = '0';
+                if (this.easypay.show_receipt === 1) {
+                    this.showReceipt = true;
                 } else {
-                    this.showReceipt = '1';
+                    this.showReceipt = false;
+                }
+
+                if (this.limit) {
+                    this.limited = true;
+                } else {
+                    this.limited = false;
+                    this.limit = '';
+                }
+            },
+            handleShowReceiptSave() {
+                if (this.showReceipt === false) {
+                    this.showReceipt = 0;
+                } else {
+                    this.showReceipt =  1;
                 }
 
                 if (this.limited === false) {
-                    this.limited = '0';
+                    this.limited = 0;
                     this.limit = '';
                 } else {
-                    this.limited = '1';
+                    this.limited = 1;
                 }
+            },
+            changeEasypayState(){
+                let vm = this;
+                let easypayIndex = _.findIndex(this.$store.state.auth.user.easypays, function(easypay) {
+                    return easypay.entity_id === vm.$route.params.public_id;
+                });
+                this.$store.state.auth.user.easypays[easypayIndex].title = this.title;
+                this.$store.state.auth.user.easypays[easypayIndex].description = this.description;
+                this.$store.state.auth.user.easypays[easypayIndex].price = this.price;
+                this.$store.state.auth.user.easypays[easypayIndex].purse = this.purse;
+                this.$store.state.auth.user.easypays[easypayIndex].required_fields.email = this.requiredFields.email;
+                this.$store.state.auth.user.easypays[easypayIndex].required_fields.name = this.requiredFields.name;
+                this.$store.state.auth.user.easypays[easypayIndex].required_fields.mobile = this.requiredFields.mobile;
+                this.$store.state.auth.user.easypays[easypayIndex].show_receipt = this.showReceipt;
+                this.$store.state.auth.user.easypays[easypayIndex].successful_redirect_url = this.successfulRedirectUrl;
+                this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
+                this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
+                this.$store.state.auth.user.easypays[easypayIndex].limited = this.limited;
+                this.$store.state.auth.user.easypays[easypayIndex].limit = this.limit;
             },
         },
         components: {

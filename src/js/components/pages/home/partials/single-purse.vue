@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section
         div.box
             div.top-xs.header
                 div.row
@@ -23,7 +23,7 @@
 
 
                     div.left-box
-                        span.icon-more(@click="showOptions = !showOptions")
+                        span.icon-more.circle-hover(@click="showOptions = !showOptions")
                         transition( name="bounce"
                                     enter-active-class="drop-down-show"
                                     leave-active-class="drop-down-hide")

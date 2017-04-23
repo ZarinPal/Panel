@@ -13,7 +13,7 @@
                             span.title {{ $i18n.t('card.addAccountTitle') }}
                         div.body
                             div.contains
-                                div.row.nav-account-type
+                                div.row.nav-account-type(v-if="user.company_info")
                                     div.col-lg-6.col-md-4.col-sm-12.col-xs-12.ta-right.account-label
                                         span.label {{$i18n.t('card.accountType')}}:
                                     div.col-lg-6.col-md-8.col-sm-12.col-xs-12
@@ -30,14 +30,13 @@
                                                     span
                                                     |{{ $i18n.t('card.legal')}}
 
-
-
                                 div.row
-                                    input(type="text" v-model="iban" placeholder="شماره شبا")
-
+                                    input.ta-left#iban(type="text" v-model="iban" placeholder="شماره شبا" maxlength="26")
+                                    span.alert-danger(v-if="validationErrors.iban") {{validationErrors.iban}}
                                 div(v-if="isLegal == 0")
                                     div.row
-                                        input(type="text" v-model="pan" placeholder="شماره کارت")
+                                        input.ta-left(type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
+                                        span.alert-danger(v-if="validationErrors.pan") {{validationErrors.pan}}
 
                                     div.row.no-margin
                                         div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
@@ -64,7 +63,7 @@
         data() {
             return {
                 closeModalContent: false,
-                iban: '',
+                iban: 'IR',
                 pan: '',
                 year: '',
                 month: '',
@@ -73,24 +72,46 @@
             }
         },
         props:['card'],
+        computed:{
+            user(){
+                return this.$store.state.auth.user;
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
+        },
         mounted() {
             this.closeModalContent = false
         },
         methods: {
+            cardNumberFormat(inputId) {
+                let text = document.getElementById(inputId).value;
+                let result = [];
+//                if(dataType == 'integer') {
+                    text = this[inputId].replace(/[^\d]/g, "");
+//                }
+                while (text.length > 4) {
+                    result.push(text.substring(0, 4));
+                    text = text.substring(4);
+                }
+                if (this[inputId].length > 0) result.push(text);
+                this[inputId] = result.join("-");
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
             createCard() {
-
                 if(this.isLegal == 1) {
                     this.pan = '';
                     this.year = '';
                     this.month = '';
                 }
 
+                let formatedPan = this.pan.split('-').join('');
+
                 let cardData = {
                     iban : this.iban,
-                    pan : this.pan,
+                    pan : formatedPan,
                     isLegal : this.isLegal,
                     expired_at : this.year + '-' + this.month,
                 };
@@ -100,10 +121,7 @@
                         this.$router.push({name: 'card.index'})
                     },
                     (response) => {
-                        store.commit('flashMessage',{
-                            text: response.data.meta.error_message,
-                            type: 'danger'
-                        });
+                        store.commit('setValidationErrors',response.data.validation_errors);
                     }
                 )
             },
@@ -126,7 +144,7 @@
                     document.getElementById("month").focus();
                 }
 
-            }
+            },
         }
     }
 
