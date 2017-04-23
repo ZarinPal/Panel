@@ -98,7 +98,6 @@
     }
   }
 
-
   .user-image{
     width: 25px;
     height:25px;
@@ -221,6 +220,12 @@
 
       .nav-rows{
         .row {
+
+          .title{
+            font-size: 13px;
+            color: #424242;
+          }
+
           .value {
             font-family: IRANSansLight;
           }
@@ -232,6 +237,19 @@
               display: inline-block;
               vertical-align: middle;
               color: #00c853;
+              border-radius: 50%;
+              font-size: 18px;
+              margin-left: 5px;
+            }
+          }
+
+          .unverified{
+            &:before{
+              content: $iconClose;
+              font-family: 'zarinpal';
+              display: inline-block;
+              vertical-align: middle;
+              color: #F44336;
               border-radius: 50%;
               font-size: 18px;
               margin-left: 5px;

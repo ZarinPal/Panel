@@ -21,7 +21,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs.ta-ta-left.no-margin
                     div.label-group.pull-left
                         span.text.merchant-code {{webservice.entity_id}}
-                        span.icon
+                        span.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
 
             div.row.box-row
                 div.col-xs.ta-right
@@ -62,6 +62,14 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         },
         props:['webservice'],
         methods:{
+            clipboardMessage() {
+                store.commit('flashMessage',{
+                    text: 'copied',
+                    type: 'success',
+                    timeout: '500'
+
+                });
+            }
         }
     }
 </script>

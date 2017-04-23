@@ -15,7 +15,7 @@
         name: 'flash-message',
         computed: {
             messagesToShow () {
-                return store.state.flashMessage.messages.filter(function (message) {
+                return store.state.alert.messages.filter(function (message) {
                     return message.show;
                 })
             }

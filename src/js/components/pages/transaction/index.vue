@@ -18,11 +18,11 @@
                             div.row
                                 span.icon-search
                                 span.search-title {{ $i18n.t('transaction.search') }}
-                                span.search-title {{ $i18n.t('transaction.advanceSearch') }}
+                                <!--span.search-title {{ $i18n.t('transaction.advanceSearch') }}-->
 
                             div.row
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" placeholder="62198610****7448")
+                                    input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
                                     div.break
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-9
                                     selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" placeholder="انتخاب کنید ...")
@@ -32,10 +32,9 @@
                                         span {{ $i18n.t('common.search') }}
                                     div.cb
 
-
         div.row.filter-row
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                span.text {{$i18n.t('transaction.purseTransactionList')}}
+                span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
                 span(v-for="purse in user.purses")
                     span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
 
@@ -82,6 +81,7 @@
         name: 'transaction-index',
         data () {
             return {
+                placeholder: '123456******6273',
                 searchOptions: {},
                 filterType: null,
                 filterValue: null,
@@ -92,7 +92,7 @@
                         value: 'transaction_id'
                     },
                     {
-                        title: 'پن',
+                        title: 'شماره کارت',
                         value: 'pan'
                     },
                     {
@@ -162,6 +162,20 @@
             },
             selectFilter(value){
                 this.filterType = value;
+                switch (value) {
+                    case 'transaction_id':
+                        this.placeholder ='۳۹۲۳۳۸۷۱۵۱۴';
+                        break;
+                    case 'pan':
+                        this.placeholder = '۱۲۳۴۵۶******۶۲۷۳';
+                        break;
+                    case 'description':
+                        this.placeholder = 'بازگشت کارمزد تراکنش  ';
+                        break;
+                    case 'email':
+                        this.placeholder = 'example@gmail.com';
+                        break;
+                }
             }
 
         },

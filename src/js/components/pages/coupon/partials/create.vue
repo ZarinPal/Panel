@@ -119,8 +119,19 @@
                 }
             }
         },
-        mounted(){
-            this.closeModalContent = false
+        created(){
+            //Add all item to webservice and easypay
+            let webserviceAll = {
+                'title' : 'همه',
+                'value' : 'all'
+            };
+            this.webserviceSelection.unshift(webserviceAll);
+
+            let easypayAll = {
+                'title' : 'همه',
+                'value' : 'all'
+            };
+            this.easypaySelection.unshift(easypayAll);
         },
         methods: {
             selectedWebservice(entityId) {

@@ -20,7 +20,7 @@
                                     div.col-xs.ta-left
                                         div.label-group.pull-left
                                             span.text {{coupon.code}}
-                                            span.icon(v-clipboard="")
+                                            span.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="coupon.code")
 
                                 div.row
                                     div.col-xs.ta-right
@@ -33,7 +33,8 @@
                                     div.col-xs.ta-right
                                         span.label {{ $i18n.t('coupon.webservice') }}
                                     div.col-xs.ta-left
-                                        span.value {{coupon.webservice_name}}
+                                        span.value(v-if="!coupon.webservice_name") {{ $i18n.t('coupon.all') }}
+                                        span.value(v-else) {{coupon.webservice_name}}
 
                                 div.row
                                     div.col-xs.ta-right
@@ -85,6 +86,13 @@
         methods: {
             closeModal() {
                 this.$emit('closeModal')
+            },
+            clipboardMessage() {
+                store.commit('flashMessage',{
+                    text: 'copied',
+                    type: 'success',
+                    timeout: '500'
+                });
             }
         },
     }
