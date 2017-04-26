@@ -26,7 +26,7 @@
                                     input(type="text" v-model="price" placeholder= "مبلغ")
                                     span.input-icon.amount-icon
                                     textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="description" placeholder= "توضیحات وب‌سایت")
-                                    selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="کیف پول متصل")
+                                    selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" v-bind:selected="1" placeholder="کیف پول متصل")
                                     span.input-icon.purse-icon
                                     div.cb
                                     div.row.nav-buttons

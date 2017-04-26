@@ -13,7 +13,7 @@
   }
 }
 
-.input-icon{
+.input-icon {
   float: right;
   width: 0;
   position: relative;
@@ -121,13 +121,13 @@ input[type="radio"] {
 
   &:checked {
     + label {
-        span {
-          border: 2px solid #ffd600;
+      span {
+        border: 2px solid #ffd600;
 
-          &:after {
-            background-color: #ffd600;
-          }
+        &:after {
+          background-color: #ffd600;
         }
+      }
     }
   }
 }
@@ -163,34 +163,34 @@ input[type="checkbox"] {
 
   &:checked {
     + label {
-        span {
-          background-color: #ffd600;
-          border: 2px solid #ffd600;
+      span {
+        background-color: #ffd600;
+        border: 2px solid #ffd600;
 
-          &:after,
-          &:before {
-            background-color: #ffffff;
-            position: absolute;
-            border-radius: 1px;
-            content: '';
-          }
-
-          &:after {
-            width: 10px;
-            height: 2px;
-            transform: rotate(-45deg);
-            top: 6px;
-            left: 4px;
-          }
-
-          &:before {
-            width: 6px;
-            height: 2px;
-            transform: rotate(45deg);
-            top: 8px;
-            left: 1px;
-          }
+        &:after,
+        &:before {
+          background-color: #ffffff;
+          position: absolute;
+          border-radius: 1px;
+          content: '';
         }
+
+        &:after {
+          width: 10px;
+          height: 2px;
+          transform: rotate(-45deg);
+          top: 6px;
+          left: 4px;
+        }
+
+        &:before {
+          width: 6px;
+          height: 2px;
+          transform: rotate(45deg);
+          top: 8px;
+          left: 1px;
+        }
+      }
     }
   }
 }
@@ -319,7 +319,7 @@ ul.dropdown {
   font-weight: 200;
   font-size: 13px;
   height: 35px;
-  margin:0;
+  margin: 0;
   padding: 7px 16px 7px 16px;
   border-radius: 5px;
   outline: none;
@@ -332,10 +332,14 @@ ul.dropdown {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  .wallet-color{
+  .wallet-color {
     margin-left: 10px;
     margin-right: -5px;
     top: 3px;
+  }
+
+  > ul > li .wallet-color {
+    top: 5px;
   }
 
   > span {
@@ -383,6 +387,7 @@ ul.dropdown {
     top: 42px;
     max-height: 300px !important;
     overflow: auto;
+    z-index: 1;
 
     li {
       height: 34px;
@@ -392,11 +397,11 @@ ul.dropdown {
       transition: $animateTime;
       cursor: default;
 
-      span{
+      span {
 
       }
 
-      &:hover{
+      &:hover {
         background-color: #f3f3f3;
         transition: $animateTime;
       }

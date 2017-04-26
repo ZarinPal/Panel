@@ -14,31 +14,31 @@ export default {
     props: [
         'placeholder',
         'data',
-        'selected',
-        'selectedItem'
+        'selected'
     ],
     data() {
         return {
             selectBoxTitle: this.selected,
             isOpen: false,
+            a: ''
         }
     },
     created() {
         if (this.placeholder) {
             this.selectBoxTitle = this.placeholder;
         }
-//        if (this.selectedItem) {
-//            this.selectItem(selectedItem);
-//        }
+        if (this.selected) {
+            this.selectItem(_.find(this.data, {'value': this.selected}));
+        }
     },
+
     methods: {
-        selectItem(item) {
-//            alert(item);
+        selectItem(item){
             this.selectBoxTitle = item.title;
             this.isOpen = false;
             this.$emit('select', item.value);
         }
     }
-}
+};
 
 </script>
