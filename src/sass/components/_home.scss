@@ -41,7 +41,7 @@
             .txt-wallet-name{
               border: none;
               background-color: #F4F4F4;
-              width: 110px;
+              width: 60px;
             }
 
             span{
@@ -256,5 +256,13 @@
     .row:last-child {
       margin-top: 20px;
     }
+  }
+}
+
+
+//Modal Add fund
+.add-fund{
+  .row{
+    margin: 10px 0;
   }
 }

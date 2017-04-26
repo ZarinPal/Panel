@@ -49,8 +49,10 @@
         computed:{
             pursesSelection() {
                 return this.$store.state.auth.user.purses.map(function (purse) {
+//                    let vm = this;
+//                    let purseBalance = vm.moneyFormat(purse.purse);
                     return {
-                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left">' + purse.balance +  ' تومان</span>',
+                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num">' + purse.balance +  ' تومان</span>',
                         'value': purse.purse
                     }
                 });
@@ -70,7 +72,15 @@
                 };
                 this.$store.state.http.requests['purse.getList'].save(purseData).then(
                     ()=> {
-                        this.$router.push({name: 'home.index'})
+                        let lastPurseId = this.$store.state.auth.user.purses.length;
+                        let newPurse = {
+                            balance: 0,
+                            name: this.purseName,
+                            purse: lastPurseId
+                        };
+
+                        this.$store.state.auth.user.purses.push(newPurse);
+                        this.closeModal();
                     },
                     (response) => {
                         this.$store.commit('flashMessage',{
@@ -80,6 +90,12 @@
                         });
                     }
                 )
+            },
+            moneyFormat(num) {
+//                let n = num.toString(), p = n.indexOf('.');
+//                return n.replace(/\d(?=(?:\d{3})+(?:\.|$))/g, function($0, i){
+//                    return p<0 || i<p ? ($0+',') : $0;
+//                });
             }
         },
         components: {

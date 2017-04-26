@@ -29,7 +29,7 @@
                                     leave-active-class="drop-down-hide")
                             span.drop-down(v-if="showOptions")
                                 span.close-drop-down.drop-down-item(@click="showOptions = !showOptions")
-                                span.drop-down-item.add-fund(@click="isAddFunding = true") {{ $i18n.t('transaction.addFunds') }}
+                                span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('transaction.addFunds') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
 
 
@@ -56,9 +56,15 @@
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-moving-trans
                         span.amount  {{balance.total_to_exit  | numberFormat | persianNumbers }}
+
+
+        addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()" v-bind:purse="purse")
+
 </template>
 
 <script>
+    import addFund from '../partials/add-fund.vue';
+
     export default {
         name: 'pages-home-partials-singlePurse',
         data(){
@@ -68,6 +74,7 @@
                 showOptions: false,
                 isEditingPurseName: false,
                 newPurseName: this.purse.name,
+                visibleAddFund: false,
             }
         },
         props: ['purse'],
@@ -75,6 +82,9 @@
             this.getBalance();
         },
         methods: {
+            closeModal(){
+                this.visibleAddFund = false;
+            },
             changePurseName(){
                 let vm = this;
                 let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
@@ -121,6 +131,9 @@
                     }
                 );
             },
+        },
+        components:{
+            addFund
         }
     }
 </script>

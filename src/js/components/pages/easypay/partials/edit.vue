@@ -277,8 +277,8 @@
 
                 this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
                     ()=> {
-                        this.$router.push({name: 'easypay.index'});
                         this.changeEasypayState();
+                        this.$router.push({name: 'easypay.index'});
                     },
                     (response) => {
                         store.commit('flashMessage',{

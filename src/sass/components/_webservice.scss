@@ -1,5 +1,5 @@
 $ipIcon: $iconAttach;
-$homeIcon: $iconAttach;
+$homeIcon: $icon_zp-home;
 $earthIcon: $iconAttach;
 $mobileIcon: $iconAttach;
 $purseIcon: $iconAttach;
@@ -61,6 +61,40 @@ $webserviceCatIcon: $iconAttach;
 
   input, .selectbox{
     margin: 6px 0;
+  }
+
+  .input-domain{
+    background-color: #f8f9fa;
+    border: 1px solid #CECECE;
+    border-radius: 5px;
+    .http{
+      font-size: 12px;
+      color: #676767;
+      display: inline-block;
+      padding: 7px;
+      border-radius: 5px 0 0 5px;
+      position: relative;
+      left: -10px;
+      direction: ltr;
+    }
+
+    .domain {
+      width: 78% !important;
+      position: relative;
+      border-radius: 0 5px 5px 0;
+      left: -7px;
+      margin: 0 !important;
+      text-align: left;
+      top: 0;
+      right: 3px;
+      float: right;
+      text-indent: 0 !important;
+      border: none !important;
+    }
+
+    .domain:focus {
+      box-shadow: none !important;
+    }
   }
 
   .selectbox {
@@ -132,5 +166,29 @@ $webserviceCatIcon: $iconAttach;
       top: 0 !important;
       right: -8px !important;
     }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .input-domain{
+    background-color: #fff !important;
+
+    .http {
+      display: none !important;
+    }
+
+    .domain {
+      width: 100% !important;
+      border-radius:5px;
+      border: 1px solid #cecece !important;
+      float: none !important;
+      text-align: right;
+    }
+
+    .domain:focus {
+      box-shadow: none !important;
+    }
+
   }
 }
