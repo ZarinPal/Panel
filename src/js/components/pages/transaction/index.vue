@@ -24,13 +24,19 @@
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                                     input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
                                     div.break
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-9
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                                     selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" placeholder="انتخاب کنید ...")
 
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-3
+                            div.row
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
+                                    input(v-model="fromDate" type="text" placeholder="1395-12-04")
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
+                                    input(v-model="toDate" type="text" placeholder="1396-12-04")
+
+
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
                                     button.btn.info.pull-right(v-ripple="" @click="search()")
                                         span {{ $i18n.t('common.search') }}
-                                    div.cb
 
         div.row.filter-row
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
@@ -66,10 +72,10 @@
 
 
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                singleTransaction(v-for="transaction in transactions" v-bind:transaction="transaction")
+            singleTransaction(v-for="transaction in transactions" v-bind:transaction="transaction")
 
         div.ta-center
-            button.btn.rounded.success(@click="loadMore") +
+            <!--button.btn.rounded.success(@click="loadMore") +-->
 
 </template>
 
@@ -85,6 +91,8 @@
                 searchOptions: {},
                 filterType: null,
                 filterValue: null,
+                fromDate: '',
+                toDate: '',
                 generalFilter: 'all',
                 filterTypeData: [
                     {
@@ -133,6 +141,8 @@
                     this.addFilter('purseId', this.$route.params.id);
                 } else if (this.$route.params.type === 'webservice') {
                     this.addFilter('webserviceId', this.$route.params.id);
+                } else if (this.$route.params.type === 'easypay') {
+                    this.addFilter('easypayId', this.$route.params.id);
                 }
                 this.addFilter('status', this.generalFilter);
             },

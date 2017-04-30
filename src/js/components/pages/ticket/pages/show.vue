@@ -191,6 +191,5 @@ span
                 this.getReplies(to.params.id)
             }
         },
-
     }
 </script>

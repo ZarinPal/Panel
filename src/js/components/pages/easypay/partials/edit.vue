@@ -26,7 +26,7 @@
                                     input(type="text" v-model="price" placeholder= "مبلغ")
                                     span.input-icon.amount-icon
                                     textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="description" placeholder= "توضیحات وب‌سایت")
-                                    selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="کیف پول متصل")
+                                    selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="easypay.purse" v-bind:data="pursesSelection"  placeholder="کیف پول متصل")
                                     span.input-icon.purse-icon
                                     div.cb
                                     div.row.nav-buttons
@@ -277,8 +277,8 @@
 
                 this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
                     ()=> {
-                        this.$router.push({name: 'easypay.index'});
                         this.changeEasypayState();
+                        this.$router.push({name: 'easypay.index'});
                     },
                     (response) => {
                         store.commit('flashMessage',{

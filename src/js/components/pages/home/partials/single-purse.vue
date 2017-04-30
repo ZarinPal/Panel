@@ -23,13 +23,13 @@
 
 
                     div.left-box
-                        span.icon-more.circle-hover(@click="showOptions = !showOptions")
+                        span.icon-more.circle-hover(@click="changeMoreTriggerOn()")
                         transition( name="bounce"
                                     enter-active-class="drop-down-show"
                                     leave-active-class="drop-down-hide")
-                            span.drop-down(v-if="showOptions")
-                                span.close-drop-down.drop-down-item(@click="showOptions = !showOptions")
-                                span.drop-down-item.add-fund(@click="isAddFunding = true") {{ $i18n.t('transaction.addFunds') }}
+                            span.drop-down#trigger(v-if="this.$store.state.app.singlePurseMoreTrigger == purse.purse")
+                                span.close-drop-down.drop-down-item(@click="changeMoreTriggerOff()")
+                                span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
 
 
@@ -56,9 +56,15 @@
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-moving-trans
                         span.amount  {{balance.total_to_exit  | numberFormat | persianNumbers }}
+
+
+        addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()" v-bind:purse="purse")
+
 </template>
 
 <script>
+    import addFund from '../partials/add-fund.vue';
+
     export default {
         name: 'pages-home-partials-singlePurse',
         data(){
@@ -68,6 +74,7 @@
                 showOptions: false,
                 isEditingPurseName: false,
                 newPurseName: this.purse.name,
+                visibleAddFund: false,
             }
         },
         props: ['purse'],
@@ -75,6 +82,15 @@
             this.getBalance();
         },
         methods: {
+            changeMoreTriggerOn() {
+                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse
+            },
+            changeMoreTriggerOff() {
+                this.$store.state.app.singlePurseMoreTrigger = ''
+            },
+            closeModal(){
+                this.visibleAddFund = false;
+            },
             changePurseName(){
                 let vm = this;
                 let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
@@ -121,6 +137,18 @@
                     }
                 );
             },
+//            trigger() {
+//                let specifiedElement = document.getElementById('trigger');
+//                document.addEventListener('click', function(event) {
+//                    let isClickInside = specifiedElement.contains(event.target);
+//                    if (!isClickInside) {
+//                        console.log('click outside');
+//                    }
+//                });
+//            }
+        },
+        components:{
+            addFund
         }
     }
 </script>

@@ -32,11 +32,11 @@
 
                                 div.row
                                     input.ta-left#iban(type="text" v-model="iban" placeholder="شماره شبا" maxlength="26")
-                                    span.alert-danger(v-if="validationErrors.iban") {{validationErrors.iban}}
+                                    span.text-danger(v-if="validationErrors.iban") {{validationErrors.iban}}
                                 div(v-if="isLegal == 0")
                                     div.row
                                         input.ta-left(type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
-                                        span.alert-danger(v-if="validationErrors.pan") {{validationErrors.pan}}
+                                        span.text-danger(v-if="validationErrors.pan") {{validationErrors.pan}}
 
                                     div.row.no-margin
                                         div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
@@ -118,7 +118,7 @@
 
                 this.$store.state.http.requests['card.getList'].save(cardData).then(
                     ()=> {
-                        this.$router.push({name: 'card.index'})
+                        this.closeModal();
                     },
                     (response) => {
                         store.commit('setValidationErrors',response.data.validation_errors);

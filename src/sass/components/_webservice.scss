@@ -1,5 +1,5 @@
 $ipIcon: $iconAttach;
-$homeIcon: $iconAttach;
+$homeIcon: $icon_zp-home;
 $earthIcon: $iconAttach;
 $mobileIcon: $iconAttach;
 $purseIcon: $iconAttach;
@@ -67,6 +67,12 @@ $webserviceCatIcon: $iconAttach;
     width: 100%;
     float: left;
     text-indent: 13px;
+  }
+
+  .input-group {
+    .input{
+      margin: 0!important;
+    }
   }
 
   input[type="text"],

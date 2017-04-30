@@ -49,7 +49,7 @@
 
 <script>
     export default {
-        name: 'pages-card-partials-editPurse',
+        name: 'pages-card-partials-edit',
         data() {
             return {
                 closeModalContent: true,

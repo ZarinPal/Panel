@@ -12,8 +12,14 @@
                     div.row
                         div.col-lg-8.col-md-8.col-sm-12.col-xs-12
                             input(type="text" v-model="site_name" placeholder= "نام وب‌سایت")
+
                             span.input-icon.home-icon
-                            input(type="text" v-model="domain" placeholder= "آدرس وب‌سایت: domain.ir")
+                            div.row.input-group.no-margin
+                                div.col-xs.no-margin
+                                    input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir")
+                                div.no-margin.first-label
+                                    span http://www.
+
                             span.input-icon.earth-icon
                             input(type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
                             span.input-icon.mobile-icon
@@ -57,7 +63,7 @@
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         return {
-                            'title': purse.name,
+                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
                             'value': purse.purse
                         }
                     });

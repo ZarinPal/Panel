@@ -12,15 +12,21 @@
                             input#ip(type="text" v-model="site_ip" placeholder= "IP" @keyup="ipFormat()" maxlength="15")
                             span.input-icon.ip-icon
                             input(type="text" v-model="site_name" placeholder= "نام وب‌سایت")
+
                             span.input-icon.home-icon
-                            input(type="text" v-model="domain" placeholder= "آدرس وب‌سایت: domain.ir")
+                            div.row.input-group.no-margin
+                                div.col-xs.no-margin
+                                    input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir")
+                                div.no-margin.first-label
+                                    span http://www.
+
                             span.input-icon.earth-icon
                             input(type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
                             span.input-icon.mobile-icon
                             textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="site_content" placeholder= "توضیحات وب‌سایت")
-                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
+                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="webservice.purse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
                             span.input-icon.purse-icon
-                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
+                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:data="webserviceCatSelection" v-bind:selected="webservice.category_id" placeholder="انتخاب دسته‌بندی وب‌سایت")
                             span.input-icon.webservice-cat-icon
 
                         div.col-lg-6.col-md-6.col-sm-12.col-xs-12
@@ -98,7 +104,7 @@
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         return {
-                            'title': purse.name,
+                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
                             'value': purse.purse
                         }
                     });

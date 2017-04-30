@@ -1,4 +1,4 @@
-$plusIcon: $iconAttach;
+$plusIcon: $icon-zp-add;
 
 .ticket-main-content{
   margin-top: 50px;
@@ -97,14 +97,26 @@ $plusIcon: $iconAttach;
         }
       }
 
-      .rounded {
-        box-shadow: 0px 1px 12px rgba(0, 0, 0, 0.2) !important;
+      .btn-add-ticket{
+        border-radius: 20px;
         &:before{
           content: $plusIcon;
           font-family: 'zarinpal';
           display: inline-block;
           vertical-align: middle;
           font-size: 20px;
+          cursor: pointer;
+        }
+      }
+
+      .rounded {
+        padding: 7px !important;
+        &:before{
+          content: $plusIcon;
+          font-family: 'zarinpal';
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 25px;
           cursor: pointer;
         }
       }
