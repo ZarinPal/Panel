@@ -45,5 +45,5 @@ const app = new Vue({
     },
     components: {
         "flash-message": require('./components/pages/partials/flash-message.vue')
-    }
+    },
 }).$mount('#app');

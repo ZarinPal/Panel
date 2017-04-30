@@ -6,7 +6,7 @@
                 p.page-description {{ $i18n.t('common.easypayDescription') }}
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                router-link.btn.btn-success(tag="span" v-bind:to="{ name: 'easypay.create'}")
+                router-link.btn.success(tag="button" v-bind:to="{ name: 'easypay.create'}")
                     span.icon-add-circle
                     span.text {{ $i18n.t('easypay.createEasypay') }}
 

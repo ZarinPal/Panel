@@ -23,13 +23,13 @@
 
 
                     div.left-box
-                        span.icon-more.circle-hover(@click="showOptions = !showOptions")
+                        span.icon-more.circle-hover(@click="changeMoreTriggerOn()")
                         transition( name="bounce"
                                     enter-active-class="drop-down-show"
                                     leave-active-class="drop-down-hide")
-                            span.drop-down(v-if="showOptions")
-                                span.close-drop-down.drop-down-item(@click="showOptions = !showOptions")
-                                span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('transaction.addFunds') }}
+                            span.drop-down#trigger(v-if="this.$store.state.app.singlePurseMoreTrigger == purse.purse")
+                                span.close-drop-down.drop-down-item(@click="changeMoreTriggerOff()")
+                                span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
 
 
@@ -82,6 +82,12 @@
             this.getBalance();
         },
         methods: {
+            changeMoreTriggerOn() {
+                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse
+            },
+            changeMoreTriggerOff() {
+                this.$store.state.app.singlePurseMoreTrigger = ''
+            },
             closeModal(){
                 this.visibleAddFund = false;
             },
@@ -131,6 +137,15 @@
                     }
                 );
             },
+//            trigger() {
+//                let specifiedElement = document.getElementById('trigger');
+//                document.addEventListener('click', function(event) {
+//                    let isClickInside = specifiedElement.contains(event.target);
+//                    if (!isClickInside) {
+//                        console.log('click outside');
+//                    }
+//                });
+//            }
         },
         components:{
             addFund

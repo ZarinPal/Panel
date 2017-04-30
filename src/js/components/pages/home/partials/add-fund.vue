@@ -14,31 +14,38 @@
 
                         div.body
                             div.contains
+                                div(v-if="activeCards")
+                                    div.row
+                                        span افزایش حساب کیف پول {{purse.name}}
+                                    div.row
+                                        input(type="number" v-model="amount" placeholder="مبلغ")
+                                    div.row
+                                        selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectCard" v-bind:data="activeCards" placeholder="انتخاب حساب بانکی")
 
-                                div.row
-                                    span افزایش حساب کیف پول {{purse.name}}
-                                div.row
-                                    input(type="text" v-model="amount" placeholder="مبلغ")
-                                div.row
-                                    input(type="text" v-model="cardId" placeholder="شماره کارت" maxlength="19" id="cardId" @keyup="cardNumberFormat('cardId')")
+                                    div.row
+                                        div.col-xs.no-margin
+                                            button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
 
-                                div.row
-                                    div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
+                                div.nav-not-active-card(v-else)
+                                    p.header {{ $i18n.t('common.zarinpal') }}
+                                    p.description {{ $i18n.t('purse.addFundNotActiveCard') }}
 
 </template>
 
 
 <script>
+    import selectbox from '../../partials/selectbox.vue';
+
     export default {
         name: 'home-purse-addFund',
         data() {
             return {
                 closeModalContent: false,
-//                purse: purse.purse,
                 amount: '',
                 cardId: '',
-                redirectUrl: ''
+                redirectUrl:encodeURI(
+                'https://' + window.location.hostname + '/'
+                + this.$router.resolve({name: 'home.finishAddFund'}).href),
             }
         },
         props: ['purse'],
@@ -46,24 +53,54 @@
             this.closeModalContent = false
         },
         computed:{
+            activeCards() {
+                let activeCards = [];
 
+                _.forEach(this.$store.state.auth.user.cards, function(card) {
+                    if(card.status == "Active") {
+                        activeCards.unshift({
+                            'title' : '<img src="assets/img/banks/' + card.issuer.slug  + '.png" class="bank-logo"></img>' + card.issuer.name + '<span class="pull-left">' + card.pan +  '</span>',
+                            'value' : card.entity_id,
+                        });
+                    }
+                });
+                return activeCards;
+            }
         },
         methods: {
             closeModal() {
                 this.$emit('closeModal')
             },
             addFund() {
-                let formatedCardId = this.cardId.split('-').join('');
                 let addFundData = {
                     purse: this.purse.purse,
                     amount: this.amount,
-                    card_id: formatedCardId,
+                    card_id: this.cardId,
                     redirect_url: this.redirectUrl
                 };
-
                 this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
-                    ()=> {
-                        this.reload();
+                    (response)=> {
+
+                        let vm = this;
+                        let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+                            return purse.purse === vm.purse.purse
+                        });
+
+                        let balance = this.$store.state.auth.user.purses[purseIndex].balance;
+                        let newBalance = this.amount + balance;
+                        this.$store.state.auth.user.purses[purseIndex].balance = newBalance;
+
+
+                        let addFundWindow = window.open(
+                            'https://www.zarinpal.com/pg/StartPay/' + response.data.data.authority + '/ZarinGate',
+                            'شارژ کیف‌پول'
+                        );
+                        addFundWindow.onbeforeunload = ()=>{
+                            store.commit('flashMessage', {
+                                text: 'کیف پول مورد نظر شارژ شد',
+                                type: 'success',
+                            });
+                        };
                     },
                     (response) => {
                         this.$store.commit('flashMessage',{
@@ -88,7 +125,13 @@
                 if (this[inputId].length > 0) result.push(text);
                 this[inputId] = result.join("-");
             },
+            selectCard(cardId) {
+                this.cardId = cardId;
+            }
         },
+        components: {
+            selectbox
+        }
     }
 
 </script>

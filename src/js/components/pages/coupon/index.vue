@@ -6,7 +6,7 @@
                 p.page-description {{$i18n.t('coupon.couponsDescription')}}
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                router-link.btn.btn-success(tag="span" v-bind:to="{ name: 'coupon.create'}")
+                router-link.btn.success(tag="button" v-bind:to="{ name: 'coupon.create'}")
                     span.icon-add-circle
                     span.text {{ $i18n.t('coupon.createCoupon') }}
 

@@ -109,6 +109,35 @@
 }
 
 
+//Pages Header
+.nav-page-header{
+  .btn{
+    float: left;
+    margin-top: 15px;
+
+    .text {
+      color: #fff;
+      font-size: 14px;
+      display: inline-block;
+      margin-top: -3px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .icon-add-circle{
+      display: inline-block;
+      font-size: 20px;
+      &:before{
+        content: $addCircleIcon;
+        font-family:'zarinpal';
+        color: #fff;
+        position: relative;
+        top: 3px;
+      }
+    }
+  }
+}
+
 //Boxes
 .no-margin{
   margin: 0 !important;
@@ -344,6 +373,7 @@
 }
 
 .tag-active{
+  cursor: default;
   &:before{
     content: $activeTagIcon;
     font-family: 'zarinpal';
@@ -357,6 +387,7 @@
 }
 
 .tag-inactive{
+  cursor: pointer;
 
   &:before{
     content: $activeTagIcon;
@@ -405,7 +436,7 @@
     padding: 4px 10px;
     float: left;
     background-color: #f8f9fa;
-
+    cursor: copy;
 
     &:before{
       content: $iconCopy;
@@ -486,7 +517,7 @@
 
       .icon-close {
         &:before {
-          content: $closeIcon;
+          content: $iconClose;
           font-family: 'zarinpal';
           display: inline-block;
           vertical-align: middle;

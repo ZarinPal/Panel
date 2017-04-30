@@ -1,4 +1,4 @@
-$plusIcon: $iconAttach;
+$plusIcon: $icon-zp-add;
 
 .ticket-main-content{
   margin-top: 50px;
@@ -97,13 +97,26 @@ $plusIcon: $iconAttach;
         }
       }
 
-      .rounded {
+      .btn-add-ticket{
+        border-radius: 20px;
         &:before{
           content: $plusIcon;
           font-family: 'zarinpal';
           display: inline-block;
           vertical-align: middle;
           font-size: 20px;
+          cursor: pointer;
+        }
+      }
+
+      .rounded {
+        padding: 7px !important;
+        &:before{
+          content: $plusIcon;
+          font-family: 'zarinpal';
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 25px;
           cursor: pointer;
         }
       }

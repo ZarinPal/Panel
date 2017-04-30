@@ -12,10 +12,14 @@
                     div.row
                         div.col-lg-8.col-md-8.col-sm-12.col-xs-12
                             input(type="text" v-model="site_name" placeholder= "نام وب‌سایت")
+
                             span.input-icon.home-icon
-                            div.input-domain
-                                input.domain(type="text" v-model="domain" placeholder= "آدرس وب‌سایت: domain.ir")
-                                span.http http://www.
+                            div.row.input-group.no-margin
+                                div.col-xs.no-margin
+                                    input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir")
+                                div.no-margin.first-label
+                                    span http://www.
+
                             span.input-icon.earth-icon
                             input(type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
                             span.input-icon.mobile-icon

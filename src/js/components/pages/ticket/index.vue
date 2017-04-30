@@ -22,7 +22,7 @@
 
 
                             div.ta-center.sticky-new-ticket(v-sticky="")
-                                router-link.btn.success(v-if="this.$store.state.app.isTicketEmptyPage" tag="button" v-bind:to="{ name: 'ticket.create'}")  {{$i18n.t('ticket.addTicket')}}
+                                router-link.btn.success.btn-add-ticket(v-if="this.$store.state.app.isTicketEmptyPage" tag="button" v-bind:to="{ name: 'ticket.create'}")  {{$i18n.t('ticket.addTicket')}}
                                 router-link.btn.success.rounded(v-else tag="button" v-bind:to="{ name: 'ticket.create'}")
 
                     div.col-xs.nav-tickets.full-height

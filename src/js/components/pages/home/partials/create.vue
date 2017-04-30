@@ -52,7 +52,7 @@
 //                    let vm = this;
 //                    let purseBalance = vm.moneyFormat(purse.purse);
                     return {
-                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num">' + this.moneyFormat(purse.balance) +  ' تومان</span>',
+                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num">' + purse.balance +  ' تومان</span>',
                         'value': purse.purse
                     }
                 });
