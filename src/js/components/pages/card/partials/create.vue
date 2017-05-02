@@ -30,13 +30,18 @@
                                                     span
                                                     |{{ $i18n.t('card.legal')}}
 
-                                div.row
-                                    input.ta-left#iban(type="text" v-model="iban" placeholder="شماره شبا" maxlength="26")
-                                    span.text-danger(v-if="validationErrors.iban") {{validationErrors.iban}}
+                                div.row.input-group.no-margin(:class="{'input-danger': validationErrors.iban}")
+                                    div.col-xs.no-margin
+                                        input.input.ta-left(type="text" v-model="iban"  placeholder= "شماره شبا" maxlength="27"  id="iban" @keyup="cardNumberFormat('iban')")
+                                    div.no-margin.first-label
+                                        span IR
+
+                                span.text-danger(v-if="validationErrors.iban") {{ $i18n.t(validationErrors.iban) }}
+
                                 div(v-if="isLegal == 0")
                                     div.row
-                                        input.ta-left(type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
-                                        span.text-danger(v-if="validationErrors.pan") {{validationErrors.pan}}
+                                        input.ta-left(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
+                                        span.text-danger(v-if="validationErrors.pan") {{ $i18n.t(validationErrors.pan) }}
 
                                     div.row.no-margin
                                         div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
@@ -45,15 +50,14 @@
                                             div.row.nav-expiration-input
                                                 div.col-xs.no-margin
                                                     span.label {{$i18n.t('card.month')}}:
-                                                    input#month(type="number" v-model="month" placeholder="۰۰" maxlength="2" @keyup="changeMonthFocus")
+                                                    input#month(type="number" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
                                                 div.col-xs.no-margin
                                                     span.label {{$i18n.t('card.year')}}:
-                                                    input#year(type="number" v-model="year" placeholder="۰۰۰۰" maxlength="4" @keyup="changeYearFocus")
+                                                    input#year(type="number" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
 
                                 div.row
                                     div.col-xs.no-margin
                                         button.btn.success.pull-left(v-ripple="" @click="createCard") {{$i18n.t('card.createCard')}}
-
 </template>
 
 
@@ -63,7 +67,7 @@
         data() {
             return {
                 closeModalContent: false,
-                iban: 'IR',
+                iban: '',
                 pan: '',
                 year: '',
                 month: '',
@@ -108,12 +112,18 @@
                 }
 
                 let formatedPan = this.pan.split('-').join('');
+                let formatedIban = this.iban.split('-').join('');
+
+                let expiredAt = '';
+                if(this.year && this.month) {
+                    expiredAt = this.year + '-' + this.month;
+                }
 
                 let cardData = {
-                    iban : this.iban,
+                    iban : 'IR' + formatedIban,
                     pan : formatedPan,
                     isLegal : this.isLegal,
-                    expired_at : this.year + '-' + this.month,
+                    expired_at : expiredAt,
                 };
 
                 this.$store.state.http.requests['card.getList'].save(cardData).then(

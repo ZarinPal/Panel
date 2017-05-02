@@ -108,6 +108,10 @@
   text-align: center !important;
 }
 
+.full-width{
+  width:100%
+}
+
 
 //Pages Header
 .nav-page-header{
@@ -235,6 +239,7 @@
             display: block;
             padding: 8px 15px;
             transition: $animateTime;
+            cursor: default;
 
             &:before{
               color: $itemIconColor;

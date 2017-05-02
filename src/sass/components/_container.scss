@@ -512,10 +512,11 @@ body {
     top: -5px;
     height: 27px;
     .icon-zarinpal{
+
       &::before {
         content: $iconZarinpal;
         font-family: 'zarinpal' !important;
-        font-size: 20px;
+        font-size: 15px;
         margin-left: 2px;
         position: relative;
         top: 3px;
@@ -528,7 +529,7 @@ body {
       display: inline-block;
       margin-left: 12px;
       position: relative;
-      top: -2px;
+      top: -1px;
     }
   }
 

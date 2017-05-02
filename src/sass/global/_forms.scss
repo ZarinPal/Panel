@@ -19,6 +19,7 @@
   position: relative;
   top: 13px;
   right: 8px;
+  z-index: 1;
 }
 
 input[type="text"],
@@ -434,6 +435,7 @@ ul.dropdown {
   .input {
     border-radius: 0 5px 5px 0;
     border: none !important;
+    margin: 0 !important;
   }
 
   .input:focus {

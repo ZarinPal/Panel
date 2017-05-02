@@ -5,11 +5,14 @@ export default {
     },
     mutations: {
         setValidationErrors(state, validationErrors) {
+            console.log()
             let errors = {};
-            validationErrors.forEach(function (error) {
-                errors[error.input] = error.message;
-            });
-            state.validationErrors = errors;
+            if(validationErrors) {
+                validationErrors.forEach(function (error) {
+                    errors[error.input] = error.translation_key;
+                    state.validationErrors = errors;
+                });
+            }
         },
         flashMessage(state, message){
             state.messages.push({

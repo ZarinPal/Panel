@@ -1,6 +1,6 @@
-$moreIcon: $icon-ic_more_vert_black_48px;
+$moreIcon: $icon_zp-more-vert;
 $iconCopy: $icon_zp-copy;
-$iconEdit: $icon-ic_notifications_black_48px;
+$iconEdit: $icon_zp-edit;
 $iconDetails: $icon-ic_notifications_black_48px;
 $iconCloud: $icon_zp-upload;
 $iconEditBank: $icon-ic_notifications_black_48px;
@@ -8,36 +8,34 @@ $iconDelete: $icon_zp-delete;
 $activeTagIcon: $icon_zp-check-circle;
 $inActiveTagIcon: $icon-ic_notifications_black_48px;
 
-
 $movingTransIcon: $icon_zp-transaction_reconciliation;
 $inputTransIcon: $icon_zp-transaction_trend_down;
 $outputTransIcon: $icon_zp-transaction_trend_up;
 $chartIcon: $icon-ic_notifications_black_48px;
 $addCircleIcon: $icon_zp-add-circle;
-$moreIcon: $icon-ic_more_vert_black_48px;
-$iconAddFund: $icon-ic_keyboard_arrow_down_black_48px;
-$iconTransaction: $icon-ic_keyboard_arrow_down_black_48px;
-$iconCloseDropDown: $icon-zp-close;
+$iconAddFund: $icon_zp-add;
+$iconTransaction: $icon_zp-transaction_reconciliation;
+$iconCloseDropDown: $icon_zp-close;
 
 
 //Container
 $itemArrow: $icon-ic_keyboard_arrow_down_black_48px;
 $iconMobileSidebarCollapse: $icon_zp-close;
-$iconMenu:$icon-ic_menu_black_48px;
-$iconLogout: $icon-ic_exit_to_app_black_48px;
-$iconBackArrow:$icon_zp-arrow-left;
-$iconZarinpal: $icon-zp-zarinpal;
+$iconMenu:$icon_zp-menu;
+$iconLogout: $icon_zp-sign-out;
+$iconBackArrow:$icon_zp-close;
+$iconZarinpal: $icon_zp-zarinpal;
 
 
 //Transactions
 $iconForward:$icon-zp-arrow-left;
 $internalTransactionIcon:$icon-ic_arrow_forward_black_48px;
 $pendingTransactionIcon:$icon-ic_arrow_forward_black_48px;
-$iconSearch:$icon-zp-add-circle;
+$iconSearch:$icon-zp-search;
 
-$iconPrinter: $icon-ic_search_black_48px;
+$iconPrinter: $icon_zp-print;
 $iconTick: $icon-zp-check-circle;
-$iconClose: $icon-zp-close;
+$iconClose: $icon_zp-close;
 
 //Tickets
 $iconAttach:$icon_zp-attach;
@@ -54,6 +52,6 @@ $globeIcon: $icon_zp-globe;
 $ipIcon: $icon-zp-globe;
 $homeIcon: $icon-zp-home;
 $earthIcon: $icon-zp-globe;
-$mobileIcon: $iconAttach;
+$mobileIcon: $icon_zp-mobile;
 $purseIcon: $icon-zp-wallet;
 $webserviceCatIcon: $icon-zp-open;

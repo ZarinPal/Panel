@@ -17,6 +17,7 @@
                             div.row
                                 span.icon-search
                                 span.search-title {{ $i18n.t('transaction.search') }}
+                                span.break
                                 <!--span.search-title {{ $i18n.t('transaction.advanceSearch') }}-->
 
                             div.row
@@ -203,9 +204,9 @@
                 return this.$store.state.auth.user;
             },
             transactions() {
-//                if(this.$store.state.paginator.data) {
-//                    this.isLoaded = true;
-//                }
+                if(this.$store.state.paginator.data) {
+                    this.isLoaded = true;
+                }
                 return this.$store.state.paginator.data;
             }
         },
