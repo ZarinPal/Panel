@@ -9,7 +9,7 @@
                 router-view
         div.clear-both
     div(v-else)
-        loading
+        h1 loading
 
 </template>
 

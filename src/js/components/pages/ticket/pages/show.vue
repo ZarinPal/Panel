@@ -5,7 +5,7 @@ span
             div.col-xs
                 span.ticket-title {{ticket.title}}
             div.col-xs
-                span.ticket-id.pull-left {{ticket.public_id | persianNumbers}}
+                span.ticket-id.pull-left(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="ticket.public_id") {{ticket.public_id | persianNumbers}}
 
         div.ver-line
         div.row.bottom-row
@@ -56,6 +56,8 @@ span
                     div.middle-xs.body.ta-right
                         p(v-html="$options.filters.code(reply.content)")
 
+                        span(v-if="reply.attachment") {{rely.attachment}}
+
     div.nav-send
         div.row
             div
@@ -68,7 +70,6 @@ span
                     textarea(placeholder="متن پاسخ تیکت..." v-model="content")
                 button.submit(@click="send") {{ $i18n.t('ticket.send')}}
                 input.attach(type="file" name="file" @change="onFileChange")
-
 
     button.btn.success(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
 
@@ -184,7 +185,15 @@ span
                         });
                     }
                 )
-            }
+            },
+            clipboardMessage() {
+                store.commit('flashMessage',{
+                    text: 'copied',
+                    type: 'success',
+                    timeout: '500'
+
+                });
+            },
         },
         watch: {
             '$route' (to) {

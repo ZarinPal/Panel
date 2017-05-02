@@ -4,9 +4,8 @@
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 p.page-title {{ $i18n.t('common.tickets') }}
-                p.page-description ٖ{{ $i18n.t('ticket.sendDescription') }}
+                p.page-description {{ $i18n.t('ticket.sendDescription') }}
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                div.break
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'}") {{ $i18n.t('common.returnToDashboard') }}
 
         div.nav-ticket-create.col-lg-12.col-xs-12

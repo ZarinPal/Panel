@@ -248,12 +248,24 @@
     }
   }
 
-  .bank-logo{
-    width: 19px;
-    position: relative;
-    top: 3px;
-    margin-left: 5px;
+  .dropdown{
+
+    //li:nth-child(1){
+    //  span {
+    //    position: relative;
+    //    top: -6px;
+    //  }
+    //}
+
+    .bank-logo{
+      width: 19px;
+      position: relative;
+      top: 3px;
+      margin-left: 5px;
+    }
   }
+
+
 
   .row {
     margin: 10px 0;
