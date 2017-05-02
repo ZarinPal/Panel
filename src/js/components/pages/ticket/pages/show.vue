@@ -9,16 +9,16 @@ span
 
         div.ver-line
         div.row.bottom-row
-            div.col-lg-3.col-md-3.col-xs-12
+            div.col-lg-3.col-md-6.col-sm-6.col-xs-12
                 span.title {{ $i18n.t('ticket.updated') }} :
                 span.value {{ticket.updated_at | fromNow | persianNumbers}}
-            div.col-lg-3.col-md-3.col-xs-12
+            div.col-lg-3.col-md-6.col-sm-6.col-xs-12
                 span.title {{ $i18n.t('ticket.created') }} :
                 span.value {{ticket.created_at | fromNow | persianNumbers}}
-            div.col-lg-3.col-md-3.col-xs-12
+            div.col-lg-3.col-md-6.col-sm-6.col-xs-12
                 span.title {{ $i18n.t('ticket.status') }} :
                 span.value {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
-            div.col-lg-3.col-md-3.col-xs-12
+            div.col-lg-3.col-md-6.col-sm-6.col-xs-12
                 span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
                 button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
 
@@ -38,7 +38,7 @@ span
 
                     div.middle-xs.body.ta-right
                         p(v-html="$options.filters.code(reply.content)")
-
+                        a.ticket-attachment-download(v-if="reply.attachment" @click="downloadAttachFile()") download
 
             <!--Admin Ticket-->
             div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section(v-else)
@@ -55,8 +55,7 @@ span
 
                     div.middle-xs.body.ta-right
                         p(v-html="$options.filters.code(reply.content)")
-
-                        span(v-if="reply.attachment") {{rely.attachment}}
+                        a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") download
 
     div.nav-send
         div.row
@@ -194,6 +193,9 @@ span
 
                 });
             },
+            downloadAttachFile() {
+
+            }
         },
         watch: {
             '$route' (to) {

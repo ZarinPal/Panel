@@ -11,22 +11,43 @@
                 div.body
                     div.row
                         div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                            input(type="text" v-model="site_name" placeholder= "نام وب‌سایت")
+                            div.row.no-margin
+                                span.input-icon.home-icon
+                                input(:class="{'input-danger': validationErrors.site_name}" type="text" v-model="site_name" placeholder= "نام وب‌سایت")
+                                div.ta-right(v-if="validationErrors.site_name")
+                                    span.text-danger {{ $i18n.t(validationErrors.site_name) }}
 
-                            span.input-icon.home-icon
-                            div.row.input-group.no-margin
-                                div.col-xs.no-margin
-                                    input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir")
-                                div.no-margin.first-label
-                                    span http://www.
+                            div.row.no-margin
+                                span.input-icon.earth-icon
+                                div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.domain}")
+                                    div.col-xs.no-margin
+                                        input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir")
+                                    div.no-margin.first-label
+                                        span http://www.
 
-                            input(type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
-                            span.input-icon.mobile-icon
-                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="site_content" placeholder= "توضیحات وب‌سایت")
-                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
-                            span.input-icon.purse-icon
-                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
-                            span.input-icon.webservice-cat-icon
+                                div.ta-right(v-if="validationErrors.domain")
+                                    span.text-danger {{ $i18n.t(validationErrors.domain) }}
+
+
+                            div.row.no-margin
+                                span.input-icon.mobile-icon
+                                input(:class="{'input-danger': validationErrors.tel}" type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
+                                div.ta-right(v-if="validationErrors.tel")
+                                    span.text-danger {{ $i18n.t(validationErrors.tel) }}
+
+
+                            div.row.no-margin
+                                textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.site_content}" v-model="site_content" placeholder= "توضیحات وب‌سایت")
+                                div.ta-right(v-if="validationErrors.site_content")
+                                    span.text-danger {{ $i18n.t(validationErrors.site_content) }}
+
+                            div.row.no-margin
+                                span.input-icon.purse-icon
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
+
+                            div.row.no-margin
+                                span.input-icon.webservice-cat-icon
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
 
                 div.row
                     div.col-xs.nav-buttons
@@ -54,9 +75,6 @@
                 fileUploadFormData: new FormData(),
             }
         },
-        created(){
-            this.$store.dispatch('app/getWebserviceCategories');
-        },
         computed:{
             pursesSelection() {
                 if(this.$store.state.auth.user.purses) {
@@ -77,7 +95,13 @@
                         }
                     });
                 }
-            }
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
+        },
+        created(){
+            this.$store.dispatch('app/getWebserviceCategories');
         },
         methods: {
             selectedPurse(purseId) {
@@ -102,6 +126,7 @@
                         this.$router.push({name: 'webservice.index'})
                     },
                     (response) => {
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         this.messages = response.data.meta.error_message;
                         store.commit('flashMessage',{
                             text: this.messages,
