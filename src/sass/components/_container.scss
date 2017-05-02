@@ -326,6 +326,10 @@ body {
       font-size: 20px;
       cursor: pointer;
 
+      .icon-zp-easy-pay:before{
+        margin-right: -5px !important;
+      }
+
       .dot-show{
         opacity: 0 !important;
       }
@@ -432,6 +436,10 @@ body {
         height: 100%;
         padding: 10px 0;
 
+        .icon-zp-easy-pay:before{
+          margin-right: -5px !important;
+        }
+
         i{
           display: inline-block;
           margin-right: 15px;
@@ -497,26 +505,30 @@ body {
     font-size: 12px;
   }
 
-  .zp-id-color{
+  .zp-id-color {
     border-radius: 20px;
     float: left;
     position: relative;
     top: -5px;
     height: 27px;
-    img{
-      float: right;
-      position: relative;
-      top: 8px;
-      right: 8px;
-      margin-left: 10px;
-      margin-bottom: 1px;
-      margin-right: 8px;
+    .icon-zarinpal{
+      &::before {
+        content: $iconZarinpal;
+        font-family: 'zarinpal' !important;
+        font-size: 20px;
+        margin-left: 2px;
+        position: relative;
+        top: 3px;
+        padding-right: 4px;
+      }
     }
     span{
       color: #5a4c01;
       font-size: 12px;
       display: inline-block;
-      margin-left: 19px;
+      margin-left: 12px;
+      position: relative;
+      top: -2px;
     }
   }
 
@@ -663,6 +675,10 @@ body {
         div{
           height: 100%;
           padding: 10px 0;
+
+          .icon-zp-easy-pay:before{
+            margin-right: -5px !important;
+          }
 
           i{
             display: inline-block;

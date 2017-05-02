@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.full-height(v-show="$store.state.app.isLoaded")
+    div.full-height(v-if="$store.state.app.isLoaded")
         navbar
 
         div.zp-container.row

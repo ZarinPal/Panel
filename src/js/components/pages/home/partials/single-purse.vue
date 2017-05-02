@@ -37,11 +37,12 @@
                 router-link(tag="li" v-bind:to="{ name: 'transaction.index', params: {type: 'purse', id: purse.purse} }")
                     div.nav-balance
                         div.txt-balance {{ $i18n.t('common.balance') }}
-                        div.balance-amount {{balance.balance | numberFormat | persianNumbers }}
+
+                        div.balance-amount(v-if="isLoaded") {{balance.balance | numberFormat | persianNumbers }}
+                        div.balance-amount(v-else) -
                         div.nav-show-chart
                             <!--span.chart-icon-->
                             <!--span {{ $i18n.t('common.showChart')}}-->
-
 
             div.bottom-xs.footer
                 div.row
@@ -70,7 +71,7 @@
         data(){
             return {
                 balance: {},
-                loading: true,
+                isLoaded: false,
                 showOptions: false,
                 isEditingPurseName: false,
                 newPurseName: this.purse.name,
@@ -104,7 +105,7 @@
                 if(this.$store.state.auth.user.purses) {
                     this.$store.state.http.requests['purse.getBalance'].get({purseId: this.purse.purse}).then(response => {
                         this.balance = response.data.data;
-                        this.loading = false;
+                        this.isLoaded = true;
 
                         let vm = this;
                         let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {

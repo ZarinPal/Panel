@@ -20,7 +20,6 @@
                                 div.no-margin.first-label
                                     span http://www.
 
-                            span.input-icon.earth-icon
                             input(type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
                             span.input-icon.mobile-icon
                             textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="site_content" placeholder= "توضیحات وب‌سایت")

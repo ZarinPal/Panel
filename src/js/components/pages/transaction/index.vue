@@ -7,8 +7,7 @@
                 p.page-title {{ $i18n.t('common.transactions') }}
                 p.page-description {{ $i18n.t('transaction.description') }}
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                div.break
-                    router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
+                router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
 
         div.row
             div.col-xs
@@ -71,8 +70,10 @@
                 small ({{ $i18n.t('transaction.toman') }})
 
 
-        div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+        div.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="isLoaded")
             singleTransaction(v-for="transaction in transactions" v-bind:transaction="transaction")
+        div(v-else)
+            h1 this is loading
 
         div.ta-center
             <!--button.btn.rounded.success(@click="loadMore") +-->
@@ -87,6 +88,7 @@
         name: 'transaction-index',
         data () {
             return {
+                isLoaded: false,
                 placeholder: '123456******6273',
                 searchOptions: {},
                 filterType: null,
@@ -110,6 +112,10 @@
                     {
                         title: 'ایمیل',
                         value: 'email'
+                    },
+                    {
+                        title: 'شماره موبایل',
+                        value: 'mobile'
                     }
 
                 ],
@@ -185,6 +191,9 @@
                     case 'email':
                         this.placeholder = 'example@gmail.com';
                         break;
+                    case 'mobile':
+                        this.placeholder = '09xxxxxxxxx';
+                        break;
                 }
             }
 
@@ -193,7 +202,10 @@
             user() {
                 return this.$store.state.auth.user;
             },
-            transactions(){
+            transactions() {
+//                if(this.$store.state.paginator.data) {
+//                    this.isLoaded = true;
+//                }
                 return this.$store.state.paginator.data;
             }
         },

@@ -73,6 +73,9 @@
   }
 
   .amount-icon {
+    &:before{
+      font-size: 13px !important;
+    }
     @include easypay-input-icon($amountIcon);
   }
 

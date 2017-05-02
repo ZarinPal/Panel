@@ -14,7 +14,7 @@
 
                         div.body
                             div.contains
-                                div(v-if="activeCards")
+                                div(v-if="activeCards.length")
                                     div.row
                                         span افزایش حساب کیف پول {{purse.name}}
                                     div.row
@@ -27,7 +27,7 @@
                                             button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
 
                                 div.nav-not-active-card(v-else)
-                                    p.header {{ $i18n.t('common.zarinpal') }}
+                                    p.title {{ $i18n.t('common.zarinpal') }}
                                     p.description {{ $i18n.t('purse.addFundNotActiveCard') }}
 
 </template>
@@ -55,9 +55,8 @@
         computed:{
             activeCards() {
                 let activeCards = [];
-
                 _.forEach(this.$store.state.auth.user.cards, function(card) {
-                    if(card.status == "Active") {
+                    if(card.status == "Active" && card.pan !== null) {
                         activeCards.unshift({
                             'title' : '<img src="assets/img/banks/' + card.issuer.slug  + '.png" class="bank-logo"></img>' + card.issuer.name + '<span class="pull-left">' + card.pan +  '</span>',
                             'value' : card.entity_id,
