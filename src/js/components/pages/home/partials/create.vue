@@ -16,7 +16,10 @@
                             div.contains
 
                                 div.row
-                                    input(type="text" v-model="purseName" placeholder="نام کیف پول")
+                                    input(:class="{'input-danger': validationErrors.name}" type="text" v-model="purseName" placeholder="نام کیف پول")
+                                    div.ta-right(v-if="validationErrors.name")
+                                        span.text-danger {{ $i18n.t(validationErrors.name) }}
+
                                     selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
 
                                 div.row
@@ -56,7 +59,10 @@
                         'value': purse.purse
                     }
                 });
-            }
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
         },
         methods: {
             closeModal() {
@@ -83,6 +89,7 @@
                         this.closeModal();
                     },
                     (response) => {
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         this.$store.commit('flashMessage',{
                             text: response.data.meta.error_message,
                             important: false,

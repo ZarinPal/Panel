@@ -35,7 +35,6 @@
                                 div.ta-right(v-if="validationErrors.tel")
                                     span.text-danger {{ $i18n.t(validationErrors.tel) }}
 
-
                             div.row.no-margin
                                 textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.site_content}" v-model="site_content" placeholder= "توضیحات وب‌سایت")
                                 div.ta-right(v-if="validationErrors.site_content")
@@ -52,6 +51,8 @@
                 div.row
                     div.col-xs.nav-buttons
                         button.btn.success.pull-right(v-ripple="" @click="createWebservice") {{$i18n.t('webservice.create')}}
+                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -63,6 +64,7 @@
         name: 'pages-webservice-partials-create',
         data() {
             return {
+                loading: false,
                 fileHover: false,
                 messages: {},
                 domain: '',
@@ -111,6 +113,7 @@
                 this.webservice_category_id = webserviceCatId;
             },
             createWebservice() {
+                this.loading = true;
                 let webserviceData = {
                     domain: this.domain,
                     tel: this.tel,
@@ -126,6 +129,7 @@
                         this.$router.push({name: 'webservice.index'})
                     },
                     (response) => {
+                        this.loading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                         this.messages = response.data.meta.error_message;
                         store.commit('flashMessage',{

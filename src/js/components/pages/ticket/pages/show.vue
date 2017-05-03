@@ -66,8 +66,15 @@ span
                     b.title پاسخ به تیکت:
                     span.value {{ ticket.title }}
                 div
-                    textarea(placeholder="متن پاسخ تیکت..." v-model="content")
+                    textarea(:class="{'input-danger': validationErrors.content}" placeholder="متن پاسخ تیکت..." v-model="content")
+                    div.ta-right(v-if="validationErrors.content")
+                        span.text-danger {{ $i18n.t(validationErrors.content) }}
+
+
                 button.submit(@click="send") {{ $i18n.t('ticket.send')}}
+                    svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
                 input.attach(type="file" name="file" @change="onFileChange")
 
     button.btn.success(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
@@ -79,6 +86,7 @@ span
         name: 'ticket-show',
         data() {
           return {
+              loading: false,
               ticket: {},
               content: '',
               errorMessage: '',
@@ -91,7 +99,10 @@ span
             },
             content() {
 
-            }
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
         },
         created() {
             this.getReplies(this.$route.params.id);
@@ -116,6 +127,7 @@ span
                 });
             },
             send() {
+                this.loading = true;
                 let ticketData = {
                     content : this.content,
                     attachment: this.attachment,
@@ -127,9 +139,14 @@ span
 
                 this.$store.state.http.requests['ticket.Reply'].save(params, ticketData).then(
                     ()=> {
+                        this.content = '';
                         this.getReplies(this.$route.params.id);
+                        this.loading = false;
+                        this.validationErrors.content = '';
                     },
                     (response) => {
+                        this.loading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
                             type: 'danger'

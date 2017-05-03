@@ -13,13 +13,24 @@
                 div.right-box.col-lg-7.col-md-6.col-sm-12.col-xs-12
                     div.row
                         div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                            input.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="title" type="text"  placeholder="عنوان تیکت")
+                            input.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.title}" v-model="title" type="text"  placeholder="عنوان تیکت")
+                            div.ta-right(v-if="validationErrors.title")
+                                span.text-danger {{ $i18n.t(validationErrors.title) }}
+
+
                         div.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                            selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectDepartment" v-bind:data="departmentSelection" placeholder="دپارتمان")
+                            selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.ticket_department_id}" v-on:select="selectDepartment" v-bind:selected="priority" v-bind:data="departmentSelection" placeholder="دپارتمان")
+                            div.ta-right(v-if="validationErrors.ticket_department_id")
+                                span.text-danger {{ $i18n.t(validationErrors.ticket_department_id) }}
 
 
                     div.row.no-margin
-                        textarea(v-model="content" placeholder="توضیحات")
+                        textarea(:class="{'input-danger': validationErrors.content}" v-model="content" placeholder="توضیحات")
+                        div.ta-right( v-if="validationErrors.content")
+                            span.text-danger {{ $i18n.t(validationErrors.content) }}
+
+
+
 
                 div.left-box.col-lg-5.col-md-6.col-sm-12.col-xs-12
                     div.row
@@ -47,6 +58,8 @@
                     div.row.nav-button
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="send") {{$i18n.t('ticket.createTicket')}}
+                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -57,6 +70,7 @@
         name: 'ticket-create',
         data() {
             return {
+                loading: false,
                 status: 0 ,
                 priority: 0,
                 title: '',
@@ -82,6 +96,9 @@
                         }
                     });
                 }
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
             },
         },
         methods: {
@@ -126,6 +143,7 @@
                 });
             },
             send() {
+                this.loading = true;
                 let ticketData = {
                     title : this.title,
                     content : this.content,
@@ -139,6 +157,8 @@
                         this.$router.push({name: 'ticket.index'})
                     },
                     (response) => {
+                        this.loading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
                             type: 'danger'
