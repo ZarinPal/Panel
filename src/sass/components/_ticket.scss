@@ -29,6 +29,8 @@ $plusIcon: $icon-zp-add;
 
   .nav-ticket-list{
     background-color: #444a4d;
+    overflow: auto;
+    height: 93vh;
 
     .sticky-new-ticket{
       position: -webkit-sticky;
@@ -126,6 +128,9 @@ $plusIcon: $icon-zp-add;
 
   .nav-tickets{
     padding: 0 !important;
+    overflow: auto;
+    height: 93vh;
+
     .nav-ticket-title{
       background-color: #fff;
       padding: 12px 20px;

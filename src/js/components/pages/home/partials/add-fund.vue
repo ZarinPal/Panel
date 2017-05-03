@@ -18,9 +18,14 @@
                                     div.row
                                         span افزایش حساب کیف پول {{purse.name}}
                                     div.row
-                                        input(type="number" v-model="amount" placeholder="مبلغ")
+                                        input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
+                                        div.ta-right(v-if="validationErrors.amount")
+                                            span.text-danger {{ $i18n.t(validationErrors.amount) }}
+
                                     div.row
-                                        selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectCard" v-bind:data="activeCards" placeholder="انتخاب حساب بانکی")
+                                        selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectCard" v-bind:data="activeCards" placeholder="انتخاب حساب بانکی")
+                                        div.ta-right(v-if="validationErrors.card_id")
+                                            span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 
                                     div.row
                                         div.col-xs.no-margin
@@ -40,6 +45,7 @@
         name: 'home-purse-addFund',
         data() {
             return {
+                loading: false,
                 closeModalContent: false,
                 amount: '',
                 cardId: '',
@@ -64,13 +70,17 @@
                     }
                 });
                 return activeCards;
-            }
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
         },
         methods: {
             closeModal() {
                 this.$emit('closeModal')
             },
             addFund() {
+                this.loading = true;
                 let addFundData = {
                     purse: this.purse.purse,
                     amount: this.amount,
@@ -79,17 +89,6 @@
                 };
                 this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
                     (response)=> {
-
-                        let vm = this;
-                        let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
-                            return purse.purse === vm.purse.purse
-                        });
-
-                        let balance = this.$store.state.auth.user.purses[purseIndex].balance;
-                        let newBalance = this.amount + balance;
-                        this.$store.state.auth.user.purses[purseIndex].balance = newBalance;
-
-
                         let addFundWindow = window.open(
                             'https://www.zarinpal.com/pg/StartPay/' + response.data.data.authority + '/ZarinGate',
                             'شارژ کیف‌پول'
@@ -102,6 +101,8 @@
                         };
                     },
                     (response) => {
+                        this.loading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         this.$store.commit('flashMessage',{
                             text: response.data.meta.error_message,
                             important: false,

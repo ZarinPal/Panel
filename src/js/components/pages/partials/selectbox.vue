@@ -28,7 +28,11 @@ export default {
             this.selectBoxTitle = this.placeholder;
         }
         if (this.selected) {
-            this.selectItem(_.find(this.data, {'value': this.selected}));
+            let item = _.find(this.data, {'value': this.selected});
+            if(typeof item === 'undefined'){
+                item = {title:'',value:''}
+            }
+            this.selectItem(item);
         }
     },
 

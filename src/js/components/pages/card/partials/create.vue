@@ -32,16 +32,17 @@
 
                                 div.row.input-group.no-margin(:class="{'input-danger': validationErrors.iban}")
                                     div.col-xs.no-margin
-                                        input.input.ta-left(type="text" v-model="iban"  placeholder= "شماره شبا" maxlength="27"  id="iban" @keyup="cardNumberFormat('iban')")
+                                        input.input.ta-left(type="text" v-model="iban"  placeholder= "شماره شبا" maxlength="24")
                                     div.no-margin.first-label
                                         span IR
-
-                                span.text-danger(v-if="validationErrors.iban") {{ $i18n.t(validationErrors.iban) }}
+                                div.ta-right(v-if="validationErrors.iban")
+                                    span.text-danger {{ $i18n.t(validationErrors.iban) }}
 
                                 div(v-if="isLegal == 0")
                                     div.row
                                         input.ta-left(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
-                                        span.text-danger(v-if="validationErrors.pan") {{ $i18n.t(validationErrors.pan) }}
+                                        div.ta-right(v-if="validationErrors.pan")
+                                            span.text-danger {{ $i18n.t(validationErrors.pan) }}
 
                                     div.row.no-margin
                                         div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
@@ -58,6 +59,10 @@
                                 div.row
                                     div.col-xs.no-margin
                                         button.btn.success.pull-left(v-ripple="" @click="createCard") {{$i18n.t('card.createCard')}}
+                                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
+
 </template>
 
 
@@ -66,6 +71,7 @@
         name: 'pages-card-partials-create',
         data() {
             return {
+                loading: false,
                 closeModalContent: false,
                 iban: '',
                 pan: '',
@@ -105,6 +111,7 @@
                 this.$emit('closeModal')
             },
             createCard() {
+                this.loading = true;
                 if(this.isLegal == 1) {
                     this.pan = '';
                     this.year = '';
@@ -112,7 +119,6 @@
                 }
 
                 let formatedPan = this.pan.split('-').join('');
-                let formatedIban = this.iban.split('-').join('');
 
                 let expiredAt = '';
                 if(this.year && this.month) {
@@ -120,7 +126,7 @@
                 }
 
                 let cardData = {
-                    iban : 'IR' + formatedIban,
+                    iban : 'IR' + this.iban,
                     pan : formatedPan,
                     isLegal : this.isLegal,
                     expired_at : expiredAt,
@@ -131,6 +137,7 @@
                         this.closeModal();
                     },
                     (response) => {
+                        this.loading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                     }
                 )
