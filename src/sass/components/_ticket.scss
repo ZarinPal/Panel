@@ -101,6 +101,7 @@ $plusIcon: $icon-zp-add;
 
       .btn-add-ticket{
         border-radius: 20px;
+        margin-left: -30px;
         &:before{
           content: $plusIcon;
           font-family: 'zarinpal';
@@ -113,6 +114,7 @@ $plusIcon: $icon-zp-add;
 
       .rounded {
         padding: 7px !important;
+        margin-left: -30px;
         &:before{
           content: $plusIcon;
           font-family: 'zarinpal';

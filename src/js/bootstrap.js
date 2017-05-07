@@ -48,6 +48,10 @@ Vue.directive(
     require('./directives/ripple').default
 );
 
+Vue.directive(
+    'closeDropDown',
+    require('./directives/close').default
+);
 
 
 /**

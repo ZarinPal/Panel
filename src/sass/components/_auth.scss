@@ -83,3 +83,47 @@ form {
     text-align: center;
   }
 }
+
+
+
+
+
+//
+.login-box{
+
+  .box{
+    padding: 25px;
+
+    .top-xs {
+      .zp-icon {
+        &:after{
+          content: $iconZarinpal;
+          font-family: 'zarinpal';
+          color: #FFD600;
+          font-size: 37px;
+        }
+      }
+
+      .zp-title {
+        font-size: 18px;
+        color: #424242;
+        margin-right: 5px;
+        margin-top: 5px;
+      }
+    }
+
+    .middle-xs {
+      .body-messages {
+        > p {
+          font-size: 18px;
+          color:$labelColor;
+        }
+
+        > span {
+          font-size: 13px;
+        }
+      }
+    }
+
+  }
+}
