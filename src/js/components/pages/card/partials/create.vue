@@ -13,7 +13,7 @@
                             span.title {{ $i18n.t('card.addAccountTitle') }}
                         div.body
                             div.contains
-                                div.row.nav-account-type
+                                div.row.nav-account-type(v-if="user.company_info")
                                     div.col-lg-6.col-md-4.col-sm-12.col-xs-12.ta-right.account-label
                                         span.label {{$i18n.t('card.accountType')}}:
                                     div.col-lg-6.col-md-8.col-sm-12.col-xs-12
@@ -30,26 +30,38 @@
                                                     span
                                                     |{{ $i18n.t('card.legal')}}
 
+                                div.row.input-group.no-margin(:class="{'input-danger': validationErrors.iban}")
+                                    div.col-xs.no-margin
+                                        input.input.ta-left(type="text" v-model="iban"  placeholder= "شماره شبا" maxlength="24")
+                                    div.no-margin.first-label
+                                        span IR
+                                div.ta-right(v-if="validationErrors.iban")
+                                    span.text-danger {{ $i18n.t(validationErrors.iban) }}
 
-                                div.row
-                                    input(type="text" v-model="iban" placeholder="شماره شبا")
-                                    input(type="text" v-model="pan" placeholder="شماره کارت")
+                                div(v-if="isLegal == 0")
+                                    div.row
+                                        input.ta-left(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
+                                        div.ta-right(v-if="validationErrors.pan")
+                                            span.text-danger {{ $i18n.t(validationErrors.pan) }}
 
-                                div.row.no-margin
-                                    div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
-                                        span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
-                                    div.col-lg-6.col-md-8.col-xs-12.no-margin
-                                        div.row.nav-expiration-input
-                                            div.col-xs.no-margin
-                                                span.label {{$i18n.t('card.month')}}:
-                                                input#month(type="number" v-model="month" placeholder="۰۰" maxlength="2" @keyup="changeMonthFocus")
-                                            div.col-xs.no-margin
-                                                span.label {{$i18n.t('card.year')}}:
-                                                input#year(type="number" v-model="year" placeholder="۰۰۰۰" maxlength="4" @keyup="changeYearFocus")
+                                    div.row.no-margin
+                                        div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
+                                            span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
+                                        div.col-lg-6.col-md-8.col-xs-12.no-margin
+                                            div.row.nav-expiration-input
+                                                div.col-xs.no-margin
+                                                    span.label {{$i18n.t('card.month')}}:
+                                                    input#month(type="number" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
+                                                div.col-xs.no-margin
+                                                    span.label {{$i18n.t('card.year')}}:
+                                                    input#year(type="number" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple @click="createCard") {{$i18n.t('card.createCard')}}
+                                        button.btn.success.pull-left(v-ripple="" @click="createCard") {{$i18n.t('card.createCard')}}
+                                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
 
 </template>
 
@@ -59,39 +71,74 @@
         name: 'pages-card-partials-create',
         data() {
             return {
+                loading: false,
                 closeModalContent: false,
                 iban: '',
                 pan: '',
                 year: '',
                 month: '',
-                isLegal: '',
+                isLegal: '0',
                 yearFocus: false
             }
         },
         props:['card'],
+        computed:{
+            user(){
+                return this.$store.state.auth.user;
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
+        },
         mounted() {
             this.closeModalContent = false
         },
         methods: {
+            cardNumberFormat(inputId) {
+                let text = document.getElementById(inputId).value;
+                let result = [];
+//                if(dataType == 'integer') {
+                    text = this[inputId].replace(/[^\d]/g, "");
+//                }
+                while (text.length > 4) {
+                    result.push(text.substring(0, 4));
+                    text = text.substring(4);
+                }
+                if (this[inputId].length > 0) result.push(text);
+                this[inputId] = result.join("-");
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
             createCard() {
+                this.loading = true;
+                if(this.isLegal == 1) {
+                    this.pan = '';
+                    this.year = '';
+                    this.month = '';
+                }
+
+                let formatedPan = this.pan.split('-').join('');
+
+                let expiredAt = '';
+                if(this.year && this.month) {
+                    expiredAt = this.year + '-' + this.month;
+                }
+
                 let cardData = {
-                    iban : this.iban,
-                    pan : this.pan,
+                    iban : 'IR' + this.iban,
+                    pan : formatedPan,
                     isLegal : this.isLegal,
-                    expired_at : this.year + '-' + this.month,
+                    expired_at : expiredAt,
                 };
+
                 this.$store.state.http.requests['card.getList'].save(cardData).then(
                     ()=> {
-                        this.$router.push({name: 'card.index'})
+                        this.closeModal();
                     },
                     (response) => {
-                        store.commit('flashMessage',{
-                            text: response.data.meta.error_message,
-                            type: 'danger'
-                        });
+                        this.loading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
                     }
                 )
             },
@@ -114,7 +161,7 @@
                     document.getElementById("month").focus();
                 }
 
-            }
+            },
         }
     }
 

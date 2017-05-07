@@ -7,9 +7,7 @@
                 p.page-title {{ $i18n.t('common.transactions') }}
                 p.page-description {{ $i18n.t('transaction.description') }}
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                div.break
-                button.btn.default.pull-left {{ $i18n.t('common.returnToDashboard') }}
-
+                router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
 
         div.row
             div.col-xs
@@ -19,24 +17,30 @@
                             div.row
                                 span.icon-search
                                 span.search-title {{ $i18n.t('transaction.search') }}
-                                span.search-title {{ $i18n.t('transaction.advanceSearch') }}
+                                span.break
+                                <!--span.search-title {{ $i18n.t('transaction.advanceSearch') }}-->
 
                             div.row
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" placeholder="62198610****7448")
+                                    input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
                                     div.break
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-9
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                                     selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" placeholder="انتخاب کنید ...")
 
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-3
-                                    button.btn.info.pull-right(v-ripple @click="search()")
-                                        span {{ $i18n.t('common.search') }}
-                                    div.cb
+                            div.row
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
+                                    input(v-model="fromDate" type="text" placeholder="1395-12-04")
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
+                                    input(v-model="toDate" type="text" placeholder="1396-12-04")
 
+
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
+                                    button.btn.info.pull-right(v-ripple="" @click="search()")
+                                        span {{ $i18n.t('common.search') }}
 
         div.row.filter-row
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                span.text {{$i18n.t('transaction.purseTransactionList')}}
+                span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
                 span(v-for="purse in user.purses")
                     span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
 
@@ -44,10 +48,10 @@
 
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 ul.select_item.pull-left
-                    li(v-ripple @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
-                    li(v-ripple @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
-                    li(v-ripple @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
-                    li(v-ripple @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
+                    li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
+                    li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
+                    li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
+                    li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
 
 
         div.row.transaction-fields-title
@@ -67,11 +71,13 @@
                 small ({{ $i18n.t('transaction.toman') }})
 
 
-        div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                singleTransaction(v-for="transaction in transactions" v-bind:transaction="transaction")
+        div.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="isLoaded")
+            singleTransaction(v-for="transaction in transactions" v-bind:transaction="transaction")
+        div(v-else)
+            h1 this is loading
 
         div.ta-center
-            button.btn.rounded.success(@click="loadMore") +
+            <!--button.btn.rounded.success(@click="loadMore") +-->
 
 </template>
 
@@ -83,9 +89,13 @@
         name: 'transaction-index',
         data () {
             return {
+                isLoaded: false,
+                placeholder: '123456******6273',
                 searchOptions: {},
                 filterType: null,
                 filterValue: null,
+                fromDate: '',
+                toDate: '',
                 generalFilter: 'all',
                 filterTypeData: [
                     {
@@ -93,7 +103,7 @@
                         value: 'transaction_id'
                     },
                     {
-                        title: 'پن',
+                        title: 'شماره کارت',
                         value: 'pan'
                     },
                     {
@@ -103,6 +113,10 @@
                     {
                         title: 'ایمیل',
                         value: 'email'
+                    },
+                    {
+                        title: 'شماره موبایل',
+                        value: 'mobile'
                     }
 
                 ],
@@ -134,6 +148,8 @@
                     this.addFilter('purseId', this.$route.params.id);
                 } else if (this.$route.params.type === 'webservice') {
                     this.addFilter('webserviceId', this.$route.params.id);
+                } else if (this.$route.params.type === 'easypay') {
+                    this.addFilter('easypayId', this.$route.params.id);
                 }
                 this.addFilter('status', this.generalFilter);
             },
@@ -163,6 +179,23 @@
             },
             selectFilter(value){
                 this.filterType = value;
+                switch (value) {
+                    case 'transaction_id':
+                        this.placeholder ='۳۹۲۳۳۸۷۱۵۱۴';
+                        break;
+                    case 'pan':
+                        this.placeholder = '۱۲۳۴۵۶******۶۲۷۳';
+                        break;
+                    case 'description':
+                        this.placeholder = 'بازگشت کارمزد تراکنش  ';
+                        break;
+                    case 'email':
+                        this.placeholder = 'example@gmail.com';
+                        break;
+                    case 'mobile':
+                        this.placeholder = '09xxxxxxxxx';
+                        break;
+                }
             }
 
         },
@@ -170,7 +203,10 @@
             user() {
                 return this.$store.state.auth.user;
             },
-            transactions(){
+            transactions() {
+                if(this.$store.state.paginator.data) {
+                    this.isLoaded = true;
+                }
                 return this.$store.state.paginator.data;
             }
         },

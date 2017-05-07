@@ -7,6 +7,7 @@ export default {
         isTicketEmptyPage: false,
         webserviceCategories:  [],
         ticketDepartments:  [],
+        singlePurseMoreTrigger: '',
     },
     mutations: {
         loading(state) {

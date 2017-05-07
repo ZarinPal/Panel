@@ -63,3 +63,18 @@
     margin-left: 12px;
   }
 }
+
+
+//Validation Errors
+.input-danger {
+  border:1px solid #ff1744 !important;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.10);
+}
+
+.text-danger {
+  color: #ff1744 !important;
+  margin-bottom: 10px;
+  font-size: 11px;
+  margin-right: 4px;
+  display: inline-block;
+}

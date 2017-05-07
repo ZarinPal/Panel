@@ -30,14 +30,17 @@ div.row.auth-container
                 span عضو نیستید؟
                 router-link.register(tag="a" v-bind:to="{ name: 'auth.register'}") ثبت نام کنید
     div.col-lg-4.col-md-4.col-sm-5.col-xs-12(v-if="step == 2")
-        div.logo
-            img(src="assets/img/ZarinPal-Logo.svg")
-            p زرین‌پال
 
-        span(vv-if="channel == 'ussd'")
-            img(v-bind:src="avatar")
-            p لطفا کد دستوری زیر را توسط موبایل خود شماره گیری نمایید.
-            p(dir="ltr") {{ussdCode}}
+        div.row.nav-logo
+            div.col-xs.logo.nav-right.ta-left
+                img(src="assets/img/ZarinPal-Logo.svg")
+                p زرین‌پال
+            div.col-xs.nav-left
+                img.user-avatar(v-bind:src="avatar")
+
+        span
+            p.ussd-code(v-if="channel == 'ussd'") لطفا کد دستوری زیر را توسط موبایل خود شماره گیری نمایید.
+            p.ussd-code(v-if="channel == 'ussd'" dir="ltr") {{ussdCode}}
         form(method="post" @submit.prevent="login")
             div
                 label
@@ -91,6 +94,18 @@ div.row.auth-container
                         if(response.data.data.ussd_code) {
                             this.ussdCode = response.data.data.ussd_code;
                         }
+
+                        if(channel && channel !== 'ussd'){
+                            store.commit('flashMessage', {
+                                text: 'otp-sent',
+                                type: 'success'
+                            });
+                        }
+                    }).catch((response)=>{
+                        store.commit('flashMessage', {
+                            text: response.data.meta.error_message,
+                            type: 'danger'
+                        });
                     });
 
             },

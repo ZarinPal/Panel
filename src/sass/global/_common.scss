@@ -7,6 +7,10 @@
   font-family: "IRANSans";
 }
 
+.persian-num {
+  font-family: IRANSansLightPersian !important;
+}
+
 //Colors
 .color-success{
   color: #00c853;
@@ -28,8 +32,6 @@
   height: 15px;
   position: relative;
   border-radius: 50%;
-  top: 6px;
-  margin-top: 2px;
 }
 
 .color-1{
@@ -106,6 +108,39 @@
   text-align: center !important;
 }
 
+.full-width{
+  width:100%
+}
+
+
+//Pages Header
+.nav-page-header{
+  .btn{
+    float: left;
+    margin-top: 15px;
+
+    .text {
+      color: #fff;
+      font-size: 14px;
+      display: inline-block;
+      margin-top: -3px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .icon-add-circle{
+      display: inline-block;
+      font-size: 20px;
+      &:before{
+        content: $addCircleIcon;
+        font-family:'zarinpal';
+        color: #fff;
+        position: relative;
+        top: 3px;
+      }
+    }
+  }
+}
 
 //Boxes
 .no-margin{
@@ -204,6 +239,7 @@
             display: block;
             padding: 8px 15px;
             transition: $animateTime;
+            cursor: default;
 
             &:before{
               color: $itemIconColor;
@@ -330,7 +366,19 @@
   display: inline-block;
 }
 
+.circle-hover{
+  border-radius: 50%;
+  transition: $animateTime;
+  padding: 2px;
+}
+
+.circle-hover:hover{
+  transition: $animateTime;
+  background-color: #eee;
+}
+
 .tag-active{
+  cursor: default;
   &:before{
     content: $activeTagIcon;
     font-family: 'zarinpal';
@@ -344,6 +392,7 @@
 }
 
 .tag-inactive{
+  cursor: pointer;
 
   &:before{
     content: $activeTagIcon;
@@ -391,7 +440,8 @@
     display: inline-block;
     padding: 4px 10px;
     float: left;
-
+    background-color: #f8f9fa;
+    cursor: copy;
 
     &:before{
       content: $iconCopy;
@@ -472,7 +522,7 @@
 
       .icon-close {
         &:before {
-          content: $closeIcon;
+          content: $iconClose;
           font-family: 'zarinpal';
           display: inline-block;
           vertical-align: middle;

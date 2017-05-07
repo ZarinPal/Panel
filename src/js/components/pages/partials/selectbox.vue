@@ -1,10 +1,10 @@
 <template lang="pug">
     ul.dropdown
         li(@click="isOpen = true")
-            span {{selectBoxTitle}}
+            span(v-html="selectBoxTitle")
             span.arrow
         ul(v-if="isOpen")
-            li(v-for="item in data" @click="selectItem(item)") {{item.title}}
+            li(v-for="item in data" @click="selectItem(item)" v-html="item.title")
 </template>
 
 
@@ -20,20 +20,29 @@ export default {
         return {
             selectBoxTitle: this.selected,
             isOpen: false,
+            a: ''
         }
     },
     created() {
         if (this.placeholder) {
             this.selectBoxTitle = this.placeholder;
         }
+        if (this.selected) {
+            let item = _.find(this.data, {'value': this.selected});
+            if(typeof item === 'undefined'){
+                item = {title:'',value:''}
+            }
+            this.selectItem(item);
+        }
     },
+
     methods: {
-        selectItem(item) {
+        selectItem(item){
             this.selectBoxTitle = item.title;
             this.isOpen = false;
             this.$emit('select', item.value);
         }
     }
-}
+};
 
 </script>

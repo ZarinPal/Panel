@@ -9,8 +9,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                         span.header-title {{webservice.name}}
 
                 div.col-xs.ta-left-box(v-bind:title="webservice.domain")
-                    router-link.header-link(tag="span" v-bind:to="{ name: 'auth.register'}") {{webservice.domain}}
-
+                    a.header-link(v-bind:href="webservice.domain" target="blank") {{webservice.domain}}
 
         div.middle-xs.body
 
@@ -21,7 +20,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs.ta-ta-left.no-margin
                     div.label-group.pull-left
                         span.text.merchant-code {{webservice.entity_id}}
-                        span.icon
+                        span.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
 
             div.row.box-row
                 div.col-xs.ta-right
@@ -39,9 +38,9 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
                 div.col-xs.ta-left.no-margin
                     span.tag.tag-active.pull-left(v-if="webservice.ussd_id") USSD
-                    span.tag.tag-inactive.pull-left(v-else) USSD
+                    span.tag.tag-inactive.pull-left(v-else @click="visibleUssdActivation = true") USSD
                     span.tag.tag-active.pull-left(v-if="webservice.zaringate_status == 'Activate'") وب گیت
-                    span.tag.tag-inactive.pull-left(v-else) وب گیت
+                    span.tag.tag-inactive.pull-left(v-else @click="visibleZarinGateActivation = true") وب گیت
 
         div.bottom-xs.box-footer.webservice-box-footer
             div.row
@@ -52,16 +51,41 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.no-margin
                     router-link.edit(tag="span" v-bind:to="{ name: 'webservice.edit', params: { merchantCode:webservice.entity_id}}") {{$i18n.t('webservice.edit')}}
 
+    ussdActivation(v-if="visibleUssdActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")
+    zarinGateActivation(v-if="visibleZarinGateActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")
 </template>
-    <script>
+
+<script>
+
+    import ussdActivation from './ussd-activation.vue';
+    import zarinGateActivation from './zarin-gate-activation.vue';
+
     export default {
         name:'pages-webservice-partials-singleWebservice',
         data(){
             return{
+                visibleUssdActivation: false,
+                visibleZarinGateActivation: false
             }
         },
         props:['webservice'],
         methods:{
+            closeModal(){
+                this.visibleUssdActivation = false;
+                this.visibleZarinGateActivation = false
+            },
+            clipboardMessage() {
+                store.commit('flashMessage',{
+                    text: 'copied',
+                    type: 'success',
+                    timeout: '500'
+
+                });
+            }
+        },
+        components:{
+            ussdActivation,
+            zarinGateActivation
         }
     }
 </script>

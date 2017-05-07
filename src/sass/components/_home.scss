@@ -1,41 +1,20 @@
-.nav-page-header{
-  .btn-success{
-    float: left;
-    margin-top: 15px;
-
-    .text{
-      color: #fff;
-      font-size: 14px;
-      display: inline-block;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    .icon-add-circle{
-      display: inline-block;
-      font-size: 20px;
-      &:before{
-        content: $addCircleIcon;
-        font-family:'zarinpal';
-        color: #fff;
-        position: relative;
-        top: 5px;
-      }
-    }
-  }
-}
-
 .section{
   .box{
     .header{
       .right-box{
-        p{
 
+        .wallet-color{
+          position: relative !important;
+          top: 4px !important;
+        }
+
+        > p {
           .nav-edit-wallet{
+
             .txt-wallet-name{
               border: none;
               background-color: #F4F4F4;
-              width: 110px;
+              width: 60px;
             }
 
             span{
@@ -69,8 +48,8 @@
         }
       }
 
-      .left-box{
-        .icon-more{
+      .left-box {
+        .icon-more {
           float: left;
           margin-top: 19px;
           display: inline-block;
@@ -82,7 +61,7 @@
           }
         }
 
-        .drop-down{
+        .drop-down {
           background-color: #fff;
           color: $itemColor !important;
           display: inline-block;
@@ -154,6 +133,7 @@
       .balance-amount{
         font-size: 35px;
         color: #666;
+        margin-bottom: 20px;
       }
       .nav-show-chart{
         width: 100px;
@@ -235,6 +215,13 @@
   .body {
     border-radius: 0 0 $boxBorderRadiusSize $boxBorderRadiusSize;
 
+    .create-description{
+      font-size: 13px;
+      text-align: right;
+      padding: 0 6px;
+      color: #424242;
+    }
+
     .purses{
       margin: 10px 0;
     }
@@ -242,5 +229,45 @@
     .row:last-child {
       margin-top: 20px;
     }
+  }
+}
+
+
+//Modal Add fund
+.add-fund{
+
+  .nav-not-active-card{
+    color: $labelColor;
+
+    .title{
+      font-size: 20px;
+    }
+
+    .description{
+      font-size: 13px;
+    }
+  }
+
+  .dropdown{
+
+    //li:nth-child(1){
+    //  span {
+    //    position: relative;
+    //    top: -6px;
+    //  }
+    //}
+
+    .bank-logo{
+      width: 19px;
+      position: relative;
+      top: 3px;
+      margin-left: 5px;
+    }
+  }
+
+
+
+  .row {
+    margin: 10px 0;
   }
 }

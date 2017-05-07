@@ -239,6 +239,7 @@ body {
 .small-user-image{
   zoom: 0.15 !important;
   margin-right: -55px !important;
+  animation: userInfoFade 0.8s ease-in-out;
 }
 
 /*Small sidebar*/
@@ -290,13 +291,15 @@ body {
       width: 45px !important;
       height: 45px !important;
       margin: 30px auto;
-      transition: none !important;
 
       img{
         margin-left: auto;
         margin-right: auto;
         width: 45px;
         display: block;
+
+
+
       }
     }
 
@@ -320,8 +323,12 @@ body {
       text-align: center !important;
       transition: $animateTime;
       color: $sideItemColor;
-      font-size: $sidebarFontSize;
+      font-size: 20px;
       cursor: pointer;
+
+      .icon-zp-easy-pay:before{
+        margin-right: -5px !important;
+      }
 
       .dot-show{
         opacity: 0 !important;
@@ -384,6 +391,8 @@ body {
   }
 
   .user-info{
+    animation: userInfoFade 0.8s ease-in-out;
+
     .user-image{
       height: 90px;
       text-align: center;
@@ -426,6 +435,10 @@ body {
       div{
         height: 100%;
         padding: 10px 0;
+
+        .icon-zp-easy-pay:before{
+          margin-right: -5px !important;
+        }
 
         i{
           display: inline-block;
@@ -492,26 +505,31 @@ body {
     font-size: 12px;
   }
 
-  .zp-id-color{
+  .zp-id-color {
     border-radius: 20px;
     float: left;
     position: relative;
     top: -5px;
     height: 27px;
-    img{
-      float: right;
-      position: relative;
-      top: 8px;
-      right: 8px;
-      margin-left: 10px;
-      margin-bottom: 1px;
-      margin-right: 8px;
+    .icon-zarinpal{
+
+      &::before {
+        content: $iconZarinpal;
+        font-family: 'zarinpal' !important;
+        font-size: 15px;
+        margin-left: 2px;
+        position: relative;
+        top: 3px;
+        padding-right: 4px;
+      }
     }
     span{
       color: #5a4c01;
       font-size: 12px;
       display: inline-block;
-      margin-left: 19px;
+      margin-left: 12px;
+      position: relative;
+      top: -1px;
     }
   }
 
@@ -583,12 +601,12 @@ body {
     display: block !important;
     width: 85% !important;
     height: 100%;
-    position: absolute !important;
+    position: fixed;
     z-index: 999;
     top: -60px !important;
     right: 0;
     background-color: #fff;
-    overflow-x: scroll !important;
+    overflow-x: auto !important;
     padding-top: 60px;
 
 
@@ -658,6 +676,10 @@ body {
         div{
           height: 100%;
           padding: 10px 0;
+
+          .icon-zp-easy-pay:before{
+            margin-right: -5px !important;
+          }
 
           i{
             display: inline-block;

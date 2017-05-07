@@ -9,19 +9,21 @@
                 div.body
                     div.row
                         div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                            input(type="text" v-model="site_ip" placeholder= "IP")
-                            span.input-icon.ip-icon
-                            input(type="text" v-model="site_name" placeholder= "نام وب‌سایت")
-                            span.input-icon.home-icon
-                            input(type="text" v-model="domain" placeholder= "آدرس وب‌سایت: domain.ir")
-                            span.input-icon.earth-icon
-                            input(type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
-                            span.input-icon.mobile-icon
-                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="site_content" placeholder= "توضیحات وب‌سایت")
-                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
-                            span.input-icon.purse-icon
-                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
-                            span.input-icon.webservice-cat-icon
+                            div.row.no-margin
+                                span.input-icon.ip-icon
+                                input(:class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" maxlength="15")
+                                div.ta-right(v-if="validationErrors.site_ip")
+                                    span.text-danger {{ $i18n.t(validationErrors.site_ip) }}
+
+
+                            div.row.no-margin
+                                span.input-icon.purse-icon
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="webservice.purse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
+
+
+                            div.row.no-margin
+                                span.input-icon.webservice-cat-icon
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.app.webserviceCategories.length" v-on:select="selectedWebserviceCat" v-bind:selected="webservice.category_id" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
 
                         div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                             div.row
@@ -30,17 +32,9 @@
                                         span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
 
                                 div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                                    span(v-if="selectedLogo")
-                                        img.webservice-logo(:src="selectedLogo")
-                                    span(v-else)
-                                        img.webservice-logo(:src="site_logo")
+                                    img.webservice-logo(:src="selectedLogo")
 
-
-
-
-
-
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.attachment}")
                                     div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
                                         div.row
                                             div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
@@ -53,12 +47,16 @@
                                                     input#attach(type="file" name="file" @change="onLogoChange")
 
 
+                                div.ta-right(v-if="validationErrors.site_logo")
+                                    span.text-danger {{ $i18n.t(validationErrors.attachment) }}
+
+
                 div.row
                     div.col-xs.nav-buttons
-                        button.btn.success.pull-left(v-bind:class="{'disable': disableSubmit}" v-ripple @click="editWebservice") {{$i18n.t('webservice.edit')}}
-
+                        button.btn.success.pull-left( v-ripple="" @click="editWebservice") {{$i18n.t('webservice.edit')}}
+                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
-
 
 
 <script>
@@ -69,9 +67,9 @@
         data(){
             return{
                 fileUploadFormData: new FormData(),
+                loading: false,
                 messages: {},
                 fileHover: false,
-                disableSubmit: true,
                 purse: '',
                 webservice_category_id: '',
                 site_ip: '',
@@ -79,8 +77,8 @@
                 domain: '',
                 site_content: '',
                 tel: '',
-                selectedLogo: '',
-                site_logo: '//logoland.zarinpal.com/734b8d6c9a0e6e29765c5bb4da8b0d68/125x125.png',//logoland.zarinpal.com/' + md5(this.webservice.entity_id) + '/125x125.png',
+                selectedLogo: '',//logoland.zarinpal.com/14937992435909914ba5e2d/125x125.png',
+                site_logo: '',//logoland.zarinpal.com/' + md5(this.webservice.entity_id) + '/125x125.png',
             }
         },
         created() {
@@ -93,7 +91,7 @@
             this.domain = this.webservice.domain;
             this.site_content = this.webservice.description;
             this.tel = this.webservice.tel;
-            this.site_logo = this.webservice.logo;
+            this.selectedLogo = this.webservice.logo;
         },
         computed:{
             webservice(){
@@ -103,7 +101,7 @@
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         return {
-                            'title': purse.name,
+                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
                             'value': purse.purse
                         }
                     });
@@ -120,6 +118,9 @@
                 }
 
             },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
         },
         methods: {
             selectedPurse(purseId) {
@@ -129,16 +130,16 @@
                 this.webservice_category_id = webserviceCatId;
             },
             editWebservice() {
+                this.loading = true;
                 let webserviceData = {
                     purse: this.purse,
                     webservice_category_id: this.webservice_category_id,
-                    site_name: this.site_name,
                     site_ip: this.site_ip,
-                    site_content: this.site_content,
-                    tel: this.tel,
-                    domain: this.domain,
                     site_logo: this.site_logo,
                 };
+
+//                console.log(webserviceData);
+//                return;
 
                 let params = {
                     webservice_id: this.$route.params.merchantCode
@@ -149,6 +150,8 @@
                         this.$router.push({name: 'webservice.index'})
                     },
                     (response) => {
+                        this.loading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
                             type: 'danger'
@@ -203,7 +206,6 @@
 
                 this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
                     this.site_logo = response.data.meta.file_id;
-                    this.disableSubmit = false;
                 }, (response) => {
                     console.log('Error occurred...');
                 });

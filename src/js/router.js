@@ -1,5 +1,5 @@
 export default new VueRouter({
-    //mode: 'history',
+    // mode: 'history',
     // base:'panel',
     routes: [
         {
@@ -14,7 +14,6 @@ export default new VueRouter({
             component: require('./components/pages/auth/register.vue'),
             meta: {standAlone: true}
         },
-        { path: '/', redirect: '/panel/home' },
         {
             path: '/panel',
             component: require('./components/pages/panel.vue'),
@@ -26,9 +25,9 @@ export default new VueRouter({
                     component: require('./components/pages/home/home.vue')
                 },
                 {
-                    path: '/home/finishAddFund',
+                    path: 'home/finishAddFund',
                     name: 'home.finishAddFund',
-                    // component: require('./../js-v0/components/views/dashboard/home/finish_add_fund.vue')
+                    component: require('./components/pages/home/partials/finish-add-fund.vue')
                 },
                 {
                     path: '/ticket/servey/:public_id',
@@ -120,14 +119,14 @@ export default new VueRouter({
                     component: require('./components/pages/coupon/test.vue')
                 },
                 {
-                    path: '/coupon/create',
+                    path: 'coupon/create',
                     name: 'coupon.create',
-                    // component: require('./components/views/dashboard/coupon/create.vue')
+                    component: require('./components/pages/coupon/partials/create.vue')
                 },
                 {
-                    path: '/coupon/edit/:coupon',
+                    path: 'coupon/edit/:entity_id',
                     name: 'coupon.edit',
-                    // component: require('./components/views/dashboard/coupon/edit.vue')
+                    component: require('./components/pages/coupon/partials/edit.vue')
                 },
                 {
                     path: 'ticket/create',
@@ -201,6 +200,10 @@ export default new VueRouter({
                     component: require('./components/pages/ticket/pages/show.vue')
                 }
             ]
-        }
-    ]
+        },
+        { path: '/', redirect: '/panel/home' },
+    ],
+    scrollBehavior (to, from, savedPosition) {
+        return { x: 0, y: 0 }
+    }
 });

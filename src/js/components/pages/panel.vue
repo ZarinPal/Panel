@@ -9,17 +9,22 @@
                 router-view
         div.clear-both
     div(v-else)
-        h1 this is a beautiful loading
+        h1 loading
 
 </template>
 
 
 <script>
-export default {
+    import navbar from '../pages/partials/navbar.vue';
+    import sidebar from '../pages/partials/sidebar.vue';
+    import loading from '../pages/partials/loading.vue';
+
+    export default {
     name: 'panel',
     components:{
-        navbar: require('./partials/navbar.vue'),
-        sidebar: require('./partials/sidebar.vue'),
+        navbar,
+        sidebar,
+        loading,
     }
 }
 

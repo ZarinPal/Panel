@@ -229,7 +229,7 @@ export default {
                 url: "transaction/{transactionId}.json"
             },
             {
-                name: "transaction.getInfo",
+                name: "transaction.getInfoPdf",
                 url: "transaction/{transactionId}.pdf"
             },
             {

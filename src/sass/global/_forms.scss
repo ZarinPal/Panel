@@ -13,12 +13,13 @@
   }
 }
 
-.input-icon{
+.input-icon {
   float: right;
   width: 0;
   position: relative;
   top: 13px;
   right: 8px;
+  z-index: 1;
 }
 
 input[type="text"],
@@ -35,7 +36,7 @@ input[type="search"],
 input[type="tel"],
 input[type="url"],
 textarea {
-  font-family: $fontName;
+  font-family: IRANSansLightPersian;
   font-weight: 200;
   font-size: 13px;
   padding: 6px 14px 5px 14px;
@@ -48,6 +49,7 @@ textarea {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width:100%;
 
   @include placeholder {
     color: #676767;
@@ -121,13 +123,13 @@ input[type="radio"] {
 
   &:checked {
     + label {
-        span {
-          border: 2px solid #ffd600;
+      span {
+        border: 2px solid #ffd600;
 
-          &:after {
-            background-color: #ffd600;
-          }
+        &:after {
+          background-color: #ffd600;
         }
+      }
     }
   }
 }
@@ -163,34 +165,34 @@ input[type="checkbox"] {
 
   &:checked {
     + label {
-        span {
-          background-color: #ffd600;
-          border: 2px solid #ffd600;
+      span {
+        background-color: #ffd600;
+        border: 2px solid #ffd600;
 
-          &:after,
-          &:before {
-            background-color: #ffffff;
-            position: absolute;
-            border-radius: 1px;
-            content: '';
-          }
-
-          &:after {
-            width: 10px;
-            height: 2px;
-            transform: rotate(-45deg);
-            top: 6px;
-            left: 4px;
-          }
-
-          &:before {
-            width: 6px;
-            height: 2px;
-            transform: rotate(45deg);
-            top: 8px;
-            left: 1px;
-          }
+        &:after,
+        &:before {
+          background-color: #ffffff;
+          position: absolute;
+          border-radius: 1px;
+          content: '';
         }
+
+        &:after {
+          width: 10px;
+          height: 2px;
+          transform: rotate(-45deg);
+          top: 6px;
+          left: 4px;
+        }
+
+        &:before {
+          width: 6px;
+          height: 2px;
+          transform: rotate(45deg);
+          top: 8px;
+          left: 1px;
+        }
+      }
     }
   }
 }
@@ -207,11 +209,10 @@ a.btn {
   border-radius: 5px;
   border: inherit;
   color: #898989;
-  padding: 0 15px;
+  padding: 6px 10px;
   outline: none;
   cursor: pointer;
   text-align: center;
-  height: 35px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.10);
   user-select: none;
   text-rendering: optimizeLegibility;
@@ -271,6 +272,10 @@ a.btn {
   &.full {
     width: 100%;
   }
+
+  .material-spinner{
+    margin: 0 10px -10px 0;
+  }
 }
 
 ul.select_item {
@@ -313,13 +318,14 @@ ul.select_item {
 }
 
 ul.dropdown {
+  cursor: default;
   position: relative;
   background-color: #ffffff;
   font-family: $fontName;
   font-weight: 200;
   font-size: 13px;
   height: 35px;
-  margin:0;
+  margin: 0;
   padding: 7px 16px 7px 16px;
   border-radius: 5px;
   outline: none;
@@ -331,6 +337,16 @@ ul.dropdown {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  .wallet-color {
+    margin-left: 10px;
+    margin-right: -5px;
+    top: 3px;
+  }
+
+  > ul > li .wallet-color {
+    top: 5px;
+  }
 
   > span {
     color: #424242;
@@ -369,21 +385,31 @@ ul.dropdown {
     background-color: #ffffff;
     position: absolute;
     border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.10);
-    margin: 0 0 0 0;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
     padding: 0 0 0 0;
     width: 100%;
     left: 0px;
+    margin-bottom: 39px;
     top: 42px;
+    max-height: 300px !important;
+    overflow: auto;
+    z-index: 1;
 
     li {
       height: 34px;
       padding: 5px 16px;
       vertical-align: middle;
       box-sizing: border-box;
+      transition: $animateTime;
+      cursor: default;
 
-      &:nth-child(odd) {
+      span {
+
+      }
+
+      &:hover {
         background-color: #f3f3f3;
+        transition: $animateTime;
       }
 
       &:first-child {
@@ -393,5 +419,38 @@ ul.dropdown {
         border-radius: 0 0 5px 5px;
       }
     }
+  }
+}
+
+
+//Input group
+.input-group{
+  background-color: #f8f9fa;
+  border: 1px solid #CECECE;
+  border-radius: 5px;
+  .first-label{
+    font-size: 12px;
+    color: #676767;
+    padding: 7px 15px !important;
+    border-radius: 5px 0 0 5px;
+    direction: ltr;
+  }
+
+  .input {
+    border-radius: 0 5px 5px 0;
+    border: none !important;
+    margin: 0 !important;
+  }
+
+  .input:focus {
+    box-shadow: none !important;
+  }
+
+  .last-label{
+    font-size: 12px;
+    color: #676767;
+    padding: 7px 15px !important;
+    border-radius: 0 5px 5px 0;
+    direction: ltr;
   }
 }

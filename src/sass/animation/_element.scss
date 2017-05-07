@@ -28,3 +28,17 @@
   from {height: 110px; width: 110px;}
   to {height: 0; width: 0;}
 }
+
+
+//User info sidebar
+@keyframes userInfoFade {
+  0% {
+    opacity: 0;
+    height: initial;
+  }
+  100% {
+    opacity: 1;
+    height: initial;
+  }
+}
+

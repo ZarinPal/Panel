@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section
         div.box
             div.top-xs.header
                 div.row
@@ -23,13 +23,13 @@
 
 
                     div.left-box
-                        span.icon-more(@click="showOptions = !showOptions")
+                        span.icon-more.circle-hover(@click="changeMoreTriggerOn()")
                         transition( name="bounce"
                                     enter-active-class="drop-down-show"
                                     leave-active-class="drop-down-hide")
-                            span.drop-down(v-if="showOptions")
-                                span.close-drop-down.drop-down-item(@click="showOptions = !showOptions")
-                                span.drop-down-item.add-fund(@click="isAddFunding = true") {{ $i18n.t('transaction.addFunds') }}
+                            span.drop-down#trigger(v-if="this.$store.state.app.singlePurseMoreTrigger == purse.purse")
+                                span.close-drop-down.drop-down-item(@click="changeMoreTriggerOff()")
+                                span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
 
 
@@ -37,11 +37,12 @@
                 router-link(tag="li" v-bind:to="{ name: 'transaction.index', params: {type: 'purse', id: purse.purse} }")
                     div.nav-balance
                         div.txt-balance {{ $i18n.t('common.balance') }}
-                        div.balance-amount {{balance.balance | numberFormat | persianNumbers }}
-                        div.nav-show-chart
-                            span.chart-icon
-                            span {{ $i18n.t('common.showChart')}}
 
+                        div.balance-amount(v-if="isLoaded") {{balance.balance | numberFormat | persianNumbers }}
+                        div.balance-amount(v-else) -
+                        div.nav-show-chart
+                            <!--span.chart-icon-->
+                            <!--span {{ $i18n.t('common.showChart')}}-->
 
             div.bottom-xs.footer
                 div.row
@@ -56,18 +57,25 @@
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-moving-trans
                         span.amount  {{balance.total_to_exit  | numberFormat | persianNumbers }}
+
+
+        addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()" v-bind:purse="purse")
+
 </template>
 
 <script>
+    import addFund from '../partials/add-fund.vue';
+
     export default {
         name: 'pages-home-partials-singlePurse',
         data(){
             return {
                 balance: {},
-                loading: true,
+                isLoaded: false,
                 showOptions: false,
                 isEditingPurseName: false,
                 newPurseName: this.purse.name,
+                visibleAddFund: false,
             }
         },
         props: ['purse'],
@@ -75,6 +83,15 @@
             this.getBalance();
         },
         methods: {
+            changeMoreTriggerOn() {
+                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse
+            },
+            changeMoreTriggerOff() {
+                this.$store.state.app.singlePurseMoreTrigger = ''
+            },
+            closeModal(){
+                this.visibleAddFund = false;
+            },
             changePurseName(){
                 let vm = this;
                 let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
@@ -85,12 +102,19 @@
                     = this.newPurseName;
             },
             getBalance(){
-                this.$store.state.http.requests['purse.getBalance'].get({purseId: this.purse.purse}).then(response => {
-                    this.balance = response.data.data;
-                    this.loading = false;
-                });
-            },
+                if(this.$store.state.auth.user.purses) {
+                    this.$store.state.http.requests['purse.getBalance'].get({purseId: this.purse.purse}).then(response => {
+                        this.balance = response.data.data;
+                        this.isLoaded = true;
 
+                        let vm = this;
+                        let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+                            return purse.purse === vm.purse.purse
+                        });
+                        this.$store.state.auth.user.purses[purseIndex].balance = response.data.data.balance;
+                    });
+                }
+            },
             toggleEditPurse(){
                 this.isEditingPurseName = !this.isEditingPurseName;
             },
@@ -114,6 +138,18 @@
                     }
                 );
             },
+//            trigger() {
+//                let specifiedElement = document.getElementById('trigger');
+//                document.addEventListener('click', function(event) {
+//                    let isClickInside = specifiedElement.contains(event.target);
+//                    if (!isClickInside) {
+//                        console.log('click outside');
+//                    }
+//                });
+//            }
+        },
+        components:{
+            addFund
         }
     }
 </script>

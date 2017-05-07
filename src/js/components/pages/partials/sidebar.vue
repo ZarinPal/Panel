@@ -8,42 +8,43 @@
                     userProgress(v-if="user.user_progress" v-bind:avatar="'https:'+user.avatar" v-bind:user_progress="user.user_progress")
                 p.user-name {{user.name}}
 
-                div.nav-zp-id(v-bind:class="{'nav-zp-gold': user.level == 'gold', 'nav-zp-silver': user.level == 'silver' }")
+                div.nav-zp-id(v-bind:class="{'nav-zp-gold': user.level == '3', 'nav-zp-silver': user.level == '2' }")
                     span ZP. {{user.public_id}}
-                    span.zp-id-color(v-bind:class="{'zp-id-gold': user.level == 'gold', 'zp-id-silver': user.level == 'silver' }")
-                        img(src="assets/img/zarin-black-logo.png")
-                        span(v-if="user.level == 'gold'") {{$i18n.t('user.user_level_3')}}
-                        span(v-else-if="user.level == 'silver'") {{$i18n.t('user.user_level_2')}}
+                    span.zp-id-color(v-bind:class="{'zp-id-gold': user.level == '3', 'zp-id-silver': user.level == '2' }")
+                        small.icon-zarinpal
+                        span(v-if="user.level == '3'") {{$i18n.t('user.user_level_3')}}
+                        span(v-else-if="user.level == '2'") {{$i18n.t('user.user_level_2')}}
+                        span(v-else-if="user.level == '1'") {{$i18n.t('user.user_level_1')}}
 
                 ul
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" title="پیشخوان")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" title="پیشخوان")
                         div
-                            i.icon-ic_flash_on_black_48px
+                            i.icon-zp-dashboard
                             span.item-label پیشخوان
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" title="درگاه های پرداخت")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" title="درگاه های پرداخت")
                         div
-                            i.icon-ic_flash_on_black_48px
+                            i.icon-zp-web-service
                             span.item-label درگاه های پرداخت
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" title="حساب های بانکی")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" title="حساب های بانکی")
                         div
-                            i.icon-ic_flash_on_black_48px
+                            i.icon-zp-card
                             span.item-label حساب های بانکی
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}" title="آسان پرداخت")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}" title="آسان پرداخت")
                         div
-                            i.icon-ic_flash_on_black_48px
+                            i.icon-zp-easy-pay
                             span.item-label آسان پرداخت
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" title="کپن ها")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" title="کپن ها")
                         div
-                            i.icon-ic_flash_on_black_48px
+                            i.icon-zp-copouns
                             span.item-label کوپن های تخفیف
 
-                    router-link(v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}" title="تیکت ها")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}" title="تیکت ها")
                         div
-                            i.icon-ic_flash_on_black_48px
+                            i.icon-zp-tickets
                             span.item-label تیکت ها
 
                     <!--Dropdown Example-->

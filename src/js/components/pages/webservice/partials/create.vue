@@ -2,8 +2,8 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $i18n.t('webservice.create') }}
-                p.page-description ٖ{{ $i18n.t('common.webserviceCreateDescription') }}
+                p.page-title {{ $i18n.t('webservice.create') }}
+                p.page-description {{ $i18n.t('webservice.createDescription') }}
 
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
@@ -11,21 +11,48 @@
                 div.body
                     div.row
                         div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                            input(type="text" v-model="site_name" placeholder= "نام وب‌سایت")
-                            span.input-icon.home-icon
-                            input(type="text" v-model="domain" placeholder= "آدرس وب‌سایت: domain.ir")
-                            span.input-icon.earth-icon
-                            input(type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
-                            span.input-icon.mobile-icon
-                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="site_content" placeholder= "توضیحات وب‌سایت")
-                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
-                            span.input-icon.purse-icon
-                            selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
-                            span.input-icon.webservice-cat-icon
+                            div.row.no-margin
+                                span.input-icon.home-icon
+                                input(:class="{'input-danger': validationErrors.site_name}" type="text" v-model="site_name" placeholder= "نام وب‌سایت")
+                                div.ta-right(v-if="validationErrors.site_name")
+                                    span.text-danger {{ $i18n.t(validationErrors.site_name) }}
+
+                            div.row.no-margin
+                                span.input-icon.earth-icon
+                                div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.domain}")
+                                    div.col-xs.no-margin
+                                        input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir")
+                                    div.no-margin.first-label
+                                        span http://www.
+
+                                div.ta-right(v-if="validationErrors.domain")
+                                    span.text-danger {{ $i18n.t(validationErrors.domain) }}
+
+
+                            div.row.no-margin
+                                span.input-icon.mobile-icon
+                                input(:class="{'input-danger': validationErrors.tel}" type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
+                                div.ta-right(v-if="validationErrors.tel")
+                                    span.text-danger {{ $i18n.t(validationErrors.tel) }}
+
+                            div.row.no-margin
+                                textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.site_content}" v-model="site_content" placeholder= "توضیحات وب‌سایت")
+                                div.ta-right(v-if="validationErrors.site_content")
+                                    span.text-danger {{ $i18n.t(validationErrors.site_content) }}
+
+                            div.row.no-margin
+                                span.input-icon.purse-icon
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
+
+                            div.row.no-margin
+                                span.input-icon.webservice-cat-icon
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
 
                 div.row
                     div.col-xs.nav-buttons
-                        button.btn.success.pull-right(v-ripple @click="createWebservice") {{$i18n.t('webservice.create')}}
+                        button.btn.success.pull-right(v-ripple="" @click="createWebservice") {{$i18n.t('webservice.create')}}
+                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -37,6 +64,7 @@
         name: 'pages-webservice-partials-create',
         data() {
             return {
+                loading: false,
                 fileHover: false,
                 messages: {},
                 domain: '',
@@ -49,15 +77,12 @@
                 fileUploadFormData: new FormData(),
             }
         },
-        created(){
-            this.$store.dispatch('app/getWebserviceCategories');
-        },
         computed:{
             pursesSelection() {
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         return {
-                            'title': purse.name,
+                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
                             'value': purse.purse
                         }
                     });
@@ -72,7 +97,13 @@
                         }
                     });
                 }
-            }
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
+        },
+        created(){
+            this.$store.dispatch('app/getWebserviceCategories');
         },
         methods: {
             selectedPurse(purseId) {
@@ -82,6 +113,7 @@
                 this.webservice_category_id = webserviceCatId;
             },
             createWebservice() {
+                this.loading = true;
                 let webserviceData = {
                     domain: this.domain,
                     tel: this.tel,
@@ -97,6 +129,8 @@
                         this.$router.push({name: 'webservice.index'})
                     },
                     (response) => {
+                        this.loading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         this.messages = response.data.meta.error_message;
                         store.commit('flashMessage',{
                             text: this.messages,
