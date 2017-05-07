@@ -2,12 +2,12 @@ export default {
     state: {
         messages: [],
         validationErrors: [],
+        notifications: [],
     },
     mutations: {
         setValidationErrors(state, validationErrors) {
-            console.log()
             let errors = {};
-            if(validationErrors) {
+            if (validationErrors) {
                 validationErrors.forEach(function (error) {
                     errors[error.input] = error.translation_key;
                     state.validationErrors = errors;
@@ -43,5 +43,35 @@ export default {
                 state.messages.shift();
             }
         },
+        addNotification({state}, message){
+            state.notifications.unshift(message);
+        }
+    },
+    actions: {
+        startWebPushWorker({commit}){
+            let NchanSubscriber = require("nchan");
+
+            let sub = new NchanSubscriber(
+                'https://pubsub.zarinpal.com/notification',
+                {
+                    subscriber: 'websocket',
+                }
+            );
+
+            sub.on('message', function (message) {
+                // postMessage(JSON.parse(message));
+                commit('addNotification', message);
+                let options = {
+                    title: message,
+                    body: message
+                };
+                // new Notification(options.title, options);
+                alert(options.title);
+
+            });
+
+            sub.start();
+
+        }
     }
 };

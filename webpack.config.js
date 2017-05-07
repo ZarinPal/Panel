@@ -169,16 +169,16 @@ let rules = [
         options: {
             name: path => {
                 if (! /node_modules|bower_components/.test(path)) {
-                    return 'assets/fonts/[name].[ext]?[hash]';
+                    return 'fonts/[name].[ext]';
                 }
 
                 return 'fonts/vendor/' + path
                     .replace(/\\/g, '/')
                     .replace(
                         /((.*(node_modules|bower_components))|fonts|font|assets)\//g, ''
-                    ) + '?[hash]';
+                    );
             },
-            publicPath: '../../'
+            publicPath: '../'
         }
     },
 

@@ -1,12 +1,22 @@
 {
-    "name": "zarinpal-panel-v2-vue",
+    "name": "zarinpal",
     "version": "0.0.1",
+    "description": "zarinpal",
+    "author": "zarinpal",
     "main": "main.js",
+    "build": {
+        "appId": "com.zarinpal.desktop.panel",
+        "mac": {
+            "category": "Utility"
+        }
+    },
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
         "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
         "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
-        "production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+        "production": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+        "pack": "build --dir",
+        "dist": "build -mwl"
     },
     "dependencies": {
         "clipboard": "^1.6.1",
@@ -16,6 +26,7 @@
         "lodash": "^4.16.2",
         "moment": "^2.17.1",
         "moment-jalaali": "^0.4.0",
+        "nchan": "^1.0.5",
         "path": "^0.12.7",
         "pug": "^2.0.0-beta11",
         "stickyfill": "^1.1.1",
@@ -25,5 +36,9 @@
         "vue-resource": "^1.0.3",
         "vue-router": "^2.4.0",
         "vuex": "^2.2.1"
+    },
+    "devDependencies": {
+        "electron": "^1.6.5",
+        "electron-builder": "^17.0.1"
     }
 }

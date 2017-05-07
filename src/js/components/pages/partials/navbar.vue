@@ -17,6 +17,9 @@
 <script>
 export default {
     name:'navBar',
+    created(){
+        this.$store.dispatch('startWebPushWorker');
+    },
     methods: {
         toggleSidebar(){
             this.$store.commit('app/toggleSidebar');
