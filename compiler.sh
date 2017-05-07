@@ -7,6 +7,7 @@ eval "$(ssh-agent -s)" #start the ssh agent
 chmod 600 .deploy_key # this key should have push access
 ssh-add .deploy_key
 git clone -b release-web git@github.com:ZarinPal/Panel.git public
+yarn install
 npm run production
 cp -R ./assets ./public/
 cp -R ./index-web.html ./public/index.html
