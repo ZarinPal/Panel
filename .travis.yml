@@ -11,5 +11,5 @@ notifications:
 script:
     - ./compiler.sh
 before_install:
-    - openssl aes-256-cbc -K $encrypted_f76f5a82bf43_key -iv $encrypted_f76f5a82bf43_iv -in ssh-key.enc -out ssh-key -d
+    - openssl aes-256-cbc -K $encrypted_f76f5a82bf43_key -iv $encrypted_f76f5a82bf43_iv -in ssh-key.enc -out .ssh-key -d
 

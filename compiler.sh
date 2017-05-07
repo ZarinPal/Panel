@@ -4,9 +4,10 @@ git config --global user.email "ZarinPal@Travis"
 git config --global user.name "ZarinPal@Travis"
 git config --global push.default simple
 eval "$(ssh-agent -s)" #start the ssh agent
-chmod 600 .ssh_key # this key should have push access
-ssh-add .ssh_key
+chmod 600 .ssh-key # this key should have push access
+ssh-add .ssh-key
 git clone -b release-web git@github.com:ZarinPal/Panel.git public
+npm install --global webpack
 yarn install
 npm run production
 cp -R ./assets ./public/
