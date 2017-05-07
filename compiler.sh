@@ -4,8 +4,8 @@ git config --global user.email "ZarinPal@Travis"
 git config --global user.name "ZarinPal@Travis"
 git config --global push.default simple
 eval "$(ssh-agent -s)" #start the ssh agent
-chmod 600 .deploy_key # this key should have push access
-ssh-add .deploy_key
+chmod 600 .ssh_key # this key should have push access
+ssh-add .ssh_key
 git clone -b release-web git@github.com:ZarinPal/Panel.git public
 yarn install
 npm run production
