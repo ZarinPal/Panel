@@ -38,9 +38,10 @@
         "vuex": "^2.2.1"
     },
     "devDependencies": {
-        "electron": "^1.6.5",
-        "electron-builder": "^17.0.1",
+        "webpack": "^2.5.1",
         "file-loader": "^0.11.1",
-        "resolve-url-loader": "^2.0.2"
+        "resolve-url-loader": "^2.0.2",
+        "electron": "^1.6.5",
+        "electron-builder": "^17.0.1"
     }
 }
