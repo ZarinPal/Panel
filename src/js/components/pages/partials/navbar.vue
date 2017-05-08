@@ -18,7 +18,7 @@
 export default {
     name:'navBar',
     created(){
-        this.$store.dispatch('startWebPushWorker');
+        this.$store.dispatch('startWebPushSocket');
     },
     methods: {
         toggleSidebar(){

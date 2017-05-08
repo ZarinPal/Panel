@@ -43,12 +43,12 @@ export default {
                 state.messages.shift();
             }
         },
-        addNotification({state}, message){
+        addNotification(state, message){
             state.notifications.unshift(message);
         }
     },
     actions: {
-        startWebPushWorker({commit}){
+        startWebPushSocket({commit}){
             let NchanSubscriber = require("nchan");
 
             let sub = new NchanSubscriber(
@@ -65,13 +65,32 @@ export default {
                     title: message,
                     body: message
                 };
-                // new Notification(options.title, options);
-                alert(options.title);
-
+                this.sendBrowserNotification(options);
             });
 
             sub.start();
 
+        },
+        sendBrowserNotification(options){
+            if (!("Notification" in window)) {
+                return null;
+            } else if (Notification.permission === "granted") {
+                 new Notification(
+                     options.title,
+                     options
+                 );
+            }
+
+            else if (Notification.permission !== "denied") {
+                Notification.requestPermission(function (permission) {
+                    if (permission === "granted") {
+                        new Notification(
+                            options.title,
+                            options
+                        );
+                    }
+                });
+            }
         }
     }
 };
