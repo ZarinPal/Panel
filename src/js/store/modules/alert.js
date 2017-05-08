@@ -48,7 +48,7 @@ export default {
         }
     },
     actions: {
-        startWebPushSocket({commit}){
+        startWebPushSocket({ dispatch, commit }){
             let NchanSubscriber = require("nchan");
 
             let sub = new NchanSubscriber(
@@ -59,13 +59,14 @@ export default {
             );
 
             sub.on('message', function (message) {
-                // postMessage(JSON.parse(message));
+                // message = JSON.parse(message);
                 commit('addNotification', message);
                 let options = {
                     title: message,
                     body: message
                 };
-                this.sendBrowserNotification(options);
+                dispatch('sendBrowserNotification',options);
+
             });
 
             sub.start();

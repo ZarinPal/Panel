@@ -179,9 +179,6 @@ let rules = [
                     );
             },
             publicPath: '../',
-            output: {
-                path: __dirname + '/assets/'
-            }
         }
     },
 
