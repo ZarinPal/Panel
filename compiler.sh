@@ -8,7 +8,7 @@ chmod 600 .ssh-key # this key should have push access
 ssh-add .ssh-key
 git clone -b release-web git@github.com:ZarinPal/Panel.git public
 apt-get install yarn
-yarn install
+yarn install --force
 npm run production
 cp -R ./assets ./public/
 cp -R ./index-web.html ./public/index.html
