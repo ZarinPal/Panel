@@ -7,7 +7,7 @@ eval "$(ssh-agent -s)" #start the ssh agent
 chmod 600 .ssh-key # this key should have push access
 ssh-add .ssh-key
 git clone -b release-web git@github.com:ZarinPal/Panel.git public
-npm install --global webpack
+apt-get install yarn
 yarn install
 npm run production
 cp -R ./assets ./public/
