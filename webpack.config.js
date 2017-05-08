@@ -178,7 +178,10 @@ let rules = [
                         /((.*(node_modules|bower_components))|fonts|font|assets)\//g, ''
                     );
             },
-            publicPath: '../'
+            publicPath: '../',
+            output: {
+                path: __dirname + '/assets/'
+            }
         }
     },
 
@@ -282,6 +285,8 @@ module.exports.devServer = {
     quiet: true
 };
 
+module.exports.output.path =  __dirname + '/assets/';
+
 
 
 /*
@@ -310,7 +315,7 @@ plugins.push(
         options: {
             postcss: Mix.options.postCss,
             context: __dirname,
-            output: { path: './' }
+            output: {path: __dirname + '/assets/'}
         }
     })
 );
