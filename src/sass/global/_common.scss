@@ -135,7 +135,7 @@
         content: $addCircleIcon;
         font-family:'zarinpal';
         color: #fff;
-        position: relative;
+        vertical-align: middle;
         top: 3px;
       }
     }
@@ -441,7 +441,7 @@
     padding: 4px 10px;
     float: left;
     background-color: #f8f9fa;
-    cursor: copy;
+    cursor: pointer;
 
     &:before{
       content: $iconCopy;
