@@ -201,7 +201,7 @@ export default new VueRouter({
                 }
             ]
         },
-        { path: '/*', redirect: '/panel/home' },
+        { path: '/', redirect: '/panel/home' },
     ],
     scrollBehavior (to, from, savedPosition) {
         return { x: 0, y: 0 }

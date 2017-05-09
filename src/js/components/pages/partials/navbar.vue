@@ -39,6 +39,9 @@ export default {
             visibleNotification: false
         }
     },
+    created(){
+        this.$store.dispatch('startWebPushSocket');
+    },
     methods: {
         toggleSidebar(){
             this.$store.commit('app/toggleSidebar');
