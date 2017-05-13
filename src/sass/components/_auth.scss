@@ -83,3 +83,177 @@ form {
     text-align: center;
   }
 }
+
+//----------------------------
+
+.login-box{
+  max-width: 410px;
+  margin-top: 100px;
+
+
+
+  .box-top-links{
+    .link{
+      font-size: 13px;
+      color: #8b8b8c;
+      margin-right: -7px;
+      cursor: pointer;
+    }
+
+    .icon-prev{
+      &:before{
+        content: $iconPrev;
+        font-family: 'zarinpal';
+        color: #424242;
+        font-size: 16px;
+        position: relative;
+        top: 2px;
+        right: -7px;
+      }
+    }
+  }
+
+
+  .box{
+    padding: 25px;
+    font-size: 13px !important;
+    color:$labelColor;
+
+    .top-xs {
+      .zp-icon {
+        &:after{
+          content: $iconZarinpal;
+          font-family: 'zarinpal';
+          color: #FFD600;
+          font-size: 37px;
+        }
+      }
+
+      .zp-title {
+        font-size: 18px;
+        margin-right: 5px;
+        margin-top: 5px;
+      }
+    }
+
+    .middle-xs {
+      .body-messages {
+        margin-top: 6px !important;
+        margin-bottom: 25px !important;
+
+        .user-avatar{
+          border:1px solid #cecece;
+          border-radius: 50%;
+          width: 40px;
+          margin: 6px 8px 0 0;
+        }
+
+        p {
+          font-size: 18px !important;
+        }
+      }
+
+      .ussd-box{
+        font-size: 28px;
+        background-color:#f2f3f5;
+        border-radius:$boxBorderRadiusSize;
+        margin-top: 10px;
+        direction: ltr;
+
+
+        &:after{
+          content: '';
+          display: inline-block;
+          position: relative;
+          border-left: 17px solid transparent;
+          border-right: 0px solid rgba(88, 54, 54, 0);
+          border-top: 17px solid #f2f3f5;
+          right: -47px;
+          top: -32px;
+          -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+        }
+
+        .ussd-text{
+          position: relative;
+          top: 3px;
+        }
+
+        .icon-ussd-text{
+          position: relative;
+          top: 4px;
+          font-weight: 900;
+          left: 13px;
+          color: #424242;
+          cursor: default;
+          font-size: 17px;
+          font-family: tahoma !important;
+
+          .laugh{
+            transform: rotate(450deg);
+            display: inline-block;
+            padding: 1px 11px 4px 3px;
+            margin-right: -4px;
+            margin-left: -3px;
+          }
+        }
+
+        .icon-qr{
+          position: relative;
+          top: 4px;
+          left: 14px;
+
+          &:before {
+            content: $iconQrCode;
+            font-family: 'zarinpal';
+            font-size: 22px;
+          }
+        }
+
+        .qr-image{
+          width: 150px;
+          margin-top: 20px;
+          margin-right: 30px;
+        }
+      }
+
+
+    }
+
+    .bottom-xs{
+      margin-top: 30px;
+
+      .ta-right{
+        position: relative;
+        top: -10px;
+      }
+
+      .link{
+        color: #2979ff;
+        margin-right: 5px;
+        display: inline-block;
+        cursor: pointer;
+      }
+    }
+
+  }
+
+
+
+  .auth-privacy-footer{
+    font-size: 13px;
+    padding: 0 3px;
+
+    .gap{
+      display: inline-block;
+      width: 15px;
+    }
+
+    span{
+      color: #8b8b8c;
+      display: inline-block;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  }
+}

@@ -32,15 +32,17 @@ const app = new Vue({
     created() {
         this.$store.commit('app/loading');
         this.$store.commit('http/boot', this);
-        if (!this.$route.meta.standAlone) {
-            this.$store.dispatch('auth/fetch',
-                () => {
-                    require('./i18n').default(this, function (vm) {
-                        vm.$store.commit('app/ready')
-                    });
-                }
-            );
-        }
+        require('./i18n').default(this, function (vm) {
+            if (!vm.$route.meta.standAlone) {
+                vm.$store.dispatch('auth/fetch',
+                    () => {
+                        vm.$store.commit('app/ready');
+                    }
+                );
+            } else {
+                vm.$store.commit('app/ready');
+            }
+        });
 
     },
     components: {

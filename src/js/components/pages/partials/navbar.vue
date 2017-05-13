@@ -10,13 +10,35 @@
 
         div.col-lg-4.col-sm-4.col-xs-4.left-box
             a.logout(@click="logout()" title="خروج")
-            a.notification
+            a.notification(@click="visibleNotification = !visibleNotification")
+
+
+
+
+        div.nav-notification(v-if="visibleNotification")
+            div.row.top-xs
+                div.col-xs.ta-center
+                    span.zarinpal-title {{$i18n.t('common.zarinPal')}}
+                div.ta-left
+                    span.icon-setting
+
+            div.row.middle-xs
+
+            div.row.bottom-xs
+
+
+
 
 </template>
 
 <script>
 export default {
     name:'navBar',
+    data() {
+        return {
+            visibleNotification: false
+        }
+    },
     created(){
         this.$store.dispatch('startWebPushSocket');
     },

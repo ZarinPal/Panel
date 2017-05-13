@@ -178,7 +178,7 @@
                     vm.image = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            },
+            }
         },
         components: {
             selectbox
