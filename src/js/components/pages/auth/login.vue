@@ -54,12 +54,14 @@
                                         span #
 
                                 div.col-xs
-                                    div.ussd-text(v-if="ussdType =='Code'") *۷۳۳*۹۷*۴*۱#
+                                    div.ussd-text(v-if="ussdType =='Code'") *۷۳۳*۴*۹۷*۱#
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
 
 
                         div.col-xs-12.no-margin
-                            input(type="text"  v-model="otp" placeholder="رمز یکبار مصرف")
+                            input(:class="{'input-danger': validationErrors.otp}" type="text"  v-model="otp" placeholder="رمز یکبار مصرف")
+                            div.ta-right(v-if="validationErrors.otp")
+                                span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
@@ -169,7 +171,7 @@
             changeUssdType() {
                 if(this.ussdType === 'Code') {
                    this.ussdType = 'Qr';
-                   this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:*733*97*4*1%23';
+                   this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:*733*4*97*1%2523';
                 } else {
                     this.ussdType = 'Code';
                 }

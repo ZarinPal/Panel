@@ -26,23 +26,31 @@
             }
 
             .save{
-              transition: $animateTime;
               color: #4AD27F;
             }
 
             .cancel{
-              transition: $animateTime;
               color: #686868;
             }
 
-            .save:hover{
+            .cancel, .save{
               transition: $animateTime;
-              background-color: #ECECEC;
+
+              &:hover {
+                transition: $animateTime;
+                background-color: #ECECEC;
+              }
             }
 
             .cancel:hover{
               transition: $animateTime;
-              background-color: #D2D2D2;
+              background-color: #ECECEC;
+            }
+
+            .cancel, .save {
+              &:active{
+                background-color: #D2D2D2;
+              }
             }
           }
         }

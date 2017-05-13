@@ -69,7 +69,7 @@ div.row.auth-container
                     (response) => {
                         store.commit('flashMessage', {
                             text: response.data.meta.error_message,
-                            type: 'danger',//optional
+                            type: 'danger',
                         });
                     }
                 );

@@ -6,7 +6,7 @@
             sidebar
 
             div.col-xs.main-content
-                button.success.pull-left(v-back="") back
+                <!--button.success.pull-left(v-back="") back-->
                 router-view
         div.clear-both
     div(v-else)

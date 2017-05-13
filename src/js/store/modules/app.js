@@ -8,6 +8,7 @@ export default {
         webserviceCategories:  [],
         ticketDepartments:  [],
         singlePurseMoreTrigger: '',
+        visibleNotification: false,
     },
     mutations: {
         loading(state) {

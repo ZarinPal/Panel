@@ -21,9 +21,9 @@
                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="webservice.purse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
 
 
-                            div.row.no-margin
+                            div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
                                 span.input-icon.webservice-cat-icon
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.app.webserviceCategories.length" v-on:select="selectedWebserviceCat" v-bind:selected="webservice.category_id" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:selected="webservice.category_id" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
 
                         div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                             div.row

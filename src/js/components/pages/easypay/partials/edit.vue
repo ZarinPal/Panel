@@ -174,14 +174,26 @@
 
 
                                         div.col-lg-12.col-md-12.col-xs-12
-                                            input(v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                            span.input-icon.globe-icon
-                                            input(v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                            span.input-icon.globe-icon
+                                            div.row.no-margin
+                                                span.input-icon.globe-icon
+                                                input(:class="{'input-danger': validationErrors.successful_redirect_url}"  v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
+                                                div.ta-right(v-if="validationErrors.successful_redirect_url")
+                                                    span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+
+
+
+                                            div.row.no-margin
+                                                span.input-icon.globe-icon
+                                                input(:class="{'input-danger': validationErrors.failed_redirect_url}" v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
+                                                div.ta-right(v-if="validationErrors.failed_redirect_url")
+                                                    span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
+
 
                                     div.row
                                         div.col-xs.nav-buttons
                                             button.btn.success.pull-right.button(v-ripple=""  @click="editEasypay") {{$i18n.t('common.edit')}}
+                                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -193,6 +205,7 @@
         name: 'pages-easypay-partials-edit',
         data() {
             return {
+                loading: false,
                 fileHover: '',
                 visibleEmail: '',   //  visible email options
                 messages: {},
@@ -246,12 +259,17 @@
                     });
                 }
             },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
         },
         methods: {
             selectedPurse(purseId) {
                 this.purse = purseId;
             },
             editEasypay() {
+                this.loading = true;
+
                 this.handleOrderOptionsSave('email');
                 this.handleOrderOptionsSave('mobile');
                 this.handleOrderOptionsSave('name');
@@ -277,10 +295,13 @@
 
                 this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
                     ()=> {
+                        this.loading = false;
                         this.changeEasypayState();
                         this.$router.push({name: 'easypay.index'});
                     },
                     (response) => {
+                        this.loading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
                             important: false,

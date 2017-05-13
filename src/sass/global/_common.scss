@@ -366,17 +366,6 @@
   display: inline-block;
 }
 
-.circle-hover{
-  border-radius: 50%;
-  transition: $animateTime;
-  padding: 2px;
-}
-
-.circle-hover:hover{
-  transition: $animateTime;
-  background-color: #eee;
-}
-
 .tag-active{
   cursor: default;
   &:before{
