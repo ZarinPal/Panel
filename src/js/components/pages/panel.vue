@@ -10,7 +10,12 @@
                 router-view
         div.clear-both
     div(v-else)
-        h1 loading
+        div.loading.ta-center
+            div.spinner
+            div.zarinpal-type زرین پال
+                <!--div.double-bounce1-->
+                <!--div.double-bounce2-->
+
 
 </template>
 

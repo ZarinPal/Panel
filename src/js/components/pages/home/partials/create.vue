@@ -52,10 +52,12 @@
         computed:{
             pursesSelection() {
                 return this.$store.state.auth.user.purses.map(function (purse) {
-//                    let vm = this;
-//                    let purseBalance = vm.moneyFormat(purse.purse);
+                    let sep = ',';
+                    let number = typeof purse.balance === "number" ? purse.balance.toString() : purse.balance;
+                    let balance = number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
+
                     return {
-                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num">' + purse.balance +  ' تومان</span>',
+                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num">' + balance +  ' تومان</span>',
                         'value': purse.purse
                     }
                 });
@@ -97,12 +99,6 @@
                         });
                     }
                 )
-            },
-            moneyFormat(num) {
-//                let n = num.toString(), p = n.indexOf('.');
-//                return n.replace(/\d(?=(?:\d{3})+(?:\.|$))/g, function($0, i){
-//                    return p<0 || i<p ? ($0+',') : $0;
-//                });
             }
         },
         components: {

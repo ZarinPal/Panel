@@ -9,7 +9,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                         span.header-title {{easypay.title}}
 
                 div.col-xs.ta-left-box
-                    span.header-link(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="'https://zarinp.al/' + easypay.public_id") https://zarinp.al/{{easypay.public_id}}
+                    a.header-link(v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
 
         div.middle-xs.body
 
@@ -47,9 +47,9 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs-4.no-margin
                     router-link.edit(tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
                 div.col-xs-4.no-margin
-                    span.delete {{$i18n.t('common.delete')}}
+                    span.delete(@click="confirmVisible = true") {{$i18n.t('common.delete')}}
 
-    confirm(v-if="confirmVisible" v-on:confirm="confirm()" v-on:closeModal="closeModal()")
+        confirm(v-if="confirmVisible" v-on:confirmed="deleteEasypay()" v-on:closeModal="closeModal")
 
 </template>
 
@@ -61,7 +61,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         data(){
             return {
                 confirmVisible: false,
-                confirm: true,
+                confirm: false,
             }
         },
         props: ['easypay'],
@@ -71,56 +71,36 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     text: 'copied',
                     type: 'success',
                     timeout: '500'
-
                 });
             },
             closeModal(){
                 this.confirmVisible = false;
             },
-            confirm(){
-                this.confirm = true;
-                alert(this.confirm);
-            },
             deleteEasypay() {
-                alert('deleted');
-                return;
+                this.confirm = true;
+                if(this.confirm) {
+                    let params = {
+                        easypay_id: this.easypay.entity_id
+                    };
 
-//                let params = {
-//                    easypay_id: this.easypay.entity_id
-//                };
-//
-//                this.$store.state.http.requests['easypay.getShow'].remove(params).then(
-//                    () => {
-//                        this.$router.push({name: 'easypay.index'})
-//                    },
-//                    (response) => {
-//                        store.commit('flashMessage', {
-//                            text: response.data.meta.error_message,
-//                            important: false,
-//                            type: 'danger'
-//                        });
-//                    }
-//                )
+                    this.$store.state.http.requests['easypay.getShow'].remove(params).then(
+                        () => {
+                            let easypayId = _.findIndex(this.$store.state.auth.user.easypays, {'entity_id': this.easypay.entity_id});
+                            this.$store.state.auth.user.easypays.splice(easypayId, 1);
+                        },
+                        (response) => {
+                            store.commit('flashMessage', {
+                                text: response.data.meta.error_message,
+                                important: false,
+                                type: 'danger'
+                            });
+                        }
+                    )
+                }
             }
         },
         components: {
-//            confirm,
-            confirm: {
-                props: {
-                    class: String,
-                    sureClass: String,
-                    func: {
-                        type: Function,
-                        required: true
-                    }
-                },
-
-                data: function() {
-                    return {
-                        confirm: false
-                    };
-                },
-            }
+            confirm
         }
     }
 </script>

@@ -13,27 +13,29 @@
             span.notification-lamp(v-if="notifications.length")
             a.notification.circle-hover(:class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="")
 
+        transition(name="fade"
+        enter-active-class="fade-in"
+        leave-active-class="fade-out")
+            div.nav-notification(v-if="this.$store.state.app.visibleNotification")
+                div.content
+                    div.row.header
+                        div.col-xs.ta-center
+                            span.notification-count(v-if="notifications.length") {{notificationCount | persianNumbers}}
+                            span.zarinpal-title {{$i18n.t('common.zarinPal')}}
+                        div.ta-left
+                            <!--span.icon-setting-->
 
-        div.nav-notification(v-if="this.$store.state.app.visibleNotification")
-            div.content
-                div.row.header
-                    div.col-xs.ta-center
-                        span.notification-count(v-if="notifications.length") {{notificationCount | persianNumbers}}
-                        span.zarinpal-title {{$i18n.t('common.zarinPal')}}
-                    div.ta-left
-                        <!--span.icon-setting-->
+                    div.row.body
+                        router-link.notification-box.col-lg-12.col-md-12.col-xs-12(@click="toggleNotification()" v-for="notification in notifications" v-if="notification.type == 'ticket'" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
+                            div.title {{notification.title}}
+                            div.body {{notification.body | less}}
 
-                div.row.body
-                    router-link.notification-box.col-lg-12.col-md-12.col-xs-12( v-for="notification in notifications" v-if="notification.type == 'ticket'" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
-                        div.title {{notification.title}}
-                        div.body {{notification.body | less}}
+                        router-link.notification-box.col-lg-12.col-md-12.col-xs-12(@click="toggleNotification()" v-for="notification in notifications" v-else-if="notification.type == 'transaction'" v-bind:to="{ name: 'transaction.show', params: {public_id: notification.id}}")
+                            div.title {{notification.title}}
+                            div.body {{notification.body | less}}
 
-                    router-link.notification-box.col-lg-12.col-md-12.col-xs-12( v-for="notification in notifications" v-else-if="notification.type == 'transaction'" v-bind:to="{ name: 'transaction.show', params: {public_id: notification.id}}")
-                        div.title {{notification.title}}
-                        div.body {{notification.body | less}}
-
-                    div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.length")
-                        span هیچ موردی برای نمایش وجود ندارد
+                        div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.length")
+                            span هیچ موردی برای نمایش وجود ندارد
 
 
 

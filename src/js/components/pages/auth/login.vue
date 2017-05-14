@@ -1,6 +1,6 @@
 <template lang="pug">
-    div.row.center-xs(v-if="$store.state.app.isLoaded")
-        div.col-xs-11.col-sm-11.col-md-5.col-lg-4.section.login-box
+    div.row.center-xs.no-margin(v-if="$store.state.app.isLoaded")
+        div.col-xs-11.col-sm-11.col-md-5.col-lg-4.section.auth-box
             div.col-xs.ta-right.box-top-links(v-if="step > 1")
                 span.icon-prev
                 router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.register')}}
@@ -73,11 +73,11 @@
             <!--Privacy Policy-->
             div.row.auth-privacy-footer
                 div.col-xs.ta-right
-                    router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.backToHomePage')}}
+                    a.link(href="http://zarinpal.com") {{$i18n.t('user.backToHomePage')}}
                 div.col-xs.ta-left
-                    router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.rulesAndRegulations')}}
+                    a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
                     span.gap
-                    router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.privacy')}}
+                    a.link(href="#" target="blank") {{$i18n.t('user.privacy')}}
 
 
 </template>

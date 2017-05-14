@@ -176,10 +176,19 @@
 
 
                                         div.col-lg-12.col-md-12.col-xs-12
-                                            input(v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                            span.input-icon.globe-icon
-                                            input(v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                            span.input-icon.globe-icon
+                                            div.row.no-margin
+                                                span.input-icon.globe-icon
+                                                input(:class="{'input-danger': validationErrors.successful_redirect_url}" v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
+                                                div.ta-right(v-if="validationErrors.successful_redirect_url")
+                                                    span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+
+
+
+                                            div.row.no-margin
+                                                span.input-icon.globe-icon
+                                                input(:class="{'input-danger': validationErrors.failed_redirect_url}" v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
+                                                div.ta-right(v-if="validationErrors.failed_redirect_url")
+                                                    span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
                                     div.row
                                         div.col-xs.nav-buttons
@@ -228,6 +237,9 @@
                         }
                     });
                 }
+            },
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
             },
         },
         methods: {
@@ -283,6 +295,7 @@
                         this.$router.push({name: 'easypay.index'})
                     },
                     (response) => {
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
                             important: false,

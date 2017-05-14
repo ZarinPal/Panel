@@ -14,6 +14,10 @@
         div.row
             singleEasypay(v-for="easypay in easypays" v-bind:easypay="easypay")
 
+        div.row(v-if="!easypays.length")
+            div.col-xs.ta-center
+                span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+
 </template>
 
 <script>

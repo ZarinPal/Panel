@@ -13,6 +13,10 @@
         div.row
             singleCard(v-for="card in user.cards" v-bind:card="card")
 
+        div.row(v-if="!user.cards.length")
+            div.col-xs.ta-center
+                span.txt-nothing-to-show {{ $ti18n.t('common.nothingToShow') }}
+
         createCard(v-if="visibleCreateCard" v-on:closeModal="closeModal()")
 </template>
 

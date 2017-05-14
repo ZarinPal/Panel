@@ -32,7 +32,7 @@
                                             button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
 
                                 div.nav-not-active-card(v-else)
-                                    p.title {{ $i18n.t('common.zarinpal') }}
+                                    p.title {{ $i18n.t('common.zarinPal') }}
                                     p.description {{ $i18n.t('purse.addFundNotActiveCard') }}
 
 </template>

@@ -13,6 +13,10 @@
         div.row
             singleWebservice(v-for="webservice in user.webservices" v-bind:webservice="webservice")
 
+        div.row(v-if="!user.webservices.length")
+            div.col-xs.ta-center
+                span.txt-nothing-to-show {{ $i18n.t('common.nothingToShow') }}
+
 </template>
 
 <script>

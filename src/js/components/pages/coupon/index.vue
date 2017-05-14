@@ -13,6 +13,10 @@
         div.row
             singleCoupon(v-for="coupon in coupons" v-bind:coupon="coupon")
 
+        div.row(v-if="!coupons.length")
+            div.col-xs.ta-center
+                span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+
 </template>
 
 <script>

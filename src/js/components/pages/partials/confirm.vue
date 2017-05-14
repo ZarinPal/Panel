@@ -2,51 +2,48 @@
     transition(name="fade"
     enter-active-class="fade-in"
     leave-active-class="fade-out")
-        div.modal.create-purse(v-on:click.self="closeModal()")
+        div.modal.card(v-on:click.self="closeModal()")
             transition(name="zoom"
             enter-active-class="zoom-in"
             leave-active-class="zoom-out")
-                div.row.center-xs(v-if="!confirmVisible" v-on:click.self="closeModal()")
+                div.row.center-xs(v-if="!closeModalContent" v-on:click.self="closeModal()")
                     div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
                         div.header
                             span.icon-close(@click="closeModal()")
-                            span.title {{ $i18n.t('purse.addPurseTitle') }}
-
+                            span.title confirm
                         div.body
                             div.contains
-
+                                h1 are you sure?
 
 
                                 div.row
                                     div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple="" @click.prevent="func()") yes
+                                        button.btn.success(v-ripple="" @click="confirmed()") Yes
+                                        button.btn.success(v-ripple="" @click="closeModal()") No
 
 </template>
 
 
 <script>
     export default {
-        name: 'pages-partials-confirm',
+        name: 'pages-easypay-partials-confirm',
         data() {
             return {
-                confirmVisible: false,
-                confrim: false
+                closeModalContent: false,
             }
         },
-        props: {
-            func: {
-                type: Function,
-                required: true
-            }
+        mounted() {
+            this.closeModalContent = false
         },
         methods: {
             closeModal() {
                 this.$emit('closeModal');
             },
-            confirm() {
-                this.$emit('confirm');
+            confirmed() {
+                this.$emit('confirmed');
+                this.closeModal();
             }
-        },
+        }
     }
 
 </script>
