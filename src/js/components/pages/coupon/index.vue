@@ -11,7 +11,7 @@
                     span.text {{ $i18n.t('coupon.createCoupon') }}
 
         div.row
-            singleCoupon(v-for="coupon in coupons" v-bind:coupon="coupon")
+            singleCoupon(v-for="coupon in coupons" v-bind:key="coupon.entity_id" v-bind:coupon="coupon")
 
         div.row(v-if="!coupons.length")
             div.col-xs.ta-center

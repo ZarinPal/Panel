@@ -65,7 +65,7 @@
 
 
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-            singleTransaction(v-for="transaction in transactions" v-bind:transaction="transaction")
+            singleTransaction(v-for="transaction in transactions"  v-bind:key="transaction.public_id" v-bind:transaction="transaction")
 
         div.ta-center
             <!--button.btn.rounded.success(@click="loadMore") +-->

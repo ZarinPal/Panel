@@ -11,7 +11,7 @@
                     span.text {{ $i18n.t('card.createCard') }}
 
         div.row
-            singleCard(v-for="card in user.cards" v-bind:card="card")
+            singleCard(v-for="card in user.cards" v-bind:key="card.issuer.slug" v-bind:card="card")
 
         div.row(v-if="!user.cards.length")
             div.col-xs.ta-center

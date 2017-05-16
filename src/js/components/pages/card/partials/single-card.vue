@@ -30,7 +30,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         div.bottom-xs.box-footer
             div.row
                 div.col-xs
-                    span.edit-bank-account(v-if="!card.is_legal" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
+                    span.edit-bank-account(v-if="!card.is_legal && card.account_id" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
 
     editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")
 
