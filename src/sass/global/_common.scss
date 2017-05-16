@@ -174,7 +174,7 @@
     margin:5px 0;
   }
 
-  .box{
+  .box {
     background-color: #fefefe;
     border:1px solid $boxBorderColor;
     box-shadow: $boxShadow;
@@ -366,17 +366,6 @@
   display: inline-block;
 }
 
-.circle-hover{
-  border-radius: 50%;
-  transition: $animateTime;
-  padding: 2px;
-}
-
-.circle-hover:hover{
-  transition: $animateTime;
-  background-color: #eee;
-}
-
 .tag-active{
   cursor: default;
   &:before{
@@ -486,6 +475,13 @@
     color: #8e8e8e;
     font-size: 11px;
   }
+}
+
+.txt-nothing-to-show{
+  color: #aaa;
+  margin: 50px 0;
+  font-size: 13px;
+  display: inline-block;
 }
 
 //MODAL

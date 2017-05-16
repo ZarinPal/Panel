@@ -1,6 +1,6 @@
 <template lang="pug">
-    div.row.center-xs(v-if="$store.state.app.isLoaded")
-        div.col-xs-11.col-sm-11.col-md-5.col-lg-4.section.login-box
+    div.row.center-xs.no-margin(v-if="$store.state.app.isLoaded")
+        div.col-xs-11.col-sm-11.col-md-5.col-lg-4.section.auth-box
             div.col-xs.ta-right.box-top-links(v-if="step > 1")
                 span.icon-prev
                 router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.register')}}
@@ -54,12 +54,14 @@
                                         span #
 
                                 div.col-xs
-                                    div.ussd-text(v-if="ussdType =='Code'") *۷۳۳*۹۷*۴*۱#
+                                    div.ussd-text(v-if="ussdType =='Code'") *۷۳۳*۴*۹۷*۱#
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
 
 
                         div.col-xs-12.no-margin
-                            input(type="text"  v-model="otp" placeholder="رمز یکبار مصرف")
+                            input(:class="{'input-danger': validationErrors.otp}" type="text"  v-model="otp" placeholder="رمز یکبار مصرف")
+                            div.ta-right(v-if="validationErrors.otp")
+                                span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
@@ -71,11 +73,11 @@
             <!--Privacy Policy-->
             div.row.auth-privacy-footer
                 div.col-xs.ta-right
-                    router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.backToHomePage')}}
+                    a.link(href="http://zarinpal.com") {{$i18n.t('user.backToHomePage')}}
                 div.col-xs.ta-left
-                    router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.rulesAndRegulations')}}
+                    a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
                     span.gap
-                    router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.privacy')}}
+                    a.link(href="#" target="blank") {{$i18n.t('user.privacy')}}
 
 
 </template>
@@ -169,7 +171,7 @@
             changeUssdType() {
                 if(this.ussdType === 'Code') {
                    this.ussdType = 'Qr';
-                   this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:*733*97*4*1%23';
+                   this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:*733*4*97*1%2523';
                 } else {
                     this.ussdType = 'Code';
                 }

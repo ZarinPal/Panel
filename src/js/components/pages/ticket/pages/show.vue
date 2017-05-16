@@ -57,6 +57,7 @@ span
                         p(v-html="$options.filters.code(reply.content)")
                         a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") download
 
+
     div.nav-send
         div.row
             div
@@ -97,27 +98,14 @@ span
             user(){
                 return this.$store.state.auth.user;
             },
-            content() {
-
-            },
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
         },
         created() {
-            this.getReplies(this.$route.params.id);
-            let vm = this;
+//            this.getReplies(this.$route.params.id);
+//            let vm = this;
 
-            let ticketContent = document.getElementById('ticketContent');
-
-
-
-            if(ticketContent.length > 0) {
-//                if( ticketContent.scrollTop === (ticketContent.scrollHeight - ticketContent.offsetHeight))
-//                {
-                    console.log(ticketContent);
-//                }
-            }
 
 
 
@@ -131,6 +119,19 @@ span
 
             //Change ticket list new ticket button
             this.$store.commit('app/changeTicketState');
+        },
+        mounted() {
+            this.getReplies(this.$route.params.id);
+            let vm = this;
+            let ticketContent = document.getElementById('ticketContent');
+
+            ticketContent.addEventListener("scroll", function(e) {
+                if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight){
+                    vm.$store.dispatch(
+                        'paginator/next'
+                    );
+                }
+            });
         },
         methods: {
             getReplies(id){

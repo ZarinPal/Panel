@@ -382,7 +382,7 @@ $plusIcon: $icon-zp-add;
 //Query Sm
 @media (max-width: $smallWidth){
   .nav-ticket-list{
-    width: 100%;
+    width: 100% !important;
   }
 
   .hidden-sm{

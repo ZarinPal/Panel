@@ -48,7 +48,7 @@ export default {
         }
     },
     actions: {
-        startWebPushSocket({ dispatch, commit }){
+        startWebPushSocket({ dispatch, commit, state }){
             let NchanSubscriber = require("nchan");
 
             let sub = new NchanSubscriber(
@@ -58,40 +58,51 @@ export default {
                 }
             );
 
-            sub.on('message', function (message) {
-                // message = JSON.parse(message);
-                commit('addNotification', message);
-                let options = {
-                    title: message,
-                    body: message
-                };
-                dispatch('sendBrowserNotification',options);
 
+            sub.on('message', function (message) {
+                message = JSON.parse(message);
+                commit('addNotification', message);
+                let notificationCount = state.notifications.length;
+                let lastMessageTitle = state.notifications[notificationCount-1].title;
+                let options = {
+                    title: lastMessageTitle,
+                    body: 'شما ' + notificationCount + ' پیام جدید دارید.',
+                    icon: 'assets/img/zarin-logo.png',
+                    sound: 'assets/sound/notification.mp3',
+                    tag:'zarin-notify',
+                };
+
+                dispatch('sendBrowserNotification',options);
             });
 
             sub.start();
-
         },
-        sendBrowserNotification(options){
+        sendBrowserNotification({rootState}, options){
+            let notifier = (options)=>{
+                let notification = new Notification(
+                    options.title,
+                    options
+                );
+
+                notification.onclick = function(event) {
+                    rootState.app.visibleNotification = true;
+                    event.preventDefault(); // prevent the browser from focusing the Notification's ta
+                };
+            };
+
+
             if (!("Notification" in window)) {
                 return null;
             } else if (Notification.permission === "granted") {
-                 new Notification(
-                     options.title,
-                     options
-                 );
-            }
-
-            else if (Notification.permission !== "denied") {
+                notifier(options);
+            } else if (Notification.permission !== "denied") {
                 Notification.requestPermission(function (permission) {
                     if (permission === "granted") {
-                        new Notification(
-                            options.title,
-                            options
-                        );
+                        notifier(options);
                     }
                 });
             }
         }
+
     }
 };

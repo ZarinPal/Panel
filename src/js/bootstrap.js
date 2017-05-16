@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 window.moment = require('moment-jalaali');
@@ -49,7 +48,7 @@ Vue.directive(
 );
 
 Vue.directive(
-    'closeDropDown',
+    'click-outside',
     require('./directives/close').default
 );
 
@@ -57,7 +56,6 @@ Vue.directive(
     'back',
     require('./directives/back').default
 );
-
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of

@@ -1,96 +1,8 @@
-.auth-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-
-  > div {
-    background-color: #ffffff;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.10);
-    border-radius: 5px;
-    padding: 20px;
-    margin: 0 auto;
-  }
-
-  .logo {
-    text-align: center;
-    margin-bottom: 12px;
-    img {
-      width: 47px;
-      height: 47px;
-    }
-
-    p {
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      margin: -6px 0 0 0;
-      color: #424242;
-    }
-  }
-
-
-  .nav-logo{
-    .nav-right{
-      padding-top: 10px;
-      border-left: 2px solid #eaeaea;
-      padding-left:20px;
-    }
-
-    .nav-left{
-      padding-right: 20px;
-      margin-left: 30px;
-
-      .user-avatar{
-        width: 90px;
-        border-radius: 50%;
-        border: 2px solid #fff;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
-
-  .ussd-code{
-    text-align: center;
-  }
-
-
-
-}
-
-form {
-  > div {
-    margin-bottom: 10px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  .forgot {
-    text-align: left;
-  }
-  .center {
-    font-family: $fontName;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-weight: 200;
-    font-size: 13px;
-    color: #000000;
-    text-align: center;
-  }
-}
-
 //----------------------------
 
-.login-box{
+.auth-box{
   max-width: 410px;
   margin-top: 100px;
-
-
 
   .box-top-links{
     .link{
@@ -113,11 +25,20 @@ form {
     }
   }
 
-
   .box{
     padding: 25px;
     font-size: 13px !important;
     color:$labelColor;
+
+    .row-margin{
+      input {
+        margin: 5px 0;
+      }
+
+      .half-input{
+        width: 99%;
+      }
+    }
 
     .top-xs {
       .zp-icon {
@@ -249,8 +170,8 @@ form {
       width: 15px;
     }
 
-    span{
-      color: #8b8b8c;
+    .link{
+      color: #8b8b8c !important;
       display: inline-block;
       margin-top: 10px;
       cursor: pointer;
