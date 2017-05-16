@@ -27,7 +27,7 @@
                         transition( name="bounce"
                                     enter-active-class="drop-down-show"
                                     leave-active-class="drop-down-hide")
-                            span.drop-down#trigger(v-if="this.$store.state.app.singlePurseMoreTrigger == purse.purse")
+                            span.drop-down(v-if="this.$store.state.app.singlePurseMoreTrigger == purse.purse")
                                 span.close-drop-down.drop-down-item(@click="changeMoreTriggerOff()")
                                 span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
@@ -138,15 +138,6 @@
                     }
                 );
             },
-//            trigger() {
-//                let specifiedElement = document.getElementById('trigger');
-//                document.addEventListener('click', function(event) {
-//                    let isClickInside = specifiedElement.contains(event.target);
-//                    if (!isClickInside) {
-//                        console.log('click outside');
-//                    }
-//                });
-//            }
         },
         components:{
             addFund

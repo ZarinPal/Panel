@@ -353,31 +353,18 @@ ul.dropdown {
   }
 
   span.arrow {
-    position: relative;
+    position: absolute;
     display: inline-block;
-    float: left;
+    left: 6px;
+    top: 10px;
 
-    &:before,
-    &:after {
-      background-color: #424242;
-      position: absolute;
-      content: '';
-      width: 7px;
-      height: 2px;
-      top: 0px;
-      border-radius: 1px;
-    }
-
-    &:before {
-      transform: rotate(45deg);
-      top: 9px;
-      left: -4px;
-    }
-
-    &:after {
-      transform: rotate(-45deg);
-      top: 9px;
-      left: 0px;
+    &:before{
+      content: $itemArrow;
+      font-family: 'zarinpal';
+      font-style: normal;
+      color: #424242;
+      font-size: 13px;
+      margin-right: 10px !important;
     }
   }
 

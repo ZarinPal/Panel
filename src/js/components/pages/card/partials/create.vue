@@ -97,9 +97,7 @@
             cardNumberFormat(inputId) {
                 let text = document.getElementById(inputId).value;
                 let result = [];
-//                if(dataType == 'integer') {
-                    text = this[inputId].replace(/[^\d]/g, "");
-//                }
+                text = this[inputId].replace(/[^\d]/g, "");
                 while (text.length > 4) {
                     result.push(text.substring(0, 4));
                     text = text.substring(4);

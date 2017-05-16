@@ -1,7 +1,7 @@
 <template lang="pug">
     div.inner-content
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-            singleTransactionsession(v-for="transactionsession in transactionsessions" v-bind:transactionsession="transactionsession")
+            singleTransactionsession(v-for="transactionsession in transactionsessions" v-bind:key="transactionsession.authority" v-bind:transactionsession="transactionsession")
 </template>
 
 <script>

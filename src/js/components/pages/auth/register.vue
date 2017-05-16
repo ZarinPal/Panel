@@ -1,39 +1,60 @@
-// app.vue
-<style>
-</style>
-
 <template lang="pug">
-div.row.auth-container
-    div.col-lg-4.col-md-4.col-sm-5.col-xs-12
-        div.logo
-            img(src="assets/img/ZarinPal-Logo.svg")
-            p زرین‌پال
-        form(action="#" method="post" novalidate)
-            div.row
-                div.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                    label
-                    input.gold(type="text" v-model="firstName" id="firstname" placeholder="نام")
-                div.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                    label
-                    input.gold(type="text" v-model="lastName" id="lastname" placeholder="نام خانوادگی")
-            div
-                label
-                input.gold(type="text" v-model="mobile" id="mobile" placeholder="موبایل")
-            div
-                button.gold.full(id="register" @click="register") ثبت نام
-            div.center
-                span عضو زرین‌پال هستید؟
-                router-link.register(tag="a" v-bind:to="{ name: 'auth.login'}") وارد شوید
-    <!--footer-->
-        <!--ul.center-content-->
-            <!--li-->
-                <!--a(href="https://www.zarinpal.com" title="صفحه اصلی زرین پال" target="_blank" rel="follow index") صفحه اصلی-->
-            <!--li-->
-                <!--a(href="https://www.zarinpal.com/terms.html" title="قوانین و مقررات زرین پال" target="_blank" rel="nofollow index") قوانین و مقررات-->
-            <!--li-->
-                <!--a(href="https://www.zarinpal.com/policy.html" title="صفحه حریم خصوصی زرین پال" target="_blank" rel="nofollow index") حریم خصوصی-->
-            <!--li-->
-                <!--a(href="https://www.zarinpal.com/contact.html" title="تماس با ما زرین پال" target="_blank" rel="nofollow index") تماس با ما-->
+    div.row.center-xs.no-margin(v-if="$store.state.app.isLoaded")
+        div.col-xs-11.col-sm-11.col-md-5.col-lg-4.section.auth-box
+            div.box
+                <!--Header-->
+                div.row.top-xs
+                    span.zp-icon
+                    span.zp-title {{ $i18n.t('common.zarinPal') }}
+
+                <!--Body-->
+                form(action="#" method="post" novalidate)
+                    div.row.middle-xs
+                        div.col-xs-12.no-margin.body-messages
+                            div.col-lg-12.ta-right
+                                p {{ $i18n.t('user.register') }}
+
+                    div.row.row-margin
+                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-margin
+                            input.half-input(:class="{'input-danger': validationErrors.first_name}" type="text" v-model="firstName" id="firstname" placeholder="نام")
+                            div.ta-right(v-if="validationErrors.first_name")
+                                span.text-danger {{ $i18n.t(validationErrors.first_name) }}
+
+                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-margin
+                            input.half-input(:class="{'input-danger': validationErrors.last_name}" type="text" v-model="lastName" id="lastname" placeholder="نام خانوادگی")
+                            div.ta-right(v-if="validationErrors.last_name")
+                                span.text-danger {{ $i18n.t(validationErrors.last_name) }}
+
+                    div.row.row-margin
+                        input(:class="{'input-danger': validationErrors.mobile}" type="text" v-model="mobile" id="mobile" placeholder="موبایل")
+                        div.ta-right(v-if="validationErrors.mobile")
+                            span.text-danger {{ $i18n.t(validationErrors.mobile) }}
+
+
+                    div.row.bottom-xs
+                        div.col-xs.no-margin.ta-right
+                            span عضو زرین‌پال هستید ؟
+                            router-link.link(v-bind:to="{ name: 'auth.login'}") {{ $i18n.t('user.enter') }}
+                        div.col-xs.no-margin
+                            button.gold.pull-left(id="register" @click="register") {{$i18n.t('user.register')}}
+
+
+            <!--Privacy Policy-->
+            div.row.auth-privacy-footer
+                div.col-xs.ta-right
+                    a.link(href="http://zarinpal.com") {{$i18n.t('user.backToHomePage')}}
+                div.col-xs.ta-left
+                    a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
+                    span.gap
+                    a.link(href="#" target="blank") {{$i18n.t('user.privacy')}}
+
+
+
+
+
+
+
+
 </template>
 <script>
     export default {
@@ -44,6 +65,11 @@ div.row.auth-container
                 lastName: "",
                 mobile: "",
             }
+        },
+        computed:{
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
         },
         methods: {
             register(event){
@@ -67,9 +93,10 @@ div.row.auth-container
                         });
                     },
                     (response) => {
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage', {
                             text: response.data.meta.error_message,
-                            type: 'danger',//optional
+                            type: 'danger',
                         });
                     }
                 );

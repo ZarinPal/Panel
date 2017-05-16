@@ -1,5 +1,5 @@
 <template lang="pug">
-    ul.dropdown
+    ul.dropdown(v-click-outside="closeDropDown")
         li(@click="isOpen = true")
             span(v-html="selectBoxTitle")
             span.arrow
@@ -20,7 +20,9 @@ export default {
         return {
             selectBoxTitle: this.selected,
             isOpen: false,
-            a: ''
+            a: '',
+            clickOutside: 0,
+            clickInside: 0,
         }
     },
     created() {
@@ -41,8 +43,11 @@ export default {
             this.selectBoxTitle = item.title;
             this.isOpen = false;
             this.$emit('select', item.value);
+        },
+        closeDropDown: function() {
+            this.isOpen = false;
         }
-    }
+    },
 };
 
 </script>

@@ -27,13 +27,6 @@
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                                     selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" placeholder="انتخاب کنید ...")
 
-                            div.row
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
-                                    input(v-model="fromDate" type="text" placeholder="1395-12-04")
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
-                                    input(v-model="toDate" type="text" placeholder="1396-12-04")
-
-
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-4
                                     button.btn.info.pull-right(v-ripple="" @click="search()")
                                         span {{ $i18n.t('common.search') }}
@@ -71,10 +64,8 @@
                 small ({{ $i18n.t('transaction.toman') }})
 
 
-        div.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="isLoaded")
-            singleTransaction(v-for="transaction in transactions" v-bind:transaction="transaction")
-        div(v-else)
-            h1 this is loading
+        div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+            singleTransaction(v-for="transaction in transactions"  v-bind:key="transaction.public_id" v-bind:transaction="transaction")
 
         div.ta-center
             <!--button.btn.rounded.success(@click="loadMore") +-->
@@ -94,8 +85,6 @@
                 searchOptions: {},
                 filterType: null,
                 filterValue: null,
-                fromDate: '',
-                toDate: '',
                 generalFilter: 'all',
                 filterTypeData: [
                     {
