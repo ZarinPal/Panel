@@ -36,10 +36,10 @@
                                         div.row.nav-expiration-input
                                             div.col-xs.no-margin
                                                 span.label {{$i18n.t('card.month')}}:
-                                                input#month(type="number" v-model="month" placeholder="۰۰" maxlength="2" @keyup="changeMonthFocus")
+                                                input#month(type="number" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
                                             div.col-xs.no-margin
                                                 span.label {{$i18n.t('card.year')}}:
-                                                input#year(type="number" v-model="year" placeholder="۰۰۰۰" maxlength="4" @keyup="changeYearFocus")
+                                                input#year(type="number" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
 
 
                                 div.row
@@ -58,7 +58,9 @@
             return {
                 loading: false,
                 closeModalContent: true,
-                pan: ''
+                pan: '',
+                month: '',
+                'year': ''
             }
         },
         props:['card'],

@@ -13,7 +13,6 @@
         div.row
             singlePurse(v-for="purse in user.purses" v-bind:key="purse.purse" v-bind:purse="purse" v-bind:showMore="showMore")
 
-
         createPurse(v-if="visibleCreatePurse" v-on:closeModal="closeModal()")
 
 </template>
