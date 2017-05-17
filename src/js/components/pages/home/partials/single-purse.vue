@@ -38,8 +38,7 @@
                     div.nav-balance
                         div.txt-balance {{ $i18n.t('common.balance') }}
 
-                        div.balance-amount(v-if="isLoaded") {{balance.balance | numberFormat | persianNumbers }}
-                        div.balance-amount(v-else) -
+                        div.balance-amount {{purse.balance.balance | numberFormat | persianNumbers }}
                         div.nav-show-chart
                             <!--span.chart-icon-->
                             <!--span {{ $i18n.t('common.showChart')}}-->
@@ -48,15 +47,15 @@
                 div.row
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-input-trans
-                        span.amount {{balance.today_income  | numberFormat | persianNumbers }}
+                        span.amount {{purse.balance.today_income  | numberFormat | persianNumbers }}
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-output-trans
-                        span.amount  {{balance.today_outcome  | numberFormat | persianNumbers }}
+                        span.amount  {{purse.balance.today_outcome  | numberFormat | persianNumbers }}
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-moving-trans
-                        span.amount  {{balance.total_to_exit  | numberFormat | persianNumbers }}
+                        span.amount  {{purse.balance.total_to_exit  | numberFormat | persianNumbers }}
 
 
         addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()" v-bind:purse="purse")
@@ -79,9 +78,6 @@
             }
         },
         props: ['purse'],
-        created(){
-            this.getBalance();
-        },
         methods: {
             changeMoreTriggerOn() {
                 this.$store.state.app.singlePurseMoreTrigger = this.purse.purse
@@ -100,20 +96,6 @@
                 this.$store.state.auth.user.purses[purseIndex].name
                     = this.purse.name
                     = this.newPurseName;
-            },
-            getBalance(){
-                if(this.$store.state.auth.user.purses) {
-                    this.$store.state.http.requests['purse.getBalance'].get({purseId: this.purse.purse}).then(response => {
-                        this.balance = response.data.data;
-                        this.isLoaded = true;
-
-                        let vm = this;
-                        let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
-                            return purse.purse === vm.purse.purse
-                        });
-                        this.$store.state.auth.user.purses[purseIndex].balance = response.data.data.balance;
-                    });
-                }
             },
             toggleEditPurse(){
                 this.isEditingPurseName = !this.isEditingPurseName;

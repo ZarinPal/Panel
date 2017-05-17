@@ -18,7 +18,12 @@
                                     p {{ $i18n.t('webservice.activeZarinGateFor') }} {{webservice.name}}
 
                                 div.row
-                                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول")
+                                    div.ta-right(v-if="validationErrors.purse")
+                                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+
+
+                                    span.persian-num.activation-price(v-if="priceZaringate")  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
 
                                 div.row
                                     p.create-description {{ $i18n.t('webservice.zarinGateNotice') }}
@@ -26,19 +31,24 @@
                                 div.row
                                     div.col-xs.no-margin
                                         button.btn.success.pull-left(v-ripple="" @click="activeZarinGate") {{$i18n.t('webservice.activeZarinGateSubmit')}}
+                                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
+    import purse from '../../partials/purses.vue';
 
     export default {
         name: 'home-webservice-partials-zarinGateActivation',
         data() {
             return {
+                loading: false,
                 closeModalContent: true,
-                purse: 1,
+                purse: null,
+                priceZaringate: null,
             }
         },
         props:['webservice'],
@@ -46,14 +56,12 @@
             this.closeModalContent = false
         },
         computed:{
-            pursesSelection() {
-                return this.$store.state.auth.user.purses.map(function (purse) {
-                    return {
-                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num"></span>',
-                        'value': purse.purse
-                    }
-                });
-            }
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
+        },
+        created() {
+          this.getPriceZaringate();
         },
         methods: {
             closeModal() {
@@ -63,33 +71,43 @@
                 this.purse = purseId;
             },
             activeZarinGate() {
+                this.loading = true;
                 let ussdData = {
                     webservice : this.webservice.entity_id,
                     purse : this.purse,
                 };
 
-//                this.$store.state.http.requests['webservice.postRequestUssd'].save(ussdData).then(
-//                    ()=> {
-//                        let vm = this;
-//                        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
-//                            return webservice.entity_id === vm.webservice.entity_id;
-//                        });
-//                        this.$store.state.auth.user.webservices[webserviceIndex].zaringate_status = 'Activate';
-//
-//                        this.closeModal();
-//                    },
-//                    (response) => {
-//                        this.$store.commit('flashMessage',{
-//                            text: response.data.meta.error_message,
-//                            important: false,
-//                            type: 'danger'
-//                        });
-//                    }
-//                )
+                this.$store.state.http.requests['webservice.postRequestZaringate'].save(ussdData).then(
+                    ()=> {
+                        let vm = this;
+                        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
+                            return webservice.entity_id === vm.webservice.entity_id;
+                        });
+                        this.$store.state.auth.user.webservices[webserviceIndex].zaringate_status = 'Activate';
+
+                            this.validationErrors = null;
+                        this.closeModal();
+                    },
+                    (response) => {
+                        this.loading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
+                        this.$store.commit('flashMessage',{
+                            text: response.data.meta.error_message,
+                            important: false,
+                            type: 'danger'
+                        });
+                    }
+                )
+            },
+            getPriceZaringate() {
+                this.$store.state.http.requests['webservice.getPriceZaringate'].get().then(response => {
+                    this.priceZaringate = response.data.data[0];
+                });
             },
         },
         components: {
-            selectbox
+            selectbox,
+            purse
         }
     }
 

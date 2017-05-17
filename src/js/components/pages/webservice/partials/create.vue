@@ -41,8 +41,7 @@
                                     span.text-danger {{ $i18n.t(validationErrors.site_content) }}
 
                             div.row.no-margin
-                                span.input-icon.purse-icon
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
+                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
 
                             div.row.no-margin
                                 span.input-icon.webservice-cat-icon
@@ -59,6 +58,7 @@
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
+    import purse from '../../partials/purses.vue';
 
     export default {
         name: 'pages-webservice-partials-create',
@@ -78,16 +78,6 @@
             }
         },
         computed:{
-            pursesSelection() {
-                if(this.$store.state.auth.user.purses) {
-                    return this.$store.state.auth.user.purses.map(function (purse) {
-                        return {
-                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
-                            'value': purse.purse
-                        }
-                    });
-                }
-            },
             webserviceCatSelection() {
                 if(this.$store.state.app.webserviceCategories) {
                     return this.$store.state.app.webserviceCategories.map(function (value) {
@@ -113,6 +103,9 @@
                 this.webservice_category_id = webserviceCatId;
             },
             createWebservice() {
+
+
+                return;
                 this.loading = true;
                 let webserviceData = {
                     domain: this.domain,
@@ -126,6 +119,10 @@
 
                 this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
                     ()=> {
+                        store.commit('flashMessage',{
+                            text: 'ticket-new-webservice',
+                            type: 'danger'
+                        });
                         this.$router.push({name: 'webservice.index'})
                     },
                     (response) => {
@@ -181,7 +178,8 @@
             }
         },
         components: {
-            selectbox
+            selectbox,
+            purse
         }
     }
 

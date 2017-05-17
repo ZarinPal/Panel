@@ -26,8 +26,7 @@
                                     input(type="text" v-model="price" placeholder= "مبلغ")
                                     span.input-icon.amount-icon
                                     textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="description" placeholder= "توضیحات وب‌سایت")
-                                    selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="easypay.purse" v-bind:data="pursesSelection"  placeholder="کیف پول متصل")
-                                    span.input-icon.purse-icon
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
                                     div.cb
                                     div.row.nav-buttons
                         div.col-lg-5.col-md-5.col-sm-12.col-xs-12
@@ -200,6 +199,7 @@
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
+    import purse from '../../partials/purses.vue';
 
     export default {
         name: 'pages-easypay-partials-edit',
@@ -393,7 +393,8 @@
             },
         },
         components: {
-            selectbox
+            selectbox,
+            purse
         }
     }
 
