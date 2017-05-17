@@ -344,8 +344,17 @@ ul.dropdown {
     top: 3px;
   }
 
+  .indent{
+    padding-right: 30px;
+    border:1px solid red;
+  }
+
   > ul > li .wallet-color {
     top: 5px;
+  }
+
+  .purse-selectbox-balance{
+    margin-left:10px;
   }
 
   > span {
@@ -415,6 +424,7 @@ ul.dropdown {
   background-color: #f8f9fa;
   border: 1px solid #CECECE;
   border-radius: 5px;
+  width: 100%;
   .first-label{
     font-size: 12px;
     color: #676767;

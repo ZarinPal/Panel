@@ -1,10 +1,6 @@
 <template lang="pug">
     div.row.center-xs.no-margin(v-if="$store.state.app.isLoaded")
         div.col-xs-11.col-sm-11.col-md-5.col-lg-4.section.auth-box
-            div.col-xs.ta-right.box-top-links(v-if="step > 1")
-                span.icon-prev
-                router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.register')}}
-
             div.box
                 <!--Header-->
                 div.row.top-xs
@@ -54,7 +50,7 @@
                                         span #
 
                                 div.col-xs
-                                    div.ussd-text(v-if="ussdType =='Code'") *۷۳۳*۴*۹۷*۱#
+                                    div.ussd-text.persian-num(v-if="ussdType =='Code'") {{ussdCode}}
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
 
 
@@ -73,7 +69,8 @@
             <!--Privacy Policy-->
             div.row.auth-privacy-footer
                 div.col-xs.ta-right
-                    a.link(href="http://zarinpal.com") {{$i18n.t('user.backToHomePage')}}
+                    span.icon-prev
+                    router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.register')}}
                 div.col-xs.ta-left
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
                     span.gap
@@ -95,7 +92,6 @@
                 channel: null,
                 ussdCode: null,
                 qrCodeSrc: null,
-
             }
         },
         computed:{
@@ -171,7 +167,8 @@
             changeUssdType() {
                 if(this.ussdType === 'Code') {
                    this.ussdType = 'Qr';
-                   this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:*733*4*97*1%2523';
+                    let ussdCode = this.ussdCode.substring(0, this.ussdCode.length - 1);
+                    this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:' + ussdCode + '%2523';
                 } else {
                     this.ussdType = 'Code';
                 }
