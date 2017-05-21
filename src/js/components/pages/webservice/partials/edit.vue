@@ -17,9 +17,7 @@
 
 
                             div.row.no-margin
-                                span.input-icon.purse-icon
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="webservice.purse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
-
+                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
 
                             div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
                                 span.input-icon.webservice-cat-icon
@@ -61,6 +59,7 @@
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
+    import purse from '../../partials/purses.vue';
 
     export default {
         name: 'pages-webservice-partials-edit',
@@ -212,7 +211,8 @@
             }
         },
         components: {
-            selectbox
+            selectbox,
+            purse
         }
     }
 </script>

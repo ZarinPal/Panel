@@ -23,13 +23,29 @@ export default {
         },
     },
     actions: {
-        fetch ({commit, rootState}, callback) {
+        fetch ({commit, rootState, dispatch}, callback) {
             rootState.http.requests['app.getBasicInfo'].get().then(
                 (response) => {
                     commit('fill', response.data.data);
-                    callback();
+                    dispatch('fetchPurceBalance', callback);
                 }
             ).catch(()=>{});
+        },
+        fetchPurceBalance({rootState, state}, callback){
+            let purseCount = state.user.purses.length;
+            state.user.purses.forEach(function (purse, index) {
+                rootState.http.requests['purse.getBalance'].get({purseId: purse.purse}).then(response => {
+                    let purseIndex = _.findIndex(state.user.purses, function(filterPurse) {
+                        return filterPurse.purse === purse.purse
+                    });
+                    state.user.purses[purseIndex].balance = response.data.data;
+                    if(purseCount-1 === index){
+                        callback();
+                    }
+                });
+            });
+
+
         },
         save ({state, rootState}) {
             rootState.http.requests['profile'].update({

@@ -20,7 +20,7 @@
                                     div.ta-right(v-if="validationErrors.name")
                                         span.text-danger {{ $i18n.t(validationErrors.name) }}
 
-                                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="pursesSelection" placeholder="انتخاب کیف پول")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
 
                                 div.row
                                     p.create-description {{ $i18n.t('purse.createPurseSilverUsersDescription') }}
@@ -35,6 +35,7 @@
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
+    import purse from '../../partials/purses.vue';
 
     export default {
         name: 'home-purse-create',
@@ -50,18 +51,6 @@
             this.closeModalContent = false
         },
         computed:{
-            pursesSelection() {
-                return this.$store.state.auth.user.purses.map(function (purse) {
-                    let sep = ',';
-                    let number = typeof purse.balance === "number" ? purse.balance.toString() : purse.balance;
-                    let balance = number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
-
-                    return {
-                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num">' + balance +  ' تومان</span>',
-                        'value': purse.purse
-                    }
-                });
-            },
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -102,7 +91,8 @@
             }
         },
         components: {
-            selectbox
+            selectbox,
+            purse
         }
     }
 
