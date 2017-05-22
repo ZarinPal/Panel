@@ -16,7 +16,8 @@
         "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
         "production": "cross-env NODE_ENV=production webpack --progress --hide-modules",
         "pack": "build --dir",
-        "compile": "build -mwl"
+        "dist": "build -mwl",
+        "compile": "build -mwl --projectDir=public"
     },
     "dependencies": {
         "clipboard": "^1.6.1",
@@ -38,7 +39,9 @@
         "vuex": "^2.2.1",
         "webpack": "^2.5.1",
         "file-loader": "^0.11.1",
-        "resolve-url-loader": "^2.0.2",
+        "resolve-url-loader": "^2.0.2"
+    },
+    "devDependencies":{
         "electron": "^1.6.5",
         "electron-builder": "^17.0.1"
     }
