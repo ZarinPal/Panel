@@ -13,6 +13,8 @@ npm run production
 cp -R ./assets ./public/
 cp -R ./index-web.html ./public/index.html
 cd public
-git add --all .
-git commit -m ":credit_card::tada:"
-git push origin HEAD:release-web
+if [[ $TRAVIS_BRANCH == 'master' ]]; then
+    git add --all .
+    git commit -m ":credit_card::tada:"
+    git push origin HEAD:release-web
+fi
