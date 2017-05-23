@@ -6,6 +6,7 @@ node_js:
   - stable
 notifications:
   email: false
+before_script: 'echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config'
 script:
     - ./compiler.sh
 before_install:
