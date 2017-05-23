@@ -15,9 +15,14 @@ $plusIcon: $icon-zp-add;
     text-align: center;
     height: 94vh;
 
-    img {
+    .no-ticket-image {
+      background-image: url("../../img/no-ticket.png");
+      display: inline-block;
       width: 50%;
       margin-top: 100px;
+      height: 310px;
+      background-size: 100%;
+      background-repeat: no-repeat;
     }
 
     .emptyText{
@@ -228,6 +233,7 @@ $plusIcon: $icon-zp-add;
             position: relative;
             top: -27px;
             left: 5px;
+            background-image: url("../../img/zarin-logo.png");
           }
         }
 

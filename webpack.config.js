@@ -147,16 +147,16 @@ let rules = [
                 options: {
                     name: path => {
                         if (! /node_modules|bower_components/.test(path)) {
-                            return 'images/[name].[ext]?[hash]';
+                            return 'images/[name].[ext]';
                         }
 
                         return 'images/vendor/' + path
                             .replace(/\\/g, '/')
                             .replace(
                                 /((.*(node_modules|bower_components))|images|image|img|assets)\//g, ''
-                            ) + '?[hash]';
+                            );
                     },
-                    publicPath: Mix.options.resourceRoot
+                    publicPath: '../',
                 }
             },
             'img-loader'

@@ -151,8 +151,14 @@
                 };
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
-                        this.$store.dispatch('auth/fetch');
-                        this.$router.push({name: 'home.index'});
+                        this.$store.commit('app/loading');
+                        let vm = this;
+                        this.$store.dispatch('auth/fetch',
+                            () => {
+                                vm.$store.commit('app/ready');
+                                vm.$router.push({name: 'home.index'});
+                            }
+                        );
                     },
                     (response) => {
                         store.commit('setValidationErrors',response.data.validation_errors);
