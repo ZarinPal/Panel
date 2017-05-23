@@ -4,7 +4,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         div.middle-xs.body.bank-card(v-bind:class="card.issuer.slug.toLowerCase()")
             div.row
                 div.col-xs.ta-right
-                    img.logo(v-bind:src="'assets/img/banks/' + card.issuer.slug  + '.png'")
+                    div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
                     span.bank-name {{ card.issuer.name}}
                 div.ta-left(v-if="card.status === 'Active'")
                     span.accepted-card

@@ -27,7 +27,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
                 div.col-xs.ta-left.no-margin
                     span.tag-deposit-to.pull-left
-                        img(v-if="easypay.purse == 1" src="assets/img/zarin-logo.png")
+                        div.logo(v-if="easypay.purse == 1")
                         span.purse-color(v-else v-bind:class="'color-' + easypay.purse")
                         span {{easypay.purse_name}}
 

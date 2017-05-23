@@ -189,10 +189,12 @@ body {
     display: inline-block;
     text-align: center;
 
-    img{
-      width: 30px;
-      height: 30px;
-      margin-top: 10px;
+    .logo{
+      background-image: url("../../img/zarin-logo.png");
+      width: 31px;
+      height: 31px;
+      margin: 10px auto;
+      background-repeat: no-repeat;
     }
   }
 

@@ -69,7 +69,6 @@
         name: 'pages-home-partials-singlePurse',
         data(){
             return {
-                balance: {},
                 isLoaded: false,
                 showOptions: false,
                 isEditingPurseName: false,
