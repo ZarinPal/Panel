@@ -17,7 +17,7 @@
         "production": "cross-env NODE_ENV=production webpack --progress --hide-modules",
         "pack": "build --dir",
         "dist": "build -mwl",
-        "compile": "build -mwl --projectDir=public"
+        "compile": "build -mwl"
     },
     "dependencies": {
         "clipboard": "^1.6.1",
