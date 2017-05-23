@@ -1,7 +1,7 @@
 <template lang="pug">
     div.inner-content
         div.nav-ticket-empty
-            img(src="assets/img/ticket/empty.png")
+            div.no-ticket-image
             span.emptyText یک تیکت را برای نمایش انتخاب کنید
 
 </template>
@@ -11,7 +11,7 @@
         name: 'ticket-empty',
         data () {
             return {
-                resource: this.$resource('ticket/{public_id}.json')
+//                resource: this.$resource('ticket/{public_id}.json')
             }
         },
         created() {
@@ -27,19 +27,20 @@
                 }
             ];
             this.ajaxGet(this.$route.params.public_id);
-            this.$http.get('ticket.json').then(response => {
+            this.$store.state.http.requests['ticket.index'].get()
+            .then(response => {
                 response.data = response.data;
                 this.list = response.data.data;
             });
         },
         methods: {
-            ajaxGet(id){
-                let vm = this;
-                this.resource.get({public_id: id}).then(data => {
-                    vm.request = data.data;
-                    vm.ticket = vm.request.data;
-                });
-            },
+//            ajaxGet(id){
+//                let vm = this;
+//                this.resource.get({public_id: id}).then(data => {
+//                    vm.request = data.data;
+//                    vm.ticket = vm.request.data;
+//                });
+//            },
         }
     }
 </script>

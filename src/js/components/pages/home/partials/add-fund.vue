@@ -64,7 +64,7 @@
                 _.forEach(this.$store.state.auth.user.cards, function(card) {
                     if(card.status == "Active" && card.pan !== null) {
                         activeCards.unshift({
-                            'title' : '<img src="assets/img/banks/' + card.issuer.slug  + '.png" class="bank-logo"></img>' + card.issuer.name + '<span class="pull-left">' + card.pan +  '</span>',
+                            'title' : '<div class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() +'"></div> <span class="bank-name">' + card.issuer.name +'</span>' + '<span class="pull-left">' + card.pan +  '</span>',
                             'value' : card.entity_id,
                         });
                     }

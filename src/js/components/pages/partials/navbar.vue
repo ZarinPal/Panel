@@ -6,7 +6,7 @@
             h4.hidden-xs.navbar-title پیشخوان
 
         div.navigation-logo.col.col-lg-4.col-sm-4.col-xs-4
-            img(src="assets/img/zarin-logo.png")
+            div.logo
 
         div.col-lg-4.col-sm-4.col-xs-4.left-box
             a.logout(@click="logout()" title="خروج" v-ripple="")

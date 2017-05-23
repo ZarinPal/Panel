@@ -47,7 +47,7 @@ span
                         div.row
                             span.image.admin-image
                                 img(v-bind:src="'https:'+reply.user_info.avatar")
-                                img.zarinpal-sign(src="assets/img/zarin-logo.png")
+                                div.zarinpal-sign
 
                             span.nav-ticket-status
                                 p.username {{ reply.user_info.name }}
