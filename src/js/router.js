@@ -19,7 +19,6 @@ export default new VueRouter({
             component: require('./components/pages/panel.vue'),
             children: [
                 {
-                    // UserProfile
                     path: 'home',
                     name: 'home.index',
                     component: require('./components/pages/home/home.vue')
@@ -28,11 +27,6 @@ export default new VueRouter({
                     path: 'home/finishAddFund',
                     name: 'home.finishAddFund',
                     component: require('./components/pages/home/partials/finish-add-fund.vue')
-                },
-                {
-                    path: '/ticket/servey/:public_id',
-                    name: 'ticket.servey',
-                    // component: require('./components/views/dashboard/ticket/servey.vue')
                 },
                 {
                     path: 'webservice',
@@ -45,16 +39,6 @@ export default new VueRouter({
                     component: require('./components/pages/webservice/partials/create.vue')
                 },
                 {
-                    path: 'webservice/requestUssd',
-                    name: 'webservice.requestUssd',
-                    // component: require('./components/views/dashboard/webservice/partials/request-ussd.vue')
-                },
-                {
-                    path: 'webservice/requestZarinGate',
-                    name: 'webservice.requestZarinGate',
-                    // component: require('./components/views/dashboard/webservice/partials/request-zarin-gate.vue')
-                },
-                {
                     path: 'webservice/edit/:merchantCode',
                     name: 'webservice.edit',
                     component: require('./components/pages/webservice/partials/edit.vue')
@@ -63,16 +47,6 @@ export default new VueRouter({
                     path: 'card',
                     name: 'card.index',
                     component: require('./components/pages/card/index.vue')
-                },
-                {
-                    path: 'card/create',
-                    name: 'card.create',
-                    // component: require('./components/views/dashboard/card/partials/create.vue')
-                },
-                {
-                    path: '/card/edit/:public_id',
-                    name: 'card.edit',
-                    // component: require('./components/views/dashboard/card/partials/edit.vue')
                 },
                 {
                     path: 'easypay',
@@ -85,29 +59,9 @@ export default new VueRouter({
                     component: require('./components/pages/easypay/partials/create.vue')
                 },
                 {
-                    path: '/easypay/show/:public_id',
-                    name: 'easypay.show',
-                    // component: require('./components/views/dashboard/easypay/show.vue')
-                },
-                {
                     path: 'easypay/edit/:public_id',
                     name: 'easypay.edit',
                     component: require('./components/pages/easypay/partials/edit.vue')
-                },
-                {
-                    path: '/purse/create',
-                    name: 'purse.create',
-                    // component: require('./components/views/dashboard/purse/partials/create.vue')
-                },
-                {
-                    path: '/purse/edit/:purse',
-                    name: 'purse.edit',
-                    // component: require('./components/views/dashboard/purse/partials/edit.vue')
-                },
-                {
-                    path: '/purse/addFund',
-                    name: 'purse.addFund',
-                    // component: require('./components/views/dashboard/purse/partials/addFund.vue')
                 },
                 {
                     path: 'coupon',
@@ -144,44 +98,9 @@ export default new VueRouter({
                     component: require('./components/pages/transaction/index.vue')
                 },
                 {
-                    path: '/transaction/show/:public_id',
-                    name: 'transaction.show',
-                    // component: require('./components/views/dashboard/transaction/show.vue')
-                },
-                {
-                    path: '/transaction/report',
-                    name: 'transaction.report',
-                    // component: require('./components/views/dashboard/transaction/report.vue')
-                },
-                {
-                    path: '/transaction/p2pTransfer',
-                    name: 'transaction.p2pTransfer',
-                    // component: require('./components/views/dashboard/transaction/p2pTransfer.vue')
-                },
-                {
-                    path: '/transaction/withdraw',
-                    name: 'transaction.withdraw',
-                    // component: require('./components/views/dashboard/transaction/withdraw.vue')
-                },
-                {
-                    path: '/auth/logout',
-                    name: 'auth.logout',
-                    // component: require('./components/views/dashboard/auth/logout.vue')
-                },
-                {
-                    path: '/zarincard/request',
-                    name: 'zarincard.request',
-                    // component: require('./components/views/dashboard/zarincard/request-card.vue')
-                },
-                {
-                    path: '/zarincard/statement',
-                    name: 'zarincard.statement',
-                    // component: require('./components/views/dashboard/zarincard/statement.vue')
-                },
-                {
-                    path: '/zarincard/shetab',
-                    name: 'zarincard.shetab',
-                    // component: require('./components/views/dashboard/zarincard/transfer_shetab.vue')
+                    path: 'report/:type/:id',
+                    name: 'report.index',
+                    component: require('./components/pages/report/index.vue')
                 }
             ]
         },
