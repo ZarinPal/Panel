@@ -1,34 +1,20 @@
 <template lang="pug">
-    transition(name="fade"
-    enter-active-class="fade-in"
-    leave-active-class="fade-out")
-        div.modal.create-purse(v-on:click.self="closeModal()")
-            transition(name="zoom"
-            enter-active-class="zoom-in"
-            leave-active-class="zoom-out")
-                div.row.center-xs(v-if="!closeModalContent" v-on:click.self="closeModal()")
-                    div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
-                        div.header
-                            span.icon-close(@click="closeModal()")
-                            span.title {{ $i18n.t('purse.addPurseTitle') }}
+    modal(v-on:closeModal="closeModal()")
+        span(slot="title") {{ $i18n.t('purse.addPurseTitle') }}
+        div(slot="content")
+            div.row
+                input(:class="{'input-danger': validationErrors.name}" type="text" v-model="purseName" placeholder="نام کیف پول")
+                div.ta-right(v-if="validationErrors.name")
+                    span.text-danger {{ $i18n.t(validationErrors.name) }}
 
-                        div.body
-                            div.contains
+                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
 
-                                div.row
-                                    input(:class="{'input-danger': validationErrors.name}" type="text" v-model="purseName" placeholder="نام کیف پول")
-                                    div.ta-right(v-if="validationErrors.name")
-                                        span.text-danger {{ $i18n.t(validationErrors.name) }}
+            div.row
+                p.create-description {{ $i18n.t('purse.createPurseSilverUsersDescription') }}
 
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
-
-                                div.row
-                                    p.create-description {{ $i18n.t('purse.createPurseSilverUsersDescription') }}
-
-
-                                div.row
-                                    div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple="" @click="createPurse") {{$i18n.t('purse.addPurse')}}
+            div.row
+                div.col-xs.no-margin
+                    button.btn.success.pull-left(v-ripple="" @click="createPurse") {{$i18n.t('purse.addPurse')}}
 
 </template>
 
@@ -36,6 +22,7 @@
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
+    import modal from '../../partials/modal.vue';
 
     export default {
         name: 'home-purse-create',
@@ -92,7 +79,8 @@
         },
         components: {
             selectbox,
-            purse
+            purse,
+            modal
         }
     }
 
