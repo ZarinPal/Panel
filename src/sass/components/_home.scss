@@ -278,10 +278,25 @@
       top: -4px;
     }
   }
-
-
-
   .row {
     margin: 10px 0;
+  }
+}
+
+//Ptop styles
+.ptop{
+  .nav-loading{
+    padding: 80px 30px 93px 30px;
+  }
+  .row{
+    input, textarea{
+      margin:5px 0;
+    }
+  }
+
+  .nav-buttons{
+    .btn{
+      margin-right: 10px;
+    }
   }
 }

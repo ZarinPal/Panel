@@ -250,6 +250,15 @@ a.btn {
     }
   }
 
+  &.error {
+    background-color: #ff1744;
+    color: #fff;
+
+    &:active, &:hover {
+      background-color: #ff1749;
+    }
+  }
+
   &.info {
     background-color: #2979ff;
     color: #ffffff;

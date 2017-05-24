@@ -31,6 +31,7 @@
                                 span.close-drop-down.drop-down-item(@click="changeMoreTriggerOff()")
                                 span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
+                                span.drop-down-item.add-fund(@click="visiblePtop = true") {{ $i18n.t('purse.moneyTransfer') }}
 
 
             div.middle-xs.body
@@ -59,11 +60,13 @@
 
 
         addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()" v-bind:purse="purse")
+        pTop(v-if="visiblePtop" v-on:closeModal="closeModal()" v-bind:purse="purse")
 
 </template>
 
 <script>
     import addFund from '../partials/add-fund.vue';
+    import pTop from '../partials/ptop.vue';
 
     export default {
         name: 'pages-home-partials-singlePurse',
@@ -74,6 +77,7 @@
                 isEditingPurseName: false,
                 newPurseName: this.purse.name,
                 visibleAddFund: false,
+                visiblePtop: false,
             }
         },
         props: ['purse'],
@@ -86,6 +90,7 @@
             },
             closeModal(){
                 this.visibleAddFund = false;
+                this.visiblePtop = false;
             },
             changePurseName(){
                 let vm = this;
@@ -121,7 +126,8 @@
             },
         },
         components:{
-            addFund
+            addFund,
+            pTop
         }
     }
 </script>

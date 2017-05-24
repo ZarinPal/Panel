@@ -1,5 +1,5 @@
 <template lang="pug">
-    modal(v-on:closeModal="closeModal()")
+    modal.create-purse(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('purse.addPurseTitle') }}
         div(slot="content")
             div.row
