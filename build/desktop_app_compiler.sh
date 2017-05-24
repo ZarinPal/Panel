@@ -3,7 +3,7 @@
 cp index-web.html public/index.html
 cp package.json public/package.json
 
-brew install wine --without-x11
+brew install wine
 brew install mono
 brew install gnu-tar graphicsmagick xz
 brew install rpm
