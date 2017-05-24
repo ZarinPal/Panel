@@ -1,6 +1,5 @@
 <template lang="pug">
      div.inner-content
-
         div.row.nav-page-header
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
@@ -8,6 +7,8 @@
                 p.page-description {{ $i18n.t('report.description') }}
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
+
+        div.persian-num#cal
 
         div.row.transaction-fields-title
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs
@@ -27,6 +28,8 @@
 
 <script>
     import singleReport from './partials/single-report.vue';
+    import CalHeatMap from 'cal-heatmap/src/cal-heatmap';
+    let reportCal = null;
 
     export default {
         name: 'report-index',
@@ -44,6 +47,35 @@
         created() {
             this.restart();
             this.search();
+        },
+        mounted() {
+
+            reportCal = new CalHeatMap();
+            reportCal.init({
+                itemSelector: "#cal",
+                domain: "month",
+                subDomain: "x_day",
+//                data: {'1493494200' : 4000},
+                dataType: "json",
+                start: new Date(2017, 2, 5),
+                cellSize: 35,
+                cellPadding: 5,
+                domainGutter: 20,
+                range: 3,
+                domainDynamicDimension: false,
+                previousSelector: "#example-g-PreviousDomain-selector",
+                nextSelector: "#example-g-NextDomain-selector",
+                domainLabelFormat: function(date) {
+                    return moment(date).format("jMMMM").toUpperCase();
+                },
+                subDomainTextFormat: "%d",
+                legend: [52540795,52542795,52544795,62742400],
+                legendColors: {
+                    empty: "#ededed",
+                    min: "#40ffd8",
+                    max: "#f20013"
+                }
+            });
         },
         methods: {
             restart() {
@@ -70,12 +102,29 @@
                     .save(this.searchOptions)
                     .then((results)=>{
                         this.reports = results.data.data;
+                        this.fillChart(this.reports);
                     });
             },
             loadMore() {
                 this.$store.dispatch(
                     'paginator/next'
                 );
+            },
+            fillChart(data) {
+                let chartData = {};
+                data.forEach(function (item) {
+                    chartData[moment(item.date).format('x')/1000] = item.income_amount;
+                });
+                console.dir(chartData);
+                reportCal.update(chartData);
+                reportCal.options.data = chartData;
+                reportCal.legend =  [52540795,52542795,52544795,62742400];
+                cal.setLegend();
+
+
+//                reportCal.next();
+                reportCal.jumpTo(new Date(2017, 4),true);
+
             },
 
         },
