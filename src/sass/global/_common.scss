@@ -510,8 +510,9 @@
       text-align: right;
       font-size: 13px;
       background-color: #4a5459;
-      padding: 14px 20px;
+      padding: 14px 20px !important;
       border-radius:4px 4px 0 0;
+      height: 25px;
       .title{
         color: #FFFFFF;
       }

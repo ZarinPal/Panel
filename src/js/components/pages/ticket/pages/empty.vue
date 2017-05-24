@@ -26,7 +26,7 @@
                     name: 'empty'
                 }
             ];
-            this.ajaxGet(this.$route.params.public_id);
+//            this.ajaxGet(this.$route.params.public_id);
             this.$store.state.http.requests['ticket.index'].get()
             .then(response => {
                 response.data = response.data;
