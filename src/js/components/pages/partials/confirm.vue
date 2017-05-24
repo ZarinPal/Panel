@@ -1,6 +1,6 @@
 <template lang="pug">
     modal(v-on:closeModal="closeModal()")
-        span(slot="title") title
+        span(slot="title") Confirm
         div(slot="content")
             h1 are you sure?
             div.row

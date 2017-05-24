@@ -1,13 +1,16 @@
 <template lang="pug">
-    transition(name="fade"
-    enter-active-class="fade-in"
-    leave-active-class="fade-out")
-        div.modal.create-purse(v-on:click.self="closeModal()")
+    div
+        transition(name="fade"
+        enter-active-class="fade-in"
+        leave-active-class="fade-out")
+            div.modal(v-on:click.self="closeModal()")
+
+        div.modal-content-father(v-on:click.self="closeModal()")
             transition(name="zoom"
             enter-active-class="zoom-in"
             leave-active-class="zoom-out")
-                div.row.center-xs(v-if="!closeModalContent" v-on:click.self="closeModal()")
-                    div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
+                div.row.center-xs.modal-content(v-if="!closeModalContent" v-on:click.self="closeModal()")
+                    div.col-lg-5.col-md-5.col-sm-10.col-xs-10
                         div.header
                             span.icon-close(@click="closeModal()")
                             span.title
