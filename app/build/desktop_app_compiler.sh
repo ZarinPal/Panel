@@ -17,10 +17,8 @@ mkdir app
 cp package.json app/
 cp index.html app/
 cp -rf assets/ app/assets/
-cp -rf build/ app/build/
-cp -rf build/ app/build/
 
-npm run compile
+travis_wait npm run compile
 
 rm -rf dist/github
 rm -rf dist/linux-unpacked
