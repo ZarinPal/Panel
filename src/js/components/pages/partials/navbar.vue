@@ -30,7 +30,7 @@
                             div.title {{notification.title}}
                             div.body {{notification.body | less}}
 
-                        router-link.notification-box.col-lg-12.col-md-12.col-xs-12(@click="toggleNotification()" v-else-if="notification.type == 'transaction'" v-for="notification in notifications"  v-bind:key="notification.title" v-bind:to="{ name: 'transaction.show', params: {public_id: notification.id}}")
+                        router-link.notification-box.col-lg-12.col-md-12.col-xs-12(@click="toggleNotification()" v-else-if="notification.type == 'transaction'" v-for="notification in notifications"  v-bind:key="notification.title" v-bind:to="{ name: 'transaction.show'}")
                             div.title {{notification.title}}
                             div.body {{notification.body | less}}
 

@@ -1,45 +1,34 @@
 <template lang="pug">
-    transition(name="fade"
-    enter-active-class="fade-in"
-    leave-active-class="fade-out")
-        div.modal.add-fund(v-on:click.self="closeModal()")
-            transition(name="zoom"
-            enter-active-class="zoom-in"
-            leave-active-class="zoom-out")
-                div.row.center-xs(v-if="!closeModalContent" v-on:click.self="closeModal()")
-                    div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
-                        div.header
-                            span.icon-close(@click="closeModal()")
-                            span.title {{ $i18n.t('purse.addFund') }}
+    modal.create-purse(v-on:closeModal="closeModal()")
+        span(slot="title") {{ $i18n.t('purse.addFund') }}
+        div(slot="content")
+            div(v-if="activeCards.length")
+                div.row
+                    span افزایش حساب کیف پول {{purse.name}}
+                div.row
+                    input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
+                    div.ta-right(v-if="validationErrors.amount")
+                        span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
-                        div.body
-                            div.contains
-                                div(v-if="activeCards.length")
-                                    div.row
-                                        span افزایش حساب کیف پول {{purse.name}}
-                                    div.row
-                                        input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
-                                        div.ta-right(v-if="validationErrors.amount")
-                                            span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                div.row
+                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectCard" v-bind:data="activeCards" placeholder="انتخاب حساب بانکی")
+                    div.ta-right(v-if="validationErrors.card_id")
+                        span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 
-                                    div.row
-                                        selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectCard" v-bind:data="activeCards" placeholder="انتخاب حساب بانکی")
-                                        div.ta-right(v-if="validationErrors.card_id")
-                                            span.text-danger {{ $i18n.t(validationErrors.card_id) }}
+                div.row
+                    div.col-xs.no-margin
+                        button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
 
-                                    div.row
-                                        div.col-xs.no-margin
-                                            button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
-
-                                div.nav-not-active-card(v-else)
-                                    p.title {{ $i18n.t('common.zarinPal') }}
-                                    p.description {{ $i18n.t('purse.addFundNotActiveCard') }}
+            div.nav-not-active-card(v-else)
+                p.title {{ $i18n.t('common.zarinPal') }}
+                p.description {{ $i18n.t('purse.addFundNotActiveCard') }}
 
 </template>
 
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
+    import modal from '../../partials/modal.vue';
 
     export default {
         name: 'home-purse-addFund',
@@ -130,8 +119,8 @@
             }
         },
         components: {
-            selectbox
+            selectbox,
+            modal
         }
     }
-
 </script>
