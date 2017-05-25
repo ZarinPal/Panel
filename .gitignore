@@ -107,4 +107,4 @@ jspm_packages
 !/ssh-key.enc
 /public/
 /app/
-!/app/build/
+!/app/.gitignore
