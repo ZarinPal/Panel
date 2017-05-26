@@ -18,7 +18,7 @@ before_install:
     - gpg --import mpapis.asc
     - rvm get stable --auto-dotfiles
 after_success:
-    - travis_wait 30 ./app/build/desktop_app_compiler.sh
+    - ./app/build/desktop_app_compiler.sh
 deploy:
   provider: releases
   api_key:

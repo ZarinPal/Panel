@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+rvm get stable --auto-dotfiles
+
 cp index-web.html public/index.html
 cp package.json public/package.json
 
