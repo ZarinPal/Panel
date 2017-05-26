@@ -11,9 +11,6 @@ brew install rpm
 yarn global add electron@1.6.8
 yarn global add electron-builder@18.0.1
 
-#rm -rf src
-#rm -rf node_modules
-mkdir app
 cp package.json app/
 cp index.html app/
 cp -rf assets/ app/assets/

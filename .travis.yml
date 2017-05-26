@@ -16,7 +16,7 @@ before_install:
     - rm -rf ~/.gnupg/
     - curl -#LO https://rvm.io/mpapis.asc
     - gpg --import mpapis.asc
-    - rvm get stable
+    - rvm get stable --auto-dotfiles
 after_success:
     - travis_wait 30 ./app/build/desktop_app_compiler.sh
 deploy:
