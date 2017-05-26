@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rvm use ruby-2.0.0-p648
+rvm use ruby-2.2.5
 
 cp index-web.html public/index.html
 cp package.json public/package.json
