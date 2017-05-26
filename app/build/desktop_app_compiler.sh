@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rvm get stable --auto-dotfiles
+rvm use ruby-2.0.0-p648
 
 cp index-web.html public/index.html
 cp package.json public/package.json
