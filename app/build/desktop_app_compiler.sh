@@ -18,7 +18,7 @@ cp package.json app/
 cp index.html app/
 cp -rf assets/ app/assets/
 
-travis_wait npm run compile
+npm run compile
 
 rm -rf dist/github
 rm -rf dist/linux-unpacked
