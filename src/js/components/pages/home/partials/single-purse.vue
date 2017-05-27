@@ -32,6 +32,7 @@
                                 span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
                                 span.drop-down-item.add-fund(@click="visiblePtop = true") {{ $i18n.t('purse.moneyTransfer') }}
+                                router-link.drop-down-item.transaction(v-bind:to="{ name: 'report.index', params: { id:purse.purse, type:'purse'}}") {{ $i18n.t('report.title') }}
 
 
             div.middle-xs.body
