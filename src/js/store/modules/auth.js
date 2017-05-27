@@ -29,7 +29,9 @@ export default {
                     commit('fill', response.data.data);
                     dispatch('fetchPurceBalance', callback);
                 }
-            ).catch(()=>{});
+            ).catch(()=>{
+                callback(false);
+            });
         },
         fetchPurceBalance({rootState, state}, callback){
             let purseCount = state.user.purses.length;
@@ -40,7 +42,7 @@ export default {
                     });
                     state.user.purses[purseIndex].balance = response.data.data;
                     if(purseCount-1 === index){
-                        callback();
+                        callback(true);
                     }
                 });
             });

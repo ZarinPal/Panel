@@ -20,6 +20,7 @@
 <script>
     import singlePurse from './partials/single-purse.vue';
     import createPurse from './partials/create.vue';
+    import modal from '../partials/modal.vue';
 
     export default {
         name:'pages-home',
@@ -42,7 +43,8 @@
         },
         components:{
             singlePurse,
-            createPurse
+            createPurse,
+            modal
         }
     }
 </script>

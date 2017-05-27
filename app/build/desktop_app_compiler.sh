@@ -8,8 +8,14 @@ brew install mono
 brew install gnu-tar graphicsmagick xz
 brew install rpm
 
-npm run compile --projectDir=public
+yarn global add electron@1.6.8
+yarn global add electron-builder@18.0.1
 
+cp package.json app/
+cp index.html app/
+cp -rf assets/ app/assets/
+
+npm run compile
 
 rm -rf dist/github
 rm -rf dist/linux-unpacked

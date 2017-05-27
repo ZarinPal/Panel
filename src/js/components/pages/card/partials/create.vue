@@ -1,72 +1,63 @@
 <template lang="pug">
-    transition(name="fade"
-    enter-active-class="fade-in"
-    leave-active-class="fade-out")
-        div.modal.card(v-on:click.self="closeModal()")
-            transition(name="zoom"
-            enter-active-class="zoom-in"
-            leave-active-class="zoom-out")
-                div.row.center-xs(v-if="!closeModalContent" v-on:click.self="closeModal()")
-                    div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
-                        div.header
-                            span.icon-close(@click="closeModal()")
-                            span.title {{ $i18n.t('card.addAccountTitle') }}
-                        div.body
-                            div.contains
-                                div.row.nav-account-type(v-if="user.company_info")
-                                    div.col-lg-6.col-md-4.col-sm-12.col-xs-12.ta-right.account-label
-                                        span.label {{$i18n.t('card.accountType')}}:
-                                    div.col-lg-6.col-md-8.col-sm-12.col-xs-12
-                                        div.row
-                                            div.col-xs.ta-center
-                                                input(v-model="isLegal" name="optional" value="0" type="radio" id="rdoًReal")
-                                                label(for="rdoًReal")
-                                                    span
-                                                    |{{ $i18n.t('card.real')}}
+    modal.card(v-on:closeModal="closeModal()")
+        span(slot="title") {{ $i18n.t('card.addAccountTitle') }}
+        div(slot="content")
+            div.row.nav-account-type(v-if="user.company_info")
+                div.col-lg-6.col-md-4.col-sm-12.col-xs-12.ta-right.account-label
+                    span.label {{$i18n.t('card.accountType')}}:
+                div.col-lg-6.col-md-8.col-sm-12.col-xs-12
+                    div.row
+                        div.col-xs.ta-center
+                            input(v-model="isLegal" name="optional" value="0" type="radio" id="rdoًReal")
+                            label(for="rdoًReal")
+                                span
+                                |{{ $i18n.t('card.real')}}
 
-                                            div.col-xs.ta-center
-                                                input(v-model="isLegal" value="1" name="optional" type="radio" id="rdoLegal")
-                                                label(for="rdoLegal")
-                                                    span
-                                                    |{{ $i18n.t('card.legal')}}
+                        div.col-xs.ta-center
+                            input(v-model="isLegal" value="1" name="optional" type="radio" id="rdoLegal")
+                            label(for="rdoLegal")
+                                span
+                                |{{ $i18n.t('card.legal')}}
 
-                                div.row.input-group.no-margin(:class="{'input-danger': validationErrors.iban}")
-                                    div.col-xs.no-margin
-                                        input.input.ta-left(type="text" v-model="iban"  placeholder= "شماره شبا" maxlength="24")
-                                    div.no-margin.first-label
-                                        span IR
-                                div.ta-right(v-if="validationErrors.iban")
-                                    span.text-danger {{ $i18n.t(validationErrors.iban) }}
+            div.row.input-group.no-margin(:class="{'input-danger': validationErrors.iban}")
+                div.col-xs.no-margin
+                    input.input.ta-left(type="text" v-model="iban"  placeholder= "شماره شبا" maxlength="24")
+                div.no-margin.first-label
+                    span IR
+            div.ta-right(v-if="validationErrors.iban")
+                span.text-danger {{ $i18n.t(validationErrors.iban) }}
 
-                                div(v-if="isLegal == 0")
-                                    div.row
-                                        input.ta-left(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
-                                        div.ta-right(v-if="validationErrors.pan")
-                                            span.text-danger {{ $i18n.t(validationErrors.pan) }}
+            div(v-if="isLegal == 0")
+                div.row
+                    input.ta-left(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
+                    div.ta-right(v-if="validationErrors.pan")
+                        span.text-danger {{ $i18n.t(validationErrors.pan) }}
 
-                                    div.row.no-margin
-                                        div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
-                                            span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
-                                        div.col-lg-6.col-md-8.col-xs-12.no-margin
-                                            div.row.nav-expiration-input
-                                                div.col-xs.no-margin
-                                                    span.label {{$i18n.t('card.month')}}:
-                                                    input#month(type="number" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
-                                                div.col-xs.no-margin
-                                                    span.label {{$i18n.t('card.year')}}:
-                                                    input#year(type="number" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
+                div.row.no-margin
+                    div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
+                        span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
+                    div.col-lg-6.col-md-8.col-xs-12.no-margin
+                        div.row.nav-expiration-input
+                            div.col-xs.no-margin
+                                span.label {{$i18n.t('card.month')}}:
+                                input#month(type="number" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
+                            div.col-xs.no-margin
+                                span.label {{$i18n.t('card.year')}}:
+                                input#year(type="number" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
 
-                                div.row
-                                    div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple="" @click="createCard") {{$i18n.t('card.createCard')}}
-                                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+            div.row
+                div.col-xs.no-margin
+                    button.btn.success.pull-left(v-ripple="" @click="createCard") {{$i18n.t('card.createCard')}}
+                        svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
 </template>
 
 
 <script>
+    import modal from '../../partials/modal.vue';
+
     export default {
         name: 'pages-card-partials-create',
         data() {
@@ -160,7 +151,9 @@
                 }
 
             },
+        },
+        components: {
+            modal
         }
     }
-
 </script>

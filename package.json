@@ -17,7 +17,7 @@
         "production": "cross-env NODE_ENV=production webpack --progress --hide-modules",
         "pack": "build --dir",
         "dist": "build -mwl",
-        "compile": "build -mw"
+        "compile": "build -mwl --projectDir=app"
     },
     "dependencies": {
         "cal-heatmap": "^3.6.2",
