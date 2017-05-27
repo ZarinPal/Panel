@@ -49,32 +49,41 @@
             this.search();
         },
         mounted() {
-
+            let startDate = new Date();
+            startDate.setDate(1);
+            startDate.setMonth(startDate.getMonth()-1);
             reportCal = new CalHeatMap();
             reportCal.init({
                 itemSelector: "#cal",
                 domain: "month",
                 subDomain: "x_day",
-//                data: {'1493494200' : 4000},
+                displayLegend: false,
                 dataType: "json",
-                start: new Date(2017, 2, 5),
-                cellSize: 35,
+                start: startDate,
+                cellSize: 30,
                 cellPadding: 5,
                 domainGutter: 20,
                 range: 3,
+                highlight: ["now", new Date()],
                 domainDynamicDimension: false,
-                previousSelector: "#example-g-PreviousDomain-selector",
-                nextSelector: "#example-g-NextDomain-selector",
-                domainLabelFormat: function(date) {
-                    return moment(date).format("jMMMM").toUpperCase();
+                domainLabelFormat: (date)=>{
+                    return moment(date).add('month', +1).format('jMMMM') +' - '+ moment(date).format('jMMMM');
                 },
-                subDomainTextFormat: "%d",
-                legend: [52540795,52542795,52544795,62742400],
+                subDomainTextFormat: (date)=>{
+                    return  moment(date).format("jD").replace(/\d/g, function (match) {
+                        return ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'][parseInt(match)];
+                    });
+                },
+                subDomainTitleFormat: {
+                    empty: "",
+                    filled: "ورودی امروز {count} تومان"
+                },
                 legendColors: {
                     empty: "#ededed",
-                    min: "#40ffd8",
-                    max: "#f20013"
+                    min: "#c6e48b",
+                    max: "#196127",
                 }
+
             });
         },
         methods: {
@@ -112,18 +121,29 @@
             },
             fillChart(data) {
                 let chartData = {};
+                let averageData = [];
                 data.forEach(function (item) {
+                    averageData.push(item.income_amount);
                     chartData[moment(item.date).format('x')/1000] = item.income_amount;
                 });
-                console.dir(chartData);
+
                 reportCal.update(chartData);
                 reportCal.options.data = chartData;
-                reportCal.legend =  [52540795,52542795,52544795,62742400];
-                cal.setLegend();
 
+                let min = _.min(averageData);
+                let max = _.max(averageData);
+                let diff = max - min;
+
+                reportCal.legend =  [
+                    min,
+                    parseInt(min+(diff*.25)),
+                    parseInt(min+(diff*.75)),
+                    max
+                ];
+                reportCal.setLegend(reportCal.legend);
 
 //                reportCal.next();
-                reportCal.jumpTo(new Date(2017, 4),true);
+//                reportCal.jumpTo(new Date(2017, 4),true);
 
             },
 
