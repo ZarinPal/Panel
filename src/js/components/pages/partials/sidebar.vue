@@ -47,13 +47,6 @@
                             i.icon-zp-tickets
                             span.item-label تیکت ها
 
-                    <!--Dropdown Example-->
-                    <!--dropDown(label='تیکت ها' icon='icon-ic_flash_on_black_48px')-->
-                        <!--ul.submenu-->
-                            <!--router-link(tag="li" v-bind:to="{ name: 'ticket.index'}" title="تیکت ها")-->
-                                <!--span تیکت ها-->
-
-
                 div.clear-both
 </template>
 

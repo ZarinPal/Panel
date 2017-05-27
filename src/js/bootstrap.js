@@ -13,6 +13,7 @@ import Vue from 'vue';
 window.Vue = Vue;
 require('vue-resource');
 
+
 import VueRouter from 'vue-router';
 window.VueRouter = VueRouter;
 Vue.use(window.VueRouter);
@@ -31,6 +32,7 @@ const i18n = new VueI18n({
     fallbackLocale: 'en',
 });
 window.i18n = i18n;
+
 
 Vue.directive(
     'clipboard',
