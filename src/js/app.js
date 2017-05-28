@@ -28,7 +28,7 @@ const app = new Vue({
     router: require('./router').default,
     http: {
 
-        root: 'http://api.zarinpal.dev/rest/v3',
+        root: 'https://api.zarinpal.dev/rest/v3',
     },
     created() {
         this.$store.commit('app/loading');
