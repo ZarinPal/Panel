@@ -125,6 +125,10 @@
 }
 
 .transaction-detail{
+  .contains{
+    padding: 0 !important;
+  }
+
   .content {
     /*BODY*/
     .body {
