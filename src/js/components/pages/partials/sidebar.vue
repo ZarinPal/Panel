@@ -5,7 +5,9 @@
 
             div.user-info
                 div.user-image
-                    userProgress(v-if="user.user_progress" v-bind:avatar="'https:'+user.avatar" v-bind:user_progress="user.user_progress")
+                    span(v-if="!this.$store.state.app.smallSidebar")
+                        userProgress(v-if="user.user_progress" v-bind:avatar="'https:'+user.avatar" v-bind:user_progress="user.user_progress")
+                    img(v-else v-bind:src="'https:' + user.avatar")
                 p.user-name {{user.name}}
 
                 div.nav-zp-id(v-bind:class="{'nav-zp-gold': user.level == '3', 'nav-zp-silver': user.level == '2' }")

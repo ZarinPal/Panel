@@ -1,6 +1,6 @@
 <template lang="pug">
     div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section
-        div.box
+        div.box.single-purse
             div.top-xs.header
                 div.row
                     div.col-xs.right-box
@@ -35,30 +35,34 @@
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'report.index', params: { id:purse.purse, type:'purse'}}") {{ $i18n.t('report.title') }}
 
 
-            div.middle-xs.body
+            div.middle-xs.body.single-purse-body.ta-center
                 router-link(tag="li" v-bind:to="{ name: 'transaction.index', params: {type: 'purse', id: purse.purse} }")
                     div.nav-balance
                         div.txt-balance {{ $i18n.t('common.balance') }}
 
-                        div.balance-amount {{purse.balance.balance | numberFormat | persianNumbers }}
+                        div.balance-amount(v-if="purse.balance") {{purse.balance.balance | numberFormat | persianNumbers }}
+                        div.balance-amount(v-else) -
                         div.nav-show-chart
                             <!--span.chart-icon-->
                             <!--span {{ $i18n.t('common.showChart')}}-->
 
-            div.bottom-xs.footer
+            router-link.bottom-xs.footer.single-purse-footer(tag="div" v-bind:to="{ name: 'transaction.index', params: {type: 'purse', id: purse.purse} }")
                 div.row
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-input-trans
-                        span.amount {{purse.balance.today_income  | numberFormat | persianNumbers }}
+                        span.amount(v-if="purse.balance") {{purse.balance.today_income  | numberFormat | persianNumbers }}
+                        span.amount(v-else) -
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-output-trans
-                        span.amount  {{purse.balance.today_outcome  | numberFormat | persianNumbers }}
+                        span.amount(v-if="purse.balance")  {{purse.balance.today_outcome  | numberFormat | persianNumbers }}
+                        span.amount(v-else) -
+
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-moving-trans
-                        span.amount  {{purse.balance.total_to_exit  | numberFormat | persianNumbers }}
-
+                        span.amount(v-if="purse.balance") {{purse.balance.total_to_exit  | numberFormat | persianNumbers }}
+                        span.amount(v-else) -
 
         addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()" v-bind:purse="purse")
         pTop(v-if="visiblePtop" v-on:closeModal="closeModal()" v-bind:purse="purse")

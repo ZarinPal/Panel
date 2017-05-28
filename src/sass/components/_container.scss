@@ -263,6 +263,11 @@ body {
         transition: $animateTime;
       }
     }
+
+    .reload{
+      display: inline-block;
+      margin-top: 24px;
+    }
   }
 
   .nav-notification {
@@ -477,9 +482,8 @@ body {
         margin-right: auto;
         width: 45px;
         display: block;
-
-
-
+        box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
       }
     }
 
