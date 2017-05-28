@@ -20,7 +20,6 @@
                             div.contains
                                 slot(name="content")
 
-
 </template>
 
 

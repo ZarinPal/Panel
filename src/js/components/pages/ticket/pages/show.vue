@@ -6,6 +6,7 @@ span
                 span.ticket-title {{ticket.title}}
             div.col-xs
                 span.ticket-id.pull-left(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="ticket.public_id") {{ticket.public_id | persianNumbers}}
+                button.btn.info.close-ticket.pull-left(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
 
         div.ver-line
         div.row.bottom-row
@@ -78,7 +79,6 @@ span
 
                 input.attach(type="file" name="file" @change="onFileChange")
 
-    button.btn.success(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
 
 </template>
 

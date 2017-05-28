@@ -1,12 +1,14 @@
 <template lang="pug">
-    modal(v-on:closeModal="closeModal()")
-        span(slot="title") Confirm
-        div(slot="content")
-            h1 are you sure?
-            div.row
-                div.col-xs.no-margin
-                    button.btn.success(v-ripple="" @click="confirmed()") Yes
-                    button.btn.success(v-ripple="" @click="closeModal()") No
+    modal.confirm(v-on:closeModal="closeModal()")
+        span(slot="title")
+            slot(name="title")
+        div.content(slot="content")
+            slot(name="message")
+            div.ta-left.nav-buttons
+                button.btn(v-ripple="" @click="closeModal()")
+                    slot(name="messageDanger")
+                button.btn.success(v-ripple="" @click="confirmed()")
+                    slot(name="messageSuccess")
 </template>
 
 
