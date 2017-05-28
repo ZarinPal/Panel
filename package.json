@@ -1,7 +1,7 @@
 {
-    "name": "zarinpal",
-    "version": "0.0.1",
-    "description": "zarinpal",
+    "name": "ZarinApp",
+    "version": "0.0.1-alpha1",
+    "description": "zarinpal desktop application",
     "author": "zarinpal",
     "main": "main.js",
     "build": {
