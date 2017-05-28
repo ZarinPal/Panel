@@ -32,6 +32,7 @@
                                 span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
                                 span.drop-down-item.add-fund(@click="visiblePtop = true") {{ $i18n.t('purse.moneyTransfer') }}
+                                span.drop-down-item.add-fund(@click="visibleWithdraw = true") {{ $i18n.t('transaction.withdraw') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'report.index', params: { id:purse.purse, type:'purse'}}") {{ $i18n.t('report.title') }}
 
 
@@ -66,12 +67,14 @@
 
         addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()" v-bind:purse="purse")
         pTop(v-if="visiblePtop" v-on:closeModal="closeModal()" v-bind:purse="purse")
+        withdraw(v-if="visibleWithdraw" v-on:closeModal="closeModal()" v-bind:purse="purse")
 
 </template>
 
 <script>
     import addFund from '../partials/add-fund.vue';
     import pTop from '../partials/ptop.vue';
+    import withdraw from '../partials/withdraw.vue';
 
     export default {
         name: 'pages-home-partials-singlePurse',
@@ -83,6 +86,7 @@
                 newPurseName: this.purse.name,
                 visibleAddFund: false,
                 visiblePtop: false,
+                visibleWithdraw: false,
             }
         },
         props: ['purse'],
@@ -96,6 +100,7 @@
             closeModal(){
                 this.visibleAddFund = false;
                 this.visiblePtop = false;
+                this.visibleWithdraw = false;
             },
             changePurseName(){
                 let vm = this;
@@ -132,7 +137,8 @@
         },
         components:{
             addFund,
-            pTop
+            pTop,
+            withdraw,
         }
     }
 </script>
