@@ -1,45 +1,34 @@
 <template lang="pug">
-    transition(name="fade"
-    enter-active-class="fade-in"
-    leave-active-class="fade-out")
-        div.modal.create-purse(v-on:click.self="closeModal()")
-            transition(name="zoom"
-            enter-active-class="zoom-in"
-            leave-active-class="zoom-out")
-                div.row.center-xs(v-if="!closeModalContent" v-on:click.self="closeModal()")
-                    div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
-                        div.header
-                            span.icon-close(@click="closeModal()")
-                            span.title {{ $i18n.t('webservice.activeUssd') }}
-                        div.body
-                            div.contains
-                                div.row
-                                    div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}")
-                                        div.no-margin.last-label
-                                            span #
-                                        div.col-xs.no-margin
-                                            input.input.ta-left(type="text" v-model="ussdId" placeholder="کد دستوری(ussd)")
-                                        div.no-margin.first-label
-                                            span *788*97*
-                                div.ta-right(v-if="validationErrors.ussd_id")
-                                    span.text-danger {{ $i18n.t(validationErrors.ussd_id) }}
+    modal.create-purse(v-on:closeModal="closeModal()")
+        span(slot="title") {{ $i18n.t('webservice.activeUssd') }}
+        div(slot="content")
+            div.row
+                div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}")
+                    div.no-margin.last-label
+                        span #
+                    div.col-xs.no-margin
+                        input.input.ta-left(type="text" v-model="ussdId" placeholder="کد دستوری(ussd)")
+                    div.no-margin.first-label
+                        span *788*97*
+            div.ta-right(v-if="validationErrors.ussd_id")
+                span.text-danger {{ $i18n.t(validationErrors.ussd_id) }}
 
 
-                                div.row
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول")
-                                    div.ta-right(v-if="validationErrors.purse")
-                                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+            div.row
+                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول")
+                div.ta-right(v-if="validationErrors.purse")
+                    span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
-                                    span.persian-num.activation-price(v-if="priceUssd")  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
+                span.persian-num.activation-price(v-if="priceUssd")  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
 
-                                div.row
-                                    p.create-description {{ $i18n.t('webservice.ussdNotice') }}
+            div.row
+                p.create-description {{ $i18n.t('webservice.ussdNotice') }}
 
-                                div.row
-                                    div.col-xs.no-margin
-                                        button.btn.success.pull-left(v-ripple="" @click="activeUssd") {{$i18n.t('webservice.activation')}}
-                                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+            div.row
+                div.col-xs.no-margin
+                    button.btn.success.pull-left(v-ripple="" @click="activeUssd") {{$i18n.t('webservice.activation')}}
+                        svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -47,6 +36,7 @@
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
+    import modal from '../../partials/modal.vue';
 
     export default {
         name: 'home-webservice-partials-ussdActivation',
@@ -116,7 +106,8 @@
         },
         components: {
             selectbox,
-            purse
+            purse,
+            modal
         }
     }
 

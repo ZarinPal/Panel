@@ -9,10 +9,10 @@
             div.logo
 
         div.col-lg-4.col-sm-4.col-xs-4.left-box
-            a.logout(@click="logout()" title="خروج" v-ripple="")
+            a.logout(@click="confirmVisible = true" title="خروج" v-ripple="")
             span.notification-lamp(v-if="notifications.length")
             a.notification.circle-hover(:class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="")
-
+            span.reload(@click="reload") reload
         transition(name="fade"
         enter-active-class="fade-in"
         leave-active-class="fade-out")
@@ -38,41 +38,64 @@
                             span هیچ موردی برای نمایش وجود ندارد
 
 
+        confirm(v-if="confirmVisible" v-on:confirmed="logout()" v-on:closeModal="closeModal")
+            span(slot="title") خروج
+            div.ta-right(slot="message")
+                div آیا خارج می شوید؟
+
+            span(slot="messageDanger") {{$i18n.t('common.cancel')}}
+            span(slot="messageSuccess") بله، خارج می شوم
+
 
 </template>
 
 <script>
-export default {
-    name:'navBar',
-    data() {
-        return {
-            visibleNotification: false,
-            notificationCount: '',
-        }
-    },
-    computed: {
-        notifications() {
-            this.notificationCount = this.$store.state.alert.notifications.length;
-            return this.$store.state.alert.notifications
-        }
-    },
-    created(){
-        console.log(this.$store.state.app.visibleNotification);
-        this.$store.dispatch('startWebPushSocket');
-    },
-    methods: {
-        toggleSidebar() {
-            this.$store.commit('app/toggleSidebar');
+    import confirm from '../partials/confirm.vue';
+    export default {
+        name:'navBar',
+        data() {
+            return {
+                visibleNotification: false,
+                notificationCount: '',
+                confirmVisible: false,
+                confirm: false,
+            }
         },
-        toggleMobileSidebar(){
-            this.$store.commit('app/toggleMobileSidebar');
+        computed: {
+            notifications() {
+                this.notificationCount = this.$store.state.alert.notifications.length;
+                return this.$store.state.alert.notifications
+            }
         },
-        logout(){
-            this.$store.dispatch('auth/logout',this);
+        created(){
+            console.log(this.$store.state.app.visibleNotification);
+            this.$store.dispatch('startWebPushSocket');
         },
-        toggleNotification() {
-            this.$store.state.app.visibleNotification = !this.$store.state.app.visibleNotification;
+        methods: {
+            closeModal(){
+                this.confirmVisible = false;
+            },
+            toggleSidebar() {
+                this.$store.commit('app/toggleSidebar');
+            },
+            toggleMobileSidebar(){
+                this.$store.commit('app/toggleMobileSidebar');
+            },
+            logout(){
+                this.confirm = true;
+                if(this.confirm) {
+                    this.$store.dispatch('auth/logout',this);
+                }
+            },
+            toggleNotification() {
+                this.$store.state.app.visibleNotification = !this.$store.state.app.visibleNotification;
+            },
+            reload() {
+                location.reload();
+            }
+        },
+        components: {
+            confirm
         }
     }
-}
 </script>
