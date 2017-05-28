@@ -59,11 +59,7 @@ div
         div.col-lg-1.col-md-2.col-sm-2.ta-center.hidden-xs
             span.text {{transaction.balance | numberFormat | persianNumbers}}
 
-
     transactionDetails(v-if="showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal()")
-
-
-
 </template>
 <script>
     import transactionDetails from './transaction-details.vue';

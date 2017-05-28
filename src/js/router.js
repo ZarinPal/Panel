@@ -49,6 +49,11 @@ export default new VueRouter({
                     component: require('./components/pages/card/index.vue')
                 },
                 {
+                    path: 'card/statement',
+                    name: 'card.statement',
+                    component: require('./components/pages/card/partials/zarinCardStatement.vue')
+                },
+                {
                     path: 'easypay',
                     name: 'easypay.index',
                     component: require('./components/pages/easypay/index.vue')

@@ -103,9 +103,6 @@
                 this.webservice_category_id = webserviceCatId;
             },
             createWebservice() {
-
-
-                return;
                 this.loading = true;
                 let webserviceData = {
                     domain: this.domain,
