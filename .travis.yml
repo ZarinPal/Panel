@@ -17,6 +17,7 @@ before_install:
     - curl -#LO https://rvm.io/mpapis.asc
     - gpg --import mpapis.asc
     - rvm get stable --auto-dotfiles
+    - rvm install 2.2.5
 after_success:
     - travis_wait 30 ./app/build/desktop_app_compiler.sh
 deploy:
