@@ -152,6 +152,14 @@ $plusIcon: $icon-zp-add;
           color: #2979ff;
           font-size: 12px;
           cursor: pointer;
+          display: inline-block;
+          margin-top: 5px;
+        }
+
+        .close-ticket{
+          font-size: 11px;
+          padding: 4px 9px;
+          margin: 0 0 0 10px;
         }
       }
 

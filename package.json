@@ -20,6 +20,7 @@
         "compile": "build -mwl --projectDir=app"
     },
     "dependencies": {
+        "cal-heatmap": "^3.6.2",
         "clipboard": "^1.6.1",
         "cross-env": "^4.0.0",
         "file-loader": "^0.11.1",
@@ -42,7 +43,7 @@
         "webpack": "^2.5.1"
     },
     "devDependencies": {
-        "electron": "^1.6.8",
-        "electron-builder": "^18.0.1"
+        "electron": "^1.6.5",
+        "electron-builder": "^17.0.1"
     }
 }
