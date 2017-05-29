@@ -35,7 +35,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     span.edit-bank-account(v-if="card.issuer.slug == 'ZarinCard'" @click="showTransferShetab = true" ) انتقال وجه شتابی
 
     editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")
-    transferShetab(v-if="showTransferShetab && card.issuer.slug == 'ZarinCard'" v-on:closeModal="closeModal()" v-bind:card="card")
+    transferShetab(v-if="showTransferShetab" v-on:closeModal="closeModal()" v-bind:card="card")
 
 </template>
 <script>
@@ -48,7 +48,6 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
             return{
                 showEditCard: false,
                 showTransferShetab: false,
-                showZarincardStatment: false,
                 zarin: 'zarin-logo'
             }
         },
