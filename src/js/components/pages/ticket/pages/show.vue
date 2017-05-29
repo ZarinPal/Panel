@@ -38,7 +38,7 @@ span
                                 p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
 
                     div.middle-xs.body.ta-right
-                        p(v-html="$options.filters.code(reply.content)")
+                        pre(v-html="$options.filters.code(reply.content)")
                         a.ticket-attachment-download(v-if="reply.attachment" @click="downloadAttachFile()") download
 
             <!--Admin Ticket-->
@@ -55,7 +55,7 @@ span
                                 p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
 
                     div.middle-xs.body.ta-right
-                        p(v-html="$options.filters.code(reply.content)")
+                        pre(v-html="$options.filters.code(reply.content)")
                         a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") download
 
 
