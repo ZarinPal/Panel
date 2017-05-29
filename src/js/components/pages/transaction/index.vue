@@ -52,6 +52,7 @@
                 span {{ $i18n.t('transaction.id') }}
             div.col-lg-3.col-md-3.col-sm-3.hidden-xs
                 span {{ $i18n.t('transaction.source') }}
+                span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
             div.col-lg-3.col-md-3.col-sm-3.col-xs-12.hidden-title-md.hidden-xs
                 span {{ $i18n.t('transaction.destination') }}
             div.col-lg-2.col-md-3.col-sm-1.col-xs-12.hidden-xs
