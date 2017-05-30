@@ -1,17 +1,17 @@
 <template lang="pug">
-    modal.create-purse(v-on:closeModal="closeModal()")
+    modal.add-fund(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('purse.addFund') }}
         div(slot="content")
             div(v-if="activeCards.length")
                 div.row
                     span افزایش حساب کیف پول {{purse.name}}
-                div.row
+                div.row.no-margin
                     input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
                     div.ta-right(v-if="validationErrors.amount")
                         span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
-                div.row
-                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectCard" v-bind:data="activeCards" placeholder="انتخاب حساب بانکی")
+                div.row.no-margin
+                    cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
                     div.ta-right(v-if="validationErrors.card_id")
                         span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 
@@ -29,6 +29,7 @@
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import modal from '../../partials/modal.vue';
+    import cards from '../../partials/cards.vue';
 
     export default {
         name: 'home-purse-addFund',
@@ -114,13 +115,14 @@
                 if (this[inputId].length > 0) result.push(text);
                 this[inputId] = result.join("-");
             },
-            selectCard(cardId) {
+            selectedCard(cardId) {
                 this.cardId = cardId;
-            }
+            },
         },
         components: {
             selectbox,
-            modal
+            modal,
+            cards
         }
     }
 </script>

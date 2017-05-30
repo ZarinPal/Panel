@@ -49,6 +49,11 @@
   font-size: 13px;
 }
 
+.trans-float-destination-title{
+  display: none;
+  margin: 0 5px;
+}
+
 .transaction-row{
   font-size: 13px;
   color: $labelColor;
@@ -125,6 +130,10 @@
 }
 
 .transaction-detail{
+  .contains{
+    padding: 0 !important;
+  }
+
   .content {
     /*BODY*/
     .body {
@@ -354,6 +363,10 @@
 @media (max-width: 1200px) {
   .hidden-title-md{
     display: none !important;
+  }
+
+  .trans-float-destination-title{
+    display: inline-block;
   }
 
   .icon-forward {

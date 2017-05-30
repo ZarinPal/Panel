@@ -30,19 +30,24 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         div.bottom-xs.box-footer
             div.row
                 div.col-xs
-                    span.edit-bank-account(v-if="!card.is_legal && card.account_id" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
+                    span.edit-bank-account(v-if="!card.is_legal && card.account_id && card.issuer.slug != 'ZarinCard'" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
+                    router-link(v-if="card.issuer.slug == 'ZarinCard'" tag="span" v-bind:to="{ name: 'card.statement'}" v-bind:card="card") مشاهده گردش کارت
+                    span.edit-bank-account(v-if="card.issuer.slug == 'ZarinCard'" @click="showTransferShetab = true" ) انتقال وجه شتابی
 
     editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")
+    transferShetab(v-if="showTransferShetab" v-on:closeModal="closeModal()" v-bind:card="card")
 
 </template>
 <script>
     import editCard from './edit.vue';
+    import transferShetab from './transferShetab.vue';
 
     export default {
         name:'pages-card-partials-singleCard',
         data(){
             return{
                 showEditCard: false,
+                showTransferShetab: false,
                 zarin: 'zarin-logo'
             }
         },
@@ -50,10 +55,13 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         methods:{
             closeModal() {
                 this.showEditCard = false;
+                this.showTransferShetab = false;
+                this.showZarincardStatment = false;
             }
         },
         components: {
-            editCard
+            editCard,
+            transferShetab
         }
     }
 </script>

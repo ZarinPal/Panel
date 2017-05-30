@@ -25,7 +25,7 @@
                                     input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
                                     div.break
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" placeholder="انتخاب کنید ...")
+                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" placeholder="انتخاب کنید ...")
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-4
                                     button.btn.info.pull-right(v-ripple="" @click="search()")
@@ -52,6 +52,7 @@
                 span {{ $i18n.t('transaction.id') }}
             div.col-lg-3.col-md-3.col-sm-3.hidden-xs
                 span {{ $i18n.t('transaction.source') }}
+                span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
             div.col-lg-3.col-md-3.col-sm-3.col-xs-12.hidden-title-md.hidden-xs
                 span {{ $i18n.t('transaction.destination') }}
             div.col-lg-2.col-md-3.col-sm-1.col-xs-12.hidden-xs
