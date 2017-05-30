@@ -148,6 +148,16 @@
   padding: 0 !important;
 }
 
+.no-right-margin{
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+.no-left-margin{
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
 .disable {
   opacity: 0.5;
   pointer-events: none;

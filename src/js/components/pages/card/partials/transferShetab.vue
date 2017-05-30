@@ -1,9 +1,7 @@
 <template lang="pug">
-    modal.ptop(v-on:closeModal="closeModal()")
-        div(slot="title") {{ $i18n.t('purse.moneyTransfer') }}
+    modal.transfer-shetab(v-on:closeModal="closeModal()")
+        div(slot="title") {{ $i18n.t('purse.shetabMoneyTransfer') }}
         div(slot="content")
-            span زرین‌کارت به شتاب
-
 
             div.nav-loading(v-if="requesting")
                 svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
@@ -11,35 +9,36 @@
 
             div(v-else)
                 div(v-if="step == 1")
-                    div.row
-                        input(:class="{'input-danger': validationErrors.password}" type="text" v-model="password" placeholder="رمز دوم")
-                        div.ta-right(v-if="validationErrors.password")
-                            span.text-danger {{ $i18n.t(validationErrors.password) }}
+                    div.row.no-margin
+                        div.col-xs.no-right-margin
+                            input(:class="{'input-danger': validationErrors.password}" type="text" v-model="password" placeholder="رمز دوم")
+                            div.ta-right(v-if="validationErrors.password")
+                                span.text-danger {{ $i18n.t(validationErrors.password) }}
 
-                    div.row
-                        input(:class="{'input-danger': validationErrors.cvv2}" type="text" v-model="cvv2" placeholder="cvv2")
-                        div.ta-right(v-if="validationErrors.cvv2")
-                            span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
+                        div.col-xs.no-left-margin
+                            input(:class="{'input-danger': validationErrors.cvv2}" type="text" v-model="cvv2" placeholder="cvv2")
+                            div.ta-right(v-if="validationErrors.cvv2")
+                                span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
 
-                    div.row
+                    div.row.no-margin
                         input(:class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" placeholder="شماره کارت مقصد")
                         div.ta-right(v-if="validationErrors.dst_pan")
                             span.text-danger {{ $i18n.t(validationErrors.dst_pan) }}
 
-                    div.row
+                    div.row.no-margin
                         input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
                         div.ta-right(v-if="validationErrors.amount")
                             span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
-                    div.row
-                        div.col-xs.no-margin
+                    div.row.no-margin
+                        div.col-xs.nav-buttons.no-left-margin
                             button.btn.success.pull-left(v-ripple="" @click="confirmTransfer") {{ $i18n.t('purse.nextStep') }}
 
                 div(v-else)
                     div(v-if="destinationUser")
 
 
-                    div.row.nav-buttons
+                    div.row.nav-buttons.no-left-margin
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="acceptTransfer") {{ $i18n.t('purse.acceptTransfer') }}
                             button.btn.error.pull-left(v-ripple="" @click="declineTransform")  {{ $i18n.t('purse.declineTransfer') }}
@@ -87,7 +86,6 @@
                     dst_pan: this.dstPan,
                     amount: this.amount
                 };
-
 
                 this.$store.state.http.requests['zarincard.postTransferShetab'].save(transferData).then(
                     (response)=> {
