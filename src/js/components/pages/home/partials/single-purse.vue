@@ -31,9 +31,9 @@
                                 span.close-drop-down.drop-down-item(@click="changeMoreTriggerOff()")
                                 span.drop-down-item.add-fund(@click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
-                                span.drop-down-item.add-fund(@click="visiblePtop = true") {{ $i18n.t('purse.moneyTransfer') }}
-                                span.drop-down-item.add-fund(@click="visibleWithdraw = true") {{ $i18n.t('transaction.withdraw') }}
-                                router-link.drop-down-item.transaction(v-bind:to="{ name: 'report.index', params: { id:purse.purse, type:'purse'}}") {{ $i18n.t('report.title') }}
+                                span.drop-down-item.ptop(@click="visiblePtop = true") {{ $i18n.t('purse.moneyTransfer') }}
+                                span.drop-down-item.withdraw(@click="visibleWithdraw = true") {{ $i18n.t('transaction.withdraw') }}
+                                router-link.drop-down-item.report(v-bind:to="{ name: 'report.index', params: { id:purse.purse, type:'purse'}}") {{ $i18n.t('report.title') }}
 
 
             div.middle-xs.body.single-purse-body.ta-center
