@@ -1,7 +1,12 @@
 <template lang="pug">
-    modal.create-purse(v-on:closeModal="closeModal()")
+    modal.activation-ussd(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('webservice.activeUssd') }}
         div(slot="content")
+            div.row
+                <!--p.create-description {{ $i18n.t('webservice.ussdNotice') }}-->
+                span.create-description هزینه فعالسازی سرویس همپا(USSD) براساس تعداد تراکنش های موجود بر روی درگاه عادی زرین پال متغیر است.
+                    span.read-description {{ $i18n.t('webservice.description') }}
+
             div.row
                 div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}")
                     div.no-margin.last-label
@@ -19,17 +24,14 @@
                 div.ta-right(v-if="validationErrors.purse")
                     span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
-                span.persian-num.activation-price(v-if="priceUssd")  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
-
             div.row
-                p.create-description {{ $i18n.t('webservice.ussdNotice') }}
+                div.col-xs.ta-right.no-margin
+                    span.persian-num.activation-price(v-if="priceUssd")  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
 
-            div.row
-                div.col-xs.no-margin
+                div.no-margin
                     button.btn.success.pull-left(v-ripple="" @click="activeUssd") {{$i18n.t('webservice.activation')}}
                         svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
 </template>
 
 

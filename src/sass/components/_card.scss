@@ -308,7 +308,7 @@ $sepahToColor:#feb773;
 }
 
 .logo-zarincard{
-  @include card-logo("../../img/banks/zarincard.png");
+  @include card-logo("../../img/banks/zarincard.svg");
 }
 
 .logo-eghtesadnovin{
@@ -481,6 +481,31 @@ $sepahToColor:#feb773;
         }
       }
 
+    }
+  }
+}
+
+
+//Transfer shetab
+.transfer-shetab{
+  .row{
+    margin:10px 0 !important;
+  }
+
+  .list{
+    .row{
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+
+      &:last-child{
+        border-bottom: none;
+      }
+    }
+  }
+
+  .nav-buttons{
+    .btn{
+      margin-right:10px;
     }
   }
 }

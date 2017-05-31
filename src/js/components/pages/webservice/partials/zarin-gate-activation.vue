@@ -3,24 +3,23 @@
         span(slot="title") {{ $i18n.t('webservice.activeZarinGate') }}
         div(slot="content")
             div.row
-                p {{ $i18n.t('webservice.activeZarinGateFor') }} {{webservice.name}}
-
+                <!--p.create-description {{ $i18n.t('webservice.zarinGateNotice') }}-->
+                span.create-description  هزینه زرین گیت براساس تعداد تراکنش موجود بر روی درگاه عادی زرین پال متغیر است.
+                    span.read-description {{ $i18n.t('webservice.description') }}
             div.row
                 purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول")
                 div.ta-right(v-if="validationErrors.purse")
                     span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
-
-                span.persian-num.activation-price(v-if="priceZaringate")  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
-
             div.row
-                p.create-description {{ $i18n.t('webservice.zarinGateNotice') }}
+                div.col-xs.no-margin.ta-right
+                    span.persian-num.activation-price(v-if="priceZaringate")  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
 
-            div.row
-                div.col-xs.no-margin
+                div.no-margin
                     button.btn.success.pull-left(v-ripple="" @click="activeZarinGate") {{$i18n.t('webservice.activeZarinGateSubmit')}}
                         svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
 
 </template>
 

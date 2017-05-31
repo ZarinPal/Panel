@@ -5,7 +5,8 @@ export default {
         data:[],
         vm:null,
         resource:null,
-        resourceData:null
+        resourceData:null,
+        isLoading: false,
     },
     mutations: {
         reset(state) {
@@ -33,8 +34,10 @@ export default {
         },
         next ({commit, state}) {
             if(state.resource){
+                state.isLoading = true;
                 state.resource.get(state.resourceData).then(
                     (response) => {
+                        state.isLoading = false;
                         commit('fill', response.data.data);
                         let resource = null;
                         if(response.data.meta.pagination.links.next){
@@ -42,7 +45,9 @@ export default {
                         }
                         commit('setResource', {resource});
                     }
-                ).catch(() => {});
+                ).catch(() => {
+                    state.isLoading = false;
+                });
             }
         }
     }
