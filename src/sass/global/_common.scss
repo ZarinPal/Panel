@@ -465,6 +465,11 @@
   font-size: 13px;
 }
 
+.value{
+  color: $labelColor;
+  font-size: 13px;
+}
+
 .text-value{
   color: $labelColor;
   font-size: 13px;
@@ -563,6 +568,18 @@
   .body {
     background-color: #fff;
 
+    .list{
+      .row{
+        padding-bottom: 10px;
+        margin-top: 5px;
+        border-bottom: 1px solid #eee;
+
+        &:last-child{
+          border-bottom:none;
+        }
+      }
+    }
+
     .contains {
       padding: 20px;
     }
@@ -592,6 +609,13 @@
     padding: 10px 20px;
     border-radius: 0 0 4px 4px;
   }
+}
+
+.modal-description{
+  font-size: 13px;
+  text-align: right;
+  margin: 0 0 5px 0;
+  color: $labelColor;
 }
 
 
@@ -802,5 +826,22 @@
     min-width: 0;
     max-width: 0;
     display: none;
+  }
+}
+
+
+//Cards
+.cards{
+  .bank-logo{
+    width: 19px;
+    position: relative;
+    top: 3px;
+    height: 19px;
+    margin-left: 5px;
+  }
+
+  .bank-name{
+    position: relative;
+    top: -4px;
   }
 }

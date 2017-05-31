@@ -103,20 +103,6 @@ span
             },
         },
         created() {
-//            this.getReplies(this.$route.params.id);
-//            let vm = this;
-
-
-
-
-//            window.onscroll = function () {
-//                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-//                    vm.$store.dispatch(
-//                        'paginator/next'
-//                    );
-//                }
-//            };
-
             //Change ticket list new ticket button
             this.$store.commit('app/changeTicketState');
         },

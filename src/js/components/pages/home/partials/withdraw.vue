@@ -1,10 +1,9 @@
 <template lang="pug">
-    modal.create-purse(v-on:closeModal="closeModal()")
-        span(slot="title") {{ $i18n.t('transaction.withdraw') }}
+    modal.withdraw(v-on:closeModal="closeModal()")
+        span(slot="title") {{ $i18n.t('transaction.withdraw') }} از کیف پول {{purse.name}}
         div(slot="content")
-            div(v-if="activeCards.length")
-                div.row
-                    span درخواست واریز وجه از کیف پول {{purse.name}}
+            div(v-if="this.$store.state.auth.user.cards")
+                div.modal-description
                     div {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
 
                 div.row
@@ -13,7 +12,7 @@
                         span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
                 div.row
-                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectCard" v-bind:data="activeCards" placeholder="انتخاب حساب بانکی")
+                    cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
                     div.ta-right(v-if="validationErrors.card_id")
                         span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 
@@ -31,6 +30,7 @@
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import modal from '../../partials/modal.vue';
+    import cards from '../../partials/cards.vue';
 
     export default {
         name: 'home-purse-withdraw',
@@ -50,18 +50,6 @@
             this.closeModalContent = false
         },
         computed:{
-            activeCards() {
-                let activeCards = [];
-                _.forEach(this.$store.state.auth.user.cards, function(card) {
-                    if(card.status == "Active" && card.pan !== null) {
-                        activeCards.unshift({
-                            'title' : '<div class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() +'"></div> <span class="bank-name">' + card.issuer.name +'</span>' + '<span class="pull-left">' + card.pan +  '</span>',
-                            'value' : card.entity_id,
-                        });
-                    }
-                });
-                return activeCards;
-            },
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -96,27 +84,14 @@
                     }
                 )
             },
-            reload() {
-                location.reload();
-            },
-            cardNumberFormat(inputId) {
-                let text = document.getElementById(inputId).value;
-                let result = [];
-                text = this[inputId].replace(/[^\d]/g, "");
-                while (text.length > 4) {
-                    result.push(text.substring(0, 4));
-                    text = text.substring(4);
-                }
-                if (this[inputId].length > 0) result.push(text);
-                this[inputId] = result.join("-");
-            },
-            selectCard(cardId) {
+            selectedCard(cardId) {
                 this.cardId = cardId;
             }
         },
         components: {
             selectbox,
-            modal
+            modal,
+            cards
         }
     }
 </script>

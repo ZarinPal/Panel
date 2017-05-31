@@ -20,10 +20,14 @@
                                             span.priority {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
                                         span.date.iransans-light {{ticket.created_at | fromNow | persianNumbers}}
 
-
                             div.ta-center.sticky-new-ticket(v-sticky="")
                                 router-link.btn.success.btn-add-ticket(v-if="this.$store.state.app.isTicketEmptyPage" tag="button" v-bind:to="{ name: 'ticket.create'}")  {{$i18n.t('ticket.addTicket')}}
                                 router-link.btn.success.rounded(v-else tag="button" v-bind:to="{ name: 'ticket.create'}")
+
+
+                                div.ta-center(v-if="$store.state.paginator.isLoading")
+                                    svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                        circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
                     div.col-xs.nav-tickets.full-height
                         router-view(v-on:closeReplies="closeReplies()" v-bind:class="{'show-sm': showTicketReplies, 'hidden-sm': !showTicketReplies}")

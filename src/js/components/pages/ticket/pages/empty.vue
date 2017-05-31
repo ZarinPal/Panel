@@ -27,13 +27,31 @@
                 }
             ];
 //            this.ajaxGet(this.$route.params.public_id);
-            this.$store.state.http.requests['ticket.index'].get()
-            .then(response => {
-                response.data = response.data;
-                this.list = response.data.data;
+//            this.$store.state.http.requests['ticket.index'].get()
+//            .then(response => {
+//                response.data = response.data;
+//                this.list = response.data.data;
+//            });
+
+            let vm = this;
+            let ticketContent = document.getElementById('ticketContent');
+
+            ticketContent.addEventListener("scroll", function(e) {
+                if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight){
+                    vm.$store.dispatch(
+                        'paginator/next'
+                    );
+                }
             });
         },
         methods: {
+            getReplies(id){
+                let ticket = {};
+                this.$store.state.http.requests['ticket.Reply'].get({ticket_id: id}).then(data => {
+                    ticket = data.data;
+                    this.ticket = ticket.data;
+                });
+            },
 //            ajaxGet(id){
 //                let vm = this;
 //                this.resource.get({public_id: id}).then(data => {
