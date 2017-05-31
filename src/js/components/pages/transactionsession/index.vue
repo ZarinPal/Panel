@@ -38,7 +38,7 @@
 
                 div.break
 
-        div.row.transaction-fields-title
+        div.row.transaction-fields-title(v-if="transactionSessions.length")
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs
                 span {{ $i18n.t('transactionSession.authority') }}
             div.col-lg-2.col-md-2.col-sm-2.hidden-xs
@@ -52,10 +52,22 @@
             div.col-lg-2.col-md-3.col-sm-2.hidden-xs
                 span {{ $i18n.t('transaction.id') }}
 
-        div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+        div.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="transactionSessions.length")
             singleTransaction(v-for="session in transactionSessions"  v-bind:key="session.public_id" v-bind:session="session")
 
-        div.ta-center
+        div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+            span(v-if="transactionSessions.length")
+                singleTransaction(v-for="session in transactionSessions"  v-bind:key="session.public_id" v-bind:session="session")
+
+            div.row(v-if="!this.$store.state.paginator.isLoading && !transactionSessions.length")
+                div.col-xs.ta-center
+                    span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+
+            div.ta-center(v-if="this.$store.state.paginator.isLoading")
+                svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                    circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
+
 
 </template>
 

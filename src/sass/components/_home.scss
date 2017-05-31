@@ -118,9 +118,24 @@
               content: $iconAddFund;
             }
           }
+          .withdraw {
+            &:before {
+              content: $iconWithdraw;
+            }
+          }
+          .report {
+            color: $labelColor !important;
+            &:before {
+              content: $iconReport;
+            }
+          }
+          .ptop {
+            &:before {
+              content: $iconPtop;
+            }
+          }
 
           .transaction {
-            color: $itemColor !important;
             &:before {
               content: $iconTransaction;
 

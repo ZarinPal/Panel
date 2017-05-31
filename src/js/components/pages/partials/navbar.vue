@@ -11,8 +11,8 @@
         div.col-lg-4.col-sm-4.col-xs-4.left-box
             a.logout(@click="confirmVisible = true" title="خروج" v-ripple="")
             span.notification-lamp(v-if="notifications.length")
-            a.notification.circle-hover(:class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="")
-            span.reload(@click="reload") reload
+            a.notification(:class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="")
+            span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")
         transition(name="fade"
         enter-active-class="fade-in"
         leave-active-class="fade-out")

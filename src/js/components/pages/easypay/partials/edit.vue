@@ -21,12 +21,28 @@
                                     p.form-title.ta-right {{$i18n.t('easypay.firstInfo')}}
                                     p.form-message.ta-right {{$i18n.t('easypay.firstInfoMessage')}}
 
-                                    input(type="text" v-model="title" placeholder= "عنوان محصول یا خدمات")
-                                    span.input-icon.home-icon
-                                    input(type="text" v-model="price" placeholder= "مبلغ")
-                                    span.input-icon.amount-icon
-                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-model="description" placeholder= "توضیحات وب‌سایت")
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                                    div.row.no-margin
+                                        span.input-icon.home-icon
+                                        input(:class="{'input-danger': validationErrors.title}" type="text" v-model="title" placeholder= "عنوان محصول یا خدمات")
+                                        div.ta-right(v-if="validationErrors.title")
+                                            span.text-danger {{ $i18n.t(validationErrors.title) }}
+
+                                    div.row.no-margin
+                                        span.input-icon.amount-icon
+                                        input(:class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ")
+                                        div.ta-right(v-if="validationErrors.price")
+                                            span.text-danger {{ $i18n.t(validationErrors.price) }}
+
+                                    div.row.no-margin
+                                        textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.description}" v-model="description" placeholder= "توضیحات وب‌سایت")
+                                        div.ta-right(v-if="validationErrors.description")
+                                            span.text-danger {{ $i18n.t(validationErrors.description) }}
+
+                                    div.row.no-margin
+                                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                                        div.ta-right(v-if="validationErrors.purse")
+                                            span.text-danger {{ $i18n.t(validationErrors.purse) }}
+
                                     div.cb
                                     div.row.nav-buttons
                         div.col-lg-5.col-md-5.col-sm-12.col-xs-12
