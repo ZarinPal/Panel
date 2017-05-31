@@ -42,6 +42,10 @@
     width: 100%;
   }
 
+  .purses{
+    margin: 10px 0 !important;
+  }
+
   .selectbox {
     width: 100%;
     float: left;
@@ -131,6 +135,7 @@
   border-radius: 50%;
   margin-left: 2px;
   background-color: #C2C8CC;
+  text-align: center;
 }
 
 .step-line{
@@ -146,4 +151,5 @@
 
 .active-step-number{
   background-color: #ffc107 !important;
+  text-align: center;
 }

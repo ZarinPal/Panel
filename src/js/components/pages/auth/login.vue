@@ -41,9 +41,9 @@
                                     span(v-if="channel == 'ussd'") {{ $i18n.t('user.callBelowUssdCode') }}
 
                             <!--Ussd Box-->
-                            div.row.ussd-box(v-if="channel == 'ussd'")
+                            div.row.ussd-box.no-margin(v-if="channel == 'ussd'")
                                 div
-                                    span.icon-qr(v-if="ussdType =='Code'" @click="changeUssdType()")
+                                    span.icon-qr(v-if="ussdType =='Code'" @click="changeUssdType()") USSD
                                     span.icon-ussd-text(v-if="ussdType =='Qr'" @click="changeUssdType()")
                                         span *
                                         span.laugh :)

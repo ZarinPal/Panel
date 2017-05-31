@@ -1,6 +1,7 @@
 <template lang="pug">
     modal(v-on:closeModal="closeModal()")
-        div(slot="title") {{ $i18n.t('purse.zarinCardStatement') + ' : ' + card.pan }}
+        div(slot="title") {{ $i18n.t('purse.zarinCardStatement')}}
+            span {{+ ' : ' + card.pan}}
         div(slot="content")
             span(v-if="!zarinCardStatements")
                 div.row.no-margin

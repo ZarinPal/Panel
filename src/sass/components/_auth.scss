@@ -78,7 +78,7 @@
         font-size: 28px;
         background-color:#f2f3f5;
         border-radius:$boxBorderRadiusSize;
-        margin-top: 10px;
+        margin-top: 10px !important;
         direction: ltr;
 
 
@@ -120,15 +120,14 @@
         }
 
         .icon-qr{
+          font-size: 14px !important;
+          display: inline-block;
           position: relative;
-          top: 4px;
-          left: 14px;
-
-          &:before {
-            content: $iconQrCode;
-            font-family: 'zarinpal';
-            font-size: 22px;
-          }
+          left: 13px;
+          top: 0px;
+          color: #424242;
+          cursor: pointer;
+          font-family: tahoma !important;
         }
 
         .qr-image{

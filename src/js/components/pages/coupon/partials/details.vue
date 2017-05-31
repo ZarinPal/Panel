@@ -1,5 +1,5 @@
 <template lang="pug">
-    modal.card(v-on:closeModal="closeModal()")
+    modal.coupon-details(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('coupon.couponDetails') }}
         div(slot="content")
             div.row
