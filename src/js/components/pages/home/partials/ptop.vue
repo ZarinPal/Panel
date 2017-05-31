@@ -2,19 +2,26 @@
     modal.ptop(v-on:closeModal="closeModal()")
         div(slot="title") {{ $i18n.t('purse.moneyTransfer') }}
         div(slot="content")
-            span {{ $i18n.t('purse.transferFromPurse') + ':' + purse.name}}
-            div {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
-
             div.nav-loading(v-if="requesting")
                 svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                     circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
             div(v-else)
                 div(v-if="step == 1")
+                    div.modal-description
+                        p {{ $i18n.t('purse.moneyTransferDescription') }}
+
                     div.row
-                        input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
-                        div.ta-right(v-if="validationErrors.amount")
-                            span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                        div.col-xs.no-right-margin
+                            input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                            div.ta-right(v-if="validationErrors.amount")
+                                span.text-danger {{ $i18n.t(validationErrors.amount) }}
+
+                        div.col-xs.no-left-margin
+                            input(:class="{'input-danger': validationErrors.zpId}" type="text" v-model="zpId" placeholder="زرین پال مقصد")
+                            div.ta-right(v-if="validationErrors.zpId")
+                                span.text-danger {{ $i18n.t(validationErrors.zpId) }}
+
 
                     div.row
                         textarea(:class="{'input-danger': validationErrors.description}" type="text" v-model="description" placeholder="توضیحات")
@@ -22,16 +29,11 @@
                             span.text-danger {{ $i18n.t(validationErrors.description) }}
 
                     div.row
-                        input(:class="{'input-danger': validationErrors.zpId}" type="text" v-model="zpId" placeholder="زرین پال مقصد")
-                        div.ta-right(v-if="validationErrors.zpId")
-                            span.text-danger {{ $i18n.t(validationErrors.zpId) }}
-
-                    div.row
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="confirmPtopData") {{ $i18n.t('purse.nextStep') }}
 
                 div(v-else)
-                    div(v-if="destinationUser")
+                    div.list(v-if="destinationUser")
                         div.row
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('purse.sourceZpId') }}
@@ -68,10 +70,10 @@
                             div.col-xs.ta-left
                                 span.value {{this.description}}
 
-                    div.row.nav-buttons
+                    div.row
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="acceptTransfer") {{ $i18n.t('purse.acceptTransfer') }}
-                            button.btn.error.pull-left(v-ripple="" @click="declineTransform")  {{ $i18n.t('purse.declineTransfer') }}
+                            button.btn.default.pull-left(v-ripple="" @click="declineTransfer")  {{ $i18n.t('purse.declineTransfer') }}
 
 </template>
 
@@ -178,7 +180,7 @@
                     }
                 )
             },
-            declineTransform() {
+            declineTransfer() {
                 this.step = 1;
                 this.purseId = null;
                 this.zpId = null;

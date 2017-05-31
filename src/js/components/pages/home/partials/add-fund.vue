@@ -11,7 +11,7 @@
                         span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
                 div.row.no-margin
-                    cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
+                    cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
                     div.ta-right(v-if="validationErrors.card_id")
                         span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 

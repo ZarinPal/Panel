@@ -138,3 +138,35 @@
     }
   }
 }
+
+
+//Active Zarin Gate
+.read-description{
+  color: #4689FF;
+  display: inline-block;
+  font-size: 13px;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+.activation-price{
+  background-color: #F5F5F5;
+  font-size: 13px;
+  padding: 7px;
+  color: #555;
+  border-radius: $boxBorderRadiusSize;
+  display: inline-block;
+}
+
+
+.activation-ussd{
+  .row{
+    margin: 10px 0;
+  }
+
+  .create-description{
+    font-size: 13px;
+    color: $labelColor;
+    text-align: right;
+  }
+}

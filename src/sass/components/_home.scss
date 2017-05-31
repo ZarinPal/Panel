@@ -264,28 +264,7 @@
     }
   }
 
-  .dropdown{
 
-    //li:nth-child(1){
-    //  span {
-    //    position: relative;
-    //    top: -6px;
-    //  }
-    //}
-
-    .bank-logo{
-      width: 19px;
-      position: relative;
-      top: 3px;
-      height: 19px;
-      margin-left: 5px;
-    }
-
-    .bank-name{
-      position: relative;
-      top: -4px;
-    }
-  }
   .row {
     margin: 10px 0;
   }
@@ -296,15 +275,24 @@
   .nav-loading{
     padding: 80px 30px 93px 30px;
   }
+
   .row{
-    input, textarea{
+    input, textarea {
       margin:5px 0;
     }
   }
 
-  .nav-buttons{
-    .btn{
-      margin-right: 10px;
-    }
+  .btn{
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+}
+
+
+//Withdraw
+.withdraw{
+  .row{
+    margin: 10px 0;
   }
 }
