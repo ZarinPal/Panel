@@ -25,6 +25,8 @@ span
 
 
     div.replies
+        div.col-xs.ta-center
+            loading(v-if="isLoadReplies")
         span(v-for="reply in ticket.replies")
             <!--User Ticket-->
             div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section(v-if="reply.user_info.public_id == user.public_id")
@@ -80,14 +82,18 @@ span
                 input.attach(type="file" name="file" @change="onFileChange")
 
 
+
 </template>
 
 <script>
+    import loading from '../../partials/loading.vue';
+
     export default {
         name: 'ticket-show',
         data() {
           return {
               loading: false,
+              isLoadReplies: false,
               ticket: {},
               content: '',
               errorMessage: '',
@@ -121,8 +127,10 @@ span
         },
         methods: {
             getReplies(id){
+                this.isLoadReplies = true;
                 let ticket = {};
                 this.$store.state.http.requests['ticket.Reply'].get({ticket_id: id}).then(data => {
+                    this.isLoadReplies = false;
                     ticket = data.data;
                     this.ticket = ticket.data;
                 });
@@ -220,5 +228,8 @@ span
                 this.getReplies(to.params.id)
             }
         },
+        components: {
+            loading
+        }
     }
 </script>

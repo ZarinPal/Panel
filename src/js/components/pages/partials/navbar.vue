@@ -1,17 +1,17 @@
 <template lang="pug">
     div.navbar.row
-        div.col-lg-4.col-sm-4.col-xs-4
+        div.col-lg-5.col-sm-5.col-xs-5
             span.normal-sidebar-collapse.hidden-xs(v-ripple="" @click="toggleSidebar()")
             span.mobile-sidebar-collapse(@click="toggleMobileSidebar()")
             h4.hidden-xs.navbar-title پیشخوان
 
-        div.navigation-logo.col.col-lg-4.col-sm-4.col-xs-4
+        div.navigation-logo.col.col-lg-2.col-sm-2.col-xs-2
             div.logo
 
-        div.col-lg-4.col-sm-4.col-xs-4.left-box
+        div.col-lg-5.col-sm-5.col-xs-5.left-box
             a.logout(@click="confirmVisible = true" title="خروج" v-ripple="")
-            span.notification-lamp(v-if="notifications.length")
             a.notification(:class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="")
+            span.notification-lamp(v-if="notifications.length")
             span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")
         transition(name="fade"
         enter-active-class="fade-in"
@@ -26,13 +26,14 @@
                             <!--span.icon-setting-->
 
                     div.row.body
-                        router-link.notification-box.col-lg-12.col-md-12.col-xs-12(@click="toggleNotification()" v-if="notification.type == 'ticket'" v-for="notification in notifications" v-bind:key="notification.title"  v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
-                            div.title {{notification.title}}
-                            div.body {{notification.body | less}}
+                        div.full-width(v-for="notification in notifications")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(tag="div" @click="toggleNotification()" v-if="notification.type === 'ticket'" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
+                                div.title {{notification.title}}
+                                div.body {{notification.body | less}}
 
-                        router-link.notification-box.col-lg-12.col-md-12.col-xs-12(@click="toggleNotification()" v-else-if="notification.type == 'transaction'" v-for="notification in notifications"  v-bind:key="notification.title" v-bind:to="{ name: 'transaction.show'}")
-                            div.title {{notification.title}}
-                            div.body {{notification.body | less}}
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(tag="div" @click="toggleNotification()" v-if="notification.type == 'transaction'" v-bind:to="{ name: 'transaction.show', params: {type: 'purse', id: 1, transactionId: notification.id}}")
+                                div.title {{notification.title}}
+                                div.body {{notification.body | less}}
 
                         div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.length")
                             span هیچ موردی برای نمایش وجود ندارد

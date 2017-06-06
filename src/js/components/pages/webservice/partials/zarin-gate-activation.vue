@@ -5,7 +5,15 @@
             div.row
                 <!--p.create-description {{ $i18n.t('webservice.zarinGateNotice') }}-->
                 span.create-description  هزینه زرین گیت براساس تعداد تراکنش موجود بر روی درگاه عادی زرین پال متغیر است.
-                    span.read-description {{ $i18n.t('webservice.description') }}
+                    span.read-description(@click="visibleDescription=!visibleDescription") {{ $i18n.t('webservice.description') }}
+
+
+            transition(name="fade"
+            enter-active-class="fade-in"
+            leave-active-class="fade-out")
+                div.ta-right.more-description(v-if="visibleDescription") {{ $i18n.t('webservice.zarinGateNotice') }}
+
+
             div.row
                 purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول")
                 div.ta-right(v-if="validationErrors.purse")
@@ -34,6 +42,7 @@
         data() {
             return {
                 loading: false,
+                visibleDescription: false,
                 closeModalContent: true,
                 purse: null,
                 priceZaringate: null,

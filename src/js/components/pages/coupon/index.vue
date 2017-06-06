@@ -13,19 +13,22 @@
         div.row
             singleCoupon(v-for="coupon in coupons" v-bind:key="coupon.entity_id" v-bind:coupon="coupon")
 
-        div.row(v-if="!coupons.length")
+        div.row
             div.col-xs.ta-center
-                span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+                loading(v-if="loading")
+                span.txt-nothing-to-show(v-if="!loading && !coupons.length")  {{ $i18n.t('common.nothingToShow') }}
 
 </template>
 
 <script>
     import singleCoupon from './partials/single-coupon.vue';
+    import loading from '../../pages/partials/loading.vue';
 
     export default {
         name: 'coupon-index',
         data(){
             return{
+                loading:true,
                 coupons: '',
             }
         },
@@ -37,7 +40,10 @@
         beforeCreate() {
             this.$store.state.http.requests['coupon.getIndex'].get().then(
                 (response) => {
+                    this.loading = false;
                     this.coupons = response.data.data;
+                },()=>{
+                    this.loading = false;
                 }
             );
         },
@@ -45,7 +51,8 @@
 
         },
         components: {
-            singleCoupon
+            singleCoupon,
+            loading
         }
     }
 </script>

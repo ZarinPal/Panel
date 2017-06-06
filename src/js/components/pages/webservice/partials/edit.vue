@@ -8,7 +8,7 @@
             div.box
                 div.body
                     div.row
-                        div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+                        div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                             div.row.no-margin
                                 span.input-icon.ip-icon
                                 input(:class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" maxlength="15")
@@ -23,30 +23,31 @@
                                 span.input-icon.webservice-cat-icon
                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:selected="webservice.category_id" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
 
-                        div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                             div.row
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                                    div.nav-picker
-                                        span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
+                                div.nav-picker
+                                    span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
 
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                                    img.webservice-logo(:src="selectedLogo")
+                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12.ta-center
+                                img.webservice-logo(:src="selectedLogo")
 
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.attachment}")
-                                    div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
-                                        div.row
-                                            div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
-                                                span.upload-icon
+                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.attachment}")
+                                div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
+                                    div.row
+                                        div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
+                                            span.upload-icon
 
-                                            div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts
-                                                p فایل لوگو را اینجا رها کنید
-                                                div.nav-file-input
-                                                    span یا از کامپیوتر
-                                                    input#attach(type="file" name="file" @change="onLogoChange")
+                                        div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts
+                                            p فایل لوگو را اینجا رها کنید
+                                            div.nav-file-input
+                                                span یا از کامپیوتر
+                                                input#attach(type="file" name="file" @change="onLogoChange")
 
 
-                                div.ta-right(v-if="validationErrors.site_logo")
-                                    span.text-danger {{ $i18n.t(validationErrors.attachment) }}
+                            div.ta-right(v-if="validationErrors.site_logo")
+                                span.text-danger {{ $i18n.t(validationErrors.attachment) }}
+
+
+
 
 
                 div.row

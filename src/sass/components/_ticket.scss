@@ -1,7 +1,6 @@
 $plusIcon: $icon-zp-add;
 
 .ticket-main-content{
-  margin-top: 50px;
 
   .ticket-empty-list-width{
     width:40%;
@@ -263,6 +262,7 @@ $plusIcon: $icon-zp-add;
           color: #777;
           font-family: $fontName;
           overflow: hidden;
+          white-space: pre-line;
           //white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
           //white-space: -webkit-pre-wrap; /*Chrome & Safari */
           //white-space: -pre-wrap;      /* Opera 4-6 */
