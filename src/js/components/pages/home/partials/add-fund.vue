@@ -40,7 +40,8 @@
                 amount: '',
                 cardId: '',
                 redirectUrl:encodeURI(
-                'https://' + window.location.hostname + '/'
+//                'https://' + window.location.hostname + '/panelw/index.html#'
+                'https://' + window.location.hostname + '/panel'
                 + this.$router.resolve({name: 'home.finishAddFund'}).href),
             }
         },
