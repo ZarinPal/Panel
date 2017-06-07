@@ -1,11 +1,14 @@
 <template lang="pug">
-    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="purses" placeholder="انتخاب کیف پول")
+    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="selected" v-bind:data="purses" placeholder="انتخاب کیف پول")
 </template>
 
 <script>
     import selectbox from './selectbox.vue';
     export default {
         name: 'purse',
+        props: [
+            'selected'
+        ],
         computed: {
             purses() {
                 return this.$store.state.auth.user.purses.map(function (purse) {

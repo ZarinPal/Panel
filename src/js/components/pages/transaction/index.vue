@@ -74,14 +74,15 @@
                     span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
         div.ta-center(v-if="this.$store.state.paginator.isLoading")
-            svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+            loading
 
+        transactionDetails(v-if="transaction && showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal")
 
 
 </template>
 
 <script>
+    import transactionDetails from './partials/transaction-details.vue';
     import singleTransaction from './partials/single-transaction.vue';
     import selectbox from '../partials/selectbox.vue';
     import loading from '../../pages/partials/loading.vue';
@@ -119,11 +120,27 @@
                     }
 
                 ],
+                transaction: null,
+                showTransactionDetail: false,
             }
         },
         watch: {
             filterType(){
                 this.restart();
+            },
+            '$route' () {
+                this.showStandAloneTransaction();
+            }
+        },
+        computed: {
+            user() {
+                return this.$store.state.auth.user;
+            },
+            transactions() {
+                if(this.$store.state.paginator.data) {
+                    this.isLoaded = true;
+                }
+                return this.$store.state.paginator.data;
             }
         },
         created() {
@@ -138,6 +155,7 @@
                     );
                 }
             };
+            this.showStandAloneTransaction();
         },
         methods: {
             restart() {
@@ -195,24 +213,28 @@
                         this.placeholder = '09xxxxxxxxx';
                         break;
                 }
-            }
-
-        },
-        computed: {
-            user() {
-                return this.$store.state.auth.user;
             },
-            transactions() {
-                if(this.$store.state.paginator.data) {
-                    this.isLoaded = true;
+            showStandAloneTransaction() {
+                if(this.$route.params.transactionId) {
+                    this.$store.state.http.requests['transaction.getInfo'].get({transactionId: this.$route.params.transactionId}).then(
+                        (response) => {
+                            this.showTransactionDetail = true;
+                            this.transaction = response.data.data;
+                        },()=>{
+
+                        }
+                    );
                 }
-                return this.$store.state.paginator.data;
+            },
+            closeModal(){
+                this.showTransactionDetail = false;
             }
         },
         components: {
             singleTransaction,
             selectbox,
-            loading
+            loading,
+            transactionDetails
         }
     }
 </script>

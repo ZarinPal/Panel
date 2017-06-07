@@ -237,8 +237,11 @@ body {
       height: 4px;
       background-color: #ff2e56;
       border-radius: 50%;
+      position: relative;
       margin-top: 16px;
       margin-left: -13px;
+      left: -39px;
+      top: -8px;
     }
 
     .logout{
@@ -397,7 +400,7 @@ body {
 
       .notification-box{
         padding: 26px 12px;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #ccc !important;
         transition: $animateTime;
         cursor: pointer;
         .title{
@@ -413,7 +416,7 @@ body {
         }
 
         &:last-child{
-          border-bottom: none;
+          border-bottom: 0;
         }
 
         &:hover {
@@ -422,9 +425,7 @@ body {
         }
       }
     }
-
   }
-
 }
 
 /*-------Sidebar-------*/

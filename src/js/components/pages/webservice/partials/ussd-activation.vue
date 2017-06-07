@@ -5,7 +5,12 @@
             div.row
                 <!--p.create-description {{ $i18n.t('webservice.ussdNotice') }}-->
                 span.create-description هزینه فعالسازی سرویس همپا(USSD) براساس تعداد تراکنش های موجود بر روی درگاه عادی زرین پال متغیر است.
-                    span.read-description {{ $i18n.t('webservice.description') }}
+                    span.read-description(@click="visibleDescription=!visibleDescription") {{ $i18n.t('webservice.description') }}
+
+            transition(name="fade"
+            enter-active-class="fade-in"
+            leave-active-class="fade-out")
+                div.ta-right.more-description(v-if="visibleDescription") {{ $i18n.t('webservice.ussdNotice') }}
 
             div.row
                 div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}")
@@ -45,8 +50,9 @@
         data() {
             return {
                 loading: false,
+                visibleDescription: false,
                 closeModalContent: true,
-                purse: 1,
+                purse: null,
                 ussdId: '',
                 priceUssd: ''
             }

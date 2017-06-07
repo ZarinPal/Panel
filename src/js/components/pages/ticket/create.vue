@@ -44,15 +44,15 @@
                         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                             div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
                                 div.row
-                                    div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
+                                    div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")
                                         span.upload-icon
 
                                     div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                        p فایل لوگو را اینجا رها کنید
-                                        div.nav-file-input
-                                            span یا از کامپیوتر
+                                        p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
+                                        div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
+                                            span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
                                             input#attach(type="file" name="file" @change="onFileChange")
-                                            div.file-name(v-if="fileName") {{fileName}}
+                                            div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
 
                     div.row.nav-button
                         div.col-xs.no-margin
@@ -114,6 +114,7 @@
                 if (!files.length)
                     return;
                 this.createFile(files[0]);
+                this.fileName = files[0].name;
                 this.fileHover = false;
             },
             onFileChange(e) {

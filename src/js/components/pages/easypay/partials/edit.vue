@@ -39,7 +39,7 @@
                                             span.text-danger {{ $i18n.t(validationErrors.description) }}
 
                                     div.row.no-margin
-                                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
                                         div.ta-right(v-if="validationErrors.purse")
                                             span.text-danger {{ $i18n.t(validationErrors.purse) }}
 

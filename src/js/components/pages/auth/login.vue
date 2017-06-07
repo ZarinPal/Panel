@@ -27,6 +27,9 @@
                             router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{ $i18n.t('user.register') }}
                         div.col-xs.no-margin
                             button.gold.pull-left {{$i18n.t('user.enter')}}
+                                svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
 
                 <!--Second step call ussd code-->
                 form(method="post" @submit.prevent="login"  v-if="step == 2")
@@ -64,6 +67,8 @@
                             span.link(v-on:click.prevent="sendOtp('sms')") {{ $i18n.t('user.sendCodeBySms') }}
                         div.col-xs.no-margin
                             button.gold.pull-left {{$i18n.t('user.enter')}}
+                                svg.material-spinner(v-if="loginLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
             <!--Privacy Policy-->
@@ -84,6 +89,8 @@
         name: 'auth-login',
         data () {
             return {
+                getOtpLoading: false,
+                loginLoading: false,
                 ussdType: 'Code',
                 username: "",
                 otp: "",
@@ -106,7 +113,7 @@
         },
         methods: {
             sendOtp(channel){
-
+                this.getOtpLoading = true;
                 let postData = {
                     username: this.username,
                 };
@@ -117,6 +124,7 @@
                 this.$store.state.http.requests['oauth.postInitializeLogin']
                     .save(postData)
                     .then((response)=>{
+                        this.getOtpLoading = false;
                         this.step = 2;
                         this.avatar = 'https:'+response.data.data.avatar;
                         this.channel = response.data.data.channel;
@@ -131,6 +139,7 @@
                             });
                         }
                     }).catch((response)=>{
+                    this.getOtpLoading = false;
                     store.commit('setValidationErrors',response.data.validation_errors);
                     store.commit('flashMessage', {
                         text: response.data.meta.error_message,
@@ -140,6 +149,7 @@
 
             },
             login(event){
+                this.loginLoading = true;
                 let auth2Data = {
                     grant_type: "password",
                     client_id: "panel-client",
@@ -151,6 +161,7 @@
                 };
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
+                        this.loginLoading = false;
                         this.$store.commit('app/loading');
                         let vm = this;
                         this.$store.dispatch('auth/fetch',
@@ -161,6 +172,7 @@
                         );
                     },
                     (response) => {
+                        this.loginLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,

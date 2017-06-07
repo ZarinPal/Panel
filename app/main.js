@@ -9,11 +9,10 @@ let win;
 function createWindow () {
     // Create the browser window.
     win = new BrowserWindow({
-        width: 800,
+        width: 1280,
         height: 600,
         minHeight: 600,
-        minWidth: 400
-
+        minWidth: 992
     });
 
     // and load the index.html of the app.
