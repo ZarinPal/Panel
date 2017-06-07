@@ -2,9 +2,7 @@
     modal.transfer-shetab(v-on:closeModal="closeModal()")
         div(slot="title") {{ $i18n.t('purse.shetabMoneyTransfer') }}
         div(slot="content")
-            div.nav-loading(v-if="requesting")
-                svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                    circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+            loading(v-if="requesting")
 
             div(v-else)
                 div(v-if="step == 1")
@@ -107,6 +105,7 @@
 
 <script>
     import modal from '../../partials/modal.vue';
+    import loading from '../../partials/loading.vue';
 
     export default {
         name: 'pages-card-partials-transferShetab',
@@ -207,7 +206,8 @@
             }
         },
         components: {
-            modal
+            modal,
+            loading
         }
     }
 

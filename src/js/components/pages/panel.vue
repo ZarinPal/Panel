@@ -1,5 +1,5 @@
 <template lang="pug">
-    div(v-if="$store.state.app.isLoaded")
+    div.full-height(v-if="$store.state.app.isLoaded")
         navbar
 
         div.zp-container.row
@@ -13,9 +13,6 @@
         div.loading.ta-center
             div.spinner
             div.zarinpal-type زرین پال
-                <!--div.double-bounce1-->
-                <!--div.double-bounce2-->
-
 
 </template>
 

@@ -45,10 +45,14 @@ export default {
         },
         addNotification(state, message){
             state.notifications.unshift(message);
+        },
+        initNotifications(state) {
+            state.notifications = [];
         }
     },
     actions: {
         startWebPushSocket({ dispatch, commit, state }){
+            commit('initNotifications');
             let NchanSubscriber = require("nchan");
 
             let sub = new NchanSubscriber(
@@ -58,7 +62,6 @@ export default {
                 }
             );
 
-
             sub.on('message', function (message) {
                 message = JSON.parse(message);
                 commit('addNotification', message);
@@ -67,7 +70,7 @@ export default {
                 let options = {
                     title: lastMessageTitle,
                     body: 'شما ' + notificationCount + ' پیام جدید دارید.',
-                    icon: 'assets/img/zarin-logo.png',
+                    icon: 'assets/images/zarin-logo.png',
                     sound: 'assets/sound/notification.mp3',
                     tag:'zarin-notify',
                 };

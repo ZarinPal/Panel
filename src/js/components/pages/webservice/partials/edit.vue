@@ -8,7 +8,7 @@
             div.box
                 div.body
                     div.row
-                        div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+                        div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                             div.row.no-margin
                                 span.input-icon.ip-icon
                                 input(:class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" maxlength="15")
@@ -17,36 +17,36 @@
 
 
                             div.row.no-margin
-                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
 
                             div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
                                 span.input-icon.webservice-cat-icon
                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:selected="webservice.category_id" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
 
-                        div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                             div.row
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                                    div.nav-picker
-                                        span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
+                                div.nav-picker
+                                    span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
 
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                                    img.webservice-logo(:src="selectedLogo")
+                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12.ta-center
+                                img.webservice-logo(:src="selectedLogo")
 
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.attachment}")
-                                    div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
-                                        div.row
-                                            div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
-                                                span.upload-icon
+                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+                                div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
+                                    div.row
+                                        div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")
+                                            span.upload-icon
 
-                                            div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts
-                                                p فایل لوگو را اینجا رها کنید
-                                                div.nav-file-input
-                                                    span یا از کامپیوتر
-                                                    input#attach(type="file" name="file" @change="onLogoChange")
+                                        div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
+                                            p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
+                                            div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
+                                                span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
+                                                input#attach(type="file" name="file" @change="onLogoChange")
+                                                div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
 
 
-                                div.ta-right(v-if="validationErrors.site_logo")
-                                    span.text-danger {{ $i18n.t(validationErrors.attachment) }}
+
+                            div.ta-right(v-if="validationErrors.site_logo")
+                                span.text-danger {{ $i18n.t(validationErrors.attachment) }}
 
 
                 div.row
@@ -75,6 +75,7 @@
                 site_name: '',
                 domain: '',
                 site_content: '',
+                fileName: '',
                 tel: '',
                 selectedLogo: '',//logoland.zarinpal.com/14937992435909914ba5e2d/125x125.png',
                 site_logo: '',//logoland.zarinpal.com/' + md5(this.webservice.entity_id) + '/125x125.png',
@@ -137,15 +138,13 @@
                     site_logo: this.site_logo,
                 };
 
-//                console.log(webserviceData);
-//                return;
-
                 let params = {
                     webservice_id: this.$route.params.merchantCode
                 };
 
                 this.$store.state.http.requests['webservice.postEdit'].update(params, webserviceData).then(
                     ()=> {
+                        this.changeWebserviceState();
                         this.$router.push({name: 'webservice.index'})
                     },
                     (response) => {
@@ -158,6 +157,17 @@
                     }
                 )
             },
+            changeWebserviceState(){
+                let vm = this;
+                let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
+                    return webservice.entity_id === vm.$route.params.merchantCode;
+                });
+
+                this.$store.state.auth.user.webservices[webserviceIndex].ip = this.site_ip;
+                this.$store.state.auth.user.webservices[webserviceIndex].purse = this.purse;
+                this.$store.state.auth.user.webservices[webserviceIndex].category_id = this.webservice_category_id;
+            },
+
             dragOver() {
                 window.addEventListener("dragover",function(e){
                     e.preventDefault();
@@ -171,7 +181,7 @@
                 if (!files.length)
                     return;
                 this.createFile(files[0]);
-
+                this.fileName = files[0].name;
                 this.fileHover = false;
             },
             onLogoChange(e) {
