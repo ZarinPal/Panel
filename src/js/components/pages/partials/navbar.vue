@@ -27,13 +27,14 @@
 
                     div.row.body
                         div.full-width(v-for="notification in notifications")
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(tag="div" @click="toggleNotification()" v-if="notification.type === 'ticket'" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
                                 div.title {{notification.title}}
                                 div.body {{notification.body | less}}
 
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(tag="div" @click="toggleNotification()" v-if="notification.type == 'transaction'" v-bind:to="{ name: 'transaction.show', params: {type: 'purse', id: 1, transactionId: notification.id}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'transaction.index', params: {id: 1, type: 'purse', transactionId: notification.id}}")
                                 div.title {{notification.title}}
                                 div.body {{notification.body | less}}
+
 
                         div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.length")
                             span هیچ موردی برای نمایش وجود ندارد

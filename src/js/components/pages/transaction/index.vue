@@ -74,9 +74,7 @@
                     span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
         div.ta-center(v-if="this.$store.state.paginator.isLoading")
-            svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
+            loading
 
         transactionDetails(v-if="transaction && showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal")
 

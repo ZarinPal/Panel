@@ -735,6 +735,7 @@
 
 //File Drag and drop
 .file-zone{
+  transition: $animateTime;
   border: 1px dashed #babfc2;
   border-radius: $boxBorderRadiusSize;
   padding-top: 20px;
@@ -757,6 +758,8 @@
   }
 
   .nav-file-input{
+    transition: $animateTime;
+
     span {
       position: relative !important;
       top: -19px !important;
@@ -802,19 +805,14 @@
       font-size: 13px;
     }
   }
-
 }
 
 .file-zone-hover{
+  transition: $animateTime;
   background-color: #fefcf1;
   border:1px dashed #ffd600;
   z-index: 3;
-  padding-bottom: 20px !important;
-
   .ta-center{
-    max-width: 100% !important;
-    min-width: 100%;
-
     .upload-icon{
       &:before{
         color: #ffd600;
@@ -823,9 +821,8 @@
   }
 
   .nav-texts{
-    min-width: 0;
-    max-width: 0;
-    display: none;
+    transition: $animateTime;
+    opacity: 0;
   }
 }
 

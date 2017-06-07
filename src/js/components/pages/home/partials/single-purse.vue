@@ -114,6 +114,7 @@
             },
             toggleEditPurse(){
                 this.isEditingPurseName = !this.isEditingPurseName;
+                this.$store.state.app.singlePurseMoreTrigger = null;
             },
             send(){
                 let sendContent = {

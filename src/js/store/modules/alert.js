@@ -70,7 +70,7 @@ export default {
                 let options = {
                     title: lastMessageTitle,
                     body: 'شما ' + notificationCount + ' پیام جدید دارید.',
-                    icon: 'assets/img/zarin-logo.png',
+                    icon: 'assets/images/zarin-logo.png',
                     sound: 'assets/sound/notification.mp3',
                     tag:'zarin-notify',
                 };
