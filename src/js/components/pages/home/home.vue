@@ -28,6 +28,7 @@
             return{
                 visibleCreatePurse: false,
                 visibleShowMore: false,
+                message: [],
             }
         },
         props: ['more', 'showMore'],
@@ -36,9 +37,43 @@
                 return this.$store.state.auth.user;
             }
         },
+        created(){
+            this.checkAddFund();
+        },
         methods: {
             closeModal(){
                 this.visibleCreatePurse = false;
+            },
+            getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            },
+            checkAddFund() {
+                let status = this.getParameterByName('Status');
+                let authority = parseInt(this.getParameterByName('Authority'));
+                if(status || authority) {
+                    if(status === 'OK') {
+                        this.message = 'add fund success';
+
+                        store.commit('flashMessage', {
+                            text: this.message,
+                            type: 'success',
+                        });
+                        this.$router.push({name: 'transaction.index', params: {id: '1', type: 'purse', transactionId: authority}});
+                    } else {
+                        this.message = 'add fund failed';
+                        store.commit('flashMessage', {
+                            text: this.message,
+                            type: 'danger',
+                        });
+                        this.$router.push({name: 'home.index'});
+                    }
+                }
             }
         },
         components:{
