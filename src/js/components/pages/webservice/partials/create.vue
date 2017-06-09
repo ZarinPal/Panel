@@ -44,8 +44,8 @@
                                 purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
 
                             div.row.no-margin
-                                span.input-icon.webservice-cat-icon
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
+                                webserviceCategories.webservice-categories(v-on:select="selectedWebserviceCat")
+                                <!--span.input-icon.webservice-cat-icon-->
 
                 div.row
                     div.col-xs.nav-buttons
@@ -59,6 +59,7 @@
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
+    import webserviceCategories from '../../partials/webservice-categories.vue';
 
     export default {
         name: 'pages-webservice-partials-create',
@@ -69,8 +70,8 @@
                 messages: {},
                 domain: '',
                 tel: '',
-                purse: '1',
-                webservice_category_id: '3',
+                purse: null,
+                webservice_category_id: null,
                 site_name: '',
                 site_content: '',
                 image: '',
@@ -172,11 +173,12 @@
                     vm.image = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            }
+            },
         },
         components: {
             selectbox,
-            purse
+            purse,
+            webserviceCategories,
         }
     }
 

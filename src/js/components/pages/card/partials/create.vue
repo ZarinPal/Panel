@@ -109,10 +109,7 @@
 
                 let formatedPan = this.pan.split('-').join('');
 
-                let expiredAt = '';
-                if(this.year && this.month) {
-                    expiredAt = this.year + '-' + this.month;
-                }
+                let expiredAt = this.jalaliToGregorian(this.year, this.month, 30);
 
                 let cardData = {
                     iban : 'IR' + this.iban,
@@ -130,6 +127,12 @@
                         store.commit('setValidationErrors',response.data.validation_errors);
                     }
                 )
+            },
+            jalaliToGregorian(year, month, day) {
+                let jalali = year + '/' + month + '/' + day;
+                let gregorian = moment(jalali, 'jYYYY/jM/jD');
+                gregorian = gregorian._i;
+                return gregorian.substr(0, gregorian.length-3);
             },
             changeMonthFocus(event) {
                 let target = event.srcElement;
