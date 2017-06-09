@@ -4,7 +4,9 @@
             span(v-html="selectBoxTitle")
             span.arrow
         ul(v-if="isOpen")
-            li(v-ripple="" v-for="item in data" @click="selectItem(item)" v-html="item.title")
+            span(v-for="item in data")
+                li.disable(v-if="item.disable && item.disable == 1" v-html="item.title")
+                li(v-else @click="selectItem(item)" v-ripple="" v-html="item.title")
 </template>
 
 

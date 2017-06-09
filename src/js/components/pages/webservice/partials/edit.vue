@@ -20,8 +20,8 @@
                                 purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
 
                             div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
-                                span.input-icon.webservice-cat-icon
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebserviceCat" v-bind:selected="webservice.category_id" v-bind:data="webserviceCatSelection" placeholder="انتخاب دسته‌بندی وب‌سایت")
+                                <!--span.input-icon.webservice-cat-icon-->
+                                webserviceCategories(v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id")
 
                             div.row
                                 div.nav-picker
@@ -60,6 +60,7 @@
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
+    import webserviceCategories from '../../partials/webservice-categories.vue';
 
     export default {
         name: 'pages-webservice-partials-edit',
@@ -167,7 +168,6 @@
                 this.$store.state.auth.user.webservices[webserviceIndex].purse = this.purse;
                 this.$store.state.auth.user.webservices[webserviceIndex].category_id = this.webservice_category_id;
             },
-
             dragOver() {
                 window.addEventListener("dragover",function(e){
                     e.preventDefault();
@@ -222,7 +222,8 @@
         },
         components: {
             selectbox,
-            purse
+            purse,
+            webserviceCategories
         }
     }
 </script>

@@ -41,7 +41,7 @@ span
 
                     div.middle-xs.body.ta-right
                         pre(v-html="$options.filters.code(reply.content)")
-                        a.ticket-attachment-download(v-if="reply.attachment" @click="downloadAttachFile()") download
+                        a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment" @click="downloadAttachFile()") {{ $i18n.t('ticket.downloadFile') }}
 
             <!--Admin Ticket-->
             div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section(v-else)
@@ -58,7 +58,7 @@ span
 
                     div.middle-xs.body.ta-right
                         pre(v-html="$options.filters.code(reply.content)")
-                        a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") download
+                        a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") {{ $i18n.t('ticket.downloadFile') }}
 
 
     div.nav-send
@@ -82,12 +82,10 @@ span
                 input.attach(type="file" name="file" @change="onFileChange")
 
 
-
 </template>
 
 <script>
     import loading from '../../partials/loading.vue';
-
     export default {
         name: 'ticket-show',
         data() {
