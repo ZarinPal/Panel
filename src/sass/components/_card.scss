@@ -1,87 +1,86 @@
-$zarinFromColor:#ffb012;
-$zarinToColor:#ffd600;
+$zarinFromColor: #ffb012;
+$zarinToColor: #ffd600;
 
-$eghtesadnovinFromColor:#701e72;
-$eghtesadnovinToColor:#c917cd;
+$eghtesadnovinFromColor: #701e72;
+$eghtesadnovinToColor: #c917cd;
 
-$parsianFromColor:#98120f;
-$parsianToColor:#f83a35;
+$parsianFromColor: #98120f;
+$parsianToColor: #f83a35;
 
-$karafarinFromColor:#157215;
-$karafarinToColor:#08a608;
+$karafarinFromColor: #157215;
+$karafarinToColor: #08a608;
 
-$samanFromColor:#02aae8;
-$samanToColor:#5dcaf2;
+$samanFromColor: #02aae8;
+$samanToColor: #5dcaf2;
 
-$pasargadFromColor:#fd8e2f;
-$pasargadToColor:#ffaa0d;
+$pasargadFromColor: #fd8e2f;
+$pasargadToColor: #ffaa0d;
 
-$sinaFromColor:#17479c;
-$sinaToColor:#2e6ee0;
+$sinaFromColor: #17479c;
+$sinaToColor: #2e6ee0;
 
-$sarmayehFromColor:#010068;
-$sarmayehToColor:#4341de;
+$sarmayehFromColor: #010068;
+$sarmayehToColor: #4341de;
 
-$citybankFromColor:#ed1b24;
-$citybankToColor:#ff5c63;
+$citybankFromColor: #ed1b24;
+$citybankToColor: #ff5c63;
 
-$ansarFromColor:#c5000a;
-$ansarToColor:#ff5059;
+$ansarFromColor: #c5000a;
+$ansarToColor: #ff5059;
 
-$tejaratFromColor:#02006f;
-$tejaratToColor:#4a47da;
+$tejaratFromColor: #02006f;
+$tejaratToColor: #4a47da;
 
-$refahFromColor:#004b7f;
-$refahToColor:#0077cb;
+$refahFromColor: #004b7f;
+$refahToColor: #0077cb;
 
-$saderatFromColor:#29166f;
-$saderatToColor:#6f54d4;
+$saderatFromColor: #29166f;
+$saderatToColor: #6f54d4;
 
-$mellatFromColor:#e41839;
-$mellatToColor:#ff6d85;
+$mellatFromColor: #e41839;
+$mellatToColor: #ff6d85;
 
-$hekmatFromColor:#004e98;
-$hekmatToColor:#004e98;
+$hekmatFromColor: #004e98;
+$hekmatToColor: #004e98;
 
-$gardeshgariFromColor:#b20f14;
-$gardeshgariToColor:#ee555a;
+$gardeshgariFromColor: #b20f14;
+$gardeshgariToColor: #ee555a;
 
-$ghavaminFromColor:#008040;
-$ghavaminToColor:#26c676;
+$ghavaminFromColor: #008040;
+$ghavaminToColor: #26c676;
 
-$ayandehFromColor:#572600;
-$ayandehToColor:#ab5f24;
+$ayandehFromColor: #572600;
+$ayandehToColor: #ab5f24;
 
-$tosesaderatFromColor:#056c11;
-$tosesaderatToColor:#09ab1c;
+$tosesaderatFromColor: #056c11;
+$tosesaderatToColor: #09ab1c;
 
-$sanatmadanFromColor:#37589f;
-$sanatmadanToColor:#4f87ff;
+$sanatmadanFromColor: #37589f;
+$sanatmadanToColor: #4f87ff;
 
-$agricultureFromColor:#499f06;
-$agricultureToColor:#89d54f;
+$agricultureFromColor: #499f06;
+$agricultureToColor: #89d54f;
 
-$maskanFromColor:#f35722;
-$maskanToColor:#ff855c;
+$maskanFromColor: #f35722;
+$maskanToColor: #ff855c;
 
-$tosetavonFromColor:#078a93;
-$tosetavonToColor:#10bbc7;
+$tosetavonFromColor: #078a93;
+$tosetavonToColor: #10bbc7;
 
-$postbankFromColor:#008840;
-$postbankToColor:#1dc96e;
+$postbankFromColor: #008840;
+$postbankToColor: #1dc96e;
 
-$mehrFromColor:#1e8910;
-$mehrToColor:#3fc72d;
+$mehrFromColor: #1e8910;
+$mehrToColor: #3fc72d;
 
-$resalatFromColor:#0f86a8;
-$resalatToColor:#35c0e7;
+$resalatFromColor: #0f86a8;
+$resalatToColor: #35c0e7;
 
-$melliFromColor:#dc3c00;
-$melliToColor:#ed7b51;
+$melliFromColor: #dc3c00;
+$melliToColor: #ed7b51;
 
-$sepahFromColor:#ff7d00;
-$sepahToColor:#feb773;
-
+$sepahFromColor: #ff7d00;
+$sepahToColor: #feb773;
 
 /*
 
@@ -90,52 +89,53 @@ $sepahToColor:#feb773;
 */
 
 //card lists
-.nav-card-item-bank-name{
+.nav-card-item-bank-name {
   display: inline-block;
   position: relative;
   top: -4px;
 }
 
-.nav-card-item-bank-card-id{
+.nav-card-item-bank-card-id {
   font-size: 13px;
   color: $labelColor;
   display: inline-block;
   margin-left: 10px;
   margin-top: 2px;
+  direction: ltr;
 }
 
-.card{
+.card {
   overflow: hidden;
-  .ta-right{
+  .ta-right {
 
-    .logo{
+    .logo {
       width: 30px;
       height: 30px;
     }
 
-    .bank-name{
+    .bank-name {
       font-size: 14px;
       position: relative;
       top: -11px;
       right: 11px;
     }
 
-    span:last-child{
+    span:last-child {
       color: #777;
     }
   }
 
-  .ta-left{
-    span:last-child{
+  .ta-left {
+    span:last-child {
       color: #777;
     }
   }
 
-  .accepted-card{
-    span{
+  .accepted-card {
+    span {
       color: #00c853 !important;
       font-size: 13px;
-      &:after{
+      &:after {
         content: $activeTagIcon;
         font-family: 'zarinpal';
         display: inline-block;
@@ -149,7 +149,7 @@ $sepahToColor:#feb773;
   }
 }
 
-.card-number{
+.card-number {
   font-family: OCRA;
   width: 70%;
   padding: 4px 30px;
@@ -163,137 +163,133 @@ $sepahToColor:#feb773;
   direction: ltr;
 }
 
-.bank-card{
+.bank-card {
   border-right: none !important;
-  border-left: none !important ;
+  border-left: none !important;
   border-bottom: none !important;
   padding: 15px 18px !important;
   border-width: 6px;
   border-style: solid;
 
-  .account-id{
+  .account-id {
     float: left;
     margin-right: 5px;
   }
 }
 
 @mixin card-border-color($fromColor, $toColor) {
-  -webkit-border-image:
-          -webkit-gradient(linear, 100% 0, 0 100%, from($fromColor), to($toColor)) 1 100%;
-  -webkit-border-image:
-          -webkit-linear-gradient($fromColor, $toColor) 1 100%;
-  -moz-border-image:
-          -moz-linear-gradient($fromColor, $toColor) 1 100%;
-  -o-border-image:
-          -o-linear-gradient($fromColor, $toColor) 1 100%;
+  -webkit-border-image: -webkit-gradient(linear, 100% 0, 0 100%, from($fromColor), to($toColor)) 1 100%;
+  -webkit-border-image: -webkit-linear-gradient($fromColor, $toColor) 1 100%;
+  -moz-border-image: -moz-linear-gradient($fromColor, $toColor) 1 100%;
+  -o-border-image: -o-linear-gradient($fromColor, $toColor) 1 100%;
   border-image: linear-gradient(to right, $fromColor, $toColor) 1 0 0;
 }
 
-.zarincard{
+.zarincard {
   @include card-border-color($zarinFromColor, $zarinToColor);
 }
 
-.eghtesadnovin{
+.eghtesadnovin {
   @include card-border-color($eghtesadnovinFromColor, $eghtesadnovinToColor);
 }
 
-.parsian{
+.parsian {
   @include card-border-color($parsianFromColor, $parsianToColor);
 }
 
-.karafarin{
+.karafarin {
   @include card-border-color($karafarinFromColor, $karafarinToColor);
 }
 
-.saman{
+.saman {
   @include card-border-color($samanFromColor, $samanToColor);
 }
 
-.pasargad{
+.pasargad {
   @include card-border-color($pasargadFromColor, $pasargadToColor);
 }
 
-.sina{
+.sina {
   @include card-border-color($sinaFromColor, $sinaToColor);
 }
 
-.sarmayeh{
+.sarmayeh {
   @include card-border-color($sarmayehFromColor, $sarmayehToColor);
 }
 
-.citybank{
+.citybank {
   @include card-border-color($citybankFromColor, $citybankToColor);
 }
 
-.ansar{
+.ansar {
   @include card-border-color($ansarFromColor, $ansarToColor);
 }
 
-.tejarat{
+.tejarat {
   @include card-border-color($tejaratFromColor, $tejaratToColor);
 }
 
-.refah{
+.refah {
   @include card-border-color($refahFromColor, $refahToColor);
 }
 
-.saderat{
+.saderat {
   @include card-border-color($saderatFromColor, $saderatToColor);
 }
 
-.mellat{
+.mellat {
   @include card-border-color($mellatFromColor, $mellatToColor);
 }
 
-.hekmat{
+.hekmat {
   @include card-border-color($hekmatFromColor, $hekmatToColor);
 }
 
-.gardeshgari{
+.gardeshgari {
   @include card-border-color($gardeshgariFromColor, $gardeshgariToColor);
 }
 
-.ghavamin{
+.ghavamin {
   @include card-border-color($ghavaminFromColor, $ghavaminToColor);
 }
 
-.ayandeh{
+.ayandeh {
   @include card-border-color($ayandehFromColor, $ayandehToColor);
 }
 
-.tosesaderat{
+.tosesaderat {
   @include card-border-color($tosesaderatFromColor, $tosesaderatToColor);
 }
 
-.sanatmadan{
+.sanatmadan {
   @include card-border-color($sanatmadanFromColor, $sanatmadanToColor);
 }
 
-.agriculture{
+.agriculture {
   @include card-border-color($agricultureFromColor, $agricultureToColor);
 }
 
-.maskan{
+.maskan {
   @include card-border-color($maskanFromColor, $maskanToColor);
 }
 
-.tosetavon{
+.tosetavon {
   @include card-border-color($tosetavonFromColor, $tosetavonToColor);
 }
 
-.postbank{
+.postbank {
   @include card-border-color($postbankFromColor, $postbankToColor);
 }
 
-.mehr{
+.mehr {
   @include card-border-color($mehrFromColor, $mehrToColor);
 }
 
-.resalat{
+.resalat {
   @include card-border-color($resalatFromColor, $resalatToColor);
 }
 
-.melli{
+.melli {
   @include card-border-color($melliFromColor, $melliToColor);
 }
 
@@ -307,122 +303,121 @@ $sepahToColor:#feb773;
   background-image: url($logoPath);
 }
 
-.logo-zarincard{
+.logo-zarincard {
   @include card-logo("../../img/banks/zarincard.svg");
 }
 
-.logo-eghtesadnovin{
+.logo-eghtesadnovin {
   @include card-logo("../../img/banks/eghtesadnovin.png");
 }
 
-.logo-parsian{
+.logo-parsian {
   @include card-logo("../../img/banks/parsian.png");
 }
 
-.logo-karafarin{
+.logo-karafarin {
   @include card-logo("../../img/banks/karafarin.png");
 }
 
-.logo-saman{
+.logo-saman {
   @include card-logo("../../img/banks/saman.png");
 }
 
-.logo-pasargad{
+.logo-pasargad {
   @include card-logo("../../img/banks/pasargad.png");
 }
 
-.logo-sina{
+.logo-sina {
   @include card-logo("../../img/banks/sina.png");
 }
 
-.logo-sarmayeh{
+.logo-sarmayeh {
   @include card-logo("../../img/banks/sarmayeh.png");
 }
 
-.logo-citybank{
+.logo-citybank {
   @include card-logo("../../img/banks/citybank.png");
 }
 
-.logo-ansar{
+.logo-ansar {
   @include card-logo("../../img/banks/ansar.png");
 }
 
-.logo-tejarat{
+.logo-tejarat {
   @include card-logo("../../img/banks/tejarat.png");
 }
 
-.logo-refah{
+.logo-refah {
   @include card-logo("../../img/banks/refah.png");
 }
 
-.logo-saderat{
+.logo-saderat {
   @include card-logo("../../img/banks/saderat.png");
 }
 
-.logo-mellat{
+.logo-mellat {
   @include card-logo("../../img/banks/mellat.png");
 }
 
-.logo-hekmat{
+.logo-hekmat {
   @include card-logo("../../img/banks/hekmat.png");
 }
 
-.logo-gardeshgari{
+.logo-gardeshgari {
   @include card-logo("../../img/banks/gardeshgari.png");
 }
 
-.logo-ghavamin{
+.logo-ghavamin {
   @include card-logo("../../img/banks/ghavamin.png");
 }
 
-.logo-ayandeh{
+.logo-ayandeh {
   @include card-logo("../../img/banks/ayandeh.png");
 }
 
-.logo-tosesaderat{
+.logo-tosesaderat {
   @include card-logo("../../img/banks/tosesaderat.png");
 }
 
-.logo-sanatmadan{
+.logo-sanatmadan {
   @include card-logo("../../img/banks/sanatmadan.png");
 }
 
-.logo-agriculture{
+.logo-agriculture {
   @include card-logo("../../img/banks/agriculture.png");
 }
 
-.logo-maskan{
+.logo-maskan {
   @include card-logo("../../img/banks/maskan.png");
 }
 
-.logo-tosetavon{
+.logo-tosetavon {
   @include card-logo("../../img/banks/tosetavon.png");
 }
 
-.logo-postbank{
+.logo-postbank {
   @include card-logo("../../img/banks/postbank.png");
 }
 
-.logo-mehr{
+.logo-mehr {
   @include card-logo("../../img/banks/mehr.png");
 }
 
-.logo-resalat{
+.logo-resalat {
   @include card-logo("../../img/banks/resalat.png");
 }
 
-.logo-melli{
+.logo-melli {
   @include card-logo("../../img/banks/melli.png");
 }
 
-.logo-sepah{
+.logo-sepah {
   @include card-logo("../../img/banks/sepah.png");
 }
 
-.sepah{
+.sepah {
   @include card-border-color($sepahFromColor, $sepahToColor);
 }
-
 
 /*
 
@@ -435,17 +430,17 @@ $sepahToColor:#feb773;
 
     .contains {
       //Edit Card
-      .bank-logo{
+      .bank-logo {
         width: 40px !important;
       }
 
-      .bank-name{
+      .bank-name {
         display: inline-block;
         position: relative;
         margin-right: 0;
       }
 
-      .row{
+      .row {
         margin: 5px 0;
       }
 
@@ -453,31 +448,29 @@ $sepahToColor:#feb773;
         margin: 5px 0;
       }
 
-      .nav-expiration-label{
+      .nav-expiration-label {
         margin: 23px 0;
-        .expiration-label{
+        .expiration-label {
           display: inline-block;
         }
       }
 
-
-      .nav-expiration-input{
+      .nav-expiration-input {
         margin: 20px 0;
-        .label{
+        .label {
           margin-left: 5px;
         }
 
-        input[type="number"] {
+        input {
           text-align: center;
-
         }
 
-        input[type="number"]:first-child {
-            width: 50px;
+        input:first-child {
+          width: 50px;
         }
 
-        input[type="number"]:last-child {
-            width: 90px;
+        input:last-child {
+          width: 90px;
         }
       }
 
@@ -485,28 +478,42 @@ $sepahToColor:#feb773;
   }
 }
 
-
 //Transfer shetab
-.transfer-shetab{
-  .row{
-    margin:10px 0 !important;
+.transfer-shetab {
+  .row {
+    margin: 10px 0 !important;
   }
 
-  .list{
-    .row{
+  .list {
+    .row {
       border-bottom: 1px solid #eee;
       padding-bottom: 10px;
 
-      &:last-child{
+      &:last-child {
         border-bottom: none;
       }
     }
   }
 
-  .nav-buttons{
-    .btn{
-      margin-right:10px;
+  .nav-buttons {
+    .btn {
+      margin-right: 10px;
     }
+  }
+}
+
+//Zarin card statement
+.zarin-statement {
+
+  .top-box {
+    margin: 0;
+    padding: 0px 15px 15px;
+  }
+
+  .bottom-box {
+    background-color: #F2F3F5;
+    padding: 15px;
+    margin: 0 -20px -20px -20px;
   }
 }
 
@@ -515,26 +522,36 @@ $sepahToColor:#feb773;
 */
 
 //XS
-@media(max-width:767px){
-  .nav-account-type{
+@media(max-width: 767px) {
+  .nav-account-type {
     .account-label {
       text-align: center !important;
     }
   }
 
-  .nav-expiration-label{
+  .nav-expiration-label {
     margin: 0 !important;
     text-align: center !important;
+  }
+
+  .zarin-statement{
+    .transaction-row {
+      .ta-center{
+        text-align: center !important;
+      }
+    }
   }
 }
 
 //Sm
-@media(min-width:768px){
-
+@media(min-width: 768px) {
 
 }
+
 //Md
-@media(min-width:992px){
+@media(min-width: 992px) {
 
 }
-@media(min-width:1200px){}
+
+@media(min-width: 1200px) {
+}

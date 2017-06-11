@@ -40,10 +40,10 @@
                         div.row.nav-expiration-input
                             div.col-xs.no-margin
                                 span.label {{$i18n.t('card.month')}}:
-                                input#month(type="number" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
+                                input#month(type="text" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
                             div.col-xs.no-margin
                                 span.label {{$i18n.t('card.year')}}:
-                                input#year(type="number" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
+                                input#year(type="text" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
 
             div.row
                 div.col-xs.no-margin
@@ -109,10 +109,7 @@
 
                 let formatedPan = this.pan.split('-').join('');
 
-                let expiredAt = '';
-                if(this.year && this.month) {
-                    expiredAt = this.year + '-' + this.month;
-                }
+                let expiredAt = this.jalaliToGregorian(this.year, this.month, 30);
 
                 let cardData = {
                     iban : 'IR' + this.iban,
@@ -131,13 +128,18 @@
                     }
                 )
             },
+            jalaliToGregorian(year, month, day) {
+                let jalali = year + '/' + month + '/' + day;
+                let gregorian = moment(jalali, 'jYYYY/jM/jD');
+                gregorian = gregorian._i;
+                return gregorian.substr(0, gregorian.length-3);
+            },
             changeMonthFocus(event) {
                 let target = event.srcElement;
                 let maxLength = parseInt(target.attributes["maxlength"].value);
                 let myLength = target.value.length;
 
                 if (myLength >= maxLength) {
-                    target.value = '';
                     document.getElementById("year").focus();
                 }
             },

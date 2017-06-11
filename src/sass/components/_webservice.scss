@@ -56,6 +56,9 @@
     margin: 6px 0;
   }
 
+  .webservice-categories{
+    margin: 5px 0;
+  }
 
   .selectbox {
     width: 100%;
@@ -139,6 +142,9 @@
   }
 }
 
+.categories{
+  margin: 5px 0 !important;
+}
 
 //Active Zarin Gate
 .read-description{
@@ -150,15 +156,23 @@
 }
 
 .activation-price{
-  background-color: #F5F5F5;
+    background-color: #F5F5F5;
+    font-size: 13px;
+    padding: 7px;
+    color: #555;
+    border-radius: $boxBorderRadiusSize;
+    display: inline-block;
+  }
+
+.more-description{
   font-size: 13px;
-  padding: 7px;
-  color: #555;
-  border-radius: $boxBorderRadiusSize;
-  display: inline-block;
+  color: #777;
+  //margin: 10px 0;
+  //background-color: #eaeaea;
+  padding: 15px;
 }
 
-
+//Activation ussd
 .activation-ussd{
   .row{
     margin: 10px 0;

@@ -291,8 +291,17 @@
   }
 }
 
+//Chart
 
-@media (max-width: $mobileSize) {
+.cal-heatmap-container{
+  .subdomain-text,
+  .graph-label{
+    font-family: IRANSans !important;
+  }
+}
+
+
+ @media (max-width: $mobileSize) {
   .show-xs{
     display: inline-block;
   }
@@ -357,7 +366,6 @@
 
 
 }
-
 
 //Delete forward icon
 @media (max-width: 1200px) {

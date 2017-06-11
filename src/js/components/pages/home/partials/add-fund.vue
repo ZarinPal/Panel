@@ -3,8 +3,8 @@
         span(slot="title") {{ $i18n.t('purse.addFund') }}
         div(slot="content")
             div(v-if="activeCards.length")
-                div.row
-                    span افزایش حساب کیف پول {{purse.name}}
+                <!--div.row-->
+                    <!--span افزایش حساب کیف پول {{purse.name}}-->
                 div.row.no-margin
                     input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
                     div.ta-right(v-if="validationErrors.amount")
@@ -40,7 +40,8 @@
                 amount: '',
                 cardId: '',
                 redirectUrl:encodeURI(
-                'https://' + window.location.hostname + '/'
+//                'https://' + window.location.hostname + '/panelw/index.html#'
+                'https://' + window.location.hostname + '/panel'
                 + this.$router.resolve({name: 'home.finishAddFund'}).href),
             }
         },

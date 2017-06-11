@@ -14,7 +14,7 @@
                     span.label {{card.iban}}
 
             div.row
-                input.ta-left(type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
+                input.ta-left(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
                 div.ta-right(v-if="validationErrors.pan")
                     span.text-danger {{ $i18n.t(validationErrors.pan) }}
 
@@ -25,10 +25,14 @@
                     div.row.nav-expiration-input
                         div.col-xs.no-margin
                             span.label {{$i18n.t('card.month')}}:
-                            input#month(type="number" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
+                            input#month(:class="{'input-danger': validationErrors.expired_at}" type="text" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
                         div.col-xs.no-margin
                             span.label {{$i18n.t('card.year')}}:
-                            input#year(type="number" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
+                            input#year(:class="{'input-danger': validationErrors.expired_at}" type="text" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
+
+
+                div.ta-right(v-if="validationErrors.expired_at")
+                    span.text-danger {{ $i18n.t(validationErrors.expired_at) }}
 
 
             div.row
@@ -51,7 +55,7 @@
                 closeModalContent: true,
                 pan: '',
                 month: '',
-                'year': ''
+                year: '',
             }
         },
         props:['card'],
@@ -81,16 +85,21 @@
             editCard() {
                 this.loading = true;
                 let params = {
-                    entity_id: this.card.entity_id
+                    cardId: this.card.entity_id
                 };
 
-                let purseData = {
-                    purse : this.purse,
-                    name : this.purseName,
+                let formatedPan = this.pan.split('-').join('');
+                let expiredAt = this.jalaliToGregorian(this.year, this.month, 30);
+                let cardData = {
+                    pan : formatedPan,
+                    expired_at : expiredAt,
                 };
-                this.$store.state.http.requests['purse.getList'].save(params, purseData).then(
+
+                this.$store.state.http.requests['card.getShow'].update(params, cardData).then(
                     ()=> {
-                        this.$router.push({name: 'home.index'})
+                        this.changeCardState();
+                        this.loading = false;
+                        this.$router.push({name: 'card.index'});
                     },
                     (response) => {
                         this.loading = false;
@@ -102,13 +111,28 @@
                     }
                 )
             },
+            changeCardState(){
+                let vm = this;
+                let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function(card) {
+                    return card.entity_id === vm.card.entity_id;
+                });
+
+                let expiredAt = this.jalaliToGregorian(this.year, this.month, 30);
+                this.$store.state.auth.user.cards[cardIndex].expired_at = expiredAt;
+                this.$store.state.auth.user.cards[cardIndex].pan = this.pan;
+            },
+            jalaliToGregorian(year, month, day) {
+                let jalali = year + '/' + month + '/' + day;
+                let gregorian = moment(jalali, 'jYYYY/jM/jD');
+                gregorian = gregorian._i;
+                return gregorian.substr(0, gregorian.length-3);
+            },
             changeMonthFocus(event) {
                 let target = event.srcElement;
                 let maxLength = parseInt(target.attributes["maxlength"].value);
                 let myLength = target.value.length;
 
                 if (myLength >= maxLength) {
-                    target.value = '';
                     document.getElementById("year").focus();
                 }
             },

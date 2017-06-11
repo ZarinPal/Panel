@@ -1,23 +1,32 @@
 <template lang="pug">
-    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:data="purses" placeholder="انتخاب کیف پول")
+    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purses" v-on:select="selectedPurse" v-bind:selected="selected" v-bind:data="purses" placeholder="انتخاب کیف پول")
 </template>
 
 <script>
     import selectbox from './selectbox.vue';
     export default {
         name: 'purse',
+        props: [
+            'selected'
+        ],
         computed: {
             purses() {
-                return this.$store.state.auth.user.purses.map(function (purse) {
-                    let sep = ',';
-                    let number = typeof purse.balance.balance === "number" ? purse.balance.balance.toString() : purse.balance.balance;
-                    let balance = number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
+                if (this.$store.state.auth.user.purses) {
+                    return this.$store.state.auth.user.purses.map(function (purse) {
+                        let sep = ',';
+                        let balance = null;
+                        if(purse.balance.balance){
+                            balance = purse.balance.balance.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
+                        } else {
+                            balance = purse.balance.balance;
+                        }
 
-                    return {
-                        'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num purse-selectbox-balance">' + balance +  ' تومان</span>',
-                        'value': purse.purse
-                    }
-                });
+                        return {
+                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num purse-selectbox-balance">' + balance + ' تومان</span>',
+                            'value': purse.purse
+                        }
+                    });
+                }
             }
         },
         methods: {

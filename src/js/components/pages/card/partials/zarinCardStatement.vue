@@ -1,7 +1,6 @@
 <template lang="pug">
-    modal(v-on:closeModal="closeModal()")
+    modal.zarin-statement(v-on:closeModal="closeModal()")
         div(slot="title") {{ $i18n.t('purse.zarinCardStatement')}}
-            span {{+ ' : ' + card.pan}}
         div(slot="content")
             span(v-if="!zarinCardStatements")
                 div.row.no-margin
@@ -11,7 +10,7 @@
                             span.text-danger {{ $i18n.t(validationErrors.password) }}
 
                     div.col-xs.no-left-margin
-                        input(:class="{'input-danger': validationErrors.cvv2}" type="text" v-model="cvv2" placeholder= "cvv2")
+                        input(:class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder= "cvv2")
                         div.ta-right(v-if="validationErrors.cvv2")
                             span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
 
@@ -25,37 +24,34 @@
 
             <!--Report result-->
             span(v-else)
-                div.ta-right
+                div.row.ta-right.top-box
                     span.label {{ $i18n.t('common.balance') + ':' + zarinCardStatements.balance | numberFormat | persianNumbers }}
                     span.label {{ ' ' + $i18n.t('transaction.toman') }}
-                div.row.transaction-fields-title
-                    div.col-lg-4.col-md-4.col-sm-4.col-xs-12.hidden-xs
-                        span {{ $i18n.t('transaction.date') }}
-                    div.col-lg-3.col-md-3.col-sm-3.hidden-xs
-                        span {{ $i18n.t('common.balance') }}
-                        small ({{ $i18n.t('transaction.toman') }})
-                    div.col-lg-5.col-md-5.col-sm-5.hidden-xs
-                        span {{ $i18n.t('common.description') }}
 
-                div.row.transaction-row(v-for="statement in zarinCardStatements.statements")
-                    div.col-lg-1.col-md-1.col-sm-1
-                        span(v-if="statement.effectiveSign == 1")
-                            span.icon-income-trans
+                div.bottom-box
+                    div.row.transaction-fields-title
+                        div.col-lg-4.col-md-4.col-sm-4.col-xs-6
+                            span {{ $i18n.t('transaction.date') }}
+                        div.col-lg-3.col-md-3.col-sm-3.col-xs-6
+                            span {{ $i18n.t('common.amount') }}
+                            small ({{ $i18n.t('transaction.toman') }})
+                        div.col-lg-5.col-md-5.col-sm-5.hidden-xs
+                            span {{ $i18n.t('common.description') }}
 
-                        span(v-else-if="statement.effectiveSign == 0")
-                            span.icon-internal-trans
+                    div.row.transaction-row(v-for="statement in zarinCardStatements.statements")
+                        div.col-lg-1.col-md-1.col-sm-1.col-xs-1
+                            span.icon-income-trans(v-if="statement.effectiveSign == 1")
+                            span.icon-internal-trans(v-else-if="statement.effectiveSign == 0")
+                            span.icon-outcome-trans(v-else-if="statement.effectiveSign == -1")
 
-                        span(v-else-if="statement.effectiveSign == -1")
-                            span.icon-outcome-trans
+                        div.col-lg-3.col-md-3.col-sm-3.col-xs-5.ta-center
+                            span.text.created {{statement.time | fromNow | persianNumbers}}
 
-                    div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-center
-                        span.text.created {{statement.created | fromNow | persianNumbers}}
+                        div.col-lg-3.col-md-3.col-sm-3.col-xs-6.ta-center
+                            span.text {{statement.amount | numberFormat | persianNumbers}}
 
-                    div.col-lg-3.col-md-3.col-sm-3.ta-center.hidden-xs
-                        span.text {{statement.amount | numberFormat | persianNumbers}}
-
-                    div.col-lg-5.col-md-5.col-sm-5.ta-center.hidden-xs
-                        span.text {{statement.description}}
+                        div.col-lg-5.col-md-5.col-sm-5.ta-center.hidden-xs
+                            span.text {{statement.description}}
 
 </template>
 

@@ -9,7 +9,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                         span.header-title {{webservice.name}}
 
                 div.col-xs.ta-left-box(v-bind:title="webservice.domain")
-                    a.header-link(v-bind:href="webservice.domain" target="blank") {{webservice.domain}}
+                    a.header-link(v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
 
         div.middle-xs.body
 
