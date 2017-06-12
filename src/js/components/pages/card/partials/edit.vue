@@ -84,6 +84,16 @@
             },
             editCard() {
                 this.loading = true;
+
+                if(this.year > 3150 || this.month > 12) {
+                    store.commit('flashMessage',{
+                        text: 'invalid-date',
+                        type: 'danger'
+                    });
+                    this.loading = false;
+                    return;
+                }
+
                 let params = {
                     cardId: this.card.entity_id
                 };
