@@ -31,7 +31,7 @@ div
 
                 div.col-lg-6.col-md-6.col-sm-12.col-xs-12.no-margin(v-else-if="transaction.to_merchant")
                     span.icon-forward.hidden-sm
-                    img.user-image(v-bind:src="transaction.to_merchant.avatar")
+                    img.user-image(v-bind:src="'http:'+ transaction.to_merchant.avatar")
                     span.text {{transaction.to_merchant.name | less}}
 
         div.col-lg-2.col-md-2.col-sm-2.hidden-xs(v-else)

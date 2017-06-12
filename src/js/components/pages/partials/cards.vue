@@ -11,7 +11,7 @@
                 if(this.$store.state.auth.user.cards) {
                     return this.$store.state.auth.user.cards.map(function (card) {
                         return {
-                            'title' : '<span class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() +'"></span> <span class="nav-card-item-bank-name">' + card.issuer.name +'</span>' + '<span class="nav-card-item-bank-card-id pull-left">' + card.pan + '</span>',
+                            'title' : '<span class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() +'"></span> <span class="nav-card-item-bank-name">' + card.issuer.name +'</span>' + '<span class="nav-card-item-bank-card-id pull-left persian-num">' + card.pan + '</span>',
                             'value': card.entity_id
                         }
                     });
