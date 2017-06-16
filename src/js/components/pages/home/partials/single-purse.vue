@@ -92,7 +92,7 @@
         props: ['purse'],
         methods: {
             changeMoreTriggerOn() {
-                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse
+                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse;
                 this.isEditingPurseName = false;
             },
             changeMoreTriggerOff() {

@@ -347,6 +347,12 @@ ul.dropdown {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+
+  .title{
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
   .wallet-color {
     margin-left: 10px;
     margin-right: -5px;
@@ -413,7 +419,7 @@ ul.dropdown {
       box-sizing: border-box;
       transition: $animateTime;
       cursor: default;
-
+      white-space: nowrap;
       span {
 
       }

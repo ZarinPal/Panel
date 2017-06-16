@@ -10,7 +10,7 @@
                             span.text-danger {{ $i18n.t(validationErrors.password) }}
 
                     div.col-xs.no-left-margin
-                        input(:class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder= "cvv2")
+                        input(:class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder= "CVV2")
                         div.ta-right(v-if="validationErrors.cvv2")
                             span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
 

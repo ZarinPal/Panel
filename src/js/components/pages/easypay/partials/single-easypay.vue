@@ -3,16 +3,15 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
     div.box
         div.top-xs.header
             div.row
-                div.right-box
+                div.col-xs.right-box
                     p
                         span.green-small-circle(@click="confirmVisible = true")
-                        span.header-title {{easypay.title}}
+                        span.header-title(:title="easypay.title") {{easypay.title}}
 
                 div.col-xs.ta-left-box
                     a.header-link(v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
 
         div.middle-xs.body
-
             div.row.box-row
                 div.col-xs.ta-right
                     span.label {{$i18n.t('easypay.amount')}}
