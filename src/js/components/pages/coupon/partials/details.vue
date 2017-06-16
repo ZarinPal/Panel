@@ -6,9 +6,9 @@
                 div.col-xs.ta-right
                     span.label {{ $i18n.t('coupon.offCode') }}
                 div.col-xs.ta-left
-                    div.label-group.pull-left
-                        span.text {{coupon.code}}
-                        span.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="coupon.code")
+                    div.row.label-group.pull-left
+                        div.col-xs.text {{coupon.code}}
+                        div.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="coupon.code")
 
             div.row
                 div.col-xs.ta-right
