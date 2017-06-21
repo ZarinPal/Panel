@@ -92,7 +92,7 @@
         props: ['purse'],
         methods: {
             changeMoreTriggerOn() {
-                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse
+                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse;
                 this.isEditingPurseName = false;
             },
             changeMoreTriggerOff() {
@@ -102,6 +102,7 @@
                 this.visibleAddFund = false;
                 this.visiblePtop = false;
                 this.visibleWithdraw = false;
+                store.commit('clearValidationErrors');
             },
             changePurseName(){
                 let vm = this;

@@ -1,3 +1,8 @@
+body{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 //Font
 .iransans-light{
   font-family: IRANSansLight !important;
@@ -108,6 +113,10 @@
   text-align: center !important;
 }
 
+.dir-ltr{
+  direction: ltr !important;
+}
+
 .full-width{
   width:100%
 }
@@ -203,8 +212,12 @@
             font-size: 13px;
             color: #777;
             display: inline-block;
-            margin-right: 15px;
-            margin-top: 5px;
+            margin-right: 5px;
+            height: 22px;
+            overflow: hidden;
+            width: 80%;
+            position: relative;
+            top: 6px;
           }
         }
       }
@@ -437,10 +450,11 @@
   .icon{
     border-right: 1px solid $labelGroupBorderColor;
     display: inline-block;
-    padding: 4px 10px;
+    padding: 7px 10px;
     float: left;
     background-color: #f8f9fa;
     cursor: pointer;
+    width: 20px !important;
 
     &:before{
       content: $iconCopy;
@@ -456,7 +470,8 @@
     display: inline-block;
     padding: 6px;
     font-size: 13px;
-
+    overflow: hidden;
+    height: 32px;
   }
 }
 

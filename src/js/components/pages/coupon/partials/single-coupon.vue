@@ -8,9 +8,9 @@
                         span.label  {{$i18n.t('coupon.offCode')}}
 
                     div.col-xs.ta-ta-left
-                        div.label-group.pull-left
-                            span.text {{coupon.code}}
-                            span.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="coupon.code")
+                        div.row.label-group.pull-left
+                            div.col-xs.text {{coupon.code}}
+                            div.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="coupon.code")
 
                 div.row.box-row
                     div.right
@@ -28,12 +28,13 @@
                         span.text-value(v-else) {{coupon.webservice_name}}
 
 
-                div.row.box-row(v-if="coupon.easypay_id")
+                div.row.box-row
                     div.right
                         span.label {{$i18n.t('coupon.easypayName')}}
 
                     div.col-xs.ta-left
-                        span.text-value {{coupon.easypay_name}}
+                        span.text-value(v-if="coupon.easypay_id") {{coupon.easypay_name}}
+                        span.text-value(v-else) -
 
                 div.row.box-row
                     div.right
@@ -66,6 +67,7 @@
         methods:{
             closeModal(){
                 this.visibleCouponDetails = false;
+                store.commit('clearValidationErrors');
             },
             clipboardMessage() {
                 store.commit('flashMessage',{

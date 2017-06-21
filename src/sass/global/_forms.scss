@@ -209,7 +209,7 @@ a.btn {
   border-radius: 5px;
   border: inherit;
   color: #898989;
-  padding: 6px 10px;
+  padding: 6px 17px;
   outline: none;
   cursor: pointer;
   text-align: center;
@@ -347,9 +347,14 @@ ul.dropdown {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+
+  .title{
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
   .wallet-color {
     margin-left: 10px;
-    margin-right: -5px;
     top: 3px;
   }
 
@@ -413,7 +418,7 @@ ul.dropdown {
       box-sizing: border-box;
       transition: $animateTime;
       cursor: default;
-
+      white-space: nowrap;
       span {
 
       }

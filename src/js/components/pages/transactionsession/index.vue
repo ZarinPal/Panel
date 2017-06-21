@@ -24,7 +24,7 @@
                                     input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
                                     div.break
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" placeholder="انتخاب کنید ...")
+                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'authority'" placeholder="انتخاب کنید ...")
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-4
                                     button.btn.info.pull-right(v-ripple="" @click="search()")

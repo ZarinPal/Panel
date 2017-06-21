@@ -15,12 +15,12 @@
                                 p {{ $i18n.t('user.register') }}
 
                     div.row.row-margin
-                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-margin
+                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-right-margin
                             input.half-input(:class="{'input-danger': validationErrors.first_name}" type="text" v-model="firstName" id="firstname" placeholder="نام")
                             div.ta-right(v-if="validationErrors.first_name")
                                 span.text-danger {{ $i18n.t(validationErrors.first_name) }}
 
-                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-margin
+                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-left-margin
                             input.half-input(:class="{'input-danger': validationErrors.last_name}" type="text" v-model="lastName" id="lastname" placeholder="نام خانوادگی")
                             div.ta-right(v-if="validationErrors.last_name")
                                 span.text-danger {{ $i18n.t(validationErrors.last_name) }}
@@ -79,6 +79,11 @@
                     last_name: this.lastName,
                     mobile: this.mobile,
                 };
+
+                if(this.$route.params.refererId) {
+                    auth2Data.referer = this.$route.params.refererId;
+                }
+
                 this.$store.state.http.requests['oauth.PostRegisterUser'].save(auth2Data).then(
                     response => {
                         store.commit('flashMessage', {

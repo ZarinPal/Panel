@@ -9,12 +9,12 @@
 
             div.row
                 div.col-xs.ta-right
-                    span.label {{$i18n.t('card.iban')}}:
+                    span.label {{$i18n.t('card.iban') | persianNumbers}}:
                 div.col-xs.ta-left
                     span.label {{card.iban}}
 
             div.row
-                input.ta-left(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
+                input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
                 div.ta-right(v-if="validationErrors.pan")
                     span.text-danger {{ $i18n.t(validationErrors.pan) }}
 
@@ -67,6 +67,13 @@
                 return this.$store.state.alert.validationErrors;
             }
         },
+        created(){
+//            this.pan = this.card.pan;
+            let jalaliExpiredDate = moment(this.card.expired_at, 'YYYY-MM-DD').format('jYYYY-jMM-jDD');
+            this.year = moment(jalaliExpiredDate).year();
+            this.month = moment(jalaliExpiredDate).month();
+
+        },
         methods: {
             cardNumberFormat() {
                 let text = document.getElementById("pan").value;
@@ -80,10 +87,21 @@
                 this.pan = result.join("-");
             },
             closeModal() {
-                this.$emit('closeModal')
+                this.$emit('closeModal');
+                store.commit('clearValidationErrors');
             },
             editCard() {
                 this.loading = true;
+
+                if(this.year > 3150 || this.month > 12) {
+                    store.commit('flashMessage',{
+                        text: 'invalid-date',
+                        type: 'danger'
+                    });
+                    this.loading = false;
+                    return;
+                }
+
                 let params = {
                     cardId: this.card.entity_id
                 };

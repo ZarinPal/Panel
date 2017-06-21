@@ -6,7 +6,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs.right-box
                     p
                         span.green-small-circle
-                        span.header-title {{webservice.name}}
+                        span.header-title(:title="webservice.name") {{webservice.name}}
 
                 div.col-xs.ta-left-box(v-bind:title="webservice.domain")
                     a.header-link(v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
@@ -17,10 +17,10 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs.ta-right
                     span.label کد درگاه
 
-                div.col-xs.ta-ta-left.no-margin
-                    div.label-group.pull-left
-                        span.text.merchant-code {{webservice.entity_id}}
-                        span.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
+                div.col-xs.ta-left.no-margin
+                    div.row.label-group.pull-left
+                        div.col-xs.text.merchant-code {{webservice.entity_id}}
+                        div.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
 
             div.row.box-row
                 div.col-xs.ta-right
@@ -74,7 +74,8 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         methods:{
             closeModal(){
                 this.visibleUssdActivation = false;
-                this.visibleZarinGateActivation = false
+                this.visibleZarinGateActivation = false;
+                store.commit('clearValidationErrors');
             },
             clipboardMessage() {
                 store.commit('flashMessage',{

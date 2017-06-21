@@ -97,20 +97,28 @@
                 this[inputId] = result.join("-");
             },
             closeModal() {
-                this.$emit('closeModal')
+                this.$emit('closeModal');
             },
             createCard() {
                 this.loading = true;
-                if(this.isLegal == 1) {
+
+                if(this.year > 3150 || this.month > 12) {
+                    store.commit('flashMessage',{
+                        text: 'invalid-date',
+                        type: 'danger'
+                    });
+                    this.loading = false;
+                    return;
+                }
+
+                if(this.isLegal === 1) {
                     this.pan = '';
                     this.year = '';
                     this.month = '';
                 }
 
                 let formatedPan = this.pan.split('-').join('');
-
                 let expiredAt = this.jalaliToGregorian(this.year, this.month, 30);
-
                 let cardData = {
                     iban : 'IR' + this.iban,
                     pan : formatedPan,
@@ -120,11 +128,16 @@
 
                 this.$store.state.http.requests['card.getList'].save(cardData).then(
                     ()=> {
-                        this.closeModal();
+                        this.loading = false;
+                        this.$router.push({name: 'card.index'});
                     },
                     (response) => {
                         this.loading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('flashMessage',{
+                            text: response.data.meta.error_message,
+                            type: 'danger'
+                        });
                     }
                 )
             },
