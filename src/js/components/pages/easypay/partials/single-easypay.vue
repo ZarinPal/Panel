@@ -80,6 +80,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
             },
             closeModal(){
                 this.confirmVisible = false;
+                store.commit('clearValidationErrors');
             },
             deleteEasypay() {
                 this.confirm = true;

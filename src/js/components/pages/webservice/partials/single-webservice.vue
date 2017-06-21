@@ -74,7 +74,8 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         methods:{
             closeModal(){
                 this.visibleUssdActivation = false;
-                this.visibleZarinGateActivation = false
+                this.visibleZarinGateActivation = false;
+                store.commit('clearValidationErrors');
             },
             clipboardMessage() {
                 store.commit('flashMessage',{

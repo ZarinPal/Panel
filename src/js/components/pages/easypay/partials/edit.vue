@@ -184,7 +184,7 @@
 
 
 
-                                        div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
+                                        div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
                                             input(v-show="limited" type="number" v-model="limit" placeholder="تعداد")
 
 

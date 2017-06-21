@@ -12,7 +12,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
             div.row(v-if="card.pan")
                 span.card-number
-                    span {{card.pan}}
+                    span(v-html="$options.filters.cardNumber(card.pan)")
             div.row(v-else)
                 span.card-number
                     span.iransans {{$i18n.t('card.legalAccount')}}
@@ -60,6 +60,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 this.showEditCard = false;
                 this.showTransferShetab = false;
                 this.showZarinCardStatement = false;
+                store.commit('clearValidationErrors');
             }
         },
         components: {

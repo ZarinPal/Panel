@@ -70,7 +70,8 @@
         },
         methods: {
             closeModal() {
-                this.$emit('closeModal')
+                this.$emit('closeModal');
+                store.commit('clearValidationErrors');
             },
             clipboardMessage() {
                 store.commit('flashMessage',{

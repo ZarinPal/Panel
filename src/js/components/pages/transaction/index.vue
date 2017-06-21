@@ -228,6 +228,7 @@
             },
             closeModal(){
                 this.showTransactionDetail = false;
+                store.commit('clearValidationErrors');
             }
         },
         components: {

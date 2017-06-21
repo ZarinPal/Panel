@@ -10,7 +10,7 @@
             div.box
                 div.body
                     div.row
-                        div.col-lg-8.col-md-8.col-sm-12.col-xs-12
+                        div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                             div.row.no-margin
                                 span.input-icon.home-icon
                                 input(:class="{'input-danger': validationErrors.site_name}" type="text" v-model="site_name" placeholder= "نام وب‌سایت")

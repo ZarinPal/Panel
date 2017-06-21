@@ -97,7 +97,7 @@
                 this[inputId] = result.join("-");
             },
             closeModal() {
-                this.$emit('closeModal')
+                this.$emit('closeModal');
             },
             createCard() {
                 this.loading = true;

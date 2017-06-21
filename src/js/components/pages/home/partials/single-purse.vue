@@ -102,6 +102,7 @@
                 this.visibleAddFund = false;
                 this.visiblePtop = false;
                 this.visibleWithdraw = false;
+                store.commit('clearValidationErrors');
             },
             changePurseName(){
                 let vm = this;

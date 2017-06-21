@@ -14,6 +14,9 @@ export default {
                 });
             }
         },
+        clearValidationErrors(state, data) {
+            state.validationErrors = [];
+        },
         flashMessage(state, message){
             state.messages.push({
                 text: message.text,
@@ -105,7 +108,6 @@ export default {
                     }
                 });
             }
-        }
-
+        },
     }
 };
