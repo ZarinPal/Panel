@@ -38,6 +38,7 @@
         methods: {
             closeModal(){
                 this.visibleCreateCard = false;
+                store.commit('clearValidationErrors');
             }
         },
         components: {

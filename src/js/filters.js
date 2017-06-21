@@ -51,3 +51,14 @@ Vue.filter('code', function (value){
     let regex = /{کد}([\s\S]*?){\/کد}/g;
     return value.replace(regex, "<div class='code'>$1</div>");
 });
+Vue.filter('cardNumber', function (number){
+    // let text = number.replace(/[^\d]/g, "");
+    let text = number;
+    let result = [];
+    while (text.length > 4) {
+        result.push(text.substring(0, 4));
+        text = text.substring(4);
+    }
+    result.push(text);
+    return result.join("-");
+});

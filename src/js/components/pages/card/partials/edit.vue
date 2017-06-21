@@ -87,7 +87,8 @@
                 this.pan = result.join("-");
             },
             closeModal() {
-                this.$emit('closeModal')
+                this.$emit('closeModal');
+                store.commit('clearValidationErrors');
             },
             editCard() {
                 this.loading = true;

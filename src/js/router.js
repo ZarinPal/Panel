@@ -9,7 +9,7 @@ export default new VueRouter({
             meta: {standAlone: true}
         },
         {
-            path: '/auth/register',
+            path: '/auth/register/:refererId?',
             name: 'auth.register',
             component: require('./components/pages/auth/register.vue'),
             meta: {standAlone: true}

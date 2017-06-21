@@ -43,6 +43,7 @@
         methods: {
             closeModal(){
                 this.visibleCreatePurse = false;
+                store.commit('clearValidationErrors');
             },
             getParameterByName(name, url) {
                 if (!url) url = window.location.href;

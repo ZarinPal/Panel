@@ -67,6 +67,7 @@
         methods:{
             closeModal(){
                 this.visibleCouponDetails = false;
+                store.commit('clearValidationErrors');
             },
             clipboardMessage() {
                 store.commit('flashMessage',{
