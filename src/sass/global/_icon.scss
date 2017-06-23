@@ -1,63 +1,60 @@
-$iconPrev: $icon_zp_arrow-right;
-$iconQrCode: $icon_zp_wallet;
-$moreIcon: $icon_zp_more-vert;
-$iconCopy: $icon_zp_copy;
-$iconEdit: $icon_zp_edit;
-$iconDetails: $icon_zp_receipt;
-$iconCloud: $icon_zp_upload;
-$iconDelete: $icon_zp_delete;
-$activeTagIcon: $icon_zp_check-circle;
-$inActiveTagIcon: $icon-ic_notifications_black_48px;
-
-$movingTransIcon: $icon_zp_transaction_reconciliation;
-$inputTransIcon: $icon_zp_transaction_trend_down;
-$outputTransIcon: $icon_zp_transaction_trend_up;
-$chartIcon: $icon-ic_notifications_black_48px;
-$addCircleIcon: $icon_zp_add-circle;
-$iconAddFund: $icon_zp_add;
-$iconWithdraw: $icon_zp_reconciliation;
-$iconReport: $icon_zp_reconciliation;
-$iconPtop: $icon_zp_reconciliation;
-$iconTransaction: $icon_zp_transaction_reconciliation;
-$iconCloseDropDown: $icon_zp_close;
+$iconPrev: $icon-zp-arrow-right;
+$iconQrCode: $icon-zp-qr-code;
+$moreIcon: $icon-zp-more-vert;
+$iconCopy: $icon-zp-copy;
+$iconEdit: $icon-zp-edit;
+$iconDetails: $icon-zp-receipt;
+$iconCloud: $icon-zp-upload;
+$iconDelete: $icon-zp-delete;
+$activeTagIcon: $icon-zp-check-circle;
+$inActiveTagIcon: $icon-zp-error;
+$movingTransIcon: $icon-zp-transaction-reconciliation;
+$inputTransIcon: $icon-zp-transaction-trend-down;
+$outputTransIcon: $icon-zp-transaction-trend-up;
+$chartIcon: $icon-zp-notification-outline;
+$iconNotification: $icon-zp-notification-outline;
+$addCircleIcon: $icon-zp-add-circle;
+$iconAddFund: $icon-zp-add-fund;
+$iconWithdraw: $icon-zp-reconciliation;
+$iconReport: $icon-zp-calendar;
+$iconPtop: $icon-zp-p2p;
+$iconTransaction: $icon-zp-transaction-reconciliation;
+$iconCloseDropDown: $icon-zp-close;
 
 
 //Container
-$itemArrow: $icon_zp_arrow-down;
-$iconMobileSidebarCollapse: $icon_zp_close;
-$iconMenu:$icon_zp_menu;
-$iconLogout: $icon_zp_sign-out;
-$iconReload: $icon_zp_repeat;
-$iconSetting: $icon_zp_setting;
-$iconBackArrow:$icon_zp_close;
-$iconZarinpal: $icon_zp_zarinpal;
+$itemArrow: $icon-zp-arrow-down;
+$iconMobileSidebarCollapse: $icon-zp-close;
+$iconMenu:$icon-zp-menu;
+$iconLogout: $icon-zp-sign-out;
+$iconReload: $icon-zp-refresh;
+$iconSetting: $icon-zp-setting;
+$iconBackArrow:$icon-zp-close;
+$iconZarinpal: $icon-zp-zarinpal;
 
 
 //Transactions
 $iconForward:$icon-zp-arrow-left;
-$internalTransactionIcon:$icon-ic_arrow_forward_black_48px;
-$pendingTransactionIcon:$icon-ic_arrow_forward_black_48px;
+$internalTransactionIcon:$icon-zp-transaction-trend-down;
+$pendingTransactionIcon:$icon-zp-transaction-reconciliation;
 $iconSearch:$icon-zp-search;
-
-$iconPrinter: $icon_zp_print;
-$iconTick: $icon-zp-check-circle;
-$iconClose: $icon_zp_close;
+$iconPrinter: $icon-zp-print;
+$iconTick: $icon-zp-verified;
+$iconClose: $icon-zp-close;
 
 //Tickets
-$iconAttach:$icon_zp_attach;
+$iconAttach:$icon-zp-attach;
 
 
 //Easypay
 $homeIcon: $icon-zp-home;
-$purseIcon: $icon_zp_wallet;
+$purseIcon: $icon-zp-wallet;
 $amountIcon: $icon-zp-reconciliation;
-$globeIcon: $icon_zp_globe;
+$globeIcon: $icon-zp-world;
 
 
 //Webservice
-$ipIcon: $icon-zp-globe;
 $homeIcon: $icon-zp-home;
-$earthIcon: $icon-zp-globe;
-$mobileIcon: $icon_zp_mobile;
+$mobileIcon: $icon-zp-mobile;
 $purseIcon: $icon-zp-wallet;
-$webserviceCatIcon: $icon-zp-open;
+$webserviceCatIcon: $icon-zp-arrow-down;

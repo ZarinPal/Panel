@@ -10,7 +10,7 @@
 
         div.col-lg-5.col-sm-5.col-xs-5.left-box
             a.logout(@click="confirmVisible = true" title="خروج" v-ripple="")
-            a.notification(:class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="")
+            a.notification(:class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="" title="اعلانات")
             span.notification-lamp(v-if="notifications.length")
             span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")
         transition(name="fade"

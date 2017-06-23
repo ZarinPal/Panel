@@ -123,14 +123,16 @@
         }
 
         .icon-qr{
-          font-family:'zarinpal';
-          content: $moreIcon;
-          font-size: 14px !important;
-          display: inline-block;
-          position: relative;
-          left: 13px;
-          top: 0px;
-          color: #424242;
+          &:before{
+            font-family:'zarinpal';
+            content: $iconQrCode;
+            font-size: 20px !important;
+            display: inline-block;
+            position: relative;
+            left: 13px;
+            top: 4px;
+            color: #424242;
+          }
         }
 
         .qr-image{
