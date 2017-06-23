@@ -116,7 +116,8 @@ span
             let ticketContent = document.getElementById('ticketContent');
 
             ticketContent.addEventListener("scroll", function(e) {
-                if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight){
+                if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
+                    && !vm.$store.state.paginator.isLoading){
                     vm.$store.dispatch(
                         'paginator/next'
                     );

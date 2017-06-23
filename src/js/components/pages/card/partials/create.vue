@@ -118,7 +118,8 @@
                 }
 
                 let formatedPan = this.pan.split('-').join('');
-                let expiredAt = this.jalaliToGregorian(this.year, this.month, 30);
+                let expiredAt = this.jalaliToGregorian(this.year, this.month);
+
                 let cardData = {
                     iban : 'IR' + this.iban,
                     pan : formatedPan,
@@ -141,7 +142,7 @@
                     }
                 )
             },
-            jalaliToGregorian(year, month, day) {
+            jalaliToGregorian(year, month, day = null) {
                 let jalali = year + '/' + month + '/' + day;
                 let gregorian = moment(jalali, 'jYYYY/jM/jD');
                 gregorian = gregorian._i;

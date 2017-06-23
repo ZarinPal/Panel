@@ -26,18 +26,13 @@
                     name: 'empty'
                 }
             ];
-//            this.ajaxGet(this.$route.params.public_id);
-//            this.$store.state.http.requests['ticket.index'].get()
-//            .then(response => {
-//                response.data = response.data;
-//                this.list = response.data.data;
-//            });
 
             let vm = this;
             let ticketContent = document.getElementById('ticketContent');
 
             ticketContent.addEventListener("scroll", function(e) {
-                if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight){
+                if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
+                    && !vm.$store.state.paginator.isLoading){
                     vm.$store.dispatch(
                         'paginator/next'
                     );
@@ -52,13 +47,6 @@
                     this.ticket = ticket.data;
                 });
             },
-//            ajaxGet(id){
-//                let vm = this;
-//                this.resource.get({public_id: id}).then(data => {
-//                    vm.request = data.data;
-//                    vm.ticket = vm.request.data;
-//                });
-//            },
         }
     }
 </script>
