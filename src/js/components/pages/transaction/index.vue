@@ -149,10 +149,12 @@
             let vm = this;
 
             window.onscroll = function(ev) {
-                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+                    && !vm.$store.state.paginator.isLoading) {
                     vm.$store.dispatch(
                         'paginator/next'
                     );
+                    console.log('next is called');
                 }
             };
             this.showStandAloneTransaction();
@@ -187,11 +189,6 @@
                         resource:vm.$store.state.http.requests['transaction.getRecents'],
                         resourceData:vm.searchOptions
                     }
-                );
-            },
-            loadMore() {
-                this.$store.dispatch(
-                    'paginator/next'
                 );
             },
             selectFilter(value){

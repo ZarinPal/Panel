@@ -63,15 +63,18 @@ $plusIcon: $icon-zp-add;
       top:10px;
       padding: 20px;
 
-
       .row{
         margin: 10px 0;
 
         .title{
           color: #FFFFFF;
-          opacity: 0.6;
           font-size: 13px;
           cursor: pointer;
+        }
+
+        .close-ticket-title{
+          opacity: 0.6;
+          font-style: italic;
         }
 
         .nav-details{

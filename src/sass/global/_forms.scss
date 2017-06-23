@@ -357,6 +357,7 @@ ul.dropdown {
     margin-left: 10px;
     top: 3px;
   }
+  
 
   .indent{
     padding-right: 30px;
@@ -375,6 +376,7 @@ ul.dropdown {
     background-color: #F2F3F5;
     color: #424242 !important;
     opacity: 1;
+    pointer-events: none;
   }
 
   > span {

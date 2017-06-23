@@ -5,7 +5,10 @@
                 p.page-title {{ $i18n.t('coupon.editCoupon') }}
                 p.page-description {{ $i18n.t('coupon.editCouponDescription') }}
 
-        div.row.section.nav-create-coupon
+
+        loading(v-if="loadingContent")
+
+        div.row.section.nav-create-coupon( :class="{'inactive-step': loadingContent}" )
             div.row.box
                 <!--Right box-->
                 div.right-box.col-lg-6.col-md-6.col-sm-12.col-xs-12
@@ -43,7 +46,7 @@
                         div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                             span.label {{ $i18n.t('coupon.expirationDate') }}
                         div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                            input(:class="{'input-danger': validationErrors.expired_at}" type="text" v-model="expired_at" placeholder="")
+                            input(:class="{'input-danger': validationErrors.expired_at}" type="text" v-model="expired_at" placeholder="1398-09-21")
                             div.ta-right(v-if="validationErrors.expired_at")
                                 span.text-danger {{ $i18n.t(validationErrors.expired_at) }}
 
@@ -96,11 +99,13 @@
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
+    import loading from '../../partials/loading.vue';
 
     export default {
         name: 'pages-coupon-partials-edit',
         data() {
             return {
+                loadingContent: true,
                 loading: false,
                 code: '',
                 max_amount: '',
@@ -109,7 +114,7 @@
                 easypay_id: '',
                 expired_at: '',
                 limit: '',
-                type: 'webservice',
+                type: '',
                 percent: '',
                 visibleLimit: false,
             }
@@ -142,12 +147,14 @@
         beforeCreate() {
             this.$store.state.http.requests['coupon.getShow'].get({'coupon_id' : this.$route.params.entity_id}).then(
                 (response) => {
+                    let jalaliExpiredDate = moment(response.data.data.expired_at, 'YYYY-MM-DD').format('jYYYY-jMM-jDD');
+
                     this.code = response.data.data.code;
                     this.max_amount = response.data.data.discount.max_amount;
                     this.min_amount = response.data.data.min_amount;
                     this.webservice_id = response.data.data.webservice_id;
                     this.easypay_id = response.data.data.easypay_id;
-                    this.expired_at = response.data.data.expired_at;
+                    this.expired_at = jalaliExpiredDate;
                     this.limit = response.data.data.limit;
                     this.type = response.data.data.type;
                     this.percent = response.data.data.discount.percent;
@@ -155,6 +162,10 @@
                     if(response.data.data.limit){
                         this.visibleLimit = true;
                     }
+
+                    this.loadingContent = false;
+                },() => {
+                    this.loadingContent = false;
                 }
             );
         },
@@ -186,6 +197,10 @@
             },
             editCoupon() {
                 this.loading = true;
+
+                let georgianExpiredDate = moment(this.expired_at, 'jYYYY-jMM-jDD');
+                georgianExpiredDate = georgianExpiredDate._i.substr(0, georgianExpiredDate._i.length-3);
+
                 let couponData = {
                     code: this.code,
                     discount: {
@@ -194,7 +209,7 @@
                     },
                     webservice_id: this.webservice_id,
                     easypay_id: this.easypay_id,
-                    expired_at: this.expired_at,
+                    expired_at: georgianExpiredDate,
                     limit: this.limit,
                     min_amount: this.min_amount,
                     type: this.type,
@@ -221,7 +236,8 @@
             }
         },
         components: {
-            selectbox
+            selectbox,
+            loading
         }
     }
 

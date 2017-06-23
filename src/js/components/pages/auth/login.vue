@@ -46,7 +46,7 @@
                             <!--Ussd Box-->
                             div.row.ussd-box.no-margin(v-if="channel == 'ussd'")
                                 div
-                                    span.icon-qr(v-if="ussdType =='Code'" @click="changeUssdType()") USSD
+                                    span.icon-qr(v-if="ussdType =='Code'" @click="changeUssdType()")
                                     span.icon-ussd-text(v-if="ussdType =='Qr'" @click="changeUssdType()")
                                         span *
                                         span.laugh :)
@@ -79,9 +79,7 @@
                 div.col-xs.ta-left
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
                     span.gap
-                    a.link(href="#" target="blank") {{$i18n.t('user.privacy')}}
-
-
+                    a.link(href="https://www.zarinpal.com/policy.html" target="blank") {{$i18n.t('user.privacy')}}
 </template>
 
 <script>

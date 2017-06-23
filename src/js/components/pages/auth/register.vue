@@ -46,7 +46,7 @@
                 div.col-xs.ta-left
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
                     span.gap
-                    a.link(href="#" target="blank") {{$i18n.t('user.privacy')}}
+                    a.link(href="https://www.zarinpal.com/policy.html" target="blank") {{$i18n.t('user.privacy')}}
 
 
 

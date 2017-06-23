@@ -71,8 +71,7 @@
 //            this.pan = this.card.pan;
             let jalaliExpiredDate = moment(this.card.expired_at, 'YYYY-MM-DD').format('jYYYY-jMM-jDD');
             this.year = moment(jalaliExpiredDate).year();
-            this.month = moment(jalaliExpiredDate).month();
-
+            this.month = jalaliExpiredDate.substr(5,2);
         },
         methods: {
             cardNumberFormat() {
@@ -107,7 +106,7 @@
                 };
 
                 let formatedPan = this.pan.split('-').join('');
-                let expiredAt = this.jalaliToGregorian(this.year, this.month, 30);
+                let expiredAt = this.jalaliToGregorian(this.year, this.month);
                 let cardData = {
                     pan : formatedPan,
                     expired_at : expiredAt,
@@ -135,11 +134,11 @@
                     return card.entity_id === vm.card.entity_id;
                 });
 
-                let expiredAt = this.jalaliToGregorian(this.year, this.month, 30);
+                let expiredAt = this.jalaliToGregorian(this.year, this.month);
                 this.$store.state.auth.user.cards[cardIndex].expired_at = expiredAt;
                 this.$store.state.auth.user.cards[cardIndex].pan = this.pan;
             },
-            jalaliToGregorian(year, month, day) {
+            jalaliToGregorian(year, month, day = null) {
                 let jalali = year + '/' + month + '/' + day;
                 let gregorian = moment(jalali, 'jYYYY/jM/jD');
                 gregorian = gregorian._i;

@@ -5,8 +5,8 @@
                 span(v-for="ticket in tickets" v-bind:ticket="ticket")
                     router-link.row(@click.native="showTicketReplies = true" tag="li" v-bind:to="{ name: 'ticket.show', params: { id: ticket.public_id}}")
                         div.col-xs
-                            div.title {{ticket.title | less}}
-                            div.iransans-light.title {{ticket.public_id | persianNumbers}}
+                            div.title(:class="{'close-ticket-title' : ticket.status == 'close'}") {{ticket.title | less}}
+                            div.iransans-light.title(:class="{'close-ticket-title' : ticket.status == 'close'}")  {{ticket.public_id | persianNumbers}}
                         div.nav-details
                             div
                                 span.status {{$i18n.t('ticket.' + ticket.status)}}
