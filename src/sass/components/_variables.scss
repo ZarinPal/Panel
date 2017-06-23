@@ -44,123 +44,76 @@ $melli : #dc3c00;
 $sepah : #ff7d00;
 $zarincard : #ffb012;
 
-
-// ZarinPal Icon Fonts
-$icon-ic_search_black_48px: "\e93e";
-$icon-ic_settings_black_48px: "\e937";
-$icon-ic_exit_to_app_black_48px: "\e917";
-$icon-ic_credit_card_black_48px: "\e918";
-$icon-ic_delete_black_48px: "\e919";
-$icon-ic_add_circle_black_48px: "\e905";
-$icon-ic_account_balance_wallet_black_48px: "\e91c";
-$icon-ic_phone_iphone_black_48px: "\e91d";
-$icon-ic_public_black_48px: "\e91e";
-$icon-ic_cloud_upload_black_48px: "\e906";
-$icon-ic_close_black_48px: "\e920";
-$icon-ic_receipt_black_48px: "\e912";
-$icon-ic_open_in_browser_black_48px: "\e913";
-$icon-ic_content_copy_black_48px: "\e914";
-$icon-ic_check_circle_black_48px: "\e910";
-$icon-ic_remove_circle_black_48px: "\e911";
-$icon-ic_home_black_48px: "\e91b";
-$icon-ic_refresh_black_48px: "\e90f";
-$icon-ic_arrow_forward_black_48px: "\e900";
-$icon-ic_flash_on_black_48px: "\e901";
-$icon-ic_edit_black_48px: "\e902";
-$icon-ic_keyboard_arrow_left_black_48px: "\e903";
-$icon-ic_keyboard_arrow_down_black_48px: "\e904";
-$icon-ic_keyboard_arrow_up_black_48px: "\e905";
-$icon-ic_more_vert_black_48px: "\e906";
-$icon-ic_info_black_48px: "\e907";
-$icon-ic_check_circle_black_48px: "\e908";
-$icon-ic_warning_black_48px: "\e909";
-$icon-ic_lock_outline_black_48px: "\e90a";
-$icon-ic_perm_identity_black_48px: "\e90b";
-$icon-ic_menu_black_48px: "\e90c";
-$icon-ic_notifications_black_48px: "\e913";
-$icon-zarinpal-flat: "\e90e";
-
-//New Icons
-$icon_zp_menu: "\e94b";
-$icon_zp_sign-out: "\e944";
-$icon_zp_edit: "\e945";
-$icon_zp_more-vert: "\e947";
-$icon_zp_more-horiz: "\e946";
-$icon_zp_print: "\e949";
-$icon_zp_search: "\e94a";
-$icon_zp_mobile: "\e948";
-$icon_zp-qr-code: "\e948";
-
-
-
-
-
-$icon_zp_remove_square: "\e91b";
-$icon_zp_remove: "\e93e";
-$icon_zp_remove_circle: "\e93f";
-$icon_zp_remove_circle_outline: "\e940";
-$icon_zp_dashboard: "\e901";
-$icon_zp_wallet: "\e902";
-$icon_zp_profile: "\e903";
-$icon_zp_add-box: "\e904";
-$icon_zp_add-circle: "\e905";
-$icon_zp_cloud: "\e906";
-$icon_zp_copouns: "\e907";
-$icon_zp_home: "\e908";
-$icon_zp_arrow-down: "\e909";
-$icon_zp_arrow-left: "\e90a";
-$icon_zp_arrow-right: "\e90b";
-$icon_zp_arrow-up: "\e90c";
-$icon_zp_ic_language_black_24px2: "\e90d";
-$icon_zp_open: "\e90e";
-$icon_zp_tag: "\e90f";
-$icon_zp_lock: "\e910";
-$icon_zp_lock-outline: "\e911";
-$icon_zp_mail: "\e912";
-$icon_zp_notification: "\e913";
-$icon_zp_notification-outline: "\e914";
-$icon_zp_card: "\e915";
-$icon_zp_people: "\e916";
-$icon_zp_add-person: "\e917";
-$icon_zp_person: "\e918";
-$icon_zp_no: "\e919";
-$icon_zp_notification_outline: "\e91a";
-$icon_zp_request-money: "\e900";
-$icon_zp_cards: "\e91c";
-$icon_zp_reconciliation: "\e941";
-$icon_zp_zarinpal: "\e942";
-$icon_zp_easy-pay: "\e91d";
-$icon_zp_web-service: "\e91e";
-$icon_zp_ic_payment_black_24px: "\e921";
-$icon_zp_add: "\e922";
-$icon_zp_charts: "\e923";
-$icon_zp_attach: "\e924";
-$icon_zp_backspace: "\e925";
-$icon_zp_upload: "\e926";
-$icon_zp_check-circle: "\e927";
-$icon_zp_close: "\e928";
-$icon_zp_copy: "\e929";
-$icon_zp_delete: "\e92a";
-$icon_zp_error: "\e92b";
-$icon_zp_help: "\e92c";
-$icon_zp_ic_home_black_24px: "\e92d";
-$icon_zp_info: "\e92e";
-$icon_zp_globe: "\e92f";
-$icon_zp_ic_launch_black_24px: "\e930";
-$icon_zp_ic_lock_black_24px2: "\e931";
-$icon_zp_lock_outline: "\e932";
-$icon_zp_tickets: "\e933";
-$icon_zp_ticket: "\e934";
-$icon_zp_receipt: "\e935";
-$icon_zp_repeat: "\e936";
-$icon_zp_setting: "\e937";
-$icon_zp_graph: "\e938";
-$icon_zp_transaction_trend_down: "\e939";
-$icon_zp_transaction_trend_up: "\e93b";
-$icon_zp_transaction_reconciliation: "\e93a";
-$icon_zp_verified: "\e93c";
-$icon_zp_visible: "\e93d";
-
+//Font icon 1.5
+$icon-zp-calendar: "\e908";
+$icon-zp-refresh: "\e92f";
+$icon-zp-qr-code: "\e94c";
+$icon-zp-edit: "\e945";
+$icon-zp-more-vert: "\e947";
+$icon-zp-print: "\e949";
+$icon-zp-remove-square: "\e91b";
+$icon-zp-remove-circle: "\e93f";
+$icon-zp-dashboard: "\e901";
+$icon-zp-profile: "\e903";
+$icon-zp-add-circle: "\e905";
+$icon-zp-copouns: "\e907";
+$icon-zp-arrow-left: "\e90a";
+$icon-zp-arrow-up: "\e90c";
+$icon-zp-sign-out: "\e90e";
+$icon-zp-lock: "\e910";
+$icon-zp-mail: "\e912";
+$icon-zp-notification-outline: "\e914";
+$icon-zp-people: "\e916";
+$icon-zp-person: "\e918";
+$icon-zp-cards: "\e91c";
+$icon-zp-zarinpal: "\e942";
+$icon-zp-web-service: "\e91e";
+$icon-zp-add: "\e922";
+$icon-zp-attach: "\e924";
+$icon-zp-upload: "\e926";
+$icon-zp-close: "\e928";
+$icon-zp-delete: "\e92a";
+$icon-zp-help: "\e92c";
+$icon-zp-info: "\e92e";
+$icon-zp-ticket: "\e934";
+$icon-zp-p2p: "\e936";
+$icon-zp-graph: "\e938";
+$icon-zp-transaction-trend-up: "\e93b";
+$icon-zp-verified: "\e93c";
+$icon-zp-add-fund: "\e921";
+$icon-zp-report: "\e931";
+$icon-zp-menu: "\e94b";
+$icon-zp-more-horiz: "\e946";
+$icon-zp-mobile: "\e948";
+$icon-zp-search: "\e94a";
+$icon-zp-remove: "e93e";
+$icon-zp-remove-circle-outline: "\e940";
+$icon-zp-wallet: "\e902";
+$icon-zp-add-box: "\e904";
+$icon-zp-cloud: "\e906";
+$icon-zp-arrow-down: "\e909";
+$icon-zp-arrow-right: "\e90b";
+$icon-zp-world: "\e90d";
+$icon-zp-tag: "\e90f";
+$icon-zp-lock-outline: "\e911";
+$icon-zp-notification: "\e913";
+$icon-zp-card: "\e915";
+$icon-zp-add-person: "\e917";
+$icon-zp-request-money: "\e900";
+$icon-zp-reconciliation: "\e941";
+$icon-zp-easy-pay: "\e91d";
+$icon-zp-charts: "\e923";
+$icon-zp-backspace: "\e925";
+$icon-zp-check-circle: "\e927";
+$icon-zp-copy: "\e929";
+$icon-zp-error: "\e92b";
+$icon-zp-home: "\e92d";
+$icon-zp-new-window: "\e930";
+$icon-zp-receipt: "\e935";
+$icon-zp-setting: "e937";
+$icon-zp-transaction-trend-down: "\e939";
+$icon-zp-transaction-reconciliation: "\e943";
+$icon-zp-visible: "\e93d";
 
 //Colors and sizes
 //Common
@@ -169,7 +122,6 @@ $boxBorderColor:#ebeef0;
 $boxShadowColor: rgba(0, 0, 0, 0.15);
 $labelColor: #424242;
 $labelGroupBorderColor: #eceff1;
-
 
 //Home
 $boxBorderColor:#ebeef0;
@@ -181,7 +133,6 @@ $dropDownBorderRadius: 5px;
 //Countainer
 $innerContentWidth: 90%;
 $innerContentMaxWidth: 1024px;
-
 $fontName:"IRANSans";
 $mobileSize:768px;
 $smallWidth: 768px;
@@ -189,11 +140,8 @@ $mediumWidth: 992px;
 $largeWidth: 1024px;
 $animateTime: 0.4s;
 $iconHoverBackground: #eee;
-
-
 $goldColor: #ffd600;
 $silverColor: #BDC3C7;
-
 $sideItemColor: #8e8e8e;
 $sidebarWith:250px;
 $smallSidebarWidth: 60px;
@@ -202,12 +150,9 @@ $sidebarFontSize: 13px;
 $sidebarHoverBgColor:  #f4f4f4;
 $smallSubMenuWidth: 150px;
 $smallSidebarIconSize: 18px !important;
-
 $depositColorIn: #2dcc70;
 $depositColorInFrom: #22bf65;
-
 $depositColorOut: #F44336;
 $depositColorFrom: #d23532;
-
 $depositColorP2p: #9C9C9C;
 $depositColorP2pFrom: #8B8B8B;

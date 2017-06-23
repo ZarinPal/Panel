@@ -73,212 +73,33 @@ span[class^="icon-"], span[class*=" icon-"]{
 
 
 //New Font icon class
-.icon-zp-web-service {
-  &:before {
-    content: $icon_zp_web-service;
-  }
-}
-
-.icon-zp-easy-pay {
-  &:before {
-    content: $icon_zp_easy-pay;
-  }
-}
-
-.icon-zp-tickets {
-  &:before {
-    content: $icon_zp_tickets;
-  }
-}
-
-.icon-zp-copouns {
-  &:before {
-    content: $icon_zp_copouns;
-  }
-}
-
-.icon-zp-card {
-  &:before {
-    content: $icon_zp_card;
-  }
-}
-
 .icon-zp-dashboard {
   &:before {
-    content: $icon_zp_dashboard;
+    content: $icon-zp-dashboard;
   }
 }
-
-.icon-zp-wallet {
+.icon-zp-web-service {
   &:before {
-    content: $icon_zp_wallet;
+    content: $icon-zp-web-service;
   }
 }
-
-
-.icon-ic_search_black_48px {
+.icon-zp-card {
   &:before {
-    content: $icon-ic_search_black_48px;
+    content: $icon-zp-card;
   }
 }
-.icon-ic_settings_black_48px {
+.icon-zp-easy-pay {
   &:before {
-    content: $icon_zp_setting;
+    content: $icon-zp-easy-pay;
   }
 }
-.icon-ic_exit_to_app_black_48px {
+.icon-zp-copouns {
   &:before {
-    content: $icon-ic_exit_to_app_black_48px;
+    content: $icon-zp-copouns;
   }
 }
-.icon-ic_credit_card_black_48px {
+.icon-zp-tickets {
   &:before {
-    content: $icon-ic_credit_card_black_48px;
+    content: $icon-zp-ticket;
   }
 }
-.icon-ic_delete_black_48px {
-  &:before {
-    content: $icon-ic_delete_black_48px;
-  }
-}
-.icon-ic_add_circle_black_48px {
-  &:before {
-    content: $icon-ic_add_circle_black_48px;
-  }
-}
-.icon-ic_account_balance_wallet_black_48px {
-  &:before {
-    content: $icon-ic_account_balance_wallet_black_48px;
-  }
-}
-.icon-ic_phone_iphone_black_48px {
-  &:before {
-    content: $icon-ic_phone_iphone_black_48px;
-  }
-}
-.icon-ic_public_black_48px {
-  &:before {
-    content: $icon-ic_public_black_48px;
-  }
-}
-.icon-ic_cloud_upload_black_48px {
-  &:before {
-    content: $icon-ic_cloud_upload_black_48px;
-  }
-}
-.icon-ic_close_black_48px {
-  &:before {
-    content: $icon-ic_close_black_48px;
-  }
-}
-.icon-ic_receipt_black_48px {
-  &:before {
-    content: $icon-ic_receipt_black_48px;
-  }
-}
-.icon-ic_open_in_browser_black_48px {
-  &:before {
-    content: $icon-ic_open_in_browser_black_48px;
-  }
-}
-.icon-ic_content_copy_black_48px {
-&:before {
-  content: $icon-ic_content_copy_black_48px;
-}
-}
-.icon-ic_check_circle_black_48px {
-&:before {
-  content: $icon-ic_check_circle_black_48px;
-}
-}
-.icon-ic_remove_circle_black_48px {
-  &:before {
-    content: $icon-ic_remove_circle_black_48px;
-  }
-}
-.icon-ic_home_black_48px {
-  &:before {
-    content: $icon-ic_home_black_48px;
-  }
-}
-.icon-ic_refresh_black_48px {
-  &:before {
-    content: $icon-ic_refresh_black_48px;
-  }
-}
-.icon-ic_arrow_forward_black_48px {
-  &:before {
-    content: $icon-ic_arrow_forward_black_48px;
-  }
-}
-.icon-ic_flash_on_black_48px {
-  &:before {
-    content: $icon-ic_flash_on_black_48px;
-  }
-}
-.icon-ic_edit_black_48px {
-  &:before {
-    content: $icon-ic_edit_black_48px;
-  }
-}
-.icon-ic_keyboard_arrow_left_black_48px {
-  &:before {
-    content: $icon-ic_keyboard_arrow_left_black_48px;
-  }
-}
-.icon-ic_keyboard_arrow_down_black_48px {
-  &:before {
-    content: $icon-ic_keyboard_arrow_down_black_48px;
-  }
-}
-.icon-ic_keyboard_arrow_up_black_48px {
-  &:before {
-    content: $icon-ic_keyboard_arrow_up_black_48px;
-  }
-}
-.icon-ic_more_vert_black_48px {
-  &:before {
-    content: $icon-ic_more_vert_black_48px;
-  }
-}
-.icon-ic_info_black_48px {
-  &:before {
-    content: $icon-ic_info_black_48px;
-  }
-}
-.icon-ic_check_circle_black_48px {
-  &:before {
-    content: $icon-ic_check_circle_black_48px;
-  }
-}
-.icon-ic_warning_black_48px {
-  &:before {
-    content: $icon-ic_warning_black_48px;
-  }
-}
-.icon-ic_lock_outline_black_48px {
-  &:before {
-    content: $icon-ic_lock_outline_black_48px;
-  }
-}
-.icon-ic_perm_identity_black_48px {
-  &:before {
-    content: $icon-ic_perm_identity_black_48px;
-  }
-}
-.icon-ic_menu_black_48px {
-  &:before {
-    content: $icon-ic_menu_black_48px;
-  }
-}
-.icon-ic_notifications_black_48px {
-  &:before {
-    content: $icon-ic_notifications_black_48px;
-  }
-}
-.icon-zarinpal-flat {
-  &:before {
-    content: $icon-zarinpal-flat;
-  }
-}
-

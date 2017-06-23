@@ -211,7 +211,7 @@ body {
       transition: $animateTime;
 
       &::before {
-        content: $icon-ic_notifications_black_48px;
+        content: $iconNotification;
         font-family: 'zarinpal';
         color: #424242;
         font-size: 18px;

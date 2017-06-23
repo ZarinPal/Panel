@@ -100,7 +100,7 @@
   }
 
   .ip-icon {
-    @include webservice-input-icon($ipIcon);
+    @include webservice-input-icon($globeIcon);
   }
 
   .home-icon {
@@ -108,7 +108,7 @@
   }
 
   .earth-icon{
-    @include webservice-input-icon($earthIcon);
+    @include webservice-input-icon($globeIcon);
   }
 
   .mobile-icon{
