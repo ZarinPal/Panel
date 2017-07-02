@@ -9,6 +9,8 @@ export default {
         ticketDepartments:  [],
         singlePurseMoreTrigger: '',
         visibleNotification: false,
+        ticketSummary: {},
+        refererId: null,
     },
     mutations: {
         loading(state) {
@@ -35,6 +37,12 @@ export default {
         },
         setTicketDepartments(state, categories){
             state.ticketDepartments = categories;
+        },
+        setRefererId(state, refId) {
+            if(refId) {
+                state.refererId = refId;
+                return
+            }
         }
     },
     actions: {

@@ -13,7 +13,7 @@ div
                     span.icon-outcome-trans
 
             span(v-else)
-                span.icon-pending-trans sss
+                span.icon-pending-trans
 
             span.text {{transaction.public_id | persianNumbers}}
 
@@ -34,8 +34,8 @@ div
                     img.user-image(v-bind:src="'http:'+ transaction.to_merchant.avatar")
                     span.text {{transaction.to_merchant.name | less}}
 
-        div.col-lg-2.col-md-2.col-sm-2.hidden-xs(v-else)
-            span.text {{ $i18n.t('common.pending') }}
+        div.col-lg-2.col-md-6.col-sm-6.hidden-xs(v-else)
+            span.text {{ $i18n.t('transaction.movingOut') }}
 
         div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
             span.text.created {{transaction.created | fromNow | persianNumbers}}

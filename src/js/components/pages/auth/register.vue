@@ -34,7 +34,7 @@
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
                             span عضو زرین‌پال هستید ؟
-                            router-link.link(v-bind:to="{ name: 'auth.login'}") {{ $i18n.t('user.enter') }}
+                            router-link.link(v-bind:to="{ name: 'auth.login',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.enter') }}
                         div.col-xs.no-margin
                             button.gold.pull-left(id="register" @click="register") {{$i18n.t('user.register')}}
 

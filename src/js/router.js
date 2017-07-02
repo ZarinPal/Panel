@@ -3,7 +3,7 @@ export default new VueRouter({
     // base:'panel',
     routes: [
         {
-            path: '/auth/login',
+            path: '/auth/login/:refererId?',
             name: 'auth.login',
             component: require('./components/pages/auth/login.vue'),
             meta: {standAlone: true}
@@ -15,6 +15,11 @@ export default new VueRouter({
             meta: {standAlone: true}
         },
         {
+            path: '/auth/referer',
+            name: 'auth.referer',
+            component: require('./components/pages/auth/referer.vue'),
+        },
+        {
             path: '/panel',
             component: require('./components/pages/panel.vue'),
             children: [
@@ -23,7 +28,7 @@ export default new VueRouter({
                     component: require('./components/pages/partials/containers/standard.vue'),
                     children: [
                         {
-                            path: 'home',
+                            path: 'home/:createPurse?',
                             name: 'home.index',
                             component: require('./components/pages/home/home.vue')
                         },
@@ -110,6 +115,11 @@ export default new VueRouter({
                             path: 'report/:type/:id',
                             name: 'report.index',
                             component: require('./components/pages/report/index.vue')
+                        },
+                        {
+                            path: 'requestMoney',
+                            name: 'requestMoney.index',
+                            component: require('./components/pages/requestـmoney/index.vue')
                         }
                     ]
                 },
