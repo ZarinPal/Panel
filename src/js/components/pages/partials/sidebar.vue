@@ -43,6 +43,8 @@
                             i.icon-zp-tickets
                             span.item-label تیکت ها
 
+                            span.unread-ticket-count(v-if="this.$store.state.app.ticketSummary.unread > 0") {{ this.$store.state.app.ticketSummary.unread | persinaNumber}}
+
                 div.clear-both
 </template>
 

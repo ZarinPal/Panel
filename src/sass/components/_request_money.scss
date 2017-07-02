@@ -1,0 +1,262 @@
+//Nav background image
+.request-money-index{
+  margin-top: 10px;
+
+  .nav-blur-container{
+    overflow:hidden;
+    border-radius:5px 5px 0 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+
+    .user-profile-background{
+      width: 110%;
+      height: 200px;
+      background-repeat: no-repeat;
+      z-index: -1;
+      position: relative;
+      padding: 0;
+      -webkit-filter: blur(15px);
+      filter: blur(15px);
+      margin-top: -170px;
+      right: -10px;
+      top: -30px;
+      bottom: 0;
+    }
+
+    .blur-content{
+
+      .nav-user-info{
+        margin-top: 30px;
+        margin-right: 21px;
+        position: relative;
+        top: 20px;
+
+        .user-avatar{
+          border:5px solid rgba(255, 255, 255, .3);
+          border-radius: 50%;
+          width: 84px;
+          height: 84px;
+        }
+
+        .user-name{
+          font-size: 19px;
+          color: #fff;
+          display: inline-block;
+          position: relative;
+          top: -40px;
+          margin-right: 17px;
+          margin-top: -60px !important;
+        }
+
+        .user-zp-id{
+          font-size: 14px;
+          color: #fff;
+          position: relative;
+          top: -40px;
+          right: 110px;
+        }
+      }
+    }
+
+    .nav-buttons {
+      display: inline-block;
+      float: left;
+      margin-left: 20px;
+      margin-top: 110px;
+
+      .zarin-friends{
+        &:before{
+          font-family: 'zarinpal';
+          content: $iconPerson;
+          position: relative;
+          top: 3px;
+          margin-left: 5px;
+          font-size: 18px;
+        }
+      }
+
+      .request-button {
+        border:1px solid #fff;
+        border-radius:20px;
+        color:#fff;
+        background-color: rgba(255, 255, 255, .1);
+        padding: 5px 10px;
+        cursor:pointer;
+        font-size: 13px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .nav-menu{
+    background-color: #ffffff;
+    border-radius: 0 0 $boxBorderRadiusSize $boxBorderRadiusSize;
+    margin-top: -40px;
+    margin-bottom:15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+
+    ul {
+      li{
+        display:inline-block;
+        font-size: 13px;
+        padding: 11px;
+        color: #B6B6B6;
+        cursor: pointer;
+
+        &:hover{
+
+        }
+
+        &.active{
+          color: #424242 !important;
+          border-bottom:3px solid #FFD500;
+          cursor: default;
+        }
+      }
+    }
+  }
+}
+
+
+.nav-request-money{
+  .trans-row{
+    background-color: #fefefe;
+    border-radius: $boxBorderRadiusSize;
+    font-size: 13px;
+    color: #424242;
+    box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.15);
+    padding: 15px 0 5px 0;
+    text-align: right;
+    margin: 8px 0;
+
+    .nav-user-avatars{
+      height: 27px;
+      overflow: hidden;
+      width: 95px;
+      display: inline-block;
+
+      .users-avatar{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: -10px;
+      }
+
+      .paid-user{
+        border:1px solid #2ecc71;
+      }
+
+      .reject-user{
+        border:1px solid #ff1744;
+      }
+
+      .pending-user{
+        border:1px solid #ff9800;
+      }
+    }
+
+    .more-number{
+      display: inline-block;
+      background-color: rgba(234, 234, 234, 0.48);
+      border: 2px solid rgba(221, 221, 221, 0.33);
+      border-radius: 50%;
+      padding: 0px 2px;
+      position: relative;
+      top: -8px;
+      right: -7px;
+    }
+
+    .total-amount{
+      font-weight: bold;
+      font-size:15px;
+      margin-left: 5px;
+    }
+  }
+
+
+  //Nav requests
+  .nav-requests{
+    .req-btn{
+      border-radius: 30px;
+      padding: 2px 10px;
+      font-size: 13px;
+      margin-right: 10px;
+      cursor:pointer;
+    }
+    .btn-decline{
+      border:1px solid #ff1744;
+      color:#ff1744;
+    }
+
+    .btn-accept{
+      border:1px solid #2ecc71;
+      color:#2ecc71;
+    }
+
+    .paid-text{
+      font-size:13px;
+      color: #2ecc71;
+    }
+
+    .reject-text{
+      font-size:13px;
+      color: #ff1744;
+    }
+
+    .pending-text{
+      font-size:13px;
+      color: #ff9800;
+    }
+
+  }
+}
+
+
+
+//Md
+@media (max-width: $mediumWidth){
+  .nav-blur-container{
+    text-align: center;
+  }
+
+  .nav-user-info {
+    top: -20px !important;
+
+    .user-zp-id {
+      right: 45px !important;
+    }
+  }
+
+  .nav-left{
+    text-align: center !important;
+  }
+
+  .nav-buttons{
+    margin-top: -20px !important;
+    margin-bottom: 10px !important;
+  }
+}
+
+//Sm
+@media (max-width: $smallWidth){
+
+}
+
+//Xs
+@media (max-width: $mobileSize) {
+  .request-money-index {
+    .nav-blur-container {
+      .user-profile-background{
+        height: 260px !important;
+        margin-top: -210px !important;
+      }
+    }
+
+    .nav-user-info{
+      .user-avatar{
+        margin: 10px auto !important;
+      }
+    }
+  }
+}

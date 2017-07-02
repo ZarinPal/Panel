@@ -39,6 +39,10 @@
         },
         created(){
             this.checkAddFund();
+            if(this.$route.params.createPurse === 'Yes') {
+                this.visibleCreatePurse = true;
+            }
+
         },
         methods: {
             closeModal(){

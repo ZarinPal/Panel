@@ -6,13 +6,13 @@ div
         div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
             span.transaction-fields-title {{session.created_at | persianNumbers}}
         div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
-            span.transaction-fields-title {{session.amount | persianNumbers}}
+            span.transaction-fields-title {{session.amount | numberFormat | persianNumbers}}
         div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
-            span.transaction-fields-title {{session.cellnum }}
+            span.transaction-fields-title {{session.cellnum | persianNumbers}}
         div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
             span.transaction-fields-title {{session.email }}
         div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
-            span.transaction-fields-title(@click="showTransaction(session.transaction.public_id)") {{session.transaction.public_id }}
+            span.transaction-fields-title(@click="showTransaction(session.transaction.public_id)") {{session.transaction.public_id | persianNumbers }}
 
     transactionDetails(v-if="showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal()")
 

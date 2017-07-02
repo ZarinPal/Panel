@@ -108,7 +108,8 @@
             let vm = this;
 
             window.onscroll = function(ev) {
-                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+                && !vm.$store.state.paginator.isLoading) {
                     vm.$store.dispatch(
                         'paginator/next'
                     );
@@ -133,11 +134,6 @@
                         resource:vm.$store.state.http.requests['transaction.getSessions'],
                         resourceData:vm.searchOptions
                     }
-                );
-            },
-            loadMore() {
-                this.$store.dispatch(
-                    'paginator/next'
                 );
             },
             selectFilter(value){
