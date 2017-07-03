@@ -28,7 +28,6 @@
           return {
               usersCount: 0,
               requestStatus: null,
-              usersAvatar: [],
           }
         },
         props:['demand'],
