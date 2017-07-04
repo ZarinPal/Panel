@@ -53,7 +53,6 @@
 
                 this.$store.state.http.requests['telegram.registerTelegramPay'].save(refererData).then(
                     (response) => {
-                        console.log(response.data.data.redirect_url);
                         window.location.href = response.data.data.redirect_url
                     },()=>{
                         this.loading = false;
