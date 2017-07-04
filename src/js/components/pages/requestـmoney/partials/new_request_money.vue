@@ -120,6 +120,19 @@
                     this.pageTitle = 'selectUsers';
                 }else if(this.step === 2) {
                     this.pageTitle = 'requestType';
+
+                    let selectedUserObject = {};
+
+                    this.checkUsers.forEach(function (zpId) {
+                        let vm = this;
+                        selectedUserObject = _.find(this.users, function(user) {
+                            return user.zp === zpId;
+                        });
+                    });
+                    console.log(selectedUserObject);
+
+
+
                 } else if(this.step === 3) {
                     this.pageTitle = 'requestType';
                 }
