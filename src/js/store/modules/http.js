@@ -317,6 +317,10 @@ export default {
                 url: "telegram/webHook.json"
             },
             {
+                name: "telegram.registerTelegramPay",
+                url: "telegram/registerTelegramPay.json"
+            },
+            {
                 name: "newsletter.postSubscribe",
                 url: "newsletter/subscribe.json"
             }

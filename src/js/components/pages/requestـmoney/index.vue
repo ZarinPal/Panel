@@ -24,7 +24,7 @@
                     div.col-lg-6.col-md-6.col-sm-12.col-xs-12.nav-left
                         div.nav-buttons
                             span.request-button.zarin-friends دوستان زرین پالی
-                            span.request-button دنگی دونگی جدید
+                            span.request-button(@click="visibleNewRequestMoney = true") دنگی دونگی جدید
 
 
                 img.user-profile-background(:src="user.avatar")
@@ -57,6 +57,13 @@
 
                     div.ta-center(v-if="this.$store.state.paginator.isLoading")
                         loading
+
+
+
+        <!--New request money modal-->
+        newRequestMoney(v-if="visibleNewRequestMoney" v-on:closeModal="closeModal()")
+
+
 </template>
 
 <script>
@@ -64,6 +71,8 @@
     import singleDemand from './partials/single_demand.vue';
     import singleDebt from './partials/single_debt.vue';
     import loading from '../../pages/partials/loading.vue';
+    import newRequestMoney from './partials/new_request_money.vue';
+
 
 
     export default {
@@ -71,9 +80,10 @@
         data() {
           return {
               whichTab: 'requests',
+              visibleNewRequestMoney: false,
           }
         },
-        computed:{
+        computed: {
             user(){
                 return this.$store.state.auth.user;
             },
@@ -81,16 +91,28 @@
                 return this.$store.state.paginator.data;
             },
             debts() {
-                return {};
+                return this.$store.state.paginator.data;
             }
         },
         created(){
-            this.getDemand();
-            this.loadMoreDemand();
+//            if(this.whichTab === 'requests') {
+//                this.getDemand();
+//                this.loadMoreDemand();
+//
+//            } else if(this.whichTab === 'debt') {
+//                this.getDebt();
+//                this.loadMoreDebt();
+//            }
         },
         methods: {
             changeTab(value) {
                 this.whichTab = value
+                if(this.whichTab === 'requests') {
+                    this.getDemand();
+
+                } else if(this.whichTab === 'debt') {
+                    this.getDebt();
+                }
             },
             getDemand() {
                 let vm = this;
@@ -113,11 +135,30 @@
                         );
                     }
                 };
+            },
+            getDebt() {
+                let vm = this;
+                vm.$store.dispatch(
+                    'paginator/make',
+                    {
+                        vm,
+                        resource: vm.$store.state.http.requests['requestMoney.getDebt']
+                    }
+                );
+            },
+            loadMoreDebt() {
+
+            },
+            closeModal(){
+                this.visibleNewRequestMoney = false;
+                store.commit('clearValidationErrors');
             }
         },
         components: {
             singleDemand,
-            loading
+            singleDebt,
+            loading,
+            newRequestMoney
         },
     }
 </script>

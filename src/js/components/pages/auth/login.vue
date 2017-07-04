@@ -168,7 +168,7 @@
 
                                 if(vm.$route.params.refererId) {
                                     vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
-                                    vm.$router.push({name: 'auth.referer'});
+                                    vm.$router.push({name: 'telegram.referer'});
                                 } else {
                                     vm.$router.push({name: 'home.index'});
                                 }

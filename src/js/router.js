@@ -15,11 +15,6 @@ export default new VueRouter({
             meta: {standAlone: true}
         },
         {
-            path: '/auth/referer',
-            name: 'auth.referer',
-            component: require('./components/pages/auth/referer.vue'),
-        },
-        {
             path: '/panel',
             component: require('./components/pages/panel.vue'),
             children: [
@@ -120,7 +115,12 @@ export default new VueRouter({
                             path: 'requestMoney',
                             name: 'requestMoney.index',
                             component: require('./components/pages/requestـmoney/index.vue')
-                        }
+                        },
+                        {
+                            path: 'telegram/referer',
+                            name: 'telegram.referer',
+                            component: require('./components/pages/telegram/referer.vue'),
+                        },
                     ]
                 },
                 {
