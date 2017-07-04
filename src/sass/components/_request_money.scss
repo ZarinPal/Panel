@@ -161,17 +161,6 @@
       }
     }
 
-    .more-number{
-      display: inline-block;
-      background-color: rgba(234, 234, 234, 0.48);
-      border: 2px solid rgba(221, 221, 221, 0.33);
-      border-radius: 50%;
-      padding: 0px 2px;
-      position: relative;
-      top: -8px;
-      right: -7px;
-    }
-
     .total-amount{
       font-weight: bold;
       font-size:15px;
@@ -227,66 +216,8 @@
    New request money
    =============== */
 
-/*** Select users ***/
-.nav-select-user{
-  .search-box{
-    margin-right: -20px !important;
-    margin-left: -20px !important;
-    margin-top: -10px !important;
-    border-bottom: 1px solid #e5e5e5;
-
-    .icon-search{
-      position: relative;
-      top: 8px;
-      right: 15px;
-    }
-
-    input[type="text"] {
-      width: 92%;
-      border: none;
-      outline: none;
-      margin-right: 10px !important;
-      &:focus{
-        box-shadow: none;
-      }
-    }
-  }
-
-
-  /*** Users ***/
-  .users{
-    margin: 20px 0;
-    max-height: 280px;
-    overflow: auto;
-    .user-row{
-      .avatar{
-        width: 55px;
-        border-radius: 50%;
-        margin-top: 10px;
-      }
-
-      .user-name{
-        font-size:14px;
-        color:$labelColor;
-        margin-top: 17px;
-      }
-
-      .user-zp{
-        font-size:13px;
-        color:#717171;
-      }
-
-      .circle-checkbox{
-        display: inline-block;
-        vertical-align: middle;
-        margin-top: 29px;
-        float: left;
-        border-radius:50%;
-      }
-    }
-  }
-
-
+.new-request-money{
+  /*** Common in new request ***/
   /*** Footer ***/
   .footer{
     margin: 0 -20px -20px -20px !important;
@@ -296,12 +227,140 @@
       margin-top: 7px;
       display: inline-block;
     }
+
+    .prev-link-text {
+      font-size: 14px;
+      color: #828282;
+      cursor: pointer;
+      &:before {
+        content: $iconPrev;
+        font-family:'zarinpal' !important;
+        font-size: 25px;
+        margin-left: 0;
+        position: relative;
+        top: 7px;
+      }
+    }
   }
 
+
+  /*** Select users ***/
+  .nav-select-user{
+    .search-box{
+      margin-right: -20px !important;
+      margin-left: -20px !important;
+      margin-top: -10px !important;
+      border-bottom: 1px solid #e5e5e5;
+
+      .icon-search{
+        position: relative;
+        top: 8px;
+        right: 15px;
+      }
+
+      input[type="text"] {
+        width: 92%;
+        border: none;
+        outline: none;
+        margin-right: 10px !important;
+        &:focus{
+          box-shadow: none;
+        }
+      }
+    }
+
+
+    /*** Users ***/
+    .users{
+      margin: 20px 0;
+      max-height: 280px;
+      overflow: auto;
+      .user-row{
+        .avatar{
+          width: 55px;
+          border-radius: 50%;
+          margin-right: 10px;
+          margin-top: 10px;
+        }
+
+        .user-name{
+          font-size:14px;
+          color:$labelColor;
+          margin-top: 17px;
+        }
+
+        .user-zp{
+          font-size:13px;
+          color:#717171;
+        }
+      }
+    }
+  }
+
+  /*** Select Method ***/
+  .nav-request-type{
+    margin-bottom: 33px;
+    .nav-selected-avatars {
+      width: 310px;
+      overflow: hidden;
+      height: 64px;
+      margin: 20px auto;
+      text-align: center;
+
+      .avatar {
+        width: 60px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        margin-left: -20px;
+      }
+
+      .remain-user-number{
+        color: $labelColor;
+        display: inline-block;
+        background-color: rgba(238, 238, 238, 0.45);
+        border-radius: 50%;
+        position: relative;
+        top: 0;
+        padding: 17px 25px;
+        float: left;
+        border: 2px solid #fff;
+      }
+    }
+
+
+    .top-text{
+      font-size:15px;
+      color:$labelColor;
+      margin: 10px 5px;
+    }
+
+    .method-box{
+      background-color: #f7f7f7;
+      border:1px solid transparent;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 10px;
+
+      .title{
+        font-size: 15px;
+        color: $labelColor;
+        font-weight: bold;
+      }
+
+      .description{
+        font-size: 14px;
+      }
+
+      .circle-checkbox{
+        margin-top:16px;
+      }
+
+      &.active{
+        border: 1px solid #e4e4e4;
+      }
+    }
+  }
 }
-
-
-
 
 /* ===============
    Responsive actions
