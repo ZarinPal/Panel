@@ -24,6 +24,15 @@
 
     export default {
     name: 'panel',
+    created(){
+        this.$store.state.http.requests['ticket.getSummary'].get().then(
+            (response) => {
+                this.$store.state.app.ticketSummary.unread = response.data.data.unread;
+            },()=>{
+
+            }
+        );
+    },
     components:{
         navbar,
         sidebar,

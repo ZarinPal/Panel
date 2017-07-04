@@ -79,9 +79,14 @@
             printDetail(documentId) {
                 this.$store.state.http.requests['transaction.getInfoPdf'].get({transactionId: documentId}).then(
                     (response) => {
-                        this.coupons = response.data.data;
+                        let blob = new Blob([response.data], { type: 'application/pdf' } ),
+                            url = window.URL.createObjectURL(blob);
+
+                        window.open(url);
                     }
-                );
+                ).catch((response) => {
+
+                });
             }
         },
         components: {

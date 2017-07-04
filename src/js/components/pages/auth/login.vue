@@ -24,7 +24,7 @@
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
                             span {{ $i18n.t('user.notRegistered') }}
-                            router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{ $i18n.t('user.register') }}
+                            router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.register') }}
                         div.col-xs.no-margin
                             button.gold.pull-left {{$i18n.t('user.enter')}}
                                 svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
@@ -75,7 +75,7 @@
             div.row.auth-privacy-footer
                 div.col-xs.ta-right
                     span.icon-prev
-                    router-link.link(tag="span" v-bind:to="{ name: 'auth.register'}") {{$i18n.t('user.register')}}
+                    router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{$i18n.t('user.register')}}
                 div.col-xs.ta-left
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
                     span.gap
@@ -165,7 +165,13 @@
                         this.$store.dispatch('auth/fetch',
                             () => {
                                 vm.$store.commit('app/ready');
-                                vm.$router.push({name: 'home.index'});
+
+                                if(vm.$route.params.refererId) {
+                                    vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
+                                    vm.$router.push({name: 'telegram.referer'});
+                                } else {
+                                    vm.$router.push({name: 'home.index'});
+                                }
                             }
                         );
                     },

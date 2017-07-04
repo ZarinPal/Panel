@@ -41,7 +41,7 @@ span
 
                     div.middle-xs.body.ta-right
                         pre(v-html="$options.filters.code(reply.content)")
-                        a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment" @click="downloadAttachFile()") {{ $i18n.t('ticket.downloadFile') }}
+                        a.ticket-attachment-download(v-if="reply.attachment" @click="downloadAttachFile(reply.attachment)") {{ $i18n.t('ticket.downloadFile') }}
 
             <!--Admin Ticket-->
             div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section(v-else)
@@ -218,8 +218,8 @@ span
 
                 });
             },
-            downloadAttachFile() {
-
+            downloadAttachFile(url) {
+                window.open(url);
             }
         },
         watch: {

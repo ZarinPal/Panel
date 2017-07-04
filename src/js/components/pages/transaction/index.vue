@@ -91,7 +91,6 @@
         name: 'transaction-index',
         data () {
             return {
-                isLoaded: false,
                 placeholder: '123456******6273',
                 searchOptions: {},
                 filterType: null,
@@ -137,9 +136,6 @@
                 return this.$store.state.auth.user;
             },
             transactions() {
-                if(this.$store.state.paginator.data) {
-                    this.isLoaded = true;
-                }
                 return this.$store.state.paginator.data;
             }
         },
@@ -154,7 +150,6 @@
                     vm.$store.dispatch(
                         'paginator/next'
                     );
-                    console.log('next is called');
                 }
             };
             this.showStandAloneTransaction();
