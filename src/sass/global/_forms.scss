@@ -134,6 +134,14 @@ input[type="radio"] {
   }
 }
 
+.circle-checkbox{
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 29px;
+  float: left;
+  border-radius:50%;
+}
+
 input[type="checkbox"] {
   display: none;
 
