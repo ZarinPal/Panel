@@ -34,7 +34,10 @@
                 if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
                     && !vm.$store.state.paginator.isLoading){
                     vm.$store.dispatch(
-                        'paginator/next'
+                        'paginator/next',
+                        {
+                            requestName: 'TicketList'
+                        }
                     );
                 }
             });

@@ -135,11 +135,7 @@ input[type="radio"] {
 }
 
 .circle-checkbox{
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: 29px;
-  float: left;
-  border-radius:50%;
+  border-radius:50% !important;
 }
 
 input[type="checkbox"] {

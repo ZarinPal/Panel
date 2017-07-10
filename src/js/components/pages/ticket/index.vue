@@ -2,7 +2,7 @@
     div.row
         div.nav-ticket-list#ticketContent(v-bind:class="{'hidden-sm': showTicketReplies, 'show-sm': !showTicketReplies, 'ticket-empty-list-width': this.$store.state.app.isTicketEmptyPage}")
             div.content
-                span(v-for="ticket in tickets" v-bind:ticket="ticket")
+                span(v-for="ticket in tickets.data" v-bind:ticket="ticket")
                     router-link.row(@click.native="showTicketReplies = true" tag="li" v-bind:to="{ name: 'ticket.show', params: { id: ticket.public_id}}")
                         div.col-xs
                             div.title(:class="{'close-ticket-title' : ticket.status == 'close'}") {{ticket.title | less}}
@@ -18,7 +18,7 @@
                     router-link.btn.success.rounded(v-else tag="button" v-bind:to="{ name: 'ticket.create'}")
 
 
-                    div.ta-center(v-if="$store.state.paginator.isLoading")
+                    div.ta-center(v-if="loadingTicketState.status")
                         svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -43,8 +43,17 @@
                 return this.$store.state.auth.user;
             },
             tickets(){
-                return this.$store.state.paginator.data;
-            }
+                return {
+                    data: this.$store.state.paginator.paginator.TicketList.data,
+                    update: this.$store.state.paginator.update
+                }
+            },
+            loadingTicketState() {
+                return {
+                    status: this.$store.state.paginator.paginator.TicketList.isLoading,
+                    update: this.$store.state.paginator.update,
+                }
+            },
         },
         created(){
             let vm = this;
@@ -53,16 +62,12 @@
                 {
                     vm,
                     resource: vm.$store.state.http.requests['ticket.index'],
-                    resourceData: vm.searchOptions
+                    resourceData: vm.searchOptions,
+                    requestName: 'TicketList'
                 }
             );
         },
         methods: {
-            loadMoreTitle() {
-                this.$store.dispatch(
-                    'paginator/next'
-                );
-            },
             closeReplies() {
                 this.showTicketReplies = false
             },

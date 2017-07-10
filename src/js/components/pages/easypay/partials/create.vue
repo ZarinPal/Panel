@@ -14,7 +14,7 @@
 
                             div.row
                                 div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-                                    div.step-number(v-ripple=""  v-bind:class="{'active-step-number' : step == 1}") ۱
+                                    div.step-number(v-ripple="" v-bind:class="{'active-step-number' : step == 1}") ۱
                                     div.step-line(v-bind:class="{'active-step-line' : step == 1}")
 
                                 div.col-lg-11.col-md-11.sm-11.col-xs-11
@@ -312,6 +312,7 @@
                         this.$router.push({name: 'easypay.index'})
                     },
                     (response) => {
+                        this.isLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
