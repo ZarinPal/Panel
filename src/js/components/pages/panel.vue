@@ -8,6 +8,8 @@
             div.col-xs.main-content
                 <!--button.success.pull-left(v-back="") back-->
                 router-view
+
+
         div.clear-both
     div(v-else)
         div.loading.ta-center
@@ -24,7 +26,23 @@
 
     export default {
     name: 'panel',
+    computed: {
+        refererId(){
+            return this.$store.state.app.refererId;
+        }
+    },
     created(){
+
+        if(this.refererId) {
+            store.commit('flashMessage',{
+                text: 'back-to-referer',
+                type: 'danger',
+                important: true
+            });
+        }
+
+
+
         this.$store.state.http.requests['ticket.getSummary'].get().then(
             (response) => {
                 this.$store.state.app.ticketSummary.unread = response.data.data.unread;

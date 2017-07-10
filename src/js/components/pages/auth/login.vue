@@ -167,8 +167,17 @@
                                 vm.$store.commit('app/ready');
 
                                 if(vm.$route.params.refererId) {
-                                    vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
-                                    vm.$router.push({name: 'telegram.referer'});
+
+                                    if(vm.$route.params.refererId === 'telegram-payment') {
+                                        TelegramGameProxy.paymentFormSubmit({
+                                            credentials: {type: "card", token: vm.$store.state.auth.user.public_id},
+                                            title: 'zp.' + vm.$store.state.auth.user.public_id
+                                        });
+                                    } else {
+                                        vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
+                                        vm.$router.push({name: 'telegram.referer'});
+                                    }
+
                                 } else {
                                     vm.$router.push({name: 'home.index'});
                                 }
