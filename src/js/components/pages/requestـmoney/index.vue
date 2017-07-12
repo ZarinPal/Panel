@@ -8,8 +8,10 @@
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
 
-        div.request-money-index
+        div.ta-center(v-if="isRequest")
+            loading
 
+        div.request-money-index(v-bind:class="{'inactive-index': isRequest}")
             <!--Blur background-->
             div.nav-blur-container
                 div.row.blur-content.no-margin
@@ -47,7 +49,7 @@
                     loading
 
                 div.nav-debts(v-if="whichTab == 'debt' && debts.data.length")
-                    singleDebt(v-for="debt in debts.data" v-bind:key="debt.entity_id" v-bind:debt="debt")
+                    singleDebt(v-for="debt in debts.data" v-bind:key="debt.entity_id" v-bind:debt="debt" v-on:changeRequestMode="changeRequestMode")
 
                     div.row(v-if="!loadingDebtState.debtStatus && !debts.data.length")
                         div.col-xs.ta-center
@@ -73,6 +75,8 @@
           return {
               whichTab: 'requests',
               visibleNewRequestMoney: false,
+              isRequest: false,
+
           }
         },
         computed: {
@@ -114,12 +118,11 @@
         created() {
             if(this.whichTab === 'requests') {
                 this.getDemand();
-                this.loadMoreDemand();
-
             } else if(this.whichTab === 'debt') {
                 this.getDebt();
-                this.loadMoreDebt();
             }
+
+            this.loadMore();
         },
         methods: {
             changeTab(value) {
@@ -129,9 +132,9 @@
                         this.getDemand();
                     }
                 } else if(this.whichTab === 'debt') {
-//                    if(this.debts) {
+                    if(!('DebtList' in this.$store.state.paginator.paginator)) {
                         this.getDebt();
-//                    }
+                    }
                 }
             },
             getDemand() {
@@ -145,20 +148,6 @@
                     },
                 );
             },
-            loadMoreDemand(){
-                let vm = this;
-                window.onscroll = function(ev) {
-                    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                        && !vm.loadingDemandState.demandStatus) {
-                        vm.$store.dispatch(
-                            'paginator/next',
-                            {
-                                requestName: 'DemandList'
-                            }
-                        );
-                    }
-                };
-            },
             getDebt() {
                 let vm = this;
                 vm.$store.dispatch(
@@ -170,30 +159,45 @@
                     }
                 );
             },
-            loadMoreDebt() {
+            loadMore() {
                 let vm = this;
                 window.onscroll = function(ev) {
-                    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                        && !vm.loadingDebtState.debtStatus) {
-                        vm.$store.dispatch(
-                            'paginator/next',
-                            {
-                                requestName: 'DebtList'
-                            }
-                        );
+                    if(vm.whichTab === 'requests') {
+                        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+                            && !vm.loadingDemandState.demandStatus) {
+                            vm.$store.dispatch(
+                                'paginator/next',
+                                {
+                                    requestName: 'DemandList'
+                                }
+                            );
+                        }
+                    } else {
+                        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+                            && !vm.loadingDebtState.debtStatus) {
+                            vm.$store.dispatch(
+                                'paginator/next',
+                                {
+                                    requestName: 'DebtList'
+                                }
+                            );
+                        }
                     }
                 };
             },
             closeModal(){
                 this.visibleNewRequestMoney = false;
                 store.commit('clearValidationErrors');
+            },
+            changeRequestMode() {
+                this.isRequest = !this.isRequest;
             }
         },
         components: {
             singleDemand,
             singleDebt,
             loading,
-            newRequestMoney
+            newRequestMoney,
         },
     }
 </script>
