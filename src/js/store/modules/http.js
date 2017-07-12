@@ -2,6 +2,9 @@ export default {
     namespaced: true,
 
     state: {
+        services: {
+            'pg': 'https://www.zarinpal.com/pg/StartPay/'
+        },
         requests: {},
         routes: [
             {
@@ -247,6 +250,10 @@ export default {
             {
                 name: "requestMoney.postRequestMoney",
                 url: "requestMoney.json"
+            },
+            {
+                name: "requestMoney.payRequestMoney",
+                url: "requestMoney/payment/{entityId}.json"
             },
             {
                 name: "requestMoney.getDemand",

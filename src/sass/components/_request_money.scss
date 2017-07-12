@@ -2,6 +2,11 @@
    Request Money Index
    =============== */
 
+.inactive-index{
+  pointer-events: none;
+  filter: blur(3px);
+}
+
 /*** Nav background image ***/
 .request-money-index{
   margin-top: 10px;
@@ -225,6 +230,117 @@
   .pending-text{
     font-size:13px;
     color: #ff9800;
+  }
+
+}
+
+/* ===============
+   Request Details
+   =============== */
+.request-details{
+  /*** Common ***/
+  .nav-amount{
+    padding: 30px 0;
+    border-bottom: 1px solid #eee;
+
+    >span{
+      font-size: 24px;
+      margin-left: 5px;
+    }
+
+    >small{
+      color: #777777;
+    }
+  }
+
+  .nav-request-status {
+    .row{
+      font-size: 15px;
+      padding: 10px 4px;
+      border-bottom: 1px solid #eee;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  /*** Demand details***/
+  .demand-details{
+    .nav-top{
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+      margin: 0px -20px 0 -20px;
+
+      .row{
+        div{
+          padding: 10px 20px;
+        }
+      }
+    }
+
+
+    .users{
+      margin-top: 3px;
+      margin-left: -20px;
+      margin-right: -20px;
+      margin-bottom: -20px;
+      background-color: #FBFBFB;
+      border-radius: 0 0 $boxBorderRadiusSize $boxBorderRadiusSize;
+      max-height: 250px;
+      overflow: auto;
+
+      .persons-text{
+        margin: 20px 20px;
+        color: #666;
+        padding-top: 10px;
+      }
+
+      >.row{
+        border-bottom: 1px solid #eee;
+
+        .name{
+          margin-top: 10px;
+          font-size: 14px;
+        }
+
+        .amount{
+          font-size: 18px;
+          margin-left: 5px;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      .avatar {
+        width:50px;
+        border-radius: 50%;
+        margin: 5px 20px 5px 1px;
+        position: relative;
+        top: 5px;
+      }
+
+      .nav-status {
+        >span {
+          margin-left: 20px;
+          margin-top: 26px;
+          display: inline-block;
+        }
+      }
+
+    }
+  }
+
+  /*** Debt details***/
+  .debt-details{
+    padding: 0 20px;
+
+    .avatar{
+      width:60px;
+      border-radius: 50%;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    }
   }
 
 }
@@ -573,7 +689,6 @@
     }
   }
 }
-
 /* ===============
    Responsive actions
    =============== */
