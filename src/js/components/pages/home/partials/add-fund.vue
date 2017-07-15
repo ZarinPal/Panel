@@ -39,14 +39,12 @@
                 closeModalContent: false,
                 amount: '',
                 cardId: '',
-                redirectUrl:encodeURI(
-//                'https://' + window.location.hostname + '/panelw/index.html#'
-                'https://' + window.location.hostname + '/panel'
-                + this.$router.resolve({name: 'home.finishAddFund'}).href),
+                redirectUrl: null
             }
         },
         props: ['purse'],
         mounted(){
+            this.redirectUrl =  this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href ;
             this.closeModalContent = false
         },
         computed:{

@@ -74,7 +74,7 @@
         },
         props:['debt', 'demand'],
         mounted() {
-            this.closeModalContent = false
+            this.closeModalContent = false;
         },
         methods: {
             closeModal() {
