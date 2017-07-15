@@ -1,6 +1,6 @@
 <template lang="pug">
     div
-        div.row.trans-row(@click="visibleDetails = true")
+        div.row.trans-row(@click="showDetails")
             div.col-lg-2
                 span.nav-user-avatars
                     img.users-avatar(:src="debt.avatar" :title="debt.name")
@@ -44,7 +44,6 @@
 </template>
 
 <script>
-
     import confirm from '../../partials/confirm.vue';
     import payRequest from '../partials/pay_request.vue';
     import requestDetails from '../partials/request_details.vue';
@@ -66,6 +65,9 @@
                 this.confirmVisible = false;
                 this.visiblePayRequest = false;
                 this.visibleDetails = false;
+            },
+            showDetails() {
+                this.visibleDetails = this.debt.status !== 'pending';
             },
             reject() {
                 this.changeRequestMode();
