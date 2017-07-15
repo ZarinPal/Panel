@@ -486,6 +486,7 @@
       overflow: auto;
       .user-row{
         width: 100%;
+        cursor: pointer !important;
         >label{
           width: 100% !important;
         }
@@ -519,6 +520,7 @@
   /*** Select Method ***/
   .nav-request-type{
     margin: 20px 10px;
+    cursor: pointer;
 
     .nav-selected-avatars {
       width: 310px;
@@ -542,6 +544,7 @@
     }
 
     .method-box{
+      cursor: pointer;
       background-color: #f7f7f7;
       border:1px solid transparent;
       border-radius: 5px;
@@ -553,12 +556,14 @@
       }
 
       .title{
+        cursor: pointer;
         font-size: 15px;
         color: $labelColor;
         font-weight: bold;
       }
 
       .description{
+        cursor: pointer;
         font-size: 14px;
       }
 
@@ -657,10 +662,15 @@
   }
 
   .amount-input{
+    text-align: center;
     font-size:36px;
     color:#676767;
     border:1px solid #cecece;
     border-radius: $boxBorderRadiusSize;
+
+    &::placeholder  {
+      font-size: 25px;
+    }
   }
 
   /*** Description and details ***/

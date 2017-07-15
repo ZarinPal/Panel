@@ -77,14 +77,14 @@
             <!--Step 3 Manually Division-->
             div.nav-manually-division(v-else-if="step == 3 && requestType == 'Manually'")
                 div.selected-users-avatar.manually-selected-users-avatar
-                    span.icon-prev(v-if="manuallyUserCounter > 0" @click="manuallyUserCounter--" title="قبلی")
+                    span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" title="قبلی")
 
                     div.avatar-container
                         img.avatar(v-for="(user, index) in selectedUsers" :src="user.avatar" v-bind:class="{'active-image' : manuallyUserCounter === index}")
 
                     div.arrow
 
-                    span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="manuallyUserCounter++" title="بعدی")
+                    span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" title="بعدی")
 
                 div.row
                     div.col-xs.ta-center
@@ -140,9 +140,8 @@
                         span.user-counter.persian-num(v-if="step === 1") {{checkUsers.length + ' ' + $i18n.t('requestMoney.personSelected')}}
 
                     div.col-xs.no-margin
-                        button.btn.success.pull-left(v-ripple="" @click="nextStep" v-if="checkUsers.length && step <= 3") {{$i18n.t('requestMoney.nextStep')}}
+                        button.btn.success.pull-left(v-ripple="" @click="nextStep" v-if="step <= 3") {{$i18n.t('requestMoney.nextStep')}}
                         button.btn.success.pull-left(v-ripple="" @click="postRequestMoney" v-if="step == 4") {{$i18n.t('requestMoney.request')}}
-
 
 </template>
 
@@ -154,6 +153,7 @@
         name: 'pages-requestMoney-partials-new',
         data() {
             return {
+                maxAmountLimit: 20000000,
                 loading: false,
                 step: 1, //Select user, select pay method(auto, manually)
                 pageTitle: 'selectUsers',
@@ -223,8 +223,47 @@
                 this.$emit('closeModal');
             },
             nextStep() {
-              this.step ++;
-              this.changeTitle();
+                if(this.step === 1) {
+                    if(this.checkUsers.length <= 0) {
+                        store.commit('flashMessage',{
+                            text: 'check-users-you-want',
+                            type: 'danger'
+                        });
+
+                        return;
+                    }
+                }
+
+                if(this.step === 3 && this.requestType === 'Auto') {
+                    if(!this.requestAmount) {
+                        store.commit('flashMessage',{
+                            text: 'enter-request-amount',
+                            type: 'danger'
+                        });
+                        return
+                    }
+                }
+
+
+                if(this.step === 3 && this.requestType === 'Manually') {
+                    let users = _.filter(this.selectedUsers, function (user) {
+                        return user.amount;
+                    });
+
+                    if (users) {
+                        if (users.length !== this.selectedUsers.length) {
+                            store.commit('flashMessage',{
+                                text: 'enter-all-user-amount',
+                                type: 'danger'
+                            });
+
+                            return;
+                        }
+                    }
+                }
+
+                this.step ++;
+                this.changeTitle();
                 this.getSelectedUsers();
             },
             prevStep() {
@@ -275,11 +314,44 @@
                     }
                 });
             },
+            incManuallyUserCounter() {
+                this.manuallyUserCounter++;
+            },
+            descManuallyUserCounter() {
+                this.manuallyUserCounter--;
+            },
             /*** Send request money***/
             postRequestMoney(){
+                if(!this.description) {
+                    store.commit('flashMessage',{
+                        text: 'fill-description-input',
+                        type: 'danger'
+                    });
+                    return;
+                }
+
+                /*** Check Amount***/
+                if(this.requestType === 'Auto') {
+                    if(this.requestAmount < 100 || this.requestAmount > this.maxAmountLimit) {
+                        store.commit('flashMessage',{
+                            text: 'request-money-amount-limit',
+                            type: 'danger'
+                        });
+                        return;
+                    }
+                } else if(this.requestType === 'Manually') {
+                    if(this.manuallyTotalAmount < 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
+                        store.commit('flashMessage',{
+                            text: 'request-money-amount-limit',
+                            type: 'danger'
+                        });
+                        return;
+                    }
+                }
+
+
                 this.isLoading = true;
                 let requestMoneyData = [];
-
 
                 let vm = this;
                 this.selectedUsers.forEach(function (user) {
