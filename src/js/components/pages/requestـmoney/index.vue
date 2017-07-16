@@ -27,7 +27,8 @@
                             span.request-button(@click="visibleNewRequestMoney = true") دنگی دونگی جدید
 
 
-                img.user-profile-background(:src="user.avatar")
+                div.blur-container
+                    img.user-profile-background(:src="user.avatar")
 
 
             div.col-lg-12.col-md-12.col-sm-12.col-xs-12.nav-menu
@@ -41,9 +42,9 @@
                 div.nav-requests(v-if="whichTab == 'requests' && demands.data.length")
                     singleDemand(v-for="demand in demands.data" v-bind:key="demand.entity_id" v-bind:demand="demand")
 
-                    div.row(v-if="!loadingDemandState.demandStatus && !demands.data.length")
-                        div.col-xs.ta-center
-                            span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+                div.row(v-if="!loadingDemandState.demandStatus && !demands.data.length && whichTab == 'requests'")
+                    div.col-xs.ta-center
+                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
                 div.ta-center(v-if="whichTab == 'requests' && loadingDemandState.demandStatus")
                     loading
@@ -51,9 +52,9 @@
                 div.nav-debts(v-if="whichTab == 'debt' && debts.data.length")
                     singleDebt(v-for="debt in debts.data" v-bind:key="debt.entity_id" v-bind:debt="debt" v-on:changeRequestMode="changeRequestMode")
 
-                    div.row(v-if="!loadingDebtState.debtStatus && !debts.data.length")
-                        div.col-xs.ta-center
-                            span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+                div.row(v-if="!loadingDebtState.debtStatus && !debts.data.length && whichTab == 'debt'")
+                    div.col-xs.ta-center
+                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
                 div.ta-center(v-if="whichTab == 'debt' && loadingDebtState.debtStatus")
                     loading

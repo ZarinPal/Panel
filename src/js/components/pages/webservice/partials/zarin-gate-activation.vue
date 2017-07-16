@@ -21,7 +21,8 @@
 
             div.row
                 div.col-xs.no-margin.ta-right
-                    span.persian-num.activation-price(v-if="priceZaringate")  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
+                    loading(v-if="getPriceLoading")
+                    span.persian-num.activation-price(v-else)  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
 
                 div.no-margin
                     button.btn.success.pull-left(v-ripple="" @click="activeZarinGate") {{$i18n.t('webservice.activeZarinGateSubmit')}}
@@ -36,12 +37,14 @@
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
     import modal from '../../partials/modal.vue';
+    import loading from '../../partials/loading.vue';
 
     export default {
         name: 'home-webservice-partials-zarinGateActivation',
         data() {
             return {
                 loading: false,
+                getPriceLoading: true,
                 visibleDescription: false,
                 closeModalContent: true,
                 purse: null,
@@ -99,13 +102,15 @@
             getPriceZaringate() {
                 this.$store.state.http.requests['webservice.getPriceZaringate'].get().then(response => {
                     this.priceZaringate = response.data.data[0];
+                    this.getPriceLoading = false;
                 });
             },
         },
         components: {
             selectbox,
             purse,
-            modal
+            modal,
+            loading
         }
     }
 

@@ -6,9 +6,13 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs.ta-right
                     div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
                     span.bank-name {{ card.issuer.name}}
-                div.ta-left(v-if="card.status === 'Active'")
-                    span.accepted-card
-                        span {{$i18n.t('card.accepted')}}
+                div.ta-left
+                    span.accepted-card(v-if="card.status === 'Active'")
+                        span {{$i18n.t('card.Active')}}
+                    span.pending-card(v-else-if="card.status === 'Pending'")
+                        span {{$i18n.t('card.pending')}}
+                    span.in-active-card(v-else-if="card.status === 'InActive'")
+                        span {{$i18n.t('card.inActive')}}
 
             div.row(v-if="card.pan")
                 span.card-number
