@@ -71,6 +71,11 @@
                 return this.$store.state.alert.validationErrors;
             },
         },
+        created() {
+            if(this.$store.state.auth.check) {
+                this.$router.push({name: 'home.index'});
+            }
+        },
         methods: {
             register(event){
                 event.preventDefault();

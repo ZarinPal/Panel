@@ -147,6 +147,41 @@ $sepahToColor: #feb773;
       }
     }
   }
+
+  .pending-card {
+    span {
+      color: #ff9800 !important;
+      font-size: 13px;
+      &:after {
+        content: $pendingCardIcon;
+        font-family: 'zarinpal';
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        margin-left: 5px;
+        font-size: 17px;
+      }
+    }
+  }
+
+
+  .in-active-card {
+    span {
+      color: #ff1744 !important;
+      font-size: 13px;
+      &:after {
+        content: $inActiveCardIcon;
+        font-family: 'zarinpal';
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        margin-left: 5px;
+        font-size: 17px;
+      }
+    }
+  }
+
+
 }
 
 .card-number {

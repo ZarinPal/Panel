@@ -16,9 +16,12 @@
     border-radius:5px 5px 0 0;
     box-shadow: 0 0 3px rgba(0, 0, 0, .2);
 
+    .blur-container{
+      height: 40px;
+    }
+
     .user-profile-background{
       width: 110%;
-      height: 200px;
       background-repeat: no-repeat;
       z-index: -1;
       position: relative;
@@ -27,7 +30,7 @@
       filter: blur(15px);
       margin-top: -170px;
       right: -10px;
-      top: -30px;
+      top: -110px;
       bottom: 0;
     }
 
@@ -757,7 +760,7 @@
   .request-money-index {
     .nav-blur-container {
       .user-profile-background{
-        height: 260px !important;
+        //height: 260px !important;
         margin-top: -210px !important;
       }
     }

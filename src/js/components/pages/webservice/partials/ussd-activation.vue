@@ -31,7 +31,8 @@
 
             div.row
                 div.col-xs.ta-right.no-margin
-                    span.persian-num.activation-price(v-if="priceUssd")  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
+                    loading(v-if="getPriceLoading")
+                    span.persian-num.activation-price(v-else)  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
 
                 div.no-margin
                     button.btn.success.pull-left(v-ripple="" @click="activeUssd") {{$i18n.t('webservice.activation')}}
@@ -44,12 +45,14 @@
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
     import modal from '../../partials/modal.vue';
+    import loading from '../../partials/loading.vue';
 
     export default {
         name: 'home-webservice-partials-ussdActivation',
         data() {
             return {
                 loading: false,
+                getPriceLoading: true,
                 visibleDescription: false,
                 closeModalContent: true,
                 purse: null,
@@ -79,6 +82,7 @@
             getPriceUssd() {
                 this.$store.state.http.requests['webservice.getPriceUssd'].get().then(response => {
                     this.priceUssd = response.data.data[0];
+                    this.getPriceLoading = false;
                 });
             },
             activeUssd() {
@@ -115,7 +119,8 @@
         components: {
             selectbox,
             purse,
-            modal
+            modal,
+            loading
         }
     }
 

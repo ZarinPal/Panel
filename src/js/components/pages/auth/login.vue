@@ -106,7 +106,12 @@
         },
         mounted(){
             if(this.$route.query.mobile){
-                this.username = this.$route.query.mobile;
+                thisg.username = this.$route.query.mobile;
+            }
+        },
+        created() {
+            if(this.$store.state.auth.check) {
+                this.$router.push({name: 'home.index'});
             }
         },
         methods: {
