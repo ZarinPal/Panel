@@ -5,53 +5,58 @@
                 p.page-title {{ $i18n.t('webservice.create') }}
                 p.page-description {{ $i18n.t('webservice.createDescription') }}
 
-
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
             div.box
-                div.body
+                form(autocomplete="on")
+                    div.body
+                        div.row
+                            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+                                div.row.no-margin
+                                    span.input-icon.home-icon
+                                    input(:class="{'input-danger': validationErrors.site_name}" type="text" v-model="site_name" placeholder= "نام وب‌سایت")
+                                    div.ta-right(v-if="validationErrors.site_name")
+                                        span.text-danger {{ $i18n.t(validationErrors.site_name) }}
+
+                                div.row.no-margin
+                                    span.input-icon.earth-icon
+                                    div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.domain}")
+                                        div.col-xs.no-margin
+                                            input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir")
+                                        div.no-margin.first-label
+                                            span http://www.
+
+                                    div.ta-right(v-if="validationErrors.domain")
+                                        span.text-danger {{ $i18n.t(validationErrors.domain) }}
+
+
+                                div.row.no-margin
+                                    span.input-icon.mobile-icon
+                                    input(:class="{'input-danger': validationErrors.tel}" type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
+                                    div.ta-right(v-if="validationErrors.tel")
+                                        span.text-danger {{ $i18n.t(validationErrors.tel) }}
+
+                                div.row.no-margin
+                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.site_content}" v-model="site_content" placeholder= "توضیحات وب‌سایت")
+                                    div.ta-right(v-if="validationErrors.site_content")
+                                        span.text-danger {{ $i18n.t(validationErrors.site_content) }}
+
+                                div.row.no-margin
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول" :class="{'input-danger': validationErrors.purse}")
+                                    div.ta-right(v-if="validationErrors.purse")
+                                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+
+                                div.row.no-margin
+                                    webserviceCategories.webservice-categories(v-on:select="selectedWebserviceCat" :class="{'input-danger': validationErrors.webservice_category_id}")
+                                    <!--span.input-icon.webservice-cat-icon-->
+                                    div.ta-right(v-if="validationErrors.webservice_category_id")
+                                        span.text-danger {{ $i18n.t(validationErrors.webservice_category_id) }}
+
+
                     div.row
-                        div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                            div.row.no-margin
-                                span.input-icon.home-icon
-                                input(:class="{'input-danger': validationErrors.site_name}" type="text" v-model="site_name" placeholder= "نام وب‌سایت")
-                                div.ta-right(v-if="validationErrors.site_name")
-                                    span.text-danger {{ $i18n.t(validationErrors.site_name) }}
-
-                            div.row.no-margin
-                                span.input-icon.earth-icon
-                                div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.domain}")
-                                    div.col-xs.no-margin
-                                        input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir")
-                                    div.no-margin.first-label
-                                        span http://www.
-
-                                div.ta-right(v-if="validationErrors.domain")
-                                    span.text-danger {{ $i18n.t(validationErrors.domain) }}
-
-
-                            div.row.no-margin
-                                span.input-icon.mobile-icon
-                                input(:class="{'input-danger': validationErrors.tel}" type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت")
-                                div.ta-right(v-if="validationErrors.tel")
-                                    span.text-danger {{ $i18n.t(validationErrors.tel) }}
-
-                            div.row.no-margin
-                                textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.site_content}" v-model="site_content" placeholder= "توضیحات وب‌سایت")
-                                div.ta-right(v-if="validationErrors.site_content")
-                                    span.text-danger {{ $i18n.t(validationErrors.site_content) }}
-
-                            div.row.no-margin
-                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
-
-                            div.row.no-margin
-                                webserviceCategories.webservice-categories(v-on:select="selectedWebserviceCat")
-                                <!--span.input-icon.webservice-cat-icon-->
-
-                div.row
-                    div.col-xs.nav-buttons
-                        button.btn.success.pull-left(v-ripple="" @click="createWebservice") {{$i18n.t('webservice.create')}}
-                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                        div.col-xs.nav-buttons
+                            button.btn.success.pull-left(v-ripple="" @click="createWebservice") {{$i18n.t('webservice.create')}}
+                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 

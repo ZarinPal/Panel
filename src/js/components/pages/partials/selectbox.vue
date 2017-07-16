@@ -22,7 +22,6 @@ export default {
         return {
             selectBoxTitle: this.selected,
             isOpen: false,
-            a: '',
             clickOutside: 0,
             clickInside: 0,
         }

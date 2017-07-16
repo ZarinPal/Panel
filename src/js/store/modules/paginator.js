@@ -18,13 +18,13 @@ export default {
     },
     mutations: {
         reset(state, requestName) {
-            // if (!requestName) {
-            //     requestName = 'default';
-            // }
-            //
-            // if(state.paginator[requestName]) {
-            //     state.paginator[requestName].data = [];
-            // }
+            if (!requestName) {
+                requestName = 'default';
+            }
+
+            if(state.paginator[requestName]) {
+                state.paginator[requestName].data = [];
+            }
         },
         setVm(state, vm) {
             state.vm = vm;
