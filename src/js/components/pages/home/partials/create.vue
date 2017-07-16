@@ -2,19 +2,20 @@
     modal.create-purse(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('purse.addPurseTitle') }}
         div(slot="content")
-            div.row
-                input(:class="{'input-danger': validationErrors.name}" type="text" v-model="purseName" placeholder="نام کیف پول")
-                div.ta-right(v-if="validationErrors.name")
-                    span.text-danger {{ $i18n.t(validationErrors.name) }}
+            form(autocomplete="on")
+                div.row
+                    input(:class="{'input-danger': validationErrors.name}" type="text" v-model="purseName" placeholder="نام کیف پول")
+                    div.ta-right(v-if="validationErrors.name")
+                        span.text-danger {{ $i18n.t(validationErrors.name) }}
 
-                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
 
-            div.row
-                p.create-description {{ $i18n.t('purse.createPurseSilverUsersDescription') }}
+                div.row
+                    p.create-description {{ $i18n.t('purse.createPurseSilverUsersDescription') }}
 
-            div.row
-                div.col-xs.no-margin
-                    button.btn.success.pull-left(v-ripple="" @click="createPurse") {{$i18n.t('purse.addPurse')}}
+                div.row
+                    div.col-xs.no-margin
+                        button.btn.success.pull-left(v-ripple="" @click="createPurse") {{$i18n.t('purse.addPurse')}}
 
 </template>
 

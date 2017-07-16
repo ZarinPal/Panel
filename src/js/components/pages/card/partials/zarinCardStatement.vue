@@ -3,23 +3,24 @@
         div(slot="title") {{ $i18n.t('purse.zarinCardStatement')}}
         div(slot="content")
             span(v-if="!zarinCardStatements")
-                div.row.no-margin
-                    div.col-xs.no-right-margin
-                        input(:class="{'input-danger': validationErrors.password}" type="password" v-model="password" placeholder= "رمز دوم")
-                        div.ta-right(v-if="validationErrors.password")
-                            span.text-danger {{ $i18n.t(validationErrors.password) }}
+                form(autocomplete="on")
+                    div.row.no-margin
+                        div.col-xs.no-right-margin
+                            input(:class="{'input-danger': validationErrors.password}" type="password" v-model="password" placeholder= "رمز دوم")
+                            div.ta-right(v-if="validationErrors.password")
+                                span.text-danger {{ $i18n.t(validationErrors.password) }}
 
-                    div.col-xs.no-left-margin
-                        input(:class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder= "CVV2")
-                        div.ta-right(v-if="validationErrors.cvv2")
-                            span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
+                        div.col-xs.no-left-margin
+                            input(:class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder= "CVV2")
+                            div.ta-right(v-if="validationErrors.cvv2")
+                                span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
 
 
-                div.row.no-margin
-                    div.col-xs.nav-buttons.no-left-margin
-                        button.btn.success.pull-left(v-ripple="" @click="getZarinCardStatment") مشاهده گردش حساب
-                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                    div.row.no-margin
+                        div.col-xs.nav-buttons.no-left-margin
+                            button.btn.success.pull-left(v-ripple="" @click="getZarinCardStatment") مشاهده گردش حساب
+                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
             <!--Report result-->

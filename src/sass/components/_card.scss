@@ -82,6 +82,9 @@ $melliToColor: #ed7b51;
 $sepahFromColor: #ff7d00;
 $sepahToColor: #feb773;
 
+$disableFromColor: #888;
+$disableToColor: #eee;
+
 /*
 
   Index
@@ -102,6 +105,10 @@ $sepahToColor: #feb773;
   margin-left: 10px;
   margin-top: 2px;
   direction: ltr;
+}
+
+.disable-card-box{
+  opacity: .5;
 }
 
 .card {
@@ -328,6 +335,11 @@ $sepahToColor: #feb773;
   @include card-border-color($melliFromColor, $melliToColor);
 }
 
+.disable-card {
+  @include card-border-color($disableFromColor, $disableToColor);
+}
+
+
 //Card bank logo
 @mixin card-logo($logoPath) {
   width: 25px;
@@ -454,11 +466,7 @@ $sepahToColor: #feb773;
   @include card-border-color($sepahFromColor, $sepahToColor);
 }
 
-/*
-
-  Create Card Modal
-
-*/
+/*** Create Card Modal ***/
 .card {
   .body {
     border-radius: 0 0 $boxBorderRadiusSize $boxBorderRadiusSize;

@@ -40,7 +40,7 @@
                 div.break
 
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                ul.select_item.pull-left
+                ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
                     li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
                     li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
                     li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
@@ -182,9 +182,11 @@
                 this.searchOptions[filter] = value;
             },
             applyGeneralFilter(filter) {
-                this.generalFilter = filter;
-                this.addFilter('status', this.generalFilter);
-                this.search();
+                if(!this.loadingState.status) {
+                    this.generalFilter = filter;
+                    this.addFilter('status', this.generalFilter);
+                    this.search();
+                }
             },
             search(){
                 let vm = this;

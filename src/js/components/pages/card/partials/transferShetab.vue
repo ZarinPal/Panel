@@ -6,30 +6,31 @@
 
             div(v-else)
                 div(v-if="step == 1")
-                    div.row.no-margin
-                        div.col-xs.no-right-margin
-                            input(:class="{'input-danger': validationErrors.password}" type="password" v-model="password" placeholder="رمز دوم")
-                            div.ta-right(v-if="validationErrors.password")
-                                span.text-danger {{ $i18n.t(validationErrors.password) }}
+                    form(autocomplete="on")
+                        div.row.no-margin
+                            div.col-xs.no-right-margin
+                                input(:class="{'input-danger': validationErrors.password}" type="password" v-model="password" placeholder="رمز دوم")
+                                div.ta-right(v-if="validationErrors.password")
+                                    span.text-danger {{ $i18n.t(validationErrors.password) }}
 
-                        div.col-xs.no-left-margin
-                            input(:class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder="CVV2")
-                            div.ta-right(v-if="validationErrors.cvv2")
-                                span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
+                            div.col-xs.no-left-margin
+                                input(:class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder="CVV2")
+                                div.ta-right(v-if="validationErrors.cvv2")
+                                    span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
 
-                    div.row.no-margin
-                        input(:class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" placeholder="شماره کارت مقصد")
-                        div.ta-right(v-if="validationErrors.dst_pan")
-                            span.text-danger {{ $i18n.t(validationErrors.dst_pan) }}
+                        div.row.no-margin
+                            input(:class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" placeholder="شماره کارت مقصد")
+                            div.ta-right(v-if="validationErrors.dst_pan")
+                                span.text-danger {{ $i18n.t(validationErrors.dst_pan) }}
 
-                    div.row.no-margin
-                        input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
-                        div.ta-right(v-if="validationErrors.amount")
-                            span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                        div.row.no-margin
+                            input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                            div.ta-right(v-if="validationErrors.amount")
+                                span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
-                    div.row.no-margin
-                        div.col-xs.no-left-margin
-                            button.btn.success.pull-left(v-ripple="" @click="confirmTransfer") {{ $i18n.t('purse.nextStep') }}
+                        div.row.no-margin
+                            div.col-xs.no-left-margin
+                                button.btn.success.pull-left(v-ripple="" @click="confirmTransfer") {{ $i18n.t('purse.nextStep') }}
 
                 div.list(v-else)
                     span(v-if="destinationUser && !transferResponse")

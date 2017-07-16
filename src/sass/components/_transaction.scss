@@ -33,12 +33,18 @@
     font-size: 13px;
     margin: 0 10px;
   }
+
   .purse-name{
     font-size: 13px;
     margin-right: -7px;
     /* display: inline-block; */
     /* margin-top: 7px; */
     position: relative;
+  }
+
+  .disable-filter{
+    pointer-events: none;
+    opacity: 0.5;
   }
 
 }

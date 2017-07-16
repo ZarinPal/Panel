@@ -6,54 +6,58 @@
                 p.page-description ٖ{{ $i18n.t('webservice.editWebserviceDescription') }}
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
             div.box
-                div.body
+                form(autocomplete="on")
+                    div.body
+                        div.row
+                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12
+                                div.row.no-margin
+                                    span.input-icon.ip-icon
+                                    input(:class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" maxlength="15")
+                                    div.ta-right(v-if="validationErrors.site_ip")
+                                        span.text-danger {{ $i18n.t(validationErrors.site_ip) }}
+
+                                div.row.no-margin
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول" :class="{'input-danger': validationErrors.purse}")
+                                    div.ta-right(v-if="validationErrors.purse")
+                                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+
+                                div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
+                                    <!--span.input-icon.webservice-cat-icon-->
+                                    webserviceCategories(v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': validationErrors.webservice_category_id}")
+                                    div.ta-right(v-if="validationErrors.webservice_category_id")
+                                        span.text-danger {{ $i18n.t(validationErrors.webservice_category_id) }}
+
+                                div.row
+                                    div.nav-picker
+                                        span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
+
+                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12.ta-center
+                                    img.webservice-logo(:src="selectedLogo")
+
+                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+                                    div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
+                                        div.row
+                                            div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")
+                                                span.upload-icon
+
+                                            div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
+                                                p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
+                                                div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
+                                                    span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
+                                                    input#attach(type="file" name="file" @change="onLogoChange")
+                                                    div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
+
+
+
+                                div.ta-right(v-if="validationErrors.site_logo")
+                                    span.text-danger {{ $i18n.t(validationErrors.attachment) }}
+
+
                     div.row
-                        div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                            div.row.no-margin
-                                span.input-icon.ip-icon
-                                input(:class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" maxlength="15")
-                                div.ta-right(v-if="validationErrors.site_ip")
-                                    span.text-danger {{ $i18n.t(validationErrors.site_ip) }}
-
-
-                            div.row.no-margin
-                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
-
-                            div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
-                                <!--span.input-icon.webservice-cat-icon-->
-                                webserviceCategories(v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id")
-
-                            div.row
-                                div.nav-picker
-                                    span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
-
-                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12.ta-center
-                                img.webservice-logo(:src="selectedLogo")
-
-                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                                div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
-                                    div.row
-                                        div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                            span.upload-icon
-
-                                        div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                            p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
-                                            div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
-                                                span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
-                                                input#attach(type="file" name="file" @change="onLogoChange")
-                                                div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
-
-
-
-                            div.ta-right(v-if="validationErrors.site_logo")
-                                span.text-danger {{ $i18n.t(validationErrors.attachment) }}
-
-
-                div.row
-                    div.col-xs.nav-buttons
-                        button.btn.success.pull-left( v-ripple="" @click="editWebservice") {{$i18n.t('webservice.edit')}}
-                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                        div.col-xs.nav-buttons
+                            button.btn.success.pull-left( v-ripple="" @click="editWebservice") {{$i18n.t('webservice.edit')}}
+                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
 
 
