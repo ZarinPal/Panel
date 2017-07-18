@@ -28,7 +28,9 @@ const app = new Vue({
     router: require('./router').default,
     data() {
       return {
-          baseUrl: 'https://api.zarinpal.dev/panelw/index.html',
+          // https://next.zarinpal.com/panel            =======> its for next
+          // https://api.zarinpal.dev/panelw/index.html =======> its for dev
+          baseUrl: 'https://next.zarinpal.com/panel',
       }
     },
     http: {

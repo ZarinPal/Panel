@@ -72,6 +72,10 @@
             },
         },
         created() {
+            if(this.$route.params.mobile) {
+                this.mobile = this.$route.params.mobile;
+            }
+
             if(this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }

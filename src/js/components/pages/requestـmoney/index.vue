@@ -77,7 +77,6 @@
               whichTab: 'requests',
               visibleNewRequestMoney: false,
               isRequest: false,
-
           }
         },
         computed: {
@@ -124,6 +123,12 @@
             }
 
             this.loadMore();
+
+            /*** Show debt list on click notifications ***/
+            if(this.$route.params.type) {
+                this.whichTab = 'debt';
+            }
+
         },
         methods: {
             changeTab(value) {
