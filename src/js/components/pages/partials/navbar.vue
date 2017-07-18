@@ -5,7 +5,7 @@
             span.mobile-sidebar-collapse(@click="toggleMobileSidebar()")
             h4.hidden-xs.navbar-title پیشخوان
 
-        div.navigation-logo.col.col-lg-2.col-sm-2.col-xs-2
+        router-link.navigation-logo.col.col-lg-2.col-sm-2.col-xs-2(tag="div" v-bind:to="{name: 'home.index'}")
             div.logo
 
         div.col-lg-5.col-sm-5.col-xs-5.left-box
@@ -27,14 +27,20 @@
 
                     div.row.body
                         div.full-width(v-for="notification in notifications")
+                            <!--Ticket-->
                             router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
                                 div.title {{notification.title}}
                                 div.body {{notification.body | less}}
 
+                            <!--Transaction-->
                             router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'transaction.index', params: {id: 1, type: 'purse', transactionId: notification.id}}")
                                 div.title {{notification.title}}
                                 div.body {{notification.body | less}}
 
+                            <!--Request money-->
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
+                                div.title {{notification.title}}
+                                div.body {{notification.body | less}}
 
                         div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.length")
                             span هیچ موردی برای نمایش وجود ندارد

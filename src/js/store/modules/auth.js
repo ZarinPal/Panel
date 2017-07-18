@@ -4,6 +4,7 @@ export default {
         isLoaded: false,
         user: {},
         check: false,
+        otpTime: 30, //As seconds
     },
     mutations: {
         fill(state, user) {
@@ -17,6 +18,7 @@ export default {
         },
         empty(state) {
             state.user = {};
+            state.check = false;
         },
         change(state, data) {
             state.user[data.name] = data.value;
@@ -29,7 +31,8 @@ export default {
                     commit('fill', response.data.data);
                     dispatch('fetchPurceBalance', callback);
                 }
-            ).catch(()=>{
+            ).catch((response)=>{
+                console.log(response);
                 callback(false);
             });
         },
@@ -46,8 +49,6 @@ export default {
                     }
                 });
             });
-
-
         },
         save ({state, rootState}) {
             rootState.http.requests['profile'].update({
