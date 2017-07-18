@@ -40,7 +40,7 @@
                 div.break
 
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                ul.select_item.pull-left
+                ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
                     li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
                     li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
                     li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
@@ -66,18 +66,17 @@
 
 
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-            span(v-if="transactions.length")
-                singleTransaction(v-for="transaction in transactions"  v-bind:key="transaction.public_id" v-bind:transaction="transaction")
+            span(v-if="transactions.data.length")
+                singleTransaction(v-for="transaction in transactions.data"  v-bind:key="transaction.public_id" v-bind:transaction="transaction")
 
-            div.row(v-if="!this.$store.state.paginator.isLoading && !transactions.length")
+            div.row(v-if="!loadingState.status && !transactions.data.length")
                 div.col-xs.ta-center
                     span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
-        div.ta-center(v-if="this.$store.state.paginator.isLoading")
+        div.ta-center(v-if="loadingState.status")
             loading
 
         transactionDetails(v-if="transaction && showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal")
-
 
 </template>
 
@@ -136,8 +135,17 @@
                 return this.$store.state.auth.user;
             },
             transactions() {
-                return this.$store.state.paginator.data;
-            }
+                return {
+                    data: this.$store.state.paginator.paginator.TransactionList.data,
+                    update: this.$store.state.paginator.update,
+                };
+            },
+            loadingState() {
+                return {
+                    status: this.$store.state.paginator.paginator.TransactionList.isLoading,
+                    update: this.$store.state.paginator.update,
+                }
+            },
         },
         created() {
             this.restart();
@@ -146,9 +154,12 @@
 
             window.onscroll = function(ev) {
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                    && !vm.$store.state.paginator.isLoading) {
+                    && !vm.$store.state.paginator.paginator.TransactionList.isLoading) {
                     vm.$store.dispatch(
-                        'paginator/next'
+                        'paginator/next',
+                        {
+                            requestName: "TransactionList"
+                        }
                     );
                 }
             };
@@ -171,9 +182,11 @@
                 this.searchOptions[filter] = value;
             },
             applyGeneralFilter(filter) {
-                this.generalFilter = filter;
-                this.addFilter('status', this.generalFilter);
-                this.search();
+                if(!this.loadingState.status) {
+                    this.generalFilter = filter;
+                    this.addFilter('status', this.generalFilter);
+                    this.search();
+                }
             },
             search(){
                 let vm = this;
@@ -182,7 +195,8 @@
                     {
                         vm,
                         resource:vm.$store.state.http.requests['transaction.getRecents'],
-                        resourceData:vm.searchOptions
+                        params: vm.searchOptions,
+                        requestName: "TransactionList"
                     }
                 );
             },

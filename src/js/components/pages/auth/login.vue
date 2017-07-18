@@ -9,14 +9,14 @@
 
                 <!--Body-->
                 <!--First step enter mobile-->
-                form(method="post" @submit.prevent="sendOtp('ussd')" v-if="step == 1")
+                form(@submit.prevent="sendOtp('ussd')" v-if="step == 1")
                     div.row.middle-xs
                         div.col-xs-12.no-margin.body-messages
                             div.col-lg-12.ta-right
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل")
+                            input(v-validate="{size: 11, type: 'number', mobile: true}" :class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل" autofocus)
                             div.ta-right(v-if="validationErrors.username")
                                 span.text-danger {{ $i18n.t(validationErrors.username) }}
 
@@ -32,7 +32,7 @@
 
 
                 <!--Second step call ussd code-->
-                form(method="post" @submit.prevent="login"  v-if="step == 2")
+                form(method="post" @submit.prevent="login" v-if="step == 2")
                     div.row.middle-xs
                         div.col-xs-12.no-margin.body-messages
                             <!--Ussd Call header-->
@@ -41,8 +41,11 @@
                                     img.user-avatar(v-bind:src="avatar")
                                 div.col-xs
                                     p {{ $i18n.t('user.yourWelcome') }}
-                                    span(v-if="channel == 'ussd'") {{ $i18n.t('user.callBelowUssdCode') }}
-
+                                    span(v-if="channel == 'ussd'")
+                                        span کد دستوری زیر را توسط شماره موبایل
+                                        span.mobile-number {{ username | persianNumbers}}
+                                        span شماره گیری کنید.
+                                        span.change-mobile(@click="step--") (تغیر شماره تلفن)
                             <!--Ussd Box-->
                             div.row.ussd-box.no-margin(v-if="channel == 'ussd'")
                                 div
@@ -57,19 +60,25 @@
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
 
 
-                        div.col-xs-12.no-margin
-                            input(:class="{'input-danger': validationErrors.otp}" type="text"  v-model="otp" placeholder="رمز یکبار مصرف")
-                            div.ta-right(v-if="validationErrors.otp")
-                                span.text-danger {{ $i18n.t(validationErrors.otp) }}
+                        div.col-xs-12.no-margin.dir-ltr
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus(this)" id="otp1" maxlength="1" autofocus)
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus(this)" id="otp2" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus(this)" id="otp3" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus(this)" id="otp4" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[4]"  size="1" @keyup="changeFocus(this)" id="otp5" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[5]"  size="1" @keyup="changeFocus(this)" id="otp6" maxlength="1")
+                        div.ta-right(v-if="validationErrors.otp")
+                            span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
-                            span.link(v-on:click.prevent="sendOtp('sms')") {{ $i18n.t('user.sendCodeBySms') }}
+                            span.link(v-if="!visibleOtpTimer && visibleSendSms" v-on:click.prevent="sendOtp('sms')") {{ $i18n.t('user.sendCodeBySms') }}
+                            timer(v-if="visibleOtpTimer" v-bind:seconds="$store.state.auth.otpTime" v-on:onFinished="finishTimer")
+
                         div.col-xs.no-margin
-                            button.gold.pull-left {{$i18n.t('user.enter')}}
+                            button.gold.pull-left(id="btnSubmitLogin") {{$i18n.t('user.enter')}}
                                 svg.material-spinner(v-if="loginLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
 
             <!--Privacy Policy-->
             div.row.auth-privacy-footer
@@ -80,9 +89,14 @@
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
                     span.gap
                     a.link(href="https://www.zarinpal.com/policy.html" target="blank") {{$i18n.t('user.privacy')}}
+
+            router-link.link(v-if="userNotRegister" tag="li" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
+
 </template>
 
 <script>
+    import timer from '../../pages/partials/timer.vue';
+
     export default {
         name: 'auth-login',
         data () {
@@ -91,22 +105,40 @@
                 loginLoading: false,
                 ussdType: 'Code',
                 username: "",
-                otp: "",
+                otpObject: {},
                 step: 1,
                 avatar: null,
                 channel: null,
                 ussdCode: null,
                 qrCodeSrc: null,
+                userNotRegister: false,
+                visibleOtpTimer: false,
+                visibleSendSms: true
             }
         },
         computed:{
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
+            },
+            otp() {
+                if(this.otpObject) {
+                    return this.otpObject[0] +
+                        this.otpObject[1] +
+                        this.otpObject[2] +
+                        this.otpObject[3] +
+                        this.otpObject[4] +
+                        this.otpObject[5];
+                }
             }
         },
         mounted(){
             if(this.$route.query.mobile){
-                this.username = this.$route.query.mobile;
+                thisg.username = this.$route.query.mobile;
+            }
+        },
+        created() {
+            if(this.$store.state.auth.check) {
+                this.$router.push({name: 'home.index'});
             }
         },
         methods: {
@@ -117,6 +149,7 @@
                 };
                 if(channel && channel === 'sms'){
                     postData.channel = channel;
+                    this.visibleOtpTimer = true;
                 }
 
                 this.$store.state.http.requests['oauth.postInitializeLogin']
@@ -139,14 +172,22 @@
                     }).catch((response)=>{
                     this.getOtpLoading = false;
                     store.commit('setValidationErrors',response.data.validation_errors);
-                    store.commit('flashMessage', {
-                        text: response.data.meta.error_message,
-                        type: 'danger'
-                    });
-                });
 
+                    if(!this.validationErrors.username) {
+                        this.userNotRegister = true;
+                    }
+                });
             },
             login(event){
+                if(!this.otp) {
+                    store.commit('flashMessage',{
+                        text: 'otp not valid',
+                        important: false,
+                        type: 'danger'
+                    });
+                    return;
+                }
+
                 this.loginLoading = true;
                 let auth2Data = {
                     grant_type: "password",
@@ -157,6 +198,7 @@
                     otp: this.otp,
                     is_web_app: true
                 };
+
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
                         this.loginLoading = false;
@@ -167,8 +209,16 @@
                                 vm.$store.commit('app/ready');
 
                                 if(vm.$route.params.refererId) {
-                                    vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
-                                    vm.$router.push({name: 'telegram.referer'});
+                                    if(vm.$route.params.refererId === 'telegram-payment') {
+                                        TelegramGameProxy.paymentFormSubmit({
+                                            credentials: {type: "card", token: vm.$store.state.auth.user.public_id},
+                                            title: 'zp.' + vm.$store.state.auth.user.public_id
+                                        });
+                                    } else {
+                                        vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
+                                        vm.$router.push({name: 'telegram.referer'});
+                                    }
+
                                 } else {
                                     vm.$router.push({name: 'home.index'});
                                 }
@@ -194,8 +244,33 @@
                 } else {
                     this.ussdType = 'Code';
                 }
+            },
+            finishTimer() {
+                this.visibleOtpTimer = false;
+                this.visibleSendSms = false;
+                this.channel = 'ussd';
+            },
+            changeFocus(){
+                let target = event.srcElement;
+                let myLength = target.value.length;
+                let currentId = target.id;
+                currentId = currentId.substr(currentId.length - 1);
+                if(currentId <= 5) {
+                    let nextElement = target.nextSibling.id;
+                    if (myLength >= 1) {
+                        document.getElementById(nextElement).focus();
+                    }
+                }
+
+                /*** submit form in last digit insert ***/
+                if(currentId == 6) {
+                    document.getElementById("btnSubmitLogin").click();
+                }
             }
         },
+        components:{
+            timer
+        }
     }
 
 </script>

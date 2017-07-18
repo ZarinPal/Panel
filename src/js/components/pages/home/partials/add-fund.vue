@@ -3,21 +3,23 @@
         span(slot="title") {{ $i18n.t('purse.addFund') }}
         div(slot="content")
             div(v-if="activeCards.length")
-                <!--div.row-->
-                    <!--span افزایش حساب کیف پول {{purse.name}}-->
-                div.row.no-margin
-                    input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
-                    div.ta-right(v-if="validationErrors.amount")
-                        span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                div.row.purse-amount
+                    span {{ $i18n.t('common.balance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}}
+                    span {{ $i18n.t('transaction.toman') }}
+                form(autocomplete="on")
+                    div.row.no-margin
+                        input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
+                        div.ta-right(v-if="validationErrors.amount")
+                            span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
-                div.row.no-margin
-                    cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
-                    div.ta-right(v-if="validationErrors.card_id")
-                        span.text-danger {{ $i18n.t(validationErrors.card_id) }}
+                    div.row.no-margin
+                        cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
+                        div.ta-right(v-if="validationErrors.card_id")
+                            span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 
-                div.row
-                    div.col-xs.no-margin
-                        button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
+                    div.row
+                        div.col-xs.no-margin
+                            button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
 
             div.nav-not-active-card(v-else)
                 p.title {{ $i18n.t('common.zarinPal') }}
@@ -39,14 +41,12 @@
                 closeModalContent: false,
                 amount: '',
                 cardId: '',
-                redirectUrl:encodeURI(
-//                'https://' + window.location.hostname + '/panelw/index.html#'
-                'https://' + window.location.hostname + '/panel'
-                + this.$router.resolve({name: 'home.finishAddFund'}).href),
+                redirectUrl: null
             }
         },
         props: ['purse'],
         mounted(){
+            this.redirectUrl =  this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href ;
             this.closeModalContent = false
         },
         computed:{
@@ -82,14 +82,8 @@
                     (response)=> {
                         let addFundWindow = window.open(
                             'https://www.zarinpal.com/pg/StartPay/' + response.data.data.authority + '/ZarinGate',
-                            'شارژ کیف‌پول'
+                            '_self'
                         );
-                        addFundWindow.onbeforeunload = ()=>{
-                            store.commit('flashMessage', {
-                                text: 'کیف پول مورد نظر شارژ شد',
-                                type: 'success',
-                            });
-                        };
                     },
                     (response) => {
                         this.loading = false;

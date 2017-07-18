@@ -1,14 +1,50 @@
 <template lang="pug">
 div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
-    div.box.card
-        div.middle-xs.body.bank-card(v-bind:class="card.issuer.slug.toLowerCase()")
+    div.box.card(:class="{'disable-card-box': card.status !== 'Active'}")
+        <!--Active Card-->
+        div.middle-xs.body.bank-card(v-if="card.status == 'Active'" v-bind:class="card.issuer.slug.toLowerCase()")
             div.row
                 div.col-xs.ta-right
                     div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
                     span.bank-name {{ card.issuer.name}}
-                div.ta-left(v-if="card.status === 'Active'")
-                    span.accepted-card
-                        span {{$i18n.t('card.accepted')}}
+                div.ta-left
+                    span.accepted-card(v-if="card.status === 'Active'")
+                        span {{$i18n.t('card.Active')}}
+                    span.pending-card(v-else-if="card.status === 'Pending'")
+                        span {{$i18n.t('card.pending')}}
+                    span.in-active-card(v-else-if="card.status === 'InActive'")
+                        span {{$i18n.t('card.inActive')}}
+
+            div.row(v-if="card.pan")
+                span.card-number
+                    span(v-html="$options.filters.cardNumber(card.pan)")
+            div.row(v-else)
+                span.card-number
+                    span.iransans {{$i18n.t('card.legalAccount')}}
+
+            div.row.box-row
+                div.ta-right
+                    span.label {{$i18n.t('card.accountId')}}:
+                    span.account-id(v-if="card.account_id") {{ card.account_id | persianNumbers}}
+                    span(v-else) -
+
+                div.col-xs.ta-left(v-if="card.pan")
+                    span {{ $i18n.t('card.expiration') }}:
+                    span.text-value {{card.expired_at| jalali("jYYYY/jM") | persianNumbers}}
+
+        <!--InActive OR Pending Card-->
+        div.middle-xs.body.bank-card.disable-card(v-else-if="card.status == 'InActive' || card.status == 'Pending'")
+            div.row
+                div.col-xs.ta-right
+                    div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
+                    span.bank-name {{ card.issuer.name}}
+                div.ta-left
+                    span.accepted-card(v-if="card.status === 'Active'")
+                        span {{$i18n.t('card.Active')}}
+                    span.pending-card(v-else-if="card.status === 'Pending'")
+                        span {{$i18n.t('card.pending')}}
+                    span.in-active-card(v-else-if="card.status === 'InActive'")
+                        span {{$i18n.t('card.inActive')}}
 
             div.row(v-if="card.pan")
                 span.card-number

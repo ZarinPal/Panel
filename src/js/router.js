@@ -9,7 +9,7 @@ export default new VueRouter({
             meta: {standAlone: true}
         },
         {
-            path: '/auth/register/:refererId?',
+            path: '/auth/register/:refererId?/:mobile?',
             name: 'auth.register',
             component: require('./components/pages/auth/register.vue'),
             meta: {standAlone: true}
@@ -112,7 +112,7 @@ export default new VueRouter({
                             component: require('./components/pages/report/index.vue')
                         },
                         {
-                            path: 'requestMoney',
+                            path: 'requestMoney/:type',
                             name: 'requestMoney.index',
                             component: require('./components/pages/requestـmoney/index.vue')
                         },

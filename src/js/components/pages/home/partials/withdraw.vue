@@ -6,19 +6,20 @@
                 div.modal-description
                     div {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
 
-                div.row
-                    input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
-                    div.ta-right(v-if="validationErrors.amount")
-                        span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                form(autocomplete="on")
+                    div.row
+                        input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
+                        div.ta-right(v-if="validationErrors.amount")
+                            span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
-                div.row
-                    cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
-                    div.ta-right(v-if="validationErrors.card_id")
-                        span.text-danger {{ $i18n.t(validationErrors.card_id) }}
+                    div.row
+                        cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
+                        div.ta-right(v-if="validationErrors.card_id")
+                            span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 
-                div.row
-                    div.col-xs.no-margin
-                        button.btn.success.pull-left(v-ripple="" @click="withdraw") {{$i18n.t('transaction.withdraw')}}
+                    div.row
+                        div.col-xs.no-margin
+                            button.btn.success.pull-left(v-ripple="" @click="withdraw") {{$i18n.t('transaction.withdraw')}}
 
             div.nav-not-active-card(v-else)
                 p.title {{ $i18n.t('common.zarinPal') }}

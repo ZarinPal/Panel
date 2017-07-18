@@ -105,6 +105,12 @@ span
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
+            loadingTicketState() {
+                return {
+                    status: this.$store.state.paginator.paginator.TicketList.isLoading,
+                    update: this.$store.state.paginator.update,
+                }
+            },
         },
         created() {
             //Change ticket list new ticket button
@@ -115,11 +121,16 @@ span
             let vm = this;
             let ticketContent = document.getElementById('ticketContent');
 
+
+
             ticketContent.addEventListener("scroll", function(e) {
                 if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
-                    && !vm.$store.state.paginator.isLoading){
+                    && !vm.loadingTicketState.status){
                     vm.$store.dispatch(
-                        'paginator/next'
+                        'paginator/next',
+                        {
+                            requestName: 'TicketList'
+                        }
                     );
                 }
             });

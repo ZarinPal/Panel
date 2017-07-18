@@ -5,5 +5,6 @@ window.store = new Vuex.Store({
         auth: require('./modules/auth').default,
         app: require('./modules/app').default,
         paginator: require('./modules/paginator').default,
+        timer: require('./modules/timer').default,
     }
 });

@@ -12,31 +12,32 @@
             leave-active-class="fade-out")
                 div.ta-right.more-description(v-if="visibleDescription") {{ $i18n.t('webservice.ussdNotice') }}
 
-            div.row
-                div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}")
-                    div.no-margin.last-label
-                        span #
-                    div.col-xs.no-margin
-                        input.input.ta-left(type="text" v-model="ussdId" placeholder="کد دستوری(ussd)")
-                    div.no-margin.first-label
-                        span *788*97*
-            div.ta-right(v-if="validationErrors.ussd_id")
-                span.text-danger {{ $i18n.t(validationErrors.ussd_id) }}
+            form(autocomplete="on")
+                div.row
+                    div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}")
+                        div.no-margin.last-label
+                            span #
+                        div.col-xs.no-margin
+                            input.input.ta-left(type="text" v-model="ussdId" placeholder="کد دستوری(ussd)")
+                        div.no-margin.first-label
+                            span *788*97*
+                div.ta-right(v-if="validationErrors.ussd_id")
+                    span.text-danger {{ $i18n.t(validationErrors.ussd_id) }}
 
+                div.row
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول")
+                    div.ta-right(v-if="validationErrors.purse")
+                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
-            div.row
-                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول")
-                div.ta-right(v-if="validationErrors.purse")
-                    span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                div.row
+                    div.col-xs.ta-right.no-margin
+                        loading(v-if="getPriceLoading")
+                        span.persian-num.activation-price(v-else)  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
 
-            div.row
-                div.col-xs.ta-right.no-margin
-                    span.persian-num.activation-price(v-if="priceUssd")  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
-
-                div.no-margin
-                    button.btn.success.pull-left(v-ripple="" @click="activeUssd") {{$i18n.t('webservice.activation')}}
-                        svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                    div.no-margin
+                        button.btn.success.pull-left(v-ripple="" @click="activeUssd") {{$i18n.t('webservice.activation')}}
+                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
 
 
@@ -44,12 +45,14 @@
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
     import modal from '../../partials/modal.vue';
+    import loading from '../../partials/loading.vue';
 
     export default {
         name: 'home-webservice-partials-ussdActivation',
         data() {
             return {
                 loading: false,
+                getPriceLoading: true,
                 visibleDescription: false,
                 closeModalContent: true,
                 purse: null,
@@ -79,6 +82,7 @@
             getPriceUssd() {
                 this.$store.state.http.requests['webservice.getPriceUssd'].get().then(response => {
                     this.priceUssd = response.data.data[0];
+                    this.getPriceLoading = false;
                 });
             },
             activeUssd() {
@@ -115,7 +119,8 @@
         components: {
             selectbox,
             purse,
-            modal
+            modal,
+            loading
         }
     }
 

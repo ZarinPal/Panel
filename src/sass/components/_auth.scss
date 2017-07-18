@@ -75,6 +75,18 @@
         p {
           font-size: 18px !important;
         }
+
+        .mobile-number{
+          color: #2979ff;
+          margin: 0 5px;
+        }
+
+        .change-mobile{
+          display: inline-block;
+          margin-right: 5px;
+          color: #2979ff;
+          cursor: pointer;
+        }
       }
 
       .ussd-box{
@@ -141,8 +153,22 @@
           margin-right: 30px;
         }
       }
+    }
 
+    .input-cell{
+      border: none !important;
+      border-bottom: 1px solid #424242 !important;
+      border-radius: 0 !important;
+      margin: 0 5px !important;
+      outline: none !important;
+      padding: 0 !important;
+      text-align: center;
+      width: 28px !important;
 
+      &:focus{
+        border: none !important;
+        box-shadow: none;
+      }
     }
 
     .bottom-xs{
@@ -179,6 +205,110 @@
       display: inline-block;
       margin-top: 17px;
       cursor: pointer;
+    }
+  }
+}
+
+
+
+
+/*** Timer ***/
+div.time {
+  font-size: 13px;
+  border-radius: 50px;
+  padding: 0 5px;
+  direction: ltr;
+  background-color: #e0e0e0;
+  float: right;
+  position: relative;
+  top: 6px;
+
+  .alive {
+    display: inline-block;
+    margin-left: 6px;
+
+    .minutes,
+    .seconds {
+      width: 25px;
+      height: 24px;
+      display: inline-block;
+      text-align: center;
+
+      span {
+
+        &:first-child {
+          display: block;
+        }
+        &:last-child {
+          font-size: 15px;
+          display: block;
+          padding-top: 3px;
+        }
+      }
+    }
+
+    .sprator {
+      display: inline-block;
+      font-size: 15px;
+      margin-top: 4px;
+      padding: 0 4px;
+    }
+  }
+
+  .timer {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    box-shadow: inset 0px 0px 0px 2px #fff;
+    border-radius: 50%;
+    position: relative;
+    float: left;
+    margin-top: 3px;
+  }
+  .timer:after, .timer:before {
+    position: absolute;
+    content: "";
+    background-color: #fff;
+  }
+  .timer:after {
+    width: 10px;
+    height: 2px;
+    top: 11px;
+    left: 11px;
+    -webkit-transform-origin: 1px 1px;
+    -moz-transform-origin: 1px 1px;
+    transform-origin: 1px 1px;
+    -webkit-animation: minhand 2s linear infinite;
+    -moz-animation: minhand 2s linear infinite;
+    animation: minhand 2s linear infinite;
+  }
+
+  .timer:before {
+    width: 8px;
+    height: 2px;
+    top: 11px;
+    left: 11px;
+    -webkit-transform-origin: 1px 1px;
+    -moz-transform-origin: 1px 1px;
+    transform-origin: 1px 1px;
+    -webkit-animation: hrhand 8s linear infinite;
+    -moz-animation: hrhand 8s linear infinite;
+    animation: hrhand 8s linear infinite;
+  }
+  @keyframes minhand {
+    0% {
+      transform: rotate(0deg)
+    }
+    100% {
+      transform: rotate(360deg)
+    }
+  }
+  @keyframes hrhand {
+    0% {
+      transform: rotate(0deg)
+    }
+    100% {
+      transform: rotate(360deg)
     }
   }
 }

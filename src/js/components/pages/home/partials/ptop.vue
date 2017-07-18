@@ -9,26 +9,27 @@
                     div.modal-description
                         p {{ $i18n.t('purse.moneyTransferDescription') }}
 
-                    div.row
-                        div.col-xs.no-right-margin
-                            input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
-                            div.ta-right(v-if="validationErrors.amount")
-                                span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                    form(autocomplete="on")
+                        div.row
+                            div.col-xs.no-right-margin
+                                input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                                div.ta-right(v-if="validationErrors.amount")
+                                    span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
-                        div.col-xs.no-left-margin
-                            input(:class="{'input-danger': validationErrors.zpId}" type="text" v-model="zpId" placeholder="زرین پال مقصد")
-                            div.ta-right(v-if="validationErrors.zpId")
-                                span.text-danger {{ $i18n.t(validationErrors.zpId) }}
+                            div.col-xs.no-left-margin
+                                input(:class="{'input-danger': validationErrors.zpId}" type="text" v-model="zpId" placeholder="زرین پال مقصد، مثال: zp.123 یا 09365363586 یا domain@gmail.com")
+                                div.ta-right(v-if="validationErrors.zpId")
+                                    span.text-danger {{ $i18n.t(validationErrors.zpId) }}
 
 
-                    div.row
-                        textarea(:class="{'input-danger': validationErrors.description}" type="text" v-model="description" placeholder="توضیحات")
-                        div.ta-right(v-if="validationErrors.description")
-                            span.text-danger {{ $i18n.t(validationErrors.description) }}
+                        div.row
+                            textarea(:class="{'input-danger': validationErrors.description}" type="text" v-model="description" placeholder="توضیحات")
+                            div.ta-right(v-if="validationErrors.description")
+                                span.text-danger {{ $i18n.t(validationErrors.description) }}
 
-                    div.row
-                        div.col-xs.no-margin
-                            button.btn.success.pull-left(v-ripple="" @click="confirmPtopData") {{ $i18n.t('purse.nextStep') }}
+                        div.row
+                            div.col-xs.no-margin
+                                button.btn.success.pull-left(v-ripple="" @click="confirmPtopData") {{ $i18n.t('purse.nextStep') }}
 
                 div(v-else)
                     div.list(v-if="destinationUser")

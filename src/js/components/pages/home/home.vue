@@ -6,7 +6,7 @@
                 p.page-description {{ $i18n.t('common.pursesDescription') }}
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                button.btn.success(@click="visibleCreatePurse = true")
+                button.btn.success(v-if="user.purses.length < purseLimit" @click="visibleCreatePurse = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
 
@@ -29,6 +29,7 @@
                 visibleCreatePurse: false,
                 visibleShowMore: false,
                 message: [],
+                purseLimit: 10,
             }
         },
         props: ['more', 'showMore'],

@@ -43,7 +43,7 @@
                             i.icon-zp-tickets
                             span.item-label تیکت ها
 
-                            span.unread-ticket-count(v-if="this.$store.state.app.ticketSummary.unread > 0") {{ this.$store.state.app.ticketSummary.unread | persinaNumber}}
+                            span.unread-ticket-count(v-if="this.$store.state.auth.user.ticket_summary.unread > 0") {{ this.$store.state.auth.user.ticket_summary.unread | persianNumbers}}
 
                 div.clear-both
 </template>

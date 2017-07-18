@@ -2,44 +2,45 @@
     modal.card(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('card.editAccountTitle') }}
         div(slot="content")
-            div.row
-                div.col-xs.ta-right
-                    div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
-                    span.label.bank-name {{card.issuer.name}}
+            form(autocomplete="on")
+                div.row
+                    div.col-xs.ta-right
+                        div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
+                        span.label.bank-name {{card.issuer.name}}
 
-            div.row
-                div.col-xs.ta-right
-                    span.label {{$i18n.t('card.iban') | persianNumbers}}:
-                div.col-xs.ta-left
-                    span.label {{card.iban}}
+                div.row
+                    div.col-xs.ta-right
+                        span.label {{$i18n.t('card.iban') | persianNumbers}}:
+                    div.col-xs.ta-left
+                        span.label {{card.iban}}
 
-            div.row
-                input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
-                div.ta-right(v-if="validationErrors.pan")
-                    span.text-danger {{ $i18n.t(validationErrors.pan) }}
+                div.row
+                    input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
+                    div.ta-right(v-if="validationErrors.pan")
+                        span.text-danger {{ $i18n.t(validationErrors.pan) }}
 
-            div.row.no-margin
-                div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
-                    span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
-                div.col-lg-6.col-md-8.col-xs-12.no-margin
-                    div.row.nav-expiration-input
-                        div.col-xs.no-margin
-                            span.label {{$i18n.t('card.month')}}:
-                            input#month(:class="{'input-danger': validationErrors.expired_at}" type="text" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
-                        div.col-xs.no-margin
-                            span.label {{$i18n.t('card.year')}}:
-                            input#year(:class="{'input-danger': validationErrors.expired_at}" type="text" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
-
-
-                div.ta-right(v-if="validationErrors.expired_at")
-                    span.text-danger {{ $i18n.t(validationErrors.expired_at) }}
+                div.row.no-margin
+                    div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
+                        span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
+                    div.col-lg-6.col-md-8.col-xs-12.no-margin
+                        div.row.nav-expiration-input
+                            div.col-xs.no-margin
+                                span.label {{$i18n.t('card.month')}}:
+                                input#month(:class="{'input-danger': validationErrors.expired_at}" type="text" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
+                            div.col-xs.no-margin
+                                span.label {{$i18n.t('card.year')}}:
+                                input#year(:class="{'input-danger': validationErrors.expired_at}" type="text" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
 
 
-            div.row
-                div.col-xs.no-margin
-                    button.btn.success.pull-left(v-ripple="" @click="editCard") {{$i18n.t('common.save')}}
-                        svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                    div.ta-right(v-if="validationErrors.expired_at")
+                        span.text-danger {{ $i18n.t(validationErrors.expired_at) }}
+
+
+                div.row
+                    div.col-xs.no-margin
+                        button.btn.success.pull-left(v-ripple="" @click="editCard") {{$i18n.t('common.save')}}
+                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 

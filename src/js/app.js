@@ -26,8 +26,14 @@ const app = new Vue({
     store,
     i18n,
     router: require('./router').default,
+    data() {
+      return {
+          // https://next.zarinpal.com/panel            =======> its for next
+          // https://api.zarinpal.dev/panelw/index.html =======> its for dev
+          baseUrl: 'https://next.zarinpal.com/panel',
+      }
+    },
     http: {
-
         root: 'https://next.zarinpal.com/rest/v3',
     },
     created() {
