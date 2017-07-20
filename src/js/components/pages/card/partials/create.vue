@@ -22,7 +22,7 @@
 
                 div.row.input-group.no-margin(:class="{'input-danger': validationErrors.iban}")
                     div.col-xs.no-margin
-                        input.input.ta-left(type="text" v-model="iban"  placeholder= "شماره شبا" maxlength="24")
+                        input.input.ta-left.dir-ltr(v-validate="{type: 'number', size: 24}" type="text" v-model="iban"  placeholder= "شماره شبا")
                     div.no-margin.first-label
                         span IR
                 div.ta-right(v-if="validationErrors.iban")
@@ -30,7 +30,7 @@
 
                 div(v-if="isLegal == 0")
                     div.row
-                        input.ta-left(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat('pan')")
+                        input.ta-left.dir-ltr(v-validate="{type: 'number', size: 19}" :class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" id="pan" @keyup="cardNumberFormat('pan')")
                         div.ta-right(v-if="validationErrors.pan")
                             span.text-danger {{ $i18n.t(validationErrors.pan) }}
 
@@ -41,10 +41,10 @@
                             div.row.nav-expiration-input
                                 div.col-xs.no-margin
                                     span.label {{$i18n.t('card.month')}}:
-                                    input#month(type="text" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
+                                    input#month(v-validate="{type: 'number', size: 2}" type="text" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
                                 div.col-xs.no-margin
                                     span.label {{$i18n.t('card.year')}}:
-                                    input#year(type="text" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
+                                    input#year(v-validate="{type: 'number', size: 4}" type="text" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
 
                 div.row
                     div.col-xs.no-margin

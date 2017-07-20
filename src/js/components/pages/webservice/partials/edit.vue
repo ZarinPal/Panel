@@ -12,18 +12,18 @@
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                                 div.row.no-margin
                                     span.input-icon.ip-icon
-                                    input(:class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" maxlength="15")
+                                    input(v-validate="{type: 'number', size: 15}" :class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" autofocus tabindex="1")
                                     div.ta-right(v-if="validationErrors.site_ip")
                                         span.text-danger {{ $i18n.t(validationErrors.site_ip) }}
 
                                 div.row.no-margin
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول" :class="{'input-danger': validationErrors.purse}")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول" :class="{'input-danger': validationErrors.purse}" tabindex="2")
                                     div.ta-right(v-if="validationErrors.purse")
                                         span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
                                 div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
                                     <!--span.input-icon.webservice-cat-icon-->
-                                    webserviceCategories(v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': validationErrors.webservice_category_id}")
+                                    webserviceCategories(v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': validationErrors.webservice_category_id}" tabindex="3")
                                     div.ta-right(v-if="validationErrors.webservice_category_id")
                                         span.text-danger {{ $i18n.t(validationErrors.webservice_category_id) }}
 
@@ -44,7 +44,7 @@
                                                 p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
                                                 div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
                                                     span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
-                                                    input#attach(type="file" name="file" @change="onLogoChange")
+                                                    input#attach(type="file" name="file" @change="onLogoChange" tabindex="4")
                                                     div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
 
 
@@ -55,7 +55,7 @@
 
                     div.row
                         div.col-xs.nav-buttons
-                            button.btn.success.pull-left( v-ripple="" @click="editWebservice") {{$i18n.t('webservice.edit')}}
+                            button.btn.success.pull-left( v-ripple="" @click="editWebservice" tabindex="5") {{$i18n.t('webservice.edit')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>

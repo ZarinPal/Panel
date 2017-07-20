@@ -1,6 +1,6 @@
 <template lang="pug">
     ul.dropdown(v-click-outside="closeDropDown")
-        li.title(@click="isOpen = true")
+        li.title(@click="isOpen = true" @keyup.enter="isOpen = true")
             span(v-html="selectBoxTitle")
             span.arrow
         ul(v-if="isOpen")

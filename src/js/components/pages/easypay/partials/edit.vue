@@ -30,7 +30,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input(:class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ")
+                                            input(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ")
                                             div.ta-right(v-if="validationErrors.price")
                                                 span.text-danger {{ $i18n.t(validationErrors.price) }}
 
@@ -186,7 +186,7 @@
 
 
                                             div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                input(v-show="limited" type="number" v-model="limit" placeholder="تعداد")
+                                                input(v-validate="{type: 'number'}" v-show="limited" type="number" v-model="limit" placeholder="تعداد")
 
 
                                             div.col-lg-12.col-md-12.col-xs-12
