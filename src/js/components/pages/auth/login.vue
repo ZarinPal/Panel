@@ -16,7 +16,7 @@
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input(v-validate="{size: 11, type: 'number', mobile: true}" :class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل" autofocus)
+                            input.ta-left.dir-ltr(v-validate="{size: 11, type: 'number', mobile: true}" :class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل" autofocus)
                             div.ta-right(v-if="validationErrors.username")
                                 span.text-danger {{ $i18n.t(validationErrors.username) }}
 
@@ -91,6 +91,11 @@
                     a.link(href="https://www.zarinpal.com/policy.html" target="blank") {{$i18n.t('user.privacy')}}
 
             router-link.link(v-if="userNotRegister" tag="li" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
+
+    div(v-else)
+        div.loading.ta-center
+            div.spinner
+
 
 </template>
 

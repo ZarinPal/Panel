@@ -14,11 +14,11 @@
 
             form(autocomplete="on")
                 div.row
-                    div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}")
+                    div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}" required)
                         div.no-margin.last-label
                             span #
                         div.col-xs.no-margin
-                            input.input.ta-left(type="text" v-model="ussdId" placeholder="کد دستوری(ussd)")
+                            input.input.ta-left(v-validate="{type: 'number'}" type="text" v-model="ussdId" placeholder="کد دستوری(ussd)")
                         div.no-margin.first-label
                             span *788*97*
                 div.ta-right(v-if="validationErrors.ussd_id")

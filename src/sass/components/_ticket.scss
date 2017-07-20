@@ -12,14 +12,14 @@ $plusIcon: $icon-zp-add;
 
   .nav-ticket-empty{
     text-align: center;
-    height: 94vh;
+    height: 70vh;
 
     .no-ticket-image {
-      background-image: url("../../img/no-ticket.png");
+      background-image: url("../../img/no-ticket.svg");
       display: inline-block;
-      width: 50%;
-      margin-top: 100px;
-      height: 310px;
+      width: 60%;
+      margin-top: 10%;
+      height: 90%;
       background-size: 100%;
       background-repeat: no-repeat;
     }

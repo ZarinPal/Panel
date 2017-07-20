@@ -82,7 +82,6 @@ export default {
                         commit('changeLoading', {requestName, type:false});
                     }
                 ).catch((error) => {
-                    console.log(error);
                     commit('changeLoading', {requestName, type:false});
                 });
             }

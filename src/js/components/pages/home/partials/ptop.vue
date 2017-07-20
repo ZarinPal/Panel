@@ -12,27 +12,33 @@
                     form(autocomplete="on")
                         div.row
                             div.col-xs.no-right-margin
-                                input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                                input(v-validate="{type: 'number', size: 12}" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ"  tabindex="1")
                                 div.ta-right(v-if="validationErrors.amount")
                                     span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
                             div.col-xs.no-left-margin
-                                input(:class="{'input-danger': validationErrors.zpId}" type="text" v-model="zpId" placeholder="زرین پال مقصد، مثال: zp.123 یا 09365363586 یا domain@gmail.com")
+                                input(:class="{'input-danger': validationErrors.zpId}" type="text" v-model="zpId" placeholder="زرین پال مقصد، مثال: zp.123 یا 09365363586 یا domain@gmail.com" tabindex="2")
                                 div.ta-right(v-if="validationErrors.zpId")
                                     span.text-danger {{ $i18n.t(validationErrors.zpId) }}
 
-
                         div.row
-                            textarea(:class="{'input-danger': validationErrors.description}" type="text" v-model="description" placeholder="توضیحات")
+                            textarea(:class="{'input-danger': validationErrors.description}" type="text" v-model="description" placeholder="توضیحات" tabindex="3")
                             div.ta-right(v-if="validationErrors.description")
                                 span.text-danger {{ $i18n.t(validationErrors.description) }}
 
                         div.row
                             div.col-xs.no-margin
-                                button.btn.success.pull-left(v-ripple="" @click="confirmPtopData") {{ $i18n.t('purse.nextStep') }}
+                                button.btn.success.pull-left(v-ripple="" @click="confirmPtopData" tabindex="4") {{ $i18n.t('purse.nextStep') }}
 
                 div(v-else)
                     div.list(v-if="destinationUser")
+                        div.row
+                            div.col-xs.ta-right
+                                span.label {{ $i18n.t('transaction.amount') }}
+                            div.col-xs.ta-left
+                                span.value {{ this.amount | numberFormat | persianNumbers}}
+                                small {{ $i18n.t('transaction.toman') }}
+
                         div.row
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('purse.sourceZpId') }}
@@ -82,6 +88,7 @@
     import purse from '../../partials/purses.vue';
     import modal from '../../partials/modal.vue';
     import loading from '../../partials/loading.vue';
+    import alert from "../../../../store/modules/alert";
 
     export default {
         name: 'home-purse-ptop',
@@ -142,17 +149,13 @@
                         type: 'danger'
                     });
                 }
-
-
             },
             acceptTransfer() {
                 this.requesting = true;
-
-                let zarinId;
+                let zarinId = null;
                 if(this.zpId) {
                     zarinId = this.zpId.toLowerCase();
                 }
-
                 let ptopData = {
                     purse: this.purse.purse,
                     zpId: zarinId,
@@ -161,9 +164,9 @@
                 };
 
                 this.$store.state.http.requests['transaction.postPurseToPurseTransfer'].save(ptopData).then(
-                    ()=> {
+                    (response)=> {
                         this.requesting = false;
-                        this.closeModal();
+                        this.$router.push({name: 'transaction.index', params: {id: this.purse.purse, type:'purse', page:1, transactionId: response.data.data.transaction_public_id}});
                         store.commit('flashMessage',{
                             text: 'ptop-transfer-success',
                             type: 'success'

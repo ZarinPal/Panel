@@ -29,17 +29,17 @@
                         div.full-width(v-for="notification in notifications")
                             <!--Ticket-->
                             router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
-                                div.title {{notification.title}}
+                                div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                             <!--Transaction-->
                             router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'transaction.index', params: {id: 1, type: 'purse', transactionId: notification.id}}")
-                                div.title {{notification.title}}
+                                div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                             <!--Request money-->
                             router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
-                                div.title {{notification.title}}
+                                div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                         div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.length")

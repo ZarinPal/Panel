@@ -25,10 +25,10 @@
     export default {
         name: 'easypay-index',
         created(){
-            this.$store.dispatch(
-                'paginator/make',
-                this.$store.state.http.requests['easypay.getList'].get()
-            );
+//            this.$store.dispatch(
+//                'paginator/make',
+//                this.$store.state.http.requests['easypay.getList'].get()
+//            );
 
         },
         computed:{
