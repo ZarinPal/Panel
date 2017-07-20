@@ -14,7 +14,6 @@
     div(v-else)
         div.loading.ta-center
             div.spinner
-            <!--div.zarinpal-type.persian-num زرین‌پال-->
 
 </template>
 

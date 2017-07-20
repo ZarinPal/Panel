@@ -400,9 +400,10 @@ body {
 
       .notification-box{
         padding: 26px 12px;
-        border-bottom: 1px solid #ccc !important;
+        border-bottom: 1px solid #ccc;
         transition: $animateTime;
         cursor: pointer;
+        padding: 30px;
         .title{
           width: 100% !important;
           margin: 10px 0 31px;
@@ -416,7 +417,7 @@ body {
         }
 
         &:last-child{
-          border-bottom: 0;
+          border-bottom: 0 !important;
         }
 
         &:hover {
