@@ -9,7 +9,7 @@
                     div.modal-description
                         p {{ $i18n.t('purse.moneyTransferDescription') }}
 
-                    form(autocomplete="on")
+                    form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row
                             div.col-xs.no-right-margin
                                 input(v-validate="{type: 'number', size: 12}" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ"  tabindex="1")

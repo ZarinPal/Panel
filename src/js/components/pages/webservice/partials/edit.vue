@@ -6,7 +6,7 @@
                 p.page-description ٖ{{ $i18n.t('webservice.editWebserviceDescription') }}
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
             div.box
-                form(autocomplete="on")
+                form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.body
                         div.row
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12

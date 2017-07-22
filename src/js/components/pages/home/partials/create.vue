@@ -2,7 +2,7 @@
     modal.create-purse(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('purse.addPurseTitle') }}
         div(slot="content")
-            form(autocomplete="on")
+            form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
                     input(:class="{'input-danger': validationErrors.name}" type="text" v-model="purseName" placeholder="نام کیف پول")
                     div.ta-right(v-if="validationErrors.name")

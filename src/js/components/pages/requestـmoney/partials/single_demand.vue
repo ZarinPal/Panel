@@ -1,18 +1,18 @@
 <template lang="pug">
     div
         div.row.trans-row(@click="visibleDetails = true")
-            div.col-lg-2
+            div.col-lg-2.col-md-3.col-sm-3
                 span.nav-user-avatars
                     img.users-avatar(v-for="user in demand.user" :src="user.avatar" :title="user.name" :class="{'pending-user': user.status == 'pending', 'reject-user': user.status == 'reject', 'paid-user': user.status == 'paid'}")
                 span.more-number(v-if="demand.user.length > 5") {{ demand.user.length - 5 | persianNumbers}}+
 
-            div.col-lg-6
+            div.col-lg-6.col-md-5.col-sm-5
                 span.total-amount {{demand.total_amount | numberFormat | persianNumbers}}
                 small {{ $i18n.t('transaction.toman') }} ،
                 span {{demand.description}}
-            div.col-lg-2.ta-center
+            div.col-lg-2.ta-center.col-md-2.col-sm-2
                 span {{ demand.created_at | fromNow | persianNumbers}}
-            div.col-lg-2.ta-center
+            div.col-lg-2.col-md-2.col-sm-2.ta-center
                 <!--span.req-btn.btn-decline رد کردن-->
                 <!--span.req-btn.btn-accept پرداخت-->
                 span(:class="{'paid-text': requestStatus == 'paid', 'reject-text': requestStatus == 'reject', 'pending-text': requestStatus == 'pending'}") {{ $i18n.t('requestMoney.' + requestStatus)  }}

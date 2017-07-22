@@ -112,7 +112,7 @@ export default new VueRouter({
                             component: require('./components/pages/report/index.vue')
                         },
                         {
-                            path: 'requestMoney/:type',
+                            path: 'requestMoney/:type?',
                             name: 'requestMoney.index',
                             component: require('./components/pages/requestـmoney/index.vue')
                         },

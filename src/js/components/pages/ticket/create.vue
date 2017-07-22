@@ -8,7 +8,7 @@
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'}") {{ $i18n.t('common.returnToDashboard') }}
 
         div.nav-ticket-create.col-lg-12.col-xs-12
-            form(autocomplete="on")
+            form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
                     div.right-box.col-lg-7.col-md-6.col-sm-12.col-xs-12
                         div.row

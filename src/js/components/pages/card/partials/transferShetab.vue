@@ -6,7 +6,7 @@
 
             div(v-else)
                 div(v-if="step == 1")
-                    form(autocomplete="on")
+                    form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row.no-margin
                             div.col-xs.no-right-margin
                                 input(:class="{'input-danger': validationErrors.password}" type="password" v-model="password" placeholder="رمز دوم")

@@ -121,8 +121,6 @@ span
             let vm = this;
             let ticketContent = document.getElementById('ticketContent');
 
-
-
             ticketContent.addEventListener("scroll", function(e) {
                 if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
                     && !vm.loadingTicketState.status){

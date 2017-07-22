@@ -130,6 +130,17 @@
 
 /*** Request money row ***/
 .nav-request-money{
+  .more-number{
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.06);
+    padding: 1px 4px;
+    border-radius: 50%;
+    border: 1px solid #bbb;
+    position: relative;
+    top: -10px;
+    margin-right: -6px;
+  }
+
   .trans-row{
     background-color: #fefefe;
     border-radius: $boxBorderRadiusSize;

@@ -9,30 +9,33 @@
 
                 <!--Body-->
                 <!--First step enter mobile-->
-                form(@submit.prevent="sendOtp('ussd')" v-if="step == 1")
+                form(@submit.prevent="sendOtp('ussd')" v-if="step == 1" action="#" onsubmit="event.preventDefault();")
                     div.row.middle-xs
                         div.col-xs-12.no-margin.body-messages
                             div.col-lg-12.ta-right
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(v-validate="{size: 11, type: 'number', mobile: true}" :class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل" autofocus)
+                            input.ta-left.dir-ltr(v-validate="{size: 11, type: 'number', mobile: true}" :class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل" autofocus @keyup="loginOnMobileFill")
                             div.ta-right(v-if="validationErrors.username")
                                 span.text-danger {{ $i18n.t(validationErrors.username) }}
 
+                        div.row.nav-user-not-registered(v-if="userNotRegister")
+                            router-link.col-xs( tag="div" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
+                            span.close(@click="userNotRegister = false")
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
                             span {{ $i18n.t('user.notRegistered') }}
                             router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.register') }}
                         div.col-xs.no-margin
-                            button.gold.pull-left {{$i18n.t('user.enter')}}
+                            button.gold.pull-left(id="btnSubmitEnter") {{$i18n.t('user.enter')}}
                                 svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
                 <!--Second step call ussd code-->
-                form(method="post" @submit.prevent="login" v-if="step == 2")
+                form(method="post" @submit.prevent="login" v-if="step == 2" onsubmit="event.preventDefault();")
                     div.row.middle-xs
                         div.col-xs-12.no-margin.body-messages
                             <!--Ussd Call header-->
@@ -90,7 +93,6 @@
                     span.gap
                     a.link(href="https://www.zarinpal.com/policy.html" target="blank") {{$i18n.t('user.privacy')}}
 
-            router-link.link(v-if="userNotRegister" tag="li" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
 
     div(v-else)
         div.loading.ta-center
@@ -147,6 +149,11 @@
             }
         },
         methods: {
+            loginOnMobileFill() {
+                if(this.username.length == 11) {
+                    document.getElementById("btnSubmitEnter").click();
+                }
+            },
             sendOtp(channel){
                 this.getOtpLoading = true;
                 let postData = {
@@ -155,6 +162,7 @@
                 if(channel && channel === 'sms'){
                     postData.channel = channel;
                     this.visibleOtpTimer = true;
+                    this.otpObject = {};
                 }
 
                 this.$store.state.http.requests['oauth.postInitializeLogin']
@@ -175,13 +183,13 @@
                             });
                         }
                     }).catch((response)=>{
-                    this.getOtpLoading = false;
-                    store.commit('setValidationErrors',response.data.validation_errors);
+                        this.getOtpLoading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
 
-                    if(!this.validationErrors.username) {
-                        this.userNotRegister = true;
-                    }
-                });
+                        if(!this.validationErrors.username) {
+                            this.userNotRegister = true;
+                        }
+                    });
             },
             login(event){
                 if(!this.otp) {

@@ -7,7 +7,7 @@
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
             div.box
-                form(autocomplete="on")
+                form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.body
                         div.row
                             div.col-lg-6.col-md-6.col-sm-12.col-xs-12

@@ -60,7 +60,17 @@
                     loading
 
         <!--New request money modal-->
-        newRequestMoney(v-if="visibleNewRequestMoney" v-on:closeModal="closeModal()")
+        newRequestMoney(v-if="visibleNewRequestMoney" v-on:closeModal="closeModal()" v-on:requestSuccessMessage="requestSuccessMessage()")
+
+
+
+        <!--Confirmation of request success-->
+        confirm(v-if="visibleRequestSuccess" v-on:closeModal="closeModal")
+            span(slot="title") {{$i18n.t('requestMoney.newRequestMoney')}}
+            div.ta-right(slot="message")
+                div {{$i18n.t('requestMoney.requestSuccessMessage')}}
+
+            span(slot="messageDanger") {{$i18n.t('requestMoney.ok')}}
 
 </template>
 
@@ -69,6 +79,8 @@
     import singleDebt from './partials/single_debt.vue';
     import loading from '../../pages/partials/loading.vue';
     import newRequestMoney from './partials/new_request_money.vue';
+    import confirm from '../partials/confirm.vue';
+
 
     export default {
         name: 'request-money-index',
@@ -77,6 +89,7 @@
               whichTab: 'requests',
               visibleNewRequestMoney: false,
               isRequest: false,
+              visibleRequestSuccess: false,
           }
         },
         computed: {
@@ -116,6 +129,8 @@
             }
         },
         created() {
+            //check is request money paid or not
+            this.checkRequestPay();
             if(this.whichTab === 'requests') {
                 this.getDemand();
             } else if(this.whichTab === 'debt') {
@@ -125,7 +140,7 @@
             this.loadMore();
 
             /*** Show debt list on click notifications ***/
-            if(this.$route.params.type) {
+            if(this.$route.params.type === 'debt') {
                 this.whichTab = 'debt';
             }
 
@@ -193,10 +208,45 @@
             },
             closeModal(){
                 this.visibleNewRequestMoney = false;
+                this.visibleRequestSuccess= false;
                 store.commit('clearValidationErrors');
             },
             changeRequestMode() {
                 this.isRequest = !this.isRequest;
+            },
+            requestSuccessMessage() {
+                this.visibleRequestSuccess = true;
+            },
+            getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            },
+            checkRequestPay() {
+                let status = this.getParameterByName('Status');
+                let authority = parseInt(this.getParameterByName('Authority'));
+                if(status || authority) {
+                    if(status === 'OK') {
+                        store.commit('flashMessage', {
+                            text: 'request money paid',
+                            type: 'success',
+                            important: true
+                        });
+                        this.$router.push({name: 'transaction.index', params: {id: '1', type: 'purse', transactionId: authority}});
+                    } else {
+                        this.message = 'request money not paid';
+                        store.commit('flashMessage', {
+                            text: this.message,
+                            type: 'danger',
+                            important: true
+                        });
+                        this.$router.push({name: 'requestMoney.index'});
+                    }
+                }
             }
         },
         components: {
@@ -204,6 +254,7 @@
             singleDebt,
             loading,
             newRequestMoney,
+            confirm
         },
     }
 </script>
