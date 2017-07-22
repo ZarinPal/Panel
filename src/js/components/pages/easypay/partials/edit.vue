@@ -6,7 +6,7 @@
                 p.page-description {{ $i18n.t('easypay.editEasyPayDescription') }}
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay
-            form(autocomplete="on")
+            form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.box
                     <!--1-->
                     div.body

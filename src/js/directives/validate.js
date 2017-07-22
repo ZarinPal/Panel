@@ -42,8 +42,15 @@ export default {
                     if(/[^\d]/g.test(event.key) && //its mean event IS NOT number in english format
                         event.keyCode !== 8     &&
                         event.keyCode !== 9     &&
-                        event.keyCode !== 13) {
+                        event.keyCode !== 13    &&
+                        event.keyCode !== 37    &&
+                        event.keyCode !== 39
+                    ) {
                         event.preventDefault();
+                        store.commit('flashMessage',{
+                            text: 'invalid keyboard type',
+                            type: 'danger'
+                        });
                     }
                 }
             }

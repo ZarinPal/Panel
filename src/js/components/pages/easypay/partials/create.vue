@@ -6,7 +6,7 @@
                 p.page-description {{ $i18n.t('easypay.createEasypayDescription') }}
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay
-            form(autocomplete="on")
+            form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.box
                     <!--1-->
                     div.body(v-bind:class="{'inactive-step' : step !== 1}")

@@ -1,16 +1,16 @@
 <template lang="pug">
     div
         div.row.trans-row(@click="showDetails")
-            div.col-lg-2
+            div.col-lg-2.col-md-3.col-sm-3
                 span.nav-user-avatars
                     img.users-avatar(:src="debt.avatar" :title="debt.name")
-            div.col-lg-5
+            div.col-lg-5.col-md-5.col-sm-5
                 span.total-amount {{debt.amount | numberFormat | persianNumbers}}
                 small {{ $i18n.t('transaction.toman') }} ،
                 span {{debt.description}}
-            div.col-lg-2.ta-center
+            div.col-lg-2.col-md-2.col-sm-2.ta-center
                 span {{ debt.created_at | fromNow | persianNumbers}}
-            div.col-lg-3.ta-center
+            div.col-lg-3.col-md-2.col-sm-2.ta-center
                 span(v-if="debt.status == 'pending'")
                     span.req-btn.btn-decline(@click="confirmVisible = true" v-bind:class="{'clicked': rejectLoading}") رد کردن
                         svg.material-spinner(v-if="rejectLoading" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")

@@ -6,7 +6,7 @@
                 div.row.purse-amount
                     span {{ $i18n.t('common.balance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}}
                     span {{ $i18n.t('transaction.toman') }}
-                form(autocomplete="on")
+                form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.row.no-margin
                         input(v-validate="{type: 'number', size: 12}" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
                         div.ta-right(v-if="validationErrors.amount")

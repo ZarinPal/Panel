@@ -10,15 +10,15 @@
 
                 div.users
                     div.row.user-row(v-for="user in users")
-                        label.row(:for="user.zp")
+                        label.row(:for="user.public_id")
                             div.col-lg-2.col-md-2.col-xs-3.no-margin.ta-center
                                 img.avatar(:src="user.avatar")
                             div.col-lg-8.col-md-8.col-xs-8.no-margin.ta-right
                                 div.user-name {{user.name}}
-                                div.user-zp {{user.zp}}
+                                div.user-zp {{'ZP.'+ user.public_id}}
                             div.col-lg-2.col-md-2.col-xs-2.no-margin.ta-left
-                                input.circle-checkbox(type="checkbox" :value="user.zp" v-model="checkUsers" :id="user.zp")
-                                label.checkbox-label(:for="user.zp")
+                                input.circle-checkbox(type="checkbox" :value="user.public_id" v-model="checkUsers" :id="user.public_id")
+                                label.checkbox-label(:for="user.public_id")
                                     span.circle-checkbox
 
             <!--Step 2-->
@@ -66,7 +66,7 @@
                     span.amount-text {{ $i18n.t('transaction.toman') }}
 
                 div.row
-                    input.amount-input(type="text" v-model="requestAmount" placeholder="مبلغ" @keyup="calcAutoRequestAmount" autofocus)
+                    input.amount-input(v-validate="{type: 'number', size: 12}" type="text" v-model="requestAmount" placeholder="مبلغ" @keyup="calcAutoRequestAmount" autofocus)
 
                 div.row.share-in-request-text
                     input(type="checkbox" id="shareRequestChk" v-model="shareRequestWithMe" @change="calcAutoRequestAmount")
@@ -96,7 +96,7 @@
                         span.sum-amount {{ manuallyTotalAmount | numberFormat | persianNumbers}}
                         span.amount-text {{ $i18n.t('transaction.toman') }}
 
-                input.amount-input(type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
+                input.amount-input(v-validate="{type: 'number', size: 12}" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
 
 
 
@@ -142,6 +142,10 @@
                     div.col-xs.no-margin
                         button.btn.success.pull-left(v-ripple="" @click="nextStep" v-if="step <= 3") {{$i18n.t('requestMoney.nextStep')}}
                         button.btn.success.pull-left(v-ripple="" @click="postRequestMoney" v-if="step == 4") {{$i18n.t('requestMoney.request')}}
+                            svg.material-spinner(v-if="requesting" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
+
 
 </template>
 
@@ -154,39 +158,40 @@
         data() {
             return {
                 maxAmountLimit: 20000000,
+                requesting: false,
                 loading: false,
                 step: 1, //Select user, select pay method(auto, manually)
                 pageTitle: 'selectUsers',
                 closeModalContent: false,
                 users: {
                     0: {
-                        'name': 'امین نظری',
-                        'zp': 'zp.123456',
+                        'name': 'هومن نقی ای',
+                        'public_id': '120263',
                         'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
                     },
                     1: {
-                        'name': 'امین نظری',
-                        'zp': 'zp.2345',
+                        'name': 'ایمان طرازانی',
+                        'public_id': '124081',
                         'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
                     },
                     2: {
-                        'name': 'یاسین نظری',
-                        'zp': 'zp.33666',
+                        'name': 'علی امیری',
+                        'public_id': '2',
                         'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
                     },
                     3: {
-                        'name': 'محمد قفاری',
-                        'zp': 'zp.56573',
+                        'name': 'مططفی امیری',
+                        'public_id': '1',
                         'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
                     },
                     4: {
-                        'name': 'امین نظری',
-                        'zp': 'zp.34345',
+                        'name': 'سجاد کرمی',
+                        'public_id': '23903',
                         'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
                     },
                     5: {
-                        'name': 'کاربر آخر',
-                        'zp': 'zp.45678896',
+                        'name': 'مهدی محمدی',
+                        'public_id': '18984',
                         'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
                     },
                 },
@@ -291,7 +296,7 @@
                 if(this.step === 2){
                     let vm = this;
                     this.selectedUsers = _.filter(this.users, function(user) {
-                        return vm.checkUsers.indexOf(user.zp) !== -1;
+                        return vm.checkUsers.indexOf(user.public_id) !== -1;
                     });
                 }
             },
@@ -321,7 +326,7 @@
                 this.manuallyUserCounter--;
             },
             /*** Send request money***/
-            postRequestMoney(){
+            postRequestMoney() {
                 if(!this.description) {
                     store.commit('flashMessage',{
                         text: 'fill-description-input',
@@ -349,18 +354,19 @@
                     }
                 }
 
-
-                this.isLoading = true;
+                this.requesting = true;
                 let requestMoneyData = [];
 
                 let vm = this;
                 this.selectedUsers.forEach(function (user) {
                     delete user.name;
                     delete user.avatar;
+                    user.zp = user.public_id; //change public_id key to zp
+                    delete user.public_id; //delete publci_id
 
-                    if(vm.requestType == 'Auto') {
+                    if(vm.requestType === 'Auto') {
                         let userIndex = _.findIndex(vm.selectedUsers, function(userData) {
-                            return userData.zp === user.zp;
+                            return userData.public_id === user.public_id;
                         });
                         vm.selectedUsers[userIndex].amount = vm.autoPersonAmount;
                     }
@@ -372,26 +378,39 @@
                     'description': this.description
                 };
 
-                console.log(requestMoneyData);
-
-                return;
-
-//                this.$store.state.http.requests['requestMoney.postRequestMoney'].save(requestMoneyData).then(
-//                    ()=> {
-//                        this.isLoading = false;
-//                        this.$router.push({name: 'requestMoney.index'})
-//                    },
-//                    (response) => {
-//                        this.isLoading = false;
-//                        store.commit('setValidationErrors',response.data.validation_errors);
+                this.$store.state.http.requests['requestMoney.postRequestMoney'].save(requestMoneyData).then(
+                    ()=> {
+                        this.$router.push({name: 'requestMoney.index'});
 //                        store.commit('flashMessage',{
-//                            text: response.data.meta.error_message,
+//                            text: 'request money sent',
 //                            important: false,
-//                            type: 'danger'
+//                            type: 'success'
 //                        });
-//                    }
-//                );
+                        this.closeModal();
+                        this.getDemand();
+                        this.requestSuccessMessage();
+                        this.requesting = false;
+                    },
+                    (response) => {
+                        store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('flashMessage',{
+                            text: response.data.meta.error_message,
+                            important: false,
+                            type: 'danger'
+                        });
+                        this.requesting = false;
+                    }
+                );
 
+            },
+            closeModal() {
+                this.$emit('closeModal');
+            },
+            getDemand() {
+                this.$emit('getDemand');
+            },
+            requestSuccessMessage() {
+                this.$emit('requestSuccessMessage');
             }
         },
         components: {

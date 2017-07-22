@@ -5,7 +5,7 @@
                 p.page-title {{ $i18n.t('coupon.createCoupon') }}
                 p.page-description {{ $i18n.t('coupon.createCouponDescription') }}
 
-        form(autocomplete="on")
+        form(autocomplete="on" onsubmit="event.preventDefault();")
             div.row.section.nav-create-coupon
                 div.row.box
                     <!--Right box-->

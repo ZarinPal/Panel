@@ -12,7 +12,7 @@
             leave-active-class="fade-out")
                 div.ta-right.more-description(v-if="visibleDescription") {{ $i18n.t('webservice.ussdNotice') }}
 
-            form(autocomplete="on")
+            form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
                     div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}" required)
                         div.no-margin.last-label
