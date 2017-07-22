@@ -8,7 +8,7 @@
                     span.zp-title {{ $i18n.t('common.zarinPal') }}
 
                 <!--Body-->
-                form(action="#" method="post" novalidate)
+                form(action="#" method="post" onsubmit="event.preventDefault();")
                     div.row.middle-xs
                         div.col-xs-12.no-margin.body-messages
                             div.col-lg-12.ta-right

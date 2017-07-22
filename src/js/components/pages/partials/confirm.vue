@@ -5,9 +5,9 @@
         div.content(slot="content")
             slot(name="message")
             div.ta-left.nav-buttons
-                button.btn(v-ripple="" @click="closeModal()")
+                button.btn(v-if="hasMessageDanger" v-ripple="" @click="closeModal()")
                     slot(name="messageDanger")
-                button.btn.success(v-ripple="" @click="confirmed()")
+                button.btn.success(v-if="hasMessageSuccess" v-ripple="" @click="confirmed()")
                     slot(name="messageSuccess")
 </template>
 
@@ -21,6 +21,14 @@
             return {
                 closeModalContent: false,
             }
+        },
+        computed: {
+            hasMessageDanger() {
+                return this.$slots.messageDanger;
+            },
+            hasMessageSuccess() {
+                return this.$slots.messageSuccess;
+            },
         },
         mounted() {
             this.closeModalContent = false

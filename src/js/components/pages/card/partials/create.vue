@@ -2,7 +2,7 @@
     modal.card(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('card.addAccountTitle') }}
         div(slot="content")
-            form(autocomplete="on")
+            form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row.nav-account-type(v-if="user.company_info")
                     div.col-lg-6.col-md-4.col-sm-12.col-xs-12.ta-right.account-label
                         span.label {{$i18n.t('card.accountType')}}:

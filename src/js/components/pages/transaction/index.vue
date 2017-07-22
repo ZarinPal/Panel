@@ -47,7 +47,7 @@
                     li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
 
 
-        div.row.transaction-fields-title(v-if="transactions.length")
+        div.row.transaction-fields-title(v-if="transactions.data.length")
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs
                 span {{ $i18n.t('transaction.id') }}
             div.col-lg-3.col-md-3.col-sm-3.hidden-xs

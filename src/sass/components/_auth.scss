@@ -61,6 +61,7 @@
     }
 
     .middle-xs {
+
       .body-messages {
         margin-top: 6px !important;
         margin-bottom: 25px !important;
@@ -86,6 +87,30 @@
           margin-right: 5px;
           color: #2979ff;
           cursor: pointer;
+        }
+      }
+
+      .nav-user-not-registered{
+        font-size: 13px;
+        padding: 10px;
+        background-color: rgba(255, 214, 0, 0.16);
+        border: 1px solid #FFD600;
+        text-align: right;
+        margin: 20px 0;
+        width: 100%;
+        cursor: pointer;
+
+        .close{
+          float: left;
+           &:before{
+             font-family:'zarinpal';
+             content: $iconCloseDropDown;
+             font-size: 20px !important;
+             display: inline-block;
+             position: relative;
+             top: 4px;
+             color: #424242;
+           }
         }
       }
 

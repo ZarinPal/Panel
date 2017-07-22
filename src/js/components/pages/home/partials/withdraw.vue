@@ -6,7 +6,7 @@
                 div.modal-description
                     div {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
 
-                form(autocomplete="on")
+                form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.row
                         input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
                         div.ta-right(v-if="validationErrors.amount")

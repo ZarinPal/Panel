@@ -2,7 +2,7 @@
     modal.card(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('card.editAccountTitle') }}
         div(slot="content")
-            form(autocomplete="on")
+            form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
                     div.col-xs.ta-right
                         div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")

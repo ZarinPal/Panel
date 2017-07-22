@@ -8,7 +8,7 @@
 
         loading(v-if="loadingContent")
 
-        form(autocomplete="on")
+        form(autocomplete="on" onsubmit="event.preventDefault();")
             div.row.section.nav-create-coupon( :class="{'inactive-step': loadingContent}" )
                 div.row.box
                     <!--Right box-->
