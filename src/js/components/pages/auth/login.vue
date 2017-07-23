@@ -16,7 +16,7 @@
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(v-validate="{size: 11, type: 'number', mobile: true}" :class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل" autofocus @keyup="loginOnMobileFill")
+                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل" autofocus)
                             div.ta-right(v-if="validationErrors.username")
                                 span.text-danger {{ $i18n.t(validationErrors.username) }}
 
@@ -149,11 +149,6 @@
             }
         },
         methods: {
-            loginOnMobileFill() {
-                if(this.username.length == 11) {
-                    document.getElementById("btnSubmitEnter").click();
-                }
-            },
             sendOtp(channel){
                 this.getOtpLoading = true;
                 let postData = {

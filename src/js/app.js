@@ -28,9 +28,10 @@ const app = new Vue({
     router: require('./router').default,
     data() {
       return {
-          // https://next.zarinpal.com/panel            =======> its for next
-          // https://api.zarinpal.dev/panelw/index.html =======> its for dev
-          baseUrl: 'https://next.zarinpal.com/panel',
+          // https://next.zarinpal.com/panel            =======> its for next panel
+          // https://api.zarinpal.dev/panelw/index.html =======> its for dev panel
+          baseUrl: 'next.zarinpal.com/panel', // panel base
+          rootUrl: 'https://api.zarinpal.com/rest/v3', //its for transaction pdf
       }
     },
     http: {

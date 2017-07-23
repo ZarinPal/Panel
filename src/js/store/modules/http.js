@@ -264,6 +264,10 @@ export default {
                 url: "requestMoney/debt.json"
             },
             {
+                name: "requestMoney.phonebook",
+                url: "user/phonebook.json"
+            },
+            {
                 name: "easypay.getList",
                 url: "easypay.json"
             },
