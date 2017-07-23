@@ -53,7 +53,8 @@
 
 
             div.footer.bottom-xs
-                span.print(@click="printDetail(transaction.public_id)") {{$i18n.t('transaction.print')}}
+                a.print(:href="this.$root.rootUrl + '/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
+
 
 </template>
 
