@@ -31,7 +31,7 @@
         props:['debt'],
         mounted() {
             this.closeModalContent = false;
-            this.redirect_url =  this.$root.baseUrl + this.$router.resolve({name: 'requestMoney.index'}).href + '?';
+            this.redirect_url =  this.$root.baseUrl + this.$router.resolve({name: 'requestMoney.index'}).href + '/debt?';
         },
         methods: {
             closeModal() {

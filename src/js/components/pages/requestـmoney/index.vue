@@ -42,21 +42,21 @@
                 div.nav-requests(v-if="whichTab == 'requests' && demands.data.length")
                     singleDemand(v-for="demand in demands.data" v-bind:key="demand.entity_id" v-bind:demand="demand")
 
-                div.row(v-if="!loadingDemandState.demandStatus && !demands.data.length && whichTab == 'requests'")
+                div.row(v-if="!demands.status && !demands.data.length && whichTab == 'requests'")
                     div.col-xs.ta-center
                         span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
-                div.ta-center(v-if="whichTab == 'requests' && loadingDemandState.demandStatus")
+                div.ta-center(v-if="whichTab == 'requests' && demands.status")
                     loading
 
                 div.nav-debts(v-if="whichTab == 'debt' && debts.data.length")
                     singleDebt(v-for="debt in debts.data" v-bind:key="debt.entity_id" v-bind:debt="debt" v-on:changeRequestMode="changeRequestMode")
 
-                div.row(v-if="!loadingDebtState.debtStatus && !debts.data.length && whichTab == 'debt'")
+                div.row(v-if="!debts.status && !debts.data.length && whichTab == 'debt'")
                     div.col-xs.ta-center
                         span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
-                div.ta-center(v-if="whichTab == 'debt' && loadingDebtState.debtStatus")
+                div.ta-center(v-if="whichTab == 'debt' && debts.status")
                     loading
 
         <!--New request money modal-->
@@ -97,62 +97,62 @@
                 return this.$store.state.auth.user;
             },
             demands(){
-                return {
-                    data: this.$store.state.paginator.paginator.DemandList.data,
-                    update: this.$store.state.paginator.update,
+                if(this.$store.state.paginator.paginator.DemandList) {
+                    return {
+                        data: this.$store.state.paginator.paginator.DemandList.data,
+                        update: this.$store.state.paginator.update,
+                        status: this.$store.state.paginator.paginator.DemandList.isLoading,
+                    }
+                } else {
+                    return {
+                        data: '',
+                        update: this.$store.state.paginator.update,
+                        status: true,
+                    }
                 }
             },
             debts() {
-                return {
-                    data: this.$store.state.paginator.paginator.DebtList.data,
-                    update: this.$store.state.paginator.update,
-                }
-            },
-            loadingDemandState() {
-                return {
-                    demandStatus: this.$store.state.paginator.paginator.DemandList.isLoading,
-                    update: this.$store.state.paginator.update,
-                }
-            },
-            loadingDebtState() {
-                if(this.$store.state.paginator.paginator.DebtList){
+                if(this.$store.state.paginator.paginator.DebtList) {
                     return {
-                        debtStatus: this.$store.state.paginator.paginator.DebtList.isLoading,
+                        data: this.$store.state.paginator.paginator.DebtList.data,
                         update: this.$store.state.paginator.update,
-                    };
+                        status: this.$store.state.paginator.paginator.DebtList.isLoading,
+                    }
                 } else {
                     return {
-                        debtStatus: true,
+                        data: '',
+                        status: true,
                         update: this.$store.state.paginator.update,
-                    }
+                    };
                 }
-            }
+
+            },
         },
         created() {
-            //check is request money paid or not
-            this.checkRequestPay();
-            if(this.whichTab === 'requests') {
-                this.getDemand();
-            } else if(this.whichTab === 'debt') {
-                this.getDebt();
-            }
-
-            this.loadMore();
-
             /*** Show debt list on click notifications ***/
             if(this.$route.params.type === 'debt') {
                 this.whichTab = 'debt';
+                this.getDebt();
             }
 
+            //check is request money paid or not
+            this.checkRequestPay();
+
+            if(this.whichTab === 'requests') {
+                this.getDemand();
+            }
+
+            /*** Load more on scroll ***/
+            this.loadMore();
         },
         methods: {
             changeTab(value) {
                 this.whichTab = value;
-                if(this.whichTab === 'requests') {
+                if(value === 'requests') {
                     if(!this.demands.data) {
                         this.getDemand();
                     }
-                } else if(this.whichTab === 'debt') {
+                } else if(value === 'debt') {
                     if(!('DebtList' in this.$store.state.paginator.paginator)) {
                         this.getDebt();
                     }
@@ -185,7 +185,7 @@
                 window.onscroll = function(ev) {
                     if(vm.whichTab === 'requests') {
                         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                            && !vm.loadingDemandState.demandStatus) {
+                            && !vm.demands.status) {
                             vm.$store.dispatch(
                                 'paginator/next',
                                 {
@@ -195,7 +195,7 @@
                         }
                     } else {
                         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                            && !vm.loadingDebtState.debtStatus) {
+                            && !vm.debts.status) {
                             vm.$store.dispatch(
                                 'paginator/next',
                                 {
