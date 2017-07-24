@@ -4,12 +4,12 @@
         div(slot="content")
             <!--Step 1-->
             div.nav-select-user(v-if="step == 1")
-                div.row.search-box
+                div.row.search-box(v-if="phoneBooks.data.length")
                     span.icon-search
                     input(type="text" placeholder="جستجو ...")
 
-                div.users
-                    div.row.user-row(v-for="user in users")
+                div.users(v-if="!phoneBooks.status")
+                    div.row.user-row(v-for="user in phoneBooks.data")
                         label.row(:for="user.public_id")
                             div.col-lg-2.col-md-2.col-xs-3.no-margin.ta-center
                                 img.avatar(:src="user.avatar")
@@ -20,6 +20,12 @@
                                 input.circle-checkbox(type="checkbox" :value="user.public_id" v-model="checkUsers" :id="user.public_id")
                                 label.checkbox-label(:for="user.public_id")
                                     span.circle-checkbox
+
+                div.ta-center(v-if="phoneBooks.status")
+                    loading
+                div.row(v-if="!phoneBooks.status && !phoneBooks.data.length")
+                    div.col-xs.ta-center
+                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
             <!--Step 2-->
             div.nav-request-type.ta-right(v-else-if="step == 2")
@@ -133,7 +139,7 @@
                             span.multi-person {{ selectedUsers.length + ' ' + $i18n.t('requestMoney.person') | persianNumbers}}
 
 
-            div.footer
+            div.footer(v-if="phoneBooks.data.length")
                 div.row
                     div.col-xs.ta-right.no-margin
                         span.prev-link-text(v-if="step > 1" @click="prevStep") {{$i18n.t('requestMoney.prevStep')}}
@@ -152,6 +158,7 @@
 
 <script>
     import modal from '../../partials/modal.vue';
+    import loading from '../../../pages/partials/loading.vue';
 
     export default {
         name: 'pages-requestMoney-partials-new',
@@ -208,10 +215,13 @@
 
             }
         },
-        props:['card'],
         computed:{
-            user(){
-                return this.$store.state.auth.user;
+            phoneBooks() {
+                return {
+                    data: this.$store.state.paginator.paginator.PhoneBook.data,
+                    update: this.$store.state.paginator.update,
+                    status: this.$store.state.paginator.paginator.PhoneBook.isLoading
+                };
             },
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
@@ -221,7 +231,7 @@
             this.closeModalContent = false
         },
         created() {
-            return this.searchUser('محم');
+            this.getPhoneBook();
         },
         methods: {
             closeModal() {
@@ -411,10 +421,22 @@
             },
             requestSuccessMessage() {
                 this.$emit('requestSuccessMessage');
+            },
+            getPhoneBook() {
+                let vm = this;
+                vm.$store.dispatch(
+                    'paginator/make',
+                    {
+                        vm,
+                        resource: vm.$store.state.http.requests['requestMoney.phonebook'],
+                        requestName: 'PhoneBook'
+                    },
+                );
             }
         },
         components: {
-            modal
+            modal,
+            loading
         }
     }
 </script>

@@ -24,13 +24,6 @@
     import singleEasypay from './partials/single-easypay.vue';
     export default {
         name: 'easypay-index',
-        created(){
-//            this.$store.dispatch(
-//                'paginator/make',
-//                this.$store.state.http.requests['easypay.getList'].get()
-//            );
-
-        },
         computed:{
             user(){
                 return this.$store.state.auth.user;

@@ -18,13 +18,13 @@ export default {
     },
     mutations: {
         reset(state, requestName) {
-            if (!requestName) {
-                requestName = 'default';
-            }
-
-            if(state.paginator[requestName]) {
-                state.paginator[requestName].data = [];
-            }
+            // if (!requestName) {
+            //     requestName = 'default';
+            // }
+            //
+            // if(state.paginator[requestName]) {
+            //     state.paginator[requestName].data = [];
+            // }
         },
         setVm(state, vm) {
             state.vm = vm;
@@ -74,8 +74,10 @@ export default {
                 state.paginator[requestName].resource.resource.get(state.paginator[requestName].resource.params).then(
                     (response) => {
                         let resource = null;
-                        if(response.data.meta.pagination.links.next){
-                            resource = state.vm.$resource(response.data.meta.pagination.links.next);
+                        if(response.data.meta.pagination)  {
+                            if(response.data.meta.pagination.links.next){
+                                resource = state.vm.$resource(response.data.meta.pagination.links.next);
+                            }
                         }
 
                         commit('nextData', {resource, data:response.data.data, requestName});

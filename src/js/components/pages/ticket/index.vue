@@ -62,7 +62,7 @@
                 {
                     vm,
                     resource: vm.$store.state.http.requests['ticket.index'],
-                    resourceData: vm.searchOptions,
+                    params: vm.searchOptions,
                     requestName: 'TicketList'
                 }
             );

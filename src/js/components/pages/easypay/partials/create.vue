@@ -231,13 +231,14 @@
                 description: '',
                 price: '',
                 purse: null,
+                purse_name: null,
                 requiredFields: {
                     email: false,
                     name: false,
                     mobile: false
                 },
                 type: '1',
-                showReceipt: '',
+                showReceipt: false,
                 successfulRedirectUrl: '',
                 failedRedirectUrl: '',
                 limited: false,
@@ -262,6 +263,7 @@
         methods: {
             selectedPurse(purseId) {
                 this.purse = purseId;
+                this.purse_name = this.getPurseName(purseId);
             },
             stepTwo() {
                 if(this.title && this.price && this.description && this.purse) {
@@ -293,6 +295,7 @@
                     description: this.description,
                     price: this.price,
                     purse: this.purse,
+                    purse_name: this.purse_name.name,
                     required_fields: {
                         email: this.requiredFields.email,
                         name: this.requiredFields.name,
@@ -342,6 +345,12 @@
                 } else {
                     this.showReceipt = 1;
                 }
+            },
+            getPurseName(purseId) {
+                return _.find(this.$store.state.auth.user.purses, function(purse) {
+                    return purse.purse === purseId;
+                });
+
             }
         },
         components: {

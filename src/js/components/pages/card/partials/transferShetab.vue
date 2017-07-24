@@ -9,22 +9,22 @@
                     form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row.no-margin
                             div.col-xs.no-right-margin
-                                input(:class="{'input-danger': validationErrors.password}" type="password" v-model="password" placeholder="رمز دوم")
+                                input(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.password}" type="password" v-model="password" placeholder="رمز دوم")
                                 div.ta-right(v-if="validationErrors.password")
                                     span.text-danger {{ $i18n.t(validationErrors.password) }}
 
                             div.col-xs.no-left-margin
-                                input(:class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder="CVV2")
+                                input(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder="CVV2")
                                 div.ta-right(v-if="validationErrors.cvv2")
                                     span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
 
                         div.row.no-margin
-                            input(:class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" placeholder="شماره کارت مقصد")
+                            input(v-validate="{type: 'number', size: 16}" :class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" placeholder="شماره کارت مقصد")
                             div.ta-right(v-if="validationErrors.dst_pan")
                                 span.text-danger {{ $i18n.t(validationErrors.dst_pan) }}
 
                         div.row.no-margin
-                            input(:class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                            input(v-validate="{type: 'number', size: 12}" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
                             div.ta-right(v-if="validationErrors.amount")
                                 span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
