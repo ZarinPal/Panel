@@ -91,7 +91,6 @@
                         store.commit('setValidationErrors',response.data.validation_errors);
                         this.$store.commit('flashMessage',{
                             text: response.data.meta.error_message,
-                            important: false,
                             type: 'danger'
                         });
                     }

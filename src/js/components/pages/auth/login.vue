@@ -52,7 +52,7 @@
                                     span(v-else-if="channel == 'email'")
                                         span رمز یکبار مصرف ارسال شده به ایمیل خود را وارد کنید
                                     span(v-else-if="channel == 'sms'")
-                                        span رمز یکبار مصرف ارسال شده به موبایل خود را وارد کنید
+                                        span رمز یکبار مصرف ارسال شده به  خود را وارد کنید
 
                             <!--Ussd Box-->
                             div.row.ussd-box.no-margin(v-if="channel == 'ussd'")

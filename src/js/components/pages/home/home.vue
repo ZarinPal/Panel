@@ -69,6 +69,7 @@
                         store.commit('flashMessage', {
                             text: this.message,
                             type: 'success',
+                            important: true
                         });
                         this.$router.push({name: 'transaction.index', params: {id: '1', type: 'purse', transactionId: authority}});
                     } else {
@@ -76,6 +77,7 @@
                         store.commit('flashMessage', {
                             text: this.message,
                             type: 'danger',
+                            important: true
                         });
                         this.$router.push({name: 'home.index'});
                     }
