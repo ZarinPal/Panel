@@ -16,7 +16,7 @@
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="شماره موبایل" autofocus)
+                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="موبایل یا ایمیل" autofocus)
                             div.ta-right(v-if="validationErrors.username")
                                 span.text-danger {{ $i18n.t(validationErrors.username) }}
 
@@ -49,6 +49,11 @@
                                         span.mobile-number {{ username | persianNumbers}}
                                         span شماره گیری کنید.
                                         span.change-mobile(@click="step--") (تغیر شماره تلفن)
+                                    span(v-else-if="channel == 'email'")
+                                        span رمز یکبار مصرف ارسال شده به ایمیل خود را وارد کنید
+                                    span(v-else-if="channel == 'sms'")
+                                        span رمز یکبار مصرف ارسال شده به موبایل خود را وارد کنید
+
                             <!--Ussd Box-->
                             div.row.ussd-box.no-margin(v-if="channel == 'ussd'")
                                 div
@@ -64,7 +69,7 @@
 
 
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus(this)" id="otp1" maxlength="1" autofocus)
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus(this)" id="otp1" maxlength="1")
                             input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus(this)" id="otp2" maxlength="1")
                             input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus(this)" id="otp3" maxlength="1")
                             input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus(this)" id="otp4" maxlength="1")
@@ -75,7 +80,7 @@
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
-                            span.link(v-if="!visibleOtpTimer && visibleSendSms" v-on:click.prevent="sendOtp('sms')") {{ $i18n.t('user.sendCodeBySms') }}
+                            span.link(v-if="!visibleOtpTimer && visibleSendSms && channel !== 'email'" v-on:click.prevent="sendOtp('sms')") {{ $i18n.t('user.sendCodeBySms') }}
                             timer(v-if="visibleOtpTimer" v-bind:seconds="$store.state.auth.otpTime" v-on:onFinished="finishTimer")
 
                         div.col-xs.no-margin
@@ -150,6 +155,12 @@
         },
         methods: {
             sendOtp(channel){
+                let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                //if username is email
+                if(emailRegex.test(this.username)) {
+                    channel = 'email';
+                }
+
                 this.getOtpLoading = true;
                 let postData = {
                     username: this.username,
@@ -171,12 +182,21 @@
                             this.ussdCode = response.data.data.ussd_code;
                         }
 
-                        if(channel && channel !== 'ussd'){
+                        if(channel && channel === 'sms'){
                             store.commit('flashMessage', {
-                                text: 'otp-sent',
-                                type: 'success'
+                                text: 'otp-sent-by-sms',
+                                type: 'success',
+                                timeout: 10000,
+                            });
+                        }else if(channel === 'email') {
+                            store.commit('flashMessage', {
+                                text: 'otp-send-to-you-by-email',
+                                type: 'success',
+                                timeout: 10000,
                             });
                         }
+
+                        document.getElementById("otp1").focus();
                     }).catch((response)=>{
                         this.getOtpLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
