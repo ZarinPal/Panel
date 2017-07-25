@@ -274,6 +274,11 @@ $plusIcon: $icon-zp-add;
           //word-break: break-all;
           //white-space: normal;
         }
+
+        .ticket-attachment-download{
+          color: #2979ff;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -325,7 +330,7 @@ $plusIcon: $icon-zp-add;
       width: 110px;
       outline: none;
 
-      &:before{
+      &:before {
         content: $iconAttach;
         font-family: 'zarinpal';
         display: inline-block;
@@ -338,12 +343,25 @@ $plusIcon: $icon-zp-add;
         -webkit-user-select: none;
         cursor: pointer;
       }
+
+      &.uploaded {
+        &:before {
+          color: #0abe57 !important;
+        }
+      }
     }
 
     .attach::-webkit-file-upload-button{
       visibility: hidden;
     }
 
+    .nav-upload-loading{
+      display: inline-block;
+      margin-left: 50px;
+      position: relative;
+      right: -112px;
+      top: 12px;
+    }
 
   }
 }

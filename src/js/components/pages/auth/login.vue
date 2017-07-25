@@ -206,16 +206,7 @@
                         }
                     });
             },
-            login(event){
-                if(!this.otp) {
-                    store.commit('flashMessage',{
-                        text: 'otp not valid',
-                        important: false,
-                        type: 'danger'
-                    });
-                    return;
-                }
-
+            login(){
                 this.loginLoading = true;
                 let auth2Data = {
                     grant_type: "password",

@@ -496,6 +496,7 @@
     .users{
       margin: 20px 0;
       max-height: 280px;
+      min-height: 250px;
       margin-left: -20px;
       overflow: auto;
       .user-row{
@@ -529,6 +530,15 @@
         }
       }
     }
+  }
+
+  .txt-nothing-to-show{
+    color: #424242;
+    position: relative;
+    top: -130px;
+    margin-top: -200px;
+    font-size: 13px;
+    display: inline-block;
   }
 
   /*** Select Method ***/
