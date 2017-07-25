@@ -276,7 +276,7 @@
             getSelectedUsers() {
                 if(this.step === 2){
                     let vm = this;
-                    this.selectedUsers = _.filter(this.phoneBook.data, function(user) {
+                    this.selectedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
                         return vm.checkUsers.indexOf(user.public_id) !== -1;
                     });
                 }
@@ -340,18 +340,20 @@
 
                 let vm = this;
                 this.selectedUsers.forEach(function (user) {
-                    delete user.name;
-                    delete user.avatar;
-                    user.zp = user.public_id; //change public_id key to zp
-                    delete user.public_id; //delete publci_id
-
                     if(vm.requestType === 'Auto') {
                         let userIndex = _.findIndex(vm.selectedUsers, function(userData) {
                             return userData.public_id === user.public_id;
                         });
+
                         vm.selectedUsers[userIndex].amount = vm.autoPersonAmount;
                     }
+                    delete user.name;
+                    delete user.avatar;
+                    delete user.email_hash;
+                    user.zp = user.public_id; //change public_id key to zp
+                    delete user.public_id; //delete publci_id
                 });
+
 
                 requestMoneyData= {
                     'debtor': this.selectedUsers,
@@ -362,11 +364,6 @@
                 this.$store.state.http.requests['requestMoney.postRequestMoney'].save(requestMoneyData).then(
                     ()=> {
                         this.$router.push({name: 'requestMoney.index'});
-//                        store.commit('flashMessage',{
-//                            text: 'request money sent',
-//                            important: false,
-//                            type: 'success'
-//                        });
                         this.closeModal();
                         this.getDemand();
                         this.requestSuccessMessage();

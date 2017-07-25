@@ -53,7 +53,10 @@
                                             div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
                                                 span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
                                                 input#attach(type="file" name="file" @change="onFileChange")
-                                                div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
+                                                div.file-name(v-if="fileUploaded" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
+                                                span.nav-upload-loading(v-if="fileUploading")
+                                                    loading
+
 
                         div.row.nav-button
                             div.col-xs.no-margin
@@ -65,11 +68,15 @@
 
 <script>
     import selectbox from '../partials/selectbox.vue';
+    import loading from '../../pages/partials/loading.vue';
+
 
     export default {
         name: 'ticket-create',
         data() {
             return {
+                fileUploading: false,
+                fileUploaded: false,
                 loading: false,
                 status: 0 ,
                 priority: 0,
@@ -123,8 +130,10 @@
                 if (!files.length)
                     return;
                 this.createFile(files[0]);
+                this.fileName = files[0].name;
             },
             createFile(file) {
+                this.fileUploading = true;
                 let reader = new FileReader();
                 let vm = this;
 
@@ -139,7 +148,10 @@
 
                 this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
                     this.attachment = response.data.meta.file_id;
+                    this.fileUploading = false;
+                    this.fileUploaded = true;
                 }, (response) => {
+                    this.fileUploading = 'Failed';
                     console.log('Error occurred...');
                 });
             },
@@ -172,7 +184,8 @@
             },
         },
         components: {
-            selectbox
+            selectbox,
+            loading
         }
 
     }
