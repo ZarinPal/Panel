@@ -4,12 +4,12 @@
         div(slot="content")
             <!--Step 1-->
             div.nav-select-user(v-if="step == 1")
-                div.row.search-box(v-if="phoneBooks.data.length")
+                div.row.search-box
                     span.icon-search
-                    input(type="text" placeholder="جستجو ...")
+                    input(type="text" v-model="searchString" placeholder="جستجو ..." )
 
-                div.users(v-if="!phoneBooks.status")
-                    div.row.user-row(v-for="user in phoneBooks.data")
+                div.users(v-if="!phoneBook.status")
+                    div.row.user-row(v-for="user in phoneBook.data")
                         label.row(:for="user.public_id")
                             div.col-lg-2.col-md-2.col-xs-3.no-margin.ta-center
                                 img.avatar(:src="user.avatar")
@@ -21,9 +21,9 @@
                                 label.checkbox-label(:for="user.public_id")
                                     span.circle-checkbox
 
-                div.ta-center(v-if="phoneBooks.status")
+                div.ta-center(v-if="phoneBook.status")
                     loading
-                div.row(v-if="!phoneBooks.status && !phoneBooks.data.length")
+                div.row(v-if="!phoneBook.status && !phoneBook.data.length")
                     div.col-xs.ta-center
                         span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
@@ -139,7 +139,7 @@
                             span.multi-person {{ selectedUsers.length + ' ' + $i18n.t('requestMoney.person') | persianNumbers}}
 
 
-            div.footer(v-if="phoneBooks.data.length")
+            div.footer(v-if="phoneBook.data.length")
                 div.row
                     div.col-xs.ta-right.no-margin
                         span.prev-link-text(v-if="step > 1" @click="prevStep") {{$i18n.t('requestMoney.prevStep')}}
@@ -165,43 +165,12 @@
         data() {
             return {
                 maxAmountLimit: 20000000,
+                searchString: '',
                 requesting: false,
                 loading: false,
                 step: 1, //Select user, select pay method(auto, manually)
                 pageTitle: 'selectUsers',
                 closeModalContent: false,
-                users: {
-                    0: {
-                        'name': 'هومن نقی ای',
-                        'public_id': '120263',
-                        'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
-                    },
-                    1: {
-                        'name': 'ایمان طرازانی',
-                        'public_id': '124081',
-                        'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
-                    },
-                    2: {
-                        'name': 'علی امیری',
-                        'public_id': '2',
-                        'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
-                    },
-                    3: {
-                        'name': 'مططفی امیری',
-                        'public_id': '1',
-                        'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
-                    },
-                    4: {
-                        'name': 'سجاد کرمی',
-                        'public_id': '23903',
-                        'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
-                    },
-                    5: {
-                        'name': 'مهدی محمدی',
-                        'public_id': '18984',
-                        'avatar': '//gravatar.com/avatar/890daede1a83cb2def69216076e29400?r=g&d=mm'
-                    },
-                },
                 checkUsers: [],
                 selectedUsers: [], //filter users by checkUsers NOTE:final object for users
                 requestType: 'Auto', //Auto, Manually
@@ -216,9 +185,15 @@
             }
         },
         computed:{
-            phoneBooks() {
+            phoneBook() {
+                let vm = this;
+                let findedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
+                    let userRegex = new RegExp('\\.*' + vm.searchString + '.*\\i');
+                    return userRegex.test(JSON.stringify(user));
+                });
+
                 return {
-                    data: this.$store.state.paginator.paginator.PhoneBook.data,
+                    data: findedUsers,
                     update: this.$store.state.paginator.update,
                     status: this.$store.state.paginator.paginator.PhoneBook.isLoading
                 };
@@ -259,7 +234,6 @@
                     }
                 }
 
-
                 if(this.step === 3 && this.requestType === 'Manually') {
                     let users = _.filter(this.selectedUsers, function (user) {
                         return user.amount;
@@ -289,9 +263,6 @@
                     this.autoPersonAmount = 0;
                 }
             },
-            searchUser(content) {
-                return _.some(this.users, _.unary(_.partialRight(_.includes, content)));
-            },
             changeTitle() {
                 if(this.step === 1) {
                     this.pageTitle = 'selectUsers';
@@ -305,7 +276,7 @@
             getSelectedUsers() {
                 if(this.step === 2){
                     let vm = this;
-                    this.selectedUsers = _.filter(this.users, function(user) {
+                    this.selectedUsers = _.filter(this.phoneBook.data, function(user) {
                         return vm.checkUsers.indexOf(user.public_id) !== -1;
                     });
                 }

@@ -20,19 +20,22 @@ export default {
                 if (el.value.length < binding.value.size) {
                     //do something if input value smaller than limit
                 } else {
+
                     //Check if button not ENTER
                     if (
                         event.keyCode !== 8  &&
                         event.keyCode !== 9  &&
                         event.keyCode !== 13 &&
                         event.keyCode !== 37 &&
-                        event.keyCode !== 39)
+                        event.keyCode !== 39 &&
+                        event.keyCode !== 86 &&
+                        event.keyCode !== 91
+                    )
                     {
                         event.preventDefault();
                     }
                 }
             }
-
 
             /** ---------------
              Valid is Number
@@ -40,11 +43,13 @@ export default {
             if (binding.value.type) {
                 if(binding.value.type === 'number') {
                     if(/[^\d]/g.test(event.key) && //its mean event IS NOT number in english format
-                        event.keyCode !== 8     &&
-                        event.keyCode !== 9     &&
-                        event.keyCode !== 13    &&
-                        event.keyCode !== 37    &&
-                        event.keyCode !== 39
+                        event.keyCode !== 8   &&
+                        event.keyCode !== 9   &&
+                        event.keyCode !== 13  &&
+                        event.keyCode !== 37  &&
+                        event.keyCode !== 39  &&
+                        event.keyCode !== 86  &&
+                        event.keyCode !== 91
                     ) {
                         event.preventDefault();
                         store.commit('flashMessage',{

@@ -36,7 +36,7 @@
                     router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" title="کپن ها")
                         div
                             i.icon-zp-copouns
-                            span.item-label کد تخفیف
+                            span.item-label کد هدیه
 
                     router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}" title="تیکت ها")
                         div
