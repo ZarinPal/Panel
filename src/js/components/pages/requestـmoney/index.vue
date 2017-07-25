@@ -23,7 +23,7 @@
                             span.user-zp-id zp.{{user.public_id | persianNumbers}}
                     div.col-lg-6.col-md-6.col-sm-12.col-xs-12.nav-left
                         div.nav-buttons
-                            span.request-button.zarin-friends دوستان زرین پالی
+                            <!--span.request-button.zarin-friends دوستان زرین پالی-->
                             span.request-button(@click="visibleNewRequestMoney = true") دنگی دونگی جدید
 
 
@@ -60,9 +60,7 @@
                     loading
 
         <!--New request money modal-->
-        newRequestMoney(v-if="visibleNewRequestMoney" v-on:closeModal="closeModal()" v-on:requestSuccessMessage="requestSuccessMessage()")
-
-
+        newRequestMoney(v-if="visibleNewRequestMoney" v-on:closeModal="closeModal()" v-on:requestSuccessMessage="requestSuccessMessage()" v-on:getDemand="getDemand()")
 
         <!--Confirmation of request success-->
         confirm(v-if="visibleRequestSuccess" v-on:closeModal="closeModal")
@@ -80,7 +78,6 @@
     import loading from '../../pages/partials/loading.vue';
     import newRequestMoney from './partials/new_request_money.vue';
     import confirm from '../partials/confirm.vue';
-
 
     export default {
         name: 'request-money-index',

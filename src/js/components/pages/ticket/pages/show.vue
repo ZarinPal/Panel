@@ -74,13 +74,14 @@ span
                     div.ta-right(v-if="validationErrors.content")
                         span.text-danger {{ $i18n.t(validationErrors.content) }}
 
-
                 button.submit(@click="send") {{ $i18n.t('ticket.send')}}
                     svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                         circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                input.attach(type="file" name="file" @change="onFileChange")
-
+                input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")
+                span(v-if="fileUploading == 'Failed'") upload failed
+                span.nav-upload-loading(v-if="fileUploading")
+                    loading
 
 </template>
 
@@ -90,6 +91,8 @@ span
         name: 'ticket-show',
         data() {
           return {
+              fileUploading: false,
+              fileUploaded: false,
               loading: false,
               isLoadReplies: false,
               ticket: {},
@@ -184,6 +187,7 @@ span
                 this.createFile(files[0]);
             },
             createFile(file) {
+                this.fileUploading = true;
                 let reader = new FileReader();
                 let vm = this;
 
@@ -198,7 +202,10 @@ span
 
                 this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
                     this.attachment = response.data.meta.file_id;
+                    this.fileUploading = false;
+                    this.fileUploaded = true;
                 }, (response) => {
+                    this.fileUploading = 'Failed';
                     console.log('Error occurred...');
                 });
             },
