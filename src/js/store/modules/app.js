@@ -7,7 +7,6 @@ export default {
         isTicketEmptyPage: false,
         webserviceCategories:  [],
         ticketDepartments:  [],
-        singlePurseMoreTrigger: '',
         visibleNotification: false,
         ticketSummary: {},
         refererId: null,

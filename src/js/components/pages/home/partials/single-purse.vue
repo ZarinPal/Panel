@@ -4,7 +4,7 @@
             div.top-xs.header
                 div.row
                     div.col-xs.right-box
-                        p
+                        p(v-if="!showOptions")
                             span.wallet-color(v-bind:class="'color-' + purse.purse")
 
                             span(v-if="purse.purse == 1")
@@ -16,18 +16,18 @@
                             span(v-else)
                                 span.header-title(v-if="!isEditingPurseName" @click="toggleEditPurse()") {{ purse.name }}
 
-                            span.nav-edit-wallet(v-show="isEditingPurseName")
+                            span.nav-edit-wallet(v-if="isEditingPurseName")
                                 input.txt-wallet-name(v-bind:value="purse.name" v-model="newPurseName")
                                 span.save(@click="send()") {{ $i18n.t('common.save') }}
                                 span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
 
 
                     div.left-box
-                        span.icon-more.circle-hover(@click="changeMoreTriggerOn()")
+                        span.icon-more.circle-hover(@click="changeMoreTriggerOn()" id="btnMoreIcon")
                         transition( name="bounce"
                                     enter-active-class="drop-down-show"
                                     leave-active-class="drop-down-hide")
-                            span.drop-down(v-if="this.$store.state.app.singlePurseMoreTrigger == purse.purse")
+                            span.drop-down(v-click-outside="closeDropDownFromOutside" v-if="showOptions")
                                 span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
                                 span.drop-down-item.add-fund(v-ripple="" @click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 router-link.drop-down-item.transaction(v-ripple="" v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
@@ -92,11 +92,11 @@
         props: ['purse'],
         methods: {
             changeMoreTriggerOn() {
-                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse;
+                this.showOptions = true;
                 this.isEditingPurseName = false;
             },
             changeMoreTriggerOff() {
-                this.$store.state.app.singlePurseMoreTrigger = ''
+                this.showOptions = false;
             },
             closeModal(){
                 this.visibleAddFund = false;
@@ -137,6 +137,14 @@
                     }
                 );
             },
+            closeDropDownFromOutside() {
+                let vm = this;
+                document.addEventListener('click', function(e) {
+                    if(e.target.id !== 'btnMoreIcon') {
+                        vm.showOptions = false;
+                    }
+                }, false);
+            }
         },
         components:{
             addFund,

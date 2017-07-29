@@ -206,7 +206,9 @@
             this.closeModalContent = false
         },
         created() {
-            this.getPhoneBook();
+            if(!this.$store.state.paginator.paginator.PhoneBook) {
+                this.getPhoneBook();
+            }
         },
         methods: {
             closeModal() {
