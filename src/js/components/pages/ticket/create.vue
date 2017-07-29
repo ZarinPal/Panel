@@ -43,7 +43,7 @@
 
 
                             div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                                div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
+                                div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover, 'input-danger': validationErrors.content}" )
                                     div.row
                                         div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")
                                             span.upload-icon
@@ -56,6 +56,9 @@
                                                 div.file-name(v-if="fileUploaded" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
                                                 span.nav-upload-loading(v-if="fileUploading")
                                                     loading
+
+                            div.ta-right(v-if="validationErrors.attachment")
+                                span.text-danger {{ $i18n.t(validationErrors.attachment) }}
 
 
                         div.row.nav-button
@@ -133,6 +136,17 @@
                 this.fileName = files[0].name;
             },
             createFile(file) {
+                //check valid files
+                let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png|\.zip)$/i;
+                if(!fileExtension.exec(file.name))
+                {
+                    store.commit('flashMessage',{
+                        text: 'fileNotImage',
+                        type: 'danger'
+                    });
+                    return;
+                }
+
                 this.fileUploading = true;
                 let reader = new FileReader();
                 let vm = this;

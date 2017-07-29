@@ -10,13 +10,13 @@
 
         div.col-lg-5.col-sm-5.col-xs-5.left-box
             a.logout(@click="confirmVisible = true" title="خروج" v-ripple="")
-            a.notification(:class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="" title="اعلانات")
+            a.notification(id="btnNotification" :class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="" title="اعلانات")
             span.notification-lamp(v-if="notifications.length")
             span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")
         transition(name="fade"
         enter-active-class="fade-in"
         leave-active-class="fade-out")
-            div.nav-notification(v-if="this.$store.state.app.visibleNotification")
+            div.nav-notification(v-click-outside="closeNotificationFromOutside" id="navNotification" v-if="this.$store.state.app.visibleNotification")
                 div.content
                     div.row.header
                         div.col-xs.ta-center
@@ -63,7 +63,6 @@
         name:'navBar',
         data() {
             return {
-                visibleNotification: false,
                 notificationCount: '',
                 confirmVisible: false,
                 confirm: false,
@@ -100,6 +99,14 @@
             },
             reload() {
                 location.reload();
+            },
+            closeNotificationFromOutside() {
+                let vm = this;
+                document.addEventListener('click', function(e) {
+                    if(e.target.id !== 'btnNotification' && e.target.id !== 'navNotification') {
+                        vm.$store.state.app.visibleNotification = false;
+                    }
+                }, false);
             }
         },
         components: {
