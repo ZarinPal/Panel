@@ -121,6 +121,11 @@ export default new VueRouter({
                             name: 'telegram.referer',
                             component: require('./components/pages/telegram/referer.vue'),
                         },
+                        {
+                            path: 'user/editProfile',
+                            name: 'user.editProfile',
+                            component: require('./components/pages/user/partials/edit_profile.vue'),
+                        },
                     ]
                 },
                 {

@@ -4,7 +4,7 @@
             div.top-xs.header
                 div.row
                     div.col-xs.right-box
-                        p(v-if="!showOptions")
+                        p(v-if="this.$store.state.app.singlePurseMoreTrigger != purse.purse")
                             span.wallet-color(v-bind:class="'color-' + purse.purse")
 
                             span(v-if="purse.purse == 1")
@@ -27,10 +27,9 @@
                         transition( name="bounce"
                                     enter-active-class="drop-down-show"
                                     leave-active-class="drop-down-hide")
-                            span.drop-down(v-click-outside="closeDropDownFromOutside" v-if="showOptions")
+                            span.drop-down(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singlePurseMoreTrigger == purse.purse")
                                 span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
                                 span.drop-down-item.add-fund(v-ripple="" @click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
-                                router-link.drop-down-item.transaction(v-ripple="" v-bind:to="{ name: 'transaction.index', params: { id:purse.purse, type:'purse', page:1 }}") {{ $i18n.t('transaction.title') }}
                                 span.drop-down-item.ptop(v-ripple="" @click="visiblePtop = true") {{ $i18n.t('purse.moneyTransfer') }}
                                 span.drop-down-item.withdraw(v-ripple="" @click="visibleWithdraw = true") {{ $i18n.t('transaction.withdraw') }}
                                 router-link.drop-down-item.report(v-ripple="" v-bind:to="{ name: 'report.index', params: { id:purse.purse, type:'purse'}}") {{ $i18n.t('report.title') }}
@@ -81,7 +80,6 @@
         data(){
             return {
                 isLoaded: false,
-                showOptions: false,
                 isEditingPurseName: false,
                 newPurseName: this.purse.name,
                 visibleAddFund: false,
@@ -92,11 +90,11 @@
         props: ['purse'],
         methods: {
             changeMoreTriggerOn() {
-                this.showOptions = true;
+                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse;
                 this.isEditingPurseName = false;
             },
             changeMoreTriggerOff() {
-                this.showOptions = false;
+                this.$store.state.app.singlePurseMoreTrigger = null;
             },
             closeModal(){
                 this.visibleAddFund = false;
@@ -141,7 +139,7 @@
                 let vm = this;
                 document.addEventListener('click', function(e) {
                     if(e.target.id !== 'btnMoreIcon') {
-                        vm.showOptions = false;
+                        vm.$store.state.app.singlePurseMoreTrigger = null;
                     }
                 }, false);
             }

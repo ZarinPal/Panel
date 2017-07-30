@@ -8,6 +8,7 @@ export default {
         webserviceCategories:  [],
         ticketDepartments:  [],
         visibleNotification: false,
+        singlePurseMoreTrigger: null,
         ticketSummary: {},
         refererId: null,
     },
