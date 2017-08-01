@@ -151,6 +151,43 @@ body{
   }
 }
 
+.warning-box-message{
+  border: 1px solid #ddd;
+  border-radius: $boxBorderRadiusSize;
+
+  .nav-title-box{
+    display: inline-block;
+    position: relative;
+    top: -12px;
+    margin-right: 20px;
+    background-color: #F2F3F5;
+
+    .icon-warning{
+      &:before{
+        content: $iconWarning;
+        font-style: normal;
+        color: #424242;
+        font-size: 20px !important;
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .title {
+      margin-right: 7px;
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  .body{
+    padding: 10px 25px;
+    margin-top: -14px;
+    font-size: 14px;
+    color: #666;
+  }
+}
+
 //Boxes
 .no-margin{
   margin: 0 !important;
@@ -504,6 +541,23 @@ body{
   .page-description{
     color: #8e8e8e;
     font-size: 11px;
+  }
+}
+
+.warning-box-message{
+  .nav-title-box{
+    .icon-warning{
+      &:before{
+        content: $iconWarning;
+        font-style: normal;
+        color: #424242;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .body{
+
   }
 }
 

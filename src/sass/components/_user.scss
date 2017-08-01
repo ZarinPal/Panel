@@ -1,0 +1,30 @@
+.nav-user-setting{
+  .warning-box-message{
+    margin: 20px 0;
+  }
+
+  .nav-notification-row{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #bbb;
+    margin: 10px 20px;
+
+    &:last-child {
+      border-bottom: none !important;
+    }
+
+    >h4 {
+      font-weight: 100;
+      margin: 10px;
+    }
+
+    .check-box{
+      padding: 10px 20px;
+    }
+  }
+
+  .nav-button{
+    >div{
+      margin: 20px;
+    }
+  }
+}
