@@ -122,9 +122,19 @@ export default new VueRouter({
                             component: require('./components/pages/telegram/referer.vue'),
                         },
                         {
+                            path: 'user/index',
+                            name: 'user.index',
+                            component: require('./components/pages/user/index.vue'),
+                        },
+                        {
                             path: 'user/editProfile',
                             name: 'user.editProfile',
                             component: require('./components/pages/user/partials/edit_profile.vue'),
+                        },
+                        {
+                            path: 'user/notificationSetting',
+                            name: 'user.notificationSetting',
+                            component: require('./components/pages/user/partials/notification_setting.vue'),
                         },
                     ]
                 },
