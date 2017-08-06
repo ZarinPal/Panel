@@ -69,12 +69,12 @@
 
 
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus(this)" id="otp1" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus(this)" id="otp2" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus(this)" id="otp3" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus(this)" id="otp4" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[4]"  size="1" @keyup="changeFocus(this)" id="otp5" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" :class="{'input-danger': validationErrors.otp}" type="text"  v-model="otpObject[5]"  size="1" @keyup="changeFocus(this)" id="otp6" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus(this)" id="otp1" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus(this)" id="otp2" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus(this)" id="otp3" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus(this)" id="otp4" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[4]"  size="1" @keyup="changeFocus(this)" id="otp5" maxlength="1")
+                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[5]"  size="1" @keyup="changeFocus(this)" id="otp6" maxlength="1")
                         div.ta-right(v-if="validationErrors.otp")
                             span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
@@ -198,9 +198,10 @@
 
                         document.getElementById("otp1").focus();
                     }).catch((response)=>{
+                        this.emptyOtp();
+                        this.loginLoading = false;
                         this.getOtpLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
-
                         if(!this.validationErrors.username) {
                             this.userNotRegister = true;
                         }
@@ -208,6 +209,7 @@
             },
             login(){
                 this.loginLoading = true;
+
                 let auth2Data = {
                     grant_type: "password",
                     client_id: "panel-client",
@@ -243,8 +245,8 @@
                                 }
                             }
                         );
-                    },
-                    (response) => {
+                    }, (response) => {
+                        this.emptyOtp();
                         this.loginLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
@@ -285,6 +287,12 @@
                 if(currentId == 6) {
                     document.getElementById("btnSubmitLogin").click();
                 }
+            },
+            emptyOtp() {
+                for(let i = 0; i <= 5; i++) {
+                    this.otpObject[i] = null;
+                }
+                document.getElementById('otp1').focus();
             }
         },
         components:{
