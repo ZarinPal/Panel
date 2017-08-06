@@ -594,8 +594,32 @@ body{
   -webkit-overflow-scrolling: touch;
   outline: 0;
   z-index: 1200;
-  overflow-x: hidden;
   overflow-y: auto;
+
+
+  .icon-big-close{
+    font-size: 40px;
+
+    &:before {
+      content: $iconClose;
+      font-family: 'zarinpal';
+      display: inline-block;
+      margin-top: -2px;
+      color: #ffffff;
+      padding: 3px;
+      float: left;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: .2s;
+    }
+
+    &:hover {
+      font-size: 43px !important;
+      transition: .2s;
+    }
+  }
+
 }
 
 .modal-content {

@@ -1,6 +1,21 @@
 export default {
     bind(el, binding, vnode, oldVnode) {
-        el.addEventListener('mousedown', function (e) {
+        let isChrome = !!window.chrome && !!window.chrome.webstore;
+        let isFirefox = typeof InstallTrigger !== 'undefined';
+
+        if(isChrome) {
+            el.addEventListener('mousedown', function (e) {
+                ripple(e);
+            });
+        }
+
+        if(isFirefox) {
+            el.addEventListener('click', function (e) {
+                ripple(e);
+            });
+        }
+        
+        function ripple(e) {
             let currentElement = el;
             currentElement.style.position ="relative";
             currentElement.style.overflow ="hidden";
@@ -30,7 +45,6 @@ export default {
             elementRipple.addEventListener("animationend", function(){
                 currentElement.removeChild(elementRipple);
             });
-
-        });
+        }
     }
 };

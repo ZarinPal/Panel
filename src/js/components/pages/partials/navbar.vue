@@ -1,7 +1,7 @@
 <template lang="pug">
     div.navbar.row
         div.col-lg-5.col-sm-5.col-xs-5
-            span.normal-sidebar-collapse.hidden-xs(v-ripple="" @click="toggleSidebar()")
+            span.normal-sidebar-collapse.hidden-xs(@click="toggleSidebar()" v-ripple="")
             span.mobile-sidebar-collapse(@click="toggleMobileSidebar()")
             h4.hidden-xs.navbar-title پیشخوان
 
@@ -9,8 +9,8 @@
             div.logo
 
         div.col-lg-5.col-sm-5.col-xs-5.left-box
-            a.logout(@click="confirmVisible = true" title="خروج" v-ripple="")
-            a.notification(id="btnNotification" :class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" v-ripple="" title="اعلانات")
+            span.logout(@click="confirmVisible = true" title="خروج" v-ripple="")
+            a.notification(v-ripple="" id="btnNotification" :class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" title="اعلانات")
             span.notification-lamp(v-if="notifications.length")
             span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")
         transition(name="fade"
