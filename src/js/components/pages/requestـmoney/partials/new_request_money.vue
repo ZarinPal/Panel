@@ -83,18 +83,21 @@
             <!--Step 3 Manually Division-->
             div.nav-manually-division(v-else-if="step == 3 && requestType == 'Manually'")
                 div.selected-users-avatar.manually-selected-users-avatar
-                    span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" title="قبلی")
-
                     div.avatar-container
-                        img.avatar(v-for="(user, index) in selectedUsers" :src="user.avatar" v-bind:class="{'active-image' : manuallyUserCounter === index}")
+                        div.slider
+                            div(v-for="(user, index) in selectedUsers")
+                                img.avatar(:src="user.avatar")
 
-                    div.arrow
+                        span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" title="قبلی")
+                        span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" title="بعدی")
 
-                    span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" title="بعدی")
 
-                div.row
-                    div.col-xs.ta-center
-                        span.user-name {{selectedUsers[manuallyUserCounter].name}}
+
+                span.user-name {{selectedUsers[manuallyUserCounter].name}}
+
+                <!--div.row-->
+                    <!--div.col-xs.ta-center-->
+                        <!--span.user-name {{selectedUsers[manuallyUserCounter].name}}-->
 
                 div.row.nav-request-amount
                     div.col-xs.ta-center
@@ -160,6 +163,9 @@
     import modal from '../../partials/modal.vue';
     import loading from '../../../pages/partials/loading.vue';
 
+
+    import {tns} from "tiny-slider/src/tiny-slider.module";
+
     export default {
         name: 'pages-requestMoney-partials-new',
         data() {
@@ -168,6 +174,7 @@
                 searchString: '',
                 requesting: false,
                 loading: false,
+                isShowSlider: false,
                 step: 1, //Select user, select pay method(auto, manually)
                 pageTitle: 'selectUsers',
                 closeModalContent: false,
@@ -181,7 +188,7 @@
                 manuallyTotalAmount: 0,
                 description: null,
                 purse: 1,
-
+                slider: null,
             }
         },
         computed:{
@@ -203,15 +210,14 @@
             },
         },
         mounted() {
-            this.closeModalContent = false
+            this.closeModalContent = false;
         },
         created() {
-            this.getPhoneBook();
+            if(!this.$store.state.paginator.paginator.PhoneBook) {
+                this.getPhoneBook();
+            }
         },
         methods: {
-            closeModal() {
-                this.$emit('closeModal');
-            },
             nextStep() {
                 if(this.step === 1) {
                     if(this.checkUsers.length <= 0) {
@@ -222,6 +228,34 @@
 
                         return;
                     }
+                }
+
+                if(this.step === 2 && this.requestType === 'Manually') {
+                    let vm = this;
+                    //Tiny slider
+                    setTimeout(function () {
+                        vm.isShowSlider = true;
+                        vm.slider = tns({
+                            container: document.querySelector('.slider'),
+                            items: 1,
+                            slideBy: "page",
+                            slideByPage: false,
+                            hasNav: true,
+                            hasDots: true,
+                            keyboard: true,
+                            loop: false,
+                            speed: 250,
+                            controls: false,
+                            autoplay: false,
+                            autoplayDirection: 'forward',
+                            responsive: {
+                                500: 1,
+                                800: 1,
+                            }
+                        });
+                        vm.isShowSlider = true;
+                    }, 100);
+
                 }
 
                 if(this.step === 3 && this.requestType === 'Auto') {
@@ -302,9 +336,12 @@
             },
             incManuallyUserCounter() {
                 this.manuallyUserCounter++;
+                this.slider.goTo('next');
             },
             descManuallyUserCounter() {
                 this.manuallyUserCounter--;
+                this.slider.goTo('prev');
+
             },
             /*** Send request money***/
             postRequestMoney() {

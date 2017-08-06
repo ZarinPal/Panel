@@ -151,10 +151,10 @@
     text-align: right;
     margin: 8px 0;
 
-    .nav-user-avatars{
+    .nav-user-avatars {
       height: 27px;
       overflow: hidden;
-      width: 95px;
+      width: 105px;
       display: inline-block;
 
       .users-avatar{
@@ -164,19 +164,7 @@
         display: inline-block;
         vertical-align: middle;
         margin-left: -10px;
-        border: 1px solid #ffffff;
-      }
-
-      .paid-user{
-        border:1px solid #2ecc71 !important;
-      }
-
-      .reject-user{
-        border:1px solid #ff1744 !important;
-      }
-
-      .pending-user{
-        border:1px solid #ff9800 !important;
+        border: 2px solid #ffffff;
       }
     }
 
@@ -429,9 +417,10 @@
       .avatar{
         width: 60px;
         border-radius: 50%;
-        border: 2px solid #fff;
+        border: 1px solid #fff;
         margin-left: -20px;
         transition: $animateTime;
+        box-shadow: 3px 5px 8px rgba(0, 0, 0, 0.3);
       }
     }
 
@@ -613,12 +602,14 @@
     margin: 30px 10px;
 
     .manually-selected-users-avatar{
+      overflow: hidden;
       .avatar-container{
         width: 100% !important;
       }
 
       .avatar{
         transition: .2s;
+
       }
 
       .active-image{
@@ -643,7 +634,7 @@
 
     .icon-next{
       float: right;
-      margin-top: -45px;
+      margin-top: -55px;
       display: inline-block;
 
       &:before{
@@ -658,7 +649,7 @@
     .icon-prev{
       display: inline-block;
       float: left;
-      margin-top: 25px;
+      margin-top: -50px;
       margin-right: -26px;
       &:before{
         content: $iconForward;

@@ -34,6 +34,7 @@
         "pug": "^2.0.0-beta11",
         "resolve-url-loader": "^2.0.2",
         "stickyfill": "^1.1.1",
+        "tiny-slider": "^1.5.5",
         "url": "^0.11.0",
         "vue": "^2.2.6",
         "vue-i18n": "^6.0.0",

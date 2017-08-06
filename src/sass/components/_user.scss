@@ -1,0 +1,163 @@
+/*** User Notification setting ***/
+.nav-user-setting{
+  .warning-box-message{
+    margin: 20px 0;
+  }
+
+  .nav-notification-row{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #bbb;
+    margin: 10px 20px;
+
+    &:last-child {
+      border-bottom: none !important;
+    }
+
+    >h4 {
+      font-weight: 100;
+      margin: 10px;
+    }
+
+    .check-box{
+      padding: 10px 20px;
+    }
+  }
+
+  .nav-button{
+    >div{
+      margin: 20px;
+    }
+  }
+}
+
+
+/*** Add address ***/
+.nav-add-address{
+  .box{
+    padding: 20px;
+
+    .nav-address {
+      .close-address{
+        margin-top: 15px;
+        margin-bottom: 5px;
+        display: inline-block;
+
+        &:before{
+          content: $iconClose;
+          font-family: 'zarinpal';
+          color: #FF0D3C;
+          font-size: 15px;
+          display: inline-block;
+          top: 2px;
+          position: relative;
+          margin-left: 6px;
+          border: 1px solid #FF0D3C;
+          border-radius: 50%;
+          padding: 1px;
+          cursor: pointer;
+        }
+      }
+
+      .address-title{
+        font-size: 13px;
+      }
+
+      .z-row{
+        input{
+          text-indent: 13px;
+        }
+
+        div[class^="col-"] {
+          margin: 5px 0;
+        }
+
+        .input-icon{
+          &::before {
+            font-family: 'zarinpal';
+            color: #424242;
+            font-size: 18px;
+            display: inline-block;
+            margin-top: 4px;
+            position: relative;
+            top: -8px;
+          }
+        }
+
+        .icon-title{
+          &::before {
+            content: $iconNotification;
+          }
+        }
+
+        .icon-tel{
+          &::before {
+            content: $iconNotification;
+          }
+        }
+
+        .icon-postal-code{
+          &::before {
+            content: $iconNotification;
+          }
+        }
+
+        .icon-location{
+          float: right;
+          &::before {
+            content: $iconNotification;
+            position: relative;
+            right: -3px;
+            top: 2px;
+            font-size: 17px !important;
+          }
+        }
+
+        .btn-show-location{
+          width: 100%;
+          display:inline-block;
+          font-size: 13px;
+          padding: 6px 10px 5px 14px;
+          border-radius: 5px;
+          outline: none;
+          direction: rtl;
+          text-align: center;
+          border: 1px solid #cecece;
+          box-sizing: border-box;
+          cursor: pointer;
+          color:#727272;
+          overflow: hidden;
+          height: 35px;
+        }
+      }
+    }
+
+    .btn-add-new-address{
+      border: 2px solid #2ECC71;
+      border-radius: 20px;
+      padding: 3px 10px;
+      text-align: center;
+      color: #2ECC71;
+      font-size: 13px;
+      display: inline-block;
+      cursor:pointer;
+      margin: 20px 0;
+
+      .icon-add{
+        position: relative;
+        top: 3px;
+        margin-left: 7px;
+
+        &::before {
+          content: $addIcon;
+          font-family: 'zarinpal';
+          color: #2ECC71;
+          font-size: 18px;
+          display: inline-block;
+
+        }
+      }
+
+    }
+  }
+
+}
