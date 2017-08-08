@@ -201,7 +201,7 @@ body {
   .left-box{
     text-align: left;
 
-    .notification{
+    .notification {
       float: left !important;
       margin-top: 7px;
       margin-left: 5px;
@@ -244,29 +244,6 @@ body {
       top: -8px;
     }
 
-    .logout{
-      display: inline-block;
-      float: left;
-      cursor: pointer;
-      margin-top: 6px;
-      padding: 9px 9px;
-      border-radius: 50%;
-      transition: $animateTime;
-      &::before {
-        content: $iconLogout;
-        font-family:'zarinpal';
-        color:#737373;
-        font-size:18px;
-        line-height:18px;
-        font-style: normal;
-      }
-
-      &:hover {
-        background-color: $iconHoverBackground;
-        transition: $animateTime;
-      }
-    }
-
     .reload{
       display: inline-block;
       margin-top: 6px;
@@ -288,6 +265,105 @@ body {
         transition: $animateTime;
       }
 
+    }
+  }
+
+  .profile-dropdown-avatar{
+    width: 25px;
+    border-radius: 50%;
+    float: left;
+    margin-top: 11px;
+    margin-left: 10px;
+  }
+
+  .nav-profile-dropdown {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    left: 10px;
+    width: 300px;
+    background-color: #fff;
+    direction: rtl;
+    text-align: right;
+    border: 1px solid #ddd;
+
+    .head{
+      padding: 15px;
+      background-color: #F1F1F1;
+
+      .avatar{
+        width: 35px;
+        border-radius: 50%;
+      }
+
+      .name{
+        font-size: 13px;
+        margin-right: 45px;
+        position: relative;
+        display: block;
+        top: -26px;
+        font-weight: bold;
+      }
+
+      .zp-id{
+        font-size: 12px;
+        margin-right: 45px;
+        position: relative;
+        top: -6px;
+      }
+    }
+
+    .body{
+      padding: 15px;
+      background-color: #fff;
+
+      .items{
+        transition: $animateTime;
+        font-size: 13px;
+        padding: 10px 10px 16px;
+        cursor: default;
+
+        &:hover{
+          background-color: #F1F1F1;
+          transition: $animateTime;
+        }
+      }
+
+      .icon {
+        &::before {
+          font-family:'zarinpal';
+          color:#737373;
+          font-size:18px;
+          line-height:18px;
+          font-style: normal;
+          position: relative;
+          top: 3px;
+          margin-left: 15px;
+        }
+      }
+
+      .logout{
+        &::before {
+          content: $iconLogout;
+        }
+      }
+
+      .notif{
+        &::before {
+          content: $iconNotification;
+        }
+      }
+
+      .location{
+        &::before {
+          content: $iconNotification;
+        }
+      }
+
+      .divider{
+        margin:10px -15px 10px -15px;
+        background-color: #ececec;
+        height: 1px;
+      }
     }
   }
 

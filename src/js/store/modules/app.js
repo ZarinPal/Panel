@@ -9,6 +9,7 @@ export default {
         ticketDepartments:  [],
         visibleNotification: false,
         singlePurseMoreTrigger: null,
+        singleWebserviceMoreTrigger: null,
         ticketSummary: {},
         refererId: null,
     },

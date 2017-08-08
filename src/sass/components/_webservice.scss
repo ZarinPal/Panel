@@ -1,9 +1,39 @@
 //Webservice Index(single webservice)
 .box {
+
+  .drop-down-item{
+    &::before {
+      font-family: 'zarinpal';
+      color: #ff9800;
+    }
+  }
+  .transaction-icon{
+    &::before {
+      content: $movingTransIcon;
+    }
+  }
+
+  .transaction-session-icon{
+    &::before {
+      content: $movingTransIcon;
+    }
+  }
+
+  .withdraw-icon{
+    &::before {
+      content: $movingTransIcon;
+    }
+  }
+
+  .edit-icon{
+    &::before {
+      content: $iconEdit;
+    }
+  }
+
   .header {
     .ta-left-box{
-      overflow: hidden;
-      height: 40px;
+
     }
   }
 
@@ -35,12 +65,6 @@
   .box-footer {
     span {
       margin: 0 15px;
-    }
-  }
-
-  .webservice-box-footer {
-    .edit {
-      padding-top: 15px !important;
     }
   }
 

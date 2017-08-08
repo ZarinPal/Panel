@@ -308,6 +308,10 @@ export default {
                 url: "user/address.json"
             },
             {
+                name: "user.getAddress",
+                url: "user/address/{landline}.json"
+            },
+            {
                 name: "user.postInformation",
                 url: "user/information.json"
             },

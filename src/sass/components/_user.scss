@@ -37,9 +37,9 @@
     padding: 20px;
 
     .nav-address {
+      margin-top: 20px;
+
       .close-address{
-        margin-top: 15px;
-        margin-bottom: 5px;
         display: inline-block;
 
         &:before{
@@ -50,7 +50,6 @@
           display: inline-block;
           top: 2px;
           position: relative;
-          margin-left: 6px;
           border: 1px solid #FF0D3C;
           border-radius: 50%;
           padding: 1px;
@@ -60,6 +59,8 @@
 
       .address-title{
         font-size: 13px;
+        position: relative;
+        right: 10px;
       }
 
       .z-row{
