@@ -132,6 +132,11 @@ export default new VueRouter({
                             component: require('./components/pages/user/partials/edit_profile.vue'),
                         },
                         {
+                            path: 'user/uploadDocument',
+                            name: 'user.uploadDocument',
+                            component: require('./components/pages/user/partials/upload_document.vue'),
+                        },
+                        {
                             path: 'user/notificationSetting',
                             name: 'user.notificationSetting',
                             component: require('./components/pages/user/partials/notification_setting.vue'),

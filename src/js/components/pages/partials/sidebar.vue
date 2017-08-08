@@ -14,35 +14,35 @@
                 zpId(v-bind:data="user")
 
                 ul
-                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" title="پیشخوان")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" :title="$i18n.t('common.dashboard')")
                         div
                             i.icon-zp-dashboard
-                            span.item-label پیشخوان
+                            span.item-label {{ $i18n.t('common.dashboard') }}
 
-                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" title="درگاه های پرداخت")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" :title="$i18n.t('common.webservices')")
                         div
                             i.icon-zp-web-service
-                            span.item-label درگاه های پرداخت
+                            span.item-label {{ $i18n.t('common.webservices') }}
 
-                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" title="حساب های بانکی")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" :title="$i18n.t('common.cards')")
                         div
                             i.icon-zp-card
-                            span.item-label حساب های بانکی
+                            span.item-label {{ $i18n.t('common.cards') }}
 
-                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}" title="آسان پرداخت")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}" :title="$i18n.t('common.easypay')")
                         div
                             i.icon-zp-easy-pay
-                            span.item-label آسان پرداخت
+                            span.item-label {{ $i18n.t('common.easypay') }}
 
-                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" title="کپن ها")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" :title="$i18n.t('common.coupons')")
                         div
                             i.icon-zp-copouns
-                            span.item-label کد هدیه
+                            span.item-label {{ $i18n.t('common.coupons') }}
 
-                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}" title="تیکت ها")
+                    router-link(@click.native="toggleMobileSidebar()" v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}" :title="$i18n.t('common.tickets')")
                         div
                             i.icon-zp-tickets
-                            span.item-label تیکت ها
+                            span.item-label {{ $i18n.t('common.tickets') }}
 
                             span.unread-ticket-count(v-if="this.$store.state.auth.user.ticket_summary.unread > 0") {{ this.$store.state.auth.user.ticket_summary.unread | persianNumbers}}
 

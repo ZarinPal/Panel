@@ -38,9 +38,7 @@
             return {
                 loading: false,
                 addressCount: 1,
-                address: {
-
-                }
+                address: {}
             }
         },
         computed:{
@@ -49,29 +47,49 @@
             },
         },
         methods: {
+//            getAddresses() {
+//                this.$store.state.http.requests['user.postAddress'].get().then(
+//                    (response)=> {
+//                        this.getAddressesData = response.data.data;
+//                        this.addressCount = response.data.data.length;
+//                        this.isLoadedAddress = true;
+//                    },
+//                    (response) => {
+//                        store.commit('flashMessage',{
+//                            text: response.data.meta.error_message,
+//                            important: false,
+//                            type: 'danger'
+//                        });
+//                    }
+//                );
+//            },
             addNewAddress() {
                 this.addressCount++;
             },
+            //update from address child on input change not request to api
             updateAddress(address) {
                 this.address[address.index] = address.address;
             },
             deleteAddress(address) {
-                delete this.address[address.index];
-                let elem = document.getElementById(address.index);
-                return elem.parentNode.removeChild(elem);
+                this.$store.state.http.requests['user.getAddress'].delete({landline: address.landline}).then(
+                    ()=> {
+                        delete this.address[address.index];
+                        let elem = document.getElementById(address.index);
+                        return elem.parentNode.removeChild(elem);
+                    },
+                    (response) => {
+                        store.commit('flashMessage',{
+                            text: response.data.meta.error_message,
+                            important: false,
+                            type: 'danger'
+                        });
+                    }
+                );
             },
             postUserAddress() {
-                let userData = {
-                    address: this.address,
-                    landline: this.landLine,
-                    postal_code: this.postalCode,
-                    geo_location: this.geoLocation,
-                    title: this.title
-                };
-
-                this.$store.state.http.requests['user.postAddress'].save(userData).then(
+                this.$store.state.http.requests['user.postAddress'].save({'addresses': this.address}).then(
                     ()=> {
-                        this.loading = false;
+                        this.loading = true;
                         store.commit('flashMessage',{
                             text: 'your address added success',
                             important: false,

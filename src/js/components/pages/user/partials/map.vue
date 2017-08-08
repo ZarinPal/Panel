@@ -137,12 +137,9 @@
                         window.alert('Geocoder failed due to: ' + status);
                     }
                 });
-             },
+            },
             rightToLeftAddress(address) {
-                let editedAddress = address.replace("St", "خیابان");
-                editedAddress = editedAddress.replace("th", "ام ");
-
-                return editedAddress.split("،").reverse().join("-");
+                return address.split("،").reverse().join("-");
             },
             closeModal() {
                 this.$emit('closeModal');
