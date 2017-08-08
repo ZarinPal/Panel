@@ -4,7 +4,7 @@
     leave-active-class="fade-out")
 
         div.nav-address
-            div.nav-address-title
+            div.nav-address-title(@mouseover="visibleCloseIcon = true" @mouseleave="visibleCloseIcon = false")
                 transition(name="fade"
                 enter-active-class="fade-in"
                 leave-active-class="fade-out")
