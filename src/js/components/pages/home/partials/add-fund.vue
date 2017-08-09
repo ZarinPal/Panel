@@ -41,6 +41,7 @@
                 closeModalContent: false,
                 amount: '',
                 cardId: '',
+                maxAmountLimit: 10000000,
                 redirectUrl: null
             }
         },
@@ -71,6 +72,15 @@
                 this.$emit('closeModal')
             },
             addFund() {
+                if (this.amount > this.maxAmountLimit) {
+                    this.$store.commit('flashMessage',{
+                        text: 'add found max amount limit',
+                        type: 'danger',
+                        important: true,
+                    });
+                    return;
+                }
+
                 this.loading = true;
                 let amount = this.amount.replace(/,/g, ""); //remove , from amount
                 let addFundData = {

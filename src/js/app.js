@@ -30,12 +30,12 @@ const app = new Vue({
       return {
           // https://next.zarinpal.com/panel            =======> its for next panel
           // https://api.zarinpal.dev/panelw/index.html =======> its for dev panel
-          baseUrl: 'https://next.zarinpal.com/panel', // panel base
+          baseUrl: 'https://api.zarinpal.dev/panelw/index.html', // panel base
           rootUrl: 'https://api.zarinpal.com/rest/v3', //its for transaction pdf
       }
     },
     http: {
-        root: 'https://next.zarinpal.com/rest/v3',
+        root: 'https://api.zarinpal.dev/rest/v3',
     },
     created() {
         this.$store.commit('app/loading');
