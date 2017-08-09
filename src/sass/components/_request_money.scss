@@ -30,7 +30,7 @@
       filter: blur(15px);
       margin-top: -170px;
       right: -10px;
-      top: -110px;
+      top: -490px;
       bottom: 0;
     }
 
@@ -774,13 +774,38 @@
     .nav-blur-container {
       .user-profile-background{
         //height: 260px !important;
-        margin-top: -210px !important;
+        margin-top: 0 !important;
+        top: -320px;
       }
     }
 
     .nav-user-info{
       .user-avatar{
         margin: 10px auto !important;
+      }
+    }
+  }
+}
+
+
+/*** Md ***/
+@media (max-width: $mediumWidth) {
+  .request-money-index {
+    .nav-blur-container {
+      .user-profile-background{
+        top: -320px;
+      }
+    }
+  }
+}
+
+
+/*** Sm ***/
+@media (max-width: $smallWidth) {
+  .request-money-index {
+    .nav-blur-container {
+      .user-profile-background{
+        top: -350px;
       }
     }
   }

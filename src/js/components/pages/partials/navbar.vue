@@ -6,7 +6,7 @@
             h4.hidden-xs.navbar-title {{ $i18n.t('common.' + this.$store.state.app.selectedTab) }}
 
         router-link.navigation-logo.col.col-lg-2.col-sm-2.col-xs-2(tag="div" v-bind:to="{name: 'home.index'}")
-            div.logo
+            div.logo.hand
 
         div.col-lg-5.col-sm-5.col-xs-5.left-box
             img.profile-dropdown-avatar(@click="visibleProfileDropdown = !visibleProfileDropdown" id="btnProfileDropdown" :src="this.$store.state.auth.user.avatar")
