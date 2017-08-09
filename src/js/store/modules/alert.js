@@ -78,7 +78,7 @@ export default {
                     tag:'zarin-notify',
                 };
 
-                dispatch('sendBrowserNotification',options);
+                dispatch('sendBrowserNotification', options);
             });
 
             sub.start();
@@ -93,9 +93,9 @@ export default {
                 notification.onclick = function(event) {
                     rootState.app.visibleNotification = true;
                     event.preventDefault(); // prevent the browser from focusing the Notification's ta
+                    // window.open('https://api.zarinpal.dev/panelw/index.html/panel/home', '_blank');
                 };
             };
-
 
             if (!("Notification" in window)) {
                 return null;
