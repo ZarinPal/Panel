@@ -175,13 +175,13 @@ body {
   }
 
   .navbar-title{
-    font-size: 15px;
+    font-size: 14px;
     color: $labelColor;
     font-weight: 300;
     display: inline-block;
     margin-right: 21px;
     position: relative;
-    top: -9px;
+    top: -8px;
   }
 
   .navigation-logo{
@@ -272,19 +272,21 @@ body {
     width: 25px;
     border-radius: 50%;
     float: left;
-    margin-top: 11px;
+    margin-top: 13px;
     margin-left: 10px;
+    cursor: pointer;
   }
 
   .nav-profile-dropdown {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
     position: absolute;
     left: 10px;
-    width: 300px;
+    width: 200px;
     background-color: #fff;
     direction: rtl;
     text-align: right;
     border: 1px solid #ddd;
+    z-index: 999;
 
     .head{
       padding: 15px;
@@ -313,13 +315,13 @@ body {
     }
 
     .body{
-      padding: 15px;
+      padding: 5px 0;
       background-color: #fff;
 
       .items{
         transition: $animateTime;
         font-size: 13px;
-        padding: 10px 10px 16px;
+        padding: 10px 18px 16px;
         cursor: default;
 
         &:hover{
@@ -360,7 +362,7 @@ body {
       }
 
       .divider{
-        margin:10px -15px 10px -15px;
+        margin:5px 0;
         background-color: #ececec;
         height: 1px;
       }
@@ -506,6 +508,12 @@ body {
 }
 
 /*-------Sidebar-------*/
+.active-sidebar-item{
+  background-color: #F8F9FA !important;
+  color: #333 !important;
+}
+
+
 .opened-dropdown{
   background-color: $sidebarHoverBgColor;
   ul{

@@ -121,6 +121,9 @@ body{
   width:100%
 }
 
+.hand{
+  cursor: pointer !important;
+}
 
 //Pages Header
 .nav-page-header{
@@ -232,11 +235,10 @@ body{
 
   .box {
     background-color: #fefefe;
-    border:1px solid $boxBorderColor;
     box-shadow: $boxShadow;
     border-radius: $boxBorderRadiusSize;
 
-    .header{
+    .header {
       background-color: #f8f9fa;
       border-radius: $boxBorderRadiusSize $boxBorderRadiusSize 0 0;
       padding: 0 15px !important;
