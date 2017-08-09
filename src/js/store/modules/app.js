@@ -12,6 +12,7 @@ export default {
         singleWebserviceMoreTrigger: null,
         ticketSummary: {},
         refererId: null,
+        selectedTab: 'dashboard',
     },
     mutations: {
         loading(state) {
@@ -44,6 +45,9 @@ export default {
                 state.refererId = refId;
                 return
             }
+        },
+        changeTabData(state, data) {
+            state.selectedTab = data
         }
     },
     actions: {

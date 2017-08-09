@@ -40,13 +40,14 @@
         margin-top: 30px;
         margin-right: 21px;
         position: relative;
-        top: 20px;
 
         .user-avatar{
           border:5px solid rgba(255, 255, 255, .3);
           border-radius: 50%;
           width: 84px;
           height: 84px;
+          position: relative;
+          top: 20px;
         }
 
         .user-name{
@@ -54,7 +55,7 @@
           color: #fff;
           display: inline-block;
           position: relative;
-          top: -40px;
+          top: -30px;
           margin-right: 17px;
           margin-top: -60px !important;
         }
@@ -63,7 +64,7 @@
           font-size: 14px;
           color: #fff;
           position: relative;
-          top: -40px;
+          top: -30px;
           right: 110px;
         }
       }
