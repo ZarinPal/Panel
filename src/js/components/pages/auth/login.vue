@@ -132,16 +132,6 @@
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
-            otp() {
-                if(this.otpObject) {
-                    return this.otpObject[0] +
-                        this.otpObject[1] +
-                        this.otpObject[2] +
-                        this.otpObject[3] +
-                        this.otpObject[4] +
-                        this.otpObject[5];
-                }
-            }
         },
         mounted(){
             if(this.$route.query.mobile){
@@ -196,19 +186,28 @@
                             });
                         }
 
-                        document.getElementById("otp1").focus();
+                        if(document.getElementById("otp1")) {
+                            document.getElementById("otp1").focus();
+                        }
                     }).catch((response)=>{
-                        this.emptyOtp();
                         this.loginLoading = false;
                         this.getOtpLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                         if(!this.validationErrors.username) {
                             this.userNotRegister = true;
                         }
-                    });
+                        this.emptyOtp();
+                });
             },
             login(){
                 this.loginLoading = true;
+
+                let otp = this.otpObject[0] +
+                    this.otpObject[1] +
+                    this.otpObject[2] +
+                    this.otpObject[3] +
+                    this.otpObject[4] +
+                    this.otpObject[5];
 
                 let auth2Data = {
                     grant_type: "password",
@@ -216,7 +215,7 @@
                     client_secret: "55619f94-75d6-4078-9478-16e9654c2105",
                     scope: "full-access",
                     username: this.username,
-                    otp: this.otp,
+                    otp: otp,
                     is_web_app: true
                 };
 
@@ -292,7 +291,10 @@
                 for(let i = 0; i <= 5; i++) {
                     this.otpObject[i] = null;
                 }
-                document.getElementById('otp1').focus();
+
+                if(document.getElementById('otp1')) {
+                    document.getElementById('otp1').focus();
+                }
             }
         },
         components:{
