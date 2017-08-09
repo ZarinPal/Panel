@@ -15,6 +15,12 @@ export default new VueRouter({
             meta: {standAlone: true}
         },
         {
+            path: '/error/404',
+            name: 'error.404',
+            component: require('./components/pages/error/404.vue'),
+            meta: {standAlone: true}
+        },
+        {
             path: '/panel',
             component: require('./components/pages/panel.vue'),
             children: [
@@ -136,11 +142,6 @@ export default new VueRouter({
                             name: 'user.notificationSetting',
                             component: require('./components/pages/user/partials/notification_setting.vue'),
                         },
-                        {
-                            path: 'error/404',
-                            name: 'error.404',
-                            component: require('./components/pages/error/404.vue'),
-                        },
                     ]
                 },
                 {
@@ -165,10 +166,9 @@ export default new VueRouter({
                         }
                     ]
                 }
-
             ]
         },
-        { path: '/*', redirect: '/panel/error/404' },
+        { path: '/*', redirect: '/error/404' },
     ],
     scrollBehavior (to, from, savedPosition) {
         return { x: 0, y: 0 }
