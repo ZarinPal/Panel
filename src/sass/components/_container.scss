@@ -175,13 +175,13 @@ body {
   }
 
   .navbar-title{
-    font-size: 15px;
+    font-size: 14px;
     color: $labelColor;
     font-weight: 300;
     display: inline-block;
     margin-right: 21px;
     position: relative;
-    top: -9px;
+    top: -8px;
   }
 
   .navigation-logo{
@@ -274,6 +274,7 @@ body {
     float: left;
     margin-top: 11px;
     margin-left: 10px;
+    cursor: pointer;
   }
 
   .nav-profile-dropdown {
@@ -285,6 +286,7 @@ body {
     direction: rtl;
     text-align: right;
     border: 1px solid #ddd;
+    z-index: 999;
 
     .head{
       padding: 15px;
@@ -506,6 +508,11 @@ body {
 }
 
 /*-------Sidebar-------*/
+.active-sidebar-item{
+  background-color: #F8F9FA !important;
+}
+
+
 .opened-dropdown{
   background-color: $sidebarHoverBgColor;
   ul{

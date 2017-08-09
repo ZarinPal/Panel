@@ -127,7 +127,7 @@
                             marker.setPosition(latlng);
 
                             /*** Address text ***/
-                            vm.address = vm.rightToLeftAddress(results[0].formatted_address);
+//                            vm.address = vm.rightToLeftAddress(results[0].formatted_address);
                             infowindow.setContent(results[1].formatted_address);
                             infowindow.open(map, marker);
                         } else {
