@@ -137,9 +137,9 @@ export default new VueRouter({
                             component: require('./components/pages/user/partials/notification_setting.vue'),
                         },
                         {
-                            path: 'user/notificationSetting',
-                            name: 'notFound.404',
-                            component: require('./components/pages/user/partials/notification_setting.vue'),
+                            path: 'error/404',
+                            name: 'error.404',
+                            component: require('./components/pages/error/404.vue'),
                         },
                     ]
                 },
@@ -168,7 +168,7 @@ export default new VueRouter({
 
             ]
         },
-        { path: '/*', redirect: '/panel/home' },
+        { path: '/*', redirect: '/panel/error/404' },
     ],
     scrollBehavior (to, from, savedPosition) {
         return { x: 0, y: 0 }
