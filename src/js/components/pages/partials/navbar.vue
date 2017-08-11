@@ -3,7 +3,7 @@
         div.col-lg-5.col-sm-5.col-xs-5
             span.normal-sidebar-collapse.hidden-xs(@click="toggleSidebar()" v-ripple="")
             span.mobile-sidebar-collapse(@click="toggleMobileSidebar()")
-            h4.hidden-xs.navbar-title {{ $i18n.t('common.' + this.$store.state.app.selectedTab) }}
+            h4.hidden-xs.navbar-title {{ $i18n.t('panel.' + this.$store.state.app.selectedTab) }}
 
         router-link.navigation-logo.col.col-lg-2.col-sm-2.col-xs-2(tag="div" v-bind:to="{name: 'home.index'}")
             div.logo.hand

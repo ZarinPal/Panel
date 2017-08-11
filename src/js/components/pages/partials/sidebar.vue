@@ -14,35 +14,35 @@
                 zpId(v-bind:data="user")
 
                 ul
-                    router-link(@click.native="toggleMobileSidebar(false, 'dashboard')" v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'dashboard'}" :title="$i18n.t('common.dashboard')")
+                    router-link(@click.native="toggleMobileSidebar(false, 'home')" v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'home'}" :title="$i18n.t('panel.home')")
                         div
                             i.icon-zp-dashboard
-                            span.item-label {{ $i18n.t('common.dashboard') }}
+                            span.item-label {{ $i18n.t('panel.home') }}
 
-                    router-link(@click.native="toggleMobileSidebar(false, 'webservices')" v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'webservices'}" :title="$i18n.t('common.webservices')")
+                    router-link(@click.native="toggleMobileSidebar(false, 'webservice')" v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'webservice'}" :title="$i18n.t('panel.webservice')")
                         div
                             i.icon-zp-web-service
-                            span.item-label {{ $i18n.t('common.webservices') }}
+                            span.item-label {{ $i18n.t('panel.webservice') }}
 
-                    router-link(@click.native="toggleMobileSidebar(false, 'cards')" v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'cards'}" :title="$i18n.t('common.cards')")
+                    router-link(@click.native="toggleMobileSidebar(false, 'card')" v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'card'}" :title="$i18n.t('panel.card')")
                         div
                             i.icon-zp-card
-                            span.item-label {{ $i18n.t('common.cards') }}
+                            span.item-label {{ $i18n.t('panel.card') }}
 
-                    router-link(@click.native="toggleMobileSidebar(false, 'easypay')" v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}"  v-bind:class="{'active-sidebar-item': tabSelected == 'easypay'}" :title="$i18n.t('common.easypay')")
+                    router-link(@click.native="toggleMobileSidebar(false, 'easypay')" v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}"  v-bind:class="{'active-sidebar-item': tabSelected == 'easypay'}" :title="$i18n.t('panel.easypay')")
                         div
                             i.icon-zp-easy-pay
-                            span.item-label {{ $i18n.t('common.easypay') }}
+                            span.item-label {{ $i18n.t('panel.easypay') }}
 
-                    router-link(@click.native="toggleMobileSidebar(false, 'coupons')" v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'coupons'}" :title="$i18n.t('common.coupons')")
+                    router-link(@click.native="toggleMobileSidebar(false, 'coupon')" v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'coupon'}" :title="$i18n.t('panel.coupon')")
                         div
                             i.icon-zp-copouns
-                            span.item-label {{ $i18n.t('common.coupons') }}
+                            span.item-label {{ $i18n.t('panel.coupon') }}
 
-                    router-link(@click.native="toggleMobileSidebar(false, 'tickets')" v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}"  v-bind:class="{'active-sidebar-item': tabSelected == 'tickets'}" :title="$i18n.t('common.tickets')")
+                    router-link(@click.native="toggleMobileSidebar(false, 'ticket')" v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}"  v-bind:class="{'active-sidebar-item': tabSelected == 'ticket'}" :title="$i18n.t('panel.ticket')")
                         div
                             i.icon-zp-tickets
-                            span.item-label {{ $i18n.t('common.tickets') }}
+                            span.item-label {{ $i18n.t('panel.ticket') }}
 
                             span.unread-ticket-count(v-if="this.$store.state.auth.user.ticket_summary.unread > 0") {{ this.$store.state.auth.user.ticket_summary.unread | persianNumbers}}
 

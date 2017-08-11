@@ -38,6 +38,9 @@ const app = new Vue({
         root: 'https://next.zarinpal.com/rest/v3',
     },
     created() {
+        //init active tab on load
+        this.$store.commit('app/changeTabData', this.$route.name.split('.')[0]);
+
         this.$store.commit('app/loading');
         this.$store.commit('http/boot', this);
         require('./i18n').default(this, function (vm) {
@@ -52,6 +55,11 @@ const app = new Vue({
             }
         });
 
+    },
+    watch: {
+        '$route' (to) {
+            this.$store.commit('app/changeTabData', to.name.split('.')[0])
+        }
     },
     components: {
         "flash-message": require('./components/pages/partials/flash-message.vue')
