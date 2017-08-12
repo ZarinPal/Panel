@@ -52,7 +52,7 @@ export default {
                 // green line
                 ctx.beginPath();
                 ctx.strokeStyle = "#89E000";
-                ctx.lineWidth = 5;
+                ctx.lineWidth = 3;
                 ctx.arc(46, 46, 42, 1.5 * Math.PI, radians + 1.5 * Math.PI);
                 ctx.stroke();
                 ctx.save();
