@@ -350,12 +350,13 @@ export default {
                         if (error.error_type === "OauthAccessDenied") {
                             vm.$router.push({name: 'auth.login'});
                         }
-                        if (error.error_type === "InternalError") {
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_message,
-                            });
-
-                        }
+                        // console.log(state.requests);
+                        // if (error.error_type === "InternalError") {
+                        //     store.commit('flashMessage', {
+                        //         text: response.data.meta.error_message,
+                        //     });
+                        //
+                        // }
                     }
                 });
             });

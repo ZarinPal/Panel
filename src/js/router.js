@@ -130,7 +130,7 @@ export default new VueRouter({
                         {
                             path: 'user/addAddress',
                             name: 'user.addAddress',
-                            component: require('./components/pages/user/partials/edit_profile.vue'),
+                            component: require('./components/pages/user/partials/add_address.vue'),
                         },
                         {
                             path: 'user/uploadDocument',
