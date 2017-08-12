@@ -1,9 +1,9 @@
 <template lang="pug">
     div.inner-content
         div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title {{ $i18n.t('coupon.createCoupon') }}
-                p.page-description {{ $i18n.t('coupon.createCouponDescription') }}
+            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+                p.page-title {{ $i18n.t('user.addNewAddress') }}
+                p.page-description {{ $i18n.t('user.addNewAddressDescription') }}
 
         form(autocomplete="on" onsubmit="event.preventDefault();")
             div.row.section.nav-add-address
@@ -89,13 +89,13 @@
             postUserAddress() {
                 this.$store.state.http.requests['user.postAddress'].save({'addresses': this.address}).then(
                     ()=> {
-                        this.loading = true;
                         store.commit('flashMessage',{
                             text: 'your address added success',
                             important: false,
-                            type: 'danger'
+                            type: 'success'
                         });
-                        this.$router.push({name: 'user.index'})
+                        this.loading = false;
+                        this.$router.push({name: 'home.index'})
                     },
                     (response) => {
                         store.commit('setValidationErrors',response.data.validation_errors);

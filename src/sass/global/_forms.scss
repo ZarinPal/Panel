@@ -371,7 +371,6 @@ ul.dropdown {
 
   .indent{
     padding-right: 30px;
-    border:1px solid red;
   }
 
   > ul > li .wallet-color {
@@ -383,10 +382,12 @@ ul.dropdown {
   }
 
   .disable{
-    background-color: #F2F3F5;
-    color: #424242 !important;
+    background-color: #bbbbbb;
+    color: #000000 !important;
     opacity: 1;
     pointer-events: none;
+    border-radius: 0 !important;
+    padding-right: 10px;
   }
 
   > span {
@@ -425,7 +426,7 @@ ul.dropdown {
 
     li {
       height: 34px;
-      padding: 5px 16px;
+      padding: 5px 30px 5px 15px;;
       vertical-align: middle;
       box-sizing: border-box;
       transition: $animateTime;
