@@ -82,11 +82,11 @@ export default {
                     Money format
              -------------------------**/
             if(binding.value.money) {
-                let farsiValue = el.value.replace(/,/g, "");
-                let sep = ',';
-                el.value = farsiValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+                if(el.value) {
+                    let number = parseInt(this.value.replace(/\D/g, ''), 10);
+                    el.value = number.toLocaleString();
+                }
             }
-
         });
 
 

@@ -56,6 +56,11 @@ import userProgress from './user-progress.vue';
 import zpId from './zp-id.vue';
 export default {
     name: 'sidebar',
+    data() {
+      return {
+          getPurseBalanceTimer: 10,
+      }
+    },
     mounted(){
         this.detectWidth();
         window.addEventListener("resize", this.detectWidth());
@@ -81,6 +86,14 @@ export default {
 
             if (tabData){
                 this.$store.commit('app/changeTabData', tabData)
+            }
+
+            if (this.$route.name === 'home.index') {
+                let requestTimeDiff = Math.abs(Date.now() - this.$store.state.timer.getPurseBalanceTime) / 1000;
+                if(requestTimeDiff > this.getPurseBalanceTimer) {
+                    this.$store.dispatch('auth/fetchPurseBalance');
+                    this.$store.state.timer.getPurseBalanceTime = Date.now();
+                }
             }
         },
         detectWidth(){

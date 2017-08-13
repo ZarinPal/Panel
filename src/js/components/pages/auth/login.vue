@@ -69,12 +69,12 @@
 
 
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus(this)" id="otp1" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus(this)" id="otp2" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus(this)" id="otp3" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus(this)" id="otp4" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[4]"  size="1" @keyup="changeFocus(this)" id="otp5" maxlength="1")
-                            input.input-cell(v-validate="{size: 1, type: 'number'}" type="text"  v-model="otpObject[5]"  size="1" @keyup="changeFocus(this)" id="otp6" maxlength="1")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus(this)" id="otp1")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus(this)" id="otp2")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus(this)" id="otp3")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus(this)" id="otp4")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[4]"  size="1" @keyup="changeFocus(this)" id="otp5")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[5]"  size="1" @keyup="changeFocus(this)" id="otp6")
                         div.ta-right(v-if="validationErrors.otp")
                             span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
@@ -224,6 +224,8 @@
                         this.loginLoading = false;
                         this.$store.commit('app/loading');
                         let vm = this;
+                        console.log('auth/fetch calling');
+
                         this.$store.dispatch('auth/fetch',
                             () => {
                                 vm.$store.commit('app/ready');
@@ -235,6 +237,8 @@
                                             title: 'zp.' + vm.$store.state.auth.user.public_id
                                         });
                                     } else {
+                                        console.log('Redirect to telegram referer');
+
                                         vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
                                         vm.$router.push({name: 'telegram.referer'});
                                     }
@@ -245,6 +249,7 @@
                             }
                         );
                     }, (response) => {
+                        console.log('NOT LOGIN: '+response);
                         this.emptyOtp();
                         this.loginLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
