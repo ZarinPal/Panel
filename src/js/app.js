@@ -47,7 +47,7 @@ const app = new Vue({
             if (!vm.$route.meta.standAlone) {
                 vm.$store.dispatch('auth/fetch',
                     () => {
-                        vm.$store.commit('app/ready');
+                        // vm.$store.commit('app/ready');
                     }
                 );
             } else {

@@ -224,12 +224,8 @@
                         this.loginLoading = false;
                         this.$store.commit('app/loading');
                         let vm = this;
-                        console.log('auth/fetch calling');
-
                         this.$store.dispatch('auth/fetch',
                             () => {
-                                vm.$store.commit('app/ready');
-
                                 if(vm.$route.params.refererId) {
                                     if(vm.$route.params.refererId === 'telegram-payment') {
                                         TelegramGameProxy.paymentFormSubmit({
@@ -237,8 +233,6 @@
                                             title: 'zp.' + vm.$store.state.auth.user.public_id
                                         });
                                     } else {
-                                        console.log('Redirect to telegram referer');
-
                                         vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
                                         vm.$router.push({name: 'telegram.referer'});
                                     }
@@ -249,7 +243,6 @@
                             }
                         );
                     }, (response) => {
-                        console.log('NOT LOGIN: '+response);
                         this.emptyOtp();
                         this.loginLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);

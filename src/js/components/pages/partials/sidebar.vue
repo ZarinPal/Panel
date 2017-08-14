@@ -79,7 +79,6 @@ export default {
             return this.$store.state.app.selectedTab;
         }
     },
-
     methods: {
         toggleMobileSidebar(condition = null, tabData = null){
             this.$store.commit('app/toggleMobileSidebar', condition);
@@ -88,7 +87,9 @@ export default {
                 this.$store.commit('app/changeTabData', tabData)
             }
 
+            //reload purse balance
             if (this.$route.name === 'home.index') {
+                this.$store.state.app.isFetchingPurseBalance = true;
                 let requestTimeDiff = Math.abs(Date.now() - this.$store.state.timer.getPurseBalanceTime) / 1000;
                 if(requestTimeDiff > this.getPurseBalanceTimer) {
                     this.$store.dispatch('auth/fetchPurseBalance');
