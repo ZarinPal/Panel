@@ -35,7 +35,7 @@ const app = new Vue({
       }
     },
     http: {
-        root: 'https://next.zarinpal.com/rest/v3',
+        root: 'https://api.zarinpal.com/rest/v3',
     },
     created() {
         //init active tab on load
