@@ -40,7 +40,7 @@
                     div.nav-balance
                         div.txt-balance {{ $i18n.t('common.balance') }}
 
-                        div.balance-amount(v-if="purse.balance") {{purse.balance.balance | numberFormat | persianNumbers }}
+                        div.balance-amount(v-if="purse.balance") {{balance.balance | numberFormat | persianNumbers }}
                         div.balance-amount(v-else) -
                         div.nav-show-chart
                             <!--span.chart-icon-->
@@ -50,18 +50,18 @@
                 div.row
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-input-trans
-                        span.amount(v-if="purse.balance") {{purse.balance.today_income  | numberFormat | persianNumbers }}
+                        span.amount(v-if="purse.balance") {{balance.today_income  | numberFormat | persianNumbers }}
                         span.amount(v-else) -
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-output-trans
-                        span.amount(v-if="purse.balance") {{purse.balance.today_outcome  | numberFormat | persianNumbers }}
+                        span.amount(v-if="purse.balance") {{balance.today_outcome  | numberFormat | persianNumbers }}
                         span.amount(v-else) -
 
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-moving-trans
-                        span.amount(v-if="purse.balance") {{purse.balance.total_to_exit  | numberFormat | persianNumbers }}
+                        span.amount(v-if="purse.balance") {{balance.total_to_exit  | numberFormat | persianNumbers }}
                         span.amount(v-else) -
 
         addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()" v-bind:purse="purse")
@@ -87,7 +87,7 @@
                 visibleWithdraw: false,
             }
         },
-        props: ['purse'],
+        props: ['purse', 'update', 'balance'],
         methods: {
             changeMoreTriggerOn() {
                 this.$store.state.app.singlePurseMoreTrigger = this.purse.purse;

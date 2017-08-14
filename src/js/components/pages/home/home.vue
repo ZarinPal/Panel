@@ -6,12 +6,12 @@
                 p.page-description {{ $i18n.t('common.pursesDescription') }}
 
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                button.btn.success(v-if="user.purses.length < purseLimit" @click="visibleCreatePurse = true")
+                button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
 
         div.row
-            singlePurse(v-for="purse in user.purses" v-bind:key="purse.purse" v-bind:purse="purse" v-bind:showMore="showMore")
+            singlePurse(v-for="purse in purses.data" v-bind:balance="purse.balance" v-bind:key="purse.purse" v-bind:update="purses.update" v-bind:purse="purse" v-bind:showMore="showMore")
 
         createPurse(v-if="visibleCreatePurse" v-on:closeModal="closeModal()")
 
@@ -34,8 +34,11 @@
         },
         props: ['more', 'showMore'],
         computed:{
-            user(){
-                return this.$store.state.auth.user;
+            purses(){
+                return {
+                    data: this.$store.state.auth.user.purses,
+                    update: this.$store.state.auth.updatePurseListener
+                }
             }
         },
         created(){
