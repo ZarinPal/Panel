@@ -39,11 +39,11 @@
             }
         },
         created(){
+            //Check if add fund authority is exists, show message
             this.checkAddFund();
             if(this.$route.params.createPurse === 'Yes') {
                 this.visibleCreatePurse = true;
             }
-
         },
         methods: {
             closeModal(){
@@ -82,7 +82,7 @@
                         this.$router.push({name: 'home.index'});
                     }
                 }
-            }
+            },
         },
         components:{
             singlePurse,

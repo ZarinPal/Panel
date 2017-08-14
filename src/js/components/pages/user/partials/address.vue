@@ -20,13 +20,13 @@
 
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     span.input-icon.icon-tel
-                    input(v-validate="{type: 'number', size:14}" :class="{'input-danger': validationErrors['addresses.'+addressId+'.landline']}" type="text" v-model="address.landline" @input="updateAddress" placeholder="شماره تلفن (ثابت)" )
+                    input(v-validate="{type: 'number'}" maxlength="14" :class="{'input-danger': validationErrors['addresses.'+addressId+'.landline']}" type="text" v-model="address.landline" @input="updateAddress" placeholder="شماره تلفن (ثابت)" )
                     div.ta-right(v-if="validationErrors['addresses.'+addressId+'.landline']")
                         span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.landline']) }}
 
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     span.input-icon.icon-postal-code
-                    input(v-validate="{type: 'number', size:10}" :class="{'input-danger': validationErrors['addresses.'+addressId+'.postal_code']}" type="text" v-model="address.postal_code"  @input="updateAddress" placeholder="کد پستی" )
+                    input(v-validate="{type: 'number'}" maxlength="10" :class="{'input-danger': validationErrors['addresses.'+addressId+'.postal_code']}" type="text" v-model="address.postal_code"  @input="updateAddress" placeholder="کد پستی" )
                     div.ta-right(v-if="validationErrors['addresses.'+addressId+'.postal_code']")
                         span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.postal_code'])}}
 
