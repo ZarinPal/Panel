@@ -31,11 +31,11 @@ const app = new Vue({
           // https://next.zarinpal.com/panel            =======> its for next panel
           // https://api.zarinpal.dev/panelw/index.html =======> its for dev panel
           baseUrl: 'https://next.zarinpal.com/panel', // panel base
-          rootUrl: 'https://api.zarinpal.com/rest/v3', //its for transaction pdf
+          rootUrl: 'https://next.zarinpal.com/rest/v3', //its for transaction pdf
       }
     },
     http: {
-        root: 'https://api.zarinpal.com/rest/v3',
+        root: 'https://next.zarinpal.com/rest/v3',
     },
     created() {
         //init active tab on load
