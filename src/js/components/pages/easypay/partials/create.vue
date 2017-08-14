@@ -30,7 +30,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ")
+                                            input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ")
                                             div.ta-right(v-if="validationErrors.price")
                                                 span.text-danger {{ $i18n.t(validationErrors.price) }}
 
@@ -289,11 +289,13 @@
                     this.limit = '';
                 }
 
+                let price = this.price.replace(/,/g, "");
+
                 let easyPayData = {
                     isLoading: false,
                     title: this.title,
                     description: this.description,
-                    price: this.price,
+                    price: price,
                     purse: this.purse,
                     purse_name: this.purse_name.name,
                     required_fields: {

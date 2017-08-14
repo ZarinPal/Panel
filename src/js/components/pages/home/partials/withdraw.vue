@@ -8,7 +8,7 @@
 
                 form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.row
-                        input(:class="{'input-danger': validationErrors.amount}" type="number" v-model="amount" placeholder="مبلغ")
+                        input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
                         div.ta-right(v-if="validationErrors.amount")
                             span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
@@ -61,9 +61,9 @@
             },
             withdraw() {
                 this.loading = true;
+                let amount = this.amount.replace(/,/g, ""); //remove , from amount
                 let withdrawData = {
-                    purse: this.purse.purse,
-                    amount: this.amount,
+                    amount: amount,
                     card_id: this.cardId,
                 };
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(

@@ -55,7 +55,7 @@
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
                         span.icon-output-trans
-                        span.amount(v-if="purse.balance")  {{purse.balance.today_outcome  | numberFormat | persianNumbers }}
+                        span.amount(v-if="purse.balance") {{purse.balance.today_outcome  | numberFormat | persianNumbers }}
                         span.amount(v-else) -
 
 

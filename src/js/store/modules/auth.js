@@ -31,7 +31,8 @@ export default {
             rootState.http.requests['app.getBasicInfo'].get().then(
                 (response) => {
                     commit('fill', response.data.data);
-                    dispatch('fetchPurseBalance', callback);
+                    dispatch('fetchPurseBalance');
+                    callback(true);
                 }
             ).catch((response)=>{
                 console.log(response);
@@ -55,12 +56,12 @@ export default {
             );
         },
         fetchPurseBalance({rootState, state, dispatch}){
-            // let purseCount = state.user.purses.length;
             state.user.purses.forEach(function (purse) {
                 rootState.http.requests['purse.getBalance'].get({purseId: purse.purse}).then(response => {
-                    dispatch('addBalanceToPurse', {purseId: purse.purse, purseBalance: response.data.data});
                     state.purseLoadedCount++;
-                    dispatch('chanePurseBalanceStatus');
+                    dispatch('addBalanceToPurse', {purseId: purse.purse, purseBalance: response.data.data});
+                    // dispatch('chanePurseBalanceStatus');
+                    // callback(true);
                 }).catch(()=>{
                     dispatch('purseBalanceFailed', purse.purse);
                 });
@@ -68,9 +69,8 @@ export default {
         },
         purseBalanceFailed({rootState, state, dispatch}, purseId) {
             rootState.http.requests['purse.getBalance'].get({purseId: purseId}).then(response => {
-                dispatch('addBalanceToPurse', {purseId: purseId, purseBalance: response.data.data});
                 state.purseLoadedCount++;
-                dispatch('chanePurseBalanceStatus');
+                dispatch('addBalanceToPurse', {purseId: purseId, purseBalance: response.data.data});
             });
         },
         chanePurseBalanceStatus({state, rootState}){
@@ -79,11 +79,12 @@ export default {
                 rootState.app.isLoaded = true;
             }
         },
-        addBalanceToPurse({state}, {purseId, purseBalance}) {
+        addBalanceToPurse({state, dispatch}, {purseId, purseBalance}) {
             let purseIndex = _.findIndex(state.user.purses, function (filterPurse) {
                 return filterPurse.purse === purseId
             });
             state.user.purses[purseIndex].balance = purseBalance;
+            dispatch('chanePurseBalanceStatus');
         }
 
     },
