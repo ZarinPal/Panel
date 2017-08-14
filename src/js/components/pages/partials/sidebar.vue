@@ -89,9 +89,11 @@ export default {
 
             //reload purse balance
             if (this.$route.name === 'home.index') {
-                this.$store.state.app.isFetchingPurseBalance = true;
+
                 let requestTimeDiff = Math.abs(Date.now() - this.$store.state.timer.getPurseBalanceTime) / 1000;
                 if(requestTimeDiff > this.getPurseBalanceTimer) {
+                    this.$store.state.auth.updatePurseListener++;
+                    console.log('have request purse balance');
                     this.$store.dispatch('auth/fetchPurseBalance');
                     this.$store.state.timer.getPurseBalanceTime = Date.now();
                 }

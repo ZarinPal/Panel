@@ -6,7 +6,8 @@ export default {
         check: false,
         otpTime: 30, //As seconds
         purseLoadedCount: 0,
-        getPurseLimit:3
+        getPurseLimit:3,
+        updatePurseListener: 0,
     },
     mutations: {
         fill(state, user) {
