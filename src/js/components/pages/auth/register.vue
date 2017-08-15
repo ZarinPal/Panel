@@ -16,7 +16,7 @@
 
                     div.row.row-margin
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-right-margin
-                            input.half-input(:class="{'input-danger': validationErrors.first_name}" type="text" v-model="firstName" id="firstname" placeholder="نام")
+                            input.half-input(:class="{'input-danger': validationErrors.first_name}" type="text" v-model="firstName" id="firstname" placeholder="نام" autofocus)
                             div.ta-right(v-if="validationErrors.first_name")
                                 span.text-danger {{ $i18n.t(validationErrors.first_name) }}
 
