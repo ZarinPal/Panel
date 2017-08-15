@@ -98,7 +98,7 @@ span
               ticket: {},
               content: '',
               errorMessage: '',
-              attachment: '',
+              attachment: null,
           }
         },
         computed: {
