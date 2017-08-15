@@ -32,6 +32,7 @@
         "nchan": "^1.0.5",
         "path": "^0.12.7",
         "pug": "^2.0.0-beta11",
+        "raven-js": "^3.17.0",
         "resolve-url-loader": "^2.0.2",
         "stickyfill": "^1.1.1",
         "tiny-slider": "^1.5.5",
