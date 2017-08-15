@@ -21,7 +21,7 @@
 
             div.row
                 div.col-xs.no-margin.ta-right
-                    loading(v-if="getPriceLoading")
+                    loading(v-if="getPriceLoading" v-bind:width="20" v-bind:height="20")
                     span.persian-num.activation-price(v-else)  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
 
                 div.no-margin

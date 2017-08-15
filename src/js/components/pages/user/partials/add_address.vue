@@ -8,11 +8,17 @@
         form(autocomplete="on" onsubmit="event.preventDefault();")
             div.row.section.nav-add-address
                 div.box.full-width
-                    div.address-box(id="addressBox")
-                        <!--address dom-->
-                        span(v-for="address in addressCount")
-                            address-book.address-book(:id="address" v-bind:addressId="address" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+                    div.address-box(id="addressBox" v-if="isLoadedAddress")
 
+                        <!--if user dont have addres-->
+                        address-book.address-book(v-if="addressCount == 1" v-bind:id="1" v-bind:addressId="1" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+
+                        <!--if user has address-->
+                        span(v-for="addressId in addressCount" v-else-if="addressCount > 1")
+                            address-book.address-book(v-bind:id="addressId" v-bind:addressId="addressId" v-bind:singleAddress="address[addressId-1]" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+
+                    div.ta-center(v-else)
+                        loading
                     <!--Button add new address-->
                     div.row
                         div.col-xs.ta-center
@@ -31,14 +37,17 @@
 
 <script>
     import addressBook from './address.vue';
+    import loading from '../../partials/loading.vue';
 
     export default {
-        name: 'editProfile',
+        name: 'addAddress',
         data() {
             return {
                 loading: false,
+                getAddressesData: null,
                 addressCount: 1,
-                address: {}
+                address: {},
+                isLoadedAddress: false,
             }
         },
         computed:{
@@ -46,29 +55,34 @@
                 return this.$store.state.alert.validationErrors;
             },
         },
+        created() {
+            this.getAddresses();
+        },
         methods: {
-//            getAddresses() {
-//                this.$store.state.http.requests['user.postAddress'].get().then(
-//                    (response)=> {
-//                        this.getAddressesData = response.data.data;
-//                        this.addressCount = response.data.data.length;
-//                        this.isLoadedAddress = true;
-//                    },
-//                    (response) => {
-//                        store.commit('flashMessage',{
-//                            text: response.data.meta.error_message,
-//                            important: false,
-//                            type: 'danger'
-//                        });
-//                    }
-//                );
-//            },
+            getAddresses() {
+                this.$store.state.http.requests['user.postAddress'].get().then(
+                    (response)=> {
+                        this.address = response.data.data.reverse();
+                        if (response.data.data.length) {
+                            this.addressCount = response.data.data.length;
+                        }
+                        this.isLoadedAddress = true;
+                    },
+                    (response) => {
+                        store.commit('flashMessage',{
+                            text: response.data.meta.error_message,
+                            important: false,
+                            type: 'danger'
+                        });
+                    }
+                );
+            },
             addNewAddress() {
                 this.addressCount++;
             },
             //update from address child on input change not request to api
             updateAddress(address) {
-                this.address[address.index] = address.address;
+                this.address[address.index-1] = address.address;
             },
             deleteAddress(address) {
                 this.$store.state.http.requests['user.getAddress'].delete({landline: address.landline}).then(
@@ -110,7 +124,9 @@
             },
         },
         components:{
-            'address-book': addressBook
+            'address-book': addressBook,
+            confirm,
+            loading
         }
     }
 </script>

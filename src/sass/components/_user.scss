@@ -161,4 +161,17 @@
     }
   }
 
+  /*** Modal fix ***/
+  .modal-content-father{
+    .modal-content {
+      .header{
+        padding: 15px !important;
+        height: 22px;
+      }
+
+      .contains{
+        padding: 0 !important;
+      }
+    }
+  }
 }
