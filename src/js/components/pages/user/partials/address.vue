@@ -8,7 +8,7 @@
                 transition(name="fade"
                 enter-active-class="fade-in"
                 leave-active-class="fade-out")
-                    span.close-address(@click="deleteAddress" v-if="addressId > 1 && visibleCloseIcon")
+                    span.close-address(@click="confirmVisible = true" v-if="addressId > 1 && visibleCloseIcon")
 
                 span.address-title(v-if="addressId > 1" ) {{$i18n.t('user.addressTitle') + ' ' + addressId | persianNumbers}}
             div.row.z-row
@@ -46,15 +46,24 @@
             <!--Show google map to select location-->
             google-map(v-if="visibleMap" v-on:locationData="locationData" v-on:closeModal="closeModal()")
 
+            <!--Delete confirm-->
+            confirm.row(v-if="confirmVisible" v-on:confirmed="deleteAddress()" v-on:closeModal="closeModal")
+                span(slot="title") {{$i18n.t('user.deleteAddress')}}
+                div.ta-right(slot="message")
+                    div {{$i18n.t('common.doYouDelete')}}
+
+                span(slot="messageDanger") {{$i18n.t('common.cancel')}}
+                span(slot="messageSuccess") {{$i18n.t('easypay.yesDeleteIt')}}
 </template>
 
 
 <script>
     import map from './map.vue';
+    import confirm from '../../partials/confirm.vue';
 
     export default {
         name: 'address',
-        props: ['addressId'],
+        props: ['addressId', 'singleAddress'],
         data() {
             return {
                 visibleCloseIcon: false,
@@ -66,7 +75,9 @@
                     postal_code: null,
                     geo_location: null,
                     title: null
-                }
+                },
+                confirmVisible: false,
+                confirm: false,
             }
         },
         computed:{
@@ -75,9 +86,18 @@
             },
         },
         created() {
-
+            this.initAddress();
         },
         methods: {
+            initAddress() {
+                if(this.singleAddress) {
+                    this.address.address = this.singleAddress.address;
+                    this.address.landline = this.singleAddress.landline;
+                    this.address.postal_code = this.singleAddress.postal_code;
+                    this.address.geo_location = this.singleAddress.geo_location;
+                    this.address.title = this.singleAddress.title;
+                }
+            },
             /*** get location data from map component ***/
             locationData(location) {
                 this.address.geo_location = location.geoLocation;
@@ -98,10 +118,12 @@
             closeModal(){
                 this.updateAddress();
                 this.visibleMap = false;
+                this.confirmVisible = false;
             },
         },
         components:{
             'google-map': map,
+            confirm
         }
     }
 </script>

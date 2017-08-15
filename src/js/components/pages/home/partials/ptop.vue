@@ -153,8 +153,8 @@
             acceptTransfer() {
                 this.requesting = true;
                 let zarinId = null;
-                if(this.zpId) {
-                    zarinId = this.zpId.toLowerCase();
+                if(this.destinationUser) {
+                    zarinId = this.destinationUser.zp_id.toLowerCase();
                 }
 
                 let amount = this.amount.replace(/,/g, ""); //remove , from amount

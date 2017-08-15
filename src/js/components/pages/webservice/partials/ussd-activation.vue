@@ -31,7 +31,7 @@
 
                 div.row
                     div.col-xs.ta-right.no-margin
-                        loading(v-if="getPriceLoading")
+                        loading(v-if="getPriceLoading" v-bind:width="20" v-bind:height="20")
                         span.persian-num.activation-price(v-else)  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
 
                     div.no-margin

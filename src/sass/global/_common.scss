@@ -29,6 +29,10 @@ body{
   color: #FF1744;
 }
 
+.overflow-hidden{
+  overflow: hidden;
+}
+
 
 //Purse color
 .wallet-color{
@@ -241,7 +245,7 @@ body{
     .header {
       background-color: #f8f9fa;
       border-radius: $boxBorderRadiusSize $boxBorderRadiusSize 0 0;
-      padding: 0 15px !important;
+      padding: 0 15px;
       height: 50px;
 
       .right-box{
@@ -362,7 +366,7 @@ body{
       }
 
       .box-row:last-child{
-        border-bottom: none !important;
+        border-bottom: none;
       }
 
     }
@@ -646,13 +650,12 @@ body{
   margin-top: 100px;
 
   /*Header*/
-  .header{
+  .header {
     text-align: right;
     font-size: 13px;
-    background-color: #4a5459;
-    padding: 14px 20px !important;
+    background-color: #4a5459 !important;
+    padding: 14px 20px;
     border-radius:4px 4px 0 0;
-    height: 25px;
     .title{
       color: #FFFFFF;
     }

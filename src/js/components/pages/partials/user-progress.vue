@@ -79,16 +79,20 @@ export default {
                 ctx.save();
 
                 // percent
-                ctx.beginPath();
-                ctx.strokeStyle = "#ffd600";
-                ctx.lineWidth = 1;
-                ctx.arc(84, 21, 14, 0, 2 * Math.PI, true);
-                ctx.fillStyle = '#ffd600';
-                ctx.fill();
-                ctx.fillStyle = '#000';
+                if(percent < 100) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#ffd600";
+                    ctx.lineWidth = 1;
+                    ctx.arc(84, 21, 14, 0, 2 * Math.PI, true);
+                    ctx.fillStyle = '#ffd600';
+                    ctx.fill();
+                    ctx.fillStyle = '#000';
 
-                ctx.font = "11px";
-                ctx.fillText(percent + "%", 97, 24);
+                    ctx.font = "11px";
+                    ctx.fillText(percent + "%", 97, 24);
+                } else {
+
+                }
 
                 ctx.stroke();
                 ctx.save();
