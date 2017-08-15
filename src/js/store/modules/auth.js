@@ -36,7 +36,7 @@ export default {
                     callback(true);
                 }
             ).catch((response)=>{
-                console.log(response);
+                // console.log(response);
                 callback(false);
             });
         },
