@@ -320,10 +320,6 @@ ul.select_item {
 
     &:last-child {
       border-left: #9e9e9e solid 1px;
-      border-radius: 5px 0 0 5px;
-    }
-    &:first-child {
-      border-radius: 0 5px 5px 0;
     }
     &:hover {
       background-color: #f3f3f3;
@@ -441,12 +437,6 @@ ul.dropdown {
         transition: $animateTime;
       }
 
-      &:first-child {
-        border-radius: 5px 5px 0 0;
-      }
-      &:last-child {
-        border-radius: 0 0 5px 5px;
-      }
     }
   }
 }
