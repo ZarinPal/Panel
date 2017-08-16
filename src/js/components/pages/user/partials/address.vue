@@ -13,7 +13,6 @@
                 span.address-title(v-if="addressId > 1" ) {{$i18n.t('user.addressTitle') + ' ' + addressId | persianNumbers}}
             div.row.z-row
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                    span.input-icon.icon-title
                     input(:class="{'input-danger': validationErrors['addresses.'+addressId+'.title']}" type="text" v-model="address.title" @input="updateAddress" placeholder="عنوان" )
                     div.ta-right(v-if="validationErrors['addresses.'+addressId+'.title']")
                         span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.title']) }}

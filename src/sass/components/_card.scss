@@ -519,6 +519,20 @@ $disableToColor: #eee;
 
     }
   }
+
+  .box-footer{
+    font-family: $fontName;
+    .shetab-icon{
+      &:before{
+        content: $iconShetab;
+      }
+    }
+    .statement-icon{
+      &:before{
+        content: $iconStatement;
+      }
+    }
+  }
 }
 
 //Transfer shetab

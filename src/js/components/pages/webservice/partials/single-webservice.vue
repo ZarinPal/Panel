@@ -8,7 +8,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                         span.green-small-circle
                         span.header-title(:title="webservice.name") {{webservice.name}}
 
-                div.col-xs.ta-left-box.left-box(v-bind:title="webservice.domain")
+                div.col-xs.ta-left-box.left-box
                     span.icon-more(@click="changeMoreTriggerOn()" id="btnMoreIcon")
                     transition( name="bounce"
                                 enter-active-class="drop-down-show"

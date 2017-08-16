@@ -84,12 +84,6 @@
           }
         }
 
-        .icon-title{
-          &::before {
-            content: $iconNotification;
-          }
-        }
-
         .icon-tel{
           &::before {
             content: $iconPhone;
@@ -99,6 +93,8 @@
         .icon-postal-code{
           &::before {
             content: $iconPostalCode;
+            font-size: 14px !important;
+            top:-6px !important;
           }
         }
 
