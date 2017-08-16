@@ -16,7 +16,7 @@
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="موبایل یا ایمیل" autofocus)
+                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="موبایل یا ایمیل" autofocus autocomplete="on")
                             div.ta-right(v-if="validationErrors.username")
                                 span.text-danger {{ $i18n.t(validationErrors.username) }}
 
@@ -69,12 +69,12 @@
 
 
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus(this)" id="otp1")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus(this)" id="otp2")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus(this)" id="otp3")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus(this)" id="otp4")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[4]"  size="1" @keyup="changeFocus(this)" id="otp5")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[5]"  size="1" @keyup="changeFocus(this)" id="otp6")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5")
+                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6")
                         div.ta-right(v-if="validationErrors.otp")
                             span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
@@ -268,13 +268,12 @@
                 this.visibleSendSms = false;
                 this.channel = 'ussd';
             },
-            changeFocus(){
-                let target = event.srcElement;
-                let myLength = target.value.length;
-                let currentId = target.id;
+            changeFocus(event){
+                let myLength = event.target.value.length;
+                let currentId = event.target.id;
                 currentId = currentId.substr(currentId.length - 1);
                 if(currentId <= 5) {
-                    let nextElement = target.nextSibling.id;
+                    let nextElement = event.target.nextSibling.id;
                     if (myLength >= 1) {
                         document.getElementById(nextElement).focus();
                     }
@@ -293,7 +292,7 @@
                 if(document.getElementById('otp1')) {
                     document.getElementById('otp1').focus();
                 }
-            }
+            },
         },
         components:{
             timer
