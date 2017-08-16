@@ -17,7 +17,7 @@ $chartIcon: $icon-zp-notification-outline;
 $iconNotification: $icon-zp-notification-outline;
 $addCircleIcon: $icon-zp-add-circle;
 $iconAddFund: $icon-zp-add-fund;
-$iconWithdraw: $icon-zp-reconciliation;
+$iconWithdraw: $icon-zp-withdraw;
 $iconReport: $icon-zp-calendar;
 $iconPtop: $icon-zp-p2p;
 $iconTransaction: $icon-zp-transaction;
@@ -45,6 +45,7 @@ $iconSearch:$icon-zp-search;
 $iconPrinter: $icon-zp-print;
 $iconTick: $icon-zp-verified;
 $iconClose: $icon-zp-close;
+$iconTransactionSession: $icon-zp-transaction-session;
 
 //Tickets
 $iconAttach:$icon-zp-attach;
@@ -67,5 +68,9 @@ $webserviceCatIcon: $icon-zp-arrow-down;
 //User
 $addIcon: $icon-zp-add;
 $iconPhone:$icon-zp-telephone;
-$iconPostalCode:$icon-zp-telephone;
+$iconPostalCode:$icon-zp-mailbox;
 $iconLocation:$icon-zp-location;
+
+//Card
+$iconShetab: $icon-zp-shetab;
+$iconStatement: $icon-zp-sync;
