@@ -33,7 +33,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     span.text-value {{card.expired_at| jalali("jYYYY/jM") | persianNumbers}}
 
         <!--InActive OR Pending Card-->
-        div.middle-xs.body.bank-card.disable-card(v-else-if="card.status == 'InActive' || card.status == 'Pending'")
+        div.middle-xs.body.bank-card.disable-card(v-else-if="card.status == 'InActive' || card.status == 'Pending' || card.status == 'Expired'")
             div.row
                 div.col-xs.ta-right
                     div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
@@ -45,6 +45,8 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                         span {{$i18n.t('card.pending')}}
                     span.in-active-card(v-else-if="card.status === 'InActive'")
                         span {{$i18n.t('card.inActive')}}
+                    span.in-active-card(v-else-if="card.status === 'Expired'")
+                        span {{$i18n.t('card.expired')}}
 
             div.row(v-if="card.pan")
                 span.card-number
@@ -63,13 +65,14 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     span {{ $i18n.t('card.expiration') }}:
                     span.text-value {{card.expired_at| jalali("jYYYY/jM") | persianNumbers}}
 
-        div.bottom-xs.box-footer
+        div.bottom-xs.box-footer(v-if="card.status !== 'Expired'")
             div.row
                 div.col-xs
                     span.edit-bank-account(v-if="!card.is_legal && card.account_id && card.issuer.slug != 'ZarinCard'" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
                     span.statement-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showZarinCardStatement = true" ) مشاهده گردش حساب
                     span.shetab-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showTransferShetab = true" ) انتقال وجه شتابی
 
+    <!--Modals-->
     editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")
     transferShetab(v-if="showTransferShetab" v-on:closeModal="closeModal()" v-bind:card="card")
     zarinCardStatement(v-if="showZarinCardStatement" v-on:closeModal="closeModal()" v-bind:card="card")
