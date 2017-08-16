@@ -67,8 +67,8 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
             div.row
                 div.col-xs
                     span.edit-bank-account(v-if="!card.is_legal && card.account_id && card.issuer.slug != 'ZarinCard'" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
-                    span.edit-bank-account(v-if="card.issuer.slug == 'ZarinCard'" @click="showZarinCardStatement = true" ) مشاهده گردش حساب
-                    span.edit-bank-account(v-if="card.issuer.slug == 'ZarinCard'" @click="showTransferShetab = true" ) انتقال وجه شتابی
+                    span.statement-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showZarinCardStatement = true" ) مشاهده گردش حساب
+                    span.shetab-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showTransferShetab = true" ) انتقال وجه شتابی
 
     editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")
     transferShetab(v-if="showTransferShetab" v-on:closeModal="closeModal()" v-bind:card="card")

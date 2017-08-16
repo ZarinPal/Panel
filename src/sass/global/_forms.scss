@@ -318,8 +318,12 @@ ul.select_item {
     user-select: none;
     overflow: hidden;
 
+    &:first-child{
+      border-radius: 0 $boxBorderRadiusSize  $boxBorderRadiusSize 0;
+    }
     &:last-child {
       border-left: #9e9e9e solid 1px;
+      border-radius: $boxBorderRadiusSize 0 0 $boxBorderRadiusSize;
     }
     &:hover {
       background-color: #f3f3f3;
