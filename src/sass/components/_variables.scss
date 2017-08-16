@@ -4,6 +4,7 @@ $border-color-hover : #ffd600;
 
 // Shadow
 $boxShadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.15);
+$boxHoverShadow: 6px 6px 15px rgba(0, 0, 0, 0.15);
 
 
 // Radius
@@ -45,6 +46,14 @@ $sepah : #ff7d00;
 $zarincard : #ffb012;
 
 //Font icon 1.5
+$icon-zp-history: "\e919";
+$icon-zp-transaction: "\e91a";
+$icon-zp-date: "\e91f";
+$icon-zp-telephone: "\e932";
+$icon-zp-location: "\e933";
+$icon-zp-calendar: "\e908";
+$icon-zp-location: "\e933";
+
 $icon-zp-calendar: "\e908";
 $icon-zp-refresh: "\e92f";
 $icon-zp-qr-code: "\e94c";

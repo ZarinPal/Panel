@@ -20,7 +20,7 @@ $iconAddFund: $icon-zp-add-fund;
 $iconWithdraw: $icon-zp-reconciliation;
 $iconReport: $icon-zp-calendar;
 $iconPtop: $icon-zp-p2p;
-$iconTransaction: $icon-zp-transaction-reconciliation;
+$iconTransaction: $icon-zp-transaction;
 $iconCloseDropDown: $icon-zp-close;
 
 
@@ -39,7 +39,7 @@ $iconPerson: $icon-zp-person;
 
 //Transactions
 $iconForward:$icon-zp-arrow-left;
-$internalTransactionIcon:$icon-zp-transaction-trend-down;
+$internalTransactionIcon:$icon-zp-transaction-reconciliation;
 $pendingTransactionIcon:$icon-zp-transaction-reconciliation;
 $iconSearch:$icon-zp-search;
 $iconPrinter: $icon-zp-print;
@@ -66,3 +66,6 @@ $webserviceCatIcon: $icon-zp-arrow-down;
 
 //User
 $addIcon: $icon-zp-add;
+$iconPhone:$icon-zp-telephone;
+$iconPostalCode:$icon-zp-telephone;
+$iconLocation:$icon-zp-location;
