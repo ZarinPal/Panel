@@ -92,23 +92,23 @@
 
         .icon-tel{
           &::before {
-            content: $iconNotification;
+            content: $iconPhone;
           }
         }
 
         .icon-postal-code{
           &::before {
-            content: $iconNotification;
+            content: $iconPostalCode;
           }
         }
 
         .icon-location{
           float: right;
           &::before {
-            content: $iconNotification;
+            content: $iconLocation;
             position: relative;
             right: -3px;
-            top: 2px;
+            top: -14px;
             font-size: 17px !important;
           }
         }

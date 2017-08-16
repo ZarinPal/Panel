@@ -34,6 +34,14 @@ const i18n = new VueI18n({
 window.i18n = i18n;
 
 
+import Raven from 'raven-js';
+import RavenVue from 'raven-js/plugins/vue';
+
+Raven
+    .config('http://0e52e25ebe614c0892b9a057b52a8d21@91.239.55.205:9000/5')
+    .addPlugin(RavenVue, Vue)
+    .install();
+
 Vue.directive(
     'clipboard',
     require('./directives/clipboard')

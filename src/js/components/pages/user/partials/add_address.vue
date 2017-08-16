@@ -10,8 +10,9 @@
                 div.box.full-width
                     div.address-box(id="addressBox" v-if="isLoadedAddress")
 
-                        <!--if user dont have addres-->
-                        address-book.address-book(v-if="addressCount == 1" v-bind:id="1" v-bind:addressId="1" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+                        <!--if user don`‍‍‍t have address-->
+                        address-book.address-book(v-if="addressCount == 1 && !address" v-bind:id="1" v-bind:addressId="1" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+                        address-book.address-book(v-else-if="addressCount == 1 && address" v-bind:id="1" v-bind:addressId="1" v-bind:singleAddress="address[0]" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
 
                         <!--if user has address-->
                         span(v-for="addressId in addressCount" v-else-if="addressCount > 1")
@@ -62,7 +63,7 @@
             getAddresses() {
                 this.$store.state.http.requests['user.postAddress'].get().then(
                     (response)=> {
-                        this.address = response.data.data.reverse();
+                        this.address = response.data.data;
                         if (response.data.data.length) {
                             this.addressCount = response.data.data.length;
                         }
