@@ -1,5 +1,5 @@
 <template lang="pug">
-div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section
     div.box.card(:class="{'disable-card-box': card.status !== 'Active'}")
         <!--Active Card-->
         div.middle-xs.body.bank-card(v-if="card.status == 'Active'" v-bind:class="card.issuer.slug.toLowerCase()")
@@ -65,12 +65,20 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     span {{ $i18n.t('card.expiration') }}:
                     span.text-value {{card.expired_at| jalali("jYYYY/jM") | persianNumbers}}
 
-        div.bottom-xs.box-footer(v-if="card.status !== 'Expired'")
+        div.bottom-xs.box-footer
             div.row
-                div.col-xs
+                div.col-xs(v-if="card.status !== 'Expired' && card.status !== 'InActive'")
                     span.edit-bank-account(v-if="!card.is_legal && card.account_id && card.issuer.slug != 'ZarinCard'" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
+                    span.edit-bank-account.not-allowed(v-if="card.is_legal && card.account_id && card.issuer.slug != 'ZarinCard'") {{ $i18n.t('card.editBankAccount')}}
+
                     span.statement-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showZarinCardStatement = true" ) مشاهده گردش حساب
                     span.shetab-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showTransferShetab = true" ) انتقال وجه شتابی
+
+                div.col-xs(v-else)
+                    span.edit-bank-account.not-allowed(v-if="card.issuer.slug != 'ZarinCard'") {{ $i18n.t('card.editBankAccount')}}
+                    span.statement-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") مشاهده گردش حساب
+                    span.shetab-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") انتقال وجه شتابی
+
 
     <!--Modals-->
     editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")

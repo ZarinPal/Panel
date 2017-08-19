@@ -11,9 +11,9 @@
                     span.text {{ $i18n.t('card.createCard') }}
 
         div.row
-            singleCard(v-for="card in user.cards" v-bind:key="card.issuer.slug" v-bind:card="card")
+            singleCard(v-for="card in cards" v-bind:key="card.issuer.slug" v-bind:card="card")
 
-        div.row(v-if="!user.cards.length")
+        div.row(v-if="!cards.length")
             div.col-xs.ta-center
                 span.txt-nothing-to-show {{ $ti18n.t('common.nothingToShow') }}
 
@@ -31,8 +31,19 @@
             }
         },
         computed:{
-            user(){
-                return this.$store.state.auth.user;
+            cards(){
+                let activeCards = [];
+                let inActiveCards = [];
+                let reorderedCards = [];
+                this.$store.state.auth.user.cards.forEach(function (card) {
+                    if (card.status == 'Active') {
+                        activeCards.push(card);
+                    } else {
+                        inActiveCards.push(card);
+                    }
+                });
+                reorderedCards =  activeCards.concat(inActiveCards);
+                return reorderedCards;
             }
         },
         methods: {
