@@ -86,20 +86,27 @@
                 this.address[address.index-1] = address.address;
             },
             deleteAddress(address) {
-                this.$store.state.http.requests['user.getAddress'].delete({landline: address.landline}).then(
-                    ()=> {
-                        delete this.address[address.index];
-                        let elem = document.getElementById(address.index);
-                        return elem.parentNode.removeChild(elem);
-                    },
-                    (response) => {
-                        store.commit('flashMessage',{
-                            text: response.data.meta.error_message,
-                            important: false,
-                            type: 'danger'
-                        });
-                    }
-                );
+                if (address.landline) {
+                    this.$store.state.http.requests['user.getAddress'].delete({landline: address.landline}).then(
+                        ()=> {
+                            delete this.address[address.index];
+                            let elem = document.getElementById(address.index);
+                            return elem.parentNode.removeChild(elem);
+                        },
+                        (response) => {
+                            store.commit('flashMessage',{
+                                text: response.data.meta.error_message,
+                                important: false,
+                                type: 'danger'
+                            });
+                        }
+                    );
+                } else {
+                    delete this.address[address.index];
+                    let elem = document.getElementById(address.index);
+                    return elem.parentNode.removeChild(elem);
+                }
+
             },
             postUserAddress() {
                 this.$store.state.http.requests['user.postAddress'].save({'addresses': this.address}).then(

@@ -193,16 +193,24 @@ $disableToColor: #eee;
 
 .card-number {
   font-family: OCRA;
-  width: 70%;
-  padding: 4px 30px;
+  width: 90%;
+  padding: 6px 0;
   text-align: center;
   background-color: #f6f6f6;
   color: #424242;
   display: inline-block;
-  margin: 15px auto;
-  font-size: 18px;
+  margin: 3px auto 0 auto;
+  font-size: 16px;
   border-radius: $boxBorderRadiusSize;
   direction: ltr;
+
+  .iransans{
+    font-size: 14px;
+    position: relative;
+    top: -4px;
+    height: 14px;
+    display: inline-block;
+  }
 }
 
 .bank-card {
@@ -517,6 +525,19 @@ $disableToColor: #eee;
         }
       }
 
+    }
+
+    .box-row{
+      padding: 2px 10px !important;
+
+      .ta-left{
+        position: relative;
+        top: 7px
+      }
+      .ta-right{
+        position: relative;
+        top: 7px
+      }
     }
   }
 
