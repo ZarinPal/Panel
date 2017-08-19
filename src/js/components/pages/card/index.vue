@@ -10,7 +10,7 @@
                     span.icon-add-circle
                     span.text {{ $i18n.t('card.createCard') }}
 
-        div.row
+        div.row.nav-cards
             singleCard(v-for="card in cards" v-bind:key="card.issuer.slug" v-bind:card="card")
 
         div.row(v-if="!cards.length")
