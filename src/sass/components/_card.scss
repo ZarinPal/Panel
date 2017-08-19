@@ -633,3 +633,15 @@ $disableToColor: #eee;
 
 @media(min-width: 1200px) {
 }
+
+
+@media screen and (min-width:1200px) and (max-width:1350px) {
+  .nav-cards{
+    .col-lg-4 {
+      min-width: 50% !important;
+      -ms-flex-preferred-size: 50%;
+      flex-basis: 50% !important;
+      max-width: 50% !important;
+    }
+  }
+}
