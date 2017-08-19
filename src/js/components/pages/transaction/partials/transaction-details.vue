@@ -27,6 +27,7 @@
 
                                     span(v-if="transaction.to_merchant")
                                         div.user-name {{transaction.to_merchant.name}}
+                                        div.user-name {{transaction.to_merchant.public_id}}
 
                 span.amount {{ transaction.amount | numberFormat | persianNumbers }}
                 span {{$i18n.t('transaction.toman')}}

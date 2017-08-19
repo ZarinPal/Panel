@@ -634,7 +634,7 @@ $disableToColor: #eee;
 @media(min-width: 1200px) {
 }
 
-
+//fix card break width in high resolution
 @media screen and (min-width:1200px) and (max-width:1350px) {
   .nav-cards{
     .col-lg-4 {
