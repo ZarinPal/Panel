@@ -129,6 +129,10 @@ body{
   cursor: pointer !important;
 }
 
+.not-allowed{
+  cursor: not-allowed !important;
+}
+
 //Pages Header
 .nav-page-header{
   .btn{
@@ -392,7 +396,7 @@ body{
   text-align: center;
 
   span{
-    padding: 15px 0;
+    padding: 8px 0;
     display: inline-block;
     color: #757575;
     font-size: 13px;
