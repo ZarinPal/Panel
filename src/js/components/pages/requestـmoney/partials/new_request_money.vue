@@ -170,7 +170,7 @@
         name: 'pages-requestMoney-partials-new',
         data() {
             return {
-                maxAmountLimit: 20000000,
+                maxAmountLimit: 10000000,
                 searchString: '',
                 requesting: false,
                 loading: false,
@@ -376,24 +376,26 @@
                 let requestMoneyData = [];
 
                 let vm = this;
-                this.selectedUsers.forEach(function (user) {
+                let requestedUsers = this.selectedUsers;
+                //make array of requested users to post to api
+                this.selectedUsers.forEach(function (user, index) {
                     if(vm.requestType === 'Auto') {
-                        let userIndex = _.findIndex(vm.selectedUsers, function(userData) {
-                            return userData.public_id === user.public_id;
-                        });
-
-                        vm.selectedUsers[userIndex].amount = vm.autoPersonAmount;
+                        requestedUsers[index] = {
+                            amount: vm.autoPersonAmount,
+                            zp: user.public_id
+                        }
+                    } else {
+                        requestedUsers[index] = {
+                            amount: user.amount,
+                            zp: user.public_id
+                        };
                     }
-                    delete user.name;
-                    delete user.avatar;
-                    delete user.email_hash;
-                    user.zp = user.public_id; //change public_id key to zp
-                    delete user.public_id; //delete publci_id
+
                 });
 
 
-                requestMoneyData= {
-                    'debtor': this.selectedUsers,
+                requestMoneyData = {
+                    'debtor': requestedUsers,
                     'purse_number': this.purse,
                     'description': this.description
                 };

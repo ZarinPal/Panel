@@ -8,12 +8,12 @@
                     span {{ $i18n.t('transaction.toman') }}
                 form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.row.no-margin
-                        input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                        input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ" tabindex="1")
                         div.ta-right(v-if="validationErrors.amount")
                             span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
                     div.row.no-margin
-                        cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
+                        cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard" tabindex="2")
                         div.ta-right(v-if="validationErrors.card_id")
                             span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 

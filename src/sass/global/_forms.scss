@@ -70,7 +70,7 @@ textarea {
   }
 
   &:focus {
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
     border: 1px solid #a1a1a1;
   }
 
@@ -357,6 +357,10 @@ ul.dropdown {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  &:focus {
+    border: 1px solid #888;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
+  }
 
   .title{
     white-space: nowrap;

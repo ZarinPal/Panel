@@ -69,12 +69,12 @@
 
 
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5")
-                            input.input-cell(v-validate="{type: 'number'}"  maxlength="1" type="text"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6")
+                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1")
+                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2")
+                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3")
+                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4")
+                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5")
+                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6")
                         div.ta-right(v-if="validationErrors.otp")
                             span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
@@ -135,7 +135,7 @@
         },
         mounted(){
             if(this.$route.query.mobile){
-                thisg.username = this.$route.query.mobile;
+                this.username = this.$route.query.mobile;
             }
         },
         created() {
@@ -186,9 +186,9 @@
                             });
                         }
 
-                        if(document.getElementById("otp1")) {
+                        setTimeout(function () {
                             document.getElementById("otp1").focus();
-                        }
+                        }, 10);
                     }).catch((response)=>{
                         this.loginLoading = false;
                         this.getOtpLoading = false;
@@ -272,6 +272,18 @@
                 let myLength = event.target.value.length;
                 let currentId = event.target.id;
                 currentId = currentId.substr(currentId.length - 1);
+
+                //back to prev input on backspace
+                if(event.keyCode === 8) {
+                    if(currentId >= 1) {
+                        document.getElementById(event.target.id).value = null;
+                        if(currentId >1) {
+                            let prevElement = event.target.previousSibling.id;
+                            document.getElementById(prevElement).focus();
+                        }
+                    }
+                }
+
                 if(currentId <= 5) {
                     let nextElement = event.target.nextSibling.id;
                     if (myLength >= 1) {
