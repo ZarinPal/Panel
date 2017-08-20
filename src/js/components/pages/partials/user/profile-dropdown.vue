@@ -15,7 +15,7 @@
                         span.icon.notif {{$i18n.t('user.notificationSetting')}}
 
                     div.divider
-                    div.items(v-ripple="" @click="confirmVisible = true")
+                    div.items(id="btnLogout" v-ripple="" @click="confirmVisible = true")
                         span.icon.logout {{$i18n.t('common.logout')}}
 
         <!--Logout confirm dialog-->
