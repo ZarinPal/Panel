@@ -138,6 +138,7 @@ body{
   .btn{
     float: left;
     margin-top: 15px;
+    margin-right: 10px;
 
     .text {
       color: #fff;
@@ -153,6 +154,18 @@ body{
       font-size: 20px;
       &:before{
         content: $addCircleIcon;
+        font-family:'zarinpal';
+        color: #fff;
+        vertical-align: middle;
+        top: 3px;
+      }
+    }
+
+    .icon-request-money{
+      display: inline-block;
+      font-size: 20px;
+      &:before{
+        content: $iconRequestMoney;
         font-family:'zarinpal';
         color: #fff;
         vertical-align: middle;
@@ -387,7 +400,8 @@ body{
   }
 
   .nav-buttons{
-    margin: 20px 10px;
+    margin-bottom: 10px;
+    padding: 20px 10px 8px 30px;
   }
 }
 

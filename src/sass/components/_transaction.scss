@@ -69,6 +69,12 @@
   padding: 10px 0;
   text-align: right;
   margin: 8px 0;
+  transition: $animateTime;
+
+  &:hover {
+    box-shadow: $boxHoverShadow !important;
+    transition: $animateTime;
+  }
 
   @mixin transaction-icon-color($iconName, $iconColor){
     &:before{

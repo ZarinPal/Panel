@@ -1,6 +1,6 @@
 <template lang="pug">
     ul.dropdown(v-click-outside="closeDropDown")
-        li.title(@click="isOpen = true" @keyup.enter="isOpen = true")
+        li.title(@focus="isActive = true" @click="openDropDown")
             span(v-html="selectBoxTitle")
             span.arrow
         ul(v-if="isOpen")
@@ -24,6 +24,7 @@ export default {
             isOpen: false,
             clickOutside: 0,
             clickInside: 0,
+            isActive: false
         }
     },
     created() {
@@ -37,9 +38,19 @@ export default {
             }
             this.selectItem(item);
         }
+
+        window.addEventListener('keyup', this.openDropDownByEnter)
     },
 
     methods: {
+        openDropDown() {
+            this.isOpen = !this.isOpen;
+        },
+        openDropDownByEnter(event) {
+            if(event.keyCode === 13 && !this.isActive) {
+                this.openDropDown();
+            }
+        },
         selectItem(item){
             this.selectBoxTitle = item.title;
             this.isOpen = false;

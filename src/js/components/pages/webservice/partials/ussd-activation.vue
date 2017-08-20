@@ -18,14 +18,14 @@
                         div.no-margin.last-label
                             span #
                         div.col-xs.no-margin
-                            input.input.ta-left(v-validate="{type: 'number'}" type="text" v-model="ussdId" placeholder="کد دستوری(ussd)")
+                            input.input.ta-left(v-validate="{type: 'number'}" type="text" v-model="ussdId" placeholder="کد دستوری(ussd)" autofocus tabindex="1")
                         div.no-margin.first-label
                             span *788*97*
                 div.ta-right(v-if="validationErrors.ussd_id")
                     span.text-danger {{ $i18n.t(validationErrors.ussd_id) }}
 
                 div.row
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول" tabindex="2")
                     div.ta-right(v-if="validationErrors.purse")
                         span.text-danger {{ $i18n.t(validationErrors.purse) }}
 

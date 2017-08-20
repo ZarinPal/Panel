@@ -93,7 +93,8 @@
                         vm.$store.state.app.visibleNotification = false;
                     }
 
-                    if(e.target.id !== 'btnProfileDropdown' && e.target.parentNode.parentNode.id !== 'navProfileDropdown') {
+//                  && e.target.parentNode.parentNode.id !== 'navProfileDropdown'
+                    if(e.target.id !== 'btnProfileDropdown' && e.target.id !== 'btnLogout') {
                         vm.visibleProfileDropdown = false;
                     }
                 });

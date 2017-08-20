@@ -10,6 +10,10 @@
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
 
+                router-link.btn.info(tag="button" v-bind:to="{ name: 'requestMoney.index'}" :title="$i18n.t('common.dangiDongi')")
+                    span.icon-request-money
+                    span.text {{ $i18n.t('common.dangiDongi') }}
+
         div.row
             singlePurse(v-for="purse in purses.data" v-bind:balance="purse.balance" v-bind:key="purse.purse" v-bind:update="purses.update" v-bind:purse="purse" v-bind:showMore="showMore")
 
