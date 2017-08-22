@@ -9,14 +9,14 @@
 
                 <!--Body-->
                 <!--First step enter mobile-->
-                form(@submit.prevent="sendOtp('ussd')" v-if="step == 1" action="#" onsubmit="event.preventDefault();")
+                form(method="post" @submit.prevent="sendOtp('ussd')" v-if="step == 1" action="#" onsubmit="event.preventDefault();" autocomplete)
                     div.row.middle-xs
                         div.col-xs-12.no-margin.body-messages
                             div.col-lg-12.ta-right
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="موبایل یا ایمیل" autofocus autocomplete="on")
+                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="موبایل یا ایمیل" autofocus autocomplete)
                             div.ta-right(v-if="validationErrors.username")
                                 span.text-danger {{ $i18n.t(validationErrors.username) }}
 
@@ -69,12 +69,12 @@
 
 
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1")
-                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2")
-                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3")
-                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4")
-                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5")
-                            input.input-cell(v-validate="{size: '1'}" type="number"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6" onfocus="this.select();")
                         div.ta-right(v-if="validationErrors.otp")
                             span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
@@ -279,6 +279,9 @@
                         document.getElementById(event.target.id).value = null;
                         if(currentId >1) {
                             let prevElement = event.target.previousSibling.id;
+                            if(currentId <= 5) {
+                                this.otpObject[currentId-2] = null;
+                            }
                             document.getElementById(prevElement).focus();
                         }
                     }
@@ -292,7 +295,7 @@
                 }
 
                 /*** submit form in last digit insert ***/
-                if(currentId == 6) {
+                if(currentId == 6 && event.keyCode !== 8) {
                     document.getElementById("btnSubmitLogin").click();
                 }
             },

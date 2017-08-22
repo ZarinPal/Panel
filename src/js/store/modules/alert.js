@@ -62,6 +62,8 @@ export default {
                 'https://pubsub.zarinpal.com/notification',
                 {
                     subscriber: 'websocket',
+                    reconnect: 'persist',
+                    shared: true
                 }
             );
 
