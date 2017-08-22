@@ -72,7 +72,7 @@
                     span.amount-text {{ $i18n.t('transaction.toman') }}
 
                 div.row
-                    input.amount-input(v-validate="{type: 'number', size: 12}" type="text" v-model="requestAmount" placeholder="مبلغ" @keyup="calcAutoRequestAmount" autofocus)
+                    input.amount-input(v-validate="{type: 'number', size: 8}" type="text" v-model="requestAmount" placeholder="مبلغ" @keyup="calcAutoRequestAmount" autofocus)
 
                 div.row.share-in-request-text
                     input(type="checkbox" id="shareRequestChk" v-model="shareRequestWithMe" @change="calcAutoRequestAmount")
@@ -105,7 +105,7 @@
                         span.sum-amount {{ manuallyTotalAmount | numberFormat | persianNumbers}}
                         span.amount-text {{ $i18n.t('transaction.toman') }}
 
-                input.amount-input(id="txtManuallyAmount" v-validate="{type: 'number', size: 12}" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
+                input.amount-input(id="txtManuallyAmount" v-validate="{type: 'number', size: 8}" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
 
 
 
@@ -364,7 +364,7 @@
 
                 /*** Check Amount***/
                 if(this.requestType === 'Auto') {
-                    if(this.requestAmount < 100 || this.requestAmount > this.maxAmountLimit) {
+                    if(this.requestAmount <= 100 || this.requestAmount > this.maxAmountLimit) {
                         store.commit('flashMessage',{
                             text: 'request-money-amount-limit',
                             type: 'danger'
@@ -372,7 +372,7 @@
                         return;
                     }
                 } else if(this.requestType === 'Manually') {
-                    if(this.manuallyTotalAmount < 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
+                    if(this.manuallyTotalAmount <= 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
                         store.commit('flashMessage',{
                             text: 'request-money-amount-limit',
                             type: 'danger'
