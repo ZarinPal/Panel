@@ -31,6 +31,20 @@
         }
     },
     created(){
+//        //Application init
+//        this.$store.commit('http/boot', this);
+//        require('./i18n').default(this, function (vm) {
+//            if (!vm.$route.meta.standAlone) {
+//                vm.$store.dispatch('auth/fetch',
+//                    () => {
+//                        // vm.$store.commit('app/ready');
+//                    }
+//                );
+//            } else {
+//                vm.$store.commit('app/ready');
+//            }
+//        });
+
         if(this.refererId) {
             store.commit('flashMessage',{
                 text: 'back-to-referer',

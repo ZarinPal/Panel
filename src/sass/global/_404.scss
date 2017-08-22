@@ -1,0 +1,161 @@
+/*******Vriables*****/
+$maxWidth404: 80%;
+$minWidth404: 100%;
+
+.container-404 {
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+//************ Top ************
+.container-404-top{
+  overflow: hidden;
+  background-color: #F2F3F5;
+
+  .top {
+    width: $maxWidth404;
+    margin: 0 auto;
+    padding-bottom: 80px;
+
+    .logo-section{
+      margin-top: 32px;
+      .zarin-logo {
+        width: 32px;
+        height: 32px;
+        background-image: url("../../img/banks/zarincard.svg");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        display: inline-block;
+      }
+
+      .zarin-type {
+        font-size: 20px;
+        color: #424242;
+        display: inline-block;
+        position: relative;
+        margin-right: 10px;
+        top: -12px;
+      }
+    }
+
+    .img-404 {
+      background-image: url("../../img/error/404.svg");
+      width: 299px;
+      height: 340px;      background-size: $maxWidth404;
+      background-repeat: no-repeat;
+      margin-top: -10px;
+      float: left;
+    }
+
+    .description{
+      h3{
+        font-size: 24px;
+      }
+
+      .text{
+        font-size:20px;
+      }
+
+      .buttons{
+        margin-top: 30px;
+        margin-bottom: 30px;
+
+        .btn{
+          margin-left: 20px;
+        }
+      }
+    }
+
+  }
+
+}
+
+//************ Bottom ************
+.container-404-bottom{
+  .bottom {
+    width: $maxWidth404;
+    margin: 0 auto;
+
+    .copy-right {
+      font-size: 14px;
+      margin-top: 16px;
+      display: inline-block;
+    }
+
+    .copy-right-type{
+      font-size: 14px;
+      position: relative;
+      top: -2px;
+      margin-right: 3px;
+    }
+
+    .links{
+      ul {
+        text-align: left;
+        a{
+          display: inline-block;
+          margin: 0px 10px;
+          font-size: 14px;
+          color: #424242;
+        }
+      }
+
+    }
+  }
+}
+
+//its for only height of main container
+@media (max-width: 700px) {
+  .container-404 {
+    height: auto !important;
+  }
+}
+
+//LG
+@media (max-width: $smallWidth) {
+  .container-404{
+    //height: auto !important;
+    .container-404-top {
+      .top{
+        width: $minWidth404;
+        padding: 10px 30px;
+
+        .logo-section{
+          text-align: center;
+        }
+
+        .description {
+          text-align: center;
+        }
+
+        .buttons {
+          width: 260px;
+          margin: 30px auto;
+
+          .btn{
+            &:first-child{
+              margin-right: -10px !important;
+            }
+          }
+        }
+
+        .left-box{
+          margin-top: 35px;
+
+          .img-404 {
+            float: none;
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+
+    .container-404-bottom{
+      .bottom {
+        width: $minWidth404;
+        padding: 10px 30px;
+      }
+    }
+  }
+}

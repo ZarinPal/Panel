@@ -10,8 +10,8 @@
 
         div.col-lg-5.col-sm-5.col-xs-5.left-box
             img.profile-dropdown-avatar(@click="visibleProfileDropdown = !visibleProfileDropdown" id="btnProfileDropdown" :src="this.$store.state.auth.user.avatar")
-            a.notification(v-ripple="" id="btnNotification" :class="{'disable-notification-icon' : notifications == 0}" @click="toggleNotification()" title="اعلانات")
-            span.notification-lamp(v-if="notifications.length")
+            a.notification(v-ripple="" id="btnNotification" :class="{'disable-notification-icon' : notifications.data.length == 0}" @click="toggleNotification()" title="اعلانات")
+            span.notification-lamp(v-if="notifications.data.length")
             span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")
 
             profile-dropdown(id="navProfileDropdown" v-click-outside="closeFromOutside" v-if="visibleProfileDropdown")
@@ -23,29 +23,29 @@
                 div.content
                     div.row.header
                         div.col-xs.ta-center
-                            span.notification-count(v-if="notifications.length") {{notificationCount | persianNumbers}}
+                            span.notification-count(v-if="notifications.data.length") {{ notifications.count | persianNumbers}}
                             span.zarinpal-title {{$i18n.t('common.zarinPal')}}
                         div.ta-left
                             <!--span.icon-setting-->
 
                     div.row.body
-                        div.full-width(v-for="notification in notifications")
+                        div.full-width(v-for="notification in notifications.data")
                             <!--Ticket-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket' && notification.id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                             <!--Transaction-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'transaction.index', params: {id: 1, type: 'purse', transactionId: notification.id}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction' && notification.id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'transaction.index', params: {id: notification.data.purse, type: 'purse', transactionId: notification.id}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                             <!--Request money-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money'" tag="div" @click="toggleNotification()" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money' && notification.id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
-                        div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.length")
+                        div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.data.length")
                             span {{ $i18n.t('common.nothingToShow') }}
 </template>
 
@@ -57,13 +57,18 @@
         data() {
             return {
                 visibleProfileDropdown: false,
-                notificationCount: '',
+                notificationCount: 0,
             }
         },
         computed: {
             notifications() {
-                this.notificationCount = this.$store.state.alert.notifications.length;
-                return this.$store.state.alert.notifications
+                return {
+                    count: this.$store.state.alert.notifications.length,
+                    data: this.$store.state.alert.notifications,
+                    counter: this.$store.state.alert.counter
+                };
+//                this.notificationCount = this.$store.state.alert.notifications.length;
+//                return this.$store.state.alert.notifications
             }
         },
         created(){
@@ -80,7 +85,19 @@
             toggleMobileSidebar(){
                 this.$store.commit('app/toggleMobileSidebar');
             },
-            toggleNotification() {
+            toggleNotification(notificationId) {
+                if(!notificationId) {
+                    notificationId = null;
+                }
+
+                //remove notification from state
+                if(notificationId) {
+                    _.remove(this.$store.state.alert.notifications, function(notification) {
+                        return notification.id === notificationId;
+                    });
+                    this.$store.state.alert.counter++;
+                }
+
                 this.$store.state.app.visibleNotification = !this.$store.state.app.visibleNotification;
             },
             reload() {
@@ -98,7 +115,7 @@
                         vm.visibleProfileDropdown = false;
                     }
                 });
-            }
+            },
         },
         components: {
             'profile-dropdown': profileDropdown
