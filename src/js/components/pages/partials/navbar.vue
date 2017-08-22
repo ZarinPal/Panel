@@ -31,17 +31,17 @@
                     div.row.body
                         div.full-width(v-for="notification in notifications.data")
                             <!--Ticket-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket' && notification.id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket' && notification.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                             <!--Transaction-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction' && notification.id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'transaction.index', params: {id: notification.data.purse, type: 'purse', transactionId: notification.id}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction' && notification.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'transaction.index', params: {id: notification.data.purse, type: 'purse', transactionId: notification.id}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                             <!--Request money-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money' && notification.id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money' && notification.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
@@ -93,7 +93,7 @@
                 //remove notification from state
                 if(notificationId) {
                     _.remove(this.$store.state.alert.notifications, function(notification) {
-                        return notification.id === notificationId;
+                        return notification.data.entity_id === notificationId;
                     });
                     this.$store.state.alert.counter++;
                 }
