@@ -105,17 +105,16 @@
                         span.sum-amount {{ manuallyTotalAmount | numberFormat | persianNumbers}}
                         span.amount-text {{ $i18n.t('transaction.toman') }}
 
-                input.amount-input(v-validate="{type: 'number', size: 12}" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
+                input.amount-input(id="txtManuallyAmount" v-validate="{type: 'number', size: 12}" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
 
 
 
             <!--Step 4 description and details-->
-            div.nav-final-step(v-else-if="step == 4")
-                div.selected-users-avatar
-                    div.avatar-container
-                        img.avatar(v-for="(user, index) in selectedUsers" v-if="index <= 4" :src="user.avatar")
-                        span.remain-user-number(v-if="checkUsers.length > 5") {{checkUsers.length - 5 | persianNumbers}}+
-
+            div.nav-final-step(v-else-if="step === 4")
+                div.selected-users-static
+                    span(v-for="(user, index) in selectedUsers")
+                        img(v-if="index <= 4" :src="user.avatar")
+                    span.remain-user-number(v-if="checkUsers.length > 5") {{checkUsers.length - 5 | persianNumbers}}+
 
                 div.nav-description
                     div.row.description-title {{$i18n.t('requestMoney.fillDescriptionToContinue')}}
@@ -225,7 +224,6 @@
                             text: 'check-users-you-want',
                             type: 'danger'
                         });
-
                         return;
                     }
                 }
@@ -255,7 +253,6 @@
                         });
                         vm.isShowSlider = true;
                     }, 100);
-
                 }
 
                 if(this.step === 3 && this.requestType === 'Auto') {
@@ -269,6 +266,8 @@
                 }
 
                 if(this.step === 3 && this.requestType === 'Manually') {
+                    document.getElementById('txtManuallyAmount').focus();
+
                     let users = _.filter(this.selectedUsers, function (user) {
                         return user.amount;
                     });
@@ -279,18 +278,29 @@
                                 text: 'enter-all-user-amount',
                                 type: 'danger'
                             });
-
                             return;
                         }
                     }
                 }
 
-                this.step ++;
+                //ignore selection method if selected users is one person
+                if(this.step === 1 && this.checkUsers.length === 1) {
+                    this.step += 2;
+                }else {
+                    this.step++;
+                }
+
                 this.changeTitle();
-                this.getSelectedUsers();
+                this.getSelectedUsers()
             },
             prevStep() {
-                this.step --;
+                if(this.step === 3 && this.checkUsers.length === 1) {
+                    this.step -= 2;
+                    this.requestType = 'Auto';
+                }else {
+                    this.step --;
+                }
+
                 this.changeTitle();
                 if(this.step === 2) {
                     this.requestAmount = null;
@@ -308,12 +318,10 @@
             },
             /*** Get selected users data ***/
             getSelectedUsers() {
-                if(this.step === 2){
-                    let vm = this;
-                    this.selectedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
-                        return vm.checkUsers.indexOf(user.public_id) !== -1;
-                    });
-                }
+                let vm = this;
+                this.selectedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
+                    return vm.checkUsers.indexOf(user.public_id) !== -1;
+                });
             },
             /*** Calculate total amount and dealing between users auto ***/
             calcAutoRequestAmount() {
@@ -337,11 +345,12 @@
             incManuallyUserCounter() {
                 this.manuallyUserCounter++;
                 this.slider.goTo('next');
+                document.getElementById('txtManuallyAmount').focus();
             },
             descManuallyUserCounter() {
                 this.manuallyUserCounter--;
                 this.slider.goTo('prev');
-
+                document.getElementById('txtManuallyAmount').focus();
             },
             /*** Send request money***/
             postRequestMoney() {
@@ -390,9 +399,7 @@
                             zp: user.public_id
                         };
                     }
-
                 });
-
 
                 requestMoneyData = {
                     'debtor': requestedUsers,
@@ -418,7 +425,6 @@
                         this.requesting = false;
                     }
                 );
-
             },
             closeModal() {
                 this.$emit('closeModal');

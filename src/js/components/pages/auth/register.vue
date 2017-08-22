@@ -47,14 +47,6 @@
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
                     span.gap
                     a.link(href="https://www.zarinpal.com/policy.html" target="blank") {{$i18n.t('user.privacy')}}
-
-
-
-
-
-
-
-
 </template>
 <script>
     export default {

@@ -17,9 +17,10 @@ $plusIcon: $icon-zp-add;
     .no-ticket-image {
       background-image: url("../../img/no-ticket.svg");
       display: inline-block;
-      width: 60%;
+      width: 30%;
       margin-top: 10%;
-      height: 90%;
+      max-width: 340px;
+      height: 350px;
       background-size: 100%;
       background-repeat: no-repeat;
     }

@@ -40,7 +40,7 @@
             <!--Requests and debts-->
             div.nav-request-money
                 div.nav-requests(v-if="whichTab == 'requests' && demands.data.length")
-                    singleDemand(v-for="demand in demands.data" v-bind:key="demand.entity_id" v-bind:demand="demand")
+                    singleDemand.hand(v-for="demand in demands.data" v-bind:key="demand.entity_id" v-bind:demand="demand")
 
                 div.row(v-if="!demands.status && !demands.data.length && whichTab == 'requests'")
                     div.col-xs.ta-center
@@ -50,7 +50,7 @@
                     loading
 
                 div.nav-debts(v-if="whichTab == 'debt' && debts.data.length")
-                    singleDebt(v-for="debt in debts.data" v-bind:key="debt.entity_id" v-bind:debt="debt" v-on:changeRequestMode="changeRequestMode")
+                    singleDebt.hand(v-for="debt in debts.data" v-bind:key="debt.entity_id" v-bind:debt="debt" v-on:changeRequestMode="changeRequestMode")
 
                 div.row(v-if="!debts.status && !debts.data.length && whichTab == 'debt'")
                     div.col-xs.ta-center

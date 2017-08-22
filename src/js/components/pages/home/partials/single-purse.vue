@@ -17,7 +17,7 @@
                                 span.header-title(v-if="!isEditingPurseName" @click="toggleEditPurse()") {{ purse.name }}
 
                             span.nav-edit-wallet(v-if="isEditingPurseName")
-                                input.txt-wallet-name(v-bind:value="purse.name" v-model="newPurseName")
+                                input.txt-wallet-name(onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
                                 span.save(@click="send()") {{ $i18n.t('common.save') }}
                                 span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
 
