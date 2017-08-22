@@ -226,20 +226,20 @@
                         let vm = this;
                         this.$store.dispatch('auth/fetch',
                             () => {
-                                if(vm.$route.params.refererId) {
-                                    if(vm.$route.params.refererId === 'telegram-payment') {
-                                        TelegramGameProxy.paymentFormSubmit({
-                                            credentials: {type: "card", token: vm.$store.state.auth.user.public_id},
-                                            title: 'zp.' + vm.$store.state.auth.user.public_id
-                                        });
-                                    } else {
-                                        vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
-                                        vm.$router.push({name: 'telegram.referer'});
-                                    }
-
-                                } else {
+//                                if(vm.$route.params.refererId) {
+//                                    if(vm.$route.params.refererId === 'telegram-payment') {
+//                                        TelegramGameProxy.paymentFormSubmit({
+//                                            credentials: {type: "card", token: vm.$store.state.auth.user.public_id},
+//                                            title: 'zp.' + vm.$store.state.auth.user.public_id
+//                                        });
+//                                    } else {
+//                                        vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
+//                                        vm.$router.push({name: 'telegram.referer'});
+//                                    }
+//
+//                                } else {
                                     vm.$router.push({name: 'home.index'});
-                                }
+//                                }
                             }
                         );
                     }, (response) => {

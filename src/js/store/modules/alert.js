@@ -3,6 +3,7 @@ export default {
         messages: [],
         validationErrors: [],
         notifications: [],
+        counter: 1,
     },
     mutations: {
         setValidationErrors(state, validationErrors) {
@@ -70,17 +71,19 @@ export default {
             sub.on('message', function (message) {
                 message = JSON.parse(message);
                 commit('addNotification', message);
-                let notificationCount = state.notifications.length;
-                let lastMessageTitle = state.notifications[notificationCount-1].title;
-                let options = {
-                    title: lastMessageTitle,
-                    body: 'شما ' + notificationCount + ' پیام جدید دارید.',
-                    icon: 'assets/images/zarin-logo.png',
-                    sound: 'assets/sound/notification.mp3',
-                    tag:'zarin-notify',
-                };
+                if (state.notifications) {
+                    let notificationCount = state.notifications.length;
+                    let lastMessageTitle = state.notifications[notificationCount-1].title;
+                    let options = {
+                        title: lastMessageTitle,
+                        body: 'شما ' + notificationCount + ' پیام جدید دارید.',
+                        icon: 'assets/images/zarin-logo.png',
+                        sound: 'assets/sound/notification.mp3',
+                        tag:'zarin-notify',
+                    };
 
-                dispatch('sendBrowserNotification', options);
+                    dispatch('sendBrowserNotification', options);
+                }
             });
 
             sub.start();
