@@ -19,12 +19,12 @@
                                     span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
 
                         div.row.no-margin
-                            input(v-validate="{type: 'number', size: 16}" :class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" placeholder="شماره کارت مقصد")
+                            input(v-validate="{type: 'number', size: 19}" :class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" id="dstPan" @keyup="cardNumberFormat('dstPan')" placeholder="شماره کارت مقصد")
                             div.ta-right(v-if="validationErrors.dst_pan")
                                 span.text-danger {{ $i18n.t(validationErrors.dst_pan) }}
 
                         div.row.no-margin
-                            input(v-validate="{type: 'number', size: 12}" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                            input(v-validate="{type: 'number', size: 15, money: true}" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
                             div.ta-right(v-if="validationErrors.amount")
                                 span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
@@ -133,6 +133,20 @@
             }
         },
         methods: {
+            cardNumberFormat(inputId) {
+                let text = document.getElementById(inputId).value;
+                let result = [];
+                if(text) {
+                    text = this[inputId].replace(/[^\d]/g, "");
+                    while (text.length > 4) {
+                        result.push(text.substring(0, 4));
+                        text = text.substring(4);
+                    }
+                    if (this[inputId].length > 0) result.push(text);
+                    this[inputId] = result.join("-");
+                }
+
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
@@ -147,8 +161,9 @@
                 }
 
                 this.requesting = true;
+                let destPan = this.dstPan.split('-').join('');
 
-                this.$store.state.http.requests['zarincard.getHolderName'].get({destPan: this.dstPan}).then(
+                this.$store.state.http.requests['zarincard.getHolderName'].get({destPan: destPan}).then(
                     (response)=> {
                         this.step = 2;
                         this.requesting = false;
@@ -167,12 +182,16 @@
             },
             acceptTransfer() {
                 this.transferCompelled = true;
+
+                let destPan = this.dstPan.split('-').join('');
+                let amount = this.amount.replace(/,/g, "");
+
                 let transferData ={
                     card_id: this.card.entity_id,
                     password: this.password,
                     cvv2: this.cvv2,
-                    dst_pan: this.dstPan,
-                    amount: this.amount
+                    dst_pan: destPan,
+                    amount: amount
                 };
 
                 this.$store.state.http.requests['zarincard.postTransferShetab'].save(transferData).then(

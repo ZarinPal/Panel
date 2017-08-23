@@ -148,8 +148,8 @@ body {
     display: inline-block;
     cursor: pointer;
     padding: 9px 9px;
-    color: #737373;
-    top: 8px;
+    color: $labelColor;
+    top: 5px;
     height: 20px;
     overflow: hidden !important;
     right: 10px;
@@ -157,11 +157,11 @@ body {
     border-radius: 50%;
     position: relative !important;
     transition: $animateTime;
+    font-size: 24px;
 
     &::before {
       content: $iconMenu;
       font-family: 'zarinpal' !important;
-      font-size: 22px;
       margin-left: 10px;
       top: 10px;
       left: 1px;
@@ -175,13 +175,13 @@ body {
   }
 
   .navbar-title{
-    font-size: 14px;
+    font-size: 16px;
     color: $labelColor;
     font-weight: 300;
     display: inline-block;
     margin-right: 21px;
     position: relative;
-    top: -8px;
+    top: -11px;
   }
 
   .navigation-logo{
@@ -204,24 +204,39 @@ body {
     .notification {
       float: left !important;
       margin-top: 7px;
-      margin-left: 5px;
+      margin-left: 15px;
       cursor: pointer;
-      padding: 13px 9px;
+      padding: 15px 9px;
       border-radius: 50%;
       transition: $animateTime;
-
-      &::before {
-        content: $iconNotification;
-        font-family: 'zarinpal';
-        color: #424242;
-        font-size: 18px;
-        display: inline-block;
-        margin-top: 4px;
-      }
+      position: relative;
+      top: -3px;
 
       &:hover {
         background-color: $iconHoverBackground;
         transition: $animateTime;
+      }
+    }
+
+    .notification-fill {
+      &::before {
+        content: $iconNotificationFill;
+        font-family: 'zarinpal';
+        color: #424242;
+        font-size: 22px;
+        display: inline-block;
+        margin-top: 4px;
+      }
+    }
+
+    .notification-empty{
+      &::before {
+        content: $iconNotificationEmpty;
+        font-family: 'zarinpal';
+        color: #424242;
+        font-size: 22px;
+        display: inline-block;
+        margin-top: 4px;
       }
     }
 
@@ -249,15 +264,19 @@ body {
       margin-top: 6px;
       margin-left: 5px;
       border-radius: 50%;
-      padding: 9px 9px;
+      padding: 12px 9px;
+      position: relative;
+      top: -2px;
 
       &::before {
         content: $iconReload;
         font-family:'zarinpal';
-        color:#737373;
-        font-size:18px;
+        color:$labelColor;
+        font-size:22px;
         line-height:18px;
         font-style: normal;
+        position: relative;
+        top: -1px;
       }
 
       &:hover {
@@ -351,7 +370,7 @@ body {
 
       .notif{
         &::before {
-          content: $iconNotification;
+          content: $iconNotificationEmpty;
         }
       }
 

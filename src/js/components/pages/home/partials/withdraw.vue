@@ -65,7 +65,9 @@
                 let withdrawData = {
                     amount: amount,
                     card_id: this.cardId,
+                    purse: this.purse.purse
                 };
+
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
                     (response)=> {
                         this.$store.commit('flashMessage',{

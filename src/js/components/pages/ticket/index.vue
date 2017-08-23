@@ -55,7 +55,7 @@
                 }
             },
         },
-        created(){
+        created() {
             let vm = this;
             this.$store.dispatch(
                 'paginator/make',
