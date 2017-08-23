@@ -96,6 +96,21 @@ export default {
                     this.$store.state.timer.getPurseBalanceTime = Date.now();
                 }
             }
+
+            //reload tickets
+            if (this.$route.name === 'ticket.index') {
+                let vm = this;
+                this.$store.state.paginator.TicketList = null;
+                this.$store.dispatch(
+                    'paginator/make',
+                    {
+                        vm,
+                        resource: vm.$store.state.http.requests['ticket.index'],
+                        params: vm.searchOptions,
+                        requestName: 'TicketList'
+                    }
+                );
+            }
         },
         detectWidth(){
             if (window.innerWidth <= 768) {

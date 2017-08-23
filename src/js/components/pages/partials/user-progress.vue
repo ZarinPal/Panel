@@ -25,6 +25,7 @@ export default {
     },
     methods: {
         profilePicture(canvas, percent, avatar){
+            let vm = this;
             let ctx = canvas.getContext("2d");
             ctx.scale(4, 4);
             ctx.webkitImageSmoothingEnabled =
@@ -35,7 +36,7 @@ export default {
 
             let degrees = percent * 3.6;
             let radians = degrees * (Math.PI / 180);
-            let gap = 5 * (Math.PI / 180);
+            let gap = 7 * (Math.PI / 180);
 
             ctx.stroke();
             thumbImg.onload = function () {
@@ -43,7 +44,8 @@ export default {
                 // gray line
                 ctx.beginPath();
                 ctx.strokeStyle = "#838383";
-                ctx.lineWidth = 2;
+                ctx.lineWidth = 3;
+//                ctx.lineCap = 'round';
                 ctx.arc(46, 46, 42, radians + 1.5 * Math.PI + gap, (1.5 * Math.PI) - gap);
                 ctx.stroke();
                 ctx.save();
@@ -52,7 +54,8 @@ export default {
                 // green line
                 ctx.beginPath();
                 ctx.strokeStyle = "#89E000";
-                ctx.lineWidth = 3;
+                ctx.lineWidth = 5;
+                ctx.lineCap = 'round';
                 ctx.arc(46, 46, 42, 1.5 * Math.PI, radians + 1.5 * Math.PI);
                 ctx.stroke();
                 ctx.save();
@@ -73,6 +76,7 @@ export default {
                 ctx.beginPath();
                 ctx.strokeStyle = "rgba(255, 255, 255,.4)";
                 ctx.lineWidth = 38;
+                ctx.lineCap = 'butt';
                 ctx.arc(46, 46, 19, radians + 1.5 * Math.PI, 1.5 * Math.PI);
                 ctx.stroke();
                 ctx.closePath();
@@ -87,9 +91,8 @@ export default {
                     ctx.fillStyle = '#ffd600';
                     ctx.fill();
                     ctx.fillStyle = '#000';
-
-                    ctx.font = "11px";
-                    ctx.fillText(percent + "%", 97, 24);
+                    ctx.font = "11px IRANSansLight";
+                    ctx.fillText(vm.numberToFarsi(percent) + "%", 95, 24);
                 } else {
 
                 }
@@ -97,6 +100,15 @@ export default {
                 ctx.stroke();
                 ctx.save();
             }
+        },
+        numberToFarsi(value) {
+            if (typeof value == 'undefined') {
+                return value;
+            }
+            value = typeof value === "number" ? value.toString() : value;
+            return value.toString().replace(/\d/g, function (match) {
+                return ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'][parseInt(match)];
+            });
         }
     },
 

@@ -10,7 +10,9 @@
 
         div.col-lg-5.col-sm-5.col-xs-5.left-box
             img.profile-dropdown-avatar(@click="visibleProfileDropdown = !visibleProfileDropdown" id="btnProfileDropdown" :src="this.$store.state.auth.user.avatar")
-            a.notification(v-ripple="" id="btnNotification" :class="{'disable-notification-icon' : notifications.data.length == 0}" @click="toggleNotification()" title="اعلانات")
+
+            a.notification.notification-fill(v-if="notifications.data.length >= 1" v-ripple="" id="btnNotification" @click="toggleNotification()" title="اعلانات")
+            a.notification.notification-empty(v-else v-ripple="" id="btnNotification" @click="toggleNotification()" title="اعلانات")
             span.notification-lamp(v-if="notifications.data.length")
             span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")
 
@@ -31,17 +33,17 @@
                     div.row.body
                         div.full-width(v-for="notification in notifications.data")
                             <!--Ticket-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket' && notification.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket' && notification.data.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                             <!--Transaction-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction' && notification.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'transaction.index', params: {id: notification.data.purse, type: 'purse', transactionId: notification.id}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction' && notification.data.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'transaction.index', params: {id: notification.data.purse, type: 'purse', transactionId: notification.id}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 
                             <!--Request money-->
-                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money' && notification.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
+                            router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money' && notification.data.entity_id" tag="div" @click.native="toggleNotification(notification.id)" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
                                 div.title {{notification.title | persianNumbers}}
                                 div.body {{notification.body | less}}
 

@@ -14,7 +14,7 @@
                                 span.header-title {{ purse.name }}
 
                             span(v-else)
-                                span.header-title(v-if="!isEditingPurseName" @click="toggleEditPurse()") {{ purse.name }}
+                                span.header-title.hand(v-if="!isEditingPurseName" @click="toggleEditPurse()") {{ purse.name }}
 
                             span.nav-edit-wallet(v-if="isEditingPurseName")
                                 input.txt-wallet-name(onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
