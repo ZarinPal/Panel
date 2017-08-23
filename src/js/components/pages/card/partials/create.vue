@@ -89,13 +89,15 @@
             cardNumberFormat(inputId) {
                 let text = document.getElementById(inputId).value;
                 let result = [];
-                text = this[inputId].replace(/[^\d]/g, "");
-                while (text.length > 4) {
-                    result.push(text.substring(0, 4));
-                    text = text.substring(4);
+                if (text) {
+                    text = this[inputId].replace(/[^\d]/g, "");
+                    while (text.length > 4) {
+                        result.push(text.substring(0, 4));
+                        text = text.substring(4);
+                    }
+                    if (this[inputId].length > 0) result.push(text);
+                    this[inputId] = result.join("-");
                 }
-                if (this[inputId].length > 0) result.push(text);
-                this[inputId] = result.join("-");
             },
             closeModal() {
                 this.$emit('closeModal');

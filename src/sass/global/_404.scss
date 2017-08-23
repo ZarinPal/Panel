@@ -1,5 +1,5 @@
 /*******Vriables*****/
-$maxWidth404: 80%;
+$maxWidth404: 70%;
 $minWidth404: 100%;
 
 .container-404 {
@@ -16,7 +16,7 @@ $minWidth404: 100%;
   .top {
     width: $maxWidth404;
     margin: 0 auto;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
 
     .logo-section{
       margin-top: 32px;
@@ -41,20 +41,31 @@ $minWidth404: 100%;
 
     .img-404 {
       background-image: url("../../img/error/404.svg");
-      width: 299px;
-      height: 340px;      background-size: $maxWidth404;
+      width: 334px;
+      height: 450px;
+      background-size: 100%;
       background-repeat: no-repeat;
       margin-top: -10px;
       float: left;
     }
 
     .description{
+      .text-404{
+        font-size: 100px;
+        margin-bottom: -70px;
+        margin-top: 30px;
+        color: #424242;
+      }
+
       h3{
         font-size: 24px;
+        color: #424242;
+        margin-bottom: 0px;
       }
 
       .text{
-        font-size:20px;
+        font-size: 16px;
+        color: #424242;
       }
 
       .buttons{
