@@ -21,40 +21,32 @@ require('./store');
 // });
 
 
-const app = new Vue({
+new Vue({
     name: 'application',
     store,
     i18n,
     router: require('./router').default,
     data() {
       return {
-          // https://next.zarinpal.com/panel            =======> its for next panel
-          // https://api.zarinpal.dev/panelw/index.html =======> its for dev panel
-          baseUrl: 'https://next.zarinpal.com/panel', // panel base
-          rootUrl: 'https://next.zarinpal.com/rest/v3', //its for transaction pdf
+          // baseUrl: 'https://api.zarinpal.dev/panelw/index.html', // local: panel base
+          baseUrl: 'https://next.zarinpal.com/panel', // production: panel base
+          rootUrl: 'https://api.zarinpal.com/rest/v3', // production: its for transaction pdf
       }
     },
     http: {
-        root: 'https://next.zarinpal.com/rest/v3',
+        // root: 'https://api.zarinpal.dev/rest/v3',// local: panel base
+        root: 'https://next.zarinpal.com/rest/v3',// production: panel base
     },
     created() {
         //init active tab on load
         this.$store.commit('app/changeTabData', this.$route.name.split('.')[0]);
-
         this.$store.commit('app/loading');
         this.$store.commit('http/boot', this);
         require('./i18n').default(this, function (vm) {
-            if (!vm.$route.meta.standAlone) {
-                vm.$store.dispatch('auth/fetch',
-                    () => {
-                        // vm.$store.commit('app/ready');
-                    }
-                );
-            } else {
+            if (vm.$route.meta.standAlone) {
                 vm.$store.commit('app/ready');
             }
         });
-
     },
     watch: {
         '$route' (to) {
