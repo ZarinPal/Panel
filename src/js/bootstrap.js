@@ -38,7 +38,7 @@ import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 
 Raven
-    .config('http://0e52e25ebe614c0892b9a057b52a8d21@91.239.55.205:9000/5')
+    .config('https://0e52e25ebe614c0892b9a057b52a8d21@sentry.zarinpal.com/5')
     .addPlugin(RavenVue, Vue)
     .install();
 

@@ -9,8 +9,16 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                         span.header-title(:title="easypay.title") {{easypay.title}}
 
                 div.col-xs.ta-left-box
-                    a.header-link(v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
-
+                    <!--a.header-link(v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}-->
+                    span.transaction-icon(@click="changeMoreTriggerOn()" id="btnMoreIcon")
+                    transition( name="bounce"
+                                enter-active-class="drop-down-show"
+                                leave-active-class="drop-down-hide")
+                        span.drop-down.pull-left(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singleEasypayMoreTrigger == easypay.entity_id")
+                            span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
+                            router-link.drop-down-item.transaction-icon(tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
+                            router-link.drop-down-item.edit(tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
+                            span.drop-down-item.delete(@click="confirmVisible = true") {{$i18n.t('common.delete')}}
         div.middle-xs.body
             div.row.box-row
                 div.col-xs.ta-right
@@ -77,6 +85,22 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     type: 'success',
                     timeout: '500'
                 });
+            },
+            changeMoreTriggerOn() {
+                this.$store.state.app.singleEasypayMoreTrigger = this.easypay.entity_id;
+            },
+            changeMoreTriggerOff() {
+                this.$store.state.app.singleEasypayMoreTrigger = null;
+
+                this.visibleMoreOptions = false;
+            },
+            closeDropDownFromOutside() {
+                let vm = this;
+                document.addEventListener('click', function(e) {
+                    if(e.target.id !== 'btnMoreIcon') {
+                        vm.$store.state.app.singleEasypayMoreTrigger = null;
+                    }
+                }, false);
             },
             closeModal(){
                 this.confirmVisible = false;

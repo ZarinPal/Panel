@@ -28,11 +28,11 @@
                     span.copy-right-type زرین‌پال
                 div.links.col-lg-9.col-md-9.col-sm-12.col-xs-12
                     ul
-                        router-link(type="li" v-bind:to="{ name: 'home.index'}") اپلیکیشن
-                        router-link(type="li" v-bind:to="{ name: 'home.index'}") تماس با ما
-                        router-link(type="li" v-bind:to="{ name: 'home.index'}") آزمایشگاه
-                        router-link(type="li" v-bind:to="{ name: 'home.index'}") سوالات متداول
-                        router-link(type="li" v-bind:to="{ name: 'home.index'}") درباره ما
+                        a(href="https://www.zarinpal.com/app.html") اپلیکیشن
+                        a(href="https://www.zarinpal.com/contact.html") تماس با ما
+                        a(href="https://www.zarinpal.com/lab/") آزمایشگاه
+                        a(href="https://www.zarinpal.com/faq.html") سوالات متداول
+                        a(href="https://www.zarinpal.com/about.html") درباره ما
 </template>
 
 <script>

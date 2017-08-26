@@ -352,7 +352,6 @@
                 return _.find(this.$store.state.auth.user.purses, function(purse) {
                     return purse.purse === purseId;
                 });
-
             }
         },
         components: {

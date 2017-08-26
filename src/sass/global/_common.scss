@@ -278,12 +278,12 @@ body{
             font-size: 13px;
             color: #777;
             display: inline-block;
-            margin-right: 5px;
+            margin-right: 10px;
             height: 22px;
             overflow: hidden;
             width: 80%;
             position: relative;
-            top: 6px;
+            top: 5px;
           }
         }
       }
@@ -291,9 +291,11 @@ body{
       .left-box{
         .icon-more{
           float: left;
-          margin-top: 19px;
+          margin-top: 16px;
           display: inline-block;
           cursor: pointer;
+          font-size: 20px;
+          margin-left: 3px;
           &:before{
             content: $moreIcon;
             font-family:'zarinpal';
@@ -386,10 +388,14 @@ body{
       .box-row{
         border-bottom: 1px solid $boxBorderColor;
         padding: 10px;
+
+        &:last-child {
+          border-bottom: 0 !important;
+        }
       }
 
       .box-row:last-child{
-        border-bottom: none;
+        border-bottom: 0;
       }
 
     }
@@ -509,19 +515,24 @@ body{
   direction: ltr !important;
   vertical-align: middle;
   cursor: pointer;
-  margin: 15px 0;
   float: left;
   text-align: left !important;
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 16px;
 }
 
 .green-small-circle{
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border: 3px solid #0cca5b;
   border-radius: 50%;
   background-color: #adeac8;
   vertical-align: middle;
+  margin-right: 5px;
+  position: relative;
+  top: -1px;
 }
 
 .label-group{

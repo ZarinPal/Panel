@@ -10,6 +10,7 @@ export default {
         visibleNotification: false,
         singlePurseMoreTrigger: null,
         singleWebserviceMoreTrigger: null,
+        singleEasypayMoreTrigger: null,
         ticketSummary: {},
         refererId: null,
         selectedTab: 'dashboard',
