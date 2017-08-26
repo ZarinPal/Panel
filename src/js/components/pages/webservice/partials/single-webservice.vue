@@ -42,15 +42,26 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 div.col-xs.ta-left(v-else)
                     span.text-value نامحدود
 
+            <!--Web gate-->
             div.row.box-row
-                div.right
-                    span.label سرویس ها
+                div.col-xs.ta-right
+                    span.label وب گیت
 
-                div.col-xs.ta-left.no-margin
-                    span.tag.tag-active.pull-left(v-ripple="" v-if="webservice.ussd_id") USSD
-                    span.tag.tag-inactive.pull-left(v-ripple="" v-else @click="visibleUssdActivation = true") USSD
-                    span.tag.tag-active.pull-left(v-ripple="" v-if="webservice.zaringate_status == 'Activate'") وب گیت
-                    span.tag.tag-inactive.pull-left(v-ripple="" v-else @click="visibleZarinGateActivation = true") وب گیت
+                div.col-xs.ta-left.no-left-margin(v-if="webservice.zaringate_status == 'NotActivated'")
+                    span.tag.tag-inactive.pull-left(v-ripple="" @click="visibleZarinGateActivation = true") وب گیت
+
+                div.col-xs.ta-left.no-left-margin(v-else)
+                    span.tag.tag-active.pull-left(v-ripple="") وب گیت
+
+            <!--Ussd-->
+            div.row.box-row
+                div.col-xs.ta-right
+                    span.label USSD
+
+                div.col-xs.ta-left.no-left-margin.dir-ltr(v-if="webservice.ussd_id")
+                    span.text-value.persian-num *788*97*{{ webservice.ussd_id }}#
+                div.col-xs.ta-left.no-left-margin(v-else)
+                    span.tag.tag-inactive.pull-left(v-ripple="" @click="visibleUssdActivation = true") USSD
 
     ussdActivation(v-if="visibleUssdActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")
     zarinGateActivation(v-if="visibleZarinGateActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")
@@ -73,7 +84,6 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         methods:{
             changeMoreTriggerOn() {
                 this.$store.state.app.singleWebserviceMoreTrigger = this.webservice.entity_id;
-                this.isEditingPurseName = false;
             },
             changeMoreTriggerOff() {
                 this.$store.state.app.singleWebserviceMoreTrigger = null;
