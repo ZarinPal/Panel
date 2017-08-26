@@ -179,6 +179,7 @@
                 };
                 this.$store.state.http.requests['ticket.postAdd'].save(ticketData).then(
                     ()=> {
+                        this.fileUploaded = false;
                         this.$router.push({name: 'ticket.index'})
                     },
                     (response) => {
