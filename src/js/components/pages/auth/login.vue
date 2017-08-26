@@ -139,9 +139,17 @@
             }
         },
         created() {
+            let vm = this;
+            this.$store.state.http.requests['oauth.check']
+                .get()
+                .then(()=>{
+                    vm.$router.push({name: 'home.index'});
+                });
+
             if(this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
+
         },
         methods: {
             sendOtp(channel){
@@ -222,26 +230,7 @@
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
                         this.loginLoading = false;
-                        this.$store.commit('app/loading');
-                        let vm = this;
-                        this.$store.dispatch('auth/fetch',
-                            () => {
-//                                if(vm.$route.params.refererId) {
-//                                    if(vm.$route.params.refererId === 'telegram-payment') {
-//                                        TelegramGameProxy.paymentFormSubmit({
-//                                            credentials: {type: "card", token: vm.$store.state.auth.user.public_id},
-//                                            title: 'zp.' + vm.$store.state.auth.user.public_id
-//                                        });
-//                                    } else {
-//                                        vm.$store.commit('app/setRefererId', vm.$route.params.refererId);
-//                                        vm.$router.push({name: 'telegram.referer'});
-//                                    }
-//
-//                                } else {
-                                    vm.$router.push({name: 'home.index'});
-//                                }
-                            }
-                        );
+                        this.$router.push({name: 'home.index'});
                     }, (response) => {
                         this.emptyOtp();
                         this.loginLoading = false;

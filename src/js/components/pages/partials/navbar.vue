@@ -69,13 +69,7 @@
                     data: this.$store.state.alert.notifications,
                     counter: this.$store.state.alert.counter
                 };
-//                this.notificationCount = this.$store.state.alert.notifications.length;
-//                return this.$store.state.alert.notifications
             }
-        },
-        created(){
-            console.log(this.$store.state.app.visibleNotification);
-            this.$store.dispatch('startWebPushSocket');
         },
         methods: {
             closeModal(){

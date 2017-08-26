@@ -28,15 +28,22 @@ export default {
         },
     },
     actions: {
-        fetch ({commit, rootState, dispatch}, callback) {
+        fetch ({commit, rootState, state, dispatch}, callback) {
+            if(state.check) {
+                rootState.app.isLoaded = true;
+                callback(false);
+                return;
+            }
+
             rootState.http.requests['app.getBasicInfo'].get().then(
                 (response) => {
+                    dispatch('startWebPushSocket',{}, {root:true});
                     commit('fill', response.data.data);
                     dispatch('fetchPurseBalance');
+
                     callback(true);
                 }
             ).catch((response)=>{
-                // console.log(response);
                 callback(false);
             });
         },
