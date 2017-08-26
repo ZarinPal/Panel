@@ -31,19 +31,9 @@
         }
     },
     created(){
-//        //Application init
-//        this.$store.commit('http/boot', this);
-//        require('./i18n').default(this, function (vm) {
-//            if (!vm.$route.meta.standAlone) {
-//                vm.$store.dispatch('auth/fetch',
-//                    () => {
-//                        // vm.$store.commit('app/ready');
-//                    }
-//                );
-//            } else {
-//                vm.$store.commit('app/ready');
-//            }
-//        });
+        this.$store.commit('app/loading');
+        let vm = this;
+        this.$store.dispatch('auth/fetch', () => {});
 
         if(this.refererId) {
             store.commit('flashMessage',{

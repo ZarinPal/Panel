@@ -72,6 +72,10 @@ export default {
                 url: "oauth/logout.json"
             },
             {
+                name: "oauth.check",
+                url: "oauth/check.json"
+            },
+            {
                 name: "oauth.postSendMobileVerifyCode",
                 url: "oauth/sendMobileVerifyCode.json"
             },
@@ -348,6 +352,7 @@ export default {
                     if (response.status !== 200) {
                         let error = response.data.meta;
                         if (error.error_type === "OauthAccessDenied") {
+                            vm.$store.commit('app/ready');
                             vm.$router.push({name: 'auth.login'});
                         }
                         // console.log(state.requests);
