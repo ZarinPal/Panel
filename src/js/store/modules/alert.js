@@ -4,6 +4,7 @@ export default {
         validationErrors: [],
         notifications: [],
         counter: 1,
+
     },
     mutations: {
         setValidationErrors(state, validationErrors) {
@@ -48,6 +49,8 @@ export default {
             }
         },
         addNotification(state, message){
+            state.counter++;
+            message.uuid = state.counter;
             state.notifications.unshift(message);
         },
         initNotifications(state) {
