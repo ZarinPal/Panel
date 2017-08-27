@@ -313,6 +313,7 @@ body{
         left: -16px;
         box-shadow: 0 2px 9px rgba(0, 0, 0, 0.15);;
         border-radius: $dropDownBorderRadius;
+        z-index: 2;
 
         .close-drop-down {
           text-align: left;
@@ -377,6 +378,19 @@ body{
 
           }
         }
+
+        .edit{
+          &:before{
+            content: $iconEdit;
+          }
+        }
+
+        .delete{
+          &:before{
+            content: $iconDelete;
+          }
+        }
+
       }
     }
 
