@@ -149,7 +149,7 @@ export default new VueRouter({
                     component: require('./components/pages/partials/containers/ticket.vue'),
                     children: [
                         {
-                            path: '/ticket',
+                            path: '/panel/ticket',
                             component: require('./components/pages/ticket/index.vue'),
                             children: [
                                 {
