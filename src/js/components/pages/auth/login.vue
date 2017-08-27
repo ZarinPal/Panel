@@ -16,7 +16,7 @@
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" v-model="username" placeholder="موبایل یا ایمیل" autofocus autocomplete)
+                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" name="username" v-model="username" placeholder="موبایل یا ایمیل" autofocus autocomplete="username")
                             div.ta-right(v-if="validationErrors.username")
                                 span.text-danger {{ $i18n.t(validationErrors.username) }}
 
@@ -67,14 +67,13 @@
                                     div.ussd-text.persian-num(v-if="ussdType =='Code'") {{ussdCode}}
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
 
-
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6" @paste="pasteOtp($event)" onfocus="this.select();")
                         div.ta-right(v-if="validationErrors.otp")
                             span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
@@ -144,7 +143,8 @@
                 .get()
                 .then(()=>{
                     vm.$router.push({name: 'home.index'});
-                });
+                })
+                .catch(()=>{});
 
             if(this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
@@ -297,6 +297,23 @@
                     document.getElementById('otp1').focus();
                 }
             },
+            pasteOtp(e) {
+                let clipboardData, pastedData;
+
+                // Stop data actually being pasted into div
+                e.stopPropagation();
+                e.preventDefault();
+
+                // Get pasted data via clipboard API
+                clipboardData = e.clipboardData || window.clipboardData;
+                pastedData = clipboardData.getData('Text');
+
+                // Do whatever with pasteddata
+                if(pastedData.length > 1) {
+                    this.otpObject = pastedData.split('');
+                }
+
+            }
         },
         components:{
             timer

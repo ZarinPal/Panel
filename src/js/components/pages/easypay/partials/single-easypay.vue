@@ -4,21 +4,23 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         div.top-xs.header
             div.row
                 div.col-xs.right-box
-                    p
+                    p(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id")
                         span.green-small-circle(@click="confirmVisible = true")
                         span.header-title(:title="easypay.title") {{easypay.title}}
 
-                div.col-xs.ta-left-box
-                    <!--a.header-link(v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}-->
-                    span.transaction-icon(@click="changeMoreTriggerOn()" id="btnMoreIcon")
+                div.col-xs.ta-left-box.left-box
+                    span.icon-more(@click="changeMoreTriggerOn()" id="btnMoreIcon")
                     transition( name="bounce"
                                 enter-active-class="drop-down-show"
                                 leave-active-class="drop-down-hide")
                         span.drop-down.pull-left(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singleEasypayMoreTrigger == easypay.entity_id")
                             span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
-                            router-link.drop-down-item.transaction-icon(tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
-                            router-link.drop-down-item.edit(tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
-                            span.drop-down-item.delete(@click="confirmVisible = true") {{$i18n.t('common.delete')}}
+                            router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
+                            router-link.drop-down-item.edit(v-ripple="" tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
+                            span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
+
+                    a.header-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
+
         div.middle-xs.body
             div.row.box-row
                 div.col-xs.ta-right
@@ -26,7 +28,6 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
                 div.col-xs.ta-left
                     span.text-value {{easypay.price | numberFormat | persianNumbers}} تومان
-
 
             div.row.box-row
                 div.col-xs.ta-right
@@ -46,15 +47,6 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     span.text-value(v-if="easypay.limit") {{easypay.limit | persianNumbers}}
                     span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
 
-            br
-        div.bottom-xs.box-footer
-            div.row
-                div.col-xs-4.no-margin
-                    router-link.transaction(tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
-                div.col-xs-4.no-margin
-                    router-link.edit(tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
-                div.col-xs-4.no-margin
-                    span.delete(@click="confirmVisible = true") {{$i18n.t('common.delete')}}
 
     confirm(v-if="confirmVisible" v-on:confirmed="deleteEasypay()" v-on:closeModal="closeModal")
         span(slot="title") {{$i18n.t('easypay.deleteEasypay')}}
