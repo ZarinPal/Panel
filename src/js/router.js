@@ -1,6 +1,6 @@
 export default new VueRouter({
-    // mode: 'history',
-    // base:'panel',
+    mode: 'history',
+    base:'panel',
     routes: [
         {
             path: '/auth/login/:refererId?',
