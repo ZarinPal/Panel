@@ -29,7 +29,7 @@ new Vue({
     data() {
       return {
           // baseUrl: 'https://api.zarinpal.dev', // local: panel base
-          baseUrl: 'https://next.zarinpal.com/', // production: panel base
+          baseUrl: 'https://next.zarinpal.com', // production: panel base
       }
     },
     http: {
