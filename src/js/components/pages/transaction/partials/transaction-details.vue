@@ -62,7 +62,7 @@
 
 
             div.footer.bottom-xs
-                a.print(:href="this.$root.rootUrl + '/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
+                a.print(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
 
 
 </template>

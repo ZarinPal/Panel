@@ -28,9 +28,8 @@ new Vue({
     router: require('./router').default,
     data() {
       return {
-          // baseUrl: 'https://api.zarinpal.dev/panelw/index.html', // local: panel base
-          baseUrl: 'https://next.zarinpal.com/panel', // production: panel base
-          rootUrl: 'https://api.zarinpal.com/rest/v3', // production: its for transaction pdf
+          // baseUrl: 'https://api.zarinpal.dev', // local: panel base
+          baseUrl: 'https://next.zarinpal.com/', // production: panel base
       }
     },
     http: {
