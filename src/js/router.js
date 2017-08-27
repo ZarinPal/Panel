@@ -1,6 +1,6 @@
 export default new VueRouter({
     mode: 'history',
-    base:'panel',
+    // base:'panel',
     routes: [
         {
             path: '/auth/login/:refererId?',
@@ -15,7 +15,7 @@ export default new VueRouter({
             meta: {standAlone: true}
         },
         {
-            path: '/error/404',
+            path: '/panel/error/404',
             name: 'error.404',
             component: require('./components/pages/error/404.vue'),
             meta: {standAlone: true}
@@ -168,7 +168,7 @@ export default new VueRouter({
                 }
             ]
         },
-        { path: '/*', redirect: '/error/404' },
+        { path: '/*', redirect: '/panel/error/404' },
     ],
     scrollBehavior (to, from, savedPosition) {
         return { x: 0, y: 0 }
