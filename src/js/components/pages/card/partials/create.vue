@@ -41,10 +41,10 @@
                             div.row.nav-expiration-input
                                 div.col-xs.no-margin
                                     span.label {{$i18n.t('card.month')}}:
-                                    input#month(v-validate="{type: 'number'}" maxlength="2" type="text" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
+                                    input#month(v-validate="{type: 'number'}" maxlength="2" type="text" v-model="month" placeholder="00" @keyup="changeMonthFocus")
                                 div.col-xs.no-margin
                                     span.label {{$i18n.t('card.year')}}:
-                                    input#year(v-validate="{type: 'number'}" maxlength="4" type="text" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
+                                    input#year(v-validate="{type: 'number'}" maxlength="4" type="text" v-model="year" placeholder="0000" @keyup="changeYearFocus")
 
                 div.row
                     div.col-xs.no-margin
