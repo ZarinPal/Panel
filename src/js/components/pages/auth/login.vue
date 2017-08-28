@@ -51,6 +51,8 @@
                                         span.change-mobile(@click="step--") (تغیر شماره تلفن)
                                     span(v-else-if="channel == 'email'")
                                         span رمز یکبار مصرف ارسال شده به ایمیل خود را وارد کنید
+                                        span.change-mobile(@click="step--") (تغیر ایمیل)
+
                                     span(v-else-if="channel == 'sms'")
                                         span رمز یکبار مصرف ارسال شده به  خود را وارد کنید
 
@@ -68,12 +70,12 @@
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
 
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number', size: '1'}" type="number"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5" @paste="pasteOtp($event)" onfocus="this.select();")
+                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6" @paste="pasteOtp($event)" onfocus="this.select();")
                         div.ta-right(v-if="validationErrors.otp")
                             span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
@@ -299,20 +301,13 @@
             },
             pasteOtp(e) {
                 let clipboardData, pastedData;
-
-                // Stop data actually being pasted into div
                 e.stopPropagation();
                 e.preventDefault();
-
-                // Get pasted data via clipboard API
                 clipboardData = e.clipboardData || window.clipboardData;
                 pastedData = clipboardData.getData('Text');
-
-                // Do whatever with pasteddata
                 if(pastedData.length > 1) {
                     this.otpObject = pastedData.split('');
                 }
-
             }
         },
         components:{
