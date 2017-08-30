@@ -49,22 +49,30 @@ export default {
                 else if ( key < 48 || key > 57 ) {
                     //Letters
                     event.preventDefault();
-                    store.commit('flashMessage',{
-                        text: 'invalid keyboard type',
-                        type: 'danger'
-                    });
+                    // store.commit('flashMessage',{
+                    //     text: 'invalid keyboard type',
+                    //     type: 'danger'
+                    // });
                     return false;
                 } else {
                     return true;
                 }
             }
 
-        });
 
+            /** ------------------
+                     Size
+             --------------------*/
+            if(binding.value.size) {
+                if(el.value.length >= binding.value.size) {
+                    event.preventDefault();
+                }
+            }
+        });
 
         el.addEventListener('keyup', function (event) {
             /** ---------------
-             Money
+                    Money
              ----------------**/
             if(binding.value.money) {
 
@@ -91,11 +99,13 @@ export default {
                     el.value = number.toLocaleString();
                     return true;
                 }
-
             }
         });
 
 
+        /**--------------
+         *    Paste
+         ---------------*/
         el.addEventListener('paste', function (event) {
             if(binding.value.money) {
                 let clipboardData, pastedData;

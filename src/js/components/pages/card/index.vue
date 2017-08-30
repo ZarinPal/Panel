@@ -11,7 +11,7 @@
                     span.text {{ $i18n.t('card.createCard') }}
 
         div.row.nav-cards
-            singleCard(v-for="card in cards" v-bind:key="card.issuer.slug" v-bind:card="card")
+            singleCard(v-for="card in cards" v-bind:key="card.entity_id" v-bind:card="card")
 
         div.row(v-if="!cards.length")
             div.col-xs.ta-center
@@ -36,7 +36,7 @@
                 let inActiveCards = [];
                 let reorderedCards = [];
                 this.$store.state.auth.user.cards.forEach(function (card) {
-                    if (card.status == 'Active') {
+                    if (card.status === 'Active') {
                         activeCards.push(card);
                     } else {
                         inActiveCards.push(card);

@@ -12,7 +12,6 @@
                     div.body(v-bind:class="{'inactive-step' : step !== 1}")
                         div.row
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-
                                 div.row
                                     div.col-lg-1.col-md-1.col-sm-1.col-xs-1
                                         div.step-number(v-ripple="" v-bind:class="{'active-step-number' : step == 1}") ۱
@@ -24,52 +23,35 @@
 
                                         div.row.no-margin
                                             span.input-icon.home-icon
-                                            input(:class="{'input-danger': validationErrors.title}" type="text" v-model="title" placeholder= "عنوان محصول یا خدمات")
+                                            input(:class="{'input-danger': validationErrors.title}" type="text" v-model="title" placeholder= "عنوان محصول یا خدمات" tabindex="1")
                                             div.ta-right(v-if="validationErrors.title")
                                                 span.text-danger {{ $i18n.t(validationErrors.title) }}
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ")
+                                            input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ" tabindex="2")
                                             div.ta-right(v-if="validationErrors.price")
                                                 span.text-danger {{ $i18n.t(validationErrors.price) }}
 
                                         div.row.no-margin
-                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.description}" v-model="description" placeholder= "توضیحات وب‌سایت")
+                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.description}" v-model="description" placeholder= "توضیحات وب‌سایت" tabindex="3")
                                             div.ta-right(v-if="validationErrors.description")
                                                 span.text-danger {{ $i18n.t(validationErrors.description) }}
 
                                         div.row.no-margin
-                                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="4")
                                             div.ta-right(v-if="validationErrors.purse")
                                                 span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
                                         div.cb
                                         div.row.nav-buttons
-                                            button.btn.success.pull-right(v-ripple=""  @click="stepTwo") {{$i18n.t('easypay.createEasypay')}}
+                                            button.btn.success.pull-right(v-ripple=""  @click="stepTwo" tabindex="5") {{$i18n.t('easypay.createEasypay')}}
+                                                svg.material-spinner(v-if="isLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
+
+
                             div.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                <!--div.row-->
-                                    <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
-                                        <!--div.nav-picker-->
-                                            <!--span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}-->
-
-                                    <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
-                                        <!--img.webservice-logo(src="")-->
-
-
-                                    <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
-                                        <!--div.file-zone(@dragenter="fileHover = true" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")-->
-                                            <!--div.row-->
-                                                <!--div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center-->
-                                                    <!--span.upload-icon-->
-
-                                                <!--div.col-lg-10.col-md-10.col-sm-12.col-xs-12.nav-texts-->
-                                                    <!--p فایل لوگو را اینجا رها کنید-->
-                                                    <!--div.nav-file-input-->
-                                                        <!--span یا از کامپیوتر-->
-                                                        <!--input#attach-input(type="file")-->
-                                                        <!--label(for="#attach-input") انتخاب کنید-->
-
 
                     div.body
                         <!--2-->
@@ -155,60 +137,70 @@
 
                                         div.row
                                             div.col-xs.nav-buttons
-                                                button.btn.success.pull-right(v-ripple=""  @click="stepThree") {{$i18n.t('common.save')}}
+                                                button.btn.success.pull-right(v-ripple=""  @click="stepThree") {{$i18n.t('purse.nextStep')}}
 
 
                     div.body
                         <!--3-->
                         div.row(v-bind:class="{'inactive-step' : step !== 3}")
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                                div.row
-                                    div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-                                        div.step-number(v-bind:class="{'active-step-number' : step == 3}") ۳
-                                        div.step-line(v-bind:class="{'active-step-line' : step == 3}")
+                                div.nav-switch
+                                    label.switch-label(for="chkType") {{ $i18n.t('easypay.advance')}}
+                                    label.switch
+                                        input(type="checkbox" id="chkType" v-model="type")
+                                        span.slider.round
 
-                                    div.col-lg-11.col-md-11.col-sm-11.col-xs-11
-                                        p.form-title.ta-right {{$i18n.t('easypay.limits')}}
-                                        p.form-message.ta-right {{$i18n.t('easypay.limitsMessage')}}
+                                transition(name="fade"
+                                enter-active-class="fade-in"
+                                leave-active-class="fade-out")
 
-                                        div.row
-                                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12.nav-limit-checkbox
-                                                div.ta-right
-                                                    input(name="optional"  v-model="limited" value='true' type="checkbox" id="chkLimitNumber")
-                                                    label(for="chkLimitNumber")
-                                                        span
-                                                        |{{ $i18n.t('easypay.limitInNumber')}}
+                                    div.row(v-if="type == 1")
+                                        div.col-lg-1.col-md-1.col-sm-1.col-xs-1
+                                            div.step-number(v-bind:class="{'active-step-number' : step == 3}") ۳
+                                            div.step-line(v-bind:class="{'active-step-line' : step == 3}")
 
-                                                div.ta-right
-                                                    input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")
-                                                    label(for="chkEasypayReceipt")
-                                                        span
-                                                        |{{ $i18n.t('easypay.showEasypayReceipt')}}
+                                        div.col-lg-11.col-md-11.col-sm-11.col-xs-11
+                                            p.form-title.ta-right {{$i18n.t('easypay.limits')}}
+                                            p.form-message.ta-right {{$i18n.t('easypay.limitsMessage')}}
 
+                                            div.row
+                                                div.col-lg-7.col-md-7.col-sm-12.col-xs-12.nav-limit-checkbox
+                                                    div.ta-right
+                                                        input(name="optional"  v-model="limited" value='true' type="checkbox" id="chkLimitNumber")
+                                                        label(for="chkLimitNumber")
+                                                            span
+                                                            |{{ $i18n.t('easypay.limitInNumber')}}
 
-
-                                            div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                input(v-validate="{type: 'number'}" v-show="limited" type="text" v-model="limit" placeholder="تعداد")
-
-
-                                            div.col-lg-12.col-md-12.col-xs-12
-                                                div.row.no-margin
-                                                    span.input-icon.globe-icon
-                                                    input(:class="{'input-danger': validationErrors.successful_redirect_url}" v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                                    div.ta-right(v-if="validationErrors.successful_redirect_url")
-                                                        span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+                                                    div.ta-right
+                                                        input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")
+                                                        label(for="chkEasypayReceipt")
+                                                            span
+                                                            |{{ $i18n.t('easypay.showEasypayReceipt')}}
 
 
 
-                                                div.row.no-margin
-                                                    span.input-icon.globe-icon
-                                                    input(:class="{'input-danger': validationErrors.failed_redirect_url}" v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                                    div.ta-right(v-if="validationErrors.failed_redirect_url")
-                                                        span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
+                                                div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
+                                                    input(v-validate="{type: 'number'}" v-show="limited" type="text" v-model="limit" placeholder="تعداد")
+
+
+                                                div.col-lg-12.col-md-12.col-xs-12
+                                                    div.row.no-margin
+                                                        span.input-icon.globe-icon
+                                                        input(:class="{'input-danger': validationErrors.successful_redirect_url}" v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
+                                                        div.ta-right(v-if="validationErrors.successful_redirect_url")
+                                                            span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+
+                                                    div.row.no-margin
+                                                        span.input-icon.globe-icon
+                                                        input(:class="{'input-danger': validationErrors.failed_redirect_url}" v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
+                                                        div.ta-right(v-if="validationErrors.failed_redirect_url")
+                                                            span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
                                         div.row
                                             div.col-xs.nav-buttons
-                                                button.btn.success.pull-right.button(v-ripple=""  @click="createEasypay") {{$i18n.t('common.save')}}
+                                                button.btn.success.pull-right.button(v-ripple="" @click="editAfterCreate") {{$i18n.t('common.save')}}
+                                                    svg.material-spinner(v-if="editLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -221,6 +213,9 @@
         name: 'pages-easypay-partials-create',
         data() {
             return {
+                isLoading: false,
+                editLoading: false,
+                easypayEntityId: null, // value fill after create
                 step: 1,
                 fileHover: '',
                 visibleEmail: '',   //  visible email options
@@ -237,15 +232,15 @@
                     name: false,
                     mobile: false
                 },
-                type: '1',
+                type: 0,
                 showReceipt: false,
-                successfulRedirectUrl: '',
-                failedRedirectUrl: '',
+                successfulRedirectUrl: null,
+                failedRedirectUrl: null,
                 limited: false,
-                limit: '',
+                limit: null,
             }
         },
-        computed:{
+        computed: {
             pursesSelection() {
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
@@ -267,7 +262,8 @@
             },
             stepTwo() {
                 if(this.title && this.price && this.description && this.purse) {
-                    this.step ++;
+                    //create easypay here
+                    this.createEasypay();
                 } else {
                     store.commit('flashMessage',{
                         text: 'please fill all fields',
@@ -280,6 +276,44 @@
                 this.step ++;
             },
             createEasypay() {
+                this.isLoading = true;
+                let price = this.price.replace(/,/g, "");
+
+                let easyPayData = {
+                    title: this.title,
+                    description: this.description,
+                    price: price,
+                    purse: this.purse,
+                    purse_name: this.purse_name.name,
+                    required_fields: {
+                        email: '-1',
+                        name: '-1',
+                        mobile: '-1'
+                    },
+                    type: 0,
+                };
+
+                this.$store.state.http.requests['easypay.getList'].save(easyPayData).then(
+                    (response) => {
+                        this.easypayEntityId = response.data.data.entity_id;
+                        this.addEasypayToState(response.data.data);
+                        this.step ++;
+                        this.isLoading = false;
+                    },
+                    (response) => {
+                        this.isLoading = false;
+                        store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('flashMessage',{
+                            text: response.data.meta.error_message,
+                            important: false,
+                            type: 'danger'
+                        });
+                    }
+                );
+            },
+            editAfterCreate() {
+                this.editLoading = true;
+
                 this.handleOrderOptions();
                 this.handleShowReceipt();
                 if(this.limited === true) {
@@ -288,7 +322,6 @@
                     this.limited = 0;
                     this.limit = '';
                 }
-
                 let price = this.price.replace(/,/g, "");
 
                 let easyPayData = {
@@ -297,7 +330,6 @@
                     description: this.description,
                     price: price,
                     purse: this.purse,
-                    purse_name: this.purse_name.name,
                     required_fields: {
                         email: this.requiredFields.email,
                         name: this.requiredFields.name,
@@ -311,14 +343,14 @@
                     limit: this.limit,
                 };
 
-                this.$store.state.http.requests['easypay.getList'].save(easyPayData).then(
+                this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.easypayEntityId}, easyPayData).then(
                     ()=> {
-                        this.isLoading = false;
-                        this.$store.state.auth.user.easypays.push(easyPayData);
-                        this.$router.push({name: 'easypay.index'})
+                        this.changeEasypayStateAfterEdit();
+                        this.editLoading = false;
+                        this.$router.push({name: 'easypay.index'});
                     },
                     (response) => {
-                        this.isLoading = false;
+                        this.editLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
@@ -327,6 +359,49 @@
                         });
                     }
                 );
+
+            },
+            addEasypayToState(easypayData) {
+                let price = this.price.replace(/,/g, "");
+                let easyPayData = {
+                    created_at: easypayData.created_at,
+                    description: this.description,
+                    entity_id: easypayData.entity_id,
+                    failed_redirect_url: null,
+                    limit: null,
+                    price: price,
+                    public_id: easypayData.public_id,
+                    purse: this.purse,
+                    purse_name: this.purse_name.name,
+                    required_fields: {
+                        email: 'hidden',
+                        name: 'hidden',
+                        mobile: 'hidden'
+                    },
+                    show_receipt:false,
+                    status: false,
+                    successful_redirect_url: null,
+                    title: this.title,
+                    updated_at: easypayData.updated_at,
+                    webservice_id:null,
+                };
+
+                this.$store.state.auth.user.easypays.unshift(easyPayData);
+            },
+            changeEasypayStateAfterEdit(){
+                let vm = this;
+                let easypayIndex = _.findIndex(this.$store.state.auth.user.easypays, function(easypay) {
+                    return easypay.entity_id === vm.easypayEntityId;
+                });
+                this.$store.state.auth.user.easypays[easypayIndex].required_fields.email = this.requiredFields.email;
+                this.$store.state.auth.user.easypays[easypayIndex].required_fields.name = this.requiredFields.name;
+                this.$store.state.auth.user.easypays[easypayIndex].required_fields.mobile = this.requiredFields.mobile;
+                this.$store.state.auth.user.easypays[easypayIndex].show_receipt = this.showReceipt;
+                this.$store.state.auth.user.easypays[easypayIndex].successful_redirect_url = this.successfulRedirectUrl;
+                this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
+                this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
+                this.$store.state.auth.user.easypays[easypayIndex].limited = this.limited;
+                this.$store.state.auth.user.easypays[easypayIndex].limit = this.limit;
             },
             handleOrderOptions() {
                 if(this.requiredFields.email === false) {
@@ -342,6 +417,12 @@
                 }
             },
             handleShowReceipt() {
+                if(this.type === false) {
+                    this.type = 0;
+                } else {
+                    this.type = 1;
+                }
+
                 if (this.showReceipt === false) {
                     this.showReceipt = 0;
                 } else {

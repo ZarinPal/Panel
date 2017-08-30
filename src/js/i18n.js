@@ -4,10 +4,8 @@ export default function (vm,callback) {
             Vue.config.lang = 'fa';
             Vue.config.fallbackLang = 'en';
 
-            let lags = Object.keys(request.data.data);
-            for(let i=0;i<lags.length;i++){
-                i18n.setLocaleMessage(lags[i], request.data.data[lags[i]])
-            }
+            i18n.setLocaleMessage('fa', require('./lang/fa.json'));
+            i18n.setLocaleMessage('en', require('./lang/en.json'));
 
             callback(vm);
         }

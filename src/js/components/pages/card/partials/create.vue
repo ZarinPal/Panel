@@ -65,11 +65,11 @@
             return {
                 loading: false,
                 closeModalContent: false,
-                iban: '',
-                pan: '',
-                year: '',
-                month: '',
-                isLegal: '0',
+                iban: null,
+                pan: null,
+                year: null,
+                month: null,
+                isLegal: 0,
                 yearFocus: false
             }
         },

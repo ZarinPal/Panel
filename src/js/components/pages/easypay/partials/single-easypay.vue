@@ -51,7 +51,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
     confirm(v-if="confirmVisible" v-on:confirmed="deleteEasypay()" v-on:closeModal="closeModal")
         span(slot="title") {{$i18n.t('easypay.deleteEasypay')}}
         div.ta-right(slot="message")
-            div آیا نسبت به حذف آسان پرداخت " {{easypay.title}} " اصمینان دارید؟
+            div آیا نسبت به حذف زرین‌لینک " {{easypay.title}} " اصمینان دارید؟
             div این عملیات غیر قابل بازگشت است.
 
         span(slot="messageDanger") {{$i18n.t('common.cancel')}}

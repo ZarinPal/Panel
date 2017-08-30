@@ -12,8 +12,8 @@
       cursor: pointer;
     }
 
-    .icon-prev{
-      &:before{
+    .icon-prev {
+      &:before {
         content: $iconPrev;
         font-family: 'zarinpal';
         color: #424242;
@@ -61,7 +61,6 @@
     }
 
     .middle-xs {
-
       .body-messages {
         margin-top: 6px !important;
         margin-bottom: 25px !important;
@@ -180,19 +179,33 @@
       }
     }
 
-    .input-cell{
-      border: none !important;
-      border-bottom: 1px solid #424242 !important;
-      border-radius: 0 !important;
-      margin: 0 5px !important;
-      outline: none !important;
-      padding: 0 !important;
-      text-align: center;
-      width: 28px !important;
+    .otp-container{
+      #txtOtp {
+        width: 300px;
+        border:none;
+        outline: none;
+        font-size:13px;
+        letter-spacing: 30px;
+        text-align: left;
+        margin-left: 63px;
+        direction: ltr;
 
-      &:focus{
-        border: none !important;
-        box-shadow: none;
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      .dashed-line {
+        height: 30px;
+        width: 250px;
+        background-image: linear-gradient(to right, black 75%, rgba(255,255,255,0) 0%);
+        background-position:50px bottom;
+        background-size: 40px 1px;
+        background-repeat: repeat-x;
+        overflow:hidden;
+        margin-top:-25px;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
 
