@@ -145,7 +145,7 @@
                         div.row(v-bind:class="{'inactive-step' : step !== 3}")
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                                 div.nav-switch
-                                    label.switch-label(for="chkType") {{ $i18n.t('easypay.limitInNumber')}}
+                                    label.switch-label(for="chkType") {{ $i18n.t('easypay.advance')}}
                                     label.switch
                                         input(type="checkbox" id="chkType" v-model="type")
                                         span.slider.round

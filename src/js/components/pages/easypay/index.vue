@@ -10,52 +10,70 @@
                     span.icon-add-circle
                     span.text {{ $i18n.t('easypay.createEasypay') }}
 
-
         div.row
-            singleEasypay(v-for="easypay in easypays" v-bind:key="easypay.public_id" v-bind:easypay="easypay")
+            singleEasypay(v-for="easypay in easypays.data" v-bind:key="easypay.public_id" v-bind:easypay="easypay")
 
-        div.row(v-if="!easypays.length")
+        div.ta-center(v-if="easypays.status")
+            loading
+
+        div.row(v-if="!easypays.status && !easypays.data.length")
             div.col-xs.ta-center
                 span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+
 
 </template>
 
 <script>
     import singleEasypay from './partials/single-easypay.vue';
+    import loading from '../../pages/partials/loading.vue';
+
     export default {
         name: 'easypay-index',
-        data() {
-            return {
-                loadEasypaysFromPaginator: false,
-            }
-        },
         computed:{
             user(){
                 return this.$store.state.auth.user;
             },
             easypays(){
-                if(!this.loadEasypaysFromPaginator) {
-                    return this.$store.state.auth.user.easypays;
-                }
+                return {
+                    data: this.$store.state.paginator.paginator.EasypayList.data,
+                    status: this.$store.state.paginator.paginator.EasypayList.isLoading,
+                    update: this.$store.state.paginator.update,
+                };
             }
         },
         created() {
-//            let vm = this;
-//
-//            window.onscroll = function(ev) {
-//                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-//                    && !vm.$store.state.paginator.paginator.EasypayList.isLoading) {
-//                    vm.$store.dispatch(
-//                        'paginator/next',
-//                        {
-//                            requestName: "EasypayList"
-//                        }
-//                    );
-//                }
-//            };
+            this.getEasypays();
+
+            let vm = this;
+            window.onscroll = function() {
+                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+                    && !vm.$store.state.paginator.paginator.EasypayList.isLoading) {
+                    vm.$store.dispatch(
+                        'paginator/next',
+                        {
+                            requestName: "EasypayList"
+                        }
+                    );
+                }
+            };
+        },
+        methods: {
+            getEasypays() {
+                let vm = this;
+                this.$store.dispatch(
+                    'paginator/make',
+                    {
+                        vm,
+                        resource:vm.$store.state.http.requests['easypay.getList'],
+                        params: vm.searchOptions,
+                        requestName: "EasypayList"
+                    }
+                );
+            }
         },
         components: {
-            singleEasypay
+            singleEasypay,
+            loading
         }
     }
 </script>
