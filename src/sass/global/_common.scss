@@ -332,7 +332,7 @@ body{
           display: block;
           padding: 8px 15px;
           transition: $animateTime;
-          cursor: default;
+          cursor: pointer;
 
           &:before {
             color: $itemIconColor;

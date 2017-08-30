@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-    div.row.transaction-row(@click="showTransactionDetail = true" )
+    div.row.transaction-row.hand(@click="showTransactionDetail = true" )
         div.col-lg-2.col-md-3.col-sm-3
             span.transaction-id(v-if="transaction.confirmed =='confirmed'")
                 span(v-if="transaction.effective_sign == 1")
