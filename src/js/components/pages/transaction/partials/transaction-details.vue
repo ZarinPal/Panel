@@ -2,7 +2,7 @@
     modal.transaction-detail(v-on:closeModal="closeModal()")
         span(slot="title") {{$i18n.t('transaction.id')}} : {{ transaction.public_id | persianNumbers}}
         div.content(slot="content")
-            div.body.hand
+            div.body
                 div.deposit-background
                     div.row.nav-deposit(v-bind:class="{'nav-deposit-in': transaction.effective_sign == 1, 'nav-deposit-internal': transaction.effective_sign == 0, 'nav-deposit-out': transaction.effective_sign == -1 }")
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-6.from
@@ -62,7 +62,7 @@
 
 
             div.footer.bottom-xs
-                a.print(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
+                a.print.hand(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
 
 
 </template>

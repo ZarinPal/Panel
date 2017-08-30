@@ -50,6 +50,10 @@ export default {
             if(event.keyCode === 13 && !this.isActive) {
                 this.openDropDown();
             }
+
+            if(event.keyCode === 9) {
+                this.isOpen = false;
+            }
         },
         selectItem(item){
             this.selectBoxTitle = item.title;

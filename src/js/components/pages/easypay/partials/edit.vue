@@ -292,10 +292,11 @@
                 this.handleOrderOptionsSave('name');
                 this.handleShowReceiptSave();
 
+                let price = this.price.replace(/,/g, "");
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
-                    price: this.price,
+                    price: price,
                     purse: this.purse,
                     required_fields: {
                         email: this.requiredFields.email,

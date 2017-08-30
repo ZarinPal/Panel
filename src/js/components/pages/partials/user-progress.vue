@@ -53,12 +53,21 @@ export default {
 
                 // green line
                 ctx.beginPath();
+//                let grad1 = ctx.createRadialGradient(350, 200, 20, 350, 100, 200);
+//                grad1.addColorStop(0, "#fb5c17");
+//                grad1.addColorStop(0.5, "#00f");
+//                grad1.addColorStop(1, "#fb5c17");
+//
+//                ctx.strokeStyle = grad1;
+
                 ctx.strokeStyle = "#89E000";
                 ctx.lineWidth = 5;
                 ctx.lineCap = 'round';
                 ctx.arc(46, 46, 42, 1.5 * Math.PI, radians + 1.5 * Math.PI);
                 ctx.stroke();
                 ctx.save();
+
+
 
                 //image
                 ctx.beginPath();

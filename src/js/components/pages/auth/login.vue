@@ -70,12 +70,11 @@
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
 
                         div.col-xs-12.no-margin.dir-ltr
-                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[0]"  size="1" @keyup="changeFocus($event)" id="otp1" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[1]"  size="1" @keyup="changeFocus($event)" id="otp2" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[2]"  size="1" @keyup="changeFocus($event)" id="otp3" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[3]"  size="1" @keyup="changeFocus($event)" id="otp4" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[4]"  size="1" @keyup="changeFocus($event)" id="otp5" @paste="pasteOtp($event)" onfocus="this.select();")
-                            input.input-cell(v-validate="{type: 'number'}" type="number"  v-model="otpObject[5]"  size="1" @keyup="changeFocus($event)" id="otp6" @paste="pasteOtp($event)" onfocus="this.select();")
+                            div.otp-container
+                                div.input-cover
+                                    input(@keyup="otpMaxLength()" v-validate="{size: 6}" type="number" min="0" name="otp" v-model="otp" id="txtOtp")
+                                div.dashed-line
+
                         div.ta-right(v-if="validationErrors.otp")
                             span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
@@ -118,6 +117,7 @@
                 loginLoading: false,
                 ussdType: 'Code',
                 username: "",
+                otp: null,
                 otpObject: {},
                 step: 1,
                 avatar: null,
@@ -151,7 +151,6 @@
             if(this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
-
         },
         methods: {
             sendOtp(channel){
@@ -197,7 +196,7 @@
                         }
 
                         setTimeout(function () {
-                            document.getElementById("otp1").focus();
+                            document.getElementById("txtOtp").focus();
                         }, 10);
                     }).catch((response)=>{
                         this.loginLoading = false;
@@ -206,18 +205,10 @@
                         if(!this.validationErrors.username) {
                             this.userNotRegister = true;
                         }
-                        this.emptyOtp();
-                });
+                    });
             },
             login(){
                 this.loginLoading = true;
-
-                let otp = this.otpObject[0] +
-                    this.otpObject[1] +
-                    this.otpObject[2] +
-                    this.otpObject[3] +
-                    this.otpObject[4] +
-                    this.otpObject[5];
 
                 let auth2Data = {
                     grant_type: "password",
@@ -225,7 +216,7 @@
                     client_secret: "55619f94-75d6-4078-9478-16e9654c2105",
                     scope: "full-access",
                     username: this.username,
-                    otp: otp,
+                    otp: this.otp,
                     is_web_app: true
                 };
 
@@ -234,7 +225,6 @@
                         this.loginLoading = false;
                         this.$router.push({name: 'home.index'});
                     }, (response) => {
-                        this.emptyOtp();
                         this.loginLoading = false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
@@ -259,54 +249,9 @@
                 this.visibleSendSms = false;
                 this.channel = 'ussd';
             },
-            changeFocus(event){
-                let myLength = event.target.value.length;
-                let currentId = event.target.id;
-                currentId = currentId.substr(currentId.length - 1);
-
-                //back to prev input on backspace
-                if(event.keyCode === 8) {
-                    if(currentId >= 1) {
-                        document.getElementById(event.target.id).value = null;
-                        if(currentId >1) {
-                            let prevElement = event.target.previousSibling.id;
-                            if(currentId <= 5) {
-                                this.otpObject[currentId-2] = null;
-                            }
-                            document.getElementById(prevElement).focus();
-                        }
-                    }
-                }
-
-                if(currentId <= 5) {
-                    let nextElement = event.target.nextSibling.id;
-                    if (myLength >= 1) {
-                        document.getElementById(nextElement).focus();
-                    }
-                }
-
-                /*** submit form in last digit insert ***/
-                if(currentId == 6 && event.keyCode !== 8) {
+            otpMaxLength() {
+                if(this.otp.length === 6) {
                     document.getElementById("btnSubmitLogin").click();
-                }
-            },
-            emptyOtp() {
-                for(let i = 0; i <= 5; i++) {
-                    this.otpObject[i] = null;
-                }
-
-                if(document.getElementById('otp1')) {
-                    document.getElementById('otp1').focus();
-                }
-            },
-            pasteOtp(e) {
-                let clipboardData, pastedData;
-                e.stopPropagation();
-                e.preventDefault();
-                clipboardData = e.clipboardData || window.clipboardData;
-                pastedData = clipboardData.getData('Text');
-                if(pastedData.length > 1) {
-                    this.otpObject = pastedData.split('');
                 }
             }
         },

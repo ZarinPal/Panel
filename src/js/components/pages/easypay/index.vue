@@ -24,13 +24,35 @@
     import singleEasypay from './partials/single-easypay.vue';
     export default {
         name: 'easypay-index',
+        data() {
+            return {
+                loadEasypaysFromPaginator: false,
+            }
+        },
         computed:{
             user(){
                 return this.$store.state.auth.user;
             },
             easypays(){
-                return this.$store.state.auth.user.easypays;
+                if(!this.loadEasypaysFromPaginator) {
+                    return this.$store.state.auth.user.easypays;
+                }
             }
+        },
+        created() {
+//            let vm = this;
+//
+//            window.onscroll = function(ev) {
+//                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+//                    && !vm.$store.state.paginator.paginator.EasypayList.isLoading) {
+//                    vm.$store.dispatch(
+//                        'paginator/next',
+//                        {
+//                            requestName: "EasypayList"
+//                        }
+//                    );
+//                }
+//            };
         },
         components: {
             singleEasypay

@@ -33,7 +33,6 @@ const i18n = new VueI18n({
 });
 window.i18n = i18n;
 
-
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 
