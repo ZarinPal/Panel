@@ -11,6 +11,11 @@
 
                     form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row
+                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
+                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                            div.ta-right(v-if="validationErrors.purse")
+                                span.text-danger {{ $i18n.t(validationErrors.purse) }}
+
                             div.col-xs.no-right-margin
                                 input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ"  tabindex="1")
                                 div.ta-right(v-if="validationErrors.amount")
@@ -49,7 +54,8 @@
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('purse.sourcePurse') }}
                             div.col-xs.ta-left
-                                span.value {{this.purse.name}}
+                                span.value(v-if="!purse_name") {{this.purse.name}}
+                                span.value(v-else) {{this.purse_name.name}}
 
                         div.row
                             div.col-xs.ta-right
@@ -101,7 +107,8 @@
                 zpId: null,
                 amount: null,
                 description: null,
-                destinationUser: null
+                destinationUser: null,
+                purse_name: null,
             }
         },
         props: ['purse'],
@@ -113,12 +120,26 @@
                 return this.$store.state.alert.validationErrors;
             },
         },
+        created() {
+            if(this.purse) {
+                this.purseId = this.purse.purse;
+            }
+        },
         methods: {
             closeModal() {
                 this.$emit('closeModal')
             },
-            confirmPtopData(){
-                if(this.amount && this.description && this.zpId) {
+            selectedPurse(purseId) {
+                this.purseId = purseId;
+                this.purse_name = this.getPurseName(purseId);
+            },
+            getPurseName(purseId) {
+                return _.find(this.$store.state.auth.user.purses, function(purse) {
+                    return purse.purse === purseId;
+                });
+            },
+            confirmPtopData() {
+                if(this.purseId && this.amount && this.description && this.zpId) {
                     this.requesting = true;
 
                     let zarinId;
@@ -128,8 +149,8 @@
 
                     this.$store.state.http.requests['purse.getInfoByZp'].get({purseId: zarinId}).then(
                         (response)=> {
-                            this.step = 2;
                             this.requesting = false;
+                            this.step = 2;
                             this.destinationUser = response.data.data;
                         },
                         (response) => {
@@ -157,9 +178,13 @@
                     zarinId = this.destinationUser.zp_id.toLowerCase();
                 }
 
-                let amount = this.amount.replace(/,/g, ""); //remove , from amount
+                let amount = this.amount;
+                if(this.amount.test(/,/g)) {
+                    amount = this.amount.replace(/,/g, ""); //remove , from amount
+                }
+
                 let ptopData = {
-                    purse: this.purse.purse,
+                    purse: this.purseId,
                     zpId: zarinId,
                     amount: amount,
                     description: this.description

@@ -3,10 +3,15 @@
         span(slot="title") {{ $i18n.t('purse.addFund') }}
         div(slot="content")
             div(v-if="activeCards.length")
-                div.row.purse-amount
+                div.row.purse-amount(v-if="purse")
                     span {{ $i18n.t('common.balance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}}
                     span {{ $i18n.t('transaction.toman') }}
                 form(autocomplete="on" onsubmit="event.preventDefault();")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                    div.ta-right(v-if="validationErrors.purse")
+                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+
                     div.row.no-margin
                         input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ" tabindex="1")
                         div.ta-right(v-if="validationErrors.amount")
@@ -21,9 +26,6 @@
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
 
-            div.nav-not-active-card(v-else)
-                p.title {{ $i18n.t('common.zarinPal') }}
-                p.description {{ $i18n.t('purse.addFundNotActiveCard') }}
 
 </template>
 
@@ -32,6 +34,7 @@
     import selectbox from '../../partials/selectbox.vue';
     import modal from '../../partials/modal.vue';
     import cards from '../../partials/cards.vue';
+    import purse from '../../partials/purses.vue';
 
     export default {
         name: 'home-purse-addFund',
@@ -41,6 +44,7 @@
                 closeModalContent: false,
                 amount: '',
                 cardId: '',
+                purseId: null,
                 maxAmountLimit: 10000000,
                 redirectUrl: null
             }
@@ -67,9 +71,15 @@
                 return this.$store.state.alert.validationErrors;
             },
         },
+        created() {
+            this.purseId = this.purse.purse;
+        },
         methods: {
             closeModal() {
                 this.$emit('closeModal')
+            },
+            selectedPurse(purseId) {
+                this.purseId = purseId;
             },
             addFund() {
                 if (this.amount > this.maxAmountLimit) {
@@ -84,7 +94,7 @@
                 this.loading = true;
                 let amount = this.amount.replace(/,/g, ""); //remove , from amount
                 let addFundData = {
-                    purse: this.purse.purse,
+                    purse: this.purseId,
                     amount: amount,
                     card_id: this.cardId,
                     redirect_url: this.redirectUrl
@@ -128,7 +138,8 @@
         components: {
             selectbox,
             modal,
-            cards
+            cards,
+            purse
         }
     }
 </script>

@@ -1,3 +1,79 @@
+.nav-top-buttons{
+  margin: 20px 0;
+  .btn-gradient-radius {
+    background-color: #fff;
+    border-radius: 60px;
+    margin-left: 20px;
+    height: 38px;
+    transition: $animateTime;
+    margin-top: 10px;
+
+    .btn-icon {
+      position: relative;
+      top: -2px;
+
+      &:before {
+        font-family: 'zarinpal';
+        font-style: normal;
+        font-size: 22px;
+        color: $labelColor !important;
+        position: relative;
+        top: 3px;
+      }
+    }
+
+    .btn-label {
+      font-size: 14px;
+      color: $labelColor;
+      margin-right: 7px;
+      position: relative;
+      top: -5px;
+    }
+
+    .request-money {
+      &::before {
+        content: $iconRequestMoney;
+        position: relative;
+        top: 3px;
+      }
+    }
+
+    .add-fund {
+      &:before {
+        content: $iconAddFund;
+      }
+    }
+
+    .ptop {
+      &:before {
+        content: $iconPtop;
+      }
+    }
+
+    .withdraw {
+      &:before {
+        content: $iconWithdraw;
+      }
+    }
+
+    &:hover {
+      background-color: #fafafa !important;
+      transition: $animateTime;
+    }
+  }
+
+  .zarin-card{
+    background-image: -webkit-linear-gradient( 180deg, rgb(255,237,113) 0%, rgb(255,218,24) 100%) !important;
+    height: 38px;
+
+    .btn-label {
+      position: relative;
+      top: 0 !important;
+    }
+  }
+}
+
+//Box
 .section{
   .single-purse {
     .header {
@@ -159,6 +235,11 @@
 
 //Modal Add fund
 .add-fund{
+
+  .purses {
+    margin-bottom: 10px;
+  }
+
   .cards{
     margin: 10px 0;
   }
@@ -189,6 +270,10 @@
 .ptop{
   .nav-loading{
     padding: 80px 30px 93px 30px;
+  }
+
+  .purses {
+    margin-bottom: 5px;
   }
 
   .row{

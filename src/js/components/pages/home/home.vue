@@ -1,5 +1,26 @@
 <template lang="pug">
     div.inner-content
+        div.nav-top-buttons.ta-center
+            button.btn-gradient-radius(v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
+                i.btn-icon.withdraw
+                span.btn-label تسویه حساب
+
+            router-link.btn-gradient-radius(v-ripple="" tag="button" v-bind:to="{ name: 'requestMoney.index'}")
+                i.btn-icon.request-money
+                span.btn-label {{ $i18n.t('common.dangiDongi') }}
+
+            button.btn-gradient-radius(v-ripple="" @click="visibleAddFund = !visibleAddFund")
+                i.btn-icon.add-fund
+                span.btn-label {{ $i18n.t('purse.addFund') }}
+
+            button.btn-gradient-radius(v-ripple="" @click="visiblePtop = !visiblePtop")
+                i.btn-icon.ptop
+                span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
+
+            <!--button.btn-gradient-radius.zarin-card(v-ripple="")-->
+                <!--span.btn-label درخواست زرین‌کارت-->
+
+
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 p.page-title {{ $i18n.t('common.purses') }}
@@ -10,14 +31,13 @@
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
 
-                router-link.btn.info(tag="button" v-bind:to="{ name: 'requestMoney.index'}" :title="$i18n.t('common.dangiDongi')")
-                    span.icon-request-money
-                    span.text {{ $i18n.t('common.dangiDongi') }}
-
         div.row
             singlePurse(v-for="purse in purses.data" v-bind:balance="purse.balance" v-bind:key="purse.purse" v-bind:update="purses.update" v-bind:purse="purse" v-bind:showMore="showMore")
 
         createPurse(v-if="visibleCreatePurse" v-on:closeModal="closeModal()")
+        addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()")
+        pTop(v-if="visiblePtop" v-on:closeModal="closeModal()")
+        withdraw(v-if="visibleWithdraw" v-on:closeModal="closeModal()")
 
 </template>
 
@@ -25,6 +45,9 @@
     import singlePurse from './partials/single-purse.vue';
     import createPurse from './partials/create.vue';
     import modal from '../partials/modal.vue';
+    import addFund from './partials/add-fund.vue';
+    import pTop from './partials/ptop.vue';
+    import withdraw from './partials/withdraw.vue';
 
     export default {
         name:'pages-home',
@@ -32,6 +55,9 @@
             return{
                 visibleCreatePurse: false,
                 visibleShowMore: false,
+                visibleAddFund: false,
+                visiblePtop: false,
+                visibleWithdraw: false,
                 message: [],
                 purseLimit: 10,
             }
@@ -55,6 +81,9 @@
         methods: {
             closeModal(){
                 this.visibleCreatePurse = false;
+                this.visibleAddFund = false;
+                this.visiblePtop = false;
+                this.visibleWithdraw = false;
                 store.commit('clearValidationErrors');
             },
             getParameterByName(name, url) {
@@ -94,6 +123,9 @@
         components:{
             singlePurse,
             createPurse,
+            addFund,
+            pTop,
+            withdraw,
             modal
         }
     }

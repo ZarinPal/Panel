@@ -96,6 +96,10 @@ export default {
                 url: "app/checkContact.json"
             },
             {
+                name: "app.fees",
+                url: "app/fees.json"
+            },
+            {
                 name: "card.getList",
                 url: "card.json"
             },
