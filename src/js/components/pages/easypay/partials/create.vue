@@ -142,9 +142,9 @@
 
                     div.body
                         <!--3-->
-                        div.row(v-bind:class="{'inactive-step' : step !== 3}")
+                        div.row
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                                div.nav-switch
+                                div.nav-switch(v-bind:class="{'inactive-step' : step !== 3}")
                                     label.switch-label(for="chkType") {{ $i18n.t('easypay.advance')}}
                                     label.switch
                                         input(type="checkbox" id="chkType" v-model="type")
@@ -154,7 +154,7 @@
                                 enter-active-class="fade-in"
                                 leave-active-class="fade-out")
 
-                                    div.row(v-if="type == 1")
+                                    div.row(v-if="type == 1" v-bind:class="{'inactive-step' : step !== 3}")
                                         div.col-lg-1.col-md-1.col-sm-1.col-xs-1
                                             div.step-number(v-bind:class="{'active-step-number' : step == 3}") ۳
                                             div.step-line(v-bind:class="{'active-step-line' : step == 3}")
@@ -196,11 +196,11 @@
                                                         div.ta-right(v-if="validationErrors.failed_redirect_url")
                                                             span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
-                                        div.row
-                                            div.col-xs.nav-buttons
-                                                button.btn.success.pull-right.button(v-ripple="" @click="editAfterCreate") {{$i18n.t('common.save')}}
-                                                    svg.material-spinner(v-if="editLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                        div.row(v-bind:class="{'inactive-step' : step == 1}")
+                            div.col-xs.nav-buttons
+                                button.btn.success.pull-right.button(v-ripple="" @click="editAfterCreate") {{$i18n.t('common.save')}}
+                                    svg.material-spinner(v-if="editLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 

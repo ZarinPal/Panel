@@ -24,7 +24,7 @@
                     div.col-lg-6.col-md-6.col-sm-12.col-xs-12.nav-left
                         div.nav-buttons
                             <!--span.request-button.zarin-friends دوستان زرین پالی-->
-                            span.request-button(@click="visibleNewRequestMoney = true") دنگی دونگی جدید
+                            span.request-button(@click="visibleNewRequestMoney = true") دنگی دُنگی جدید
 
 
                 div.blur-container
