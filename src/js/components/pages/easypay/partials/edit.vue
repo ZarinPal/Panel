@@ -160,56 +160,68 @@
                         <!--3-->
                         div.row
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                                div.row
-                                    div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-                                        div.step-number ۳
-                                        div.step-line
+                                div.nav-switch
+                                    label.switch-label(for="chkType") {{ $i18n.t('easypay.advance')}}
+                                    label.switch
+                                        input(type="checkbox" id="chkType" v-model="type")
+                                        span.slider.round
 
-                                    div.col-lg-11.col-md-11.col-sm-11.col-xs-11
-                                        p.form-title.ta-right {{$i18n.t('easypay.limits')}}
-                                        p.form-message.ta-right {{$i18n.t('easypay.limitsMessage')}}
+                                transition(name="fade"
+                                enter-active-class="fade-in"
+                                leave-active-class="fade-out")
 
-                                        div.row
-                                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12.nav-limit-checkbox
-                                                div.ta-right
-                                                    input(name="optional" v-model="limited" value='true' type="checkbox" id="chkLimitNumber")
-                                                    label(for="chkLimitNumber")
-                                                        span
-                                                        |{{ $i18n.t('easypay.limitInNumber')}}
+                                    div.row(v-if="type == 1")
+                                        div.col-lg-7.col-md-7.col-sm-12.col-xs-12
+                                            div.row
+                                                div.col-lg-1.col-md-1.col-sm-1.col-xs-1
+                                                    div.step-number ۳
+                                                    div.step-line
 
-                                                div.ta-right
-                                                    input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")
-                                                    label(for="chkEasypayReceipt")
-                                                        span
-                                                        |{{ $i18n.t('easypay.showEasypayReceipt')}}
+                                                div.col-lg-11.col-md-11.col-sm-11.col-xs-11
+                                                    p.form-title.ta-right {{$i18n.t('easypay.limits')}}
+                                                    p.form-message.ta-right {{$i18n.t('easypay.limitsMessage')}}
 
+                                                    div.row
+                                                        div.col-lg-7.col-md-7.col-sm-12.col-xs-12.nav-limit-checkbox
+                                                            div.ta-right
+                                                                input(name="optional" v-model="limited" value='true' type="checkbox" id="chkLimitNumber")
+                                                                label(for="chkLimitNumber")
+                                                                    span
+                                                                    |{{ $i18n.t('easypay.limitInNumber')}}
 
-
-                                            div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                input(v-validate="{type: 'number'}" v-show="limited" type="number" v-model="limit" placeholder="تعداد")
-
-
-                                            div.col-lg-12.col-md-12.col-xs-12
-                                                div.row.no-margin
-                                                    span.input-icon.globe-icon
-                                                    input(:class="{'input-danger': validationErrors.successful_redirect_url}"  v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                                    div.ta-right(v-if="validationErrors.successful_redirect_url")
-                                                        span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
-
+                                                            div.ta-right
+                                                                input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")
+                                                                label(for="chkEasypayReceipt")
+                                                                    span
+                                                                    |{{ $i18n.t('easypay.showEasypayReceipt')}}
 
 
-                                                div.row.no-margin
-                                                    span.input-icon.globe-icon
-                                                    input(:class="{'input-danger': validationErrors.failed_redirect_url}" v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                                    div.ta-right(v-if="validationErrors.failed_redirect_url")
-                                                        span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
+
+                                                        div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
+                                                            input(v-validate="{type: 'number'}" v-show="limited" type="number" v-model="limit" placeholder="تعداد")
 
 
-                                        div.row
-                                            div.col-xs.nav-buttons
-                                                button.btn.success.pull-right.button(v-ripple=""  @click="editEasypay") {{$i18n.t('common.edit')}}
-                                                    svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                                                        div.col-lg-12.col-md-12.col-xs-12
+                                                            div.row.no-margin
+                                                                span.input-icon.globe-icon
+                                                                input(:class="{'input-danger': validationErrors.successful_redirect_url}"  v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
+                                                                div.ta-right(v-if="validationErrors.successful_redirect_url")
+                                                                    span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+
+
+
+                                                            div.row.no-margin
+                                                                span.input-icon.globe-icon
+                                                                input(:class="{'input-danger': validationErrors.failed_redirect_url}" v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
+                                                                div.ta-right(v-if="validationErrors.failed_redirect_url")
+                                                                    span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
+
+
+                        div.row
+                            div.col-xs.nav-buttons
+                                button.btn.success.pull-right.button(v-ripple=""  @click="editEasypay") {{$i18n.t('common.edit')}}
+                                    svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -235,7 +247,7 @@
                     name: false,
                     mobile: false
                 },
-                type: '1',
+                type: 0,
                 showReceipt: '',
                 successfulRedirectUrl: '',
                 failedRedirectUrl: '',
@@ -253,6 +265,11 @@
             this.requiredFields.mobile = this.easypay.required_fields.mobile;
             this.requiredFields.name = this.easypay.required_fields.name;
 
+            if (this.easypay.show_receipt || this.easypay.successful_redirect_url || this.easypay.failed_redirect_url || this.easypay.limit) {
+                this.type = 1;
+            } else {
+                this.type = 0
+            }
             this.successfulRedirectUrl = this.easypay.successful_redirect_url;
             this.failedRedirectUrl = this.easypay.failed_redirect_url;
             this.limit = this.easypay.limit;

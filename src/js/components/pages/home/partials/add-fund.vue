@@ -25,8 +25,6 @@
                     div.row
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
-
-
 </template>
 
 
@@ -42,8 +40,8 @@
             return {
                 loading: false,
                 closeModalContent: false,
-                amount: '',
-                cardId: '',
+                amount: null,
+                cardId: null,
                 purseId: null,
                 maxAmountLimit: 10000000,
                 redirectUrl: null
@@ -72,7 +70,9 @@
             },
         },
         created() {
-            this.purseId = this.purse.purse;
+            if(this.purse) {
+                this.purseId = this.purse.purse;
+            }
         },
         methods: {
             closeModal() {

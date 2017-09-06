@@ -15,7 +15,7 @@
                         span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
                     div.row
-                        input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                        input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" @keyup="calcPercentAmount()" placeholder="مبلغ")
                         div.ta-right(v-if="validationErrors.amount")
                             span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
@@ -25,37 +25,38 @@
                             span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 
 
-
-                    div.nav-fees(v-if="card")
-                        div.row
-                            div.col-xs(v-for="fee in fees" v-bind:class="{'inactive-step' : !fee.is_active}")
+                    div.nav-fees(v-if="!isLoadedFees")
+                        div.row.bx.nav-options.ta-right
+                            div.full-width.option-row(v-for="fee in validFees" v-bind:class="{'inactive-step' : !fee.is_active}")
                                 input(name="fees" type="radio" :value="fee.id" v-model="feeDetails.id" :id="'rdo' + fee.id" @click="selectFee(fee.id)")
                                 label(:for="'rdo' + fee.id")
                                     span
                                     |{{fee.title}}
 
-
-                        div.row.fee-date
+                        div.row.bx.fee-date
                             div.col-xs
                                 span حداکثر زمان واریز
-                            div.col-xs
-                                span(v-if="feeDetails.details") {{ (feeDetails.details.reconcile_in /60 /60).toFixed(0) }}
+                            div.col-xs.left-box
+                                span(v-if="feeDetails.details") {{ calcFeeDate(feeDetails.details.reconcile_in)  | persianNumbers}}
 
-                        div.row.fee-date
+                        div.row.bx.fee-amount
                             div.col-xs
-                                span مبلغ کارمزد
-                            div.col-xs
-                                div(v-if="feeDetails.details") {{ feeDetails.details.percent }} درصد
-                                div(v-if="feeDetails.details") {{ (amount * feeDetails.details.percent) / 100}}
-
+                                span.title مبلغ کارمزد
+                            div.col-xs.left-box
+                                div(v-if="feeDetails.details") {{ feeDetails.details.percent  | persianNumbers}} درصد
+                                div(v-if="feeDetails.details") {{ withdrawAmount / 100  | numberFormat | persianNumbers }} تومان
 
                         div.fee-description
                             span {{ selectedFee.description }}
 
+                    div.ta-center(v-else)
+                        loading
 
                     div.row
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="withdraw") {{$i18n.t('transaction.withdraw')}}
+                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
             div.nav-not-active-card(v-else)
                 p.title {{ $i18n.t('common.zarinPal') }}
@@ -66,6 +67,7 @@
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
+    import loading from '../../partials/loading.vue';
     import modal from '../../partials/modal.vue';
     import cards from '../../partials/cards.vue';
     import purse from '../../partials/purses.vue';
@@ -76,28 +78,26 @@
             return {
                 loading: false,
                 closeModalContent: false,
-                amount: null,
+                amount: 0,
                 purseId: null,
                 redirectUrl:encodeURI(
                 'https://' + window.location.hostname + '/'
                 + this.$router.resolve({name: 'home.finishAddFund'}).href),
                 card: {},
-
                 isLoadedFees: false,
+                withdrawAmount: 0,
                 feeDetails: {
                     id: 'default',
                     details: null,
                 },
-                selectedFee: null,
+                validFees: [],
+                selectedFee: {},
                 reconcileIn: null,
-                fees: null,
+                fees: [],
 
             }
         },
         props: ['purse'],
-        mounted(){
-            this.closeModalContent = false
-        },
         computed:{
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
@@ -107,11 +107,31 @@
             if(this.purse) {
                 this.purseId = this.purse.purse;
             }
+
             this.getFees();
+        },
+        mounted() {
+            this.closeModalContent = false;
         },
         methods: {
             closeModal() {
                 this.$emit('closeModal')
+            },
+            calcPercentAmount() {
+                if(/,/g.test(this.amount)) {
+                    this.withdrawAmount = this.amount.replace(/,/g, "") * this.feeDetails.details.percent
+                } else {
+                    this.withdrawAmount = this.amount * this.feeDetails.details.percent;
+                }
+            },
+            calcFeeDate(seconds) {
+                let numDays = Math.floor(seconds / 86400);
+                let numHours = Math.floor((seconds % 86400) / 3600);
+                if(numDays > 0) {
+                    return numDays + ' روز و ' + numHours +  ' ساعت ';
+                } else {
+                    return numHours +  ' ساعت ';
+                }
             },
             selectedPurse(purseId) {
                 this.purseId = purseId;
@@ -127,6 +147,7 @@
 
                 this.card.slug = this.$store.state.auth.user.cards[cardIndex].issuer.slug;
                 this.getFeeWithdrawMethod();
+                this.selectFee();
             },
             selectFee(feeId) {
                 if(!feeId) {
@@ -137,7 +158,25 @@
                     return fee.id === feeId;
                 });
 
+                this.validFees = [];
+
+                this.validFees.push(this.fees[0]);
+                let vm = this;
+                this.fees.forEach(function(fee, feeIndex) {
+                    if(feeIndex > 0) {
+                        fee.withdraw_method.forEach(function(feeMethod) {
+                            if(vm.card.slug) {
+                                if(vm.card.slug.toLowerCase() ===  feeMethod.slug.toLowerCase()) {
+                                    vm.validFees.push(fee);
+                                }
+                            }
+                        });
+                    }
+                });
+
                 this.selectedFee = this.fees[feeIndex];
+                this.getFeeWithdrawMethod();
+                this.calcPercentAmount();
             },
             getPurseAmount(purseId) {
                 let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
@@ -145,6 +184,7 @@
                 });
 
                 this.amount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
+                this.withdrawAmount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
             },
             getFeeWithdrawMethod() {
                 let cardType = 'default';
@@ -180,7 +220,11 @@
             },
             withdraw() {
                 this.loading = true;
-                let amount = this.amount.replace(/,/g, ""); //remove , from amount
+                let amount = this.amount;
+                if(/,/g.test(this.amount)) {
+                    amount = this.amount.replace(/,/g, "");
+                }
+
                 let withdrawData = {
                     amount: amount,
                     card_id: this.card.id,
@@ -189,12 +233,13 @@
 
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
                     (response)=> {
+                        this.loading = false;
                         this.$store.commit('flashMessage',{
                             text: response.data.meta.message,
                             important: false,
                             type: 'success'
                         });
-                        this.closeModal();
+                        this.$router.push({name: 'transaction.index', params: {id: this.purseId, type: 'purse', transactionId: response.data.data.transaction_public_id}});
                     },
                     (response) => {
                         store.commit('setValidationErrors',response.data.validation_errors);
@@ -203,6 +248,7 @@
                             important: false,
                             type: 'danger'
                         });
+                        this.loading = false;
                     }
                 )
             },
@@ -211,7 +257,8 @@
             selectbox,
             modal,
             cards,
-            purse
+            purse,
+            loading
         }
     }
 </script>

@@ -295,4 +295,45 @@
   .row{
     margin: 10px 0;
   }
+
+
+  .nav-fees{
+    font-size: 14px;
+
+    .bx{
+      background-color: #fff;
+      border-radius: $boxBorderRadiusSize;
+      border: 1px solid #ddd;
+
+      .col-xs{
+        padding: 10px;
+      }
+
+      .left-box{
+        background-color: #FAFAFA !important;
+        border-radius: 5px 0 0 5px;
+      }
+    }
+
+    .nav-options{
+      padding: 5px 0;
+
+      .option-row{
+        padding: 5px 10px;
+      }
+    }
+
+    .fee-amount{
+      .title {
+        display: inline-block;
+        margin-top: 12px;
+      }
+    }
+
+    .fee-description {
+      text-align: right;
+      color: #424242;
+    }
+  }
+
 }

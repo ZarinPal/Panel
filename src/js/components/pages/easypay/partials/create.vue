@@ -196,11 +196,11 @@
                                                         div.ta-right(v-if="validationErrors.failed_redirect_url")
                                                             span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
-                                    div.row(v-bind:class="{'inactive-step' : step == 1}")
-                                        div.col-xs.nav-buttons
-                                            button.btn.success.pull-right.button(v-ripple="" @click="editAfterCreate") {{$i18n.t('common.save')}}
-                                                svg.material-spinner(v-if="editLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                        div.row(v-bind:class="{'inactive-step' : step == 1}")
+                            div.col-xs.nav-buttons
+                                button.btn.success.pull-right.button(v-ripple="" @click="editAfterCreate") {{$i18n.t('common.save')}}
+                                    svg.material-spinner(v-if="editLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
