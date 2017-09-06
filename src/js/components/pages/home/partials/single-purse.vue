@@ -32,7 +32,7 @@
                                 span.drop-down-item.add-fund(v-ripple="" @click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
                                 span.drop-down-item.ptop(v-ripple="" @click="visiblePtop = true") {{ $i18n.t('purse.moneyTransfer') }}
                                 span.drop-down-item.withdraw(v-ripple="" @click="visibleWithdraw = true") {{ $i18n.t('transaction.withdraw') }}
-                                router-link.drop-down-item.report(v-ripple="" v-bind:to="{ name: 'report.index', params: { id:purse.purse, type:'purse'}}") {{ $i18n.t('report.title') }}
+                                <!--router-link.drop-down-item.report(v-ripple="" v-bind:to="{ name: 'report.index', params: { id:purse.purse, type:'purse'}}") {{ $i18n.t('report.title') }}-->
 
 
             div.middle-xs.body.single-purse-body.ta-center

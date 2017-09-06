@@ -79,11 +79,10 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section
                     span.statement-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") مشاهده گردش حساب
                     span.shetab-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") انتقال وجه شتابی
 
-
-    <!--&lt;!&ndash;Modals&ndash;&gt;-->
-    <!--editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")-->
-    <!--transferShetab(v-if="showTransferShetab" v-on:closeModal="closeModal()" v-bind:card="card")-->
-    <!--zarinCardStatement(v-if="showZarinCardStatement" v-on:closeModal="closeModal()" v-bind:card="card")-->
+    <!--Modals-->
+    editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")
+    transferShetab(v-if="showTransferShetab" v-on:closeModal="closeModal()" v-bind:card="card")
+    zarinCardStatement(v-if="showZarinCardStatement" v-on:closeModal="closeModal()" v-bind:card="card")
 
 </template>
 <script>
