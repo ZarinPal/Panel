@@ -75,7 +75,6 @@ export default {
                     Money
              ----------------**/
             if(binding.value.money) {
-
                 let key = window.event ? event.keyCode : event.which;
                 if (
                     event.keyCode == 8  ||
@@ -87,6 +86,13 @@ export default {
                     event.keyCode == 91 ||
                     event.keyCode == 93
                 ) {
+                    let text = el.value.replace(/[^\d]/g, "");
+                    let number = text;
+                    if(number) {
+                        number = parseInt(text.replace(/\D/g, ''), 10);
+                    }
+                    el.value = number.toLocaleString();
+
                     return true;
                 }
                 else if ( key < 48 || key > 57 ) {
@@ -95,7 +101,11 @@ export default {
                     return false;
                 } else {
                     //Its mean key is valid number
-                    let number = parseInt(el.value.replace(/\D/g, ''), 10);
+                    let text = el.value.replace(/[^\d]/g, "");
+                    let number = text;
+                    if(number) {
+                        number = parseInt(text.replace(/\D/g, ''), 10);
+                    }
                     el.value = number.toLocaleString();
                     return true;
                 }
