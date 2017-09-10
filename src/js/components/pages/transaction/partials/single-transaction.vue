@@ -1,6 +1,7 @@
 <template lang="pug">
 div
     div.row.transaction-row.hand(@click="showTransactionDetail = true" )
+        <!--Icon && Transaction id-->
         div.col-lg-2.col-md-3.col-sm-3
             span.transaction-id(v-if="transaction.confirmed =='confirmed'")
                 span(v-if="transaction.effective_sign == 1")
@@ -17,6 +18,7 @@ div
 
             span.text {{transaction.public_id | persianNumbers}}
 
+        <!--From -> to -->
         div.col-lg-6.col-md-3.col-sm-4.hidden-xs.nav-to-from(v-if="transaction.confirmed =='confirmed'")
             div.row
                 div.col-lg-6.col-md-12.col-sm-12.col-xs-12.no-margin
@@ -34,7 +36,7 @@ div
                     img.user-image(v-bind:src="'https:'+ transaction.to_merchant.avatar")
                     span.text {{transaction.to_merchant.name | less}}
 
-        div.col-lg-2.col-md-6.col-sm-6.hidden-xs(v-else)
+        div.col-lg-6.col-md-6.col-sm-6.hidden-xs.ta-center(v-else)
             span.text {{ $i18n.t('transaction.movingOut') }}
 
         div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
