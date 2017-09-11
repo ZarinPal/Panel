@@ -171,7 +171,7 @@
                                 leave-active-class="fade-out")
 
                                     div.row(v-if="type == 1")
-                                        div.col-lg-7.col-md-7.col-sm-12.col-xs-12
+                                        div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                             div.row
                                                 div.col-lg-1.col-md-1.col-sm-1.col-xs-1
                                                     div.step-number ۳
@@ -195,10 +195,10 @@
                                                                     span
                                                                     |{{ $i18n.t('easypay.showEasypayReceipt')}}
 
-
-
                                                         div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                            input(v-validate="{type: 'number'}" v-show="limited" type="number" v-model="limit" placeholder="تعداد")
+                                                            input(:class="{'input-danger': validationErrors.limit}" v-validate="{type: 'number'}" v-show="limited" type="number" v-model="limit" placeholder="تعداد")
+                                                            div.ta-right(v-if="validationErrors.limit")
+                                                                span.text-danger {{ $i18n.t(validationErrors.limit) }}
 
 
                                                         div.col-lg-12.col-md-12.col-xs-12
@@ -207,7 +207,6 @@
                                                                 input(:class="{'input-danger': validationErrors.successful_redirect_url}"  v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
                                                                 div.ta-right(v-if="validationErrors.successful_redirect_url")
                                                                     span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
-
 
 
                                                             div.row.no-margin
@@ -251,7 +250,7 @@
                 showReceipt: '',
                 successfulRedirectUrl: '',
                 failedRedirectUrl: '',
-                limited: '',
+                limited: 0,
                 limit: '',
             }
         },
@@ -265,7 +264,11 @@
             this.requiredFields.mobile = this.easypay.required_fields.mobile;
             this.requiredFields.name = this.easypay.required_fields.name;
 
-            if (this.easypay.show_receipt || this.easypay.successful_redirect_url || this.easypay.failed_redirect_url || this.easypay.limit) {
+            if (
+                this.easypay.show_receipt ||
+                this.easypay.successful_redirect_url ||
+                this.easypay.failed_redirect_url || this.easypay.limit
+            ) {
                 this.type = 1;
             } else {
                 this.type = 0
@@ -314,6 +317,14 @@
                     price = price.replace(/,/g, "");
                 }
 
+                //if easypay not advance
+                if(this.type === 0) {
+                    this.limit = 0;
+                    this.successfulRedirectUrl = '';
+                    this.failedRedirectUrl = '';
+                    this.limited = 0;
+                }
+
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
@@ -331,6 +342,10 @@
                     limited: this.limited,
                     limit: this.limit,
                 };
+
+//                console.log(easyPayData);
+//                return;
+
 
                 this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
                     ()=> {
@@ -358,11 +373,11 @@
                         break;
 
                     case 'optional':
-                        this.requiredFields[requireFieldName] = '0';
+                        this.requiredFields[requireFieldName] = 0;
                         break;
 
                     case 'required':
-                        this.requiredFields[requireFieldName] = '1';
+                        this.requiredFields[requireFieldName] = 1;
                         break;
                 }
             },
@@ -371,42 +386,50 @@
                 {
                     case false:
                     case 'hidden':
-                        this.requiredFields[requireFieldName] = '-1';
+                        this.requiredFields[requireFieldName] = -1;
                         break;
 
                     case 'optional':
-                        this.requiredFields[requireFieldName] = '0';
+                        this.requiredFields[requireFieldName] = 0;
                         break;
 
                     case 'required':
-                        this.requiredFields[requireFieldName] = '1';
+                        this.requiredFields[requireFieldName] = 1;
                         break;
                 }
             },
             handleShowReceipt() {
-                if (this.easypay.show_receipt === 1) {
+                if (this.easypay.show_receipt === 1 || this.easypay.show_receipt === true) {
                     this.showReceipt = true;
                 } else {
                     this.showReceipt = false;
                 }
 
-                if (this.limit) {
+                if (this.easypay.limit) {
                     this.limited = true;
                 } else {
                     this.limited = false;
-                    this.limit = '';
+                    this.limit = null;
                 }
             },
             handleShowReceiptSave() {
-                if (this.showReceipt === false) {
+                if (this.showReceipt === false || this.showReceipt === 0) {
                     this.showReceipt = 0;
                 } else {
                     this.showReceipt =  1;
                 }
 
-                if (this.limited === false) {
+                //set is easypay has advance or not and set it to 0 OR 1
+                if (this.type === true || this.type === 1) {
+                    this.type = 1;
+                } else {
+                    this.type = 0;
+                }
+
+
+                if (this.limited === false || this.limited === 0) {
                     this.limited = 0;
-                    this.limit = '';
+                    this.limit = null;
                 } else {
                     this.limited = 1;
                 }
