@@ -14,10 +14,10 @@
                                 span.header-title {{ purse.name }}
 
                             span(v-else)
-                                span.header-title.hand(v-if="!isEditingPurseName" @click="toggleEditPurse()") {{ purse.name }}
+                                span.header-title.hand(v-if="!isEditingPurseName" @click="toggleEditPurse($event)") {{ purse.name }}
 
                             span.nav-edit-wallet(v-if="isEditingPurseName")
-                                input.txt-wallet-name(onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
+                                input.txt-wallet-name(:id="'txtPurseName-' + purse.purse"  onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
                                 span.save(@click="send()") {{ $i18n.t('common.save') }}
                                 span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
 
@@ -114,6 +114,14 @@
             toggleEditPurse(){
                 this.isEditingPurseName = !this.isEditingPurseName;
                 this.$store.state.app.singlePurseMoreTrigger = null;
+
+                let vm = this;
+                setTimeout(function () {
+                    let txtPurseName = document.getElementById('txtPurseName-' + vm.purse.purse);
+                    if (txtPurseName) {
+                        txtPurseName.select();
+                    }
+                }, 50);
             },
             send(){
                 let sendContent = {
