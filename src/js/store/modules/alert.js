@@ -99,6 +99,9 @@ export default {
                 );
 
                 notification.onclick = function(event) {
+                    window.focus();
+                    this.cancel();
+
                     rootState.app.visibleNotification = true;
                     event.preventDefault(); // prevent the browser from focusing the Notification's ta
                     // window.open('https://api.zarinpal.dev/panelw/index.html/panel/home', '_blank');

@@ -45,7 +45,7 @@ export default {
                 ctx.beginPath();
                 ctx.strokeStyle = "#838383";
                 ctx.lineWidth = 3;
-//                ctx.lineCap = 'round';
+                ctx.lineCap = 'round';
                 ctx.arc(46, 46, 42, radians + 1.5 * Math.PI + gap, (1.5 * Math.PI) - gap);
                 ctx.stroke();
                 ctx.save();
@@ -62,7 +62,6 @@ export default {
 
                 ctx.strokeStyle = "#89E000";
                 ctx.lineWidth = 5;
-                ctx.lineCap = 'round';
                 ctx.arc(46, 46, 42, 1.5 * Math.PI, radians + 1.5 * Math.PI);
                 ctx.stroke();
                 ctx.save();
@@ -100,7 +99,7 @@ export default {
                     ctx.fillStyle = '#ffd600';
                     ctx.fill();
                     ctx.fillStyle = '#000';
-                    ctx.font = "11px IRANSansLight";
+                    ctx.font = "11px IRANSans";
                     ctx.fillText(vm.numberToFarsi(percent) + "%", 95, 24);
                 } else {
 
