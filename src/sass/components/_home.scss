@@ -87,11 +87,15 @@
 
         > p {
           .nav-edit-wallet {
-
+            form {
+              display: inline;
+              margin-right: 5px;
+            }
             .txt-wallet-name {
               border: none;
               background-color: #fff;
               width: 60px;
+              outline: none;
             }
 
             span {
@@ -103,7 +107,14 @@
             }
 
             .save {
+              font-size: 12px;
+              padding: 4px 6px;
+              border-radius: 3px;
+              margin: 4px;
+              cursor: pointer;
               color: #4AD27F;
+              background: transparent;
+              box-shadow: none;
             }
 
             .cancel {
@@ -126,7 +137,7 @@
 
             .cancel, .save {
               &:active {
-                background-color: #D2D2D2;
+                background-color: #D2D2D2 !important;
               }
             }
           }

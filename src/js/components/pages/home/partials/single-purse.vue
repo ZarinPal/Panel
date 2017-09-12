@@ -17,9 +17,10 @@
                                 span.header-title.hand(v-if="!isEditingPurseName" @click="toggleEditPurse($event)") {{ purse.name }}
 
                             span.nav-edit-wallet(v-if="isEditingPurseName")
-                                input.txt-wallet-name(:id="'txtPurseName-' + purse.purse"  onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
-                                span.save(@click="send()") {{ $i18n.t('common.save') }}
-                                span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
+                                form(autocomplete="on" onsubmit="event.preventDefault();")
+                                    input.txt-wallet-name(:id="'txtPurseName-' + purse.purse"  onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
+                                    button.save(@click="send()") {{ $i18n.t('common.save') }}
+                                    span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
 
 
                     div.left-box
