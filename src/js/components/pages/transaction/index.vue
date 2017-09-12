@@ -47,22 +47,23 @@
                     li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
 
 
-        div.row.transaction-fields-title(v-if="transactions.data.length")
-            div.col-lg-2.col-md-2.col-sm-3.hidden-xs
-                span {{ $i18n.t('transaction.id') }}
-            div.col-lg-3.col-md-3.col-sm-3.hidden-xs
-                span {{ $i18n.t('transaction.source') }}
-                span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
-            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.hidden-title-md.hidden-xs
-                span {{ $i18n.t('transaction.destination') }}
-            div.col-lg-2.col-md-3.col-sm-1.col-xs-12.hidden-xs
-                span {{ $i18n.t('transaction.date') }}
-            div.col-lg-1.col-md-2.col-sm-1.hidden-xs
-                span {{ $i18n.t('transaction.amount') }}
-                small ({{ $i18n.t('transaction.toman') }})
-            div.col-lg-1.col-md-2.col-sm-1.hidden-xs
-                span {{ $i18n.t('common.balance') }}
-                small ({{ $i18n.t('transaction.toman') }})
+        div.transaction-header-container
+            div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
+                div.col-lg-2.col-md-2.col-sm-3.hidden-xs
+                    span {{ $i18n.t('transaction.id') }}
+                div.col-lg-3.col-md-3.col-sm-3.hidden-xs
+                    span {{ $i18n.t('transaction.source') }}
+                    span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
+                div.col-lg-3.col-md-3.col-sm-3.col-xs-12.hidden-title-md.hidden-xs
+                    span {{ $i18n.t('transaction.destination') }}
+                div.col-lg-2.col-md-3.col-sm-1.col-xs-12.hidden-xs
+                    span {{ $i18n.t('transaction.date') }}
+                div.col-lg-1.col-md-2.col-sm-1.hidden-xs
+                    span {{ $i18n.t('transaction.amount') }}
+                    small ({{ $i18n.t('transaction.toman') }})
+                div.col-lg-1.col-md-2.col-sm-1.hidden-xs
+                    span {{ $i18n.t('common.balance') }}
+                    small ({{ $i18n.t('transaction.toman') }})
 
 
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
@@ -153,6 +154,7 @@
             let vm = this;
 
             window.onscroll = function(ev) {
+                //load more transaction if end of page
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
                     && !vm.$store.state.paginator.paginator.TransactionList.isLoading) {
                     vm.$store.dispatch(
@@ -162,6 +164,16 @@
                         }
                     );
                 }
+
+                //fix transaction title on scroll
+//                let transactionHeader = document.getElementById('transactionsHeader');
+//                if(window.scrollY > 390) {
+//                    transactionHeader.classList.remove("fix-transaction-header");
+//                    transactionHeader.className += " fix-transaction-header";
+//                } else {
+//                    transactionHeader.classList.remove("fix-transaction-header");
+//                }
+
             };
             this.showStandAloneTransaction();
         },

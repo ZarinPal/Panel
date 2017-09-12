@@ -222,8 +222,8 @@
 
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
-                        this.loginLoading = false;
                         this.$store.commit('app/ready');
+                        this.loginLoading = false;
                         this.$router.push({name: 'home.index'});
                     }, (response) => {
                         this.loginLoading = false;

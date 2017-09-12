@@ -53,11 +53,25 @@
   text-align: center;
   color: $labelColor;
   font-size: 13px;
+  transition: $animateTime;
 }
 
 .trans-float-destination-title{
   display: none;
   margin: 0 5px;
+}
+
+.fix-transaction-header{
+  position: fixed;
+  background-color: #ffffff;
+  top: 0;
+  transition: $animateTime;
+  padding: 10px 0;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .transaction-row{
