@@ -5,7 +5,9 @@
                 p.page-title {{ $i18n.t('easypay.editEasyPay') }}
                 p.page-description {{ $i18n.t('easypay.editEasyPayDescription') }}
 
-        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay
+        loading(v-if="!isLoadedEasypay")
+
+        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay(:class="{'inactive-step': !isLoadedEasypay}" )
             form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.box
                     <!--1-->
@@ -86,21 +88,21 @@
                                         div.row.f-row
                                             div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
                                                 div.ta-right
-                                                    input(name="email-optional" v-model="requiredFields.email" type="checkbox" id="chkEmail")
+                                                    input(type="checkbox" name="email-optional" v-model="requiredFields.email.checkbox" id="chkEmail")
                                                     label(for="chkEmail")
                                                         span
                                                         |{{ $i18n.t('common.email')}}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.email")
+                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.email.checkbox")
                                                 div.row
                                                     div.col-xs.ta-right
-                                                        input(name="email-optional" v-model="requiredFields.email" value="0" type="radio" id="rdoEmailOptional")
+                                                        input(name="email-optional" v-model="requiredFields.email.radio" value="0" type="radio" id="rdoEmailOptional")
                                                         label(for="rdoEmailOptional")
                                                             span
                                                             |{{ $i18n.t('easypay.optional')}}
 
                                                     div.col-xs.ta-right
-                                                        input(name="email-optional" v-model="requiredFields.email" value="1" type="radio" id="rdoEmailMandatory")
+                                                        input(name="email-optional" v-model="requiredFields.email.radio" value="1" type="radio" id="rdoEmailMandatory")
                                                         label(for="rdoEmailMandatory")
                                                             span
                                                             |{{ $i18n.t('easypay.mandatory')}}
@@ -109,21 +111,21 @@
                                         div.row.f-row
                                             div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
                                                 div.ta-right
-                                                    input(name="usernameOptional" v-model="requiredFields.name" type="checkbox" id="chkUserName")
+                                                    input(name="usernameOptional" v-model="requiredFields.name.checkbox" type="checkbox" id="chkUserName")
                                                     label(for="chkUserName")
                                                         span
                                                         |{{ $i18n.t('easypay.username')}}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.name")
+                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.name.checkbox")
                                                 div.row
                                                     div.col-xs.ta-right
-                                                        input(name="usernameOptional" v-model="requiredFields.name" value="0" type="radio" id="rdoUsernameOptional")
+                                                        input(name="usernameOptional" v-model="requiredFields.name.radio" value="0" type="radio" id="rdoUsernameOptional")
                                                         label(for="rdoUsernameOptional")
                                                             span
                                                             |{{ $i18n.t('easypay.optional')}}
 
                                                     div.col-xs.ta-right
-                                                        input(name="usernameOptional" v-model="requiredFields.name" value="1" type="radio" id="rdoUsernameMandatory")
+                                                        input(name="usernameOptional" v-model="requiredFields.name.radio" value="1" type="radio" id="rdoUsernameMandatory")
                                                         label(for="rdoUsernameMandatory")
                                                             span
                                                             |{{ $i18n.t('easypay.mandatory')}}
@@ -132,21 +134,21 @@
                                         div.row.f-row
                                             div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
                                                 div.ta-right
-                                                    input(name="mobileOptional" v-model="requiredFields.mobile"  type="checkbox"  id="chkMobile")
+                                                    input(name="mobileOptional" v-model="requiredFields.mobile.checkbox"  type="checkbox"  id="chkMobile")
                                                     label(for="chkMobile")
                                                         span
                                                         |{{ $i18n.t('easypay.mobile') }}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.mobile")
+                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.mobile.checkbox")
                                                 div.row
                                                     div.col-xs.ta-right
-                                                        input(name="mobileOptional" v-model="requiredFields.mobile" value="0" type="radio" id="rdoMobileOptional")
+                                                        input(name="mobileOptional" v-model="requiredFields.mobile.radio" value="0" type="radio" id="rdoMobileOptional")
                                                         label(for="rdoMobileOptional")
                                                             span
                                                             |{{ $i18n.t('easypay.optional')}}
 
                                                     div.col-xs.ta-right
-                                                        input(name="mobileOptional" v-model="requiredFields.mobile" value="1" type="radio" id="rdoMobileMandatory")
+                                                        input(name="mobileOptional" v-model="requiredFields.mobile.radio" value="1" type="radio" id="rdoMobileMandatory")
                                                         label(for="rdoMobileMandatory")
                                                             span
                                                             |{{ $i18n.t('easypay.mandatory')}}
@@ -228,12 +230,15 @@
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
+    import loading from '../../partials/loading.vue';
 
     export default {
         name: 'pages-easypay-partials-edit',
         data() {
             return {
                 loading: false,
+                isLoadedEasypay: false,
+                easypay: {},
                 fileHover: '',
                 visibleEmail: '',   //  visible email options
                 messages: {},
@@ -242,9 +247,18 @@
                 price: '',
                 purse: null,
                 requiredFields: {
-                    email: false,
-                    name: false,
-                    mobile: false
+                    email: {
+                        checkbox:false,
+                        radio:0,
+                    },
+                    name: {
+                        checkbox:false,
+                        radio:0,
+                    },
+                    mobile: {
+                        checkbox:false,
+                        radio:0,
+                    }
                 },
                 type: 0,
                 showReceipt: '',
@@ -254,38 +268,10 @@
                 limit: '',
             }
         },
-        created() {
-            this.title = this.easypay.title;
-            this.price = this.easypay.price;
-            this.description = this.easypay.description;
-            this.purse = this.easypay.purse;
-
-            this.requiredFields.email = this.easypay.required_fields.email;
-            this.requiredFields.mobile = this.easypay.required_fields.mobile;
-            this.requiredFields.name = this.easypay.required_fields.name;
-
-            if (
-                this.easypay.show_receipt ||
-                this.easypay.successful_redirect_url ||
-                this.easypay.failed_redirect_url || this.easypay.limit
-            ) {
-                this.type = 1;
-            } else {
-                this.type = 0
-            }
-            this.successfulRedirectUrl = this.easypay.successful_redirect_url;
-            this.failedRedirectUrl = this.easypay.failed_redirect_url;
-            this.limit = this.easypay.limit;
-
-            this.handleOrderOptions('email');
-            this.handleOrderOptions('mobile');
-            this.handleOrderOptions('name');
-            this.handleShowReceipt();
-        },
         computed: {
-            easypay() {
-                return _.find(this.$store.state.auth.user.easypays, {'entity_id': this.$route.params.public_id});
-            },
+//            easypay() {
+//                return _.find(this.$store.state.paginator.paginator.EasypayList.data, {'entity_id': this.$route.params.public_id});
+//            },
             pursesSelection() {
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
@@ -300,16 +286,49 @@
                 return this.$store.state.alert.validationErrors;
             },
         },
+        created() {
+            this.getEasypay();
+        },
         methods: {
             selectedPurse(purseId) {
                 this.purse = purseId;
             },
+            getEasypay() {
+                this.$store.state.http.requests['easypay.getShow'].get({'easypay_id' : this.$route.params.public_id}).then(
+                    (response) => {
+                        this.easypay = response.data.data;
+
+                        this.title = response.data.data.title;
+                        this.price = response.data.data.price;
+                        this.description = response.data.data.description;
+                        this.purse = response.data.data.purse;
+
+                        if (
+                            response.data.data.show_receipt ||
+                            response.data.data.successful_redirect_url ||
+                            response.data.data.failed_redirect_url ||
+                            response.data.data.limit
+                        ) {
+                            this.type = 1;
+                        } else {
+                            this.type = 0
+                        }
+                        this.successfulRedirectUrl = response.data.data.successful_redirect_url;
+                        this.failedRedirectUrl = response.data.data.failed_redirect_url;
+                        this.limit = response.data.data.limit;
+
+                        this.handleOrderOptions('email');
+                        this.handleOrderOptions('mobile');
+                        this.handleOrderOptions('name');
+                        this.handleShowReceipt();
+                        this.isLoadedEasypay = true;
+                    },() => {
+                        this.isLoadedEasypay = true;
+                    }
+                );
+            },
             editEasypay() {
                 this.loading = true;
-
-                this.handleOrderOptionsSave('email');
-                this.handleOrderOptionsSave('mobile');
-                this.handleOrderOptionsSave('name');
                 this.handleShowReceiptSave();
 
                 let price = this.price;
@@ -331,9 +350,9 @@
                     price: price,
                     purse: this.purse,
                     required_fields: {
-                        email: this.requiredFields.email,
-                        name: this.requiredFields.name,
-                        mobile: this.requiredFields.mobile
+                        email: this.handleOrderOptionsSave('email'),
+                        name: this.handleOrderOptionsSave('name'),
+                        mobile: this.handleOrderOptionsSave('mobile')
                     },
                     type: this.type,
                     show_receipt: this.showReceipt,
@@ -351,6 +370,7 @@
                     ()=> {
                         this.loading = false;
                         this.changeEasypayState();
+                        store.commit('clearValidationErrors');
                         this.$router.push({name: 'easypay.index'});
                     },
                     (response) => {
@@ -365,38 +385,29 @@
                 );
             },
             handleOrderOptions(requireFieldName) {
-                switch(this.requiredFields[requireFieldName])
-                {
-                    case '-1':
-                    case 'hidden':
-                        this.requiredFields[requireFieldName] = false;
-                        break;
-
-                    case 'optional':
-                        this.requiredFields[requireFieldName] = 0;
-                        break;
-
-                    case 'required':
-                        this.requiredFields[requireFieldName] = 1;
-                        break;
-                }
+                let orderStates = {
+                    hidden:{
+                        checkbox:false,
+                        radio:0,
+                    },
+                    optional:{
+                        checkbox:true,
+                        radio:0,
+                    },
+                    required:{
+                        checkbox:true,
+                        radio:1,
+                    },
+                };
+                return this.requiredFields[requireFieldName] =
+                    orderStates[this.easypay.required_fields[requireFieldName]];
             },
             handleOrderOptionsSave(requireFieldName) {
-                switch(this.requiredFields[requireFieldName])
-                {
-                    case false:
-                    case 'hidden':
-                        this.requiredFields[requireFieldName] = -1;
-                        break;
-
-                    case 'optional':
-                        this.requiredFields[requireFieldName] = 0;
-                        break;
-
-                    case 'required':
-                        this.requiredFields[requireFieldName] = 1;
-                        break;
+                if(this.requiredFields[requireFieldName].checkbox){
+                    return parseInt(this.requiredFields[requireFieldName].radio)
                 }
+                return -1;
+
             },
             handleShowReceipt() {
                 if (this.easypay.show_receipt === 1 || this.easypay.show_receipt === true) {
@@ -425,7 +436,6 @@
                 } else {
                     this.type = 0;
                 }
-
 
                 if (this.limited === false || this.limited === 0) {
                     this.limited = 0;
@@ -456,7 +466,8 @@
         },
         components: {
             selectbox,
-            purse
+            purse,
+            loading
         }
     }
 
