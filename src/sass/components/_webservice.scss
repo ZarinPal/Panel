@@ -179,6 +179,17 @@
 }
 
 //Active Zarin Gate
+
+.zarin-gate{
+  .body-bottom{
+    .ta-right,
+    .ta-left{
+      margin: 10px 0 0 0 !important;
+      padding: 0 !important;
+    }
+  }
+}
+
 .read-description{
   color: #4689FF;
   display: inline-block;
@@ -214,5 +225,13 @@
     font-size: 13px;
     color: $labelColor;
     text-align: right;
+  }
+
+  .body-bottom{
+    .ta-right,
+    .ta-left{
+      margin: 10px 0 0 0 !important;
+      padding: 0 !important;
+    }
   }
 }

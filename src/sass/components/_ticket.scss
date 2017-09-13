@@ -370,13 +370,19 @@ $plusIcon: $icon-zp-add;
 .nav-ticket-create {
   background-color: #FFFFFF;
   box-shadow: $boxShadow;
+  border-radius: $boxBorderRadiusSize;
   padding: 20px;
+  margin-top: 10px;
 
+  .field-row{
+    .field-box{
+      margin-bottom: 10px;
+    }
+  }
 
   .right-box{
     textarea{
       width: 100%;
-      margin-top: 10px;
       min-height: 132px;
       max-height: 132px;
       resize: none;

@@ -1,5 +1,5 @@
 <template lang="pug">
-    modal.create-purse(v-on:closeModal="closeModal()")
+    modal.zarin-gate(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('webservice.activeZarinGate') }}
         div(slot="content")
             div.row
@@ -19,12 +19,12 @@
                 div.ta-right(v-if="validationErrors.purse")
                     span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
-            div.row
-                div.col-xs.no-margin.ta-right
+            div.row.body-bottom
+                div.col-lg-9.col-md-12.col-sm-12.col-xs-12.ta-right
                     loading(v-if="getPriceLoading" v-bind:width="20" v-bind:height="20")
                     span.persian-num.activation-price(v-else)  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
 
-                div.no-margin
+                div.col-lg-3.col-md-12.col-sm-12.col-xs-12.ta-left
                     button.btn.success.pull-left(v-ripple="" @click="activeZarinGate") {{$i18n.t('webservice.activeZarinGateSubmit')}}
                         svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")

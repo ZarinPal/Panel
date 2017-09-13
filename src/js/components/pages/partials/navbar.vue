@@ -14,7 +14,7 @@
             a.notification.notification-fill(v-if="notifications.data.length >= 1" v-ripple="" id="btnNotification" @click="toggleNotification()" title="اعلانات")
             a.notification.notification-empty(v-else v-ripple="" id="btnNotification" @click="toggleNotification()" title="اعلانات")
             span.notification-lamp(v-if="notifications.data.length")
-            span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")
+            <!--span.reload.circle-hover(v-ripple="" @click="reload" title="بروز رسانی")-->
 
             profile-dropdown(id="navProfileDropdown" v-click-outside="closeFromOutside" v-if="visibleProfileDropdown")
 

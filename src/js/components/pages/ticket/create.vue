@@ -1,24 +1,24 @@
 <template lang="pug">
     div.inner-content
         div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 p.page-title {{ $i18n.t('common.tickets') }}
                 p.page-description {{ $i18n.t('ticket.sendDescription') }}
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'}") {{ $i18n.t('common.returnToDashboard') }}
 
         div.nav-ticket-create.col-lg-12.col-xs-12
             form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
                     div.right-box.col-lg-7.col-md-6.col-sm-12.col-xs-12
-                        div.row
-                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12
+                        div.row.field-row
+                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12.field-box
                                 input.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.title}" v-model="title" type="text"  placeholder="عنوان تیکت" tabindex="1")
                                 div.ta-right(v-if="validationErrors.title")
                                     span.text-danger {{ $i18n.t(validationErrors.title) }}
 
 
-                            div.col-lg-5.col-md-5.col-sm-12.col-xs-12
+                            div.col-lg-5.col-md-5.col-sm-12.col-xs-12.field-box
                                 selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.ticket_department_id}" v-on:select="selectDepartment" v-bind:selected="priority" v-bind:data="departmentSelection" placeholder="دپارتمان" tabindex="2")
                                 div.ta-right(v-if="validationErrors.ticket_department_id")
                                     span.text-danger {{ $i18n.t(validationErrors.ticket_department_id) }}
@@ -30,8 +30,8 @@
                                 span.text-danger {{ $i18n.t(validationErrors.content) }}
 
 
-                    div.left-box.col-lg-5.col-md-6.col-sm-12.col-xs-12
-                        div.row
+                    div.left-box.col-lg-5.col-md-6.col-sm-12.col-xs-12.field-row
+                        div.row.field
                             div
                                 span.label {{$i18n.t('ticket.priority')}}:
                             div.col-xs.nav-picker

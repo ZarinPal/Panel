@@ -43,8 +43,8 @@
                             div.col-xs
                                 span.title مبلغ کارمزد
                             div.col-xs.left-box
-                                div(v-if="feeDetails.details") {{ feeDetails.details.percent  | persianNumbers}} درصد
-                                div(v-if="feeDetails.details") {{ withdrawAmount / 100  | numberFormat | persianNumbers }} تومان
+                                div(v-if="feeDetails.details") {{ feeDetails.details.percent | numberFormat| persianNumbers}} %
+                                div(v-if="feeDetails.details") {{ withdrawAmount | numberFormat | persianNumbers }} تومان
 
                         div.fee-description
                             span {{ selectedFee.description }}
@@ -119,9 +119,9 @@
             },
             calcPercentAmount() {
                 if(/,/g.test(this.amount)) {
-                    this.withdrawAmount = this.amount.replace(/,/g, "") * this.feeDetails.details.percent
+                    this.withdrawAmount = (this.amount.replace(/,/g, "") * (this.feeDetails.details.percent / 100)).toFixed(0)
                 } else {
-                    this.withdrawAmount = this.amount * this.feeDetails.details.percent;
+                    this.withdrawAmount = (this.amount * (this.feeDetails.details.percent / 100)).toFixed(0);
                 }
             },
             calcFeeDate(seconds) {
@@ -137,6 +137,7 @@
                 this.purseId = purseId;
                 //get purse amount
                 this.getPurseAmount(purseId);
+                this.calcPercentAmount();
             },
             selectedCard(cardId) {
                 this.card.id = cardId;

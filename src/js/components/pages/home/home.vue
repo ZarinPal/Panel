@@ -1,32 +1,36 @@
 <template lang="pug">
     div.inner-content
-        div.nav-top-buttons.ta-center
-            button.btn-gradient-radius(v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
-                i.btn-icon.withdraw
-                span.btn-label تسویه حساب
-
-            router-link.btn-gradient-radius(v-ripple="" tag="button" v-bind:to="{ name: 'requestMoney.index'}")
-                i.btn-icon.request-money
-                span.btn-label {{ $i18n.t('common.dangiDongi') }}
-
-            button.btn-gradient-radius(v-ripple="" @click="visibleAddFund = !visibleAddFund")
-                i.btn-icon.add-fund
-                span.btn-label {{ $i18n.t('purse.addFund') }}
-
-            button.btn-gradient-radius(v-ripple="" @click="visiblePtop = !visiblePtop")
-                i.btn-icon.ptop
-                span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
-
-            <!--button.btn-gradient-radius.zarin-card(v-ripple="")-->
-                <!--span.btn-label درخواست زرین‌کارت-->
-
-
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 p.page-title {{ $i18n.t('common.purses') }}
                 p.page-description {{ $i18n.t('common.pursesDescription') }}
 
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+                <!--button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")-->
+                    <!--span.icon-add-circle-->
+                    <!--span.text {{ $i18n.t('common.createPurse') }}-->
+
+
+        div.nav-top-buttons.row
+            div.col-lg-9.col-md-9.col-sm-12.col-xs-12.xs-ta-center.sm-ta-center
+                button.btn-gradient-radius(v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
+                    i.btn-icon.withdraw
+                    span.btn-label تسویه حساب
+
+                router-link.btn-gradient-radius(v-ripple="" tag="button" v-bind:to="{ name: 'requestMoney.index'}")
+                    i.btn-icon.request-money
+                    span.btn-label {{ $i18n.t('common.dangiDongi') }}
+
+                button.btn-gradient-radius(v-ripple="" @click="visibleAddFund = !visibleAddFund")
+                    i.btn-icon.add-fund
+                    span.btn-label {{ $i18n.t('purse.addFund') }}
+
+                button.btn-gradient-radius(v-ripple="" @click="visiblePtop = !visiblePtop")
+                    i.btn-icon.ptop
+                    span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
+            div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
+                <!--button.btn-gradient-radius.zarin-card(v-ripple="")-->
+                    <!--span.btn-label درخواست زرین‌کارت-->
                 button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
