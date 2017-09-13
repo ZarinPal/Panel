@@ -10,7 +10,7 @@
             enter-active-class="zoom-in"
             leave-active-class="zoom-out")
                 div.row.center-xs.modal-content(v-if="!closeModalContent" v-on:click.self="closeModal()")
-                    div.col-lg-5.col-md-5.col-sm-10.col-xs-10
+                    div.col-lg-5.col-md-5.col-sm-12.col-xs-12
                         div.header
                             span.icon-close(@click="closeModal()")
                             span.title

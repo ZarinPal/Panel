@@ -36,7 +36,10 @@
                         span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.address']) }}
 
                 div.col-lg-3.col-md-3.col-sm-12.col-xs-12(@click="visibleMap = true")
-                    div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+addressId+'.geo_location']}") {{ $i18n.t('user.positionOnTheMap') }}
+                    div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+addressId+'.geo_location'], 'has-geo-location': address.geo_location}")
+                        span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}
+                        span(v-else) {{address.geo_location | persianNumbers}}
+
                         span.input-icon.icon-location
                     div.ta-right(v-if="validationErrors['addresses.'+addressId+'.geo_location']")
                         span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.geo_location']) }}

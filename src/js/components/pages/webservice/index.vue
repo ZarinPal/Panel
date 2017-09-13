@@ -5,7 +5,7 @@
                 p.page-title {{ $i18n.t('common.webservices') }}
                 p.page-description {{ $i18n.t('webservice.webserviceDescription') }}
 
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+            div.col-lg-6.col-md-6.col-sm-12.col-xs-12.xs-ta-center
                 router-link.btn.success.pull-left(tag="button" v-bind:to="{ name: 'webservice.create'}")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createWebservice') }}
