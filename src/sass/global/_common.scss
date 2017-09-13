@@ -281,7 +281,7 @@ body{
             margin-right: 10px;
             height: 22px;
             overflow: hidden;
-            width: 80%;
+            width: 70%;
             position: relative;
             top: 5px;
           }
@@ -532,6 +532,8 @@ body{
   float: left;
   text-align: left !important;
   display: inline-block;
+  width: 70%;
+  overflow: hidden;
   margin-left: 10px;
   margin-top: 16px;
 }
@@ -786,11 +788,10 @@ body{
 //Confirm
 .confirm{
   .content{
-    padding: 10px;
     color: $labelColor;
     font-size: 13px;
   }
-  .nav-buttons{
+  .buttons{
     margin: 20px 0 0 0;
 
     .btn{

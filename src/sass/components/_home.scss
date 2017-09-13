@@ -1,5 +1,5 @@
 .nav-top-buttons{
-  margin: 20px 0;
+  margin-bottom: 20px;
   .btn-gradient-radius {
     background-color: #fff;
     border-radius: 60px;
@@ -71,6 +71,33 @@
       top: 0 !important;
     }
   }
+
+  .btn{
+    margin-top: 9px;
+    border-radius: 30px;
+
+    .text {
+      color: #fff;
+      font-size: 14px;
+      display: inline-block;
+      margin-top: -3px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .icon-add-circle{
+      display: inline-block;
+      font-size: 20px;
+      &:before{
+        content: $addCircleIcon;
+        font-family:'zarinpal';
+        color: #fff;
+        vertical-align: middle;
+        top: 3px;
+      }
+    }
+  }
+
 }
 
 //Box
