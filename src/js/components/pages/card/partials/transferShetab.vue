@@ -29,7 +29,7 @@
                                 span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
                         div.row.no-margin
-                            div.col-xs.no-left-margin
+                            div.col-xs.no-left-margin.nav-buttons
                                 button.btn.success.pull-left(v-ripple="" @click="confirmTransfer") {{ $i18n.t('purse.nextStep') }}
 
                 div.list(v-else)
@@ -60,7 +60,7 @@
                             div.col-xs.ta-left
                                 span.value {{this.amount | numberFormat | persianNumbers}}
 
-                        div.row.nav-buttons.no-left-margin
+                        div.row.nav-buttons.no-left-margin.nav-buttons
                             div.col-xs.no-margin
                                 button.btn.success.pull-left(v-ripple="" @click="acceptTransfer") {{ $i18n.t('purse.acceptTransfer') }}
                                     svg.material-spinner(v-if="transferCompelled" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")

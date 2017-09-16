@@ -182,19 +182,25 @@
                                                 div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
                                                     input(v-validate="{type: 'number'}" v-show="limited" type="text" v-model="limit" placeholder="تعداد")
 
+                                                div.col-lg-12.col-md-12.col-xs-12.nav-urls
+                                                    <!--Success redirect url-->
+                                                    div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.successful_redirect_url}")
+                                                        div.col-xs.no-margin
+                                                            input.input.ta-left(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
+                                                        div.no-margin.first-label
+                                                            span http://www.
+                                                    div.ta-right(v-if="validationErrors.successful_redirect_url")
+                                                        span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
 
-                                                div.col-lg-12.col-md-12.col-xs-12
-                                                    div.row.no-margin
-                                                        span.input-icon.globe-icon
-                                                        input(:class="{'input-danger': validationErrors.successful_redirect_url}" v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                                        div.ta-right(v-if="validationErrors.successful_redirect_url")
-                                                            span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+                                                    <!--Failed redirect url-->
+                                                    div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.failed_redirect_url}")
+                                                        div.col-xs.no-margin
+                                                            input.input.ta-left(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
+                                                        div.no-margin.first-label
+                                                            span http://www.
+                                                    div.ta-right(v-if="validationErrors.failed_redirect_url")
+                                                        span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
-                                                    div.row.no-margin
-                                                        span.input-icon.globe-icon
-                                                        input(:class="{'input-danger': validationErrors.failed_redirect_url}" v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                                        div.ta-right(v-if="validationErrors.failed_redirect_url")
-                                                            span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
                         div.row(v-bind:class="{'inactive-step' : step == 1}")
                             div.col-xs.nav-buttons
@@ -324,6 +330,12 @@
                 }
                 let price = this.price.replace(/,/g, "");
 
+                let successUrl = null, failedUrl = null;
+                if(this.type === 1 && this.successfulRedirectUrl && this.failedRedirectUrl) {
+                    successUrl = 'http://www.' + this.successfulRedirectUrl;
+                    failedUrl = 'http://www.' + this.failedRedirectUrl;
+                }
+
                 let easyPayData = {
                     isLoading: false,
                     title: this.title,
@@ -337,8 +349,8 @@
                     },
                     type: this.type,
                     show_receipt: this.showReceipt,
-                    successful_redirect_url: this.successfulRedirectUrl,
-                    failed_redirect_url: this.failedRedirectUrl,
+                    successful_redirect_url: successUrl,
+                    failed_redirect_url: failedUrl,
                     limited: this.limited,
                     limit: this.limit,
                 };

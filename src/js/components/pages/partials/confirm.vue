@@ -4,7 +4,7 @@
             slot(name="title")
         div.content(slot="content")
             slot(name="message")
-            div.ta-left.buttons
+            div.ta-left.buttons.xs-ta-center
                 button.btn(v-if="hasMessageDanger" v-ripple="" @click="closeModal()")
                     slot(name="messageDanger")
                 button.btn.success(v-if="hasMessageSuccess" v-ripple="" @click="confirmed()")

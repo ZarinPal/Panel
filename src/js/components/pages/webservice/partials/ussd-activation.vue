@@ -18,7 +18,7 @@
                         div.no-margin.last-label
                             span #
                         div.col-xs.no-margin
-                            input.input.ta-left(v-validate="{type: 'number'}" type="text" v-model="ussdId" placeholder="کد دستوری(ussd)" autofocus tabindex="1")
+                            input.input.ta-left(v-validate="{type: 'number'}" maxlength="5" type="text" v-model="ussdId" placeholder="کد دستوری(ussd)" autofocus tabindex="1")
                         div.no-margin.first-label
                             span *788*97*
                 div.ta-right(v-if="validationErrors.ussd_id")

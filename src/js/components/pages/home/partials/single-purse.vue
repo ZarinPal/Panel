@@ -18,13 +18,13 @@
 
                             span.nav-edit-wallet(v-if="isEditingPurseName")
                                 form(autocomplete="on" onsubmit="event.preventDefault();")
-                                    input.txt-wallet-name(:id="'txtPurseName-' + purse.purse"  onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
+                                    input.txt-wallet-name(:id="'txtPurseName-' + purse.purse" onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
                                     button.save(@click="send()") {{ $i18n.t('common.save') }}
                                     span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
 
 
                     div.left-box
-                        span.icon-more.circle-hover(@click="changeMoreTriggerOn()" id="btnMoreIcon")
+                        <!--span.icon-more.circle-hover(@click="changeMoreTriggerOn()" id="btnMoreIcon")-->
                         transition( name="bounce"
                                     enter-active-class="drop-down-show"
                                     leave-active-class="drop-down-hide")
