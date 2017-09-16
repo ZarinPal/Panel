@@ -108,8 +108,15 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
                     this.$store.state.http.requests['easypay.getShow'].remove(params).then(
                         () => {
-                            let easypayId = _.findIndex(this.$store.state.auth.user.easypays, {'entity_id': this.easypay.entity_id});
-                            this.$store.state.auth.user.easypays.splice(easypayId, 1);
+                            let easypayIndex = _.findIndex(this.$store.state.paginator.paginator.EasypayList.data, {'entity_id': this.easypay.entity_id});
+                            this.$store.state.paginator.paginator.EasypayList.data.splice(easypayIndex, 1);
+                            this.$store.state.paginator.update ++;
+
+                            store.commit('flashMessage', {
+                                text: 'easypay deleted',
+                                important: false,
+                                type: 'success'
+                            });
                         },
                         (response) => {
                             store.commit('flashMessage', {

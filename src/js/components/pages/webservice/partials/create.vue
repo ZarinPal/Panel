@@ -124,7 +124,7 @@
                     ()=> {
                         store.commit('flashMessage',{
                             text: 'ticket-new-webservice',
-                            type: 'danger'
+                            type: 'success'
                         });
                         this.$router.push({name: 'webservice.index'})
                     },

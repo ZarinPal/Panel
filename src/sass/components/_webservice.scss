@@ -181,6 +181,13 @@
 //Active Zarin Gate
 
 .zarin-gate{
+  .create-description{
+    font-size: 13px;
+    color: $labelColor;
+    text-align: right;
+    margin: 10px 6px;
+  }
+
   .body-bottom{
     .ta-right,
     .ta-left{
