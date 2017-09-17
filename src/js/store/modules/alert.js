@@ -99,9 +99,6 @@ export default {
                 );
 
                 notification.onclick = function(event) {
-                    window.focus();
-                    this.cancel();
-
                     rootState.app.visibleNotification = true;
                     parent.focus();
                     window.focus();
