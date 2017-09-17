@@ -891,6 +891,20 @@ body {
   }
 }
 
+#to-silver-level-link {
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 10px;
+
+  span {
+    color: #2ecc71;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  span:hover {
+    color: #056c31;
+  }
+}
 @media (max-width: $mobileSize) {
   .main-content{
     padding-right: 10px !important;
