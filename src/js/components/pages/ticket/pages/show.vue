@@ -24,7 +24,7 @@ span
                 button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
 
 
-    div.replies#replies
+    div.replies
         div.col-xs.ta-center
             loading(v-if="isLoadReplies")
         span(v-for="reply in ticket.replies")
@@ -145,12 +145,11 @@ span
                     ticket = data.data;
                     this.ticket = ticket.data;
 
-//                    setTimeout(function() {
-//                        let replies = document.getElementById("replies");
-//                        replies.scrollTop = '2400px';//replies.scrollHeight;
-//                        console.log(replies.scrollHeight);
-//                    }, 1000);
-
+                    setTimeout(function() {
+                        let replies = document.getElementById("navTickets");
+                        replies.scrollTop = replies.scrollHeight;
+                        console.log(replies);
+                    }, 10);
                 });
             },
             send() {

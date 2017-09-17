@@ -307,7 +307,8 @@
     "transaction": "تراکنش ها",
     "user": "کاربر",
     "report": "گزارشات",
-    "requestMoney": "درخواست وجه"
+    "requestMoney": "درخواست وجه",
+    "transactionsession": "سشن‌های پرداخت"
   },
   "purse": {
     "addPurseTitle": "افزودن کیف پول",
