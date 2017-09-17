@@ -203,6 +203,8 @@
                         this.validationErrors = null;
                     },
                     (response) => {
+                        this.step = 1;
+                        this.transferCompelled = false;
                         this.requesting = false;
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
