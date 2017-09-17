@@ -13,7 +13,7 @@ let mix = require('laravel-mix');
 
 mix.js('src/js/app.js', 'js')
     .sass('src/sass/app.scss', 'css')
-    .sass('src/sass/oauth/app.scss', 'css/oauth');
+    .sass('src/sass/oauth/app.scss', 'css/oauth.css');
     // .copyDirectory('src/img', 'assets/img');
 
 // Full API

@@ -21,7 +21,17 @@
     "real": "حقیقی",
     "pending": "در انتظار تایید",
     "inActive": "رد شده",
-    "expired": "منقضی"
+    "expired": "منقضی",
+    "noDescription": "بدون توضیحات",
+    "cardBalance": "موجودی کارت",
+    "srcAccountNumber": "شماره کارت مبدا",
+    "distCardNumber": "شماره کارت مقصد",
+    "exporterBank": "بانک صادر کننده",
+    "distAccountOwnerName": "نام صاحب حساب مقصد",
+    "accountOwnerName": "نام صاحب حساب",
+    "distAccountNumber": "شماره حساب مقصد",
+    "refrenceNumber": "شماره مرجع",
+    "amount": "مقدار"
   },
   "common": {
     "send": "ارسال",
