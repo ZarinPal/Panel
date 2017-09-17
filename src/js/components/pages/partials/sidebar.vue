@@ -14,7 +14,7 @@
                 zpId(v-bind:data="user")
 
                 router-link(tag="div" v-if="user.level < 2" id="to-silver-level-link" v-bind:to="{ name: 'home.index'}")
-                    span  ارتقا به سطح نقره ای
+                    span  {{ $i18n.t('common.UpgradeToSilverLevel') }}
 
                 ul
                     router-link(@click.native="toggleMobileSidebar(false, 'home')" v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'home'}" :title="$i18n.t('panel.home')")
