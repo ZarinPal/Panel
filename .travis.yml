@@ -1,8 +1,8 @@
-os:
-  - osx
+#os:
+#  - osx
 sudo: required
 language: node_js
-osx_image: xcode8.2
+#osx_image: xcode8.2
 node_js:
   - stable
 notifications:
@@ -13,15 +13,15 @@ script:
     - ./compiler.sh
 before_install:
     - openssl aes-256-cbc -K $encrypted_f76f5a82bf43_key -iv $encrypted_f76f5a82bf43_iv -in ssh-key.enc -out .ssh-key -d
-after_success:
-    - travis_wait 30 ./app/build/desktop_app_compiler.sh
-deploy:
-  provider: releases
-  api_key:
-    secure: efqa8kWCiXfu+9Qp9q1xxe+LcXDwybnsaU7I12QVZzLBWnj8+G5fUP+ORr25dj0HYo0HzKJJ3CdVQmqLLS5t8SEJ39ZqahNd0EuHwDec19xSGhuX1NIMZn7C3if4GsWh9ogkruYwiaSjel6JBkJGAvr+SV46Hh5hGWZ8aUBx8B5RvnVyyZG0pbPGety07AmLApon+fFE8dZmdywLDkdx+p3ztXB8p+6gTd4GrGacPC47ru4TcRUqkvfbGcns6/TbJi1lxdnPJY3a+Kngh4auP9G9K8omjVE0Pl1nasUGNDpoxvrDnzj/t/Voow3qYzIwBoaL7w/AItsUSEmwvN5raGIdzG0AQjt7xtDnCrbv6ftZStL6bGMmL3u+n7QDk1SloKCr450e5QHdOoY4uTJ1EaSJw52vWAnx+M3RPWX0b+8FD4evpo+VkTU1S/uwnWzNBoP9UVPTkrKAkWpmmGpH1c5mqyNNuBe6dufzZRIy1ZRV8XBgYZOAvhtlOkIiuHpYvLQbn0uyfdJ0wihs4FrmhAtPCN155cc7QvHIvY8tjEQ435wtVHow4ldkOPu3NhDCl7/ulEcoaqmWbHgVRqmGuYRybTHLXA25mocYkrjNMYOh5ZM5V9d+9fkDpy+2gLJAWOXKrqF765OSItYx7UBggiNYuCm2QkqFlGz6KVGvjP4=
-  file_glob: true
-  file: app/dist/*
-  skip_cleanup: true
-  on:
-    repo: ZarinPal/Panel
-    tags: true
+#after_success:
+#    - travis_wait 30 ./app/build/desktop_app_compiler.sh
+#deploy:
+#  provider: releases
+#  api_key:
+#    secure: efqa8kWCiXfu+9Qp9q1xxe+LcXDwybnsaU7I12QVZzLBWnj8+G5fUP+ORr25dj0HYo0HzKJJ3CdVQmqLLS5t8SEJ39ZqahNd0EuHwDec19xSGhuX1NIMZn7C3if4GsWh9ogkruYwiaSjel6JBkJGAvr+SV46Hh5hGWZ8aUBx8B5RvnVyyZG0pbPGety07AmLApon+fFE8dZmdywLDkdx+p3ztXB8p+6gTd4GrGacPC47ru4TcRUqkvfbGcns6/TbJi1lxdnPJY3a+Kngh4auP9G9K8omjVE0Pl1nasUGNDpoxvrDnzj/t/Voow3qYzIwBoaL7w/AItsUSEmwvN5raGIdzG0AQjt7xtDnCrbv6ftZStL6bGMmL3u+n7QDk1SloKCr450e5QHdOoY4uTJ1EaSJw52vWAnx+M3RPWX0b+8FD4evpo+VkTU1S/uwnWzNBoP9UVPTkrKAkWpmmGpH1c5mqyNNuBe6dufzZRIy1ZRV8XBgYZOAvhtlOkIiuHpYvLQbn0uyfdJ0wihs4FrmhAtPCN155cc7QvHIvY8tjEQ435wtVHow4ldkOPu3NhDCl7/ulEcoaqmWbHgVRqmGuYRybTHLXA25mocYkrjNMYOh5ZM5V9d+9fkDpy+2gLJAWOXKrqF765OSItYx7UBggiNYuCm2QkqFlGz6KVGvjP4=
+#  file_glob: true
+#  file: app/dist/*
+#  skip_cleanup: true
+#  on:
+#    repo: ZarinPal/Panel
+#    tags: true
