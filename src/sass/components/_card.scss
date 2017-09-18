@@ -574,6 +574,8 @@ $disableToColor: #eee;
   }
 
   .nav-buttons {
+    margin-bottom: -5px !important;
+    padding: 0 !important;
     .btn {
       margin-right: 10px;
     }
@@ -592,6 +594,10 @@ $disableToColor: #eee;
     background-color: #F2F3F5;
     padding: 15px;
     margin: 0 -20px -20px -20px;
+  }
+
+  .nav-buttons{
+    margin-bottom: -5px !important;
   }
 }
 

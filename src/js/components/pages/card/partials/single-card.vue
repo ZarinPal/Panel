@@ -67,17 +67,17 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section
 
         div.bottom-xs.box-footer
             div.row
-                div.col-xs(v-if="card.status !== 'Expired' && card.status !== 'InActive'")
+                div.col-xs(v-if="card.status !== 'InActive'")
                     span.edit-bank-account(v-if="!card.is_legal && card.account_id && card.issuer.slug != 'ZarinCard'" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
                     span.edit-bank-account.not-allowed(v-if="card.is_legal && card.account_id && card.issuer.slug != 'ZarinCard'") {{ $i18n.t('card.editBankAccount')}}
 
-                    span.statement-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showZarinCardStatement = true" ) مشاهده گردش حساب
-                    span.shetab-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showTransferShetab = true" ) انتقال وجه شتابی
+                    span.statement-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showZarinCardStatement = true" ) {{ $i18n.t('common.getBalance')}}
+                    span.shetab-icon(v-if="card.issuer.slug == 'ZarinCard'" @click="showTransferShetab = true" ) {{ $i18n.t('purse.shetabMoneyTransfer')}}
 
                 div.col-xs(v-else)
-                    span.edit-bank-account.not-allowed(v-if="card.issuer.slug != 'ZarinCard'") {{ $i18n.t('card.editBankAccount')}}
-                    span.statement-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") مشاهده گردش حساب
-                    span.shetab-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") انتقال وجه شتابی
+                    span.edit-bank-account.not-allowed(v-if="card.issuer.slug != 'ZarinCsard'") {{ $i18n.t('card.editBankAccount')}}
+                    span.statement-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard' && card.status != 'Expired'")  {{ $i18n.t('common.getBalance')}}
+                    span.shetab-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard' && card.status != 'Expired'") {{ $i18n.t('purse.shetabMoneyTransfer')}}
 
     <!--Modals-->
     editCard(v-if="showEditCard" v-on:closeModal="closeModal()" v-bind:card="card")

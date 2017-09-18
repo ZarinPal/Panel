@@ -198,6 +198,8 @@
             display: inline-block;
             position: relative;
             border-radius: 0 $boxBorderRadiusSize $boxBorderRadiusSize 0;
+            height: 50px;
+
             &:before{
               content: "\A";
               border-style: solid;
@@ -217,6 +219,7 @@
 
         .nav-deposit-in{
           background-color: $depositColorIn;
+
           .from {
             background-color: $depositColorInFrom;
             &:before{
@@ -229,6 +232,7 @@
           background-color: $depositColorOut;
           .from {
             background-color: $depositColorFrom;
+
             &:before{
               border-color: transparent $depositColorFrom transparent transparent;
             }
@@ -291,6 +295,18 @@
             }
           }
 
+          .moving-out-icon{
+            &:before{
+              content: $iconPendingExit;
+              font-family: 'zarinpal';
+              display: inline-block;
+              vertical-align: middle;
+              color: #424242;
+              font-size: 18px;
+              margin-left: 5px;
+            }
+          }
+
         }
 
       }
@@ -328,6 +344,12 @@
 
 
  @media (max-width: $mobileSize) {
+   .search-box-buttons{
+     .info {
+       margin: 10px 0;
+     }
+   }
+
   .show-xs{
     display: inline-block;
   }

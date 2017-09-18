@@ -3,6 +3,31 @@ body{
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+/*** Scrollbar ***/
+body::-webkit-scrollbar {
+  width: 10px;
+  direction: rtl;
+
+}
+
+body::-webkit-scrollbar-track {
+  width: 0;
+  background-color: $sidebarBgColor;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  outline: 1px solid slategrey;
+  border-radius: 10px;
+  transition: .3s;
+
+  &:hover {
+    background-color: #777;
+    transition: .3s;
+  }
+}
+
 //Font
 .iransans-light{
   font-family: IRANSansLight !important;
@@ -131,6 +156,14 @@ body{
 
 .not-allowed{
   cursor: not-allowed !important;
+}
+
+.nothing-to-show-text {
+  color: #aaa;
+  font-size: 12px;
+  display: inline-block;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 //Pages Header

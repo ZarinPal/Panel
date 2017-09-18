@@ -1,7 +1,7 @@
 <template lang="pug">
     div.inner-content
         div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 p.page-title {{ $i18n.t('easypay.editEasyPay') }}
                 p.page-description {{ $i18n.t('easypay.editEasyPayDescription') }}
 
@@ -203,20 +203,24 @@
                                                                 span.text-danger {{ $i18n.t(validationErrors.limit) }}
 
 
-                                                        div.col-lg-12.col-md-12.col-xs-12
-                                                            div.row.no-margin
-                                                                span.input-icon.globe-icon
-                                                                input(:class="{'input-danger': validationErrors.successful_redirect_url}"  v-model="successfulRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت موفق")
-                                                                div.ta-right(v-if="validationErrors.successful_redirect_url")
-                                                                    span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+                                                        div.col-lg-12.col-md-12.col-xs-12.nav-urls
+                                                            <!--Success redirect url-->
+                                                            div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.successful_redirect_url}")
+                                                                div.col-xs.no-margin
+                                                                    input.input.ta-left(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
+                                                                div.no-margin.first-label
+                                                                    span http://www.
+                                                            div.ta-right(v-if="validationErrors.successful_redirect_url")
+                                                                span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
 
-
-                                                            div.row.no-margin
-                                                                span.input-icon.globe-icon
-                                                                input(:class="{'input-danger': validationErrors.failed_redirect_url}" v-model="failedRedirectUrl" type="text" placeholder="لینک بازگشت پرداخت ناموفق")
-                                                                div.ta-right(v-if="validationErrors.failed_redirect_url")
-                                                                    span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
-
+                                                            <!--Failed redirect url-->
+                                                            div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.failed_redirect_url}")
+                                                                div.col-xs.no-margin
+                                                                    input.input.ta-left(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
+                                                                div.no-margin.first-label
+                                                                    span http://www.
+                                                            div.ta-right(v-if="validationErrors.failed_redirect_url")
+                                                                span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
                         div.row
                             div.col-xs.nav-buttons
@@ -313,8 +317,16 @@
                         } else {
                             this.type = 0
                         }
-                        this.successfulRedirectUrl = response.data.data.successful_redirect_url;
-                        this.failedRedirectUrl = response.data.data.failed_redirect_url;
+
+                        let successUrl = response.data.data.successful_redirect_url;
+                        let failedUrl = response.data.data.failed_redirect_url;
+                        if(successUrl || failedUrl) {
+                            successUrl = successUrl.substring(11);
+                            failedUrl = failedUrl.substring(11);
+                        }
+
+                        this.successfulRedirectUrl = successUrl;
+                        this.failedRedirectUrl = failedUrl;
                         this.limit = response.data.data.limit;
 
                         this.handleOrderOptions('email');
@@ -344,6 +356,11 @@
                     this.limited = 0;
                 }
 
+                let successUrl = null, failedUrl = null;
+                if(this.type === 1 && this.successfulRedirectUrl && this.failedRedirectUrl) {
+                    successUrl = 'http://www.' + this.successfulRedirectUrl;
+                    failedUrl = 'http://www.' + this.failedRedirectUrl;
+                }
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
@@ -356,15 +373,11 @@
                     },
                     type: this.type,
                     show_receipt: this.showReceipt,
-                    successful_redirect_url: this.successfulRedirectUrl,
-                    failed_redirect_url: this.failedRedirectUrl,
+                    successful_redirect_url: successUrl,
+                    failed_redirect_url: failedUrl,
                     limited: this.limited,
                     limit: this.limit,
                 };
-
-//                console.log(easyPayData);
-//                return;
-
 
                 this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
                     ()=> {

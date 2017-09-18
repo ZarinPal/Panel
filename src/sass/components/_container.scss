@@ -306,6 +306,7 @@ body {
     text-align: right;
     border: 1px solid #ddd;
     z-index: 999;
+    top: 40px;
 
     .head{
       padding: 15px;
@@ -837,6 +838,7 @@ body {
     margin-right: 4px;
     display: inline-block;
     font-size: 12px;
+    margin-left: -1px;
   }
 
   .zp-id-color {
@@ -889,6 +891,20 @@ body {
   }
 }
 
+#to-silver-level-link {
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 10px;
+
+  span {
+    color: #2ecc71;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  span:hover {
+    color: #056c31;
+  }
+}
 @media (max-width: $mobileSize) {
   .main-content{
     padding-right: 10px !important;
@@ -950,7 +966,6 @@ body {
     background-color: #fff;
     overflow-x: auto !important;
     padding-top: 60px;
-
 
     .close-mobile-sidebar {
       position: absolute;

@@ -144,6 +144,12 @@ span
                     this.isLoadReplies = false;
                     ticket = data.data;
                     this.ticket = ticket.data;
+
+                    setTimeout(function() {
+                        let replies = document.getElementById("navTickets");
+                        replies.scrollTop = replies.scrollHeight;
+                        console.log(replies);
+                    }, 10);
                 });
             },
             send() {

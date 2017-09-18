@@ -15,9 +15,9 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                                 leave-active-class="drop-down-hide")
                         span.drop-down.pull-left(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singleWebserviceMoreTrigger == webservice.entity_id")
                             span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
-                            router-link.drop-down-item.transaction-icon(tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'webservice', id:webservice.entity_id}}") تراکنش ها
-                            router-link.drop-down-item.transaction-session-icon(tag="span" v-bind:to="{ name: 'transactionsession.index', params: { id:webservice.entity_id}}") سشن های پرداخت
-                            router-link.drop-down-item.withdraw-icon(tag="span" v-bind:to="{ name: 'report.index', params: { type:'webservice', id:webservice.entity_id}}") روزشمار
+                            router-link.drop-down-item.transaction-icon(tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'webservice', id:webservice.entity_id}}") {{ $i18n.t('common.transactions') }}
+                            <!--router-link.drop-down-item.transaction-session-icon(tag="span" v-bind:to="{ name: 'transactionsession.index', params: { id:webservice.entity_id}}") {{ $i18n.t('common.transactionSession') }}-->
+                            <!--router-link.drop-down-item.withdraw-icon(tag="span" v-bind:to="{ name: 'report.index', params: { type:'webservice', id:webservice.entity_id}}") {{$i18n.t('common.calendar')}}-->
                             router-link.drop-down-item.edit-icon(tag="span" v-bind:to="{ name: 'webservice.edit', params: { merchantCode:webservice.entity_id}}") {{$i18n.t('webservice.edit')}}
 
                     a.header-link(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id" v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
@@ -25,7 +25,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         div.middle-xs.body
             div.row.box-row
                 div.col-xs.ta-right
-                    span.label کد درگاه
+                    span.label {{ $i18n.t('webservice.webserviceCode') }}
 
                 div.col-xs.ta-left.no-margin
                     div.row.label-group.pull-left
@@ -34,13 +34,13 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
             div.row.box-row
                 div.col-xs.ta-right
-                    span.label آی پی
+                    span.label {{ $i18n.t('webservice.ip') }}
 
                 div.col-xs.ta-left(v-if="webservice.ip")
                     span.text-value {{webservice.ip}}
 
                 div.col-xs.ta-left(v-else)
-                    span.text-value نامحدود
+                    span.text-value {{ $i18n.t('webservice.unlimited') }}
 
             <!--Web gate-->
             div.row.box-row
@@ -48,10 +48,10 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                     span.label وب گیت
 
                 div.col-xs.ta-left.no-left-margin(v-if="webservice.zaringate_status == 'NotActivated'")
-                    span.tag.tag-inactive.pull-left(v-ripple="" @click="visibleZarinGateActivation = true") وب گیت
+                    span.tag.tag-inactive.pull-left(v-ripple="" @click="visibleZarinGateActivation = true") {{ $i18n.t('webservice.zarinGate') }}
 
                 div.col-xs.ta-left.no-left-margin(v-else)
-                    span.tag.tag-active.pull-left(v-ripple="") وب گیت
+                    span.tag.tag-active.pull-left(v-ripple="") {{ $i18n.t('webservice.zarinGate') }}
 
             <!--Ussd-->
             div.row.box-row

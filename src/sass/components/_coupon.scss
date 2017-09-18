@@ -2,9 +2,14 @@
   .box{
     width: 100%;
 
-    .row:nth-child(1) {
-      margin-top: 30px;
+    .selectbox{
+      .title{
+        top: -14px;
+        width: 100%;
+        right: -8px;
+      }
     }
+
     .row{
       margin: 12px 0;
     }

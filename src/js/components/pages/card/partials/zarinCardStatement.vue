@@ -52,7 +52,8 @@
                             span.text {{statement.amount | numberFormat | persianNumbers}}
 
                         div.col-lg-5.col-md-5.col-sm-5.ta-center.hidden-xs
-                            span.text {{statement.description}}
+                            span.text(v-if="statement.description") {{statement.description}}
+                            span.text(v-else) {{ $i18n.t('card.noDescription') }}
 
 </template>
 
