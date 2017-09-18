@@ -22,7 +22,7 @@
                     div.col-xs.ta-center
                         span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
-                div.ta-center(v-if="!this.$store.state.paginator.paginator.CouponList.resource.resource && coupons.data")
+                div.ta-center(v-if="!this.$store.state.paginator.paginator.CouponList.resource.resource && coupons.data.length")
                     span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
 
 </template>
