@@ -150,6 +150,10 @@
                 this.$store.state.http.requests['webservice.postEdit'].update(params, webserviceData).then(
                     ()=> {
                         this.changeWebserviceState();
+                        store.commit('flashMessage',{
+                            text: 'webservice edited success',
+                            type: 'success'
+                        });
                         this.$router.push({name: 'webservice.index'})
                     },
                     (response) => {

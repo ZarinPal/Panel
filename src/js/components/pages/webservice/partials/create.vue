@@ -123,7 +123,7 @@
                 this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
                     ()=> {
                         store.commit('flashMessage',{
-                            text: 'ticket-new-webservice',
+                            text: 'ticket new webservice',
                             type: 'success'
                         });
                         this.$router.push({name: 'webservice.index'})

@@ -16,6 +16,10 @@
         div.ta-center(v-if="easypays.status")
             loading
 
+        div.ta-center(v-if="!this.$store.state.paginator.paginator.EasypayList.resource.resource && easypays.data")
+            span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
+
+
         div.row(v-if="!easypays.status && !easypays.data.length")
             div.col-xs.ta-center
                 span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
@@ -65,7 +69,6 @@
                     {
                         vm,
                         resource:vm.$store.state.http.requests['easypay.getList'],
-                        params: vm.searchOptions,
                         requestName: "EasypayList"
                     }
                 );

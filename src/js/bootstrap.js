@@ -36,10 +36,10 @@ window.i18n = i18n;
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 
-// Raven
-//     .config('https://0e52e25ebe614c0892b9a057b52a8d21@sentry.zarinpal.com/5')
-//     .addPlugin(RavenVue, Vue)
-//     .install();
+Raven
+    .config('https://0e52e25ebe614c0892b9a057b52a8d21@sentry.zarinpal.com/5')
+    .addPlugin(RavenVue, Vue)
+    .install();
 
 Vue.directive(
     'clipboard',

@@ -27,7 +27,7 @@
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-8
                                     selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" placeholder="انتخاب کنید ...")
 
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-4
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
                                     button.btn.info.pull-right(v-ripple="" @click="search()")
                                         span {{ $i18n.t('common.search') }}
 
@@ -76,6 +76,9 @@
 
         div.ta-center(v-if="loadingState.status")
             loading
+
+        div.ta-center(v-if="!this.$store.state.paginator.paginator.TransactionList.resource.resource && transactions.data.length")
+            span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
 
         transactionDetails(v-if="transaction && showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal")
 

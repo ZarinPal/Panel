@@ -22,7 +22,7 @@
                         }
 
                         return {
-                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '<span class="pull-left persian-num purse-selectbox-balance">' + balance + ' تومان</span>',
+                            'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '</div><div class="col-xs ta-left persian-num purse-selectbox-balance">' + balance + ' تومان</div>',
                             'value': purse.purse
                         }
                     });

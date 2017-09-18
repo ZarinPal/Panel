@@ -13,7 +13,7 @@
                     _.forEach(this.$store.state.auth.user.cards, function(card) {
                         if(card.status === "Active" && card.pan !== null) {
                             activeCards.unshift({
-                                'title' : '<span class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() +'"></span> <span class="nav-card-item-bank-name">' + card.issuer.name +'</span>' + '<span class="nav-card-item-bank-card-id pull-left persian-num">' + card.pan + '</span>',
+                                'title' : '<div class="col-xs ta-right"><span class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() +'"></span> <span class="nav-card-item-bank-name">' + card.issuer.name +'</span></div><div class="col-xs"><span class="nav-card-item-bank-card-id pull-left persian-num">' + card.pan + '</span></div>',
                                 'value': card.entity_id
                             });
                         }
