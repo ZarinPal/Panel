@@ -16,8 +16,8 @@
         div.ta-center(v-if="easypays.status")
             loading
 
-        div.ta-center(v-if="!this.$store.state.paginator.paginator.EasypayList.resource.resource && easypays.data")
-            span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
+        div.ta-center(v-if="!this.$store.state.paginator.paginator.EasypayList.resource.resource && easypays.data.length")
+            span.txt-nothing-to-show {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
 
 
         div.row(v-if="!easypays.status && !easypays.data.length")
