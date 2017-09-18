@@ -11,12 +11,19 @@
                     span.text {{ $i18n.t('coupon.createCoupon') }}
 
         div.row
-            singleCoupon(v-for="coupon in coupons" v-bind:key="coupon.entity_id" v-bind:coupon="coupon")
+            singleCoupon(v-for="coupon in coupons.data" v-bind:key="coupon.entity_id" v-bind:coupon="coupon")
 
         div.row
-            div.col-xs.ta-center
-                loading(v-if="loading")
-                span.txt-nothing-to-show(v-if="!loading && !coupons.length")  {{ $i18n.t('common.nothingToShow') }}
+            div.col-xs
+                div.ta-center(v-if="coupons.status")
+                    loading
+
+                div.row(v-if="!coupons.status && !coupons.data.length")
+                    div.col-xs.ta-center
+                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+
+                div.ta-center(v-if="!this.$store.state.paginator.paginator.CouponList.resource.resource && coupons.data")
+                    span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
 
 </template>
 
@@ -28,27 +35,48 @@
         name: 'coupon-index',
         data(){
             return{
-                loading:true,
-                coupons: '',
             }
         },
         computed:{
             user(){
                 return this.$store.state.auth.user;
             },
+            coupons(){
+                return {
+                    data: this.$store.state.paginator.paginator.CouponList.data,
+                    status: this.$store.state.paginator.paginator.CouponList.isLoading,
+                    update: this.$store.state.paginator.update,
+                };
+            }
         },
-        beforeCreate() {
-            this.$store.state.http.requests['coupon.getIndex'].get().then(
-                (response) => {
-                    this.loading = false;
-                    this.coupons = response.data.data;
-                },()=>{
-                    this.loading = false;
+        created() {
+            this.getCoupon();
+
+            let vm = this;
+            window.onscroll = function() {
+                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+                    && !vm.$store.state.paginator.paginator.CouponList.isLoading) {
+                    vm.$store.dispatch(
+                        'paginator/next',
+                        {
+                            requestName: "CouponList"
+                        }
+                    );
                 }
-            );
+            };
         },
         methods: {
-
+            getCoupon() {
+                let vm = this;
+                this.$store.dispatch(
+                    'paginator/make',
+                    {
+                        vm,
+                        resource:vm.$store.state.http.requests['coupon.getIndex'],
+                        requestName: "CouponList"
+                    }
+                );
+            }
         },
         components: {
             singleCoupon,

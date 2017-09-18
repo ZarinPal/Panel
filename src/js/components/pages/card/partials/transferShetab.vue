@@ -36,27 +36,27 @@
                     span(v-if="destinationUser && !transferResponse")
                         div.row
                             div.col-xs.ta-right
-                                span.label شماره کارت مبدا
+                                span.label {{ $i18n.t('card.srcAccountNumber')}}
                             div.col-xs.ta-left
                                 span.value {{card.pan| persianNumbers}}
                         div.row
                             div.col-xs.ta-right
-                                span.label شماره کارت مقصد
+                                span.label {{ $i18n.t('card.distCardNumber')}}
                             div.col-xs.ta-left
                                 span.value {{this.dstPan | persianNumbers}}
                         div.row
                             div.col-xs.ta-right
-                                span.label بانک صادر کننده
+                                span.label {{ $i18n.t('card.exporterBank')}}
                             div.col-xs.ta-left
                                 span.value {{destinationUser.bank_info.name}}
                         div.row
                             div.col-xs.ta-right
-                                span.label نام صاحب حساب
+                                span.label  {{ $i18n.t('card.accountOwnerName')}}
                             div.col-xs.ta-left
                                 span.value {{destinationUser.holder_name}}
                         div.row
                             div.col-xs.ta-right
-                                span.label مبلغ {{ '(' + $i18n.t('transaction.toman') + ')' }}
+                                span.label {{$i18n.t('common.amount') + '(' + $i18n.t('transaction.toman') + ')' }}
                             div.col-xs.ta-left
                                 span.value {{this.amount | numberFormat | persianNumbers}}
 
@@ -73,32 +73,32 @@
                     span(v-else)
                         div.row
                             div.col-xs.ta-right
-                                span.label موجودی کارت
+                                span.label {{ $i18n.t('card.cardBalance')}}
                             div.col-xs.ta-left
                                 span.value {{ transferResponse.card_balance| numberFormat | persianNumbers}}
                         div.row
                             div.col-xs.ta-right
-                                span.label تاریخ
+                                span.label {{ $i18n.t('common.date')}}
                             div.col-xs.ta-left
                                 span.value {{transferResponse.date | persianNumbers}}
                         div.row
                             div.col-xs.ta-right
-                                span.label نام صاحب حساب مقصد
+                                span.label  {{ $i18n.t('card.distAccountOwnerName')}}
                             div.col-xs.ta-left
                                 span.value {{transferResponse.dst_card_holder_name}}
                         div.row
                             div.col-xs.ta-right
-                                span.label شماره حساب مقصد
+                                span.label {{ $i18n.t('card.distAccountNumber')}}
                             div.col-xs.ta-left
                                 span.value {{transferResponse.dst_card_pan | persianNumbers}}
                         div.row
                             div.col-xs.ta-right
-                                span.label شماره مرجع
+                                span.label {{ $i18n.t('card.refrenceNumber')}}
                             div.col-xs.ta-left
                                 span.value {{transferResponse.ref_id | persianNumbers}}
                         div.row
                             div.col-xs.ta-right
-                                span.label مقدار
+                                span.label {{ $i18n.t('card.amount')}}
                             div.col-xs.ta-left
                                 span.value {{transferResponse.transfer_amount | numberFormat | persianNumbers}}
 </template>
@@ -203,6 +203,8 @@
                         this.validationErrors = null;
                     },
                     (response) => {
+                        this.step = 1;
+                        this.transferCompelled = false;
                         this.requesting = false;
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,

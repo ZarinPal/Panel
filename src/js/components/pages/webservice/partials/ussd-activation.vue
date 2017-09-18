@@ -101,6 +101,10 @@
                         });
                         this.$store.state.auth.user.webservices[webserviceIndex].ussd_id = this.ussdId;
                         this.validationErrors = null;
+                        store.commit('flashMessage',{
+                            text: 'ussd code activated',
+                            type: 'success'
+                        });
                         this.closeModal();
                     },
                     (response) => {

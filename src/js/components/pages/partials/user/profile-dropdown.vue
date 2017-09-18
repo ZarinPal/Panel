@@ -6,7 +6,7 @@
         div.nav-profile-dropdown(id="navProfileDropdown")
             div.head
                 img.avatar(:src="user.avatar")
-                span.name {{user.name}}
+                span.name(:title="user.name") {{user.name | less}}
                 span.zp-id {{user.mobile | persianNumbers}}
             div.body
                 router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.addAddress'}")

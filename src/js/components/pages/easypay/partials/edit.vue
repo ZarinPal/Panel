@@ -1,7 +1,7 @@
 <template lang="pug">
     div.inner-content
         div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 p.page-title {{ $i18n.t('easypay.editEasyPay') }}
                 p.page-description {{ $i18n.t('easypay.editEasyPayDescription') }}
 
@@ -317,8 +317,16 @@
                         } else {
                             this.type = 0
                         }
-                        this.successfulRedirectUrl = response.data.data.successful_redirect_url;
-                        this.failedRedirectUrl = response.data.data.failed_redirect_url;
+
+                        let successUrl = response.data.data.successful_redirect_url;
+                        let failedUrl = response.data.data.failed_redirect_url;
+                        if(successUrl || failedUrl) {
+                            successUrl = successUrl.substring(11);
+                            failedUrl = failedUrl.substring(11);
+                        }
+
+                        this.successfulRedirectUrl = successUrl;
+                        this.failedRedirectUrl = failedUrl;
                         this.limit = response.data.data.limit;
 
                         this.handleOrderOptions('email');

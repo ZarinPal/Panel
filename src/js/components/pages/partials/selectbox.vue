@@ -1,12 +1,12 @@
 <template lang="pug">
     ul.dropdown(v-click-outside="closeDropDown")
         li.title(@focus="isActive = true" @click="openDropDown")
-            span(v-html="selectBoxTitle")
+            div.row(v-html="selectBoxTitle")
             span.arrow
         ul(v-if="isOpen")
             span(v-for="item in data")
-                li.disable(v-if="item.disable && item.disable == 1" v-html="item.title")
-                li(v-else @click="selectItem(item)" v-ripple="" v-html="item.title")
+                li.row.dropdown-item-row.disable(v-if="item.disable && item.disable == 1" v-html="item.title")
+                li.row.dropdown-item-row(v-else @click="selectItem(item)" v-ripple="" v-html="item.title")
 </template>
 
 

@@ -85,7 +85,12 @@
                         });
                         this.$store.state.auth.user.webservices[webserviceIndex].zaringate_status = 'Activate';
 
-                            this.validationErrors = null;
+                        store.commit('flashMessage',{
+                            text: 'zarin gate activated',
+                            type: 'success'
+                        });
+
+                        this.validationErrors = null;
                         this.closeModal();
                     },
                     (response) => {

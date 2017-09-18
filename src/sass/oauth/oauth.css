@@ -97,10 +97,25 @@ header .logos .img.img-application {
 
 header .logos .img-zarinpal {
     background: #ffd600;
+    background-image: url("../../img/oauth/zarinpal.png");
+    background-repeat: no-repeat;
+    background-size: 75%;
+    background-position: 10px;
 }
 
 header .logos .img-application {
     background: #ececec;
+}
+
+header .ic-info{
+    background-image: url("../../img/oauth/ic_info_outline_black_24px.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    position: relative;
+    top: 5px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
 }
 
 .img-application .client-logo{
