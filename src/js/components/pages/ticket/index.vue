@@ -1,6 +1,6 @@
 <template lang="pug">
     div.row
-        div.nav-ticket-list#ticketContent(v-bind:class="{'hidden-sm': showTicketReplies, 'show-sm': !showTicketReplies, 'ticket-empty-list-width': this.$store.state.app.isTicketEmptyPage}")
+        div.nav-ticket-list.scrollbar#ticketContent(v-bind:class="{'hidden-sm': showTicketReplies, 'show-sm': !showTicketReplies, 'ticket-empty-list-width': this.$store.state.app.isTicketEmptyPage}")
             div.content
                 span(v-for="ticket in tickets.data" v-bind:ticket="ticket")
                     router-link.row(@click.native="showTicketReplies = true" tag="li" v-bind:to="{ name: 'ticket.show', params: { id: ticket.public_id}}")

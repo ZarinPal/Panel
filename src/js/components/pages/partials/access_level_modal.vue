@@ -1,14 +1,10 @@
 <template lang="pug">
     modal.confirm(v-on:closeModal="closeModal()")
         span(slot="title")
-            slot(name="title")
+            span {{ $i18n.t('common.accessLevelLimitTitle') }}
         div.content(slot="content")
-            slot(name="message")
-            div.ta-left.buttons.xs-ta-center
-                button.btn(v-if="hasMessageDanger" v-ripple="" @click="closeModal()")
-                    slot(name="messageDanger")
-                button.btn.success(v-if="hasMessageSuccess" v-ripple="" @click="confirmed()")
-                    slot(name="messageSuccess")
+            span سطح دسترسی شما مجاز نمی باشد
+
 </template>
 
 
@@ -16,19 +12,11 @@
     import modal from './modal.vue';
 
     export default {
-        name: 'pages-partials-confirm',
+        name: 'pages-partials-access-level-modal',
         data() {
             return {
                 closeModalContent: false,
             }
-        },
-        computed: {
-            hasMessageDanger() {
-                return this.$slots.messageDanger;
-            },
-            hasMessageSuccess() {
-                return this.$slots.messageSuccess;
-            },
         },
         mounted() {
             this.closeModalContent = false

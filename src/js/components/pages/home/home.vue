@@ -10,7 +10,6 @@
                     <!--span.icon-add-circle-->
                     <!--span.text {{ $i18n.t('common.createPurse') }}-->
 
-
         div.nav-top-buttons.row
             div.col-lg-9.col-md-9.col-sm-12.col-xs-12.xs-ta-center.sm-ta-center
                 button.btn-gradient-radius(v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
@@ -43,6 +42,8 @@
         pTop(v-if="visiblePtop" v-on:closeModal="closeModal()")
         withdraw(v-if="visibleWithdraw" v-on:closeModal="closeModal()")
 
+        <!--Show modal to say user dont have access to this page-->
+        access-level(v-if="visibleUserAccessModal" v-on:closeModal="closeModal()")
 </template>
 
 <script>
@@ -52,6 +53,7 @@
     import addFund from './partials/add-fund.vue';
     import pTop from './partials/ptop.vue';
     import withdraw from './partials/withdraw.vue';
+    import accessLevel from '../partials/access_level_modal';
 
     export default {
         name:'pages-home',
@@ -62,11 +64,17 @@
                 visibleAddFund: false,
                 visiblePtop: false,
                 visibleWithdraw: false,
+                visibleUserAccessModal: false,
                 message: [],
                 purseLimit: 10,
             }
         },
         props: ['more', 'showMore'],
+        watch: {
+            '$route' () {
+                this.showAccessLevelModal();
+            }
+        },
         computed:{
             purses(){
                 return {
@@ -76,6 +84,8 @@
             }
         },
         created(){
+            this.showAccessLevelModal();
+
             //Check if add fund authority is exists, show message
             this.checkAddFund();
             if(this.$route.params.createPurse === 'Yes') {
@@ -88,7 +98,17 @@
                 this.visibleAddFund = false;
                 this.visiblePtop = false;
                 this.visibleWithdraw = false;
+
+                if(this.$route.params.limitAccessLevelFor) {
+                    this.visibleUserAccessModal = false;
+                }
+
                 store.commit('clearValidationErrors');
+            },
+            showAccessLevelModal() {
+                if(this.$route.params.limitAccessLevelFor) {
+                    this.visibleUserAccessModal = true;
+                }
             },
             getParameterByName(name, url) {
                 if (!url) url = window.location.href;
@@ -130,7 +150,8 @@
             addFund,
             pTop,
             withdraw,
-            modal
+            modal,
+            'access-level': accessLevel
         }
     }
 </script>

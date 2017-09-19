@@ -824,6 +824,10 @@ body {
   border: 1px solid $silverColor;
 }
 
+.nav-zp-gray {
+  border: 1px solid $grayColor;
+}
+
 .nav-zp-id{
   border-radius: 20px;
   margin: 14px auto 22px auto;
@@ -887,6 +891,16 @@ body {
       span{
         color: #464849;
       }
+    }
+  }
+
+  .zp-id-gray{
+    border: 1px solid $grayColor;
+    background-color: $grayColor;
+    color: #fff !important;
+
+    span {
+      color: #fff !important;
     }
   }
 }
