@@ -176,7 +176,10 @@ let rules = [
                                 /((.*(node_modules|bower_components))|images|image|img|assets)\//g, ''
                             );
                     },
-                    publicPath: '../'
+                    publicPath: '../',
+                    output: {
+                        path: __dirname + '/assets/'
+                    }
                 }
             },
             'img-loader'
