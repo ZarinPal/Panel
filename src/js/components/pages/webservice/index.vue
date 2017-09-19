@@ -34,11 +34,6 @@
 
     export default {
         name: 'webservice-index',
-        data() {
-            return{
-
-            }
-        },
         computed:{
             user(){
                 return this.$store.state.auth.user;

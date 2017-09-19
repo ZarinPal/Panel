@@ -54,13 +54,25 @@
 
                     div.row
                         div.col-xs.no-margin
-                            button.btn.success.pull-left(v-ripple="" @click="withdraw") {{$i18n.t('transaction.withdraw')}}
+                            button.btn.success.pull-left(v-ripple="" @click="confirmVisible = !confirmVisible") {{$i18n.t('transaction.withdraw')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
             div.nav-not-active-card(v-else)
                 p.title {{ $i18n.t('common.zarinPal') }}
                 p.description {{ $i18n.t('purse.withdraw') }}
+
+
+            <!--Confirm withdraw-->
+            confirm(v-if="confirmVisible" v-on:confirmed="withdraw()" v-on:closeModal="closeModal")
+                span(slot="title") {{$i18n.t('purse.confirmWithdrawTitle')}}
+                div.ta-right(slot="message")
+                    div {{$i18n.t('purse.doYouConfirmWithdrawDescription')}}
+
+                span(slot="messageDanger") {{$i18n.t('requestMoney.no')}}
+                span(slot="messageSuccess") {{$i18n.t('requestMoney.yes')}}
+                    svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -71,13 +83,17 @@
     import modal from '../../partials/modal.vue';
     import cards from '../../partials/cards.vue';
     import purse from '../../partials/purses.vue';
+    import confirm from '../../partials/confirm.vue';
+
 
     export default {
         name: 'home-purse-withdraw',
         data() {
             return {
+
                 loading: false,
                 closeModalContent: false,
+                confirmVisible: false,
                 amount: 0,
                 purseId: null,
                 redirectUrl:encodeURI(
@@ -115,7 +131,11 @@
         },
         methods: {
             closeModal() {
-                this.$emit('closeModal')
+                if(this.confirmVisible) {
+                    this.confirmVisible = false;
+                } else {
+                    this.$emit('closeModal');
+                }
             },
             calcPercentAmount() {
                 if(/,/g.test(this.amount)) {
@@ -240,6 +260,11 @@
                             important: false,
                             type: 'success'
                         });
+
+                        //Close modal after operation success
+                        this.confirmVisible = false;
+                        this.$emit('closeModal');
+
                         this.$router.push({name: 'transaction.index', params: {id: this.purseId, type: 'purse', transactionId: response.data.data.transaction_public_id}});
                     },
                     (response) => {
@@ -259,7 +284,8 @@
             modal,
             cards,
             purse,
-            loading
+            loading,
+            confirm
         }
     }
 </script>

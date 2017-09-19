@@ -29,19 +29,25 @@ export default new VueRouter({
                     component: require('./components/pages/partials/containers/standard.vue'),
                     children: [
                         {
-                            path: 'home/:createPurse?',
+                            path: 'home/:createPurse?/:limitAccessLevelFor?',
                             name: 'home.index',
-                            component: require('./components/pages/home/home.vue')
+                            component: require('./components/pages/home/home.vue'),
+                            meta: {
+                                accessLevel: ['2', '3']
+                            }
                         },
                         {
                             path: 'home/finishAddFund',
                             name: 'home.finishAddFund',
-                            component: require('./components/pages/home/partials/finish-add-fund.vue')
+                            component: require('./components/pages/home/partials/finish-add-fund.vue'),
                         },
                         {
                             path: 'webservice',
                             name: 'webservice.index',
-                            component: require('./components/pages/webservice/index.vue')
+                            component: require('./components/pages/webservice/index.vue'),
+                            meta: {
+                                accessLevel: ['2', '3']
+                            }
                         },
                         {
                             path: 'webservice/create',
@@ -56,7 +62,10 @@ export default new VueRouter({
                         {
                             path: 'card',
                             name: 'card.index',
-                            component: require('./components/pages/card/index.vue')
+                            component: require('./components/pages/card/index.vue'),
+                            meta: {
+                                accessLevel: ['2', '3']
+                            }
                         },
                         {
                             path: 'card/statement',

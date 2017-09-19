@@ -217,7 +217,8 @@
     "dangiDongi": "دنگی دُنگی",
     "dangiDongiDescription": "به راحتی برای دوستانتان درخواست پول بفرستید",
     "doYouDelete": "حذف می کنید؟",
-    "UpgradeToSilverLevel": "ارتقاء به سطح نقره ای"
+    "UpgradeToSilverLevel": "ارتقاء به سطح نقره ای",
+    "accessLevelLimitTitle": "محدودیت سطح دسترسی"
   },
   "coupon": {
     "couponsDescription": "تمامی کد هدیه های شما در این صفحه قرار دارد",
@@ -344,7 +345,9 @@
     "transactionDescription": "توضیحات تراکنش",
     "zarinCardStatement": "مشاهده گردش زرین کارت",
     "moneyTransfer": "انتقال وجه",
-    "moneyTransferDescription": "با افزایش اعتبار کیف پول خود، با یک کلیک خرید آسانی را تجربه کنید!"
+    "moneyTransferDescription": "با افزایش اعتبار کیف پول خود، با یک کلیک خرید آسانی را تجربه کنید!",
+    "confirmWithdrawTitle": "تایید درخواست تسویه حساب",
+    "doYouConfirmWithdrawDescription": "آیا درخواست تسویه حساب را تایید می کنید؟"
   },
   "report": {
     "title": "روز شمار",
