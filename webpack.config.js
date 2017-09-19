@@ -65,7 +65,6 @@ module.exports.context = Mix.Paths.root();
 module.exports.entry = Mix.entry().get();
 
 
-
 /*
  |--------------------------------------------------------------------------
  | Webpack Output
@@ -152,6 +151,12 @@ let rules = [
     {
         test: /\.css$/,
         loaders: ['style-loader', 'css-loader']
+    },
+    
+    {
+        test: /\.s[ac]ss$/,
+        include: /node_modules/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
     },
 
     {
