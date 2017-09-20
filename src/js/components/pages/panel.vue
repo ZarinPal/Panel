@@ -24,15 +24,15 @@
 
     export default {
         name: 'panel',
-//        beforeRouteEnter (to, from, next) {
-//            next(vm => {
-//                vm.checkUserLevel(to, from, next, vm);
-//            });
-//        },
-//        beforeRouteUpdate (to, from, next) {
-//            let vm = this;
-//            this.checkUserLevel(to, from, next, vm);
-//        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                vm.checkUserLevel(to, from, next, vm);
+            });
+        },
+        beforeRouteUpdate (to, from, next) {
+            let vm = this;
+            this.checkUserLevel(to, from, next, vm);
+        },
         computed: {
             refererId() {
                 return this.$store.state.app.refererId;
