@@ -12,19 +12,19 @@
 
         div.nav-top-buttons.row
             div.col-lg-9.col-md-9.col-sm-12.col-xs-12.xs-ta-center.sm-ta-center
-                button.btn-gradient-radius(v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
+                button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
                     i.btn-icon.withdraw
                     span.btn-label تسویه حساب
 
-                router-link.btn-gradient-radius(v-ripple="" tag="button" v-bind:to="{ name: 'requestMoney.index'}")
+                router-link.btn-gradient-radius(v-if="userHasAccess([1, 2, 3]) >= 0" v-ripple="" tag="button" v-bind:to="{ name: 'requestMoney.index'}")
                     i.btn-icon.request-money
                     span.btn-label {{ $i18n.t('common.dangiDongi') }}
 
-                button.btn-gradient-radius(v-ripple="" @click="visibleAddFund = !visibleAddFund")
+                button.btn-gradient-radius(v-if="userHasAccess([1, 2, 3]) >= 0" v-ripple="" @click="visibleAddFund = !visibleAddFund")
                     i.btn-icon.add-fund
                     span.btn-label {{ $i18n.t('purse.addFund') }}
 
-                button.btn-gradient-radius(v-ripple="" @click="visiblePtop = !visiblePtop")
+                button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visiblePtop = !visiblePtop")
                     i.btn-icon.ptop
                     span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
             div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
@@ -93,6 +93,9 @@
             }
         },
         methods: {
+            userHasAccess(validLevels) {
+                return _.indexOf(validLevels, this.$store.state.auth.user.level);
+            },
             closeModal(){
                 this.visibleCreatePurse = false;
                 this.visibleAddFund = false;

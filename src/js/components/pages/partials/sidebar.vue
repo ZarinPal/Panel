@@ -17,39 +17,14 @@
                     span  {{ $i18n.t('common.UpgradeToSilverLevel') }}
 
                 ul
-                    router-link(@click.native="toggleMobileSidebar(false, 'home')" v-ripple="" tag="li" v-bind:to="{ name: 'home.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'home'}" :title="$i18n.t('panel.home')")
-                        div
-                            i.icon-zp-dashboard
-                            span.item-label {{ $i18n.t('panel.home') }}
-
-                    router-link(@click.native="toggleMobileSidebar(false, 'webservice')" v-ripple="" tag="li" v-bind:to="{ name: 'webservice.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'webservice'}" :title="$i18n.t('panel.webservice')")
-                        div
-                            i.icon-zp-web-service
-                            span.item-label {{ $i18n.t('panel.webservice') }}
-
-                    router-link(@click.native="toggleMobileSidebar(false, 'card')" v-ripple="" tag="li" v-bind:to="{ name: 'card.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'card'}" :title="$i18n.t('panel.card')")
-                        div
-                            i.icon-zp-card
-                            span.item-label {{ $i18n.t('panel.card') }}
-
-                    router-link(@click.native="toggleMobileSidebar(false, 'easypay')" v-ripple="" tag="li" v-bind:to="{ name: 'easypay.index'}"  v-bind:class="{'active-sidebar-item': tabSelected == 'easypay'}" :title="$i18n.t('panel.easypay')")
-                        div
-                            i.icon-zp-easy-pay
-                            span.item-label {{ $i18n.t('panel.easypay') }}
-
-                    router-link(@click.native="toggleMobileSidebar(false, 'coupon')" v-ripple="" tag="li" v-bind:to="{ name: 'coupon.index'}" v-bind:class="{'active-sidebar-item': tabSelected == 'coupon'}" :title="$i18n.t('panel.coupon')")
-                        div
-                            i.icon-zp-copouns
-                            span.item-label {{ $i18n.t('panel.coupon') }}
-
-                    router-link(@click.native="toggleMobileSidebar(false, 'ticket')" v-ripple="" tag="li" v-bind:to="{ name: 'ticket.index'}"  v-bind:class="{'active-sidebar-item': tabSelected == 'ticket'}" :title="$i18n.t('panel.ticket')")
-                        div
-                            i.icon-zp-tickets
-                            span.item-label {{ $i18n.t('panel.ticket') }}
-
-                            span.unread-ticket-count(v-if="this.$store.state.auth.user.ticket_summary.unread > 0") {{ this.$store.state.auth.user.ticket_summary.unread | persianNumbers}}
+                    span(v-for="(tab, index) in tabs")
+                        router-link(v-if="userHasAccess(tab.accessLevel) >= 0" @click.native="toggleMobileSidebar(false, tab)" v-ripple="" tag="li" v-bind:to="{ name: tab.link}" v-bind:class="{'active-sidebar-item': tabSelected == index}")
+                            div
+                                i(:class="tab.icon")
+                                span.item-label {{ $i18n.t(tab.titleTransKey) }}
 
                 div.clear-both
+
 </template>
 
 
@@ -62,6 +37,44 @@ export default {
     data() {
       return {
           getPurseBalanceTimer: 10,
+          tabs: {
+              home:  {
+                  link: 'home.index',
+                  icon: 'icon-zp-dashboard',
+                  titleTransKey: 'panel.home',
+                  accessLevel: [ -1, 1, 2, 3]
+              },
+              webservice:  {
+                  link: 'webservice.index',
+                  icon: 'icon-zp-web-service',
+                  titleTransKey: 'panel.webservice',
+                  accessLevel: [2, 3]
+              },
+              card:  {
+                  link: 'card.index',
+                  icon: 'icon-zp-card',
+                  titleTransKey: 'panel.card',
+                  accessLevel: [1, 2, 3]
+              },
+              easypay:  {
+                  link: 'easypay.index',
+                  icon: 'icon-zp-easy-pay',
+                  titleTransKey: 'panel.easypay',
+                  accessLevel: [1, 2, 3]
+              },
+              coupon: {
+                  link: 'coupon.index',
+                  icon: 'icon-zp-copouns',
+                  titleTransKey: 'panel.coupon',
+                  accessLevel: [2, 3]
+              },
+              ticket:  {
+                  link: 'ticket.index',
+                  icon: 'icon-zp-tickets',
+                  titleTransKey: 'panel.ticket',
+                  accessLevel: [-1, 1, 2, 3]
+              }
+          },
       }
     },
     mounted(){
@@ -83,6 +96,9 @@ export default {
         }
     },
     methods: {
+        userHasAccess(tabLevels) {
+            return _.indexOf(tabLevels, this.user.level);
+        },
         toggleMobileSidebar(condition = null, tabData = null){
             this.$store.commit('app/toggleMobileSidebar', condition);
 
