@@ -33,7 +33,7 @@ new Vue({
       }
     },
     http: {
-        // root: 'https://api.zarinpal.dev/rest/v3',// local: panel base
+        // root: 'http://api.zarinpal.dev/rest/v3',// local: panel base
         root: 'https://next.zarinpal.com/rest/v3',// production: panel base
     },
     created() {
