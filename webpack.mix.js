@@ -11,9 +11,10 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('src/js/app.js', 'js')
-    .sass('src/sass/app.scss', 'css')
-    .sass('src/sass/oauth/app.scss', 'css/oauth.css');
+mix.js('src/js/app.js', 'assets/js')
+    .sass('src/sass/app.scss', 'assets/css')
+    .sass('src/sass/oauth/app.scss', 'assets/css/oauth.css')
+    .setPublicPath('assets');
     // .copyDirectory('src/img', 'assets/img');
 
 // Full API
