@@ -11,10 +11,10 @@
         }
     },
     "scripts": {
-        "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
-        "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
-        "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
-        "production": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+        "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "pack": "build --dir",
         "dist": "build -mwl",
         "compile": "build -m --projectDir=app"
@@ -26,7 +26,7 @@
         "dotenv": "^4.0.0",
         "file-loader": "^0.11.1",
         "flexboxgrid-sass": "^8.0.5",
-        "laravel-mix": "0.*",
+        "laravel-mix": "1.*",
         "lodash": "^4.16.2",
         "moment": "^2.17.1",
         "moment-jalaali": "^0.4.0",
