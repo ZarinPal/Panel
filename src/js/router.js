@@ -33,13 +33,16 @@ export default new VueRouter({
                             name: 'home.index',
                             component: require('./components/pages/home/home.vue'),
                             meta: {
-                                accessLevel: ['2', '3']
+                                accessLevel: ['-1', '1', '2', '3']
                             }
                         },
                         {
                             path: 'home/finishAddFund',
                             name: 'home.finishAddFund',
                             component: require('./components/pages/home/partials/finish-add-fund.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'webservice',
@@ -52,84 +55,126 @@ export default new VueRouter({
                         {
                             path: 'webservice/create',
                             name: 'webservice.create',
-                            component: require('./components/pages/webservice/partials/create.vue')
+                            component: require('./components/pages/webservice/partials/create.vue'),
+                            meta: {
+                                accessLevel: ['2', '3']
+                            }
                         },
                         {
                             path: 'webservice/edit/:merchantCode',
                             name: 'webservice.edit',
-                            component: require('./components/pages/webservice/partials/edit.vue')
+                            component: require('./components/pages/webservice/partials/edit.vue'),
+                            meta: {
+                                accessLevel: ['2', '3']
+                            }
                         },
                         {
                             path: 'card',
                             name: 'card.index',
                             component: require('./components/pages/card/index.vue'),
                             meta: {
-                                accessLevel: ['2', '3']
+                                accessLevel: ['1', '2', '3']
                             }
                         },
                         {
                             path: 'card/statement',
                             name: 'card.statement',
-                            component: require('./components/pages/card/partials/zarinCardStatement.vue')
+                            component: require('./components/pages/card/partials/zarinCardStatement.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'easypay',
                             name: 'easypay.index',
-                            component: require('./components/pages/easypay/index.vue')
+                            component: require('./components/pages/easypay/index.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'easypay/create',
                             name: 'easypay.create',
-                            component: require('./components/pages/easypay/partials/create.vue')
+                            component: require('./components/pages/easypay/partials/create.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'easypay/edit/:public_id',
                             name: 'easypay.edit',
-                            component: require('./components/pages/easypay/partials/edit.vue')
+                            component: require('./components/pages/easypay/partials/edit.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'coupon',
                             name: 'coupon.index',
-                            component: require('./components/pages/coupon/index.vue')
+                            component: require('./components/pages/coupon/index.vue'),
+                            meta: {
+                                accessLevel: ['2', '3']
+                            }
                         },                {
                             path: 'coupon/test',
                             name: 'coupon.test',
-                            component: require('./components/pages/coupon/test.vue')
+                            component: require('./components/pages/coupon/test.vue'),
                         },
                         {
                             path: 'coupon/create',
                             name: 'coupon.create',
-                            component: require('./components/pages/coupon/partials/create.vue')
+                            component: require('./components/pages/coupon/partials/create.vue'),
+                            meta: {
+                                accessLevel: ['2', '3']
+                            }
                         },
                         {
                             path: 'coupon/edit/:entity_id',
                             name: 'coupon.edit',
-                            component: require('./components/pages/coupon/partials/edit.vue')
+                            component: require('./components/pages/coupon/partials/edit.vue'),
+                            meta: {
+                                accessLevel: ['2', '3']
+                            }
                         },
                         {
                             path: 'ticket/create',
                             name: 'ticket.create',
-                            component: require('./components/pages/ticket/create.vue')
+                            component: require('./components/pages/ticket/create.vue'),
+                            meta: {
+                                accessLevel: ['-1', '1', '2', '3']
+                            }
                         },
                         {
                             path: 'transactionsession/:id',
                             name: 'transactionsession.index',
-                            component: require('./components/pages/transactionsession/index.vue')
+                            component: require('./components/pages/transactionsession/index.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'transaction/:type/:id/:transactionId?',
                             name: 'transaction.index',
-                            component: require('./components/pages/transaction/index.vue')
+                            component: require('./components/pages/transaction/index.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'report/:type/:id',
                             name: 'report.index',
-                            component: require('./components/pages/report/index.vue')
+                            component: require('./components/pages/report/index.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'requestMoney/:type?',
                             name: 'requestMoney.index',
-                            component: require('./components/pages/requestـmoney/index.vue')
+                            component: require('./components/pages/requestـmoney/index.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'telegram/referer',
@@ -140,16 +185,25 @@ export default new VueRouter({
                             path: 'user/addAddress',
                             name: 'user.addAddress',
                             component: require('./components/pages/user/partials/add_address.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'user/uploadDocument',
                             name: 'user.uploadDocument',
                             component: require('./components/pages/user/partials/upload_document.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                         {
                             path: 'user/notificationSetting',
                             name: 'user.notificationSetting',
                             component: require('./components/pages/user/partials/notification_setting.vue'),
+                            meta: {
+                                accessLevel: ['1', '2', '3']
+                            }
                         },
                     ]
                 },
@@ -164,12 +218,18 @@ export default new VueRouter({
                                 {
                                     path: '',
                                     name: 'ticket.index',
-                                    component: require('./components/pages/ticket/pages/empty.vue')
+                                    component: require('./components/pages/ticket/pages/empty.vue'),
+                                    meta: {
+                                        accessLevel: ['-1', '1', '2', '3']
+                                    }
                                 },
                                 {
                                     path: 'show/:id',
                                     name: 'ticket.show',
-                                    component: require('./components/pages/ticket/pages/show.vue')
+                                    component: require('./components/pages/ticket/pages/show.vue'),
+                                    meta: {
+                                        accessLevel: ['-1', '1', '2', '3']
+                                    }
                                 }
                             ]
                         }
