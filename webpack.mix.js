@@ -15,7 +15,8 @@ mix.js('src/js/app.js', 'assets/js')
     .sass('src/sass/app.scss', 'assets/css')
     .sass('src/sass/oauth/app.scss', 'assets/css/oauth.css')
     .setPublicPath('assets')
-    .setResourceRoot('../');
+    .setResourceRoot('../')
+    .version();
     // .copyDirectory('src/img', 'assets/img');
 
 // Full API
