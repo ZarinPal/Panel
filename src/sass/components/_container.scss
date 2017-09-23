@@ -535,13 +535,6 @@ body {
   }
 }
 
-/*-------Sidebar-------*/
-.active-sidebar-item{
-  background-color: #f4f4f4  !important;
-  color: #333 !important;
-}
-
-
 .opened-dropdown{
   background-color: $sidebarHoverBgColor;
   ul{
@@ -598,6 +591,13 @@ body {
   border-left: 2px solid #eceff1;
   transition: $animateTime;
   margin-top: 50px;
+
+
+  .router-link-exact-active,
+  .router-link-active{
+    background-color: #f4f4f4  !important;
+    color: #333 !important;
+  }
 
   .close-mobile-sidebar{
     display: none;
@@ -720,6 +720,12 @@ body {
   transition: $animateTime;
   margin-top: 50px;
 
+
+  .router-link-exact-active,
+  .router-link-active{
+    background-color: #f4f4f4  !important;
+    color: #333 !important;
+  }
 
   .close-mobile-sidebar{
     display: none;
@@ -993,6 +999,12 @@ body {
     background-color: #fff;
     overflow-x: auto !important;
     padding-top: 60px;
+
+    .router-link-exact-active,
+    .router-link-active{
+      background-color: #f4f4f4  !important;
+      color: #333 !important;
+    }
 
     .close-mobile-sidebar {
       position: absolute;
