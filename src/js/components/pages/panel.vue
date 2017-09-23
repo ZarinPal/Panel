@@ -24,23 +24,12 @@
 
     export default {
         name: 'panel',
-        beforeRouteEnter (to, from, next) {
-            next(vm => {
-                if(!vm.$store.state.auth.isRequested){
-                    next();
-                }
-                if(!vm.checkUserLevel(to.meta.accessLevel, vm)) {
-                    return next({name: 'home.index',query:{error:'suspend',path:from.name}});
-                }
-                next();
-            });
-        },
         beforeRouteUpdate (to, from, next) {
             if(!this.$store.state.auth.isRequested){
                 next();
             }
             if(!this.checkUserLevel(to.meta.accessLevel, this)) {
-                return next({name: 'home.index',query:{error:'suspend',path:from.name}});
+                this.$router.push({name: 'home.index',query:{error:'suspend',path:from.name}});
             }
             next();
         },
