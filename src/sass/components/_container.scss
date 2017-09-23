@@ -827,6 +827,9 @@ body {
 .nav-zp-gray {
   border: 1px solid $grayColor;
 }
+.nav-zp-black {
+  border: 1px solid $blackColor;
+}
 
 .nav-zp-id{
   border-radius: 20px;
@@ -897,6 +900,16 @@ body {
   .zp-id-gray{
     border: 1px solid $grayColor;
     background-color: $grayColor;
+    color: #fff !important;
+
+    span {
+      color: #fff !important;
+    }
+  }
+
+  .zp-id-black{
+    border: 1px solid $blackColor;
+    background-color: $blackColor;
     color: #fff !important;
 
     span {

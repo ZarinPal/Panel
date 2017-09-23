@@ -4,6 +4,7 @@ export default {
         isLoaded: false,
         user: {},
         check: false,
+        isRequested: false,
         otpTime: 30, //As seconds
         purseLoadedCount: 0,
         getPurseLimit:3,
@@ -26,6 +27,9 @@ export default {
         change(state, data) {
             state.user[data.name] = data.value;
         },
+        requested(state) {
+            state.isRequested = true;
+        },
     },
     actions: {
         fetch ({commit, rootState, state, dispatch}, callback) {
@@ -37,6 +41,7 @@ export default {
 
             rootState.http.requests['app.getBasicInfo'].get().then(
                 (response) => {
+                    commit('requested');
                     dispatch('startWebPushSocket',{}, {root:true});
                     commit('fill', response.data.data);
                     dispatch('fetchPurseBalance');
@@ -44,6 +49,7 @@ export default {
                     callback(true);
                 }
             ).catch((response)=>{
+                commit('requested');
                 callback(false);
             });
         },

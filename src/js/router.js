@@ -29,11 +29,11 @@ export default new VueRouter({
                     component: require('./components/pages/partials/containers/standard.vue'),
                     children: [
                         {
-                            path: 'home/:createPurse?/:limitAccessLevelFor?',
+                            path: 'home/:createPurse?',
                             name: 'home.index',
                             component: require('./components/pages/home/home.vue'),
                             meta: {
-                                accessLevel: ['-1', '1', '2', '3']
+                                accessLevel: ['suspend', 'basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -41,7 +41,7 @@ export default new VueRouter({
                             name: 'home.finishAddFund',
                             component: require('./components/pages/home/partials/finish-add-fund.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -49,7 +49,7 @@ export default new VueRouter({
                             name: 'webservice.index',
                             component: require('./components/pages/webservice/index.vue'),
                             meta: {
-                                accessLevel: ['2', '3']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
@@ -57,7 +57,7 @@ export default new VueRouter({
                             name: 'webservice.create',
                             component: require('./components/pages/webservice/partials/create.vue'),
                             meta: {
-                                accessLevel: ['2', '3']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
@@ -65,7 +65,7 @@ export default new VueRouter({
                             name: 'webservice.edit',
                             component: require('./components/pages/webservice/partials/edit.vue'),
                             meta: {
-                                accessLevel: ['2', '3']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
@@ -73,7 +73,7 @@ export default new VueRouter({
                             name: 'card.index',
                             component: require('./components/pages/card/index.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -81,7 +81,7 @@ export default new VueRouter({
                             name: 'card.statement',
                             component: require('./components/pages/card/partials/zarinCardStatement.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -89,7 +89,7 @@ export default new VueRouter({
                             name: 'easypay.index',
                             component: require('./components/pages/easypay/index.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -97,7 +97,7 @@ export default new VueRouter({
                             name: 'easypay.create',
                             component: require('./components/pages/easypay/partials/create.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -105,7 +105,7 @@ export default new VueRouter({
                             name: 'easypay.edit',
                             component: require('./components/pages/easypay/partials/edit.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -113,7 +113,7 @@ export default new VueRouter({
                             name: 'coupon.index',
                             component: require('./components/pages/coupon/index.vue'),
                             meta: {
-                                accessLevel: ['2', '3']
+                                accessLevel: ['silver', 'gold']
                             }
                         },                {
                             path: 'coupon/test',
@@ -125,7 +125,7 @@ export default new VueRouter({
                             name: 'coupon.create',
                             component: require('./components/pages/coupon/partials/create.vue'),
                             meta: {
-                                accessLevel: ['2', '3']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
@@ -133,7 +133,7 @@ export default new VueRouter({
                             name: 'coupon.edit',
                             component: require('./components/pages/coupon/partials/edit.vue'),
                             meta: {
-                                accessLevel: ['2', '3']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
@@ -141,7 +141,7 @@ export default new VueRouter({
                             name: 'ticket.create',
                             component: require('./components/pages/ticket/create.vue'),
                             meta: {
-                                accessLevel: ['-1', '1', '2', '3']
+                                accessLevel: ['suspend', 'basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -149,7 +149,7 @@ export default new VueRouter({
                             name: 'transactionsession.index',
                             component: require('./components/pages/transactionsession/index.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -157,7 +157,7 @@ export default new VueRouter({
                             name: 'transaction.index',
                             component: require('./components/pages/transaction/index.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -165,7 +165,7 @@ export default new VueRouter({
                             name: 'report.index',
                             component: require('./components/pages/report/index.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -173,7 +173,7 @@ export default new VueRouter({
                             name: 'requestMoney.index',
                             component: require('./components/pages/requestـmoney/index.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -186,7 +186,7 @@ export default new VueRouter({
                             name: 'user.addAddress',
                             component: require('./components/pages/user/partials/add_address.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -194,7 +194,7 @@ export default new VueRouter({
                             name: 'user.uploadDocument',
                             component: require('./components/pages/user/partials/upload_document.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -202,7 +202,7 @@ export default new VueRouter({
                             name: 'user.notificationSetting',
                             component: require('./components/pages/user/partials/notification_setting.vue'),
                             meta: {
-                                accessLevel: ['1', '2', '3']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                     ]
@@ -220,7 +220,7 @@ export default new VueRouter({
                                     name: 'ticket.index',
                                     component: require('./components/pages/ticket/pages/empty.vue'),
                                     meta: {
-                                        accessLevel: ['-1', '1', '2', '3']
+                                        accessLevel: ['suspend', 'basic', 'silver', 'gold']
                                     }
                                 },
                                 {
@@ -228,7 +228,7 @@ export default new VueRouter({
                                     name: 'ticket.show',
                                     component: require('./components/pages/ticket/pages/show.vue'),
                                     meta: {
-                                        accessLevel: ['-1', '1', '2', '3']
+                                        accessLevel: ['suspend', 'basic', 'silver', 'gold']
                                     }
                                 }
                             ]
