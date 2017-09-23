@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section.single-coupon
         div.box
             div.middle-xs.body
 
@@ -46,9 +46,9 @@
             div.bottom-xs.box-footer
                 div.row
                     div.col-xs
-                        router-link.edit(tag="span" v-bind:to="{ name: 'coupon.edit', params:{entity_id: coupon.entity_id}}") {{$i18n.t('common.edit')}}
+                        router-link.footer-icon.edit(tag="span" v-bind:to="{ name: 'coupon.edit', params:{entity_id: coupon.entity_id}}") {{$i18n.t('common.edit')}}
                     div.col-xs
-                        span.details(@click="visibleCouponDetails = true") {{$i18n.t('coupon.showDetails')}}
+                        span.footer-icon.details(@click="visibleCouponDetails = true") {{$i18n.t('coupon.showDetails')}}
 
         couponDetails(v-if="visibleCouponDetails" v-on:closeModal="closeModal()" v-bind:coupon="coupon")
 
