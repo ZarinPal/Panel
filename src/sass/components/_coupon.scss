@@ -1,3 +1,38 @@
+.single-coupon {
+  .box-footer {
+    .footer-icon {
+      padding: 8px 0;
+      margin: 0 10px;
+      display: inline-block;
+      color: #757575;
+      font-size: 13px;
+      cursor: pointer;
+
+      &:before{
+        font-family: 'zarinpal';
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px;
+        color: #757575;
+      }
+    }
+
+    .edit{
+      &:before{
+        content: $iconEdit;
+      }
+    }
+
+    .details{
+      &:before{
+        content: $iconDetails;
+      }
+    }
+
+  }
+}
+
+
 .nav-create-coupon{
   .box{
     width: 100%;
