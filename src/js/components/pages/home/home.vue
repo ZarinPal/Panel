@@ -102,14 +102,14 @@
                 this.visiblePtop = false;
                 this.visibleWithdraw = false;
 
-                if(this.$route.params.limitAccessLevelFor) {
+                if(this.$route.query.error === 'suspend') {
                     this.visibleUserAccessModal = false;
                 }
 
                 store.commit('clearValidationErrors');
             },
             showAccessLevelModal() {
-                if(this.$route.params.limitAccessLevelFor) {
+                if(this.$route.query.error === 'suspend') {
                     this.visibleUserAccessModal = true;
                 }
             },
