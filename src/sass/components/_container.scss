@@ -535,13 +535,6 @@ body {
   }
 }
 
-/*-------Sidebar-------*/
-.active-sidebar-item{
-  background-color: #f4f4f4  !important;
-  color: #333 !important;
-}
-
-
 .opened-dropdown{
   background-color: $sidebarHoverBgColor;
   ul{
@@ -598,6 +591,13 @@ body {
   border-left: 2px solid #eceff1;
   transition: $animateTime;
   margin-top: 50px;
+
+
+  .router-link-exact-active,
+  .router-link-active{
+    background-color: #f4f4f4  !important;
+    color: #333 !important;
+  }
 
   .close-mobile-sidebar{
     display: none;
@@ -721,6 +721,12 @@ body {
   margin-top: 50px;
 
 
+  .router-link-exact-active,
+  .router-link-active{
+    background-color: #f4f4f4  !important;
+    color: #333 !important;
+  }
+
   .close-mobile-sidebar{
     display: none;
   }
@@ -827,6 +833,9 @@ body {
 .nav-zp-gray {
   border: 1px solid $grayColor;
 }
+.nav-zp-black {
+  border: 1px solid $blackColor;
+}
 
 .nav-zp-id{
   border-radius: 20px;
@@ -897,6 +906,16 @@ body {
   .zp-id-gray{
     border: 1px solid $grayColor;
     background-color: $grayColor;
+    color: #fff !important;
+
+    span {
+      color: #fff !important;
+    }
+  }
+
+  .zp-id-black{
+    border: 1px solid $blackColor;
+    background-color: $blackColor;
     color: #fff !important;
 
     span {
@@ -980,6 +999,12 @@ body {
     background-color: #fff;
     overflow-x: auto !important;
     padding-top: 60px;
+
+    .router-link-exact-active,
+    .router-link-active{
+      background-color: #f4f4f4  !important;
+      color: #333 !important;
+    }
 
     .close-mobile-sidebar {
       position: absolute;

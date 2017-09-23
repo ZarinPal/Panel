@@ -24,14 +24,14 @@
 
     export default {
         name: 'panel',
-        beforeRouteEnter (to, from, next) {
-            next(vm => {
-                vm.checkUserLevel(to, from, next, vm);
-            });
-        },
         beforeRouteUpdate (to, from, next) {
-            let vm = this;
-            this.checkUserLevel(to, from, next, vm);
+            if(!this.$store.state.auth.isRequested){
+                next();
+            }
+            if(!this.checkUserLevel(to.meta.accessLevel, this)) {
+                this.$router.push({name: 'home.index',query:{error:'suspend',path:from.name}});
+            }
+            next();
         },
         computed: {
             refererId() {
@@ -41,7 +41,11 @@
         created(){
             this.$store.commit('app/loading');
             let vm = this;
-            this.$store.dispatch('auth/fetch', () => {});
+            this.$store.dispatch('auth/fetch', () => {
+                if (!vm.checkUserLevel(vm.$route.meta.accessLevel, vm)) {
+                    vm.$router.push({name: 'home.index',query:{error:'suspend',path:vm.$route.name}});
+                }
+            });
 
             if(this.refererId) {
                 store.commit('flashMessage',{
@@ -52,19 +56,16 @@
             }
         },
         methods: {
-            checkUserLevel(to, from, next, vm) {
-                let userLevel;
-                if(!vm) {
-                    userLevel = this.$store.state.auth.user.level;
-                } else {
-                    userLevel = vm.$store.state.auth.user.level;
-                }
+            checkUserLevel(acceptedLevels, vm) {
+                let levels = {
+                    '0': 'suspend',
+                    '2': 'basic',
+                    '3': 'silver',
+                    '4': 'gold',
+                };
 
-                if(!to.meta.accessLevel || !_.indexOf(to.meta.accessLevel, userLevel)) {
-                    next({path: '/panel/home/No/notAllow-' + from.name});
-                } else {
-                    next();
-                }
+                let userLevel = (vm.$store.state.auth.user.level + 1).toString();
+                return _.indexOf(acceptedLevels, levels[userLevel]) !== -1;
             },
         },
         components:{

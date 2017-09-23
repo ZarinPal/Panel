@@ -13,12 +13,12 @@
 
                 zpId(v-bind:data="user")
 
-                router-link(tag="div" v-if="user.level < 2" id="to-silver-level-link" v-bind:to="{ name: 'home.index'}")
+                router-link(tag="div" v-if="user.level == 1" id="to-silver-level-link" v-bind:to="{ name: 'home.index'}")
                     span  {{ $i18n.t('common.UpgradeToSilverLevel') }}
 
                 ul
                     span(v-for="(tab, index) in tabs")
-                        router-link(v-if="userHasAccess(tab.accessLevel) >= 0" @click.native="toggleMobileSidebar(false, index)" v-ripple="" tag="li" v-bind:to="{ name: tab.link}" v-bind:class="{'active-sidebar-item': tabSelected == index}")
+                        router-link(v-if="userHasAccess(tab.accessLevel) >= 0" @click.native="toggleMobileSidebar(false, index)" v-ripple="" tag="li" v-bind:to="{ name: tab.link}")
                             div
                                 i(:class="tab.icon")
                                 span.item-label {{ $i18n.t(tab.titleTransKey) }}
