@@ -8,7 +8,9 @@
                     div.ta-right(v-if="validationErrors.name")
                         span.text-danger {{ $i18n.t(validationErrors.name) }}
 
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                    div.ta-right(v-if="validationErrors.purse")
+                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
                 div.row
                     p.create-description {{ $i18n.t('purse.createPurseSilverUsersDescription') }}
@@ -16,7 +18,8 @@
                 div.row
                     div.col-xs.no-margin
                         button.btn.success.pull-left(v-ripple="" @click="createPurse") {{$i18n.t('purse.addPurse')}}
-
+                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
 
 
@@ -30,9 +33,10 @@
         data() {
             return {
                 closeModalContent: true,
-                purse: 1,
+                purse: null,
                 purseName: '',
                 pursesBalance: {},
+                loading: false,
             }
         },
         mounted(){
@@ -51,12 +55,14 @@
                 this.purse = purseId;
             },
             createPurse() {
+                this.loading= true;
                 let purseData = {
                     purse : this.purse,
                     name : this.purseName,
                 };
                 this.$store.state.http.requests['purse.getList'].save(purseData).then(
                     ()=> {
+                        this.loading=false;
                         let lastPurseId = this.$store.state.auth.user.purses.length;
                         let newPurse = {
                             balance: 0,
@@ -68,6 +74,7 @@
                         this.closeModal();
                     },
                     (response) => {
+                        this.loading=false;
                         store.commit('setValidationErrors',response.data.validation_errors);
                         this.$store.commit('flashMessage',{
                             text: response.data.meta.error_message,

@@ -267,12 +267,20 @@
                 this.purse_name = this.getPurseName(purseId);
             },
             stepTwo() {
-                if(this.title && this.price && this.description && this.purse) {
+                if(this.purse) {
                     //create easypay here
                     this.createEasypay();
                 } else {
+                    let purseValidationError=[{
+                        input: 'purse',
+                        message: 'The purse field is required.',
+                        translation_key: 'validation.required',
+                    }];
+
+                    store.commit('setValidationErrors', purseValidationError);
+
                     store.commit('flashMessage',{
-                        text: 'please fill all fields',
+                        text: 'please select purse name',
                         important: false,
                         type: 'danger'
                     });
@@ -283,8 +291,10 @@
             },
             createEasypay() {
                 this.isLoading = true;
-                let price = this.price.replace(/,/g, "");
-
+                let price = this.price;
+                if(/,/g.test(this.price)) {
+                     price = this.price.replace(/,/g, "");
+                }
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
