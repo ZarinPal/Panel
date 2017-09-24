@@ -1,3 +1,8 @@
+$transactionMovingOutColor: #ff9800;
+$transactionOutcomeColor: #ff1744;
+$transactionIncomeColor: #00c853;
+$transactionInternalColor: #656565;
+
  .search-box{
   .icon-search{
     &:before{
@@ -103,19 +108,19 @@
   }
 
   .icon-income-trans{
-    @include transaction-icon-color($inputTransIcon, #00c853)
+    @include transaction-icon-color($inputTransIcon, $transactionIncomeColor)
   }
 
   .icon-outcome-trans{
-    @include transaction-icon-color($outputTransIcon, #ff1744)
+    @include transaction-icon-color($outputTransIcon, $transactionOutcomeColor)
   }
 
   .icon-internal-trans{
-    @include transaction-icon-color($internalTransactionIcon, #656565)
+    @include transaction-icon-color($internalTransactionIcon, $transactionInternalColor)
   }
 
   .icon-pending-trans{
-    @include transaction-icon-color($pendingTransactionIcon, #ff9800)
+    @include transaction-icon-color($pendingTransactionIcon, $transactionMovingOutColor)
   }
 
   .text{
@@ -275,7 +280,7 @@
               font-family: 'zarinpal';
               display: inline-block;
               vertical-align: middle;
-              color: #00c853;
+              color: $transactionIncomeColor;
               border-radius: 50%;
               font-size: 18px;
               margin-left: 5px;
@@ -284,11 +289,11 @@
 
           .unverified{
             &:before{
-              content: $iconClose;
+              content: $pendingTransactionIcon;
               font-family: 'zarinpal';
               display: inline-block;
               vertical-align: middle;
-              color: #F44336;
+              color: $transactionMovingOutColor;
               border-radius: 50%;
               font-size: 18px;
               margin-left: 5px;
