@@ -19,12 +19,12 @@
                                     span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
 
                         div.row.no-margin
-                            input(v-validate="{type: 'number'}" maxlength="19" :class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" id="dstPan" @keyup="cardNumberFormat('dstPan')" placeholder="شماره کارت مقصد")
+                            input.ltr-input(v-validate="{type: 'number'}" maxlength="19" :class="{'input-danger': validationErrors.dst_pan}" type="text" v-model="dstPan" id="dstPan" @keyup="cardNumberFormat('dstPan')" placeholder="شماره کارت مقصد")
                             div.ta-right(v-if="validationErrors.dst_pan")
                                 span.text-danger {{ $i18n.t(validationErrors.dst_pan) }}
 
                         div.row.no-margin
-                            input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
+                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="مبلغ")
                             div.ta-right(v-if="validationErrors.amount")
                                 span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
