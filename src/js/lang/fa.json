@@ -218,6 +218,7 @@
     "dangiDongiDescription": "به راحتی برای دوستانتان درخواست پول بفرستید",
     "doYouDelete": "حذف می کنید؟",
     "UpgradeToSilverLevel": "ارتقاء به سطح نقره ای",
+    "upgradeToGoldLevel": "ارتقاء به سطح طلایی",
     "accessLevelLimitTitle": "محدودیت سطح دسترسی"
   },
   "coupon": {
@@ -531,7 +532,9 @@
       "pendingReview": "در دست بررسی",
       "pendingEffective": "در انتظار پرداخت",
       "undefined": "مشخص نشده"
-    }
+    },
+    "payerMobile": "موبایل پرداخت کننده",
+    "payerEmail": "ایمیل پرداخت کننده"
   },
   "transactionSession": {
     "description": "تمامی سشن های بانکی وب سرویس شما در این صفحه لیست شده اند",

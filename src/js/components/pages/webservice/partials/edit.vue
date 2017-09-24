@@ -12,7 +12,7 @@
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                                 div.row.no-margin
                                     span.input-icon.ip-icon
-                                    input(v-validate="{size: 15}" :class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" autofocus tabindex="1")
+                                    input.ltr-input(v-validate="{size: 15}" :class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" autofocus tabindex="1")
                                     div.ta-right(v-if="validationErrors.site_ip")
                                         span.text-danger {{ $i18n.t(validationErrors.site_ip) }}
 

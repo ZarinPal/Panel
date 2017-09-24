@@ -32,7 +32,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ")
+                                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ")
                                             div.ta-right(v-if="validationErrors.price")
                                                 span.text-danger {{ $i18n.t(validationErrors.price) }}
 
@@ -207,7 +207,7 @@
                                                             <!--Success redirect url-->
                                                             div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.successful_redirect_url}")
                                                                 div.col-xs.no-margin
-                                                                    input.input.ta-left(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
+                                                                    input.input.ltr-input(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
                                                                 div.no-margin.first-label
                                                                     span http://www.
                                                             div.ta-right(v-if="validationErrors.successful_redirect_url")
@@ -216,7 +216,7 @@
                                                             <!--Failed redirect url-->
                                                             div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.failed_redirect_url}")
                                                                 div.col-xs.no-margin
-                                                                    input.input.ta-left(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
+                                                                    input.input.ltr-input(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
                                                                 div.no-margin.first-label
                                                                     span http://www.
                                                             div.ta-right(v-if="validationErrors.failed_redirect_url")

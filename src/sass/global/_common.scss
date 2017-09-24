@@ -4,6 +4,10 @@ body{
 }
 
 
+#app ~ body{
+  overflow: hidden !important;
+}
+
 /*** Scrollbar ***/
 .scrollbar {
   &::-webkit-scrollbar {
@@ -22,11 +26,15 @@ body{
     border-radius: 10px;
     transition: .3s;
 
-    &:hover {
+    &:hover{
       background-color: #777;
       transition: .3s;
     }
   }
+}
+
+.no-scroll {
+  overflow: hidden !important;
 }
 
 //Font
@@ -144,6 +152,11 @@ body{
 }
 
 .dir-ltr{
+  direction: ltr !important;
+}
+
+.ltr-input{
+  text-align: left !important;
   direction: ltr !important;
 }
 
@@ -735,6 +748,7 @@ body{
   border-radius: $boxBorderRadiusSize;
   top: 0;
   margin-top: 30px;
+  margin-bottom: 30px;
 
   /*Header*/
   .header {

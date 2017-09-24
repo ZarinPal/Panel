@@ -61,7 +61,7 @@
                                     |{{ $i18n.t('coupon.limit') }}
 
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12(v-bind:class="{'disable' : !visibleLimit}")
-                                input(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.limit}" type="text" v-model="limit" placeholder="محدودیت در تعداد استفاده" )
+                                input.ltr-input(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.limit}" type="text" v-model="limit" placeholder="محدودیت در تعداد استفاده" )
                                 div.ta-right(v-if="validationErrors.limit")
                                     span.text-danger {{ $i18n.t(validationErrors.limit) }}
 
@@ -69,7 +69,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.minAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.min_amount}"  type="text" v-model="min_amount" placeholder="حداقل مبلغ خرید(تومان)" tabindex="6")
+                                input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.min_amount}"  type="text" v-model="min_amount" placeholder="حداقل مبلغ خرید(تومان)" tabindex="6")
                                 div.ta-right(v-if="validationErrors.min_amount")
                                     span.text-danger {{ $i18n.t(validationErrors.min_amount) }}
 
@@ -77,7 +77,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.maxAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.max_amount}" type="text" v-model="max_amount" placeholder="حداکثر مبلغ خرید(تومان)" tabindex="7")
+                                input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.max_amount}" type="text" v-model="max_amount" placeholder="حداکثر مبلغ خرید(تومان)" tabindex="7")
                                 div.ta-right(v-if="validationErrors.max_amount")
                                     span.text-danger {{ $i18n.t(validationErrors.max_amount) }}
 
@@ -85,7 +85,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.offPercent') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input(v-validate="{type: 'number'}" maxlength="3" :class="{'input-danger': validationErrors.percent}" type="text" v-model="percent" placeholder="مثال: ۲۵"  tabindex="8")
+                                input.ltr-input(v-validate="{type: 'number'}" maxlength="3" :class="{'input-danger': validationErrors.percent}" type="text" v-model="percent" placeholder="مثال: ۲۵"  tabindex="8")
                                 div.ta-right(v-if="validationErrors.percent")
                                     span.text-danger {{ $i18n.t(validationErrors.percent) }}
 
