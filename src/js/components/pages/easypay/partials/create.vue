@@ -29,7 +29,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ" tabindex="2")
+                                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ" tabindex="2")
                                             div.ta-right(v-if="validationErrors.price")
                                                 span.text-danger {{ $i18n.t(validationErrors.price) }}
 
@@ -186,7 +186,7 @@
                                                     <!--Success redirect url-->
                                                     div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.successful_redirect_url}")
                                                         div.col-xs.no-margin
-                                                            input.input.ta-left(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
+                                                            input.input.ltr-input(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
                                                         div.no-margin.first-label
                                                             span http://www.
                                                     div.ta-right(v-if="validationErrors.successful_redirect_url")
@@ -195,7 +195,7 @@
                                                     <!--Failed redirect url-->
                                                     div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.failed_redirect_url}")
                                                         div.col-xs.no-margin
-                                                            input.input.ta-left(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
+                                                            input.input.ltr-input(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
                                                         div.no-margin.first-label
                                                             span http://www.
                                                     div.ta-right(v-if="validationErrors.failed_redirect_url")
@@ -267,12 +267,20 @@
                 this.purse_name = this.getPurseName(purseId);
             },
             stepTwo() {
-                if(this.title && this.price && this.description && this.purse) {
+                if(this.purse) {
                     //create easypay here
                     this.createEasypay();
                 } else {
+                    let purseValidationError=[{
+                        input: 'purse',
+                        message: 'The purse field is required.',
+                        translation_key: 'validation.required',
+                    }];
+
+                    store.commit('setValidationErrors', purseValidationError);
+
                     store.commit('flashMessage',{
-                        text: 'please fill all fields',
+                        text: 'please select purse name',
                         important: false,
                         type: 'danger'
                     });
@@ -283,8 +291,10 @@
             },
             createEasypay() {
                 this.isLoading = true;
-                let price = this.price.replace(/,/g, "");
-
+                let price = this.price;
+                if(/,/g.test(this.price)) {
+                     price = this.price.replace(/,/g, "");
+                }
                 let easyPayData = {
                     title: this.title,
                     description: this.description,

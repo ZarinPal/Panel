@@ -21,7 +21,7 @@
                                     span.input-icon.earth-icon
                                     div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.domain}")
                                         div.col-xs.no-margin
-                                            input.input.ta-left(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir" tabindex="2")
+                                            input.input.ltr-input(type="text" v-model="domain"  placeholder= "آدرس وب‌سایت: domain.ir" tabindex="2")
                                         div.no-margin.first-label
                                             span http://www.
 
@@ -31,7 +31,7 @@
 
                                 div.row.no-margin
                                     span.input-icon.mobile-icon
-                                    input(:class="{'input-danger': validationErrors.tel}" type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت" tabindex="3")
+                                    input.ltr-input(:class="{'input-danger': validationErrors.tel}" type="text" v-model="tel" placeholder= "تلفن پشتیبانی وب‌سایت" tabindex="3")
                                     div.ta-right(v-if="validationErrors.tel")
                                         span.text-danger {{ $i18n.t(validationErrors.tel) }}
 

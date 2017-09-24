@@ -5,7 +5,7 @@
         leave-active-class="fade-out")
             div.modal(v-on:click.self="closeModal()")
 
-        div.modal-content-father(v-on:click.self="closeModal()")
+        div.modal-content-father.scrollbar(v-on:click.self="closeModal()")
             transition(name="zoom"
             enter-active-class="zoom-in"
             leave-active-class="zoom-out")
@@ -32,11 +32,26 @@
             }
         },
         mounted() {
+            //say store modal is opened
+            this.$store.commit('app/changeModalStatus');
+            let body = document.getElementById('body');
+
+            if(this.$store.state.app.isOpenModal) {
+                body.className += " no-scroll";
+            } else {
+                body.classList.remove("no-scroll");
+            }
+
             this.closeModalContent = false
         },
         methods: {
             closeModal() {
-                this.$emit('closeModal')
+                //remove body no-scroll class
+                this.$store.commit('app/changeModalStatus');
+                let body = document.getElementById('body');
+                body.classList.remove("no-scroll");
+
+                this.$emit('closeModal');
             }
         }
     }
