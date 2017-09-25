@@ -51,8 +51,8 @@ export default {
         changeTabData(state, data) {
             state.selectedTab = data
         },
-        changeModalStatus(state) {
-            state.isOpenModal = !state.isOpenModal
+        changeModalStatus(state, status) {
+            state.isOpenModal = status
         }
     },
     actions: {

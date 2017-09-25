@@ -4,75 +4,87 @@
             span {{ $i18n.t('transaction.withdraw') }} از کیف پول
             span(v-if="purse") {{ ' ' + purse.name }}
         div(slot="content")
-            div(v-if="this.$store.state.auth.user.cards")
-                div.modal-description
-                    div(v-if="purse") {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
 
-                form(autocomplete="on" onsubmit="event.preventDefault();")
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
-                    div.ta-right(v-if="validationErrors.purse")
-                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+            <!-- If user dont have any card -->
+            div.ta-right(v-if="!cards.length")
+                span.message-text {{ $i18n.t('transaction.youDontHaveAnyActiveCardMakeNewDescription') }}
 
-                    div.row
-                        input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" @keyup="calcPercentAmount()" placeholder="مبلغ")
-                        div.ta-right(v-if="validationErrors.amount")
-                            span.text-danger {{ $i18n.t(validationErrors.amount) }}
-
-                    div.row
-                        cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
-                        div.ta-right(v-if="validationErrors.card_id")
-                            span.text-danger {{ $i18n.t(validationErrors.card_id) }}
+                div.row.no-margin
+                    div.col-xs.no-margin.xs-ta-center
+                        router-link.btn.success.pull-left(tag="button" v-bind:to="{ name: 'card.index'}")
+                            span {{ $i18n.t('card.createCard') }}
 
 
-                    div.nav-fees(v-if="!isLoadedFees")
-                        div.row.bx.nav-options.ta-right
-                            div.full-width.option-row(v-for="fee in validFees" v-bind:class="{'inactive-step' : !fee.is_active}")
-                                input(name="fees" type="radio" :value="fee.id" v-model="feeDetails.id" :id="'rdo' + fee.id" @click="selectFee(fee.id)")
-                                label(:for="'rdo' + fee.id")
-                                    span
-                                    |{{fee.title}}
+            span(v-else)
+                div(v-if="this.$store.state.auth.user.cards")
+                    div.modal-description
+                        div(v-if="purse") {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
 
-                        div.row.bx.fee-date
-                            div.col-xs
-                                span حداکثر زمان واریز
-                            div.col-xs.left-box
-                                span(v-if="feeDetails.details") {{ calcFeeDate(feeDetails.details.reconcile_in)  | persianNumbers}}
+                    form(autocomplete="on" onsubmit="event.preventDefault();")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                        div.ta-right(v-if="validationErrors.purse")
+                            span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
-                        div.row.bx.fee-amount
-                            div.col-xs
-                                span.title مبلغ کارمزد
-                            div.col-xs.left-box
-                                div(v-if="feeDetails.details") {{ feeDetails.details.percent | numberFormat| persianNumbers}} %
-                                div(v-if="feeDetails.details") {{ withdrawAmount | numberFormat | persianNumbers }} تومان
+                        div.row
+                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" @keyup="calcPercentAmount()" placeholder="مبلغ")
+                            div.ta-right(v-if="validationErrors.amount")
+                                span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
-                        div.fee-description
-                            span {{ selectedFee.description }}
-
-                    div.ta-center(v-else)
-                        loading
-
-                    div.row
-                        div.col-xs.no-margin
-                            button.btn.success.pull-left(v-ripple="" @click="confirmVisible = !confirmVisible") {{$i18n.t('transaction.withdraw')}}
-                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
-            div.nav-not-active-card(v-else)
-                p.title {{ $i18n.t('common.zarinPal') }}
-                p.description {{ $i18n.t('purse.withdraw') }}
+                        div.row
+                            cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
+                            div.ta-right(v-if="validationErrors.card_id")
+                                span.text-danger {{ $i18n.t(validationErrors.card_id) }}
 
 
-            <!--Confirm withdraw-->
-            confirm(v-if="confirmVisible" v-on:confirmed="withdraw()" v-on:closeModal="closeModal")
-                span(slot="title") {{$i18n.t('purse.confirmWithdrawTitle')}}
-                div.ta-right(slot="message")
-                    div {{$i18n.t('purse.doYouConfirmWithdrawDescription')}}
+                        div.nav-fees(v-if="!isLoadedFees")
+                            div.row.bx.nav-options.ta-right
+                                div.full-width.option-row(v-for="fee in validFees" v-bind:class="{'inactive-step' : !fee.is_active}")
+                                    input(name="fees" type="radio" :value="fee.id" v-model="feeDetails.id" :id="'rdo' + fee.id" @click="selectFee(fee.id)")
+                                    label(:for="'rdo' + fee.id")
+                                        span
+                                        |{{fee.title}}
 
-                span(slot="messageDanger") {{$i18n.t('requestMoney.no')}}
-                span(slot="messageSuccess") {{$i18n.t('requestMoney.yes')}}
-                    svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                            div.row.bx.fee-date
+                                div.col-xs
+                                    span حداکثر زمان واریز
+                                div.col-xs.left-box
+                                    span(v-if="feeDetails.details") {{ calcFeeDate(feeDetails.details.reconcile_in)  | persianNumbers}}
+
+                            div.row.bx.fee-amount
+                                div.col-xs
+                                    span.title مبلغ کارمزد
+                                div.col-xs.left-box
+                                    div(v-if="feeDetails.details") {{ feeDetails.details.percent | numberFormat| persianNumbers}} %
+                                    div(v-if="feeDetails.details") {{ withdrawAmount | numberFormat | persianNumbers }} تومان
+
+                            div.fee-description
+                                span {{ selectedFee.description }}
+
+                        div.ta-center(v-else)
+                            loading
+
+                        div.row
+                            div.col-xs.no-margin
+                                button.btn.success.pull-left(v-ripple="" @click="confirmVisible = !confirmVisible") {{$i18n.t('transaction.withdraw')}}
+                                    svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
+                div.nav-not-active-card(v-else)
+                    p.title {{ $i18n.t('common.zarinPal') }}
+                    p.description {{ $i18n.t('purse.withdraw') }}
+
+
+                <!--Confirm withdraw-->
+                confirm(v-if="confirmVisible" v-on:confirmed="withdraw()" v-on:closeModal="closeModal")
+                    span(slot="title") {{$i18n.t('purse.confirmWithdrawTitle')}}
+                    div.ta-right(slot="message")
+                        div {{$i18n.t('purse.doYouConfirmWithdrawDescription')}}
+
+                    span(slot="messageDanger") {{$i18n.t('requestMoney.no')}}
+                    span(slot="messageSuccess") {{$i18n.t('requestMoney.yes')}}
+                        svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -118,6 +130,17 @@
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
+            cards() {
+                if(this.$store.state.auth.user.cards) {
+                    let activeCards = [];
+                    _.forEach(this.$store.state.auth.user.cards, function(card) {
+                        if(card.status === "Active" && card.pan !== null) {
+                            activeCards.unshift(card);
+                        }
+                    });
+                    return activeCards;
+                }
+            }
         },
         created() {
             if(this.purse) {

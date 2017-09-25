@@ -33,7 +33,7 @@
         },
         mounted() {
             //say store modal is opened
-            this.$store.commit('app/changeModalStatus');
+            this.$store.commit('app/changeModalStatus', true);
             let body = document.getElementById('body');
 
             if(this.$store.state.app.isOpenModal) {
@@ -47,7 +47,7 @@
         methods: {
             closeModal() {
                 //remove body no-scroll class
-                this.$store.commit('app/changeModalStatus');
+                this.$store.commit('app/changeModalStatus', false);
                 let body = document.getElementById('body');
                 body.classList.remove("no-scroll");
 
