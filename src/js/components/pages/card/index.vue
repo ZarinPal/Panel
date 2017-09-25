@@ -15,7 +15,7 @@
 
         div.row(v-if="!cards.length")
             div.col-xs.ta-center
-                span.txt-nothing-to-show {{ $ti18n.t('common.nothingToShow') }}
+                span.txt-nothing-to-show {{ $i18n.t('common.nothingToShow') }}
 
         createCard(v-if="visibleCreateCard" v-on:closeModal="closeModal()")
 </template>
