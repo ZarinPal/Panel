@@ -534,7 +534,8 @@
       "undefined": "مشخص نشده"
     },
     "payerMobile": "موبایل پرداخت کننده",
-    "payerEmail": "ایمیل پرداخت کننده"
+    "payerEmail": "ایمیل پرداخت کننده",
+    "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."
   },
   "transactionSession": {
     "description": "تمامی سشن های بانکی وب سرویس شما در این صفحه لیست شده اند",
