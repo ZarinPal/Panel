@@ -306,18 +306,16 @@
                         this.price = response.data.data.price;
                         this.description = response.data.data.description;
                         this.purse = response.data.data.purse;
-
-                        if (
-                            response.data.data.show_receipt ||
-                            response.data.data.successful_redirect_url ||
-                            response.data.data.failed_redirect_url ||
-                            response.data.data.limit
-                        ) {
-                            this.type = 1;
-                        } else {
-                            this.type = 0
-                        }
-
+//                        if (
+//                            response.data.data.show_receipt ||
+//                            response.data.data.successful_redirect_url ||
+//                            response.data.data.failed_redirect_url ||
+//                            response.data.data.limit
+//                        ) {
+//                            this.type = 1;
+//                        } else {
+//                            this.type = 0
+//                        }
                         let successUrl = response.data.data.successful_redirect_url;
                         let failedUrl = response.data.data.failed_redirect_url;
                         if(successUrl || failedUrl) {
@@ -350,7 +348,7 @@
 
                 //if easypay not advance
                 if(this.type === 0) {
-                    this.limit = 0;
+                    this.limit = null;
                     this.successfulRedirectUrl = '';
                     this.failedRedirectUrl = '';
                     this.limited = 0;
