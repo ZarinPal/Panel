@@ -4,8 +4,13 @@ body{
 }
 
 
-#app ~ body{
-  overflow: hidden !important;
+//#app ~ body{
+//  overflow: hidden !important;
+//}
+
+
+.hidden {
+  display: none !important;
 }
 
 /*** Scrollbar ***/
