@@ -3,16 +3,6 @@ body{
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-//#app ~ body{
-//  overflow: hidden !important;
-//}
-
-
-.hidden {
-  display: none !important;
-}
-
 /*** Scrollbar ***/
 .scrollbar {
   &::-webkit-scrollbar {
