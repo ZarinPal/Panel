@@ -122,12 +122,12 @@
                     div.row.nav-notification-row
                         h4.full-width {{ $i18n.t('user.newLogin') }}
 
-                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.check-box
+                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.check-box.inactive-step
                             input(name="new_login" v-model="setting.new_login.email" type="checkbox" id="rdoNewLoginEmail")
                             label(for="rdoNewLoginEmail")
                                 span
                                 |{{ $i18n.t('user.email') }}
-                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.check-box
+                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.check-box.inactive-step
                             input(name="new_login" v-model="setting.new_login.sms" type="checkbox" id="rdoNewLoginSms")
                             label(for="rdoNewLoginSms")
                                 span
@@ -137,7 +137,7 @@
                             label(for="rdoNewLoginTelegram")
                                 span
                                 |{{ $i18n.t('user.telegram') }}
-                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.check-box
+                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.check-box.inactive-step
                             input(name="new_login" v-model="setting.new_login.pusher" type="checkbox" id="rdoNewLoginPusher")
                             label(for="rdoNewLoginPusher")
                                 span
@@ -220,7 +220,7 @@
                         });
 
                         this.loading = false;
-                        this.$router.push({name: 'user.index'})
+//                        this.$router.push({name: 'user.index'})
                     },
                     (response) => {
                         this.loading = false;

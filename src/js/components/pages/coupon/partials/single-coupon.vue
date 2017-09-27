@@ -73,7 +73,7 @@
                 store.commit('flashMessage',{
                     text: 'copied',
                     type: 'success',
-                    timeout: '500'
+                    timeout: '1500'
                 });
             }
         },

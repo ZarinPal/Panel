@@ -37,7 +37,7 @@
                         div.col-xs.ta-right
                             span.title.tick(v-if="transaction.confirmed == 'confirmed' ") {{ $i18n.t('transaction.confirmed') }}
                             span.title.moving-out-icon(v-else-if="transaction.confirmed == 'pendingExit'") {{ $i18n.t('transaction.movingOut') }}
-                            span.title.unverified(v-else) {{ $i18n.t('transaction.notConfirmed') }}
+                            span.title.unverified(v-else) {{ $i18n.t('transaction.movingOut') }}
                         div.col-xs.ta-left
                             span.value {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD') | persianNumbers}}
 
@@ -55,12 +55,25 @@
                             span.value(v-if="transaction.effective_sign == 1")  {{ purseName.name }}
                             span.value(v-else)  {{ transaction.to_user.name }}
 
+
+                    <!--span(v-if="transaction.to_merchant")-->
+                    div.row(v-if="transaction.payer.mobile")
+                        div.col-xs.ta-right
+                            span.title(v-if="transaction.payer.mobile")  {{$i18n.t('transaction.payerMobile')}}
+                        div.col-xs.ta-left
+                            span.value(v-if="transaction.payer.mobile")  {{ transaction.payer.mobile | persianNumbers}}
+
+                    div.row(v-if="transaction.payer.email")
+                        div.col-xs.ta-right
+                            span.title(v-if="transaction.payer.email")  {{$i18n.t('transaction.payerEmail')}}
+                        div.col-xs.ta-left
+                            span.value(v-if="transaction.payer.email")  {{ transaction.payer.email }}
+
                     div.row
                         div.col-xs.ta-right
                             span.title {{$i18n.t('common.description')}}
                         div.col-xs.ta-left
                             span.value  {{ transaction.description}}
-
 
             div.footer.bottom-xs
                 a.print.hand(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
@@ -99,17 +112,22 @@
                 });
 
             },
-            printDetail(documentId) {
-                this.$store.state.http.requests['transaction.getInfoPdf'].get({transactionId: documentId}).then(
-                    (response) => {
-                        let blob = new Blob([response.data], { type: 'application/pdf' } ),
-                            url = window.URL.createObjectURL(blob);
+            printDetail() {
+                window.print();
 
-                        window.open(url);
-                    }
-                ).catch((response) => {
 
-                });
+//            :href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'"
+
+//                this.$store.state.http.requests['transaction.getInfoPdf'].get({transactionId: documentId}).then(
+//                    (response) => {
+//                        let blob = new Blob([response.data], { type: 'application/pdf' } ),
+//                            url = window.URL.createObjectURL(blob);
+//
+//                        window.open(url);
+//                    }
+//                ).catch((response) => {
+
+//                });
             }
         },
         components: {

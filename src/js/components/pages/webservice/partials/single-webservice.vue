@@ -105,7 +105,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 store.commit('flashMessage',{
                     text: 'copied',
                     type: 'success',
-                    timeout: '500'
+                    timeout: '1500'
 
                 });
             }

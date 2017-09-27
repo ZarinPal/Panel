@@ -14,6 +14,7 @@ export default {
         ticketSummary: {},
         refererId: null,
         selectedTab: 'dashboard',
+        isOpenModal: false,
     },
     mutations: {
         loading(state) {
@@ -49,6 +50,9 @@ export default {
         },
         changeTabData(state, data) {
             state.selectedTab = data
+        },
+        changeModalStatus(state, status) {
+            state.isOpenModal = status
         }
     },
     actions: {

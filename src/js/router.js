@@ -21,6 +21,14 @@ export default new VueRouter({
             meta: {standAlone: true}
         },
         {
+            path: '/panel/error/connection',
+            name: 'error.connection',
+            component: require('./components/pages/error/connection.vue'),
+            meta: {
+                standAlone: true
+            }
+        },
+        {
             path: '/panel',
             component: require('./components/pages/panel.vue'),
             children: [
