@@ -76,8 +76,15 @@
                             span.value  {{ transaction.description}}
 
 
+
+                iframe.hidden(:src="'/rest/v3/transaction/' + this.transaction.public_id + '.pdf'" name='transactionPdfIframe')
+                <!--input(type='button', value='Print' onclick='window.frames["ifrm"].print();')-->
+
+
             div.footer.bottom-xs
-                a.print.hand(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
+                input.print.hand(type='button' :value="$i18n.t('transaction.print')" onclick='window.frames["transactionPdfIframe"].print();')
+
+                <!--a.print.hand(@click="window.frames["ifrm"].print();") {{$i18n.t('transaction.print')}}-->
 
 
 </template>
@@ -113,17 +120,22 @@
                 });
 
             },
-            printDetail(documentId) {
-                this.$store.state.http.requests['transaction.getInfoPdf'].get({transactionId: documentId}).then(
-                    (response) => {
-                        let blob = new Blob([response.data], { type: 'application/pdf' } ),
-                            url = window.URL.createObjectURL(blob);
+            printDetail() {
+                window.print();
 
-                        window.open(url);
-                    }
-                ).catch((response) => {
 
-                });
+//            :href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'"
+
+//                this.$store.state.http.requests['transaction.getInfoPdf'].get({transactionId: documentId}).then(
+//                    (response) => {
+//                        let blob = new Blob([response.data], { type: 'application/pdf' } ),
+//                            url = window.URL.createObjectURL(blob);
+//
+//                        window.open(url);
+//                    }
+//                ).catch((response) => {
+
+//                });
             }
         },
         components: {
