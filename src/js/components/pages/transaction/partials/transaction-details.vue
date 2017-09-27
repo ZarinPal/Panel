@@ -75,16 +75,8 @@
                         div.col-xs.ta-left
                             span.value  {{ transaction.description}}
 
-
-
-                iframe.hidden(:src="'/rest/v3/transaction/' + this.transaction.public_id + '.pdf'" name='transactionPdfIframe')
-                <!--input(type='button', value='Print' onclick='window.frames["ifrm"].print();')-->
-
-
             div.footer.bottom-xs
-                input.print.hand(type='button' :value="$i18n.t('transaction.print')" onclick='window.frames["transactionPdfIframe"].print();')
-
-                <!--a.print.hand(@click="window.frames["ifrm"].print();") {{$i18n.t('transaction.print')}}-->
+                a.print.hand(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
 
 
 </template>
