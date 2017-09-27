@@ -29,7 +29,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "مبلغ" tabindex="2")
+                                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "(مبلغ (تومان" tabindex="2")
                                             div.ta-right(v-if="validationErrors.price")
                                                 span.text-danger {{ $i18n.t(validationErrors.price) }}
 

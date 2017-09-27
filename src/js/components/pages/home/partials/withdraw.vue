@@ -27,7 +27,7 @@
                             span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
                         div.row
-                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" @keyup="calcPercentAmount()" placeholder="مبلغ")
+                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" @keyup="calcPercentAmount()" placeholder="(مبلغ (تومان")
                             div.ta-right(v-if="validationErrors.amount")
                                 span.text-danger {{ $i18n.t(validationErrors.amount) }}
 
