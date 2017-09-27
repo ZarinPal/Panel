@@ -353,19 +353,27 @@ export default {
         boot (state, vm) {
             Vue.http.interceptors.push((request, next) => {
                 next((response) => {
-                    if (response.status !== 200) {
-                        let error = response.data.meta;
-                        if (error.error_type === "OauthAccessDenied") {
-                            vm.$store.commit('app/ready');
-                            vm.$router.push({name: 'auth.login'});
-                        }
-                        // console.log(state.requests);
-                        // if (error.error_type === "InternalError") {
-                        //     store.commit('flashMessage', {
-                        //         text: response.data.meta.error_message,
-                        //     });
-                        //
-                        // }
+                    if (response.status === 200) {
+                        return;
+                    }
+
+                    let error = response.data.meta;
+                    if (error.error_type === "OauthAccessDenied") {
+                        vm.$store.commit('app/ready');
+                        vm.$router.push({name: 'auth.login'});
+                    }
+
+                    // console.log(state.requests);
+                    // if (error.error_type === "InternalError") {
+                    //     store.commit('flashMessage', {
+                    //         text: response.data.meta.error_message,
+                    //     });
+                    //
+                    // }
+
+                    //Redirect to connection error page
+                    if(response.status === 500) {
+                        vm.$router.push({name: 'error.connection'});
                     }
                 });
             });
