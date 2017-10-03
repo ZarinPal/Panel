@@ -38,26 +38,26 @@
                                             div.ta-right(v-if="validationErrors.description")
                                                 span.text-danger {{ $i18n.t(validationErrors.description) }}
 
-                                        div.row.no-margin
-                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                        div.row.no-margin.nav-pay-to
+                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
                                                 input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
                                                 label(for="rdoPurseٌ")
                                                     span
                                                     |{{ $i18n.t('user.purse') }}
 
-                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12
+                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
                                                 purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="4")
                                                     div.ta-right(v-if="validationErrors.purse")
                                                         span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
-                                        div.row
-                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                        div.row.nav-pay-to
+                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
                                                 input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebserviceٌ")
                                                 label(for="rdoWebserviceٌ")
                                                     span
                                                     |{{ $i18n.t('coupon.webservice') }}
 
-                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12
+                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
                                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': validationErrors.webservice_id}" placeholder="انتخاب وب سرویس")
                                                 div.ta-right(v-if="validationErrors.webservice_id")
                                                     span.text-danger {{ $i18n.t(validationErrors.webservice_id) }}
