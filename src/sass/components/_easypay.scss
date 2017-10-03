@@ -33,6 +33,14 @@
 
 //Easypay create
 .create-easypay{
+
+  .nav-pay-to {
+    label {
+      margin-top: 15px;
+      display: inline-block;
+    }
+  }
+
   textarea {
     width: 100% !important;
   }
