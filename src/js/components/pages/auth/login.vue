@@ -72,7 +72,7 @@
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(@keyup="otpMaxLength()" v-validate="{size: 6}" type="number" min="0" name="otp" v-model="otp" id="txtOtp")
+                                    input(v-on:paste="pasteOtp()" @keyup="otpMaxLength()" v-validate="{size: 6}" type="number" min="0" name="otp" v-model="otp" id="txtOtp")
                                 div.dashed-line
 
                         div.ta-right(v-if="validationErrors.otp")
@@ -145,13 +145,17 @@
                 .get()
                 .then(()=>{
                     vm.$router.push({name: 'home.index'});
-                }).catch(()=>{});
+                })
+                .catch(()=>{});
 
             if(this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
         },
         methods: {
+            pasteOtp() {
+                this.otpMaxLength();
+            },
             sendOtp(channel){
                 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 //if username is email
