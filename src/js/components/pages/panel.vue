@@ -25,10 +25,8 @@
     export default {
         name: 'panel',
         beforeRouteUpdate (to, from, next) {
-            if(!this.$store.state.auth.isRequested){
-                next();
-            }
-            if(!this.checkUserLevel(to.meta.accessLevel, this)) {
+            if(this.$store.state.auth.isRequested
+                && !this.checkUserLevel(to.meta.accessLevel, this)) {
                 this.$router.push({name: 'home.index',query:{error:'suspend',path:from.name}});
             }
             next();
@@ -65,6 +63,7 @@
                 };
 
                 let userLevel = (vm.$store.state.auth.user.level + 1).toString();
+                if(!acceptedLevels || !acceptedLevels.length) return true;
                 return _.indexOf(acceptedLevels, levels[userLevel]) !== -1;
             },
         },
