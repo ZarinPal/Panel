@@ -179,7 +179,7 @@
                 }
 
                 let amount = this.amount;
-                if(this.amount.test(/,/g)) {
+                if(/,/g.test(this.amount)) {
                     amount = this.amount.replace(/,/g, ""); //remove , from amount
                 }
 
@@ -193,7 +193,7 @@
                 this.$store.state.http.requests['transaction.postPurseToPurseTransfer'].save(ptopData).then(
                     (response)=> {
                         this.requesting = false;
-                        this.$router.push({name: 'transaction.index', params: {id: this.purse.purse, type:'purse', page:1, transactionId: response.data.data.transaction_public_id}});
+                        this.$router.push({name: 'transaction.index', params: {id: this.purseId, type:'purse', page:1, transactionId: response.data.data.transaction_public_id}});
                         store.commit('flashMessage',{
                             text: 'ptop-transfer-success',
                             type: 'success'
