@@ -254,9 +254,10 @@
                 this.channel = 'ussd';
             },
             otpMaxLength() {
-                if(this.otp.length === 6) {
+                let txtOtp = document.getElementById('txtOtp').value;
+                if(txtOtp.length > 0 && txtOtp.length === 6) {
                     document.getElementById("btnSubmitLogin").click();
-                }
+                }                
             }
         },
         components:{
