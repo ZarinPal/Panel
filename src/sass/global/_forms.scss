@@ -411,15 +411,15 @@ ul.dropdown {
   span.arrow {
     position: absolute;
     display: inline-block;
-    left: -3px;
-    top: 4px;
+    left: -11px;
+    top: 2px;
 
     &:before{
       content: $itemArrow;
       font-family: 'zarinpal';
       font-style: normal;
       color: #424242;
-      font-size: 13px;
+      font-size: 20px;
       margin-right: 10px !important;
     }
   }
@@ -441,7 +441,7 @@ ul.dropdown {
 
     li {
       height: 34px;
-      padding: 5px 30px 5px 15px;;
+      padding: 5px 13px 5px 0;
       vertical-align: middle;
       box-sizing: border-box;
       transition: $animateTime;
