@@ -38,10 +38,29 @@
                                             div.ta-right(v-if="validationErrors.description")
                                                 span.text-danger {{ $i18n.t(validationErrors.description) }}
 
-                                        div.row.no-margin
-                                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="4")
-                                            div.ta-right(v-if="validationErrors.purse")
-                                                span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                                        div.row.no-margin.nav-pay-to
+                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
+                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
+                                                label(for="rdoPurseٌ")
+                                                    span
+                                                    |{{ $i18n.t('user.purse') }}
+
+                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
+                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="4")
+                                                    div.ta-right(v-if="validationErrors.purse")
+                                                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+
+                                        div.row.nav-pay-to
+                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
+                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebserviceٌ")
+                                                label(for="rdoWebserviceٌ")
+                                                    span
+                                                    |{{ $i18n.t('coupon.webservice') }}
+
+                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
+                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': validationErrors.webservice_id}" placeholder="انتخاب وب سرویس")
+                                                div.ta-right(v-if="validationErrors.webservice_id")
+                                                    span.text-danger {{ $i18n.t(validationErrors.webservice_id) }}
 
                                         div.cb
                                         div.row.nav-buttons
@@ -231,7 +250,9 @@
                 title: '',
                 description: '',
                 price: '',
+                payTo: 'purse',
                 purse: null,
+                webservice_id: null,
                 purse_name: null,
                 requiredFields: {
                     email: false,
@@ -247,6 +268,16 @@
             }
         },
         computed: {
+            webserviceSelection() {
+                if(this.$store.state.auth.user.webservices) {
+                    return this.$store.state.auth.user.webservices.map(function (webservice) {
+                        return {
+                            'title': webservice.name,
+                            'value': webservice.entity_id
+                        }
+                    });
+                }
+            },
             pursesSelection() {
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
@@ -265,25 +296,44 @@
             selectedPurse(purseId) {
                 this.purse = purseId;
                 this.purse_name = this.getPurseName(purseId);
+                this.webservice_id = null;
+            },
+            selectedWebservice(entityId) {
+                this.webservice_id = entityId;
+                this.purse = null;
+                this.purse_name = null;
             },
             stepTwo() {
-                if(this.purse) {
+
+
+                if(this.purse || this.webservice_id) {
                     //create easypay here
                     this.createEasypay();
                 } else {
-                    let purseValidationError=[{
-                        input: 'purse',
-                        message: 'The purse field is required.',
-                        translation_key: 'validation.required',
-                    }];
+                    if(this.payTo == 'purse') {
+                        let purseValidationError=[{
+                            input: 'purse',
+                            message: 'The purse field is required.',
+                            translation_key: 'validation.required',
+                        }];
 
-                    store.commit('setValidationErrors', purseValidationError);
+                        store.commit('setValidationErrors', purseValidationError);
 
-                    store.commit('flashMessage',{
-                        text: 'please select purse name',
-                        important: false,
-                        type: 'danger'
-                    });
+                    } else if(this.payTo == 'webservice') {
+                        let webserviceValidationError=[{
+                            input: 'webservice_id',
+                            message: 'The webservice is required.',
+                            translation_key: 'validation.required',
+                        }];
+
+                        store.commit('setValidationErrors', webserviceValidationError);
+                    }
+
+//                    store.commit('flashMessage',{
+//                        text: 'please select purse name',
+//                        important: false,
+//                        type: 'danger'
+//                    });
                 }
             },
             stepThree() {
@@ -295,12 +345,19 @@
                 if(/,/g.test(this.price)) {
                      price = this.price.replace(/,/g, "");
                 }
+
+                let purseName = null;
+                if(this.purse_name) {
+                    purseName = this.purse_name.name
+                }
+
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
                     price: price,
                     purse: this.purse,
-                    purse_name: this.purse_name.name,
+                    webservice_id: this.webservice_id,
+                    purse_name: purseName,
                     required_fields: {
                         email: '-1',
                         name: '-1',
@@ -385,6 +442,12 @@
             },
             addEasypayToState(easypayData) {
                 let price = this.price.replace(/,/g, "");
+
+                let purseName = null;
+                if(this.purse_name) {
+                    purseName = this.purse_name.name;
+                }
+
                 let easyPayData = {
                     created_at: easypayData.created_at,
                     description: this.description,
@@ -394,7 +457,7 @@
                     price: price,
                     public_id: easypayData.public_id,
                     purse: this.purse,
-                    purse_name: this.purse_name.name,
+                    purse_name: purseName,
                     required_fields: {
                         email: 'hidden',
                         name: 'hidden',
@@ -405,7 +468,7 @@
                     successful_redirect_url: null,
                     title: this.title,
                     updated_at: easypayData.updated_at,
-                    webservice_id:null,
+                    webservice_id: this.webservice_id,
                 };
 
                 this.$store.state.auth.user.easypays.unshift(easyPayData);
