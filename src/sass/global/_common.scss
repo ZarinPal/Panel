@@ -982,40 +982,21 @@ body{
       font-size: 16px;
     }
 
-    #attach{
-      padding: 0 !important;
-      margin-right: 10px;
+    .attach{
       cursor: pointer;
-      color: #2962ff;
-      font-size: 13px;
-      border: none;
-      position: relative;
-      width: 80px;
-      height: 30px;
-      outline: none;
-      overflow: hidden;
-      top: -6px;
-      right: -10px;
+      input[type="file"]{
+        display: none;
+      }
 
-      &:before{
-        content: 'انتخاب کنید';
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 15px;;
-        padding: 3px;
+      .select-text {
+        font-size: 15px;
+        padding-right: 7px;
         color: #2962ff;
-        outline: none;
-        white-space: nowrap;
-        -webkit-user-select: none;
-        cursor: pointer;
+        display: inline-block;
       }
     }
 
-    #attach::-webkit-file-upload-button{
-      visibility: hidden;
-    }
-
-    .file-name{
+    .file-name {
       overflow: hidden;
       height: 26px;
       font-size: 13px;

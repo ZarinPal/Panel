@@ -323,42 +323,40 @@ $plusIcon: $icon-zp-add;
       outline:none;
     }
 
-    .attach {
-      padding: 0 !important;
-      margin-right: 10px;
-      color: #fff;
-      border: none;
-      width: 110px;
-      outline: none;
 
-      &:before {
-        content: $iconAttach;
-        font-family: 'zarinpal';
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 20px;
-        padding: 3px;
-        color: #505050;
-        outline: none;
-        white-space: nowrap;
-        -webkit-user-select: none;
-        cursor: pointer;
+    .attach{
+      cursor: pointer;
+      margin-right: 10px;
+      input[type="file"]{
+        display: none;
       }
 
-      &.uploaded {
+      .select-text {
         &:before {
-          color: #0abe57 !important;
+          content: $iconAttach;
+          font-family: 'zarinpal';
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 20px;
+          padding: 3px;
+          color: #505050;
+          outline: none;
+          white-space: nowrap;
+          -webkit-user-select: none;
+          cursor: pointer;
+        }
+
+        &.uploaded {
+          &:before {
+            color: #0abe57 !important;
+          }
         }
       }
     }
 
-    .attach::-webkit-file-upload-button{
-      visibility: hidden;
-    }
-
     .nav-upload-loading{
       display: inline-block;
-      margin-left: 50px;
+      margin-right: 85px;
       position: relative;
       right: -112px;
       top: 12px;
