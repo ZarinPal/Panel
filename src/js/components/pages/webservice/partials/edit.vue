@@ -41,13 +41,15 @@
                                                 span.upload-icon
 
                                             div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                                p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
+                                                p.attachment-text(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
                                                 div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
                                                     span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
-                                                    input#attach(type="file" name="file" @change="onLogoChange" tabindex="4")
+
+                                                    label.attach
+                                                        span.select-text انتخاب کنید
+                                                        input(type="file" name="file" @change="onLogoChange" tabindex="4")
+
                                                     div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
-
-
 
                                 div.ta-right(v-if="validationErrors.site_logo")
                                     span.text-danger {{ $i18n.t(validationErrors.attachment) }}

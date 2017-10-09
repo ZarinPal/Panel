@@ -78,7 +78,11 @@ span
                     svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                         circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")
+                <!--input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")-->
+                label.attach
+                    span.select-text(:class="{'uploaded' : fileUploaded}")
+                    input(type="file" name="file" @change="onFileChange")
+
                 span(v-if="fileUploading == 'Failed'") upload failed
                 span.nav-upload-loading(v-if="fileUploading")
                     loading

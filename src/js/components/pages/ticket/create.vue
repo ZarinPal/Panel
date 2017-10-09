@@ -50,7 +50,11 @@
                                             p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
                                             div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
                                                 span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
-                                                input#attach(type="file" name="file" @change="onFileChange")
+
+                                                label.attach
+                                                    span.select-text انتخاب کنید
+                                                    input(type="file" name="file" @change="onFileChange")
+
                                                 div.file-name(v-if="fileUploaded" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
                                                 span.nav-upload-loading(v-if="fileUploading")
                                                     loading
