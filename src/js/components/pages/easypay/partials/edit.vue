@@ -41,36 +41,42 @@
                                             div.ta-right(v-if="validationErrors.description")
                                                 span.text-danger {{ $i18n.t(validationErrors.description) }}
 
-                                        div.row.no-margin
-                                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
-                                            div.ta-right(v-if="validationErrors.purse")
-                                                span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                                        <!--div.row.no-margin-->
+                                            <!--purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")-->
+                                            <!--div.ta-right(v-if="validationErrors.purse")-->
+                                                <!--span.text-danger {{ $i18n.t(validationErrors.purse) }}-->
+
+
+                                        <!--Easypay selectbox-->
+                                        div.row.no-margin.nav-pay-to
+                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
+                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
+                                                label(for="rdoPurseٌ")
+                                                    span
+                                                    |{{ $i18n.t('user.purse') }}
+
+                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
+                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-if="payTo || purseId" v-bind:selected="purse" placeholder="انتخاب کیف پول" tabindex="4")
+                                                div.ta-right(v-if="validationErrors.purse")
+                                                    span.text-danger {{ $i18n.t(validationErrors.purse) }}
+
+
+                                        <!--Webservice selectbox-->
+                                        div.row.nav-pay-to
+                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebserviceٌ")
+                                                label(for="rdoWebserviceٌ")
+                                                    span
+                                                    |{{ $i18n.t('coupon.webservice') }}
+
+                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12
+                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-if="payTo || webserviceId" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': validationErrors.webservice_id}" placeholder="انتخاب وب سرویس")
+                                                div.ta-right(v-if="validationErrors.webservice_id")
+                                                    span.text-danger {{ $i18n.t(validationErrors.webservice_id) }}
 
                                         div.cb
                                         div.row.nav-buttons
                             div.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                <!--div.row-->
-                                    <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
-                                        <!--div.nav-picker-->
-                                            <!--span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}-->
-
-                                    <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
-                                        <!--img.webservice-logo(src="")-->
-
-
-                                    <!--div.col-lg-12.col-md-12.col-sm-12.col-xs-12-->
-                                        <!--div.file-zone(@dragenter="fileHover = true" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")-->
-                                            <!--div.row-->
-                                                <!--div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center-->
-                                                    <!--span.upload-icon-->
-
-                                                <!--div.col-lg-10.col-md-10.col-sm-12.col-xs-12.nav-texts-->
-                                                    <!--p فایل لوگو را اینجا رها کنید-->
-                                                    <!--div.nav-file-input-->
-                                                        <!--span یا از کامپیوتر-->
-                                                        <!--input#attach-input(type="file")-->
-                                                        <!--label(for="#attach-input") انتخاب کنید-->
-
 
                     div.body
                         <!--2-->
@@ -162,17 +168,16 @@
                         <!--3-->
                         div.row
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                                div.nav-switch
-                                    label.switch-label(for="chkType") {{ $i18n.t('easypay.advance')}}
-                                    label.switch
-                                        input(type="checkbox" id="chkType" v-model="type")
-                                        span.slider.round
+                                <!--div.nav-switch-->
+                                    <!--label.switch-label(for="chkType") {{ $i18n.t('easypay.advance')}}-->
+                                    <!--label.switch-->
+                                        <!--input(type="checkbox" id="chkType" v-model="type")-->
+                                        <!--span.slider.round-->
 
                                 transition(name="fade"
                                 enter-active-class="fade-in"
                                 leave-active-class="fade-out")
-
-                                    div.row(v-if="type == 1")
+                                    div.row
                                         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                             div.row
                                                 div.col-lg-1.col-md-1.col-sm-1.col-xs-1
@@ -205,22 +210,16 @@
 
                                                         div.col-lg-12.col-md-12.col-xs-12.nav-urls
                                                             <!--Success redirect url-->
-                                                            div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.successful_redirect_url}")
-                                                                div.col-xs.no-margin
-                                                                    input.input.ltr-input(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
-                                                                div.no-margin.first-label
-                                                                    span http://www.
-                                                            div.ta-right(v-if="validationErrors.successful_redirect_url")
-                                                                span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+                                                            div.row.no-margin(:class="{'input-danger': validationErrors.successful_redirect_url}")
+                                                                input.input.ltr-input(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
+                                                                div.ta-right(v-if="validationErrors.successful_redirect_url")
+                                                                    span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
 
                                                             <!--Failed redirect url-->
-                                                            div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.failed_redirect_url}")
-                                                                div.col-xs.no-margin
-                                                                    input.input.ltr-input(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
-                                                                div.no-margin.first-label
-                                                                    span http://www.
-                                                            div.ta-right(v-if="validationErrors.failed_redirect_url")
-                                                                span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
+                                                            div.row.no-margin(:class="{'input-danger': validationErrors.failed_redirect_url}")
+                                                                input.input.ltr-input(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
+                                                                div.ta-right(v-if="validationErrors.failed_redirect_url")
+                                                                    span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
                         div.row
                             div.col-xs.nav-buttons
@@ -246,9 +245,11 @@
                 fileHover: '',
                 visibleEmail: '',   //  visible email options
                 messages: {},
-                title: '',
-                description: '',
-                price: '',
+                title: null,
+                description: null,
+                price: null,
+                payTo: null,
+                webservice_id: null,
                 purse: null,
                 requiredFields: {
                     email: {
@@ -264,7 +265,6 @@
                         radio:0,
                     }
                 },
-                type: 0,
                 showReceipt: '',
                 successfulRedirectUrl: '',
                 failedRedirectUrl: '',
@@ -273,9 +273,16 @@
             }
         },
         computed: {
-//            easypay() {
-//                return _.find(this.$store.state.paginator.paginator.EasypayList.data, {'entity_id': this.$route.params.public_id});
-//            },
+            webserviceSelection() {
+                if(this.$store.state.auth.user.webservices) {
+                    return this.$store.state.auth.user.webservices.map(function (webservice) {
+                        return {
+                            'title': webservice.name,
+                            'value': webservice.entity_id
+                        }
+                    });
+                }
+            },
             pursesSelection() {
                 if(this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
@@ -289,6 +296,12 @@
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
+            purseId() {
+                return this.purse;
+            },
+            webserviceId() {
+                return this.webservice_id;
+            },
         },
         created() {
             this.getEasypay();
@@ -296,6 +309,11 @@
         methods: {
             selectedPurse(purseId) {
                 this.purse = purseId;
+                this.webservice_id = null;
+            },
+            selectedWebservice(entityId) {
+                this.webservice_id = entityId;
+                this.purse = null;
             },
             getEasypay() {
                 this.$store.state.http.requests['easypay.getShow'].get({'easypay_id' : this.$route.params.public_id}).then(
@@ -305,7 +323,15 @@
                         this.title = response.data.data.title;
                         this.price = response.data.data.price;
                         this.description = response.data.data.description;
-                        this.purse = response.data.data.purse;
+
+                        if(response.data.data.purse && !response.data.data.webservice_id) {
+                            this.payTo = 'purse';
+                            this.purse = response.data.data.purse;
+                        } else {
+                            this.payTo = 'webservice';
+                            this.webservice_id = response.data.data.webservice_id;
+                        }
+
 //                        if (
 //                            response.data.data.show_receipt ||
 //                            response.data.data.successful_redirect_url ||
@@ -316,21 +342,15 @@
 //                        } else {
 //                            this.type = 0
 //                        }
-                        let successUrl = response.data.data.successful_redirect_url;
-                        let failedUrl = response.data.data.failed_redirect_url;
-                        if(successUrl || failedUrl) {
-                            successUrl = successUrl.substring(11);
-                            failedUrl = failedUrl.substring(11);
-                        }
-
-                        this.successfulRedirectUrl = successUrl;
-                        this.failedRedirectUrl = failedUrl;
                         this.limit = response.data.data.limit;
 
                         this.handleOrderOptions('email');
                         this.handleOrderOptions('mobile');
                         this.handleOrderOptions('name');
                         this.handleShowReceipt();
+
+                        this.failedRedirectUrl = response.data.data.failed_redirect_url;
+                        this.successfulRedirectUrl = response.data.data.successful_redirect_url;
                         this.isLoadedEasypay = true;
                     },() => {
                         this.isLoadedEasypay = true;
@@ -354,16 +374,12 @@
                     this.limited = 0;
                 }
 
-                let successUrl = null, failedUrl = null;
-                if(this.type === 1 && this.successfulRedirectUrl && this.failedRedirectUrl) {
-                    successUrl = 'http://www.' + this.successfulRedirectUrl;
-                    failedUrl = 'http://www.' + this.failedRedirectUrl;
-                }
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
                     price: price,
                     purse: this.purse,
+                    webservice_id: this.webservice_id,
                     required_fields: {
                         email: this.handleOrderOptionsSave('email'),
                         name: this.handleOrderOptionsSave('name'),
@@ -371,8 +387,8 @@
                     },
                     type: this.type,
                     show_receipt: this.showReceipt,
-                    successful_redirect_url: successUrl,
-                    failed_redirect_url: failedUrl,
+                    successful_redirect_url: this.successfulRedirectUrl,
+                    failed_redirect_url: this.failedRedirectUrl,
                     limited: this.limited,
                     limit: this.limit,
                 };
@@ -460,7 +476,12 @@
                 let easypayIndex = _.findIndex(this.$store.state.auth.user.easypays, function(easypay) {
                     return easypay.entity_id === vm.$route.params.public_id;
                 });
-                this.$store.state.auth.user.easypays[easypayIndex].title = this.title;
+
+                //this is error sometimes i dont know why :(
+                if(this.title) {
+                    this.$store.state.auth.user.easypays[easypayIndex].title = this.title;
+                }
+
                 this.$store.state.auth.user.easypays[easypayIndex].description = this.description;
                 this.$store.state.auth.user.easypays[easypayIndex].price = this.price;
                 this.$store.state.auth.user.easypays[easypayIndex].purse = this.purse;

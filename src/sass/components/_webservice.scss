@@ -159,12 +159,11 @@
   }
 
   .file-zone {
-    #attach {
-      position: relative !important;
-      top: 0 !important;
-      right: -8px !important;
+    .attachment-text {
+      margin: 10px 0 20px 0;
     }
   }
+
 }
 
 .categories{
