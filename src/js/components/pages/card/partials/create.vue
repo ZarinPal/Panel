@@ -82,6 +82,9 @@
                 return this.$store.state.alert.validationErrors;
             },
         },
+        created(){
+            store.commit('clearValidationErrors');
+        },
         mounted() {
             this.closeModalContent = false
         },

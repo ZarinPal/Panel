@@ -61,7 +61,8 @@
             },
         },
         created() {
-          this.getPriceZaringate();
+            store.commit('clearValidationErrors');
+            this.getPriceZaringate();
         },
         methods: {
             closeModal() {
