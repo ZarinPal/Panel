@@ -25,7 +25,7 @@
     export default {
         name: 'panel',
         beforeRouteUpdate (to, from, next) {
-            if(this.$store.state.auth.isRequested
+            if(this.$store.state.auth.check
                 && !this.checkUserLevel(to.meta.accessLevel, this)) {
                 this.$router.push({name: 'home.index',query:{error:'suspend',path:from.name}});
             }
@@ -39,8 +39,8 @@
         created(){
             this.$store.commit('app/loading');
             let vm = this;
-            this.$store.dispatch('auth/fetch', () => {
-                if (!vm.checkUserLevel(vm.$route.meta.accessLevel, vm)) {
+            this.$store.dispatch('auth/fetch', (isOk) => {
+                if (isOk && !vm.checkUserLevel(vm.$route.meta.accessLevel, vm)) {
                     vm.$router.push({name: 'home.index',query:{error:'suspend',path:vm.$route.name}});
                 }
             });
