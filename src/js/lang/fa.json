@@ -277,7 +277,7 @@
     "please-fill-all-fields": "لطفا تمامی فیلد هارا تکمیل کنید",
     "copied": "کپی شد",
     "otp-sent-by-sms": "رمز یکبار مصرف برای شما ارسال خواهد شد",
-    "ticket-new-webservice": "تیکت فعال سازی وب سرویس شما ارسال شد.",
+    "ticket-new-webservice": "درخواست ایجاد درگاه پرداخت شما ارسال شد. درگاه شما پس از بررسی کارشناسان تایید خواهد شد.",
     "ptop-transfer-success": "مبلغ با موفقیت انتقال یافت",
     "enter-destination-card-number": "شماره کارت مقصد را وارد کنید.",
     "add-fund-success": "افزایش اعتبار با موفقیت انجام شد.",
@@ -312,7 +312,8 @@
     "zarin-gate-activated": "زرین گیت فعال شد",
     "webservice-edited-success": "وب سرویس با موفقیت ویرایش شد.",
     "ussd-code-activated": "کد Ussd فعال شد",
-    "please-select-purse-name": "لطفا کیف پول مورد نظر را انتخاب نمایید"
+    "please-select-purse-name": "لطفا کیف پول مورد نظر را انتخاب نمایید",
+    "transfer-money-is-successfully": "تسویه حساب با موفقیت ثبت شد."
   },
   "panel": {
     "home": "پیشخوان",

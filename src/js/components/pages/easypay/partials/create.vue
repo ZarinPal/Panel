@@ -47,17 +47,17 @@
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
                                                 purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="4")
-                                                    div.ta-right(v-if="validationErrors.purse")
-                                                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                                                div.ta-right(v-if="validationErrors.purse")
+                                                    span.text-danger {{ $i18n.t(validationErrors.purse) }}
 
                                         div.row.nav-pay-to
-                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
+                                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                                 input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebserviceٌ")
                                                 label(for="rdoWebserviceٌ")
                                                     span
                                                     |{{ $i18n.t('coupon.webservice') }}
 
-                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
+                                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12
                                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': validationErrors.webservice_id}" placeholder="انتخاب وب سرویس")
                                                 div.ta-right(v-if="validationErrors.webservice_id")
                                                     span.text-danger {{ $i18n.t(validationErrors.webservice_id) }}
@@ -163,17 +163,11 @@
                         <!--3-->
                         div.row
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                                div.nav-switch(v-bind:class="{'inactive-step' : step !== 3}")
-                                    label.switch-label(for="chkType") {{ $i18n.t('easypay.advance')}}
-                                    label.switch
-                                        input(type="checkbox" id="chkType" v-model="type")
-                                        span.slider.round
-
                                 transition(name="fade"
                                 enter-active-class="fade-in"
                                 leave-active-class="fade-out")
 
-                                    div.row(v-if="type == 1" v-bind:class="{'inactive-step' : step !== 3}")
+                                    div.row(v-bind:class="{'inactive-step' : step !== 3}")
                                         div.col-lg-1.col-md-1.col-sm-1.col-xs-1
                                             div.step-number(v-bind:class="{'active-step-number' : step == 3}") ۳
                                             div.step-line(v-bind:class="{'active-step-line' : step == 3}")
@@ -203,22 +197,16 @@
 
                                                 div.col-lg-12.col-md-12.col-xs-12.nav-urls
                                                     <!--Success redirect url-->
-                                                    div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.successful_redirect_url}")
-                                                        div.col-xs.no-margin
-                                                            input.input.ltr-input(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
-                                                        div.no-margin.first-label
-                                                            span http://www.
-                                                    div.ta-right(v-if="validationErrors.successful_redirect_url")
-                                                        span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+                                                    div.row.no-margin(:class="{'input-danger': validationErrors.successful_redirect_url}")
+                                                        input.input.ltr-input(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
+                                                        div.ta-right(v-if="validationErrors.successful_redirect_url")
+                                                            span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
 
                                                     <!--Failed redirect url-->
-                                                    div.row.input-group.no-margin.full-width(:class="{'input-danger': validationErrors.failed_redirect_url}")
-                                                        div.col-xs.no-margin
-                                                            input.input.ltr-input(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
-                                                        div.no-margin.first-label
-                                                            span http://www.
-                                                    div.ta-right(v-if="validationErrors.failed_redirect_url")
-                                                        span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
+                                                    div.row.no-margin(:class="{'input-danger': validationErrors.failed_redirect_url}")
+                                                        input.input.ltr-input(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
+                                                        div.ta-right(v-if="validationErrors.failed_redirect_url")
+                                                            span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
 
 
                         div.row(v-bind:class="{'inactive-step' : step == 1}")
@@ -259,7 +247,6 @@
                     name: false,
                     mobile: false
                 },
-                type: 0,
                 showReceipt: false,
                 successfulRedirectUrl: null,
                 failedRedirectUrl: null,
@@ -304,8 +291,6 @@
                 this.purse_name = null;
             },
             stepTwo() {
-
-
                 if(this.purse || this.webservice_id) {
                     //create easypay here
                     this.createEasypay();
@@ -363,7 +348,6 @@
                         name: '-1',
                         mobile: '-1'
                     },
-                    type: 0,
                 };
 
                 this.$store.state.http.requests['easypay.getList'].save(easyPayData).then(
@@ -397,12 +381,6 @@
                 }
                 let price = this.price.replace(/,/g, "");
 
-                let successUrl = null, failedUrl = null;
-                if(this.type === 1 && this.successfulRedirectUrl && this.failedRedirectUrl) {
-                    successUrl = 'http://www.' + this.successfulRedirectUrl;
-                    failedUrl = 'http://www.' + this.failedRedirectUrl;
-                }
-
                 let easyPayData = {
                     isLoading: false,
                     title: this.title,
@@ -414,10 +392,9 @@
                         name: this.requiredFields.name,
                         mobile: this.requiredFields.mobile
                     },
-                    type: this.type,
                     show_receipt: this.showReceipt,
-                    successful_redirect_url: successUrl,
-                    failed_redirect_url: failedUrl,
+                    successful_redirect_url: this.successfulRedirectUrl,
+                    failed_redirect_url: this.failedRedirectUrl,
                     limited: this.limited,
                     limit: this.limit,
                 };
@@ -502,12 +479,6 @@
                 }
             },
             handleShowReceipt() {
-                if(this.type === false) {
-                    this.type = 0;
-                } else {
-                    this.type = 1;
-                }
-
                 if (this.showReceipt === false) {
                     this.showReceipt = 0;
                 } else {

@@ -123,7 +123,12 @@
                     this.month = '';
                 }
 
-                let formatedPan = this.pan.split('-').join('');
+
+                let formatedPan = this.pan;
+                if(/-/g.test(formatedPan)) {
+                    formatedPan = this.pan.split('-').join('');
+                }
+
                 let expiredAt = this.jalaliToGregorian(this.year, this.month);
 
                 let cardData = {

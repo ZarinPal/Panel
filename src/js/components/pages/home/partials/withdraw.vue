@@ -230,6 +230,11 @@
                 this.amount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
                 this.withdrawAmount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
             },
+            getPursesBalances() {
+                this.$store.state.auth.updatePurseListener++;
+                this.$store.dispatch('auth/fetchPurseBalance');
+                this.$store.state.timer.getPurseBalanceTime = Date.now();
+            },
             getFeeWithdrawMethod() {
                 let cardType = 'default';
                 if(this.card.slug === 'ZarinCard') {
@@ -277,6 +282,8 @@
 
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
                     (response)=> {
+                        //update purse balance after withdraw
+                        this.getPursesBalances();
                         this.loading = false;
                         this.$store.commit('flashMessage',{
                             text: response.data.meta.message,
