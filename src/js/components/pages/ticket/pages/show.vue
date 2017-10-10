@@ -120,6 +120,7 @@ span
             },
         },
         created() {
+            store.commit('clearValidationErrors');
             //Change ticket list new ticket button
             this.$store.commit('app/changeTicketState');
         },

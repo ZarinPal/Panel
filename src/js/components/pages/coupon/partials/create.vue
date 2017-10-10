@@ -143,7 +143,8 @@
             },
         },
         created(){
-            //Add all item to webservice and easypay
+            store.commit('clearValidationErrors');
+        //Add all item to webservice and easypay
             let webserviceAll = {
                 'title' : 'همه',
                 'value' : 'all'

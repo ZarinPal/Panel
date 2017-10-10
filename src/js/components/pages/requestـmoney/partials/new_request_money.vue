@@ -212,6 +212,7 @@
             this.closeModalContent = false;
         },
         created() {
+            store.commit('clearValidationErrors');
             if(!this.$store.state.paginator.paginator.PhoneBook) {
                 this.getPhoneBook();
             }
