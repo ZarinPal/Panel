@@ -70,6 +70,7 @@
             },
         },
         created() {
+            store.commit('clearValidationErrors');
             this.getPriceUssd();
         },
         methods: {
