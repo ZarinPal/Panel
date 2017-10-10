@@ -70,6 +70,7 @@
         },
         created(){
 //            this.pan = this.card.pan;
+            store.commit('clearValidationErrors');
             let jalaliExpiredDate = moment(this.card.expired_at, 'YYYY-MM-DD').format('jYYYY-jMM-jDD');
             this.year = moment(jalaliExpiredDate).year();
             this.month = jalaliExpiredDate.substr(5,2);

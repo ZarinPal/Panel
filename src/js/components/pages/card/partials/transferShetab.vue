@@ -132,6 +132,9 @@
                 return this.$store.state.alert.validationErrors;
             }
         },
+        created(){
+            store.commit('clearValidationErrors');
+        },
         methods: {
             cardNumberFormat(inputId) {
                 let text = document.getElementById(inputId).value;
