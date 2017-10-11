@@ -15,15 +15,16 @@
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         let sep = ',';
                         let balance = null;
-                        if(purse.balance.balance){
-                            balance = purse.balance.balance.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
-                        } else {
-                            balance = purse.balance.balance;
-                        }
-
-                        return {
-                            'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '</div><div class="col-xs ta-left persian-num purse-selectbox-balance">' + balance + ' تومان</div>',
-                            'value': purse.purse
+                        if(purse.balance) {
+                            if(purse.balance.balance){
+                                balance = purse.balance.balance.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
+                            } else {
+                                balance = purse.balance.balance;
+                            }
+                            return {
+                                'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '</div><div class="col-xs ta-left persian-num purse-selectbox-balance">' + balance + ' تومان</div>',
+                                'value': purse.purse
+                            }
                         }
                     });
                 }

@@ -97,7 +97,7 @@
                 }
 
                 this.loading = true;
-                let amount = this.amountl
+                let amount = this.amount;
                 if(/,/g.test(this.amount)) {
                     amount = this.amount.replace(/,/g, ""); //remove , from amount
                 }
