@@ -77,7 +77,7 @@
         },
         computed:{
             purses(){
-                if(!this.$store.state.auth.user.purses) {
+                if(this.$store.state.auth.user.purses.length == 0) {
                     return {
                         data: [],
                         update: 0

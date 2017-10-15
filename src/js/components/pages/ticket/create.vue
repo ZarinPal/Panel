@@ -96,6 +96,7 @@
             }
         },
         created(){
+            store.commit('clearValidationErrors');
             this.$store.dispatch('app/getTicketDepartments');
         },
         computed:{

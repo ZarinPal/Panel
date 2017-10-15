@@ -47,6 +47,9 @@
                 return this.$store.state.alert.validationErrors;
             },
         },
+        created(){
+            store.commit('clearValidationErrors');
+        },
         methods: {
             closeModal() {
                 this.$emit('closeModal')
