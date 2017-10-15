@@ -29,7 +29,8 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
 
                 div.col-xs.ta-left.no-margin
                     div.row.label-group.pull-left
-                        div.col-xs.text.merchant-code(:id="'txtMerchantId-' + webservice.entity_id") {{webservice.entity_id}}
+                        div.col-xs.text.merchant-code(:id="'txtMerchantId-' + webservice.entity_id")
+                            p {{webservice.entity_id}}
                         div.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
 
             div.row.box-row
@@ -102,19 +103,15 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                 store.commit('clearValidationErrors');
             },
             clipboardMessage() {
-                this.selectMerchantText();
+                this.selectMerchantText('p');
                 store.commit('flashMessage',{
                     text: 'copied',
                     type: 'success',
                     timeout: '1500'
                 });
             },
-            selectMerchantText() {
-                // let el = document.getElementById("txtMerchantId-" + this.webservice.entity_id);
-                //
-                // var range = document.body.createTextRange();
-                // range.moveToElementText(document.getElementById("txtMerchantId-" + this.webservice.entity_id));
-                // range.select();
+            selectMerchantText(element) {
+
             }
         },
         components:{

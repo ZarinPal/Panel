@@ -90,8 +90,13 @@
                 if (address.landline) {
                     this.$store.state.http.requests['user.getAddress'].delete({landline: address.landline}).then(
                         ()=> {
-                            delete this.address[address.index];
-                            let elem = document.getElementById(address.index);
+                            let vm = this;
+                            let addressIndex = _.findIndex(this.address, function(selectAddress) {
+                                return selectAddress.landline === address.landline;
+                            });
+
+                            delete this.address[addressIndex];
+                            let elem = document.getElementById(addressIndex);
                             return elem.parentNode.removeChild(elem);
                         },
                         (response) => {
