@@ -18,9 +18,14 @@
 
                             span.nav-edit-wallet(v-if="isEditingPurseName")
                                 form(autocomplete="on" onsubmit="event.preventDefault();")
-                                    input.txt-wallet-name(:id="'txtPurseName-' + purse.purse" onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
+                                    input.txt-wallet-name(:class="{'input-danger': validationErrors.name}" :id="'txtPurseName-' + purse.purse" onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
+
                                     button.save(@click="send()") {{ $i18n.t('common.save') }}
                                     span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
+
+                            div.ta-right(v-if="validationErrors.name")
+                                span.text-danger {{ $i18n.t(validationErrors.name) }}
+
 
 
                     div.left-box
@@ -75,10 +80,11 @@
     import addFund from '../partials/add-fund.vue';
     import pTop from '../partials/ptop.vue';
     import withdraw from '../partials/withdraw.vue';
+    import validation from '../../../../lib/validation';
 
     export default {
         name: 'pages-home-partials-singlePurse',
-        data(){
+        data() {
             return {
                 isLoaded: false,
                 isEditingPurseName: false,
@@ -89,6 +95,14 @@
             }
         },
         props: ['purse', 'update', 'balance'],
+        computed: {
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            },
+        },
+        created(){
+            store.commit('clearValidationErrors');
+        },
         methods: {
             changeMoreTriggerOn() {
                 this.$store.state.app.singlePurseMoreTrigger = this.purse.purse;
@@ -123,8 +137,9 @@
                         txtPurseName.select();
                     }
                 }, 50);
+                store.commit('clearValidationErrors');
             },
-            send(){
+            send() {
                 let sendContent = {
                     name: this.newPurseName
                 };
@@ -136,6 +151,7 @@
                         this.toggleEditPurse();
                     },
                     (response) => {
+                        store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'

@@ -13,36 +13,36 @@
                 span.address-title(v-if="addressId > 1" ) {{$i18n.t('user.addressTitle') + ' ' + addressId | persianNumbers}}
             div.row.z-row
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                    input(:class="{'input-danger': validationErrors['addresses.'+addressId+'.title']}" type="text" v-model="address.title" @input="updateAddress" placeholder="عنوان" )
-                    div.ta-right(v-if="validationErrors['addresses.'+addressId+'.title']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.title']) }}
+                    input(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.title']}" type="text" v-model="address.title" @input="updateAddress" placeholder="عنوان" )
+                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.title']")
+                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.title']) }}
 
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     span.input-icon.icon-tel
-                    input(v-validate="{type: 'number'}" maxlength="14" :class="{'input-danger': validationErrors['addresses.'+addressId+'.landline']}" type="text" v-model="address.landline" @input="updateAddress" placeholder="شماره تلفن (ثابت)" )
-                    div.ta-right(v-if="validationErrors['addresses.'+addressId+'.landline']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.landline']) }}
+                    input(v-validate="{type: 'number'}" maxlength="14" :class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.landline']}" type="text" v-model="address.landline" @input="updateAddress" placeholder="شماره تلفن (ثابت)" )
+                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.landline']")
+                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.landline']) }}
 
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     span.input-icon.icon-postal-code
-                    input(v-validate="{type: 'number'}" maxlength="10" :class="{'input-danger': validationErrors['addresses.'+addressId+'.postal_code']}" type="text" v-model="address.postal_code"  @input="updateAddress" placeholder="کد پستی" )
-                    div.ta-right(v-if="validationErrors['addresses.'+addressId+'.postal_code']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.postal_code'])}}
+                    input(v-validate="{type: 'number'}" maxlength="10" :class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.postal_code']}" type="text" v-model="address.postal_code"  @input="updateAddress" placeholder="کد پستی" )
+                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.postal_code']")
+                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.postal_code'])}}
 
             div.row.z-row
                 div.col-lg-9.col-md-9.col-sm-12.col-xs-12
-                    input(:class="{'input-danger': validationErrors['addresses.'+addressId+'.address']}" type="text" v-model="address.address"  @input="updateAddress" placeholder="آدرس" )
-                    div.ta-right(v-if="validationErrors['addresses.'+addressId+'.address']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.address']) }}
+                    input(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.address']}" type="text" v-model="address.address"  @input="updateAddress" placeholder="آدرس" )
+                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.address']")
+                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.address']) }}
 
                 div.col-lg-3.col-md-3.col-sm-12.col-xs-12(@click="visibleMap = true")
-                    div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+addressId+'.geo_location'], 'has-geo-location': address.geo_location}")
+                    div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.geo_location'], 'has-geo-location': address.geo_location}")
                         span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}
                         span(v-else) {{address.geo_location | persianNumbers}}
 
                         span.input-icon.icon-location
-                    div.ta-right(v-if="validationErrors['addresses.'+addressId+'.geo_location']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+addressId+'.geo_location']) }}
+                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.geo_location']")
+                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.geo_location']) }}
 
 
             <!--Show google map to select location-->
