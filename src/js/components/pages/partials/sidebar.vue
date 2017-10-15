@@ -110,7 +110,7 @@ export default {
 
             //reload purse balance
             if (this.$route.name === 'home.index') {
-                let requestTimeDiff = Math.abs(Date.now() - this.$store.state.timer.getPurseBalanceTime) / 1000;
+                let requestTimeDiff = Math.abs(Date.now() - this.$store.state.timer.getPurseBalanceTime) / 100;
                 if(requestTimeDiff > this.getPurseBalanceTimer) {
                     this.$store.state.auth.updatePurseListener++;
                     this.$store.dispatch('auth/fetchPurseBalance');
@@ -118,20 +118,20 @@ export default {
                 }
             }
 
-            //reload tickets
-//            if (this.$route.name === 'ticket.index') {
-//                let vm = this;
-//                this.$store.state.paginator.TicketList = null;
-//                this.$store.dispatch(
-//                    'paginator/make',
-//                    {
-//                        vm,
-//                        resource: vm.$store.state.http.requests['ticket.index'],
-//                        params: vm.searchOptions,
-//                        requestName: 'TicketList'
-//                    }
-//                );
-//            }
+            // reload tickets
+           if (this.$route.name === 'ticket.index') {
+               let vm = this;
+               this.$store.state.paginator.paginator.TicketList = null;
+               this.$store.dispatch(
+                   'paginator/make',
+                   {
+                       vm,
+                       resource: vm.$store.state.http.requests['ticket.index'],
+                       params: vm.searchOptions,
+                       requestName: 'TicketList'
+                   }
+               );
+           }
         },
         detectWidth(){
             if (window.innerWidth <= 768) {
