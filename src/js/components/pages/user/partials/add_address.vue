@@ -115,6 +115,7 @@
 
             },
             postUserAddress() {
+                this.loading = true;
                 this.$store.state.http.requests['user.postAddress'].save({'addresses': this.address}).then(
                     ()=> {
                         store.commit('flashMessage',{
@@ -123,7 +124,7 @@
                             type: 'success'
                         });
                         this.loading = false;
-                        this.$router.push({name: 'home.index'})
+                        // this.$router.push({name: 'home.index'})
                     },
                     (response) => {
                         store.commit('setValidationErrors',response.data.validation_errors);
