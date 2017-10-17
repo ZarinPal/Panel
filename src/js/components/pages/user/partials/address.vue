@@ -30,17 +30,17 @@
                         span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.postal_code'])}}
 
             div.row.z-row
-                div.col-lg-9.col-md-9.col-sm-12.col-xs-12
+                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                     input(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.address']}" type="text" v-model="address.address"  @input="updateAddress" placeholder="آدرس" )
                     div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.address']")
                         span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.address']) }}
 
-                div.col-lg-3.col-md-3.col-sm-12.col-xs-12(@click="visibleMap = true")
-                    div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.geo_location'], 'has-geo-location': address.geo_location}")
-                        span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}
-                        span(v-else) {{address.geo_location | persianNumbers}}
+                <!--div.col-lg-3.col-md-3.col-sm-12.col-xs-12(@click="visibleMap = true")-->
+                    <!--div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.geo_location'], 'has-geo-location': address.geo_location}")-->
+                        <!--span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}-->
+                        <!--span(v-else) {{address.geo_location | persianNumbers}}-->
 
-                        span.input-icon.icon-location
+                        <!--span.input-icon.icon-location-->
                     div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.geo_location']")
                         span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.geo_location']) }}
 

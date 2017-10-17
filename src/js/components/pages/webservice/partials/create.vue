@@ -111,6 +111,19 @@
             },
             createWebservice() {
                 this.loading = true;
+
+                //check tel is mobile and validate it
+                if(/^09/g.test(this.tel)) {
+                    if(!(/^09[0-9]{9}$/g.test(this.tel))) {
+                        store.commit('flashMessage',{
+                            text: 'mobile number not valid',
+                            type: 'danger',
+                        });
+                        this.loading = false;
+                        return;
+                    }
+                }
+
                 let webserviceData = {
                     domain: this.domain,
                     tel: this.tel,
@@ -119,7 +132,6 @@
                     site_name: this.site_name,
                     site_content: this.site_content,
                 };
-
 
                 this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
                     ()=> {
