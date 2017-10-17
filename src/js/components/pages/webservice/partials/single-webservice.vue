@@ -115,10 +115,6 @@
                     type: 'success',
                     timeout: '1500'
                 });
-            },
-            handleFocus(){
-                console.log('kosher');
-                event.target.select();
             }
         },
         components: {
