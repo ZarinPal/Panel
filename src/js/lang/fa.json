@@ -314,7 +314,8 @@
     "ussd-code-activated": "کد Ussd فعال شد",
     "please-select-purse-name": "لطفا کیف پول مورد نظر را انتخاب نمایید",
     "transfer-money-is-successfully": "تسویه حساب با موفقیت ثبت شد.",
-    "mobile-number-not-valid": "شماره موبایل معتبر نمی باشد."
+    "mobile-number-not-valid": "شماره موبایل معتبر نمی باشد.",
+    "fix-validation-errors": "خطا های اعتبار سنجی را تکمیل کنید"
   },
   "panel": {
     "home": "پیشخوان",

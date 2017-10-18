@@ -72,7 +72,7 @@
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(v-on:paste="pasteOtp()" @keyup="otpMaxLength()" v-validate="{size: 6}" type="number" min="0" name="otp" v-model="otp" id="txtOtp")
+                                    input(v-on:paste="pasteOtp()" @change="otpMaxLength()" @keyup="otpMaxLength()" v-validate="{size: 6}" type="number" min="0" name="otp" v-model="otp" id="txtOtp")
                                 div.dashed-line
 
                         div.ta-right(v-if="validationErrors.otp")
@@ -253,10 +253,14 @@
                 this.channel = 'ussd';
             },
             otpMaxLength() {
-                let txtOtp = document.getElementById('txtOtp').value;
-                if(txtOtp.length > 0 && txtOtp.length === 6) {
-                    document.getElementById("btnSubmitLogin").click();
-                }                
+                setTimeout(function () {
+                    if(document.getElementById('txtOtp')) {
+                        let txtOtp = document.getElementById('txtOtp').value;
+                        if(txtOtp.length > 0 && txtOtp.length === 6) {
+                            document.getElementById("btnSubmitLogin").click();
+                        }
+                    }
+                }, 20);
             }
         },
         components:{
