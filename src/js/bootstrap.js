@@ -33,6 +33,17 @@ const i18n = new VueI18n({
 });
 window.i18n = i18n;
 
+
+/**
+ * Vee validate
+ */
+import VeeValidate from 'vee-validate';
+import messagesFa from './lang/validation/fa';
+
+VeeValidate.Validator.addLocale(messagesFa);
+Vue.use(VeeValidate, {locale: 'fa'});
+Vue.use(VeeValidate);
+
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 
@@ -71,9 +82,14 @@ Vue.directive(
     require('./directives/back').default
 );
 
+// Vue.directive(
+//     'validate',
+//     require('./directives/validate').default
+// );
+
 Vue.directive(
-    'validate',
-    require('./directives/validate').default
+    'mask',
+    require('./directives/mask').default
 );
 
 /**

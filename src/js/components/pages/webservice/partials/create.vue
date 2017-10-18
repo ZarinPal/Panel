@@ -52,6 +52,12 @@
                                         span.text-danger {{ $i18n.t(validationErrors.webservice_category_id) }}
 
 
+
+                                <!--Local Validation-->
+                                input(v-validate="'required|email'" v-bind:data-vv-as="$i18n.t('user.email')" :class="{'input-danger': errors.has('webservice_category_id')}", name='webservice_category_id', type='text', :placeholder="$i18n.t('user.email')")
+                                div.ta-right(v-if="validation('webservice_category_id')")
+                                    span.text-danger {{ errors.first('webservice_category_id') }}
+
                     div.row
                         div.col-xs.nav-buttons
                             button.btn.success.pull-left(v-ripple="" @click="createWebservice" tabindex="7") {{$i18n.t('webservice.create')}}
@@ -103,6 +109,14 @@
             this.$store.dispatch('app/getWebserviceCategories');
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
             selectedPurse(purseId) {
                 this.purse = purseId;
             },
@@ -110,7 +124,13 @@
                 this.webservice_category_id = webserviceCatId;
             },
             createWebservice() {
-                this.loading = true;
+                if (this.errors.length) {
+                    store.commit('flashMessage',{
+                        text: 'fix validation errors',
+                        type: 'danger',
+                    });
+                    return false;
+                }
 
                 //check tel is mobile and validate it
                 if(/^09/g.test(this.tel)) {
@@ -124,6 +144,7 @@
                     }
                 }
 
+                this.loading = true;
                 let webserviceData = {
                     domain: this.domain,
                     tel: this.tel,
