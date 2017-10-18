@@ -31,8 +31,8 @@
                     div.left-box
                         <!--span.icon-more.circle-hover(@click="changeMoreTriggerOn()" id="btnMoreIcon")-->
                         transition( name="bounce"
-                                    enter-active-class="drop-down-show"
-                                    leave-active-class="drop-down-hide")
+                        enter-active-class="drop-down-show"
+                        leave-active-class="drop-down-hide")
                             span.drop-down(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singlePurseMoreTrigger == purse.purse")
                                 span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
                                 span.drop-down-item.add-fund(v-ripple="" @click="visibleAddFund = true") {{ $i18n.t('purse.addFund') }}
@@ -119,7 +119,7 @@
             },
             changePurseName(){
                 let vm = this;
-                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function (purse) {
                     return purse.purse === vm.purse.purse
                 });
                 this.$store.state.auth.user.purses[purseIndex].name
@@ -147,29 +147,29 @@
                 this.$store.state.http.requests['purse.postEdit']
                     .update({'purse_number': this.purse.purse}, sendContent)
                     .then(() => {
-                        this.changePurseName();
-                        this.toggleEditPurse();
-                    },
-                    (response) => {
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
-                            type: 'danger'
-                        });
-                        this.toggleEditPurse();
-                    }
-                );
+                            this.changePurseName();
+                            this.toggleEditPurse();
+                        },
+                        (response) => {
+                            store.commit('setValidationErrors', response.data.validation_errors);
+                            store.commit('flashMessage', {
+                                text: response.data.meta.error_message,
+                                type: 'danger'
+                            });
+                            this.toggleEditPurse();
+                        }
+                    );
             },
             closeDropDownFromOutside() {
                 let vm = this;
-                document.addEventListener('click', function(e) {
-                    if(e.target.id !== 'btnMoreIcon') {
+                document.addEventListener('click', function (e) {
+                    if (e.target.id !== 'btnMoreIcon') {
                         vm.$store.state.app.singlePurseMoreTrigger = null;
                     }
                 }, false);
             }
         },
-        components:{
+        components: {
             addFund,
             pTop,
             withdraw,

@@ -42,7 +42,7 @@
         mounted(){
             this.closeModalContent = false
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -58,14 +58,14 @@
                 this.purse = purseId;
             },
             createPurse() {
-                this.loading= true;
+                this.loading = true;
                 let purseData = {
-                    purse : this.purse,
-                    name : this.purseName,
+                    purse: this.purse,
+                    name: this.purseName,
                 };
                 this.$store.state.http.requests['purse.getList'].save(purseData).then(
-                    ()=> {
-                        this.loading=false;
+                    () => {
+                        this.loading = false;
                         let lastPurseId = this.$store.state.auth.user.purses.length;
                         let newPurse = {
                             balance: 0,
@@ -77,9 +77,9 @@
                         this.closeModal();
                     },
                     (response) => {
-                        this.loading=false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        this.$store.commit('flashMessage',{
+                        this.loading = false;
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        this.$store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'
