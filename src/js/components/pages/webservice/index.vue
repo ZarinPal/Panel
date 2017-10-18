@@ -34,7 +34,7 @@
 
     export default {
         name: 'webservice-index',
-        computed:{
+        computed: {
             user(){
                 return this.$store.state.auth.user;
             },
@@ -49,7 +49,7 @@
         created() {
             this.getWebservices();
             let vm = this;
-            window.onscroll = function() {
+            window.onscroll = function () {
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
                     && !vm.$store.state.paginator.paginator.WebserviceList.isLoading) {
                     vm.$store.dispatch(
@@ -68,7 +68,7 @@
                     'paginator/make',
                     {
                         vm,
-                        resource:vm.$store.state.http.requests['webservice.getIndex'],
+                        resource: vm.$store.state.http.requests['webservice.getIndex'],
                         requestName: "WebserviceList"
                     }
                 );
