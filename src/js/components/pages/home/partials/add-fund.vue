@@ -53,17 +53,17 @@
         },
         props: ['purse'],
         mounted(){
-            this.redirectUrl =  this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href ;
+            this.redirectUrl = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
             this.closeModalContent = false
         },
-        computed:{
+        computed: {
             activeCards() {
                 let activeCards = [];
-                _.forEach(this.$store.state.auth.user.cards, function(card) {
-                    if(card.status == "Active" && card.pan !== null) {
+                _.forEach(this.$store.state.auth.user.cards, function (card) {
+                    if (card.status == "Active" && card.pan !== null) {
                         activeCards.unshift({
-                            'title' : '<div class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() +'"></div> <span class="bank-name">' + card.issuer.name +'</span>' + '<span class="pull-left">' + card.pan +  '</span>',
-                            'value' : card.entity_id,
+                            'title': '<div class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() + '"></div> <span class="bank-name">' + card.issuer.name + '</span>' + '<span class="pull-left">' + card.pan + '</span>',
+                            'value': card.entity_id,
                         });
                     }
                 });
@@ -75,7 +75,7 @@
         },
         created() {
             store.commit('clearValidationErrors');
-            if(this.purse) {
+            if (this.purse) {
                 this.purseId = this.purse.purse;
             }
         },
@@ -88,7 +88,7 @@
             },
             addFund() {
                 if (this.amount > this.maxAmountLimit) {
-                    this.$store.commit('flashMessage',{
+                    this.$store.commit('flashMessage', {
                         text: 'add found max amount limit',
                         type: 'danger',
                         important: true,
@@ -98,7 +98,7 @@
 
                 this.loading = true;
                 let amount = this.amount;
-                if(/,/g.test(this.amount)) {
+                if (/,/g.test(this.amount)) {
                     amount = this.amount.replace(/,/g, ""); //remove , from amount
                 }
                 let addFundData = {
@@ -109,7 +109,7 @@
                 };
 
                 this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
-                    (response)=> {
+                    (response) => {
                         let addFundWindow = window.open(
                             'https://www.zarinpal.com/pg/StartPay/' + response.data.data.authority + '/ZarinGate',
                             '_self'
@@ -117,8 +117,8 @@
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        this.$store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        this.$store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });
