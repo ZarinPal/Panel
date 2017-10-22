@@ -20,19 +20,20 @@
                                     span
                                     |{{ $i18n.t('card.legal')}}
 
-                div.row.input-group.no-margin(:class="{'input-danger': validationErrors.iban}")
+                div.row.input-group.no-margin(:class="{'input-danger': errors.has('iban')}")
                     div.col-xs.no-margin
-                        input.input.ta-left.dir-ltr(v-validate="{type: 'number'}" maxlength="24" type="text" v-model="iban"  placeholder= "شماره شبا")
+                        input.input.ta-left.dir-ltr(v-validate="{ rules: {required: true, numeric: true, max: 24} }" v-bind:data-vv-as="$i18n.t('card.iban')" maxlength="24" type="text" v-model="iban" name="iban" :placeholder= "$i18n.t('card.iban')")
                     div.no-margin.first-label
                         span IR
-                div.ta-right(v-if="validationErrors.iban")
-                    span.text-danger {{ $i18n.t(validationErrors.iban) }}
+
+                div.ta-right(v-if="validation('iban')")
+                    span.text-danger {{ errors.first('iban') }}
 
                 div(v-if="isLegal == 0")
                     div.row
-                        input.ta-left.dir-ltr(v-validate="{type: 'number'}" maxlength="19" :class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" id="pan" @keyup="cardNumberFormat('pan')")
-                        div.ta-right(v-if="validationErrors.pan")
-                            span.text-danger {{ $i18n.t(validationErrors.pan) }}
+                        input.ta-left.dir-ltr(v-validate="{ rules: {required: true, max: 19} }" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder= "$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat('pan')")
+                        div.ta-right(v-if="validation('pan')")
+                            span.text-danger {{ errors.first('pan') }}
 
                     div.row.no-margin
                         div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
@@ -41,14 +42,14 @@
                             div.row.nav-expiration-input
                                 div.col-xs.no-margin
                                     span.label {{$i18n.t('card.month')}}:
-                                    input#month(v-validate="{type: 'number'}" maxlength="2" type="text" v-model="month" placeholder="00" @keyup="changeMonthFocus")
+                                    input#month(maxlength="2" type="text" v-model="month" placeholder="00" @keyup="changeMonthFocus")
                                 div.col-xs.no-margin
                                     span.label {{$i18n.t('card.year')}}:
-                                    input#year(v-validate="{type: 'number'}" maxlength="4" type="text" v-model="year" placeholder="0000" @keyup="changeYearFocus")
+                                    input#year(maxlength="4" type="text" v-model="year" placeholder="0000" @keyup="changeYearFocus")
 
                 div.row
                     div.col-xs.no-margin
-                        button.btn.success.pull-left(v-ripple="" @click="createCard") {{$i18n.t('card.createCard')}}
+                        button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('card.createCard')}}
                             svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                 circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -61,6 +62,7 @@
 
     export default {
         name: 'pages-card-partials-create',
+        validator: null,
         data() {
             return {
                 loading: false,
@@ -70,7 +72,7 @@
                 year: null,
                 month: null,
                 isLegal: 0,
-                yearFocus: false
+                yearFocus: false,
             }
         },
         props:['card'],
@@ -81,6 +83,10 @@
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
+            expiredAt() {
+                let expiredAt = this.jalaliToGregorian(this.year, this.month);
+                return expiredAt;
+            }
         },
         created(){
             store.commit('clearValidationErrors');
@@ -89,6 +95,24 @@
             this.closeModalContent = false
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    iban: this.iban,
+                    pan: this.pan,
+                }).then((result) => {
+                    if (result) {
+                        this.createCard();
+                    }
+                });
+            },
             cardNumberFormat(inputId) {
                 let text = document.getElementById(inputId).value;
                 let result = [];
