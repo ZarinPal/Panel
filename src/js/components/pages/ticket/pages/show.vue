@@ -70,11 +70,11 @@ span
                     b.title پاسخ به تیکت:
                     span.value {{ ticket.title }}
                 div
-                    textarea(:class="{'input-danger': validationErrors.content}" placeholder="متن پاسخ تیکت..." v-model="content")
-                    div.ta-right(v-if="validationErrors.content")
-                        span.text-danger {{ $i18n.t(validationErrors.content) }}
+                    textarea(v-validate="{ rules: {required: true, min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
+                    div.ta-right(v-if="validation('content')")
+                        span.text-danger {{ errors.first('content') }}
 
-                button.submit(@click="send") {{ $i18n.t('ticket.send')}}
+                button.submit(@click="validateForm") {{ $i18n.t('ticket.send')}}
                     svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                         circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -142,6 +142,24 @@ span
             });
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    content: this.content,
+                }).then((result) => {
+                    if (result) {
+                        console.log('all is ok');
+                        // this.send();
+                    }
+                });
+            },
             getReplies(id){
                 this.isLoadReplies = true;
                 let ticket = {};
