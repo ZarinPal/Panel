@@ -156,7 +156,7 @@
             this.search();
             let vm = this;
 
-            window.onscroll = function(ev) {
+            window.onscroll = function (ev) {
                 //load more transaction if end of page
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
                     && !vm.$store.state.paginator.paginator.TransactionList.isLoading) {
@@ -197,7 +197,7 @@
                 this.searchOptions[filter] = value;
             },
             applyGeneralFilter(filter) {
-                if(!this.loadingState.status) {
+                if (!this.loadingState.status) {
                     this.generalFilter = filter;
                     this.addFilter('status', this.generalFilter);
                     this.search();
@@ -209,7 +209,7 @@
                     'paginator/make',
                     {
                         vm,
-                        resource:vm.$store.state.http.requests['transaction.getRecents'],
+                        resource: vm.$store.state.http.requests['transaction.getRecents'],
                         params: vm.searchOptions,
                         requestName: "TransactionList"
                     }
@@ -219,7 +219,7 @@
                 this.filterType = value;
                 switch (value) {
                     case 'transaction_id':
-                        this.placeholder ='۳۹۲۳۳۸۷۱۵۱۴';
+                        this.placeholder = '۳۹۲۳۳۸۷۱۵۱۴';
                         break;
                     case 'pan':
                         this.placeholder = '۱۲۳۴۵۶******۶۲۷۳';
@@ -236,12 +236,12 @@
                 }
             },
             showStandAloneTransaction() {
-                if(this.$route.params.transactionId) {
+                if (this.$route.params.transactionId) {
                     this.$store.state.http.requests['transaction.getInfo'].get({transactionId: this.$route.params.transactionId}).then(
                         (response) => {
                             this.showTransactionDetail = true;
                             this.transaction = response.data.data;
-                        },()=>{
+                        }, () => {
 
                         }
                     );

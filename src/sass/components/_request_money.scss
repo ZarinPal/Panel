@@ -2,25 +2,25 @@
    Request Money Index
    =============== */
 
-.inactive-index{
+.inactive-index {
   pointer-events: none;
   filter: blur(3px);
 }
 
 /*** Nav background image ***/
-.request-money-index{
+.request-money-index {
   margin-top: 10px;
 
-  .nav-blur-container{
-    overflow:hidden;
-    border-radius:5px 5px 0 0;
+  .nav-blur-container {
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
     box-shadow: 0 0 3px rgba(0, 0, 0, .2);
 
-    .blur-container{
+    .blur-container {
       height: 40px;
     }
 
-    .user-profile-background{
+    .user-profile-background {
       width: 110%;
       background-repeat: no-repeat;
       z-index: -1;
@@ -34,15 +34,15 @@
       bottom: 0;
     }
 
-    .blur-content{
+    .blur-content {
 
-      .nav-user-info{
+      .nav-user-info {
         margin-top: 30px;
         margin-right: 21px;
         position: relative;
 
-        .user-avatar{
-          border:5px solid rgba(255, 255, 255, .3);
+        .user-avatar {
+          border: 5px solid rgba(255, 255, 255, .3);
           border-radius: 50%;
           width: 84px;
           height: 84px;
@@ -50,7 +50,7 @@
           top: 20px;
         }
 
-        .user-name{
+        .user-name {
           font-size: 19px;
           color: #fff;
           display: inline-block;
@@ -60,7 +60,7 @@
           margin-top: -60px !important;
         }
 
-        .user-zp-id{
+        .user-zp-id {
           font-size: 14px;
           color: #fff;
           position: relative;
@@ -76,8 +76,8 @@
       margin-left: 20px;
       margin-top: 110px;
 
-      .zarin-friends{
-        &:before{
+      .zarin-friends {
+        &:before {
           font-family: 'zarinpal';
           content: $iconPerson;
           position: relative;
@@ -88,40 +88,40 @@
       }
 
       .request-button {
-        border:1px solid #fff;
-        border-radius:20px;
-        color:#fff;
+        border: 1px solid #fff;
+        border-radius: 20px;
+        color: #fff;
         background-color: rgba(255, 255, 255, .1);
         padding: 5px 10px;
-        cursor:pointer;
+        cursor: pointer;
         font-size: 13px;
         margin-right: 10px;
       }
     }
   }
 
-  .nav-menu{
+  .nav-menu {
     background-color: #ffffff;
     border-radius: 0 0 $boxBorderRadiusSize $boxBorderRadiusSize;
     margin-top: -40px;
-    margin-bottom:15px;
+    margin-bottom: 15px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
 
     ul {
-      li{
-        display:inline-block;
+      li {
+        display: inline-block;
         font-size: 13px;
         padding: 11px;
         color: #B6B6B6;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
 
         }
 
-        &.active{
+        &.active {
           color: #424242 !important;
-          border-bottom:3px solid #FFD500;
+          border-bottom: 3px solid #FFD500;
           cursor: default;
         }
       }
@@ -130,8 +130,8 @@
 }
 
 /*** Request money row ***/
-.nav-request-money{
-  .more-number{
+.nav-request-money {
+  .more-number {
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.06);
     padding: 1px 4px;
@@ -142,7 +142,7 @@
     margin-right: -6px;
   }
 
-  .trans-row{
+  .trans-row {
     background-color: #fefefe;
     border-radius: $boxBorderRadiusSize;
     font-size: 13px;
@@ -158,7 +158,7 @@
       width: 105px;
       display: inline-block;
 
-      .users-avatar{
+      .users-avatar {
         width: 25px;
         height: 25px;
         border-radius: 50%;
@@ -169,69 +169,69 @@
       }
     }
 
-    .total-amount{
+    .total-amount {
       font-weight: bold;
-      font-size:15px;
+      font-size: 15px;
       margin-left: 5px;
     }
   }
 
-  .req-btn{
+  .req-btn {
     border-radius: 30px;
     padding: 2px 10px;
     font-size: 13px;
     margin-right: 10px;
-    cursor:pointer;
+    cursor: pointer;
     transition: $animateTime;
     display: inline-block;
 
-    .material-spinner{
+    .material-spinner {
       position: relative !important;
       top: 4px !important;
       margin-right: 5px !important;
     }
   }
 
-  .btn-decline{
-    border:1px solid #ff1744;
-    color:#ff1744;
-    &:hover{
+  .btn-decline {
+    border: 1px solid #ff1744;
+    color: #ff1744;
+    &:hover {
       transition: $animateTime;
-      background-color:rgba(255, 23, 68, 0.2);;
+      background-color: rgba(255, 23, 68, 0.2);;
     }
 
-    &.clicked-reject{
+    &.clicked-reject {
       transition: $animateTime;
-      background-color:rgba(255, 23, 68, 0.2);;
+      background-color: rgba(255, 23, 68, 0.2);;
     }
   }
 
-  .btn-accept{
-    border:1px solid #2ecc71;
-    color:#2ecc71;
-    &:hover{
+  .btn-accept {
+    border: 1px solid #2ecc71;
+    color: #2ecc71;
+    &:hover {
       transition: $animateTime;
       background-color: rgba(46, 204, 113, 0.2);
     }
 
-    &.clicked-paid{
+    &.clicked-paid {
       transition: $animateTime;
       background-color: rgba(46, 204, 113, 0.2);
     }
   }
 
-  .paid-text{
-    font-size:13px;
+  .paid-text {
+    font-size: 13px;
     color: #2ecc71;
   }
 
-  .reject-text{
-    font-size:13px;
+  .reject-text {
+    font-size: 13px;
     color: #ff1744;
   }
 
-  .pending-text{
-    font-size:13px;
+  .pending-text {
+    font-size: 13px;
     color: #ff9800;
   }
 
@@ -240,24 +240,24 @@
 /* ===============
    Request Details
    =============== */
-.request-details{
+.request-details {
   /*** Common ***/
-  .nav-amount{
+  .nav-amount {
     padding: 30px 0;
     border-bottom: 1px solid #eee;
 
-    >span{
+    > span {
       font-size: 24px;
       margin-left: 5px;
     }
 
-    >small{
+    > small {
       color: #777777;
     }
   }
 
   .nav-request-status {
-    .row{
+    .row {
       font-size: 15px;
       padding: 10px 4px;
       border-bottom: 1px solid #eee;
@@ -269,20 +269,19 @@
   }
 
   /*** Demand details***/
-  .demand-details{
-    .nav-top{
+  .demand-details {
+    .nav-top {
       box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
       margin: 0px -20px 0 -20px;
 
-      .row{
-        div{
+      .row {
+        div {
           padding: 10px 20px;
         }
       }
     }
 
-
-    .users{
+    .users {
       margin-top: 3px;
       margin-left: -20px;
       margin-right: -20px;
@@ -292,21 +291,21 @@
       max-height: 250px;
       overflow: auto;
 
-      .persons-text{
+      .persons-text {
         margin: 20px 20px;
         color: #666;
         padding-top: 10px;
       }
 
-      >.row{
+      > .row {
         border-bottom: 1px solid #eee;
 
-        .name{
+        .name {
           margin-top: 10px;
           font-size: 14px;
         }
 
-        .amount{
+        .amount {
           font-size: 18px;
           margin-left: 5px;
         }
@@ -317,7 +316,7 @@
       }
 
       .avatar {
-        width:50px;
+        width: 50px;
         border-radius: 50%;
         margin: 5px 20px 5px 1px;
         position: relative;
@@ -325,7 +324,7 @@
       }
 
       .nav-status {
-        >span {
+        > span {
           margin-left: 20px;
           margin-top: 26px;
           display: inline-block;
@@ -336,11 +335,11 @@
   }
 
   /*** Debt details***/
-  .debt-details{
+  .debt-details {
     padding: 0 20px;
 
-    .avatar{
-      width:60px;
+    .avatar {
+      width: 60px;
       border-radius: 50%;
       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
     }
@@ -348,36 +347,35 @@
 }
 
 /*** Pay request modal ***/
-.pay-request{
-  .nav-amount{
+.pay-request {
+  .nav-amount {
     border-bottom: 1px solid #eee;
     padding-bottom: 20px;
     margin-bottom: 20px;
 
-    >span {
+    > span {
       font-size: 30px;
       margin-left: 5px;
     }
-    >small {
+    > small {
       font-size: 13px;
     }
   }
 
-  .nav-description{
+  .nav-description {
     margin: 10px 0;
   }
 }
-
 
 /* ===============
    New request money
    =============== */
 
-.new-request-money{
+.new-request-money {
   /*** Common in new request ***/
 
   /*** Footer ***/
-  .footer{
+  .footer {
     margin: 0 -20px -20px -20px !important;
     padding: 13px 30px !important;
     .user-counter {
@@ -393,7 +391,7 @@
       cursor: pointer;
       &:before {
         content: $iconPrev;
-        font-family:'zarinpal' !important;
+        font-family: 'zarinpal' !important;
         font-size: 25px;
         margin-left: 0;
         position: relative;
@@ -403,19 +401,19 @@
   }
 
   /*** Selected Users Avatar ***/
-  .selected-users-avatar{
+  .selected-users-avatar {
     margin-top: -40px;
     margin-right: -30px;
     margin-left: -30px;
     padding: 20px;
     background-color: #f7f7f7;
 
-    .avatar-container{
+    .avatar-container {
       width: 310px;
       margin: 10px auto;
       direction: ltr;
 
-      .avatar{
+      .avatar {
         width: 60px;
         border-radius: 50%;
         border: 1px solid #fff;
@@ -425,7 +423,7 @@
       }
     }
 
-    .arrow{
+    .arrow {
       width: 0;
       height: 0;
       border-style: solid;
@@ -439,7 +437,7 @@
   }
 
   /*** Remain user count ***/
-  .remain-user-number{
+  .remain-user-number {
     color: $labelColor;
     display: inline-block;
     background-color: rgba(238, 238, 238, 0.45);
@@ -452,8 +450,8 @@
   }
 
   /*** Select users ***/
-  .nav-select-user{
-    .search-box{
+  .nav-select-user {
+    .search-box {
       margin-right: -20px !important;
       margin-left: -20px !important;
       margin-top: -10px !important;
@@ -461,7 +459,7 @@
 
       border-bottom: 1px solid #e5e5e5;
 
-      .icon-search{
+      .icon-search {
         position: relative;
         top: 8px;
         right: 15px;
@@ -475,46 +473,45 @@
         margin-bottom: 10px;
         margin-top: 6px;
 
-        &:focus{
+        &:focus {
           box-shadow: none;
         }
       }
     }
 
-
     /*** Users ***/
-    .users{
+    .users {
       margin: 20px 0;
       max-height: 280px;
       min-height: 250px;
       margin-left: -20px;
       overflow: auto;
-      .user-row{
+      .user-row {
         width: 100%;
         cursor: pointer !important;
-        >label{
+        > label {
           width: 100% !important;
         }
 
-        .avatar{
+        .avatar {
           width: 55px;
           border-radius: 50%;
           margin-right: 10px;
           margin-top: 10px;
         }
 
-        .user-name{
-          font-size:14px;
-          color:$labelColor;
+        .user-name {
+          font-size: 14px;
+          color: $labelColor;
           margin-top: 17px;
         }
 
-        .user-zp{
-          font-size:13px;
-          color:#717171;
+        .user-zp {
+          font-size: 13px;
+          color: #717171;
         }
 
-        .checkbox-label{
+        .checkbox-label {
           margin-top: 30px;
           display: inline-block;
         }
@@ -522,7 +519,7 @@
     }
   }
 
-  .txt-nothing-to-show{
+  .txt-nothing-to-show {
     color: #424242;
     position: relative;
     top: -130px;
@@ -532,7 +529,7 @@
   }
 
   /*** Select Method ***/
-  .nav-request-type{
+  .nav-request-type {
     margin: 20px 10px;
     cursor: pointer;
 
@@ -551,95 +548,94 @@
       }
     }
 
-    .top-text{
-      font-size:15px;
-      color:$labelColor;
+    .top-text {
+      font-size: 15px;
+      color: $labelColor;
       margin: 10px 5px;
     }
 
-    .method-box{
+    .method-box {
       cursor: pointer;
       background-color: #f7f7f7;
-      border:1px solid transparent;
+      border: 1px solid transparent;
       border-radius: 5px;
       padding: 15px;
       margin-bottom: 10px;
 
-      >label{
-        width:100%;
+      > label {
+        width: 100%;
       }
 
-      .title{
+      .title {
         cursor: pointer;
         font-size: 15px;
         color: $labelColor;
         font-weight: bold;
       }
 
-      .description{
+      .description {
         cursor: pointer;
         font-size: 14px;
       }
 
-      .circle-checkbox{
-        margin-top:16px;
+      .circle-checkbox {
+        margin-top: 16px;
       }
 
-      &.active{
+      &.active {
         border: 1px solid #e4e4e4;
       }
     }
   }
 
-  .auto-division{
+  .auto-division {
     margin: 20px 10px;
 
-    .share-in-request-text{
+    .share-in-request-text {
       margin: 20px -7px;
     }
   }
 
-  .nav-manually-division{
+  .nav-manually-division {
     margin: 30px 10px;
 
-    .manually-selected-users-avatar{
+    .manually-selected-users-avatar {
       overflow: hidden;
-      .avatar-container{
+      .avatar-container {
         width: 100% !important;
       }
 
-      .avatar{
+      .avatar {
         transition: .2s;
 
       }
 
-      .active-image{
+      .active-image {
         width: 70px;
         transition: 0.2s;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        margin:0 40px 0 20px;
+        margin: 0 40px 0 20px;
       }
     }
-
 
     .selected-users-avatar {
       margin-top: -50px !important;
       height: 80px;
     }
 
-    .user-name{
+    .user-name {
       font-size: 15px;
-      color:$labelColor;
+      color: $labelColor;
       display: inline-block;
-      margin:20px 0;
+      margin: 20px 0;
     }
 
-    .icon-next{
+    .icon-next {
       float: right;
       margin-top: -85px;
       display: inline-block;
       cursor: pointer;
-      &:before{
+      &:before {
         font-family: 'zarinpal';
         content: $iconPrev;
         position: relative;
@@ -648,13 +644,13 @@
       }
     }
 
-    .icon-prev{
+    .icon-prev {
       display: inline-block;
       float: left;
       margin-top: -80px;
       margin-right: -26px;
       cursor: pointer;
-      &:before{
+      &:before {
         content: $iconForward;
         font-family: 'zarinpal';
         position: relative;
@@ -665,41 +661,41 @@
     }
   }
 
-  .nav-request-amount{
+  .nav-request-amount {
     margin: 20px;
-    .amount-text{
+    .amount-text {
       font-size: 15px;
       color: $labelColor;
     }
 
-    .sum-amount{
+    .sum-amount {
       font-size: 18px;
       color: #2ecc71;
       margin: 0 5px;
     }
   }
 
-  .amount-input{
+  .amount-input {
     text-align: center;
-    font-size:36px;
-    color:#676767;
-    border:1px solid #cecece;
+    font-size: 36px;
+    color: #676767;
+    border: 1px solid #cecece;
     border-radius: $boxBorderRadiusSize;
 
-    &::placeholder  {
+    &::placeholder {
       font-size: 25px;
     }
   }
 
   /*** Description and details ***/
-  .nav-final-step{
+  .nav-final-step {
     margin: 20px 10px;
 
-    .description-title{
+    .description-title {
       font-size: 13px;
       margin-top: 20px;
     }
-    .selected-users-static{
+    .selected-users-static {
       @extend .selected-users-avatar;
       img {
         width: 60px;
@@ -712,12 +708,12 @@
 
     }
 
-    .description-input{
+    .description-input {
       padding: 9px;
-      margin:15px 0;
+      margin: 15px 0;
     }
 
-    .detail-bar{
+    .detail-bar {
       background-color: #f7f7f7;
       font-size: 15px;
       font-weight: bold;
@@ -727,35 +723,36 @@
       margin-bottom: 20px;
     }
 
-    .total-amount{
+    .total-amount {
       font-size: 24px;
       color: #2ecc71;
       margin-left: 10px;
     }
 
-    .total-toman{
+    .total-toman {
       margin-top: 5px;
     }
 
-    .line{
+    .line {
       width: 100%;
       height: 1px;
       background-color: #f5f5f5;
-      margin:25px 0;
+      margin: 25px 0;
     }
 
-    .multi-person{
+    .multi-person {
       font-size: 15px;
     }
   }
 }
+
 /* ===============
    Responsive actions
    =============== */
 
 /*** Md ***/
-@media (max-width: $mediumWidth){
-  .nav-blur-container{
+@media (max-width: $mediumWidth) {
+  .nav-blur-container {
     text-align: center;
   }
 
@@ -767,18 +764,18 @@
     }
   }
 
-  .nav-left{
+  .nav-left {
     text-align: center !important;
   }
 
-  .nav-buttons{
+  .nav-buttons {
     margin-top: -20px !important;
     margin-bottom: 10px !important;
   }
 }
 
 /*** Sm ***/
-@media (max-width: $smallWidth){
+@media (max-width: $smallWidth) {
 
 }
 
@@ -786,39 +783,37 @@
 @media (max-width: $mobileSize) {
   .request-money-index {
     .nav-blur-container {
-      .user-profile-background{
+      .user-profile-background {
         //height: 260px !important;
         margin-top: 0 !important;
         top: -320px;
       }
     }
 
-    .nav-user-info{
-      .user-avatar{
+    .nav-user-info {
+      .user-avatar {
         margin: 10px auto !important;
       }
     }
   }
 }
 
-
 /*** Md ***/
 @media (max-width: $mediumWidth) {
   .request-money-index {
     .nav-blur-container {
-      .user-profile-background{
+      .user-profile-background {
         top: -320px;
       }
     }
   }
 }
 
-
 /*** Sm ***/
 @media (max-width: $smallWidth) {
   .request-money-index {
     .nav-blur-container {
-      .user-profile-background{
+      .user-profile-background {
         top: -350px;
       }
     }

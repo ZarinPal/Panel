@@ -5,8 +5,8 @@ export default {
         smallSidebar: false,
         showMobileSidebar: false,
         isTicketEmptyPage: false,
-        webserviceCategories:  [],
-        ticketDepartments:  [],
+        webserviceCategories: [],
+        ticketDepartments: [],
         visibleNotification: false,
         singlePurseMoreTrigger: null,
         singleWebserviceMoreTrigger: null,
@@ -27,7 +27,7 @@ export default {
             state.smallSidebar = !state.smallSidebar;
         },
         toggleMobileSidebar(state, condition) {
-            if(condition){
+            if (condition) {
                 state.showMobileSidebar = condition;
                 return;
             }
@@ -43,7 +43,7 @@ export default {
             state.ticketDepartments = categories;
         },
         setRefererId(state, refId) {
-            if(refId) {
+            if (refId) {
                 state.refererId = refId;
                 return
             }
@@ -57,7 +57,7 @@ export default {
     },
     actions: {
         getWebserviceCategories({commit, rootState, state}) {
-            if(state.webserviceCategories.length) {
+            if (state.webserviceCategories.length) {
                 return;
             }
             rootState.http.requests['webservice.getWebserviceCategory'].get().then(
@@ -67,7 +67,7 @@ export default {
             );
         },
         getTicketDepartments({commit, rootState, state}) {
-            if(state.ticketDepartments.length) {
+            if (state.ticketDepartments.length) {
                 return;
             }
             rootState.http.requests['ticket.getTicketDepartment'].get().then(

@@ -209,7 +209,8 @@
                 this.$store.state.http.requests['transaction.postPurseToPurseTransfer'].save(ptopData).then(
                     (response) => {
                         this.requesting = false;
-                        this.$router.push({name: 'transaction.index',
+                        this.$router.push({
+                            name: 'transaction.index',
                             params: {
                                 id: this.purseId,
                                 type: 'purse',

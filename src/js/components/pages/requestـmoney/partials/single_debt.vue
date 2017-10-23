@@ -51,15 +51,15 @@
     export default {
         name: 'request-money-single-debt',
         data() {
-          return {
-              rejectLoading: false,
-              payLoading: false,
-              confirmVisible: false,
-              visiblePayRequest: false,
-              visibleDetails: false
-          }
+            return {
+                rejectLoading: false,
+                payLoading: false,
+                confirmVisible: false,
+                visiblePayRequest: false,
+                visibleDetails: false
+            }
         },
-        props:['debt'],
+        props: ['debt'],
         methods: {
             closeModal() {
                 this.confirmVisible = false;
@@ -78,11 +78,11 @@
                 };
 
                 this.$store.state.http.requests['requestMoney.postRequestMoney'].update(requestData).then(
-                    (response)=> {
+                    (response) => {
                         this.changeDebtState();
                         this.rejectLoading = false;
                         this.changeRequestMode();
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: 'flash.reject-request-money-successfull',
                             type: 'success'
                         });
@@ -90,7 +90,7 @@
                     (response) => {
                         this.rejectLoading = false;
                         this.changeRequestMode();
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });
@@ -99,13 +99,13 @@
             },
             changeDebtState() {
                 let vm = this;
-                let debtIndex = _.findIndex(this.$store.state.paginator.paginator.DebtList.data, function(debt) {
+                let debtIndex = _.findIndex(this.$store.state.paginator.paginator.DebtList.data, function (debt) {
                     return debt.entity_id === vm.debt.entity_id;
                 });
                 this.$store.state.paginator.paginator.DebtList.data[debtIndex].status = 'reject';
             },
             changeRequestMode(){
-                this.$emit('changeRequestMode',1);
+                this.$emit('changeRequestMode', 1);
             }
         },
         components: {

@@ -17,7 +17,7 @@ mix.js('src/js/app.js', 'assets/js')
     .setPublicPath('assets')
     .setResourceRoot('../')
     .version();
-    // .copyDirectory('src/img', 'assets/img');
+// .copyDirectory('src/img', 'assets/img');
 
 // Full API
 // mix.js(src, output);

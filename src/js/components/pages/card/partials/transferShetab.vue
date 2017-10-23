@@ -118,7 +118,7 @@
                 transferResponse: null,
                 requesting: false,
                 transferCompelled: false,
-                step:1,
+                step: 1,
                 cardId: null,
                 password: null,
                 cvv2: null,
@@ -126,8 +126,8 @@
                 amount: null,
             }
         },
-        props:['card'],
-        computed:{
+        props: ['card'],
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             }
@@ -159,7 +159,7 @@
             cardNumberFormat(inputId) {
                 let text = document.getElementById(inputId).value;
                 let result = [];
-                if(text) {
+                if (text) {
                     text = this[inputId].replace(/[^\d]/g, "");
                     while (text.length > 4) {
                         result.push(text.substring(0, 4));
@@ -178,19 +178,19 @@
                 let destPan = this.dst_pan.split('-').join('');
 
                 this.$store.state.http.requests['zarincard.getHolderName'].get({destPan: destPan}).then(
-                    (response)=> {
+                    (response) => {
                         this.step = 2;
                         this.requesting = false;
                         this.destinationUser = response.data.data;
                     },
                     (response) => {
                         this.requesting = false;
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'
                         });
-                        store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('setValidationErrors', response.data.validation_errors);
                     }
                 );
             },
@@ -200,7 +200,7 @@
                 let destPan = this.dst_pan.split('-').join('');
                 let amount = this.amount.replace(/,/g, "");
 
-                let transferData ={
+                let transferData = {
                     card_id: this.card.entity_id,
                     password: this.password,
                     cvv2: this.cvv2,
@@ -209,7 +209,7 @@
                 };
 
                 this.$store.state.http.requests['zarincard.postTransferShetab'].save(transferData).then(
-                    (response)=> {
+                    (response) => {
                         this.step = 2;
                         this.requesting = false;
                         this.transferCompelled = false;
@@ -220,12 +220,12 @@
                         this.step = 1;
                         this.transferCompelled = false;
                         this.requesting = false;
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'
                         });
-                        store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('setValidationErrors', response.data.validation_errors);
                     }
                 );
             },

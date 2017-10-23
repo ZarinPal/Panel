@@ -29,7 +29,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 input[type=number] {
-  -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
 
 input[type="text"],
@@ -59,7 +59,7 @@ textarea {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width:100%;
+  width: 100%;
 
   @include placeholder {
     color: #676767;
@@ -144,8 +144,8 @@ input[type="radio"] {
   }
 }
 
-.circle-checkbox{
-  border-radius:50% !important;
+.circle-checkbox {
+  border-radius: 50% !important;
 }
 
 input[type="checkbox"] {
@@ -296,7 +296,7 @@ a.btn {
     width: 100%;
   }
 
-  .material-spinner{
+  .material-spinner {
     margin: 0px 10px -10px -10px;
   }
 }
@@ -322,8 +322,8 @@ ul.select_item {
     user-select: none;
     overflow: hidden;
 
-    &:first-child{
-      border-radius: 0 $boxBorderRadiusSize  $boxBorderRadiusSize 0;
+    &:first-child {
+      border-radius: 0 $boxBorderRadiusSize $boxBorderRadiusSize 0;
     }
     &:last-child {
       border-left: #9e9e9e solid 1px;
@@ -366,7 +366,7 @@ ul.dropdown {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
   }
 
-  .title{
+  .title {
     white-space: nowrap;
     position: relative;
     top: -11px;
@@ -378,7 +378,7 @@ ul.dropdown {
     top: 3px;
   }
 
-  .indent{
+  .indent {
     padding-right: 30px;
   }
 
@@ -386,11 +386,11 @@ ul.dropdown {
     top: 5px;
   }
 
-  .purse-selectbox-balance{
-    margin-left:10px;
+  .purse-selectbox-balance {
+    margin-left: 10px;
   }
 
-  .disable{
+  .disable {
     background-color: #bbbbbb;
     color: #000000 !important;
     opacity: 1;
@@ -399,7 +399,7 @@ ul.dropdown {
     padding-right: 10px;
   }
 
-  .dropdown-item-row{
+  .dropdown-item-row {
     margin: 0 !important;
   }
 
@@ -413,7 +413,7 @@ ul.dropdown {
     left: -11px;
     top: 2px;
 
-    &:before{
+    &:before {
       content: $itemArrow;
       font-family: 'zarinpal';
       font-style: normal;
@@ -459,14 +459,13 @@ ul.dropdown {
   }
 }
 
-
 //Input group
-.input-group{
+.input-group {
   background-color: #f8f9fa;
   border: 1px solid #CECECE;
   border-radius: 5px;
   width: 100%;
-  .first-label{
+  .first-label {
     font-size: 12px;
     color: #676767;
     padding: 7px 15px !important;
@@ -484,7 +483,7 @@ ul.dropdown {
     box-shadow: none !important;
   }
 
-  .last-label{
+  .last-label {
     font-size: 12px;
     color: #676767;
     padding: 7px 15px !important;
@@ -501,7 +500,7 @@ ul.dropdown {
   height: 19px;
 
   input {
-    display:none;
+    display: none;
   }
 
   .slider {
@@ -552,7 +551,7 @@ ul.dropdown {
   }
 }
 
-.switch-label{
+.switch-label {
   position: relative;
   top: -5px;
   margin-left: 40px;

@@ -51,13 +51,13 @@
             },
             logout(){
                 this.confirm = true;
-                if(this.confirm) {
-                    this.$store.dispatch('auth/logout',this);
+                if (this.confirm) {
+                    this.$store.dispatch('auth/logout', this);
                 }
             },
         },
         components: {
-        confirm,
-    }
+            confirm,
+        }
     };
 </script>

@@ -33,9 +33,7 @@
                 purse: null,
             }
         },
-        computed:{
-
-        },
+        computed: {},
         created() {
             this.$store.commit('app/setRefererId', 'b_tn4GFQvK5wXGlJbR4He4AVsLPDs');
         },
@@ -53,7 +51,7 @@
                 this.$store.state.http.requests['telegram.registerTelegramPay'].save(refererData).then(
                     (response) => {
                         window.location.href = response.data.data.redirect_url
-                    },()=>{
+                    }, () => {
                         this.loading = false;
                     }
                 );

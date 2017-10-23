@@ -12,15 +12,15 @@
 
 
 <script>
-export default {
-    name: 'zp-id',
-    props: [
-        'data',
-    ],
-    computed: {
-        user(){
-            return this.data;
-        }
-    },
-};
+    export default {
+        name: 'zp-id',
+        props: [
+            'data',
+        ],
+        computed: {
+            user(){
+                return this.data;
+            }
+        },
+    };
 </script>

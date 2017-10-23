@@ -40,13 +40,13 @@
 
 
                 <!--div.col-lg-3.col-md-3.col-sm-12.col-xs-12(@click="visibleMap = true")-->
-                    <!--div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.geo_location'], 'has-geo-location': address.geo_location}")-->
-                        <!--span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}-->
-                        <!--span(v-else) {{address.geo_location | persianNumbers}}-->
+                <!--div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.geo_location'], 'has-geo-location': address.geo_location}")-->
+                <!--span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}-->
+                <!--span(v-else) {{address.geo_location | persianNumbers}}-->
 
-                        <!--span.input-icon.icon-location-->
-                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.geo_location']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.geo_location']) }}
+                <!--span.input-icon.icon-location-->
+                div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.geo_location']")
+                    span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.geo_location']) }}
 
             <!--Show google map to select location-->
             google-map(v-if="visibleMap" v-on:locationData="locationData" v-on:closeModal="closeModal()")
@@ -85,7 +85,7 @@
             }
         },
         props: ['addressId', 'singleAddress'],
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -95,7 +95,7 @@
         },
         methods: {
             validation(name) {
-                if(this.$store.state.alert.validationErrors[name]) {
+                if (this.$store.state.alert.validationErrors[name]) {
                     this.errors.clear();
                     this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
                     this.$store.state.alert.validationErrors[name] = false;
@@ -103,7 +103,7 @@
                 return this.errors.has(name);
             },
             initAddress() {
-                if(this.singleAddress) {
+                if (this.singleAddress) {
                     this.address.address = this.singleAddress.address;
                     this.address.landline = this.singleAddress.landline;
                     this.address.postal_code = this.singleAddress.postal_code;
@@ -134,7 +134,7 @@
                 this.confirmVisible = false;
             },
         },
-        components:{
+        components: {
             'google-map': map,
             confirm
         }

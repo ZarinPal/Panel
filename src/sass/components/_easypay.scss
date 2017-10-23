@@ -1,19 +1,20 @@
 //Easypay index
-.tag-deposit-to{
+.tag-deposit-to {
   border-radius: 30px;
   background-color: #f6f6f6;
   padding: 4px 9px;
-  .logo{
+  .logo {
     width: 20px;
     height: 20px;
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
     vertical-align: middle;
-    margin-left: 5px;    background-image: url("../../img/ZarinPal-Logo.svg");
+    margin-left: 5px;
+    background-image: url("../../img/ZarinPal-Logo.svg");
   }
 
-  .purse-color{
+  .purse-color {
     display: inline-block;
     width: 15px;
     height: 15px;
@@ -23,7 +24,7 @@
     margin-left: 5px;
   }
 
-  >span{
+  > span {
     position: relative;
     font-size: 13px;
     color: #777;
@@ -32,7 +33,7 @@
 }
 
 //Easypay create
-.create-easypay{
+.create-easypay {
 
   .nav-pay-to {
     label {
@@ -45,12 +46,12 @@
     width: 100% !important;
   }
 
-  input, .selectbox{
+  input, .selectbox {
     margin: 6px 0;
     width: 100%;
   }
 
-  .purses{
+  .purses {
     margin: 10px 0 !important;
   }
 
@@ -87,13 +88,13 @@
   }
 
   .amount-icon {
-    &:before{
+    &:before {
       font-size: 13px !important;
     }
     @include easypay-input-icon($amountIcon);
   }
 
-  .purse-icon{
+  .purse-icon {
     @include easypay-input-icon($purseIcon);
   }
 
@@ -105,12 +106,12 @@
     font-size: 13px;
   }
 
-  .form-message{
+  .form-message {
     font-size: 11px;
     margin-bottom: 20px;
   }
 
-  .f-row{
+  .f-row {
     .row {
       margin: 10px 0;
     }
@@ -121,7 +122,7 @@
   }
 
   .nav-required-fields {
-    .ta-right:first-child{
+    .ta-right:first-child {
       margin: 10px;
     }
   }
@@ -133,7 +134,7 @@
   }
 
   .nav-urls {
-    .input-group{
+    .input-group {
       margin: 10px 0 !important;
     }
   }
@@ -145,7 +146,7 @@
   pointer-events: none;
 }
 
-.step-number{
+.step-number {
   padding: 2px;
   display: inline-block;
   width: 22px;
@@ -156,7 +157,7 @@
   text-align: center;
 }
 
-.step-line{
+.step-line {
   width: 2px !important;
   margin: 10px 12px;
   height: 90%;
@@ -167,7 +168,7 @@
   background-color: #ffc107 !important;
 }
 
-.active-step-number{
+.active-step-number {
   background-color: #ffc107 !important;
   text-align: center;
 }

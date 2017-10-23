@@ -66,15 +66,14 @@
         mounted(){
             this.closeModalContent = false
         },
-        computed:{
-        },
+        computed: {},
         methods: {
             closeModal() {
                 this.$emit('closeModal');
                 store.commit('clearValidationErrors');
             },
             clipboardMessage() {
-                store.commit('flashMessage',{
+                store.commit('flashMessage', {
                     text: 'copied',
                     type: 'success',
                     timeout: '500'

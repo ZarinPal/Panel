@@ -55,7 +55,7 @@
     import profileDropdown from '../../pages/partials/user/profile-dropdown.vue';
 
     export default {
-        name:'navBar',
+        name: 'navBar',
         data() {
             return {
                 visibleProfileDropdown: false,
@@ -82,11 +82,11 @@
                 this.$store.commit('app/toggleMobileSidebar');
             },
             toggleNotification(notificationId) {
-                if(!notificationId) {
+                if (!notificationId) {
                     notificationId = null;
                 }
                 //remove ticket OR transaction OR request_money notifications
-                _.remove(this.$store.state.alert.notifications, function(notification) {
+                _.remove(this.$store.state.alert.notifications, function (notification) {
                     return notification.uuid === notificationId;
                 });
                 this.$store.state.alert.counter++;
@@ -98,13 +98,13 @@
             },
             closeFromOutside() {
                 let vm = this;
-                document.addEventListener('click', function(e) {
-                    if(e.target.id !== 'btnNotification' && e.target.id !== 'navNotification') {
+                document.addEventListener('click', function (e) {
+                    if (e.target.id !== 'btnNotification' && e.target.id !== 'navNotification') {
                         vm.$store.state.app.visibleNotification = false;
                     }
 
 //                  && e.target.parentNode.parentNode.id !== 'navProfileDropdown'
-                    if(e.target.id !== 'btnProfileDropdown' && e.target.id !== 'btnLogout') {
+                    if (e.target.id !== 'btnProfileDropdown' && e.target.id !== 'btnLogout') {
                         vm.visibleProfileDropdown = false;
                     }
                 });

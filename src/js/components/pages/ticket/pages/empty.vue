@@ -16,7 +16,7 @@
         },
         created() {
             //Change ticket list new ticket button
-            if(!this.$store.state.app.isTicketEmptyPage) {
+            if (!this.$store.state.app.isTicketEmptyPage) {
                 this.$store.commit('app/changeTicketState');
             }
         },
@@ -30,9 +30,9 @@
             let vm = this;
             let ticketContent = document.getElementById('ticketContent');
 
-            ticketContent.addEventListener("scroll", function(e) {
+            ticketContent.addEventListener("scroll", function (e) {
                 if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
-                    && !vm.$store.state.paginator.isLoading){
+                    && !vm.$store.state.paginator.isLoading) {
                     vm.$store.dispatch(
                         'paginator/next',
                         {

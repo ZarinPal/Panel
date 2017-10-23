@@ -123,7 +123,7 @@ export default new VueRouter({
                             meta: {
                                 accessLevel: ['silver', 'gold']
                             }
-                        },                {
+                        }, {
                             path: 'coupon/test',
                             name: 'coupon.test',
                             component: require('./components/pages/coupon/test.vue'),
@@ -245,9 +245,9 @@ export default new VueRouter({
                 }
             ]
         },
-        { path: '/*', redirect: '/panel/error/404' },
+        {path: '/*', redirect: '/panel/error/404'},
     ],
     scrollBehavior (to, from, savedPosition) {
-        return { x: 0, y: 0 }
+        return {x: 0, y: 0}
     },
 });

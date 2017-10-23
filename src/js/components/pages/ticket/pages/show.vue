@@ -1,71 +1,68 @@
 <template lang="pug">
-span
-    div.nav-ticket-title(v-if="ticket")
-        div.row.top-row
-            div.col-xs
-                span.ticket-title {{ticket.title}}
-            div.col-xs
-                span.ticket-id.pull-left(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="ticket.public_id") {{ticket.public_id | persianNumbers}}
-                button.btn.info.close-ticket.pull-left(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
+    span
+        div.nav-ticket-title(v-if="ticket")
+            div.row.top-row
+                div.col-xs
+                    span.ticket-title {{ticket.title}}
+                div.col-xs
+                    span.ticket-id.pull-left(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="ticket.public_id") {{ticket.public_id | persianNumbers}}
+                    button.btn.info.close-ticket.pull-left(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
 
-        div.ver-line
-        div.row.bottom-row
-            div.col-lg-3.col-md-6.col-sm-6.col-xs-12
-                span.title {{ $i18n.t('ticket.updated') }} :
-                span.value {{ticket.updated_at | fromNow | persianNumbers}}
-            div.col-lg-3.col-md-6.col-sm-6.col-xs-12
-                span.title {{ $i18n.t('ticket.created') }} :
-                span.value {{ticket.created_at | fromNow | persianNumbers}}
-            div.col-lg-3.col-md-6.col-sm-6.col-xs-12
-                span.title {{ $i18n.t('ticket.status') }} :
-                span.value {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
-            div.col-lg-3.col-md-6.col-sm-6.col-xs-12
-                span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
-                button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
-
-
-    div.replies
-        div.col-xs.ta-center
-            loading(v-if="isLoadReplies")
-        span(v-for="reply in ticket.replies")
-            <!--User Ticket-->
-            div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section(v-if="reply.user_info.public_id == user.public_id")
-                div.box.ticket
-                    div.top-xs.header
-                        div.row
-                            span.image
-                                img(v-bind:src="'https:'+reply.user_info.avatar")
-                            span.nav-ticket-status
-                                p.username {{ reply.user_info.name }}
-                                p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
-
-                    div.middle-xs.body.ta-right
-                        pre(v-html="$options.filters.code(reply.content)")
-                        a.ticket-attachment-download(v-if="reply.attachment" @click="downloadAttachFile(reply.attachment)") {{ $i18n.t('ticket.downloadFile') }}
-
-            <!--Admin Ticket-->
-            div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section(v-else)
-                div.box.ticket
-                    div.top-xs.header.admin-header
-                        div.row
-                            span.image.admin-image
-                                img(v-bind:src="'https:'+reply.user_info.avatar")
-                                div.zarinpal-sign
-
-                            span.nav-ticket-status
-                                p.username {{ reply.user_info.name }}
-                                p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
-
-                    div.middle-xs.body.ta-right
-                        pre(v-html="$options.filters.code(reply.content)")
-                        a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") {{ $i18n.t('ticket.downloadFile') }}
+            div.ver-line
+            div.row.bottom-row
+                div.col-lg-3.col-md-6.col-sm-6.col-xs-12
+                    span.title {{ $i18n.t('ticket.updated') }} :
+                    span.value {{ticket.updated_at | fromNow | persianNumbers}}
+                div.col-lg-3.col-md-6.col-sm-6.col-xs-12
+                    span.title {{ $i18n.t('ticket.created') }} :
+                    span.value {{ticket.created_at | fromNow | persianNumbers}}
+                div.col-lg-3.col-md-6.col-sm-6.col-xs-12
+                    span.title {{ $i18n.t('ticket.status') }} :
+                    span.value {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
+                div.col-lg-3.col-md-6.col-sm-6.col-xs-12
+                    span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
+                    button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
 
 
-    div.nav-send
-        div.row
-            div
-                img.pull-right(v-bind:src="'https://www.gravatar.com/avatar/'+user.email_hash+'?s=45&d=https://cdn.zarinpal.com/emails/img/zarinpal-email-profile-default.png'")
-            div.col-xs
+        div.replies
+            div.col-xs.ta-center
+                loading(v-if="isLoadReplies")
+            span(v-for="reply in ticket.replies")
+                <!--User Ticket-->
+                div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section(v-if="reply.user_info.public_id == user.public_id")
+                    div.box.ticket
+                        div.top-xs.header
+                            div.row
+                                span.image
+                                    img(v-bind:src="'https:'+reply.user_info.avatar")
+                                span.nav-ticket-status
+                                    p.username {{ reply.user_info.name }}
+                                    p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
+
+                        div.middle-xs.body.ta-right
+                            pre(v-html="$options.filters.code(reply.content)")
+                            a.ticket-attachment-download(v-if="reply.attachment" @click="downloadAttachFile(reply.attachment)") {{ $i18n.t('ticket.downloadFile') }}
+
+                <!--Admin Ticket-->
+                div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section(v-else)
+                    div.box.ticket
+                        div.top-xs.header.admin-header
+                            div.row
+                                span.image.admin-image
+                                    img(v-bind:src="'https:'+reply.user_info.avatar")
+                                    div.zarinpal-sign
+
+                                span.nav-ticket-status
+                                    p.username {{ reply.user_info.name }}
+                                    p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
+
+                        div.middle-xs.body.ta-right
+                            pre(v-html="$options.filters.code(reply.content)")
+                            a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") {{ $i18n.t('ticket.downloadFile') }}
+
+
+        div.nav-send
+            div.row
                 div
                     b.title پاسخ به تیکت:
                     span.value {{ ticket.title }}
@@ -77,15 +74,14 @@ span
                 button.submit(@click="validateForm") {{ $i18n.t('ticket.send')}}
                     svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                         circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                    <!--input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")-->
+                    label.attach
+                        span.select-text(:class="{'uploaded' : fileUploaded}")
+                        input(type="file" name="file" @change="onFileChange")
 
-                <!--input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")-->
-                label.attach
-                    span.select-text(:class="{'uploaded' : fileUploaded}")
-                    input(type="file" name="file" @change="onFileChange")
-
-                span(v-if="fileUploading == 'Failed'") upload failed
-                span.nav-upload-loading(v-if="fileUploading")
-                    loading
+                    span(v-if="fileUploading == 'Failed'") upload failed
+                    span.nav-upload-loading(v-if="fileUploading")
+                        loading
 
 </template>
 
@@ -94,16 +90,16 @@ span
     export default {
         name: 'ticket-show',
         data() {
-          return {
-              fileUploading: false,
-              fileUploaded: false,
-              loading: false,
-              isLoadReplies: false,
-              ticket: {},
-              content: '',
-              errorMessage: '',
-              attachment: null,
-          }
+            return {
+                fileUploading: false,
+                fileUploaded: false,
+                loading: false,
+                isLoadReplies: false,
+                ticket: {},
+                content: '',
+                errorMessage: '',
+                attachment: null,
+            }
         },
         computed: {
             user(){
@@ -129,9 +125,9 @@ span
             let vm = this;
             let ticketContent = document.getElementById('ticketContent');
 
-            ticketContent.addEventListener("scroll", function(e) {
+            ticketContent.addEventListener("scroll", function (e) {
                 if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
-                    && !vm.loadingTicketState.status){
+                    && !vm.loadingTicketState.status) {
                     vm.$store.dispatch(
                         'paginator/next',
                         {
@@ -168,7 +164,7 @@ span
                     ticket = data.data;
                     this.ticket = ticket.data;
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         let replies = document.getElementById("navTickets");
                         replies.scrollTop = replies.scrollHeight;
                     }, 10);
@@ -177,7 +173,7 @@ span
             send() {
                 this.loading = true;
                 let ticketData = {
-                    content : this.content,
+                    content: this.content,
                     attachment: this.attachment,
                 };
 
@@ -186,7 +182,7 @@ span
                 };
 
                 this.$store.state.http.requests['ticket.Reply'].save(params, ticketData).then(
-                    ()=> {
+                    () => {
                         this.content = '';
                         this.getReplies(this.$route.params.id);
                         this.loading = false;
@@ -194,8 +190,8 @@ span
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });
@@ -241,12 +237,12 @@ span
                     ticketId: this.$route.params.id
                 };
 
-                this.$store.state.http.requests['ticket.postClose'].update(params , {}).then(
-                    ()=> {
+                this.$store.state.http.requests['ticket.postClose'].update(params, {}).then(
+                    () => {
                         this.$router.push({name: 'ticket.index'})
                     },
                     (response) => {
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });
@@ -254,7 +250,7 @@ span
                 )
             },
             clipboardMessage() {
-                store.commit('flashMessage',{
+                store.commit('flashMessage', {
                     text: 'copied',
                     type: 'success',
                     timeout: '500'
