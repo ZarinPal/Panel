@@ -17,7 +17,7 @@ export default {
             if (binding.value.type == 'number') {
                 let key = window.event ? event.keyCode : event.which;
                 if (
-                    event.keyCode == 8  ||
+                    event.keyCode == 8 ||
                     event.keyCode == 17 ||
                     event.keyCode == 18 ||
                     event.keyCode == 46 ||
@@ -46,7 +46,7 @@ export default {
                 ) {
                     return true;
                 }
-                else if ( key < 48 || key > 57 ) {
+                else if (key < 48 || key > 57) {
                     //Letters
                     event.preventDefault();
                     // store.commit('flashMessage',{
@@ -61,10 +61,10 @@ export default {
 
 
             /** ------------------
-                     Size
+             Size
              --------------------*/
-            if(binding.value.size) {
-                if(el.value.length >= binding.value.size) {
+            if (binding.value.size) {
+                if (el.value.length >= binding.value.size) {
                     event.preventDefault();
                 }
             }
@@ -72,12 +72,12 @@ export default {
 
         el.addEventListener('keyup', function (event) {
             /** ---------------
-                    Money
+             Money
              ----------------**/
-            if(binding.value.money) {
+            if (binding.value.money) {
                 let key = window.event ? event.keyCode : event.which;
                 if (
-                    event.keyCode == 8  ||
+                    event.keyCode == 8 ||
                     event.keyCode == 17 ||
                     event.keyCode == 18 ||
                     event.keyCode == 46 ||
@@ -88,14 +88,14 @@ export default {
                 ) {
                     let text = el.value.replace(/[^\d]/g, "");
                     let number = text;
-                    if(number) {
+                    if (number) {
                         number = parseInt(text.replace(/\D/g, ''), 10);
                     }
                     el.value = number.toLocaleString();
 
                     return true;
                 }
-                else if ( key < 48 || key > 57 ) {
+                else if (key < 48 || key > 57) {
                     //Letters
                     event.preventDefault();
                     return false;
@@ -103,7 +103,7 @@ export default {
                     //Its mean key is valid number
                     let text = el.value.replace(/[^\d]/g, "");
                     let number = text;
-                    if(number) {
+                    if (number) {
                         number = parseInt(text.replace(/\D/g, ''), 10);
                     }
                     el.value = number.toLocaleString();
@@ -117,7 +117,7 @@ export default {
          *    Paste
          ---------------*/
         el.addEventListener('paste', function (event) {
-            if(binding.value.money) {
+            if (binding.value.money) {
                 let clipboardData, pastedData;
 
                 event.stopPropagation();
@@ -127,17 +127,17 @@ export default {
                 pastedData = clipboardData.getData('Text');
 
                 let onlyDigitRegex = /^\d+$/;
-                if(onlyDigitRegex.test(pastedData)) {
+                if (onlyDigitRegex.test(pastedData)) {
                     clipboardData.setData('Text', null);
                 }
             }
         });
 
         /**---------------
-          Init input to MOBILE
+         Init input to MOBILE
          ----------------**/
         if (binding.value.type) {
-            if(binding.value.mobile) {
+            if (binding.value.mobile) {
                 el.value = '09';
             }
         }

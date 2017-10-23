@@ -44,14 +44,14 @@ Vue.filter('ltrText', function (value) {
 Vue.filter('month', function (value) {
     return value.substring(5);
 });
-Vue.filter('year', function (value){
-   return value.substring(2,4);
+Vue.filter('year', function (value) {
+    return value.substring(2, 4);
 });
-Vue.filter('code', function (value){
+Vue.filter('code', function (value) {
     let regex = /{کد}([\s\S]*?){\/کد}/g;
     return value.replace(regex, "<div class='code'>$1</div>");
 });
-Vue.filter('cardNumber', function (number){
+Vue.filter('cardNumber', function (number) {
     // let text = number.replace(/[^\d]/g, "");
     let text = number;
     let result = [];

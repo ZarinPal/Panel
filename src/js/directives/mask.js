@@ -12,8 +12,8 @@ export default {
              *      Date
              ----------------**/
             if (binding.value.type == 'date') {
-                let dateRegex = new RegExp('^\\d{4}\\'+tokens.date+'\\d{2}$');
-                if(event.keyCode !== 8) {
+                let dateRegex = new RegExp('^\\d{4}\\' + tokens.date + '\\d{2}$');
+                if (event.keyCode !== 8) {
                     let value = el.value;
                     if (value.match(/^\d{4}$/) !== null) {
                         el.value = value + tokens.date;
@@ -27,9 +27,9 @@ export default {
              *      IP
              ----------------**/
             if (binding.value.type == 'ip') {
-                let ipRegex = new RegExp('^([12]?\\d{1,2}\\' +tokens.ip+ '){3}[12]?\\d{1,2}$');
+                let ipRegex = new RegExp('^([12]?\\d{1,2}\\' + tokens.ip + '){3}[12]?\\d{1,2}$');
 
-                if(event.keyCode !== 8) {
+                if (event.keyCode !== 8) {
                     let value = el.value;
                     if (value.match(/^[12]?\d{1,2}\./) !== null) {
                         el.value = value + tokens.ip;

@@ -17,18 +17,27 @@
   animation: slide-close 0.2s ease-out 0s forwards;
 }
 
-@keyframes slide-open
-{
-  from {height: 0; width: 0;}
-  to {height: 110px; width: 110px;}
+@keyframes slide-open {
+  from {
+    height: 0;
+    width: 0;
+  }
+  to {
+    height: 110px;
+    width: 110px;
+  }
 }
 
-@keyframes slide-close
-{
-  from {height: 110px; width: 110px;}
-  to {height: 0; width: 0;}
+@keyframes slide-close {
+  from {
+    height: 110px;
+    width: 110px;
+  }
+  to {
+    height: 0;
+    width: 0;
+  }
 }
-
 
 //User info sidebar
 @keyframes userInfoFade {
@@ -42,8 +51,7 @@
   }
 }
 
-
-.fade-in{
+.fade-in {
   animation: fade-in 0.3s;
 }
 
@@ -58,7 +66,8 @@
     height: initial;
   }
 }
-.fade-out{
+
+.fade-out {
   animation: fade-out 0.3s;
 }
 

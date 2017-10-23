@@ -9,7 +9,7 @@ $minWidth404: 100%;
 }
 
 //************ Top ************
-.container-404-top{
+.container-404-top {
   overflow: hidden;
   background-color: #F2F3F5;
 
@@ -18,7 +18,7 @@ $minWidth404: 100%;
     margin: 0 auto;
     padding-bottom: 50px;
 
-    .logo-section{
+    .logo-section {
       margin-top: 32px;
       .zarin-logo {
         width: 32px;
@@ -49,30 +49,30 @@ $minWidth404: 100%;
       float: left;
     }
 
-    .description{
-      .text-404{
+    .description {
+      .text-404 {
         font-size: 100px;
         margin-bottom: -70px;
         margin-top: 30px;
         color: #424242;
       }
 
-      h3{
+      h3 {
         font-size: 24px;
         color: #424242;
         margin-bottom: 0px;
       }
 
-      .text{
+      .text {
         font-size: 16px;
         color: #424242;
       }
 
-      .buttons{
+      .buttons {
         margin-top: 30px;
         margin-bottom: 30px;
 
-        .btn{
+        .btn {
           margin-left: 20px;
           box-shadow: none !important;
         }
@@ -84,7 +84,7 @@ $minWidth404: 100%;
 }
 
 //************ Bottom ************
-.container-404-bottom{
+.container-404-bottom {
   .bottom {
     width: $maxWidth404;
     margin: 0 auto;
@@ -95,17 +95,17 @@ $minWidth404: 100%;
       display: inline-block;
     }
 
-    .copy-right-type{
+    .copy-right-type {
       font-size: 14px;
       position: relative;
       top: -2px;
       margin-right: 3px;
     }
 
-    .links{
+    .links {
       ul {
         text-align: left;
-        a{
+        a {
           display: inline-block;
           margin: 0px 10px;
           font-size: 14px;
@@ -126,14 +126,14 @@ $minWidth404: 100%;
 
 //LG
 @media (max-width: $smallWidth) {
-  .container-404{
+  .container-404 {
     //height: auto !important;
     .container-404-top {
-      .top{
+      .top {
         width: $minWidth404;
         padding: 10px 30px;
 
-        .logo-section{
+        .logo-section {
           text-align: center;
         }
 
@@ -145,14 +145,14 @@ $minWidth404: 100%;
           width: 260px;
           margin: 30px auto;
 
-          .btn{
-            &:first-child{
+          .btn {
+            &:first-child {
               margin-right: -10px !important;
             }
           }
         }
 
-        .left-box{
+        .left-box {
           margin-top: 35px;
 
           .img-404 {
@@ -163,7 +163,7 @@ $minWidth404: 100%;
       }
     }
 
-    .container-404-bottom{
+    .container-404-bottom {
       .bottom {
         width: $minWidth404;
         padding: 10px 30px;

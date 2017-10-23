@@ -1,4 +1,4 @@
-.nav-top-buttons{
+.nav-top-buttons {
   margin-bottom: 20px;
   .btn-gradient-radius {
     background-color: #fff;
@@ -62,8 +62,8 @@
     }
   }
 
-  .zarin-card{
-    background-image: -webkit-linear-gradient( 180deg, rgb(255,237,113) 0%, rgb(255,218,24) 100%) !important;
+  .zarin-card {
+    background-image: -webkit-linear-gradient(180deg, rgb(255, 237, 113) 0%, rgb(255, 218, 24) 100%) !important;
     height: 38px;
 
     .btn-label {
@@ -72,7 +72,7 @@
     }
   }
 
-  .btn{
+  .btn {
     margin-top: 9px;
     border-radius: 30px;
 
@@ -85,12 +85,12 @@
       vertical-align: middle;
     }
 
-    .icon-add-circle{
+    .icon-add-circle {
       display: inline-block;
       font-size: 20px;
-      &:before{
+      &:before {
         content: $addCircleIcon;
-        font-family:'zarinpal';
+        font-family: 'zarinpal';
         color: #fff;
         vertical-align: middle;
         top: 3px;
@@ -101,7 +101,7 @@
 }
 
 //Box
-.section{
+.section {
   .single-purse {
     .header {
       .right-box {
@@ -248,18 +248,18 @@
 }
 
 //Modal Create Purse
-.create-purse{
+.create-purse {
   .body {
     border-radius: 0 0 $boxBorderRadiusSize $boxBorderRadiusSize;
 
-    .create-description{
+    .create-description {
       font-size: 13px;
       text-align: right;
       padding: 0 6px;
       color: #424242;
     }
 
-    .purses{
+    .purses {
       margin: 10px 0;
     }
 
@@ -270,24 +270,24 @@
 }
 
 //Modal Add fund
-.add-fund{
+.add-fund {
 
   .purses {
     margin-bottom: 10px;
   }
 
-  .cards{
+  .cards {
     margin: 10px 0;
   }
 
-  .nav-not-active-card{
+  .nav-not-active-card {
     color: $labelColor;
 
-    .title{
+    .title {
       font-size: 20px;
     }
 
-    .description{
+    .description {
       font-size: 13px;
     }
   }
@@ -296,15 +296,15 @@
     margin: 10px 0;
   }
 
-  .purse-amount{
+  .purse-amount {
     font-size: 13px;
     padding-right: 5px;
   }
 }
 
 //Ptop styles
-.ptop{
-  .nav-loading{
+.ptop {
+  .nav-loading {
     padding: 80px 30px 93px 30px;
   }
 
@@ -315,54 +315,52 @@
     }
   }
 
-  .row{
+  .row {
     input, textarea {
-      margin:5px 0;
+      margin: 5px 0;
     }
   }
 
-  .btn{
+  .btn {
     margin-top: 10px;
     margin-right: 10px;
   }
 
 }
 
-
 //Withdraw
-.withdraw{
-  .row{
+.withdraw {
+  .row {
     margin: 10px 0;
   }
 
-
-  .nav-fees{
+  .nav-fees {
     font-size: 14px;
 
-    .bx{
+    .bx {
       background-color: #fff;
       border-radius: $boxBorderRadiusSize;
       border: 1px solid #ddd;
 
-      .col-xs{
+      .col-xs {
         padding: 10px;
       }
 
-      .left-box{
+      .left-box {
         background-color: #FAFAFA !important;
         border-radius: 5px 0 0 5px;
       }
     }
 
-    .nav-options{
+    .nav-options {
       padding: 5px 0;
 
-      .option-row{
+      .option-row {
         padding: 5px 10px;
       }
     }
 
-    .fee-amount{
+    .fee-amount {
       .title {
         display: inline-block;
         margin-top: 12px;
