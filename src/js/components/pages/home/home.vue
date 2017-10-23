@@ -7,8 +7,8 @@
 
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 <!--button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")-->
-                    <!--span.icon-add-circle-->
-                    <!--span.text {{ $i18n.t('common.createPurse') }}-->
+                <!--span.icon-add-circle-->
+                <!--span.text {{ $i18n.t('common.createPurse') }}-->
 
         div.nav-top-buttons.row
             div.col-lg-9.col-md-9.col-sm-12.col-xs-12.xs-ta-center.sm-ta-center
@@ -29,7 +29,7 @@
                     span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
             div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
                 <!--button.btn-gradient-radius.zarin-card(v-ripple="")-->
-                    <!--span.btn-label درخواست زرین‌کارت-->
+                <!--span.btn-label درخواست زرین‌کارت-->
                 button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
@@ -56,9 +56,9 @@
     import accessLevel from '../partials/access_level_modal';
 
     export default {
-        name:'pages-home',
+        name: 'pages-home',
         data(){
-            return{
+            return {
                 visibleCreatePurse: false,
                 visibleShowMore: false,
                 visibleAddFund: false,
@@ -75,9 +75,9 @@
                 this.showAccessLevelModal();
             }
         },
-        computed:{
+        computed: {
             purses(){
-                if(this.$store.state.auth.user.purses.length == 0) {
+                if (this.$store.state.auth.user.purses.length == 0) {
                     return {
                         data: [],
                         update: 0
@@ -95,7 +95,7 @@
 
             //Check if add fund authority is exists, show message
             this.checkAddFund();
-            if(this.$route.params.createPurse === 'Yes') {
+            if (this.$route.params.createPurse === 'Yes') {
                 this.visibleCreatePurse = true;
             }
         },
@@ -109,14 +109,14 @@
                 this.visiblePtop = false;
                 this.visibleWithdraw = false;
 
-                if(this.$route.query.error === 'suspend') {
+                if (this.$route.query.error === 'suspend') {
                     this.visibleUserAccessModal = false;
                 }
 
                 store.commit('clearValidationErrors');
             },
             showAccessLevelModal() {
-                if(this.$route.query.error === 'suspend') {
+                if (this.$route.query.error === 'suspend') {
                     this.visibleUserAccessModal = true;
                 }
             },
@@ -132,8 +132,8 @@
             checkAddFund() {
                 let status = this.getParameterByName('Status');
                 let authority = parseInt(this.getParameterByName('Authority'));
-                if(status || authority) {
-                    if(status === 'OK') {
+                if (status || authority) {
+                    if (status === 'OK') {
                         this.message = 'add fund success';
 
                         store.commit('flashMessage', {
@@ -141,7 +141,10 @@
                             type: 'success',
                             important: true
                         });
-                        this.$router.push({name: 'transaction.index', params: {id: '1', type: 'purse', transactionId: authority}});
+                        this.$router.push({
+                            name: 'transaction.index',
+                            params: {id: '1', type: 'purse', transactionId: authority}
+                        });
                     } else {
                         this.message = 'add fund failed';
                         store.commit('flashMessage', {
@@ -154,7 +157,7 @@
                 }
             },
         },
-        components:{
+        components: {
             singlePurse,
             createPurse,
             addFund,

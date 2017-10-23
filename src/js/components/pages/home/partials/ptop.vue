@@ -102,7 +102,7 @@
             return {
                 requesting: false,
                 closeModalContent: true,
-                step:1,
+                step: 1,
                 purseId: null,
                 zpId: null,
                 amount: null,
@@ -115,14 +115,14 @@
         mounted(){
             this.closeModalContent = false
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
         },
         created() {
             store.commit('clearValidationErrors');
-            if(this.purse) {
+            if (this.purse) {
                 this.purseId = this.purse.purse;
             }
         },
@@ -135,37 +135,37 @@
                 this.purse_name = this.getPurseName(purseId);
             },
             getPurseName(purseId) {
-                return _.find(this.$store.state.auth.user.purses, function(purse) {
+                return _.find(this.$store.state.auth.user.purses, function (purse) {
                     return purse.purse === purseId;
                 });
             },
             confirmPtopData() {
-                if(this.purseId && this.amount && this.description && this.zpId) {
+                if (this.purseId && this.amount && this.description && this.zpId) {
                     this.requesting = true;
 
                     let zarinId;
-                    if(this.zpId) {
+                    if (this.zpId) {
                         zarinId = this.zpId.toLowerCase();
                     }
 
                     this.$store.state.http.requests['purse.getInfoByZp'].get({purseId: zarinId}).then(
-                        (response)=> {
+                        (response) => {
                             this.requesting = false;
                             this.step = 2;
                             this.destinationUser = response.data.data;
                         },
                         (response) => {
                             this.requesting = false;
-                            store.commit('flashMessage',{
+                            store.commit('flashMessage', {
                                 text: response.data.meta.error_message,
                                 important: false,
                                 type: 'danger'
                             });
-                            store.commit('setValidationErrors',response.data.validation_errors);
+                            store.commit('setValidationErrors', response.data.validation_errors);
                         }
                     );
                 } else {
-                    store.commit('flashMessage',{
+                    store.commit('flashMessage', {
                         text: 'please fill all fields',
                         important: false,
                         type: 'danger'
@@ -175,12 +175,12 @@
             acceptTransfer() {
                 this.requesting = true;
                 let zarinId = null;
-                if(this.destinationUser) {
+                if (this.destinationUser) {
                     zarinId = this.destinationUser.zp_id.toLowerCase();
                 }
 
                 let amount = this.amount;
-                if(/,/g.test(this.amount)) {
+                if (/,/g.test(this.amount)) {
                     amount = this.amount.replace(/,/g, ""); //remove , from amount
                 }
 
@@ -192,10 +192,17 @@
                 };
 
                 this.$store.state.http.requests['transaction.postPurseToPurseTransfer'].save(ptopData).then(
-                    (response)=> {
+                    (response) => {
                         this.requesting = false;
-                        this.$router.push({name: 'transaction.index', params: {id: this.purseId, type:'purse', page:1, transactionId: response.data.data.transaction_public_id}});
-                        store.commit('flashMessage',{
+                        this.$router.push({name: 'transaction.index',
+                            params: {
+                                id: this.purseId,
+                                type: 'purse',
+                                page: 1,
+                                transactionId: response.data.data.transaction_public_id
+                            }
+                        });
+                        store.commit('flashMessage', {
                             text: 'ptop-transfer-success',
                             type: 'success'
                         });
@@ -203,11 +210,11 @@
                     (response) => {
                         this.requesting = false;
                         this.step = 1;
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });
-                        store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('setValidationErrors', response.data.validation_errors);
                     }
                 )
             },
