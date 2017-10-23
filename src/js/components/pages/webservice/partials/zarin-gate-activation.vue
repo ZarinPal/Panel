@@ -51,11 +51,11 @@
                 priceZaringate: null,
             }
         },
-        props:['webservice'],
+        props: ['webservice'],
         mounted(){
             this.closeModalContent = false
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -74,19 +74,19 @@
             activeZarinGate() {
                 this.loading = true;
                 let ussdData = {
-                    webservice : this.webservice.entity_id,
-                    purse : this.purse,
+                    webservice: this.webservice.entity_id,
+                    purse: this.purse,
                 };
 
                 this.$store.state.http.requests['webservice.postRequestZaringate'].save(ussdData).then(
-                    ()=> {
+                    () => {
                         let vm = this;
-                        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
+                        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function (webservice) {
                             return webservice.entity_id === vm.webservice.entity_id;
                         });
                         this.$store.state.auth.user.webservices[webserviceIndex].zaringate_status = 'Activate';
 
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: 'zarin gate activated',
                             type: 'success'
                         });
@@ -96,8 +96,8 @@
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        this.$store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        this.$store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'

@@ -104,12 +104,12 @@
 //
 // Loading main page
 //
-.loading{
+.loading {
   margin-top: 19%;
-  .zarinpal-type{
+  .zarinpal-type {
     color: #424242;
     font-size: 30px;
-    margin-top:-70px;
+    margin-top: -70px;
     font-family: 'iransans-light';
   }
 
@@ -125,7 +125,9 @@
   }
 
   @-webkit-keyframes sk-scaleout {
-    0% { -webkit-transform: scale(0) }
+    0% {
+      -webkit-transform: scale(0)
+    }
     100% {
       -webkit-transform: scale(1.4);
       opacity: 0;
@@ -136,11 +138,12 @@
     0% {
       -webkit-transform: scale(0);
       transform: scale(0);
-    } 100% {
-        -webkit-transform: scale(1.4);
-        transform: scale(1.4);
-        opacity: 0;
-      }
+    }
+    100% {
+      -webkit-transform: scale(1.4);
+      transform: scale(1.4);
+      opacity: 0;
+    }
   }
 }
 

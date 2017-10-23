@@ -129,13 +129,13 @@
                 visibleSendSms: true
             }
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
         },
         mounted(){
-            if(this.$route.query.mobile){
+            if (this.$route.query.mobile) {
                 this.username = this.$route.query.mobile;
             }
         },
@@ -149,7 +149,7 @@
                 .catch(() => {
                 });
 
-            if(this.$store.state.auth.check) {
+            if (this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
         },
@@ -160,7 +160,7 @@
             sendOtp(channel){
                 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 //if username is email
-                if(emailRegex.test(this.username)) {
+                if (emailRegex.test(this.username)) {
                     channel = 'email';
                 }
 
@@ -168,7 +168,7 @@
                 let postData = {
                     username: this.username,
                 };
-                if(channel && channel === 'sms'){
+                if (channel && channel === 'sms') {
                     postData.channel = channel;
                     this.visibleOtpTimer = true;
                     this.otpObject = {};
@@ -176,22 +176,22 @@
 
                 this.$store.state.http.requests['oauth.postInitializeLogin']
                     .save(postData)
-                    .then((response)=>{
+                    .then((response) => {
                         this.getOtpLoading = false;
                         this.step = 2;
-                        this.avatar = 'https:'+response.data.data.avatar;
+                        this.avatar = 'https:' + response.data.data.avatar;
                         this.channel = response.data.data.channel;
-                        if(response.data.data.ussd_code) {
+                        if (response.data.data.ussd_code) {
                             this.ussdCode = response.data.data.ussd_code;
                         }
 
-                        if(channel && channel === 'sms'){
+                        if (channel && channel === 'sms') {
                             store.commit('flashMessage', {
                                 text: 'otp-sent-by-sms',
                                 type: 'success',
                                 timeout: 10000,
                             });
-                        }else if(channel === 'email') {
+                        } else if (channel === 'email') {
                             store.commit('flashMessage', {
                                 text: 'otp-send-to-you-by-email',
                                 type: 'success',
@@ -202,14 +202,14 @@
                         setTimeout(function () {
                             document.getElementById("txtOtp").focus();
                         }, 10);
-                    }).catch((response)=>{
-                        this.loginLoading = false;
-                        this.getOtpLoading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        if(!this.validationErrors.username) {
-                            this.userNotRegister = true;
-                        }
-                    });
+                    }).catch((response) => {
+                    this.loginLoading = false;
+                    this.getOtpLoading = false;
+                    store.commit('setValidationErrors', response.data.validation_errors);
+                    if (!this.validationErrors.username) {
+                        this.userNotRegister = true;
+                    }
+                });
             },
             login(){
                 this.loginLoading = true;
@@ -231,7 +231,7 @@
                     }, (response) => {
                         this.loginLoading = false;
                         // store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'
@@ -240,8 +240,8 @@
                 );
             },
             changeUssdType() {
-                if(this.ussdType === 'Code') {
-                   this.ussdType = 'Qr';
+                if (this.ussdType === 'Code') {
+                    this.ussdType = 'Qr';
                     let ussdCode = this.ussdCode.substring(0, this.ussdCode.length - 1);
                     this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:' + ussdCode + '%2523';
                 } else {
@@ -255,16 +255,16 @@
             },
             otpMaxLength() {
                 setTimeout(function () {
-                    if(document.getElementById('txtOtp')) {
+                    if (document.getElementById('txtOtp')) {
                         let txtOtp = document.getElementById('txtOtp').value;
-                        if(txtOtp.length > 0 && txtOtp.length === 6) {
+                        if (txtOtp.length > 0 && txtOtp.length === 6) {
                             document.getElementById("btnSubmitLogin").click();
                         }
                     }
                 }, 20);
             }
         },
-        components:{
+        components: {
             timer
         }
     }

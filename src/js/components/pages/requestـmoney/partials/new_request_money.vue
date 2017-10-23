@@ -78,7 +78,7 @@
                     input(type="checkbox" id="shareRequestChk" v-model="shareRequestWithMe" @change="calcAutoRequestAmount")
                     label(for="shareRequestChk")
                         span
-                        |{{ $i18n.t('requestMoney.iAmPartOfThisRequest') }}
+                        | {{ $i18n.t('requestMoney.iAmPartOfThisRequest') }}
 
             <!--Step 3 Manually Division-->
             div.nav-manually-division(v-else-if="step == 3 && requestType == 'Manually'")
@@ -96,8 +96,8 @@
                 span.user-name {{selectedUsers[manuallyUserCounter].name}}
 
                 <!--div.row-->
-                    <!--div.col-xs.ta-center-->
-                        <!--span.user-name {{selectedUsers[manuallyUserCounter].name}}-->
+                <!--div.col-xs.ta-center-->
+                <!--span.user-name {{selectedUsers[manuallyUserCounter].name}}-->
 
                 div.row.nav-request-amount
                     div.col-xs.ta-center
@@ -154,7 +154,6 @@
                                 circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
-
 </template>
 
 
@@ -190,10 +189,10 @@
                 slider: null,
             }
         },
-        computed:{
+        computed: {
             phoneBook() {
                 let vm = this;
-                let findedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
+                let findedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function (user) {
                     let userRegex = new RegExp('\\.*' + vm.searchString + '.*\\i');
                     return userRegex.test(JSON.stringify(user));
                 });
@@ -213,15 +212,15 @@
         },
         created() {
             store.commit('clearValidationErrors');
-            if(!this.$store.state.paginator.paginator.PhoneBook) {
+            if (!this.$store.state.paginator.paginator.PhoneBook) {
                 this.getPhoneBook();
             }
         },
         methods: {
             nextStep() {
-                if(this.step === 1) {
-                    if(this.checkUsers.length <= 0) {
-                        store.commit('flashMessage',{
+                if (this.step === 1) {
+                    if (this.checkUsers.length <= 0) {
+                        store.commit('flashMessage', {
                             text: 'check-users-you-want',
                             type: 'danger'
                         });
@@ -229,7 +228,7 @@
                     }
                 }
 
-                if(this.step === 2 && this.requestType === 'Manually') {
+                if (this.step === 2 && this.requestType === 'Manually') {
                     let vm = this;
                     //Tiny slider
                     setTimeout(function () {
@@ -256,9 +255,9 @@
                     }, 100);
                 }
 
-                if(this.step === 3 && this.requestType === 'Auto') {
-                    if(!this.requestAmount) {
-                        store.commit('flashMessage',{
+                if (this.step === 3 && this.requestType === 'Auto') {
+                    if (!this.requestAmount) {
+                        store.commit('flashMessage', {
                             text: 'enter-request-amount',
                             type: 'danger'
                         });
@@ -266,7 +265,7 @@
                     }
                 }
 
-                if(this.step === 3 && this.requestType === 'Manually') {
+                if (this.step === 3 && this.requestType === 'Manually') {
                     document.getElementById('txtManuallyAmount').focus();
 
                     let users = _.filter(this.selectedUsers, function (user) {
@@ -275,7 +274,7 @@
 
                     if (users) {
                         if (users.length !== this.selectedUsers.length) {
-                            store.commit('flashMessage',{
+                            store.commit('flashMessage', {
                                 text: 'enter-all-user-amount',
                                 type: 'danger'
                             });
@@ -285,9 +284,9 @@
                 }
 
                 //ignore selection method if selected users is one person
-                if(this.step === 1 && this.checkUsers.length === 1) {
+                if (this.step === 1 && this.checkUsers.length === 1) {
                     this.step += 2;
-                }else {
+                } else {
                     this.step++;
                 }
 
@@ -295,39 +294,39 @@
                 this.getSelectedUsers()
             },
             prevStep() {
-                if(this.step === 3 && this.checkUsers.length === 1) {
+                if (this.step === 3 && this.checkUsers.length === 1) {
                     this.step -= 2;
                     this.requestType = 'Auto';
-                }else {
-                    this.step --;
+                } else {
+                    this.step--;
                 }
 
                 this.changeTitle();
-                if(this.step === 2) {
+                if (this.step === 2) {
                     this.requestAmount = null;
                     this.autoPersonAmount = 0;
                 }
             },
             changeTitle() {
-                if(this.step === 1) {
+                if (this.step === 1) {
                     this.pageTitle = 'selectUsers';
-                }else if(this.step === 2) {
+                } else if (this.step === 2) {
                     this.pageTitle = 'requestType';
-                } else if(this.step === 3) {
+                } else if (this.step === 3) {
                     this.pageTitle = 'requestType';
                 }
             },
             /*** Get selected users data ***/
             getSelectedUsers() {
                 let vm = this;
-                this.selectedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
+                this.selectedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function (user) {
                     return vm.checkUsers.indexOf(user.public_id) !== -1;
                 });
             },
             /*** Calculate total amount and dealing between users auto ***/
             calcAutoRequestAmount() {
                 let usersCount = this.selectedUsers.length;
-                if(this.shareRequestWithMe) {
+                if (this.shareRequestWithMe) {
                     this.autoPersonAmount = (this.requestAmount / (usersCount + 1)).toFixed(0);
                 } else {
                     this.autoPersonAmount = (this.requestAmount / usersCount).toFixed(0);
@@ -338,7 +337,7 @@
                 let vm = this;
                 this.manuallyTotalAmount = 0;
                 this.selectedUsers.forEach(function (user) {
-                    if(user.amount) {
+                    if (user.amount) {
                         vm.manuallyTotalAmount = parseInt(vm.manuallyTotalAmount) + parseInt(user.amount);
                     }
                 });
@@ -355,8 +354,8 @@
             },
             /*** Send request money***/
             postRequestMoney() {
-                if(!this.description) {
-                    store.commit('flashMessage',{
+                if (!this.description) {
+                    store.commit('flashMessage', {
                         text: 'fill-description-input',
                         type: 'danger'
                     });
@@ -364,17 +363,17 @@
                 }
 
                 /*** Check Amount***/
-                if(this.requestType === 'Auto') {
-                    if(this.requestAmount <= 100 || this.requestAmount > this.maxAmountLimit) {
-                        store.commit('flashMessage',{
+                if (this.requestType === 'Auto') {
+                    if (this.requestAmount <= 100 || this.requestAmount > this.maxAmountLimit) {
+                        store.commit('flashMessage', {
                             text: 'request-money-amount-limit',
                             type: 'danger'
                         });
                         return;
                     }
-                } else if(this.requestType === 'Manually') {
-                    if(this.manuallyTotalAmount <= 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
-                        store.commit('flashMessage',{
+                } else if (this.requestType === 'Manually') {
+                    if (this.manuallyTotalAmount <= 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
+                        store.commit('flashMessage', {
                             text: 'request-money-amount-limit',
                             type: 'danger'
                         });
@@ -389,7 +388,7 @@
                 let requestedUsers = this.selectedUsers;
                 //make array of requested users to post to api
                 this.selectedUsers.forEach(function (user, index) {
-                    if(vm.requestType === 'Auto') {
+                    if (vm.requestType === 'Auto') {
                         requestedUsers[index] = {
                             amount: vm.autoPersonAmount,
                             zp: user.public_id
@@ -409,7 +408,7 @@
                 };
 
                 this.$store.state.http.requests['requestMoney.postRequestMoney'].save(requestMoneyData).then(
-                    ()=> {
+                    () => {
                         this.$router.push({name: 'requestMoney.index'});
                         this.closeModal();
                         this.getDemand();
@@ -417,8 +416,8 @@
                         this.requesting = false;
                     },
                     (response) => {
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'

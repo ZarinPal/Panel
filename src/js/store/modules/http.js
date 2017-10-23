@@ -379,7 +379,7 @@ export default {
                     // }
 
                     //Redirect to connection error page
-                    if(response.status === 500) {
+                    if (response.status === 500) {
                         vm.$router.push({name: 'error.connection'});
                     }
                 });

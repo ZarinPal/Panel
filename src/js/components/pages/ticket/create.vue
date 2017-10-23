@@ -82,7 +82,7 @@
                 fileUploading: false,
                 fileUploaded: false,
                 loading: false,
-                status: 0 ,
+                status: 0,
                 priority: 0,
                 title: '',
                 content: '',
@@ -98,9 +98,9 @@
             store.commit('clearValidationErrors');
             this.$store.dispatch('app/getTicketDepartments');
         },
-        computed:{
+        computed: {
             departmentSelection() {
-                if(this.$store.state.app.ticketDepartments) {
+                if (this.$store.state.app.ticketDepartments) {
                     return this.$store.state.app.ticketDepartments.map(function (department) {
                         return {
                             'title': department.name,
@@ -134,9 +134,9 @@
                 });
             },
             dragOver() {
-                window.addEventListener("dragover",function(e){
+                window.addEventListener("dragover", function (e) {
                     e.preventDefault();
-                },false);
+                }, false);
                 this.fileHover = true;
             },
             onDrop(e) {
@@ -159,9 +159,8 @@
             createFile(file) {
                 //check valid files
                 let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png|\.zip)$/i;
-                if(!fileExtension.exec(file.name))
-                {
-                    store.commit('flashMessage',{
+                if (!fileExtension.exec(file.name)) {
+                    store.commit('flashMessage', {
                         text: 'fileNotImage',
                         type: 'danger'
                     });
@@ -193,22 +192,22 @@
             send() {
                 this.loading = true;
                 let ticketData = {
-                    title : this.title,
-                    content : this.content,
-                    ticket_department_id : this.selectedDepartment,
-                    priority : this.priority,
-                    status : this.status,
+                    title: this.title,
+                    content: this.content,
+                    ticket_department_id: this.selectedDepartment,
+                    priority: this.priority,
+                    status: this.status,
                     attachment: this.attachment,
                 };
                 this.$store.state.http.requests['ticket.postAdd'].save(ticketData).then(
-                    ()=> {
+                    () => {
                         this.fileUploaded = false;
                         this.$router.push({name: 'ticket.index'})
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });

@@ -26,11 +26,11 @@
     export default {
         name: 'card-index',
         data(){
-            return{
+            return {
                 visibleCreateCard: false,
             }
         },
-        computed:{
+        computed: {
             cards(){
                 let activeCards = [];
                 let inActiveCards = [];
@@ -42,7 +42,7 @@
                         inActiveCards.push(card);
                     }
                 });
-                reorderedCards =  activeCards.concat(inActiveCards);
+                reorderedCards = activeCards.concat(inActiveCards);
                 return reorderedCards;
             }
         },

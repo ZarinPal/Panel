@@ -59,11 +59,11 @@
                 year: '',
             }
         },
-        props:['card'],
+        props: ['card'],
         mounted(){
             this.closeModalContent = false
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             }
@@ -73,7 +73,7 @@
             store.commit('clearValidationErrors');
             let jalaliExpiredDate = moment(this.card.expired_at, 'YYYY-MM-DD').format('jYYYY-jMM-jDD');
             this.year = moment(jalaliExpiredDate).year();
-            this.month = jalaliExpiredDate.substr(5,2);
+            this.month = jalaliExpiredDate.substr(5, 2);
         },
         methods: {
             validation(name) {
@@ -113,8 +113,8 @@
             editCard() {
                 this.loading = true;
 
-                if(this.year > 3150 || this.month > 12) {
-                    store.commit('flashMessage',{
+                if (this.year > 3150 || this.month > 12) {
+                    store.commit('flashMessage', {
                         text: 'invalid-date',
                         type: 'danger'
                     });
@@ -129,20 +129,20 @@
                 let formatedPan = this.pan.split('-').join('');
                 let expiredAt = this.jalaliToGregorian(this.year, this.month);
                 let cardData = {
-                    pan : formatedPan,
-                    expired_at : expiredAt,
+                    pan: formatedPan,
+                    expired_at: expiredAt,
                 };
 
                 this.$store.state.http.requests['card.getShow'].update(params, cardData).then(
-                    ()=> {
+                    () => {
                         this.changeCardState();
                         this.loading = false;
                         this.$router.push({name: 'card.index'});
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });
@@ -151,7 +151,7 @@
             },
             changeCardState(){
                 let vm = this;
-                let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function(card) {
+                let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function (card) {
                     return card.entity_id === vm.card.entity_id;
                 });
 
@@ -163,7 +163,7 @@
                 let jalali = year + '/' + month + '/' + day;
                 let gregorian = moment(jalali, 'jYYYY/jM/jD');
                 gregorian = gregorian._i;
-                return gregorian.substr(0, gregorian.length-3);
+                return gregorian.substr(0, gregorian.length - 3);
             },
             changeMonthFocus(event) {
                 let target = event.srcElement;

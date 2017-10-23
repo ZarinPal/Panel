@@ -1,4 +1,4 @@
-export default function (vm,callback) {
+export default function (vm, callback) {
     Vue.config.lang = 'fa';
     Vue.config.fallbackLang = 'en';
 

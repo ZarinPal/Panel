@@ -107,7 +107,7 @@ $disableToColor: #eee;
   direction: ltr;
 }
 
-.disable-card-box{
+.disable-card-box {
   opacity: .5;
 }
 
@@ -171,7 +171,6 @@ $disableToColor: #eee;
     }
   }
 
-
   .in-active-card {
     span {
       color: #ff1744 !important;
@@ -188,7 +187,6 @@ $disableToColor: #eee;
     }
   }
 
-
 }
 
 .card-number {
@@ -204,7 +202,7 @@ $disableToColor: #eee;
   border-radius: $boxBorderRadiusSize;
   direction: ltr;
 
-  .iransans{
+  .iransans {
     font-size: 14px;
     position: relative;
     top: -4px;
@@ -347,7 +345,6 @@ $disableToColor: #eee;
   @include card-border-color($disableFromColor, $disableToColor);
 }
 
-
 //Card bank logo
 @mixin card-logo($logoPath) {
   width: 25px;
@@ -418,7 +415,7 @@ $disableToColor: #eee;
   @include card-logo("../../img/banks/Hekmat.png");
 }
 
-.logo-tourismbank{
+.logo-tourismbank {
   @include card-logo("../../img/banks/TourismBank.png");
 }
 
@@ -527,29 +524,29 @@ $disableToColor: #eee;
 
     }
 
-    .box-row{
+    .box-row {
       padding: 2px 10px !important;
 
-      .ta-left{
+      .ta-left {
         position: relative;
         top: 7px
       }
-      .ta-right{
+      .ta-right {
         position: relative;
         top: 7px
       }
     }
   }
 
-  .box-footer{
+  .box-footer {
     font-family: $fontName;
-    .shetab-icon{
-      &:before{
+    .shetab-icon {
+      &:before {
         content: $iconShetab;
       }
     }
-    .statement-icon{
-      &:before{
+    .statement-icon {
+      &:before {
         content: $iconStatement;
       }
     }
@@ -596,7 +593,7 @@ $disableToColor: #eee;
     margin: 0 -20px -20px -20px;
   }
 
-  .nav-buttons{
+  .nav-buttons {
     margin-bottom: -5px !important;
   }
 }
@@ -618,9 +615,9 @@ $disableToColor: #eee;
     text-align: center !important;
   }
 
-  .zarin-statement{
+  .zarin-statement {
     .transaction-row {
-      .ta-center{
+      .ta-center {
         text-align: center !important;
       }
     }
@@ -641,8 +638,8 @@ $disableToColor: #eee;
 }
 
 //fix card break width in high resolution
-@media screen and (min-width:1200px) and (max-width:1350px) {
-  .nav-cards{
+@media screen and (min-width: 1200px) and (max-width: 1350px) {
+  .nav-cards {
     .col-lg-4 {
       min-width: 50% !important;
       -ms-flex-preferred-size: 50%;

@@ -1,5 +1,5 @@
 <style>
-    #map{
+    #map {
         height: 400px;
         width: 100%;
     }
@@ -43,7 +43,6 @@
         mounted() {
             //Close modal
             this.closeModalContent = false;
-
 
 
             let vm = this;

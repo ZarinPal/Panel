@@ -3,27 +3,33 @@ window._ = require('lodash');
 window.moment = require('moment-jalaali');
 window.moment.loadPersian();
 // window.Chart = require('chart.js');
-
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
  * using reactive data binding and reusable components. Vue's API is clean
  * and simple, leaving you to focus on building your next great project.
  */
-import Vue from 'vue';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Vuex from "vuex";
+import VueI18n from "vue-i18n";
+/**
+ * Vee validate
+ */
+import VeeValidate from "vee-validate";
+import messagesFa from "./lang/validation/fa";
+import Raven from "raven-js";
+import RavenVue from "raven-js/plugins/vue";
 window.Vue = Vue;
 require('vue-resource');
 
 
-import VueRouter from 'vue-router';
 window.VueRouter = VueRouter;
 Vue.use(window.VueRouter);
 
-import Vuex from 'vuex';
 window.Vuex = Vuex;
 Vue.use(Vuex);
 
 
-import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 
 
@@ -34,18 +40,9 @@ const i18n = new VueI18n({
 window.i18n = i18n;
 
 
-/**
- * Vee validate
- */
-import VeeValidate from 'vee-validate';
-import messagesFa from './lang/validation/fa';
-
 VeeValidate.Validator.addLocale(messagesFa);
 Vue.use(VeeValidate, {locale: 'fa'});
 Vue.use(VeeValidate);
-
-import Raven from 'raven-js';
-import RavenVue from 'raven-js/plugins/vue';
 
 Raven
     .config('https://0e52e25ebe614c0892b9a057b52a8d21@sentry.zarinpal.com/5')
@@ -81,11 +78,6 @@ Vue.directive(
     'english-number',
     require('./directives/back').default
 );
-
-// Vue.directive(
-//     'validate',
-//     require('./directives/validate').default
-// );
 
 Vue.directive(
     'mask',

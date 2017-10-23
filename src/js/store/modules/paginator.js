@@ -5,7 +5,7 @@ export default {
         vm: null,
         update: 0,
         paginator: {
-            default : {
+            default: {
                 data: [],
                 resource: {
                     resource: {},
@@ -44,7 +44,7 @@ export default {
             };
         },
         nextData(state, {resource, data, requestName}) {
-            data.forEach(function(item){
+            data.forEach(function (item) {
                 state.paginator[requestName].data.push(item);
                 state.update++;
             });
@@ -65,8 +65,8 @@ export default {
             dispatch('next', {requestName});
         },
         next ({commit, state}, {requestName}) {
-            if(state.paginator[requestName].resource.resource){
-                commit('changeLoading', {requestName, type:true});
+            if (state.paginator[requestName].resource.resource) {
+                commit('changeLoading', {requestName, type: true});
                 if (!requestName) {
                     requestName = 'default';
                 }
@@ -74,17 +74,17 @@ export default {
                 state.paginator[requestName].resource.resource.get(state.paginator[requestName].resource.params).then(
                     (response) => {
                         let resource = null;
-                        if(response.data.meta.pagination)  {
-                            if(response.data.meta.pagination.links.next){
+                        if (response.data.meta.pagination) {
+                            if (response.data.meta.pagination.links.next) {
                                 resource = state.vm.$resource(response.data.meta.pagination.links.next);
                             }
                         }
 
-                        commit('nextData', {resource, data:response.data.data, requestName});
-                        commit('changeLoading', {requestName, type:false});
+                        commit('nextData', {resource, data: response.data.data, requestName});
+                        commit('changeLoading', {requestName, type: false});
                     }
                 ).catch((error) => {
-                    commit('changeLoading', {requestName, type:false});
+                    commit('changeLoading', {requestName, type: false});
                 });
             }
 

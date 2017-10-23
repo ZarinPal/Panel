@@ -107,7 +107,7 @@ header .logos .img-application {
     background: #ececec;
 }
 
-header .ic-info{
+header .ic-info {
     background-image: url("../../img/oauth/ic_info_outline_black_24px.svg");
     background-repeat: no-repeat;
     background-size: 100%;
@@ -118,7 +118,7 @@ header .ic-info{
     display: inline-block;
 }
 
-.img-application .client-logo{
+.img-application .client-logo {
     width: 100% !important;
 }
 
@@ -261,26 +261,25 @@ main.permissions ul li {
     background-position-y: center;
 }
 
-
 .alert-info {
     text-align: center;
     color: #4183D7;
     line-height: 1.6em;
 }
 
-.alert-info ul{
+.alert-info ul {
     padding-right: 0;
 }
 
-.alert-info ul li{
+.alert-info ul li {
     list-style: none
 }
 
-.alert-danger{
+.alert-danger {
     color: #F22613;
 }
 
-.alert-danger ul li{
+.alert-danger ul li {
     margin: 8px 0;
 }
 

@@ -12,7 +12,7 @@
 <script>
     export default{
         name: 'timer',
-        props:['seconds'],
+        props: ['seconds'],
         created() {
             this.updateTimer();
         },
@@ -37,7 +37,7 @@
                         vm.onFinished();
                     }
 
-                    vm.$store.commit('timer/updateTimer', {minutes: minutes.toString(), seconds:seconds.toString()})
+                    vm.$store.commit('timer/updateTimer', {minutes: minutes.toString(), seconds: seconds.toString()})
                 }, 1000);
             },
             onFinished() {
