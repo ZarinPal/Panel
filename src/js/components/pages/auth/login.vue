@@ -143,10 +143,11 @@
             let vm = this;
             this.$store.state.http.requests['oauth.check']
                 .get()
-                .then(()=>{
+                .then(() => {
                     vm.$router.push({name: 'home.index'});
                 })
-                .catch(()=>{});
+                .catch(() => {
+                });
 
             if(this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
