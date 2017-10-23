@@ -58,17 +58,17 @@
                 mobile: "",
             }
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
         },
         created() {
-            if(this.$route.params.mobile) {
+            if (this.$route.params.mobile) {
                 this.mobile = this.$route.params.mobile;
             }
 
-            if(this.$store.state.auth.check) {
+            if (this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
         },
@@ -81,7 +81,7 @@
                     mobile: this.mobile,
                 };
 
-                if(this.$route.params.refererId) {
+                if (this.$route.params.refererId) {
                     auth2Data.referer = this.$route.params.refererId;
                 }
 
@@ -99,7 +99,7 @@
                         });
                     },
                     (response) => {
-                        store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger',
