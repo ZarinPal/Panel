@@ -63,18 +63,18 @@
 
         div.nav-send
             div.row
-                div
+                div.col-xs-12
                     b.title پاسخ به تیکت:
                     span.value {{ ticket.title }}
-                div
+                div.col-xs-12
                     textarea(v-validate="{ rules: {required: true, min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
                     div.ta-right(v-if="validation('content')")
                         span.text-danger {{ errors.first('content') }}
 
-                button.submit(@click="validateForm") {{ $i18n.t('ticket.send')}}
-                    svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-                    <!--input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")-->
+                    button.submit(@click="validateForm") {{ $i18n.t('ticket.send')}}
+                        svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                        <!--input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")-->
                     label.attach
                         span.select-text(:class="{'uploaded' : fileUploaded}")
                         input(type="file" name="file" @change="onFileChange")
