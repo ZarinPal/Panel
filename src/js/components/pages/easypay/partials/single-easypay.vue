@@ -1,62 +1,62 @@
 <template lang="pug">
-div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
-    div.box
-        div.top-xs.header
-            div.row
-                div.col-xs.right-box
-                    p(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id")
-                        span.green-small-circle(@click="confirmVisible = true")
-                        span.header-title(:title="easypay.title") {{easypay.title}}
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+        div.box
+            div.top-xs.header
+                div.row
+                    div.col-xs.right-box
+                        p(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id")
+                            span.green-small-circle(@click="confirmVisible = true")
+                            span.header-title(:title="easypay.title") {{easypay.title}}
 
-                div.col-xs.ta-left-box.left-box
-                    span.icon-more(@click="changeMoreTriggerOn()" id="btnMoreIcon")
-                    transition( name="bounce"
-                                enter-active-class="drop-down-show"
-                                leave-active-class="drop-down-hide")
-                        span.drop-down.pull-left(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singleEasypayMoreTrigger == easypay.entity_id")
-                            span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
-                            router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
-                            router-link.drop-down-item.edit(v-ripple="" tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
-                            span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
+                    div.col-xs.ta-left-box.left-box
+                        span.icon-more(@click="changeMoreTriggerOn()" id="btnMoreIcon")
+                        transition( name="bounce"
+                        enter-active-class="drop-down-show"
+                        leave-active-class="drop-down-hide")
+                            span.drop-down.pull-left(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singleEasypayMoreTrigger == easypay.entity_id")
+                                span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
+                                router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
+                                router-link.drop-down-item.edit(v-ripple="" tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
+                                span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
 
-                    a.header-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
+                        a.header-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
 
-        div.middle-xs.body
-            div.row.box-row
-                div.col-xs.ta-right
-                    span.label {{$i18n.t('easypay.amount')}}
+            div.middle-xs.body
+                div.row.box-row
+                    div.col-xs.ta-right
+                        span.label {{$i18n.t('easypay.amount')}}
 
-                div.col-xs.ta-left
-                    span.text-value {{easypay.price | numberFormat | persianNumbers}} تومان
+                    div.col-xs.ta-left
+                        span.text-value {{easypay.price | numberFormat | persianNumbers}} تومان
 
-            div.row.box-row
-                div.col-xs.ta-right
-                    span.label {{$i18n.t('easypay.depositTo')}}
+                div.row.box-row
+                    div.col-xs.ta-right
+                        span.label {{$i18n.t('easypay.depositTo')}}
 
-                div.col-xs.ta-left.no-margin
-                    span.tag-deposit-to.pull-left
-                        div.logo(v-if="easypay.purse == 1")
-                        span.purse-color(v-else v-bind:class="'color-' + easypay.purse")
-                        span {{easypay.purse_name}}
+                    div.col-xs.ta-left.no-margin
+                        span.tag-deposit-to.pull-left
+                            div.logo(v-if="easypay.purse == 1")
+                            span.purse-color(v-else v-bind:class="'color-' + easypay.purse")
+                            span {{easypay.purse_name}}
 
-            div.row.box-row
-                div.right
-                    span.label {{$i18n.t('easypay.limit')}}
+                div.row.box-row
+                    div.right
+                        span.label {{$i18n.t('easypay.limit')}}
 
-                div.col-xs.ta-left
-                    span.text-value(v-if="easypay.limit") {{easypay.limit | persianNumbers}}
-                    span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
+                    div.col-xs.ta-left
+                        span.text-value(v-if="easypay.limit") {{easypay.limit | persianNumbers}}
+                        span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
 
 
-    confirm(v-if="confirmVisible" v-on:confirmed="deleteEasypay()" v-on:closeModal="closeModal")
-        span(slot="title") {{$i18n.t('easypay.deleteEasypay')}}
-        div.ta-right(slot="message")
-            div.row.no-margin
-                div.col-xs-12 آیا نسبت به حذف زرین‌لینک " {{easypay.title}} " اصمینان دارید؟
-                div.col-xs-12 این عملیات غیر قابل بازگشت است.
+        confirm(v-if="confirmVisible" v-on:confirmed="deleteEasypay()" v-on:closeModal="closeModal")
+            span(slot="title") {{$i18n.t('easypay.deleteEasypay')}}
+            div.ta-right(slot="message")
+                div.row.no-margin
+                    div.col-xs-12 آیا نسبت به حذف زرین‌لینک " {{easypay.title}} " اصمینان دارید؟
+                    div.col-xs-12 این عملیات غیر قابل بازگشت است.
 
-        span(slot="messageDanger") {{$i18n.t('common.cancel')}}
-        span(slot="messageSuccess") {{$i18n.t('easypay.yesDeleteIt')}}
+            span(slot="messageDanger") {{$i18n.t('common.cancel')}}
+            span(slot="messageSuccess") {{$i18n.t('easypay.yesDeleteIt')}}
 </template>
 
 <script>
@@ -73,7 +73,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
         props: ['easypay'],
         methods: {
             clipboardMessage() {
-                store.commit('flashMessage',{
+                store.commit('flashMessage', {
                     text: 'copied',
                     type: 'success',
                     timeout: '1500'
@@ -89,8 +89,8 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
             },
             closeDropDownFromOutside() {
                 let vm = this;
-                document.addEventListener('click', function(e) {
-                    if(e.target.id !== 'btnMoreIcon') {
+                document.addEventListener('click', function (e) {
+                    if (e.target.id !== 'btnMoreIcon') {
                         vm.$store.state.app.singleEasypayMoreTrigger = null;
                     }
                 }, false);
@@ -101,7 +101,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
             },
             deleteEasypay() {
                 this.confirm = true;
-                if(this.confirm) {
+                if (this.confirm) {
                     let params = {
                         easypay_id: this.easypay.entity_id
                     };
@@ -110,7 +110,7 @@ div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
                         () => {
                             let easypayIndex = _.findIndex(this.$store.state.paginator.paginator.EasypayList.data, {'entity_id': this.easypay.entity_id});
                             this.$store.state.paginator.paginator.EasypayList.data.splice(easypayIndex, 1);
-                            this.$store.state.paginator.update ++;
+                            this.$store.state.paginator.update++;
 
                             store.commit('flashMessage', {
                                 text: 'easypay deleted',
