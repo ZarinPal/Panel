@@ -79,11 +79,6 @@ Vue.directive(
     require('./directives/back').default
 );
 
-// Vue.directive(
-//     'validate',
-//     require('./directives/validate').default
-// );
-
 Vue.directive(
     'mask',
     require('./directives/mask').default

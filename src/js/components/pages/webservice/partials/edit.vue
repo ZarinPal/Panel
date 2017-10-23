@@ -9,8 +9,24 @@
                 form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.body
                         div.row
+
+                            div.col-lg-6.col-md-8.col-sm-12.col-xs-12
+                                div.row
+                                    div.col-xs.ta-right
+                                        input(v-model="visibleIp" name="ipOptional" value="yes" type="radio" id="rdoWithIp")
+                                        label(for="rdoWithIp")
+                                            span
+                                            |{{ $i18n.t('webservice.withIpLimit')}}
+
+                                    div.col-xs.ta-right
+                                        input(v-model="visibleIp" name="ipOptional" value="no" type="radio" id="rdoWithoutIp")
+                                        label(for="rdoWithoutIp")
+                                            span
+                                            |{{ $i18n.t('webservice.withoutIpLimit')}}
+
+
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                                div.row.no-margin
+                                div.row.no-margin(v-if="visibleIp == 'yes'")
                                     span.input-icon.ip-icon
                                     input.ltr-input(v-validate="'ip'" :class="{'input-danger': errors.has('site_ip')}"  v-bind:data-vv-as="$i18n.t('webservice.ipServer')" type="text" v-model="site_ip" name="site_ip"  id="site_ip" placeholder= "IP" autofocus tabindex="1")
                                     div.ta-right(v-if="validation('site_ip')")
@@ -73,6 +89,7 @@
             return {
                 fileUploadFormData: new FormData(),
                 loading: false,
+                visibleIp: 'yes',
                 messages: {},
                 fileHover: false,
                 purse: '',
@@ -99,6 +116,12 @@
             this.site_content = this.webservice.description;
             this.tel = this.webservice.tel;
             this.selectedLogo = this.webservice.logo;
+
+            if (this.webservice.ip) {
+                this.visibleIp = 'yes';
+            } else {
+                this.visibleIp = 'no';
+            }
         },
         computed: {
             webservice(){
@@ -155,6 +178,11 @@
             },
             editWebservice() {
                 this.loading = true;
+
+                if (this.visibleIp === 'no') {
+                    this.site_ip = null;
+                }
+
                 let webserviceData = {
                     purse: this.purse,
                     webservice_category_id: this.webservice_category_id,

@@ -7,27 +7,26 @@
                     span {{ $i18n.t('common.balance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}}
                     span {{ $i18n.t('transaction.toman') }}
                 form(autocomplete="on" onsubmit="event.preventDefault();")
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
-                    div.ta-right(v-if="validationErrors.purse")
-                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                    div.ta-right(v-if="validation('purse')")
+                        span.text-danger {{ errors.first('purse') }}
 
                     div.row.no-margin
-                        input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" placeholder="(مبلغ (تومان" tabindex="1")
-                        div.ta-right(v-if="validationErrors.amount")
-                            span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                        input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
+                        div.ta-right(v-if="validation('amount')")
+                            span.text-danger {{ errors.first('amount') }}
 
                     div.row.no-margin
-                        cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard" tabindex="2")
-                        div.ta-right(v-if="validationErrors.card_id")
-                            span.text-danger {{ $i18n.t(validationErrors.card_id) }}
+                        cards(:class="{'input-danger': errors.has('card_id')}" v-on:select="selectedCard" tabindex="2")
+                        div.ta-right(v-if="validation('card_id')")
+                            span.text-danger {{ errors.first('card_id') }}
 
                     div.row
                         div.col-xs.no-margin
-                            button.btn.success.pull-left(v-ripple="" @click="addFund") {{$i18n.t('purse.addFund')}}
+                            button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('purse.addFund')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
 
 </template>
 
@@ -45,15 +44,15 @@
                 loading: false,
                 closeModalContent: false,
                 amount: null,
-                cardId: null,
+                card_id: null,
                 purseId: null,
                 maxAmountLimit: 10000000,
-                redirectUrl: null
+                redirect_url: null
             }
         },
         props: ['purse'],
         mounted(){
-            this.redirectUrl = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
+            this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
             this.closeModalContent = false
         },
         computed: {
@@ -69,9 +68,6 @@
                 });
                 return activeCards;
             },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
         },
         created() {
             store.commit('clearValidationErrors');
@@ -80,6 +76,25 @@
             }
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    amount: this.amount,
+                    card_id: this.card_id,
+                    purse: this.purseId
+                }).then((result) => {
+                    if (result) {
+                        this.addFund();
+                    }
+                });
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
@@ -104,8 +119,8 @@
                 let addFundData = {
                     purse: this.purseId,
                     amount: amount,
-                    card_id: this.cardId,
-                    redirect_url: this.redirectUrl
+                    card_id: this.card_id,
+                    redirect_url: this.redirect_url
                 };
 
                 this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
@@ -139,8 +154,8 @@
                 if (this[inputId].length > 0) result.push(text);
                 this[inputId] = result.join("-");
             },
-            selectedCard(cardId) {
-                this.cardId = cardId;
+            selectedCard(card_id) {
+                this.card_id = card_id;
             },
         },
         components: {
