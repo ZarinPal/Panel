@@ -17,10 +17,12 @@
                                         span.text-danger {{ errors.first('site_ip') }}
 
                                 div.row.no-margin
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
 
                                 div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
+                                    webserviceCategories.webservice-categories(v-on:select="selectedWebserviceCat"  v-bind:selected="webservice_category_id" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
                                     div.ta-right(v-if="validation('webservice_category_id')")
                                         span.text-danger {{ errors.first('webservice_category_id') }}
 
