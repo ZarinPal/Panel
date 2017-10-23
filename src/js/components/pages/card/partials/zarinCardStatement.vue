@@ -69,10 +69,10 @@
                 cardId: null,
                 password: null,
                 cvv2: null,
-                zarinCardStatements : null
+                zarinCardStatements: null
             }
         },
-        props:['card'],
+        props: ['card'],
         computed: {
             user(){
                 return this.$store.state.auth.user;
@@ -99,15 +99,15 @@
                     cvv2: this.cvv2
                 };
                 this.$store.state.http.requests['zarincard.postStatement'].save(zarincardData).then(
-                    (response)=> {
+                    (response) => {
                         this.loading = false;
                         this.validationErrors = null;
                         this.zarinCardStatements = response.data.data;
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });

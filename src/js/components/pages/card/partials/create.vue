@@ -12,13 +12,13 @@
                                 input(v-model="isLegal" name="optional" value="0" type="radio" id="rdoًReal")
                                 label(for="rdoًReal")
                                     span
-                                    |{{ $i18n.t('card.real')}}
+                                    | {{ $i18n.t('card.real')}}
 
                             div.col-xs.ta-center
                                 input(v-model="isLegal" value="1" name="optional" type="radio" id="rdoLegal")
                                 label(for="rdoLegal")
                                     span
-                                    |{{ $i18n.t('card.legal')}}
+                                    | {{ $i18n.t('card.legal')}}
 
                 div.row.input-group.no-margin(:class="{'input-danger': errors.has('iban')}")
                     div.col-xs.no-margin
@@ -75,8 +75,8 @@
                 yearFocus: false,
             }
         },
-        props:['card'],
-        computed:{
+        props: ['card'],
+        computed: {
             user(){
                 return this.$store.state.auth.user;
             },
@@ -96,7 +96,7 @@
         },
         methods: {
             validation(name) {
-                if(this.$store.state.alert.validationErrors[name]) {
+                if (this.$store.state.alert.validationErrors[name]) {
                     this.errors.clear();
                     this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
                     this.$store.state.alert.validationErrors[name] = false;
@@ -132,8 +132,8 @@
             createCard() {
                 this.loading = true;
 
-                if(this.year > 3150 || this.month > 12) {
-                    store.commit('flashMessage',{
+                if (this.year > 3150 || this.month > 12) {
+                    store.commit('flashMessage', {
                         text: 'invalid-date',
                         type: 'danger'
                     });
@@ -141,7 +141,7 @@
                     return;
                 }
 
-                if(this.isLegal === 1) {
+                if (this.isLegal === 1) {
                     this.pan = '';
                     this.year = '';
                     this.month = '';
@@ -149,28 +149,28 @@
 
 
                 let formatedPan = this.pan;
-                if(/-/g.test(formatedPan)) {
+                if (/-/g.test(formatedPan)) {
                     formatedPan = this.pan.split('-').join('');
                 }
 
                 let expiredAt = this.jalaliToGregorian(this.year, this.month);
 
                 let cardData = {
-                    iban : 'IR' + this.iban,
-                    pan : formatedPan,
-                    isLegal : this.isLegal,
-                    expired_at : expiredAt,
+                    iban: 'IR' + this.iban,
+                    pan: formatedPan,
+                    isLegal: this.isLegal,
+                    expired_at: expiredAt,
                 };
 
                 this.$store.state.http.requests['card.getList'].save(cardData).then(
-                    ()=> {
+                    () => {
                         this.loading = false;
                         this.$router.push({name: 'card.index'});
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });
@@ -181,7 +181,7 @@
                 let jalali = year + '/' + month + '/' + day;
                 let gregorian = moment(jalali, 'jYYYY/jM/jD');
                 gregorian = gregorian._i;
-                return gregorian.substr(0, gregorian.length-3);
+                return gregorian.substr(0, gregorian.length - 3);
             },
             changeMonthFocus(event) {
                 let target = event.srcElement;
