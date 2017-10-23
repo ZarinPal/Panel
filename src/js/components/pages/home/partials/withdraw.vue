@@ -43,7 +43,7 @@
                                     input(name="fees" type="radio" :value="fee.id" v-model="feeDetails.id" :id="'rdo' + fee.id" @click="selectFee(fee.id)")
                                     label(:for="'rdo' + fee.id")
                                         span
-                                        |{{fee.title}}
+                                        | {{fee.title}}
 
                             div.row.bx.fee-date
                                 div.col-xs
@@ -108,9 +108,9 @@
                 confirmVisible: false,
                 amount: 0,
                 purseId: null,
-                redirectUrl:encodeURI(
-                'https://' + window.location.hostname + '/'
-                + this.$router.resolve({name: 'home.finishAddFund'}).href),
+                redirectUrl: encodeURI(
+                    'https://' + window.location.hostname + '/'
+                    + this.$router.resolve({name: 'home.finishAddFund'}).href),
                 card: {},
                 isLoadedFees: false,
                 withdrawAmount: 0,
@@ -126,15 +126,15 @@
             }
         },
         props: ['purse'],
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
             cards() {
-                if(this.$store.state.auth.user.cards) {
+                if (this.$store.state.auth.user.cards) {
                     let activeCards = [];
-                    _.forEach(this.$store.state.auth.user.cards, function(card) {
-                        if(card.status === "Active" && card.pan !== null) {
+                    _.forEach(this.$store.state.auth.user.cards, function (card) {
+                        if (card.status === "Active" && card.pan !== null) {
                             activeCards.unshift(card);
                         }
                     });
@@ -144,7 +144,7 @@
         },
         created() {
             store.commit('clearValidationErrors');
-            if(this.purse) {
+            if (this.purse) {
                 this.purseId = this.purse.purse;
             }
 
@@ -155,14 +155,14 @@
         },
         methods: {
             closeModal() {
-                if(this.confirmVisible) {
+                if (this.confirmVisible) {
                     this.confirmVisible = false;
                 } else {
                     this.$emit('closeModal');
                 }
             },
             calcPercentAmount() {
-                if(/,/g.test(this.amount)) {
+                if (/,/g.test(this.amount)) {
                     this.withdrawAmount = (this.amount.replace(/,/g, "") * (this.feeDetails.details.percent / 100)).toFixed(0)
                 } else {
                     this.withdrawAmount = (this.amount * (this.feeDetails.details.percent / 100)).toFixed(0);
@@ -171,10 +171,10 @@
             calcFeeDate(seconds) {
                 let numDays = Math.floor(seconds / 86400);
                 let numHours = Math.floor((seconds % 86400) / 3600);
-                if(numDays > 0) {
-                    return numDays + ' روز و ' + numHours +  ' ساعت ';
+                if (numDays > 0) {
+                    return numDays + ' روز و ' + numHours + ' ساعت ';
                 } else {
-                    return numHours +  ' ساعت ';
+                    return numHours + ' ساعت ';
                 }
             },
             selectedPurse(purseId) {
@@ -186,7 +186,7 @@
             selectedCard(cardId) {
                 this.card.id = cardId;
 
-                let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function(card) {
+                let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function (card) {
                     return card.entity_id === cardId;
                 });
 
@@ -195,11 +195,11 @@
                 this.selectFee();
             },
             selectFee(feeId) {
-                if(!feeId) {
+                if (!feeId) {
                     feeId = 'default';
                 }
 
-                let feeIndex = _.findIndex(this.fees, function(fee) {
+                let feeIndex = _.findIndex(this.fees, function (fee) {
                     return fee.id === feeId;
                 });
 
@@ -207,11 +207,11 @@
 
                 this.validFees.push(this.fees[0]);
                 let vm = this;
-                this.fees.forEach(function(fee, feeIndex) {
-                    if(feeIndex > 0) {
-                        fee.withdraw_method.forEach(function(feeMethod) {
-                            if(vm.card.slug) {
-                                if(vm.card.slug.toLowerCase() ===  feeMethod.slug.toLowerCase()) {
+                this.fees.forEach(function (fee, feeIndex) {
+                    if (feeIndex > 0) {
+                        fee.withdraw_method.forEach(function (feeMethod) {
+                            if (vm.card.slug) {
+                                if (vm.card.slug.toLowerCase() === feeMethod.slug.toLowerCase()) {
                                     vm.validFees.push(fee);
                                 }
                             }
@@ -224,7 +224,7 @@
                 this.calcPercentAmount();
             },
             getPurseAmount(purseId) {
-                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function (purse) {
                     return purse.purse === purseId;
                 });
 
@@ -238,11 +238,11 @@
             },
             getFeeWithdrawMethod() {
                 let cardType = 'default';
-                if(this.card.slug === 'ZarinCard') {
+                if (this.card.slug === 'ZarinCard') {
                     cardType = 'zarincard';
                 }
 
-                let feeSlugIndex = _.findIndex(this.selectedFee.withdraw_method, function(fee) {
+                let feeSlugIndex = _.findIndex(this.selectedFee.withdraw_method, function (fee) {
                     return fee.slug === cardType;
                 });
                 this.feeDetails.details = this.selectedFee.withdraw_method[feeSlugIndex];
@@ -255,7 +255,7 @@
                         this.fees = response.data.data;
 
                         //fee init
-                        let feeIndex = _.findIndex(this.fees, function(fee) {
+                        let feeIndex = _.findIndex(this.fees, function (fee) {
                             return fee.id === 'default';
                         });
                         this.selectedFee = this.fees[feeIndex];
@@ -263,7 +263,7 @@
                         this.getFeeWithdrawMethod();
 
                         this.isLoadedFees = false;
-                    },()=>{
+                    }, () => {
                         this.isLoadedFees = false;
                     }
                 );
@@ -271,7 +271,7 @@
             withdraw() {
                 this.loading = true;
                 let amount = this.amount;
-                if(/,/g.test(this.amount)) {
+                if (/,/g.test(this.amount)) {
                     amount = this.amount.replace(/,/g, "");
                 }
 
@@ -282,11 +282,11 @@
                 };
 
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
-                    (response)=> {
+                    (response) => {
                         //update purse balance after withdraw
                         this.getPursesBalances();
                         this.loading = false;
-                        this.$store.commit('flashMessage',{
+                        this.$store.commit('flashMessage', {
                             text: response.data.meta.message,
                             important: false,
                             type: 'success'
@@ -296,11 +296,17 @@
                         this.confirmVisible = false;
                         this.$emit('closeModal');
 
-                        this.$router.push({name: 'transaction.index', params: {id: this.purseId, type: 'purse', transactionId: response.data.data.transaction_public_id}});
+                        this.$router.push({name: 'transaction.index',
+                            params: {
+                                id: this.purseId,
+                                type: 'purse',
+                                transactionId: response.data.data.transaction_public_id
+                            }
+                        });
                     },
                     (response) => {
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        this.$store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        this.$store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'
