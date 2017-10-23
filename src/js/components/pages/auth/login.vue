@@ -229,7 +229,7 @@
                         this.$router.push({name: 'home.index'});
                     }, (response) => {
                         this.loginLoading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
+                        // store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage',{
                             text: response.data.meta.error_message,
                             important: false,
