@@ -28,13 +28,13 @@ new Vue({
     router: require('./router').default,
     data() {
       return {
-          // baseUrl: 'https://api.zarinpal.dev', // local: panel base
-          baseUrl: 'https://next.zarinpal.com', // production: panel base
+          baseUrl: 'https://api.zarinpal.dev', // local: panel base
+          // baseUrl: 'https://next.zarinpal.com', // production: panel base
       }
     },
     http: {
-        // root: 'http://api.zarinpal.dev/rest/v3',// local: panel base
-        root: 'https://next.zarinpal.com/rest/v3',// production: panel base
+        root: 'http://api.zarinpal.dev/rest/v3',// local: panel base
+        // root: 'https://next.zarinpal.com/rest/v3',// production: panel base
     },
     created() {
         //init active tab on load
@@ -46,6 +46,15 @@ new Vue({
                 vm.$store.commit('app/ready');
             }
         });
+
+
+        //Try to fix app ready after 10 seconds
+        let vm = this;
+        setTimeout(function () {
+            if(vm.$store.state.auth.check && vm.$store.state.auth.isLoaded && !vm.$store.state.app.isLoaded) {
+                vm.$store.commit('app/ready');
+            }
+        }, 5000);
     },
     watch: {
         '$route' (to) {
