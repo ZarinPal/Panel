@@ -14,27 +14,26 @@
                         router-link.btn.success.pull-left(tag="button" v-bind:to="{ name: 'card.index'}")
                             span {{ $i18n.t('card.createCard') }}
 
-
             span(v-else)
                 div(v-if="this.$store.state.auth.user.cards")
                     div.modal-description
                         div(v-if="purse") {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
 
                     form(autocomplete="on" onsubmit="event.preventDefault();")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
-                        div.ta-right(v-if="validationErrors.purse")
-                            span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                        div.ta-right(v-if="validation('purse')")
+                            span.text-danger {{ errors.first('purse') }}
 
                         div.row
-                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" @keyup="calcPercentAmount()" placeholder="(مبلغ (تومان")
-                            div.ta-right(v-if="validationErrors.amount")
-                                span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
+                            div.ta-right(v-if="validation('amount')")
+                                span.text-danger {{ errors.first('amount') }}
 
                         div.row
-                            cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
-                            div.ta-right(v-if="validationErrors.card_id")
-                                span.text-danger {{ $i18n.t(validationErrors.card_id) }}
+                            cards.cards(:class="{'input-danger': errors.has('card_id')}" v-on:select="selectedCard")
+                            div.ta-right(v-if="validation('card_id')")
+                                span.text-danger {{ errors.first('card_id') }}
 
 
                         div.nav-fees(v-if="!isLoadedFees")
@@ -66,7 +65,7 @@
 
                         div.row
                             div.col-xs.no-margin
-                                button.btn.success.pull-left(v-ripple="" @click="confirmVisible = !confirmVisible") {{$i18n.t('transaction.withdraw')}}
+                                button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('transaction.withdraw')}}
                                     svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                         circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -127,9 +126,6 @@
         },
         props: ['purse'],
         computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
             cards() {
                 if (this.$store.state.auth.user.cards) {
                     let activeCards = [];
@@ -154,6 +150,25 @@
             this.closeModalContent = false;
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    amount: this.amount,
+                    card_id: this.card.id,
+                    purse: this.purseId
+                }).then((result) => {
+                    if (result) {
+                        this.confirmVisible = !this.confirmVisible;
+                    }
+                });
+            },
             closeModal() {
                 if (this.confirmVisible) {
                     this.confirmVisible = false;

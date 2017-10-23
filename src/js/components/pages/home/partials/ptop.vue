@@ -11,29 +11,29 @@
 
                     form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row
-                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
-                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
-                            div.ta-right(v-if="validationErrors.purse")
-                                span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
+                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                            div.ta-right(v-if="validation('purse')")
+                                span.text-danger {{ errors.first('purse') }}
 
                             div.col-xs.no-right-margin
-                                input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" inputmode="numeric" type="text" v-model="amount" placeholder="(مبلغ (تومان"  tabindex="1")
-                                div.ta-right(v-if="validationErrors.amount")
-                                    span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                                input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
+                                div.ta-right(v-if="validation('amount')")
+                                    span.text-danger {{ errors.first('amount') }}
 
                             div.col-xs.no-left-margin
-                                input(:class="{'input-danger': validationErrors.zpId}" type="text" v-model="zpId" placeholder="زرین پال مقصد، مثال: zp.123 یا 09365363586 یا domain@gmail.com" tabindex="2")
-                                div.ta-right(v-if="validationErrors.zpId")
-                                    span.text-danger {{ $i18n.t(validationErrors.zpId) }}
+                                input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('card.dstZarinpalId')" :class="{'input-danger': errors.has('zpId')}" type="text" v-model="zpId" name="zpId" placeholder="زرین پال مقصد، مثال: zp.123 یا 09365363586 یا domain@gmail.com" tabindex="2")
+                                div.ta-right(v-if="validation('zpId')")
+                                    span.text-danger {{ errors.first('zpId') }}
 
                         div.row
-                            textarea(maxlength="255" :class="{'input-danger': validationErrors.description}" type="text" v-model="description" placeholder="توضیحات" tabindex="3")
-                            div.ta-right(v-if="validationErrors.description")
-                                span.text-danger {{ $i18n.t(validationErrors.description) }}
+                            textarea(v-validate="{rules: {required: true, max:255}}" v-bind:data-vv-as="$i18n.t('common.description')" :class="{'input-danger': errors.has('description')}" type="text" v-model="description" name="description" :placeholder="$i18n.t('common.description')" tabindex="3")
+                            div.ta-right(v-if="validation('description')")
+                                span.text-danger {{ errors.first('description') }}
 
                         div.row
                             div.col-xs.no-margin
-                                button.btn.success.pull-left(v-ripple="" @click="confirmPtopData" tabindex="4") {{ $i18n.t('purse.nextStep') }}
+                                button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="4") {{ $i18n.t('purse.nextStep') }}
 
                 div(v-else)
                     div.list(v-if="destinationUser")
@@ -115,11 +115,6 @@
         mounted(){
             this.closeModalContent = false
         },
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
         created() {
             store.commit('clearValidationErrors');
             if (this.purse) {
@@ -127,6 +122,26 @@
             }
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    purse: this.purseId,
+                    zpId: this.zpId,
+                    amount: this.amount,
+                    description: this.description
+                }).then((result) => {
+                    if (result) {
+                        this.confirmPtopData();
+                    }
+                });
+            },
             closeModal() {
                 this.$emit('closeModal')
             },

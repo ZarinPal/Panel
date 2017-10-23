@@ -15,9 +15,9 @@
                         span.label {{card.iban}}
 
                 div.row
-                    input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.pan}" type="text" v-model="pan" placeholder="شماره کارت" maxlength="19" id="pan" @keyup="cardNumberFormat()")
-                    div.ta-right(v-if="validationErrors.pan")
-                        span.text-danger {{ $i18n.t(validationErrors.pan) }}
+                    input.ta-left.dir-ltr(v-validate="{ rules: {required: true, max: 19}}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder="$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat()")
+                    div.ta-right(v-if="validation('pan')")
+                        span.text-danger {{ errors.first('pan') }}
 
                 div.row.no-margin
                     div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
@@ -26,19 +26,19 @@
                         div.row.nav-expiration-input
                             div.col-xs.no-margin
                                 span.label {{$i18n.t('card.month')}}:
-                                input#month(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.expired_at}" type="text" v-model="month" placeholder="00" maxlength="2" @keyup="changeMonthFocus")
+                                input#month(v-validate="{ rules: {required: true, numeric: true, max_value: 12}}" v-bind:data-vv-as="$i18n.t('card.month')" :class="{'input-danger': errors.has('month')}" type="text" v-model="month" name="month" :placeholder= "$i18n.t('card.month')" maxlength="2" @keyup="changeMonthFocus")
                             div.col-xs.no-margin
                                 span.label {{$i18n.t('card.year')}}:
-                                input#year(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.expired_at}" type="text" v-model="year" placeholder="0000" maxlength="4" @keyup="changeYearFocus")
+                                input#year(v-validate="{ rules: {required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('card.year')" :class="{'input-danger': errors.has('year')}" type="text" v-model="year" name="year" :placeholder= "$i18n.t('card.year')"  maxlength="4" @keyup="changeYearFocus")
 
-
-                    div.ta-right(v-if="validationErrors.expired_at")
-                        span.text-danger {{ $i18n.t(validationErrors.expired_at) }}
+                        div.ta-right
+                            div.text-danger(v-if="validation('year')") {{ errors.first('year') }}
+                            div.text-danger(v-if="validation('month')") {{ errors.first('month') }}
 
 
                 div.row
                     div.col-xs.no-margin
-                        button.btn.success.pull-left(v-ripple="" @click="editCard") {{$i18n.t('common.save')}}
+                        button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('common.save')}}
                             svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                 circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -76,6 +76,25 @@
             this.month = jalaliExpiredDate.substr(5,2);
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    pan: this.pan,
+                    year: this.year,
+                    month: this.month
+                }).then((result) => {
+                    if (result) {
+                        this.editCard();
+                    }
+                });
+            },
             cardNumberFormat() {
                 let text = document.getElementById("pan").value;
                 let result = [];
