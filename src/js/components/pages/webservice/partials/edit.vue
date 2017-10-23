@@ -12,20 +12,17 @@
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
                                 div.row.no-margin
                                     span.input-icon.ip-icon
-                                    input.ltr-input(v-validate="{size: 15}" :class="{'input-danger': validationErrors.site_ip}" type="text" v-model="site_ip" placeholder= "IP" autofocus tabindex="1")
-                                    div.ta-right(v-if="validationErrors.site_ip")
-                                        span.text-danger {{ $i18n.t(validationErrors.site_ip) }}
+                                    input.ltr-input(v-validate="'ip'" :class="{'input-danger': errors.has('site_ip')}"  v-bind:data-vv-as="$i18n.t('webservice.ipServer')" type="text" v-model="site_ip" name="site_ip"  id="site_ip" placeholder= "IP" autofocus tabindex="1")
+                                    div.ta-right(v-if="validation('site_ip')")
+                                        span.text-danger {{ errors.first('site_ip') }}
 
                                 div.row.no-margin
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول" :class="{'input-danger': validationErrors.purse}" tabindex="2")
-                                    div.ta-right(v-if="validationErrors.purse")
-                                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                                    div.ta-right(v-if="validation('purse')")
+                                        span.text-danger {{ errors.first('purse') }}
 
                                 div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
-                                    <!--span.input-icon.webservice-cat-icon-->
-                                    webserviceCategories(v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': validationErrors.webservice_category_id}" tabindex="3")
-                                    div.ta-right(v-if="validationErrors.webservice_category_id")
-                                        span.text-danger {{ $i18n.t(validationErrors.webservice_category_id) }}
+                                    div.ta-right(v-if="validation('webservice_category_id')")
+                                        span.text-danger {{ errors.first('webservice_category_id') }}
 
                                 div.row
                                     div.nav-picker
@@ -57,7 +54,7 @@
 
                     div.row
                         div.col-xs.nav-buttons
-                            button.btn.success.pull-left( v-ripple="" @click="editWebservice" tabindex="5") {{$i18n.t('webservice.edit')}}
+                            button.btn.success.pull-left( v-ripple="" @click="validateForm" tabindex="5") {{$i18n.t('webservice.edit')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
@@ -71,7 +68,7 @@
     export default {
         name: 'pages-webservice-partials-edit',
         data(){
-            return{
+            return {
                 fileUploadFormData: new FormData(),
                 loading: false,
                 messages: {},
@@ -101,12 +98,12 @@
             this.tel = this.webservice.tel;
             this.selectedLogo = this.webservice.logo;
         },
-        computed:{
+        computed: {
             webservice(){
                 return _.find(this.$store.state.auth.user.webservices, {'entity_id': this.$route.params.merchantCode});
             },
             pursesSelection() {
-                if(this.$store.state.auth.user.purses) {
+                if (this.$store.state.auth.user.purses) {
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         return {
                             'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
@@ -116,7 +113,7 @@
                 }
             },
             webserviceCatSelection() {
-                if(this.$store.state.app.webserviceCategories) {
+                if (this.$store.state.app.webserviceCategories) {
                     return this.$store.state.app.webserviceCategories.map(function (value) {
                         return {
                             'title': value.title,
@@ -131,6 +128,23 @@
             },
         },
         methods: {
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    site_ip: this.site_ip
+                }).then((result) => {
+                    if (result) {
+                        this.editWebservice();
+                    }
+                });
+            },
             selectedPurse(purseId) {
                 this.purse = purseId;
             },
@@ -151,9 +165,9 @@
                 };
 
                 this.$store.state.http.requests['webservice.postEdit'].update(params, webserviceData).then(
-                    ()=> {
+                    () => {
                         this.changeWebserviceState();
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: 'webservice edited success',
                             type: 'success'
                         });
@@ -161,8 +175,8 @@
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });
@@ -171,7 +185,7 @@
             },
             changeWebserviceState(){
                 let vm = this;
-                let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
+                let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function (webservice) {
                     return webservice.entity_id === vm.$route.params.merchantCode;
                 });
 
@@ -180,9 +194,9 @@
                 this.$store.state.auth.user.webservices[webserviceIndex].category_id = this.webservice_category_id;
             },
             dragOver() {
-                window.addEventListener("dragover",function(e){
+                window.addEventListener("dragover", function (e) {
                     e.preventDefault();
-                },false);
+                }, false);
                 this.fileHover = true;
             },
             onDrop(e) {
@@ -203,7 +217,7 @@
             },
             createFile(file) {
                 if (!file.type.match('image.*')) {
-                    store.commit('flashMessage',{
+                    store.commit('flashMessage', {
                         text: 'fileNotImage',
                         type: 'danger'
                     });
