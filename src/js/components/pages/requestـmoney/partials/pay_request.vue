@@ -28,10 +28,10 @@
                 redirect_url: null,
             }
         },
-        props:['debt'],
+        props: ['debt'],
         mounted() {
             this.closeModalContent = false;
-            this.redirect_url =  this.$root.baseUrl + this.$router.resolve({name: 'requestMoney.index'}).href + '/debt?';
+            this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'requestMoney.index'}).href + '/debt?';
         },
         methods: {
             closeModal() {
@@ -47,14 +47,14 @@
                 };
 
                 this.$store.state.http.requests['requestMoney.payRequestMoney'].save(params, requestData).then(
-                    (response)=> {
+                    (response) => {
                         let authority = response.data.data.authority;
                         window.location.replace(this.$store.state.http.services.pg + authority);
                     },
                     (response) => {
                         this.loading = false;
                         this.messages = response.data.meta.error_message;
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: this.messages,
                             type: 'danger'
                         });

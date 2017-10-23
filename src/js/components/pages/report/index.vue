@@ -1,5 +1,5 @@
 <template lang="pug">
-     div.inner-content
+    div.inner-content
         div.row.nav-page-header
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
@@ -37,7 +37,7 @@
             return {
                 isLoaded: false,
                 searchOptions: {},
-                resourceName : null,
+                resourceName: null,
                 reports: [],
                 filterType: null,
                 filterValue: null,
@@ -51,7 +51,7 @@
         mounted() {
             let startDate = new Date();
             startDate.setDate(1);
-            startDate.setMonth(startDate.getMonth()-1);
+            startDate.setMonth(startDate.getMonth() - 1);
             reportCal = new CalHeatMap();
             reportCal.init({
                 itemSelector: "#cal",
@@ -66,11 +66,11 @@
                 range: 3,
                 highlight: ["now", new Date()],
                 domainDynamicDimension: false,
-                domainLabelFormat: (date)=>{
-                    return moment(date).add('month', +1).format('jMMMM') +' - '+ moment(date).format('jMMMM');
+                domainLabelFormat: (date) => {
+                    return moment(date).add('month', +1).format('jMMMM') + ' - ' + moment(date).format('jMMMM');
                 },
-                subDomainTextFormat: (date)=>{
-                    return  moment(date).format("jD").replace(/\d/g, function (match) {
+                subDomainTextFormat: (date) => {
+                    return moment(date).format("jD").replace(/\d/g, function (match) {
                         return ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'][parseInt(match)];
                     });
                 },
@@ -109,7 +109,7 @@
             search(){
                 this.$store.state.http.requests[this.resourceName]
                     .save(this.searchOptions)
-                    .then((results)=>{
+                    .then((results) => {
                         this.reports = results.data.data;
                         this.fillChart(this.reports);
                     });
@@ -124,7 +124,7 @@
                 let averageData = [];
                 data.forEach(function (item) {
                     averageData.push(item.income_amount);
-                    chartData[moment(item.date).format('x')/1000] = item.income_amount;
+                    chartData[moment(item.date).format('x') / 1000] = item.income_amount;
                 });
 
                 reportCal.update(chartData);
@@ -134,10 +134,10 @@
                 let max = _.max(averageData);
                 let diff = max - min;
 
-                reportCal.legend =  [
+                reportCal.legend = [
                     min,
-                    parseInt(min+(diff*.25)),
-                    parseInt(min+(diff*.75)),
+                    parseInt(min + (diff * .25)),
+                    parseInt(min + (diff * .75)),
                     max
                 ];
                 reportCal.setLegend(reportCal.legend);
@@ -153,7 +153,7 @@
                 return this.$store.state.auth.user;
             },
             transactions() {
-                if(this.$store.state.paginator.data) {
+                if (this.$store.state.paginator.data) {
                     this.isLoaded = true;
                 }
                 return this.$store.state.paginator.data;

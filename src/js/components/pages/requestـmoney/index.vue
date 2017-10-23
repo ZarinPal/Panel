@@ -82,19 +82,19 @@
     export default {
         name: 'request-money-index',
         data() {
-          return {
-              whichTab: 'requests',
-              visibleNewRequestMoney: false,
-              isRequest: false,
-              visibleRequestSuccess: false,
-          }
+            return {
+                whichTab: 'requests',
+                visibleNewRequestMoney: false,
+                isRequest: false,
+                visibleRequestSuccess: false,
+            }
         },
         computed: {
             user(){
                 return this.$store.state.auth.user;
             },
             demands(){
-                if(this.$store.state.paginator.paginator.DemandList) {
+                if (this.$store.state.paginator.paginator.DemandList) {
                     return {
                         data: this.$store.state.paginator.paginator.DemandList.data,
                         update: this.$store.state.paginator.update,
@@ -109,7 +109,7 @@
                 }
             },
             debts() {
-                if(this.$store.state.paginator.paginator.DebtList) {
+                if (this.$store.state.paginator.paginator.DebtList) {
                     return {
                         data: this.$store.state.paginator.paginator.DebtList.data,
                         update: this.$store.state.paginator.update,
@@ -127,7 +127,7 @@
         },
         created() {
             /*** Show debt list on click notifications ***/
-            if(this.$route.params.type === 'debt') {
+            if (this.$route.params.type === 'debt') {
                 this.whichTab = 'debt';
                 this.getDebt();
             }
@@ -135,7 +135,7 @@
             //check is request money paid or not
             this.checkRequestPay();
 
-            if(this.whichTab === 'requests') {
+            if (this.whichTab === 'requests') {
                 this.getDemand();
             }
 
@@ -145,12 +145,12 @@
         methods: {
             changeTab(value) {
                 this.whichTab = value;
-                if(value === 'requests') {
-                    if(!this.demands.data) {
+                if (value === 'requests') {
+                    if (!this.demands.data) {
                         this.getDemand();
                     }
-                } else if(value === 'debt') {
-                    if(!('DebtList' in this.$store.state.paginator.paginator)) {
+                } else if (value === 'debt') {
+                    if (!('DebtList' in this.$store.state.paginator.paginator)) {
                         this.getDebt();
                     }
                 }
@@ -179,8 +179,8 @@
             },
             loadMore() {
                 let vm = this;
-                window.onscroll = function(ev) {
-                    if(vm.whichTab === 'requests') {
+                window.onscroll = function (ev) {
+                    if (vm.whichTab === 'requests') {
                         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
                             && !vm.demands.status) {
                             vm.$store.dispatch(
@@ -205,7 +205,7 @@
             },
             closeModal(){
                 this.visibleNewRequestMoney = false;
-                this.visibleRequestSuccess= false;
+                this.visibleRequestSuccess = false;
                 store.commit('clearValidationErrors');
             },
             changeRequestMode() {
@@ -226,14 +226,17 @@
             checkRequestPay() {
                 let status = this.getParameterByName('Status');
                 let authority = parseInt(this.getParameterByName('Authority'));
-                if(status || authority) {
-                    if(status === 'OK') {
+                if (status || authority) {
+                    if (status === 'OK') {
                         store.commit('flashMessage', {
                             text: 'request money paid',
                             type: 'success',
                             important: true
                         });
-                        this.$router.push({name: 'transaction.index', params: {id: '1', type: 'purse', transactionId: authority}});
+                        this.$router.push({
+                            name: 'transaction.index',
+                            params: {id: '1', type: 'purse', transactionId: authority}
+                        });
                     } else {
                         this.message = 'request money not paid';
                         store.commit('flashMessage', {

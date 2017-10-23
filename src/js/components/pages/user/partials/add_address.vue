@@ -51,7 +51,7 @@
                 isLoadedAddress: false,
             }
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -63,7 +63,7 @@
         methods: {
             getAddresses() {
                 this.$store.state.http.requests['user.postAddress'].get().then(
-                    (response)=> {
+                    (response) => {
                         this.address = response.data.data;
                         if (response.data.data.length) {
                             this.addressCount = response.data.data.length;
@@ -71,7 +71,7 @@
                         this.isLoadedAddress = true;
                     },
                     (response) => {
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'
@@ -84,13 +84,13 @@
             },
             //update from address child on input change not request to api
             updateAddress(address) {
-                this.address[address.index-1] = address.address;
+                this.address[address.index - 1] = address.address;
             },
             deleteAddress(address) {
                 if (address.landline) {
                     this.$store.state.http.requests['user.getAddress'].delete({landline: address.landline}).then(
-                        ()=> {
-                            let addressIndex = _.findIndex(this.address, function(selectAddress) {
+                        () => {
+                            let addressIndex = _.findIndex(this.address, function (selectAddress) {
                                 return selectAddress.landline === address.landline;
                             });
 
@@ -101,7 +101,7 @@
                             return elem.parentNode.removeChild(elem);
                         },
                         (response) => {
-                            store.commit('flashMessage',{
+                            store.commit('flashMessage', {
                                 text: response.data.meta.error_message,
                                 important: false,
                                 type: 'danger'
@@ -118,8 +118,8 @@
             postUserAddress() {
                 this.loading = true;
                 this.$store.state.http.requests['user.postAddress'].save({'addresses': this.address}).then(
-                    ()=> {
-                        store.commit('flashMessage',{
+                    () => {
+                        store.commit('flashMessage', {
                             text: 'your address added success',
                             important: false,
                             type: 'success'
@@ -128,8 +128,8 @@
                         // this.$router.push({name: 'home.index'})
                     },
                     (response) => {
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'
@@ -139,7 +139,7 @@
                 );
             },
         },
-        components:{
+        components: {
             'address-book': addressBook,
             confirm,
             loading

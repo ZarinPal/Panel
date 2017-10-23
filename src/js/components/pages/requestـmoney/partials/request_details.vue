@@ -68,11 +68,9 @@
     export default {
         name: 'pages-requestMoney-partials-details',
         data() {
-            return {
-
-            }
+            return {}
         },
-        props:['debt', 'demand'],
+        props: ['debt', 'demand'],
         mounted() {
             this.closeModalContent = false;
         },

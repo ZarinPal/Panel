@@ -296,7 +296,8 @@
                         this.confirmVisible = false;
                         this.$emit('closeModal');
 
-                        this.$router.push({name: 'transaction.index',
+                        this.$router.push({
+                            name: 'transaction.index',
                             params: {
                                 id: this.purseId,
                                 type: 'purse',

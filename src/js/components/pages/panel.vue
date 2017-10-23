@@ -25,9 +25,9 @@
     export default {
         name: 'panel',
         beforeRouteUpdate (to, from, next) {
-            if(this.$store.state.auth.check
+            if (this.$store.state.auth.check
                 && !this.checkUserLevel(to.meta.accessLevel, this)) {
-                this.$router.push({name: 'home.index',query:{error:'suspend',path:from.name}});
+                this.$router.push({name: 'home.index', query: {error: 'suspend', path: from.name}});
             }
             next();
         },
@@ -41,12 +41,12 @@
             let vm = this;
             this.$store.dispatch('auth/fetch', (isOk) => {
                 if (isOk && !vm.checkUserLevel(vm.$route.meta.accessLevel, vm)) {
-                    vm.$router.push({name: 'home.index',query:{error:'suspend',path:vm.$route.name}});
+                    vm.$router.push({name: 'home.index', query: {error: 'suspend', path: vm.$route.name}});
                 }
             });
 
-            if(this.refererId) {
-                store.commit('flashMessage',{
+            if (this.refererId) {
+                store.commit('flashMessage', {
                     text: 'back-to-referer',
                     type: 'danger',
                     important: true
@@ -63,11 +63,11 @@
                 };
 
                 let userLevel = (vm.$store.state.auth.user.level + 1).toString();
-                if(!acceptedLevels || !acceptedLevels.length) return true;
+                if (!acceptedLevels || !acceptedLevels.length) return true;
                 return _.indexOf(acceptedLevels, levels[userLevel]) !== -1;
             },
         },
-        components:{
+        components: {
             navbar,
             sidebar,
             loading,

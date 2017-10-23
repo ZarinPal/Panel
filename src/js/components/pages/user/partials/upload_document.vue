@@ -11,12 +11,12 @@
         data() {
             return {
                 fileUploading: false,
-                id_card_file :null,
+                id_card_file: null,
                 national_card_file: null,
                 introduction_file: null
             }
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -25,9 +25,8 @@
             createFile(file) {
                 //check valid files
                 let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png|\.zip)$/i;
-                if(!fileExtension.exec(file.name))
-                {
-                    store.commit('flashMessage',{
+                if (!fileExtension.exec(file.name)) {
+                    store.commit('flashMessage', {
                         text: 'fileNotImage',
                         type: 'danger'
                     });
@@ -55,8 +54,6 @@
                 });
             },
         },
-        components:{
-
-        }
+        components: {}
     }
 </script>
