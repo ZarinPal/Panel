@@ -267,7 +267,12 @@
     "noLimit": "بدون محدودیت",
     "deleteEasypay": "حذف آسان پرداخت",
     "yesDeleteIt": "بله، حذف کن",
-    "advance": "پیشرفته"
+    "advance": "پیشرفته",
+    "title": "عنوان محصول یا خدمات",
+    "priceToman": "(مبلغ (تومان",
+    "price": "مبلغ",
+    "successfulRedirectUrl": "لینک بازگشت پرداخت موفق",
+    "failedRedirectUrl": "لینک بازگشت پرداخت ناموفق"
   },
   "error": {
     "NotFound": "These credentials do not match our records.",
