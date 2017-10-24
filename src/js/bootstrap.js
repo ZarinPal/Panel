@@ -84,6 +84,11 @@ Vue.directive(
     require('./directives/mask').default
 );
 
+Vue.directive(
+    'avatar',
+    require('./directives/avatar').default
+);
+
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
  * the outgoing requests issued by this application. The CSRF middleware
