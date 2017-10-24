@@ -18,7 +18,7 @@
                             span.text-danger {{ errors.first('amount') }}
 
                     div.row.no-margin
-                        cards(:class="{'input-danger': errors.has('card_id')}" v-on:select="selectedCard" tabindex="2")
+                        cards(:class="{'input-danger': errors.has('card_id')}" v-bind:visibleNewCard="true" v-on:select="selectedCard" tabindex="2")
                         div.ta-right(v-if="validation('card_id')")
                             span.text-danger {{ errors.first('card_id') }}
 
