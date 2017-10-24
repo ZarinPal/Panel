@@ -34,7 +34,7 @@
                         div.top-xs.header
                             div.row
                                 span.image
-                                    img(v-bind:src="'https:'+reply.user_info.avatar")
+                                    img(v-avatar="" v-bind:src="'https:'+reply.user_info.avatar")
                                 span.nav-ticket-status
                                     p.username {{ reply.user_info.name }}
                                     p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
@@ -49,7 +49,7 @@
                         div.top-xs.header.admin-header
                             div.row
                                 span.image.admin-image
-                                    img(v-bind:src="'https:'+reply.user_info.avatar")
+                                    img(v-avatar="" v-bind:src="'https:'+reply.user_info.avatar")
                                     div.zarinpal-sign
 
                                 span.nav-ticket-status
@@ -63,25 +63,28 @@
 
         div.nav-send
             div.row
-                div.col-xs-12
-                    b.title پاسخ به تیکت:
-                    span.value {{ ticket.title }}
-                div.col-xs-12
-                    textarea(v-validate="{ rules: {required: true, min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
-                    div.ta-right(v-if="validation('content')")
-                        span.text-danger {{ errors.first('content') }}
+                div
+                    img.pull-right(v-avatar="" v-bind:src="'https://www.gravatar.com/avatar/'+user.email_hash+'?s=45&d=https://cdn.zarinpal.com/emails/img/zarinpal-email-profile-default.png'")
+                div.col-xs
+                    div
+                        b.title پاسخ به تیکت:
+                        span.value {{ ticket.title }}
+                    div
+                        textarea(v-validate="{ rules: {required: true, min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
+                        div.ta-right(v-if="validation('content')")
+                            span.text-danger {{ errors.first('content') }}
 
-                    button.submit(@click="validateForm") {{ $i18n.t('ticket.send')}}
-                        svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-                        <!--input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")-->
-                    label.attach
-                        span.select-text(:class="{'uploaded' : fileUploaded}")
-                        input(type="file" name="file" @change="onFileChange")
+                        button.submit(@click="validateForm") {{ $i18n.t('ticket.send')}}
+                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                            <!--input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")-->
+                        label.attach
+                            span.select-text(:class="{'uploaded' : fileUploaded}")
+                            input(type="file" name="file" @change="onFileChange")
 
-                    span(v-if="fileUploading == 'Failed'") upload failed
-                    span.nav-upload-loading(v-if="fileUploading")
-                        loading
+                        span(v-if="fileUploading == 'Failed'") upload failed
+                        span.nav-upload-loading(v-if="fileUploading")
+                            loading
 
 </template>
 
@@ -151,8 +154,7 @@
                     content: this.content,
                 }).then((result) => {
                     if (result) {
-                        console.log('all is ok');
-                        // this.send();
+                        this.send();
                     }
                 });
             },
@@ -267,7 +269,7 @@
             }
         },
         components: {
-            loading
+            loading,
         }
     }
 </script>
