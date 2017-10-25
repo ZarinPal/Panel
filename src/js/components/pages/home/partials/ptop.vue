@@ -11,10 +11,10 @@
 
                     form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row
-                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
-                            purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
-                            div.ta-right(v-if="validation('purse')")
-                                span.text-danger {{ errors.first('purse') }}
+                            div.col-xs-12.no-margin
+                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                                div.ta-right(v-if="validation('purse')")
+                                    span.text-danger {{ errors.first('purse') }}
 
                             div.col-xs.no-right-margin
                                 input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
@@ -88,7 +88,6 @@
 
 </template>
 
-
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
@@ -103,7 +102,7 @@
                 requesting: false,
                 closeModalContent: true,
                 step: 1,
-                purseId: null,
+                purse: null,
                 zpId: null,
                 amount: null,
                 description: null,
@@ -111,15 +110,11 @@
                 purse_name: null,
             }
         },
-        props: ['purse'],
         mounted(){
             this.closeModalContent = false
         },
         created() {
             store.commit('clearValidationErrors');
-            if (this.purse) {
-                this.purseId = this.purse.purse;
-            }
         },
         methods: {
             validation(name) {
@@ -132,7 +127,7 @@
             },
             validateForm() {
                 this.$validator.validateAll({
-                    purse: this.purseId,
+                    purse: this.purse,
                     zpId: this.zpId,
                     amount: this.amount,
                     description: this.description
@@ -142,12 +137,15 @@
                     }
                 });
             },
+            removeErrors : function (field) {
+                !!this[field] && this.errors.remove(field);
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
-            selectedPurse(purseId) {
-                this.purseId = purseId;
-                this.purse_name = this.getPurseName(purseId);
+            selectedPurse(purse) {
+                this.purse = purse;
+                this.purse_name = this.getPurseName(purse);
             },
             getPurseName(purseId) {
                 return _.find(this.$store.state.auth.user.purses, function (purse) {
@@ -155,7 +153,7 @@
                 });
             },
             confirmPtopData() {
-                if (this.purseId && this.amount && this.description && this.zpId) {
+                if (this.purse && this.amount && this.description && this.zpId) {
                     this.requesting = true;
 
                     let zarinId;
@@ -200,7 +198,7 @@
                 }
 
                 let ptopData = {
-                    purse: this.purseId,
+                    purse: this.purse,
                     zpId: zarinId,
                     amount: amount,
                     description: this.description
@@ -212,7 +210,7 @@
                         this.$router.push({
                             name: 'transaction.index',
                             params: {
-                                id: this.purseId,
+                                id: this.purse,
                                 type: 'purse',
                                 page: 1,
                                 transactionId: response.data.data.transaction_public_id
@@ -236,7 +234,7 @@
             },
             declineTransfer() {
                 this.step = 1;
-                this.purseId = null;
+                this.purse = null;
                 this.zpId = null;
                 this.amount = null;
                 this.description = null;

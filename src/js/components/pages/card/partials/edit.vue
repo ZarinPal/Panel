@@ -137,6 +137,7 @@
                     () => {
                         this.changeCardState();
                         this.loading = false;
+                        this.closeModal();
                         this.$router.push({name: 'card.index'});
                     },
                     (response) => {

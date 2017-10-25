@@ -34,7 +34,9 @@
     "amount": "مقدار",
     "pan": "شماره کارت",
     "transferAmountTitle": "(مبلغ (تومان",
-    "dstZarinpalId": "زرین‌پال مقصد"
+    "dstZarinpalId": "زرین‌پال مقصد",
+    "newCard": "کارت جدید",
+    "card": "کارت"
   },
   "common": {
     "send": "ارسال",

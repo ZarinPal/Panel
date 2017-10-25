@@ -108,3 +108,9 @@ span[class^="icon-"], span[class*=" icon-"] {
     content: $icon-zp-ticket;
   }
 }
+
+.icon-add-circle {
+  &:before {
+    content: $icon-zp-add-circle;
+  }
+}

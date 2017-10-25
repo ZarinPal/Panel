@@ -36,17 +36,17 @@
                                         span.text-danger {{ errors.first('tel') }}
 
                                 div.row.no-margin
-                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'required'"  :class="{'input-danger': errors.has('site_content')}" v-model="site_content" v-bind:data-vv-as="$i18n.t('webservice.info')"   name="site_content" :placeholder= "$i18n.t('webservice.info')"  tabindex="4")
+                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'required'" :class="{'input-danger': errors.has('site_content')}" v-model="site_content" v-bind:data-vv-as="$i18n.t('webservice.info')" name="site_content" :placeholder= "$i18n.t('webservice.info')"  tabindex="4")
                                 div.ta-right(v-if="validation('site_content')")
                                     span.text-danger {{ errors.first('site_content') }}
 
                                 div.row.no-margin
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
 
                                 div.row.no-margin
-                                    webserviceCategories.webservice-categories(v-on:select="selectedWebserviceCat" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
+                                    webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" @select="selectedWebserviceCat" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
                                     div.ta-right(v-if="validation('webservice_category_id')")
                                         span.text-danger {{ errors.first('webservice_category_id') }}
 
@@ -73,13 +73,13 @@
                 loading: false,
                 fileHover: false,
                 messages: {},
-                domain: '',
-                tel: '',
+                domain: null,
+                tel: null,
                 purse: null,
                 webservice_category_id: null,
                 site_name: '',
-                site_content: '',
-                image: '',
+                site_content: null,
+                image: null,
                 fileUploadFormData: new FormData(),
             }
         },
@@ -93,9 +93,6 @@
                         }
                     });
                 }
-            },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
             },
         },
         created(){
@@ -119,12 +116,17 @@
                     site_name: this.site_name,
                     domain: this.domain,
                     tel: this.tel,
-                    site_content: this.site_content
+                    site_content: this.site_content,
+                    purse: this.purse,
+                    webservice_category_id: this.webservice_category_id
                 }).then((result) => {
                     if (result) {
                         this.createWebservice();
                     }
                 });
+            },
+            removeErrors : function (field) {
+                !!this[field] && this.errors.remove(field);
             },
             selectedPurse(purseId) {
                 this.purse = purseId;

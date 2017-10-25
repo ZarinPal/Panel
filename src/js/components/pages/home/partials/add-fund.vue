@@ -3,12 +3,8 @@
         span(slot="title") {{ $i18n.t('purse.addFund') }}
         div(slot="content")
             div(v-if="activeCards.length")
-                div.row.purse-amount(v-if="purse")
-                    span {{ $i18n.t('common.balance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}}
-                    span {{ $i18n.t('transaction.toman') }}
                 form(autocomplete="on" onsubmit="event.preventDefault();")
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
                     div.ta-right(v-if="validation('purse')")
                         span.text-danger {{ errors.first('purse') }}
 
@@ -18,7 +14,7 @@
                             span.text-danger {{ errors.first('amount') }}
 
                     div.row.no-margin
-                        cards(:class="{'input-danger': errors.has('card_id')}" v-bind:visibleNewCard="true" v-on:select="selectedCard" tabindex="2")
+                        cards(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" v-bind:visibleNewCard="false" v-on:select="selectedCard" tabindex="2")
                         div.ta-right(v-if="validation('card_id')")
                             span.text-danger {{ errors.first('card_id') }}
 
@@ -45,12 +41,11 @@
                 closeModalContent: false,
                 amount: null,
                 card_id: null,
-                purseId: null,
+                purse: null,
                 maxAmountLimit: 10000000,
                 redirect_url: null
             }
         },
-        props: ['purse'],
         mounted(){
             this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
             this.closeModalContent = false
@@ -71,9 +66,6 @@
         },
         created() {
             store.commit('clearValidationErrors');
-            if (this.purse) {
-                this.purseId = this.purse.purse;
-            }
         },
         methods: {
             validation(name) {
@@ -88,18 +80,21 @@
                 this.$validator.validateAll({
                     amount: this.amount,
                     card_id: this.card_id,
-                    purse: this.purseId
+                    purse: this.purse
                 }).then((result) => {
                     if (result) {
                         this.addFund();
                     }
                 });
             },
+            removeErrors : function (field) {
+                !!this[field] && this.errors.remove(field);
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
-            selectedPurse(purseId) {
-                this.purseId = purseId;
+            selectedPurse(purse) {
+                this.purse = purse;
             },
             addFund() {
                 if (this.amount > this.maxAmountLimit) {
@@ -117,7 +112,7 @@
                     amount = this.amount.replace(/,/g, ""); //remove , from amount
                 }
                 let addFundData = {
-                    purse: this.purseId,
+                    purse: this.purse,
                     amount: amount,
                     card_id: this.card_id,
                     redirect_url: this.redirect_url
