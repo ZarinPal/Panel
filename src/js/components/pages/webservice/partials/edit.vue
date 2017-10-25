@@ -33,12 +33,12 @@
                                         span.text-danger {{ errors.first('site_ip') }}
 
                                 div.row.no-margin
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
 
                                 div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
-                                    webserviceCategories.webservice-categories(v-on:select="selectedWebserviceCat"  v-bind:selected="webservice_category_id" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
+                                    webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
                                     div.ta-right(v-if="validation('webservice_category_id')")
                                         span.text-danger {{ errors.first('webservice_category_id') }}
 
@@ -92,8 +92,8 @@
                 visibleIp: 'yes',
                 messages: {},
                 fileHover: false,
-                purse: '',
-                webservice_category_id: '',
+                purse: null,
+                webservice_category_id: null,
                 site_ip: '',
                 site_name: '',
                 domain: '',
@@ -163,12 +163,17 @@
             },
             validateForm() {
                 this.$validator.validateAll({
-                    site_ip: this.site_ip
+                    site_ip: this.site_ip,
+                    purse: this.purse,
+                    webservice_category_id: this.webservice_category_id
                 }).then((result) => {
                     if (result) {
                         this.editWebservice();
                     }
                 });
+            },
+            removeErrors : function (field) {
+                !!this[field] && this.errors.remove(field);
             },
             selectedPurse(purseId) {
                 this.purse = purseId;

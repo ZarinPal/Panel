@@ -15,9 +15,9 @@
 
 
             div.row
-                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول" autofocus tabindex="1")
-                div.ta-right(v-if="validationErrors.purse")
-                    span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول" autofocus tabindex="1")
+                div.ta-right(v-if="validation('purse')")
+                    span.text-danger {{ errors.first('purse') }}
 
             div.row.body-bottom
                 div.col-lg-9.col-md-12.col-sm-12.col-xs-12.ta-right
@@ -25,7 +25,7 @@
                     span.persian-num.activation-price(v-else)  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
 
                 div.col-lg-3.col-md-12.col-sm-12.col-xs-12.ta-left
-                    button.btn.success.pull-left(v-ripple="" @click="activeZarinGate") {{$i18n.t('webservice.activeZarinGateSubmit')}}
+                    button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('webservice.activeZarinGateSubmit')}}
                         svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -55,16 +55,31 @@
         mounted(){
             this.closeModalContent = false
         },
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
         created() {
             store.commit('clearValidationErrors');
             this.getPriceZaringate();
         },
         methods: {
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    purse: this.purse,
+                }).then((result) => {
+                    if (result) {
+                        this.activeZarinGate();
+                    }
+                });
+            },
+            removeErrors : function (field) {
+                !!this[field] && this.errors.remove(field);
+            },
             closeModal() {
                 this.$emit('closeModal');
             },

@@ -2,7 +2,6 @@
     modal.withdraw(v-on:closeModal="closeModal()")
         span(slot="title")
             span {{ $i18n.t('transaction.withdraw') }} از کیف پول
-            span(v-if="purse") {{ ' ' + purse.name }}
         div(slot="content")
 
             <!-- If user dont have any card -->
@@ -16,12 +15,8 @@
 
             span(v-else)
                 div(v-if="this.$store.state.auth.user.cards")
-                    div.modal-description
-                        div(v-if="purse") {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
-
                     form(autocomplete="on" onsubmit="event.preventDefault();")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
                         div.ta-right(v-if="validation('purse')")
                             span.text-danger {{ errors.first('purse') }}
 
@@ -31,10 +26,9 @@
                                 span.text-danger {{ errors.first('amount') }}
 
                         div.row
-                            cards.cards(:class="{'input-danger': errors.has('card_id')}" v-on:select="selectedCard")
+                            cards.cards(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" v-on:select="selectedCard")
                             div.ta-right(v-if="validation('card_id')")
                                 span.text-danger {{ errors.first('card_id') }}
-
 
                         div.nav-fees(v-if="!isLoadedFees")
                             div.row.bx.nav-options.ta-right
@@ -106,7 +100,7 @@
                 closeModalContent: false,
                 confirmVisible: false,
                 amount: 0,
-                purseId: null,
+                purse: null,
                 redirectUrl: encodeURI(
                     'https://' + window.location.hostname + '/'
                     + this.$router.resolve({name: 'home.finishAddFund'}).href),
@@ -124,7 +118,6 @@
 
             }
         },
-        props: ['purse'],
         computed: {
             cards() {
                 if (this.$store.state.auth.user.cards) {
@@ -140,10 +133,6 @@
         },
         created() {
             store.commit('clearValidationErrors');
-            if (this.purse) {
-                this.purseId = this.purse.purse;
-            }
-
             this.getFees();
         },
         mounted() {
@@ -162,12 +151,15 @@
                 this.$validator.validateAll({
                     amount: this.amount,
                     card_id: this.card.id,
-                    purse: this.purseId
+                    purse: this.purse
                 }).then((result) => {
                     if (result) {
                         this.confirmVisible = !this.confirmVisible;
                     }
                 });
+            },
+            removeErrors : function (field) {
+                this.errors.remove(field);
             },
             closeModal() {
                 if (this.confirmVisible) {
@@ -193,7 +185,7 @@
                 }
             },
             selectedPurse(purseId) {
-                this.purseId = purseId;
+                this.purse = purseId;
                 //get purse amount
                 this.getPurseAmount(purseId);
                 this.calcPercentAmount();
@@ -293,7 +285,7 @@
                 let withdrawData = {
                     amount: amount,
                     card_id: this.card.id,
-                    purse: this.purseId
+                    purse: this.purse
                 };
 
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
@@ -314,7 +306,7 @@
                         this.$router.push({
                             name: 'transaction.index',
                             params: {
-                                id: this.purseId,
+                                id: this.purse,
                                 type: 'purse',
                                 transactionId: response.data.data.transaction_public_id
                             }
