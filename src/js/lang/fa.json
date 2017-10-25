@@ -871,7 +871,7 @@
     "newTicket": "تیکت جدید",
     "ticketReply": "پاسخ به تیکت",
     "updateSetting": "بروزرسانی تنظیمات",
-    "notificationSmsPriceNotice": "هزينه هر پيامک اطلاع رسانی 40 تومان مي باشد، که از موجودی کيف پول پيامک کسر مي گردد.",
+    "notificationSmsPriceNotice": "هزینه هر پیامک اطلاع رسانی 40 تومان می باشد، که از موجودی کیف پول پیامک کسر می گردد.",
     "notice": "توجه",
     "addNewAddress": "افزودن آدرس جدید",
     "addNewAddressDescription": "در این صفحه شما می توانید آدرس جدید اضافه کنید",
@@ -881,7 +881,9 @@
     "addressTitlePlaceholder": "عنوان",
     "addressLandlinePlaceholder": "شماره تلفن (ثابت)",
     "addressPostalCodePlaceholder": "کد پستی",
-    "addressPlaceholder": "آدرس"
+    "addressPlaceholder": "آدرس",
+    "mobMail": "موبایل یا ایمیل"
+
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",
