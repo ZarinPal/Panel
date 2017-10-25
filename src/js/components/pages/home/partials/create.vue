@@ -8,7 +8,7 @@
                     div.ta-right(v-if="validation('name')")
                         span.text-danger {{ errors.first('name') }}
 
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
                     div.ta-right(v-if="validation('purse')")
                         span.text-danger {{ errors.first('purse') }}
 
@@ -46,6 +46,9 @@
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
+            purseId() {
+                return this.purse;
+            }
         },
         created(){
             store.commit('clearValidationErrors');
@@ -69,10 +72,13 @@
                     }
                 });
             },
+            removeErrors : function (field) {
+                !!this[field] && this.errors.remove(field);
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
-            selectedPurse(purseId) {
+            selectedPurse(purseId, fieldName = null) {
                 this.purse = purseId;
             },
             createPurse() {

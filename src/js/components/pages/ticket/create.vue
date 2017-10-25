@@ -19,7 +19,7 @@
 
 
                             div.col-lg-5.col-md-5.col-sm-12.col-xs-12.field-box
-                                selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': errors.has('ticket_department_id')}" v-on:select="selectDepartment" v-bind:selected="priority" v-bind:data="departmentSelection" :placeholder="$i18n.t('ticket.department')" tabindex="2")
+                                selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('ticket_department_id')" v-validate="{ rules: {required: true}}" name="ticket_department_id" v-bind:data-vv-as="$i18n.t('ticket.department')" :class="{'input-danger': errors.has('ticket_department_id')}" v-on:select="selectDepartment" v-bind:selected="priority" v-bind:data="departmentSelection" :placeholder="$i18n.t('ticket.department')" tabindex="2")
                                 div.ta-right(v-if="validation('ticket_department_id')")
                                     span.text-danger {{ errors.first('ticket_department_id') }}
 
@@ -87,7 +87,7 @@
                 title: '',
                 content: '',
                 errorMessage: '',
-                selectedDepartment: '',
+                ticket_department_id: '',
                 fileHover: false,
                 file: '',
                 fileName: '',
@@ -126,12 +126,15 @@
                 this.$validator.validateAll({
                     title : this.title,
                     content : this.content,
-                    ticket_department_id : this.selectedDepartment,
+                    ticket_department_id : this.ticket_department_id,
                 }).then((result) => {
                     if (result) {
                         this.send();
                     }
                 });
+            },
+            removeErrors : function (field) {
+                !!this[field] && this.errors.remove(field);
             },
             dragOver() {
                 window.addEventListener("dragover", function (e) {
@@ -194,7 +197,7 @@
                 let ticketData = {
                     title: this.title,
                     content: this.content,
-                    ticket_department_id: this.selectedDepartment,
+                    ticket_department_id: this.ticket_department_id,
                     priority: this.priority,
                     status: this.status,
                     attachment: this.attachment,
@@ -215,7 +218,7 @@
                 )
             },
             selectDepartment(departmentId) {
-                this.selectedDepartment = departmentId;
+                this.ticket_department_id = departmentId;
             },
         },
         components: {
