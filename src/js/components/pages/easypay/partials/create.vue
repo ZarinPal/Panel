@@ -23,20 +23,20 @@
 
                                         div.row.no-margin
                                             span.input-icon.home-icon
-                                            input(:class="{'input-danger': validationErrors.title}" type="text" v-model="title" placeholder= "عنوان محصول یا خدمات" tabindex="1")
-                                            div.ta-right(v-if="validationErrors.title")
-                                                span.text-danger {{ $i18n.t(validationErrors.title) }}
+                                            input(v-validate="'required|min:3'" :class="{'input-danger': errors.has('title')}"  v-bind:data-vv-as="$i18n.t('easypay.title')" type="text" v-model="title" name="title" id="title" :placeholder= "$i18n.t('easypay.title')" tabindex="1")
+                                            div.ta-right(v-if="validation('title')")
+                                                span.text-danger {{ errors.first('title') }}
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.price}"  type="text" v-model="price" placeholder= "(مبلغ (تومان" tabindex="2")
-                                            div.ta-right(v-if="validationErrors.price")
-                                                span.text-danger {{ $i18n.t(validationErrors.price) }}
+                                            input.ltr-input(v-validate="'required|numeric|min_value:100'"  maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')"  type="text" v-model="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
+                                            div.ta-right(v-if="validation('price')")
+                                                span.text-danger {{ errors.first('price') }}
 
                                         div.row.no-margin
-                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.description}" v-model="description" placeholder= "توضیحات وب‌سایت" tabindex="3")
-                                            div.ta-right(v-if="validationErrors.description")
-                                                span.text-danger {{ $i18n.t(validationErrors.description) }}
+                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': errors.has('description')}" v-model="description" id="description" name="description" placeholder= "توضیحات وب‌سایت" tabindex="3")
+                                            div.ta-right(v-if="validation('description')")
+                                                span.text-danger {{ errors.first('description') }}
 
                                         div.row.no-margin.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
@@ -46,9 +46,9 @@
                                                     | {{ $i18n.t('user.purse') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
-                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': validationErrors.purse}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="4")
-                                                div.ta-right(v-if="validationErrors.purse")
-                                                    span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="4")
+                                                div.ta-right(v-if="validation('purse')")
+                                                    span.text-danger {{ errors.first('purse') }}
 
                                         div.row.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
@@ -58,13 +58,13 @@
                                                     | {{ $i18n.t('coupon.webservice') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': validationErrors.webservice_id}" placeholder="انتخاب وب سرویس")
-                                                div.ta-right(v-if="validationErrors.webservice_id")
-                                                    span.text-danger {{ $i18n.t(validationErrors.webservice_id) }}
+                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" placeholder="انتخاب وب سرویس")
+                                                div.ta-right(v-if="validation('webservice_id')")
+                                                    span.text-danger {{ errors.first('webservice_id') }}
 
                                         div.cb
                                         div.row.nav-buttons
-                                            button.btn.success.pull-right(v-ripple=""  @click="stepTwo" tabindex="5") {{$i18n.t('easypay.createEasypay')}}
+                                            button.btn.success.pull-right(v-ripple=""  @click="validateForm" tabindex="5") {{$i18n.t('easypay.createEasypay')}}
                                                 svg.material-spinner(v-if="isLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -193,20 +193,20 @@
 
 
                                                 div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                    input(v-validate="{type: 'number'}" v-show="limited" type="text" v-model="limit" placeholder="تعداد")
+                                                    input(v-validate="'numeric'" v-show="limited" type="text" v-model="limit" placeholder="تعداد")
 
                                                 div.col-lg-12.col-md-12.col-xs-12.nav-urls
                                                     <!--Success redirect url-->
-                                                    div.row.no-margin(:class="{'input-danger': validationErrors.successful_redirect_url}")
-                                                        input.input.ltr-input(type="text" v-model="successfulRedirectUrl"  placeholder= "لینک بازگشت پرداخت موفق")
-                                                        div.ta-right(v-if="validationErrors.successful_redirect_url")
-                                                            span.text-danger {{ $i18n.t(validationErrors.successful_redirect_url) }}
+                                                    div.row.no-margin
+                                                        input.input.ltr-input(v-validate="'url'"  :class="{'input-danger': errors.has('successfulRedirectUrl')}"   v-bind:data-vv-as="$i18n.t('easypay.successfulRedirectUrl')" type="text" v-model="successfulRedirectUrl"  name="successfulRedirectUrl" id="successfulRedirectUrl"  :placeholder= "$i18n.t('easypay.successfulRedirectUrl')" )
+                                                        div.ta-right(v-if="validation('successfulRedirectUrl')")
+                                                            span.text-danger {{ errors.first('successfulRedirectUrl') }}
 
                                                     <!--Failed redirect url-->
-                                                    div.row.no-margin(:class="{'input-danger': validationErrors.failed_redirect_url}")
-                                                        input.input.ltr-input(type="text" v-model="failedRedirectUrl"  placeholder= "لینک بازگشت پرداخت ناموفق")
-                                                        div.ta-right(v-if="validationErrors.failed_redirect_url")
-                                                            span.text-danger {{ $i18n.t(validationErrors.failed_redirect_url) }}
+                                                    div.row.no-margin
+                                                        input.input.ltr-input( v-validate="'url'"  :class="{'input-danger': errors.has('failedRedirectUrl')}"   v-bind:data-vv-as="$i18n.t('easypay.failedRedirectUrl')" type="text" v-model="failedRedirectUrl" id="failedRedirectUrl" name="failedRedirectUrl"  :placeholder= "$i18n.t('easypay.failedRedirectUrl')" )
+                                                        div.ta-right(v-if="validation('failedRedirectUrl')")
+                                                            span.text-danger {{ errors.first('failedRedirectUrl') }}
 
 
                         div.row(v-bind:class="{'inactive-step' : step == 1}")
@@ -279,7 +279,28 @@
                 return this.$store.state.alert.validationErrors;
             },
         },
+        mounted(){
+            document.getElementById('title').focus();
+        },
         methods: {
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    title: this.title,
+                    price: this.price
+                }).then((result) => {
+                    if (result) {
+                        this.stepTwo();
+                    }
+                });
+            },
             selectedPurse(purseId) {
                 this.purse = purseId;
                 this.purse_name = this.getPurseName(purseId);
