@@ -32,12 +32,12 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input.ltr-input(v-validate="'required|numeric|min_value:100'"  maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')"  type="text" v-model="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
+                                            input.ltr-input(v-mask="{money: true}"  v-validate="'required'" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')"  type="text" v-model="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
                                             div.ta-right(v-if="validation('price')")
                                                 span.text-danger {{ errors.first('price') }}
 
                                         div.row.no-margin
-                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': errors.has('description')}" v-model="description" id="description" name="description" placeholder= "توضیحات وب‌سایت" tabindex="3")
+                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'max:128'" :class="{'input-danger': errors.has('description')}" v-bind:data-vv-as="$i18n.t('common.description')" v-model="description" id="description" name="description" :placeholder= "$i18n.t('common.description')" tabindex="3")
                                             div.ta-right(v-if="validation('description')")
                                                 span.text-danger {{ errors.first('description') }}
 
