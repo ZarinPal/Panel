@@ -28,6 +28,7 @@
 
 
 <script>
+    import zarinak from '@zarinpal/zarinak'
     import selectbox from '../../partials/selectbox.vue';
     import modal from '../../partials/modal.vue';
     import cards from '../../partials/cards.vue';
@@ -120,10 +121,8 @@
 
                 this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
                     (response) => {
-                        let addFundWindow = window.open(
-                            'https://www.zarinpal.com/pg/StartPay/' + response.data.data.authority + '/ZarinGate',
-                            '_self'
-                        );
+                        Zarinak.setAuthority(response.data.data.authority);
+                        Zarinak.open();
                     },
                     (response) => {
                         this.loading = false;
