@@ -16,9 +16,9 @@
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" name="username" v-model="username" placeholder="موبایل یا ایمیل" autofocus autocomplete="username")
-                            div.ta-right(v-if="validationErrors.username")
-                                span.text-danger {{ $i18n.t(validationErrors.username) }}
+                            input.ta-left.dir-ltr(v-validate="'required'" :class="{'input-danger': errors.has('username')}" v-bind:data-vv-as="$i18n.t('user.mobMail')" type="text"  v-model="username" name="username" id="username" :placeholder= "$i18n.t('user.mobMail')" autofocus autocomplete="username")
+                            div.ta-right(v-if="validation('username')")
+                                span.text-danger {{ errors.first('username') }}
 
                         div.row.nav-user-not-registered(v-if="userNotRegister")
                             router-link.col-xs( tag="div" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
@@ -29,7 +29,7 @@
                             span {{ $i18n.t('user.notRegistered') }}
                             router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.register') }}
                         div.col-xs.no-margin
-                            button.gold.pull-left(id="btnSubmitEnter") {{$i18n.t('user.enter')}}
+                            button.gold.pull-left(id="btnSubmitEnter" ) {{$i18n.t('user.enter')}}
                                 svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -72,11 +72,11 @@
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(v-on:paste="pasteOtp()" @change="otpMaxLength()" @keyup="otpMaxLength()" v-validate="{size: 6}" type="number" min="0" name="otp" v-model="otp" id="txtOtp")
+                                    input(v-on:paste="pasteOtp()" @change="otpMaxLength()" @keyup="otpMaxLength()" :class="{'input-danger': errors.has('otp')}"  v-bind:data-vv-as="$i18n.t('user.otpPass')" v-validate="'required|numeric|digits:6'" type="number" min="0" name="otp" v-model="otp"  id="txtOtp")
                                 div.dashed-line
 
-                        div.ta-right(v-if="validationErrors.otp")
-                            span.text-danger {{ $i18n.t(validationErrors.otp) }}
+                        div.ta-right(v-if="validation('otp')")
+                            span.text-danger {{ errors.first('otp') }}
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
@@ -135,6 +135,7 @@
             },
         },
         mounted(){
+            document.getElementById('username').focus();
             if (this.$route.query.mobile) {
                 this.username = this.$route.query.mobile;
             }
@@ -154,6 +155,14 @@
             }
         },
         methods: {
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
             pasteOtp() {
                 this.otpMaxLength();
             },
