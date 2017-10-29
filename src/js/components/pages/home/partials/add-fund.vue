@@ -13,11 +13,6 @@
                         div.ta-right(v-if="validation('amount')")
                             span.text-danger {{ errors.first('amount') }}
 
-                    div.row.no-margin
-                        cards(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" v-bind:visibleNewCard="false" v-on:select="selectedCard" tabindex="2")
-                        div.ta-right(v-if="validation('card_id')")
-                            span.text-danger {{ errors.first('card_id') }}
-
                     div.row
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('purse.addFund')}}
@@ -80,7 +75,6 @@
             validateForm() {
                 this.$validator.validateAll({
                     amount: this.amount,
-                    card_id: this.card_id,
                     purse: this.purse
                 }).then((result) => {
                     if (result) {
@@ -107,7 +101,6 @@
                     return;
                 }
 
-                this.loading = true;
                 let amount = this.amount;
                 if (/,/g.test(this.amount)) {
                     amount = this.amount.replace(/,/g, ""); //remove , from amount
@@ -115,7 +108,6 @@
                 let addFundData = {
                     purse: this.purse,
                     amount: amount,
-                    card_id: this.card_id,
                     redirect_url: this.redirect_url
                 };
 
