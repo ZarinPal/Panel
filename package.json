@@ -20,6 +20,7 @@
     "compile": "build -m --projectDir=app"
   },
   "dependencies": {
+    "@zarinpal/zarinak": "^1.0.0",
     "cal-heatmap": "^3.6.2",
     "clipboard": "^1.6.1",
     "cross-env": "^4.0.0",

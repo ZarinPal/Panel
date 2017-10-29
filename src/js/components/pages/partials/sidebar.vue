@@ -13,10 +13,8 @@
 
                 zpId(v-bind:data="user")
 
-                router-link.to-silver-level-link(tag="div" v-if="user.level == 1" v-bind:to="{ name: 'home.index'}")
+                router-link.to-silver-level-link(tag="div" v-if="user.level < 2" v-bind:to="{ name: 'home.index'}")
                     span {{ $i18n.t('common.UpgradeToSilverLevel') }}
-                router-link.to-silver-level-link(tag="div" v-if="user.level == 2" v-bind:to="{ name: 'home.index'}")
-                    span {{ $i18n.t('common.upgradeToGoldLevel') }}
 
                 ul
                     span(v-for="(tab, index) in tabs")
