@@ -36,6 +36,7 @@
             this.$store.commit('app/changeModalStatus', true);
             let body = document.getElementById('body');
 
+            body.classList.remove("no-scroll");
             if(this.$store.state.app.isOpenModal) {
                 body.className += " no-scroll";
             } else {

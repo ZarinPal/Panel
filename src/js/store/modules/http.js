@@ -358,7 +358,14 @@ export default {
                     }
 
                     let error = response.data.meta;
-                    if (error.error_type === "OauthAccessDenied") {
+
+                    let checkRouteIndex = _.findIndex(state.routes, function(route) {
+                        return route.name === 'oauth.check';
+                    });
+
+                    if (error.error_type === "OauthAccessDenied"
+                        && request.url !== state.routes[checkRouteIndex].url) {
+
                         vm.$store.commit('app/ready');
                         vm.$router.push({name: 'auth.login'});
                     }
@@ -372,7 +379,7 @@ export default {
                     // }
 
                     //Redirect to connection error page
-                    if(response.status === 500) {
+                    if (response.status === 500) {
                         vm.$router.push({name: 'error.connection'});
                     }
                 });

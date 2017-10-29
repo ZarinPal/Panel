@@ -8,7 +8,7 @@
       font-size: 13px;
       cursor: pointer;
 
-      &:before{
+      &:before {
         font-family: 'zarinpal';
         display: inline-block;
         vertical-align: middle;
@@ -17,14 +17,14 @@
       }
     }
 
-    .edit{
-      &:before{
+    .edit {
+      &:before {
         content: $iconEdit;
       }
     }
 
-    .details{
-      &:before{
+    .details {
+      &:before {
         content: $iconDetails;
       }
     }
@@ -32,38 +32,36 @@
   }
 }
 
-
-.nav-create-coupon{
-  .box{
+.nav-create-coupon {
+  .box {
     width: 100%;
 
-    .selectbox{
-      .title{
+    .selectbox {
+      .title {
         top: -14px;
         width: 100%;
         right: -8px;
       }
     }
 
-    .row{
+    .row {
       margin: 12px 0;
     }
   }
 }
 
-
 .coupon-details {
-  .contains{
+  .contains {
     .row {
       margin: 8px 0;
       border-bottom: 1px solid #eee;
       padding-bottom: 10px;
 
-      &:last-child{
+      &:last-child {
         padding-bottom: 0;
       }
 
-      .value{
+      .value {
         font-size: 13px;
         color: $font-color;
       }

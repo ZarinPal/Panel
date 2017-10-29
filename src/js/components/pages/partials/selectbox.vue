@@ -11,59 +11,59 @@
 
 
 <script>
-export default {
-    name: 'selectbox',
-    props: [
-        'placeholder',
-        'data',
-        'selected'
-    ],
-    data() {
-        return {
-            selectBoxTitle: this.selected,
-            isOpen: false,
-            clickOutside: 0,
-            clickInside: 0,
-            isActive: false
-        }
-    },
-    created() {
-        if (this.placeholder) {
-            this.selectBoxTitle = this.placeholder;
-        }
-        if (this.selected) {
-            let item = _.find(this.data, {'value': this.selected});
-            if(typeof item === 'undefined'){
-                item = {title:'',value:''}
+    export default {
+        name: 'selectbox',
+        props: [
+            'placeholder',
+            'data',
+            'selected'
+        ],
+        data() {
+            return {
+                selectBoxTitle: this.selected,
+                isOpen: false,
+                clickOutside: 0,
+                clickInside: 0,
+                isActive: false
             }
-            this.selectItem(item);
-        }
+        },
+        created() {
+            if (this.placeholder) {
+                this.selectBoxTitle = this.placeholder;
+            }
+            if (this.selected) {
+                let item = _.find(this.data, {'value': this.selected});
+                if (typeof item === 'undefined') {
+                    item = {title: '', value: ''}
+                }
+                this.selectItem(item);
+            }
 
-        window.addEventListener('keyup', this.openDropDownByEnter)
-    },
+            window.addEventListener('keyup', this.openDropDownByEnter)
+        },
 
-    methods: {
-        openDropDown() {
-            this.isOpen = !this.isOpen;
+        methods: {
+            openDropDown() {
+                this.isOpen = !this.isOpen;
+            },
+            openDropDownByEnter(event) {
+                // if(event.keyCode === 13 && !this.isActive) {
+                //     this.openDropDown();
+                // }
+                //
+                // if(event.keyCode === 9) {
+                //     this.isOpen = false;
+                // }
+            },
+            selectItem(item){
+                this.selectBoxTitle = item.title;
+                this.isOpen = false;
+                this.$emit('select', item.value);
+            },
+            closeDropDown: function () {
+                this.isOpen = false;
+            }
         },
-        openDropDownByEnter(event) {
-            // if(event.keyCode === 13 && !this.isActive) {
-            //     this.openDropDown();
-            // }
-            //
-            // if(event.keyCode === 9) {
-            //     this.isOpen = false;
-            // }
-        },
-        selectItem(item){
-            this.selectBoxTitle = item.title;
-            this.isOpen = false;
-            this.$emit('select', item.value);
-        },
-        closeDropDown: function() {
-            this.isOpen = false;
-        }
-    },
-};
+    };
 
 </script>

@@ -1,38 +1,38 @@
 //Webservice Index(single webservice)
 .box {
 
-  .drop-down-item{
+  .drop-down-item {
     &::before {
       font-family: 'zarinpal';
       color: #ff9800;
     }
   }
-  .transaction-icon{
+  .transaction-icon {
     &::before {
       content: $iconTransaction;
     }
   }
 
-  .transaction-session-icon{
+  .transaction-session-icon {
     &::before {
       content: $iconTransactionSession;
     }
   }
 
-  .withdraw-icon{
+  .withdraw-icon {
     &::before {
       content: $iconWithdraw;
     }
   }
 
-  .edit-icon{
+  .edit-icon {
     &::before {
       content: $iconEdit;
     }
   }
 
   .header {
-    .ta-left-box{
+    .ta-left-box {
 
     }
   }
@@ -46,23 +46,32 @@
       cursor: default;
     }
 
-    .picker-active{
+    .picker-active {
       color: #5a4c01;
       background-color: #ffd600;
     }
 
-    .picker-inactive{
+    .picker-inactive {
       background-color: #f7e793;
     }
 
-    span.merchant-code{
-      width: 174px;
+    .text-activation {
+      color: #3476f8;
+      cursor: pointer;
+      margin-top: -1px;
+    }
+
+    span.merchant-code {
+      width: 90%;
       overflow: hidden;
       height: 10px;
     }
-
-    .box-row{
-      .tag{
+    .txt-webservice-id {
+      border: 0px;
+      margin-top: -3px;
+    }
+    .box-row {
+      .tag {
         margin-top: -3px;
         margin-bottom: -3px;
       }
@@ -77,11 +86,11 @@
     width: 100% !important;
   }
 
-  input, .selectbox{
+  input, .selectbox {
     margin: 6px 0;
   }
 
-  .webservice-categories{
+  .webservice-categories {
     margin: 5px 0;
   }
 
@@ -91,13 +100,13 @@
     text-indent: 13px;
   }
 
-  .purses{
+  .purses {
     margin-top: 5px;
   }
 
   .input-group {
-    .input{
-      margin: 0!important;
+    .input {
+      margin: 0 !important;
     }
   }
 
@@ -131,19 +140,19 @@
     @include webservice-input-icon($homeIcon);
   }
 
-  .earth-icon{
+  .earth-icon {
     @include webservice-input-icon($globeIcon);
   }
 
-  .mobile-icon{
+  .mobile-icon {
     @include webservice-input-icon($mobileIcon);
   }
 
-  .purse-icon{
+  .purse-icon {
     @include webservice-input-icon($purseIcon);
   }
 
-  .webservice-cat-icon{
+  .webservice-cat-icon {
     @include webservice-input-icon($webserviceCatIcon);
   }
 
@@ -151,7 +160,7 @@
     background-color: #f4f4f4;
   }
 
-  .webservice-logo{
+  .webservice-logo {
     width: 85px;
     height: 85px;
     border-radius: 50%;
@@ -166,30 +175,30 @@
 
 }
 
-.categories{
+.categories {
   margin: 5px 0 !important;
 }
 
 //Active Zarin Gate
 
-.zarin-gate{
-  .create-description{
+.zarin-gate {
+  .create-description {
     font-size: 13px;
     color: $labelColor;
     text-align: right;
     margin: 10px 6px;
   }
 
-  .body-bottom{
+  .body-bottom {
     .ta-right,
-    .ta-left{
+    .ta-left {
       margin: 10px 0 0 0 !important;
       padding: 0 !important;
     }
   }
 }
 
-.read-description{
+.read-description {
   color: #4689FF;
   display: inline-block;
   font-size: 13px;
@@ -197,16 +206,16 @@
   cursor: pointer;
 }
 
-.activation-price{
-    background-color: #F5F5F5;
-    font-size: 13px;
-    padding: 7px;
-    color: #555;
-    border-radius: $boxBorderRadiusSize;
-    display: inline-block;
-  }
+.activation-price {
+  background-color: #F5F5F5;
+  font-size: 13px;
+  padding: 7px;
+  color: #555;
+  border-radius: $boxBorderRadiusSize;
+  display: inline-block;
+}
 
-.more-description{
+.more-description {
   font-size: 13px;
   color: #777;
   //margin: 10px 0;
@@ -215,20 +224,20 @@
 }
 
 //Activation ussd
-.activation-ussd{
-  .row{
+.activation-ussd {
+  .row {
     margin: 10px 0;
   }
 
-  .create-description{
+  .create-description {
     font-size: 13px;
     color: $labelColor;
     text-align: right;
   }
 
-  .body-bottom{
+  .body-bottom {
     .ta-right,
-    .ta-left{
+    .ta-left {
       margin: 10px 0 0 0 !important;
       padding: 0 !important;
     }

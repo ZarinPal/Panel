@@ -14,20 +14,20 @@
 
             form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
-                    div.row.input-group.no-margin(:class="{'input-danger': validationErrors.ussd_id}" required)
+                    div.row.input-group.no-margin(:class="{'input-danger': errors.has('ussd_id')}" required)
                         div.no-margin.last-label
                             span #
                         div.col-xs.no-margin
-                            input.input.ltr-input(v-validate="{type: 'number'}" maxlength="5" type="text" v-model="ussdId" placeholder="کد دستوری(ussd)" autofocus tabindex="1")
+                            input.input.ltr-input(v-validate="'required|numeric|max:5'" v-bind:data-vv-as="$i18n.t('webservice.ussd')" maxlength="5" type="text" v-model="ussd_id" name="ussd_id" :placeholder="$i18n.t('webservice.ussd')" autofocus tabindex="1")
                         div.no-margin.first-label
                             span *788*97*
-                div.ta-right(v-if="validationErrors.ussd_id")
-                    span.text-danger {{ $i18n.t(validationErrors.ussd_id) }}
+                    div.ta-right(v-if="validation('ussd_id')")
+                        span.text-danger {{ errors.first('ussd_id') }}
 
                 div.row
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse"  placeholder="انتخاب کیف پول" tabindex="2")
-                    div.ta-right(v-if="validationErrors.purse")
-                        span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="2")
+                    div.ta-right(v-if="validation('purse')")
+                        span.text-danger {{ errors.first('purse') }}
 
                 div.row.body-bottom
                     div.col-lg-9.col-md-12.col-sm-12.col-xs-12.ta-right
@@ -35,7 +35,7 @@
                         span.persian-num.activation-price(v-else)  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
 
                     div.no-margin.col-lg-3.col-md-12.col-sm-12.col-xs-12.ta-left
-                        button.btn.success.pull-left(v-ripple="" @click="activeUssd") {{$i18n.t('webservice.activation')}}
+                        button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('webservice.activation')}}
                             svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                 circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
@@ -56,24 +56,40 @@
                 visibleDescription: false,
                 closeModalContent: true,
                 purse: null,
-                ussdId: '',
+                ussd_id: null,
                 priceUssd: ''
             }
         },
-        props:['webservice'],
+        props: ['webservice'],
         mounted(){
             this.closeModalContent = false
-        },
-        computed:{
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
         },
         created() {
             store.commit('clearValidationErrors');
             this.getPriceUssd();
         },
         methods: {
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    purse: this.purse,
+                    ussd_id: this.ussd_id,
+                }).then((result) => {
+                    if (result) {
+                        this.activeUssd();
+                    }
+                });
+            },
+            removeErrors : function (field) {
+                !!this[field] && this.errors.remove(field);
+            },
             closeModal() {
                 this.$emit('closeModal')
             },
@@ -86,33 +102,33 @@
                     this.getPriceLoading = false;
                 });
             },
-            activeUssd() {
+            createWebservice() {
                 this.loading = true;
                 let ussdData = {
-                    webservice : this.webservice.entity_id,
-                    purse : this.purse,
-                    ussd_id : this.ussdId,
+                    webservice: this.webservice.entity_id,
+                    purse: this.purse,
+                    ussd_id: this.ussd_id,
                 };
 
                 this.$store.state.http.requests['webservice.postRequestUssd'].save(ussdData).then(
-                    ()=> {
+                    () => {
                         let vm = this;
-                        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
+                        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function (webservice) {
                             return webservice.entity_id === vm.webservice.entity_id;
                         });
-                        this.$store.state.auth.user.webservices[webserviceIndex].ussd_id = this.ussdId;
+                        this.$store.state.auth.user.webservices[webserviceIndex].ussd_id = this.ussd_id;
                         this.validationErrors = null;
-                        store.commit('flashMessage',{
+                        store.commit('flashMessage', {
                             text: 'ussd code activated',
                             type: 'success'
                         });
                         this.closeModal();
                     },
                     (response) => {
-                            this.loading = false;
-                          store.commit('setValidationErrors',response.data.validation_errors);
+                        this.loading = false;
+                        store.commit('setValidationErrors', response.data.validation_errors);
 
-                        this.$store.commit('flashMessage',{
+                        this.$store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'

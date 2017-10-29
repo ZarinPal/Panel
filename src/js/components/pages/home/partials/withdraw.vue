@@ -2,7 +2,6 @@
     modal.withdraw(v-on:closeModal="closeModal()")
         span(slot="title")
             span {{ $i18n.t('transaction.withdraw') }} از کیف پول
-            span(v-if="purse") {{ ' ' + purse.name }}
         div(slot="content")
 
             <!-- If user dont have any card -->
@@ -14,28 +13,22 @@
                         router-link.btn.success.pull-left(tag="button" v-bind:to="{ name: 'card.index'}")
                             span {{ $i18n.t('card.createCard') }}
 
-
             span(v-else)
                 div(v-if="this.$store.state.auth.user.cards")
-                    div.modal-description
-                        div(v-if="purse") {{ $i18n.t('purse.purseBalance') + ': ' + purse.balance.balance | numberFormat | persianNumbers}} {{ $i18n.t('transaction.toman')}}
-
                     form(autocomplete="on" onsubmit="event.preventDefault();")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="purse" :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse.purse" placeholder="انتخاب کیف پول")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else :class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
-                        div.ta-right(v-if="validationErrors.purse")
-                            span.text-danger {{ $i18n.t(validationErrors.purse) }}
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                        div.ta-right(v-if="validation('purse')")
+                            span.text-danger {{ errors.first('purse') }}
 
                         div.row
-                            input.ltr-input(v-validate="{type: 'number', money: true}" maxlength="15" :class="{'input-danger': validationErrors.amount}" type="text" v-model="amount" @keyup="calcPercentAmount()" placeholder="(مبلغ (تومان")
-                            div.ta-right(v-if="validationErrors.amount")
-                                span.text-danger {{ $i18n.t(validationErrors.amount) }}
+                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
+                            div.ta-right(v-if="validation('amount')")
+                                span.text-danger {{ errors.first('amount') }}
 
                         div.row
-                            cards.cards(:class="{'input-danger': validationErrors.card_id}" v-on:select="selectedCard")
-                            div.ta-right(v-if="validationErrors.card_id")
-                                span.text-danger {{ $i18n.t(validationErrors.card_id) }}
-
+                            cards.cards(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" v-on:select="selectedCard")
+                            div.ta-right(v-if="validation('card_id')")
+                                span.text-danger {{ errors.first('card_id') }}
 
                         div.nav-fees(v-if="!isLoadedFees")
                             div.row.bx.nav-options.ta-right
@@ -43,7 +36,7 @@
                                     input(name="fees" type="radio" :value="fee.id" v-model="feeDetails.id" :id="'rdo' + fee.id" @click="selectFee(fee.id)")
                                     label(:for="'rdo' + fee.id")
                                         span
-                                        |{{fee.title}}
+                                        | {{fee.title}}
 
                             div.row.bx.fee-date
                                 div.col-xs
@@ -66,7 +59,7 @@
 
                         div.row
                             div.col-xs.no-margin
-                                button.btn.success.pull-left(v-ripple="" @click="confirmVisible = !confirmVisible") {{$i18n.t('transaction.withdraw')}}
+                                button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('transaction.withdraw')}}
                                     svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                         circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -107,10 +100,10 @@
                 closeModalContent: false,
                 confirmVisible: false,
                 amount: 0,
-                purseId: null,
-                redirectUrl:encodeURI(
-                'https://' + window.location.hostname + '/'
-                + this.$router.resolve({name: 'home.finishAddFund'}).href),
+                purse: null,
+                redirectUrl: encodeURI(
+                    'https://' + window.location.hostname + '/'
+                    + this.$router.resolve({name: 'home.finishAddFund'}).href),
                 card: {},
                 isLoadedFees: false,
                 withdrawAmount: 0,
@@ -125,16 +118,12 @@
 
             }
         },
-        props: ['purse'],
-        computed:{
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
+        computed: {
             cards() {
-                if(this.$store.state.auth.user.cards) {
+                if (this.$store.state.auth.user.cards) {
                     let activeCards = [];
-                    _.forEach(this.$store.state.auth.user.cards, function(card) {
-                        if(card.status === "Active" && card.pan !== null) {
+                    _.forEach(this.$store.state.auth.user.cards, function (card) {
+                        if (card.status === "Active" && card.pan !== null) {
                             activeCards.unshift(card);
                         }
                     });
@@ -144,25 +133,43 @@
         },
         created() {
             store.commit('clearValidationErrors');
-            if(this.purse) {
-                this.purseId = this.purse.purse;
-            }
-
             this.getFees();
         },
         mounted() {
             this.closeModalContent = false;
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    amount: this.amount,
+                    card_id: this.card.id,
+                    purse: this.purse
+                }).then((result) => {
+                    if (result) {
+                        this.confirmVisible = !this.confirmVisible;
+                    }
+                });
+            },
+            removeErrors : function (field) {
+                this.errors.remove(field);
+            },
             closeModal() {
-                if(this.confirmVisible) {
+                if (this.confirmVisible) {
                     this.confirmVisible = false;
                 } else {
                     this.$emit('closeModal');
                 }
             },
             calcPercentAmount() {
-                if(/,/g.test(this.amount)) {
+                if (/,/g.test(this.amount)) {
                     this.withdrawAmount = (this.amount.replace(/,/g, "") * (this.feeDetails.details.percent / 100)).toFixed(0)
                 } else {
                     this.withdrawAmount = (this.amount * (this.feeDetails.details.percent / 100)).toFixed(0);
@@ -171,14 +178,14 @@
             calcFeeDate(seconds) {
                 let numDays = Math.floor(seconds / 86400);
                 let numHours = Math.floor((seconds % 86400) / 3600);
-                if(numDays > 0) {
-                    return numDays + ' روز و ' + numHours +  ' ساعت ';
+                if (numDays > 0) {
+                    return numDays + ' روز و ' + numHours + ' ساعت ';
                 } else {
-                    return numHours +  ' ساعت ';
+                    return numHours + ' ساعت ';
                 }
             },
             selectedPurse(purseId) {
-                this.purseId = purseId;
+                this.purse = purseId;
                 //get purse amount
                 this.getPurseAmount(purseId);
                 this.calcPercentAmount();
@@ -186,7 +193,7 @@
             selectedCard(cardId) {
                 this.card.id = cardId;
 
-                let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function(card) {
+                let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function (card) {
                     return card.entity_id === cardId;
                 });
 
@@ -195,11 +202,11 @@
                 this.selectFee();
             },
             selectFee(feeId) {
-                if(!feeId) {
+                if (!feeId) {
                     feeId = 'default';
                 }
 
-                let feeIndex = _.findIndex(this.fees, function(fee) {
+                let feeIndex = _.findIndex(this.fees, function (fee) {
                     return fee.id === feeId;
                 });
 
@@ -207,11 +214,11 @@
 
                 this.validFees.push(this.fees[0]);
                 let vm = this;
-                this.fees.forEach(function(fee, feeIndex) {
-                    if(feeIndex > 0) {
-                        fee.withdraw_method.forEach(function(feeMethod) {
-                            if(vm.card.slug) {
-                                if(vm.card.slug.toLowerCase() ===  feeMethod.slug.toLowerCase()) {
+                this.fees.forEach(function (fee, feeIndex) {
+                    if (feeIndex > 0) {
+                        fee.withdraw_method.forEach(function (feeMethod) {
+                            if (vm.card.slug) {
+                                if (vm.card.slug.toLowerCase() === feeMethod.slug.toLowerCase()) {
                                     vm.validFees.push(fee);
                                 }
                             }
@@ -224,7 +231,7 @@
                 this.calcPercentAmount();
             },
             getPurseAmount(purseId) {
-                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function (purse) {
                     return purse.purse === purseId;
                 });
 
@@ -238,11 +245,11 @@
             },
             getFeeWithdrawMethod() {
                 let cardType = 'default';
-                if(this.card.slug === 'ZarinCard') {
+                if (this.card.slug === 'ZarinCard') {
                     cardType = 'zarincard';
                 }
 
-                let feeSlugIndex = _.findIndex(this.selectedFee.withdraw_method, function(fee) {
+                let feeSlugIndex = _.findIndex(this.selectedFee.withdraw_method, function (fee) {
                     return fee.slug === cardType;
                 });
                 this.feeDetails.details = this.selectedFee.withdraw_method[feeSlugIndex];
@@ -255,7 +262,7 @@
                         this.fees = response.data.data;
 
                         //fee init
-                        let feeIndex = _.findIndex(this.fees, function(fee) {
+                        let feeIndex = _.findIndex(this.fees, function (fee) {
                             return fee.id === 'default';
                         });
                         this.selectedFee = this.fees[feeIndex];
@@ -263,7 +270,7 @@
                         this.getFeeWithdrawMethod();
 
                         this.isLoadedFees = false;
-                    },()=>{
+                    }, () => {
                         this.isLoadedFees = false;
                     }
                 );
@@ -271,22 +278,22 @@
             withdraw() {
                 this.loading = true;
                 let amount = this.amount;
-                if(/,/g.test(this.amount)) {
+                if (/,/g.test(this.amount)) {
                     amount = this.amount.replace(/,/g, "");
                 }
 
                 let withdrawData = {
                     amount: amount,
                     card_id: this.card.id,
-                    purse: this.purseId
+                    purse: this.purse
                 };
 
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
-                    (response)=> {
+                    (response) => {
                         //update purse balance after withdraw
                         this.getPursesBalances();
                         this.loading = false;
-                        this.$store.commit('flashMessage',{
+                        this.$store.commit('flashMessage', {
                             text: response.data.meta.message,
                             important: false,
                             type: 'success'
@@ -296,11 +303,18 @@
                         this.confirmVisible = false;
                         this.$emit('closeModal');
 
-                        this.$router.push({name: 'transaction.index', params: {id: this.purseId, type: 'purse', transactionId: response.data.data.transaction_public_id}});
+                        this.$router.push({
+                            name: 'transaction.index',
+                            params: {
+                                id: this.purse,
+                                type: 'purse',
+                                transactionId: response.data.data.transaction_public_id
+                            }
+                        });
                     },
                     (response) => {
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        this.$store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        this.$store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'

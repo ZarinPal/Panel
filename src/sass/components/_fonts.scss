@@ -3,37 +3,41 @@
   font-style: normal;
   font-weight: 500;
   src: url('../fonts/eot/IRANSansWeb_Medium.eot');
-  src: url('../fonts/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-  url('../fonts/woff2/IRANSansWeb_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-  url('../fonts/woff/IRANSansWeb_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  src: url('../fonts/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+  url('../fonts/woff2/IRANSansWeb_Medium.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/woff/IRANSansWeb_Medium.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
   url('../fonts/ttf/IRANSansWeb_Medium.ttf') format('truetype');
 }
+
 @font-face {
   font-family: IRANSansLight;
   font-style: normal;
   font-weight: 300;
   src: url('../fonts/eot/IRANSansWeb_Light.eot');
-  src: url('../fonts/eot/IRANSansWeb_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-  url('../fonts/woff2/IRANSansWeb_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-  url('../fonts/woff/IRANSansWeb_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  src: url('../fonts/eot/IRANSansWeb_Light.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+  url('../fonts/woff2/IRANSansWeb_Light.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/woff/IRANSansWeb_Light.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
   url('../fonts/ttf/IRANSansWeb_Light.ttf') format('truetype');
 }
+
 @font-face {
   font-family: IRANSans;
   font-style: normal;
   font-weight: normal;
   src: url('../fonts/eot/IRANSansWeb.eot');
-  src: url('../fonts/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-  url('../fonts/woff2/IRANSansWeb.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-  url('../fonts/woff/IRANSansWeb.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  src: url('../fonts/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+  url('../fonts/woff2/IRANSansWeb.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/woff/IRANSansWeb.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
   url('../fonts/ttf/IRANSansWeb.ttf') format('truetype');
 }
+
 @font-face {
   font-family: IRANSansLightPersian;
   font-style: normal;
   font-weight: 300;
   src: url('../fonts/ttf/sansLight.ttf') format('truetype');
 }
+
 @font-face {
   font-family: OCRA;
   font-style: normal;
@@ -41,11 +45,10 @@
   src: url('../fonts/ttf/OCRA.ttf') format('truetype');
 }
 
-
 @font-face {
   font-family: 'ZarinPal';
-  src:  url('../fonts/ZarinPal.eot');
-  src:  url('../fonts/ZarinPal.eot') format('embedded-opentype'),
+  src: url('../fonts/ZarinPal.eot');
+  src: url('../fonts/ZarinPal.eot') format('embedded-opentype'),
   url('../fonts/ZarinPal.ttf') format('truetype'),
   url('../fonts/ZarinPal.woff') format('woff'),
   url('../fonts/ZarinPal.svg') format('svg');
@@ -53,9 +56,17 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: VazirCode;
+  src: url('../fonts/code/Vazir-Code.eot');
+  src: url('../fonts/code/Vazir-Code.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/code/Vazir-Code.woff') format('woff'),
+  url('../fonts/code/Vazir-Code.ttf') format('truetype');
+  font-weight: normal;
+}
 
 i[class^="icon-"], i[class*=" icon-"],
-span[class^="icon-"], span[class*=" icon-"]{
+span[class^="icon-"], span[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'zarinpal' !important;
   speak: none;
@@ -70,36 +81,45 @@ span[class^="icon-"], span[class*=" icon-"]{
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-
 //New Font icon class
 .icon-zp-dashboard {
   &:before {
     content: $icon-zp-dashboard;
   }
 }
+
 .icon-zp-web-service {
   &:before {
     content: $icon-zp-web-service;
   }
 }
+
 .icon-zp-card {
   &:before {
     content: $icon-zp-cards;
   }
 }
+
 .icon-zp-easy-pay {
   &:before {
     content: $icon-zp-easy-pay;
   }
 }
+
 .icon-zp-copouns {
   &:before {
     content: $icon-zp-copouns;
   }
 }
+
 .icon-zp-tickets {
   &:before {
     content: $icon-zp-ticket;
+  }
+}
+
+.icon-add-circle {
+  &:before {
+    content: $icon-zp-add-circle;
   }
 }

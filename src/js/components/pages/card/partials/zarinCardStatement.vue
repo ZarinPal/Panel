@@ -6,22 +6,20 @@
                 form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.row.no-margin
                         div.col-xs.no-right-margin
-                            input(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.password}" type="password" v-model="password" placeholder= "رمز دوم")
-                            div.ta-right(v-if="validationErrors.password")
-                                span.text-danger {{ $i18n.t(validationErrors.password) }}
+                            input(v-validate="{ rules: {required: true, min:5}}" v-bind:data-vv-as="$i18n.t('common.secondaryPass')" :class="{'input-danger': errors.has('password')}" type="password" v-model="password" name="password" :placeholder= "$i18n.t('common.secondaryPass')")
+                            div.ta-right(v-if="validation('password')")
+                                span.text-danger {{ errors.first('password') }}
 
                         div.col-xs.no-left-margin
-                            input(v-validate="{type: 'number'}" :class="{'input-danger': validationErrors.cvv2}" type="password" v-model="cvv2" placeholder= "CVV2")
-                            div.ta-right(v-if="validationErrors.cvv2")
-                                span.text-danger {{ $i18n.t(validationErrors.cvv2) }}
-
+                            input(v-validate="'required|min:3|max:4'" v-bind:data-vv-as="$i18n.t('common.cvv2')" :class="{'input-danger': errors.has('cvv2')}" type="password" v-model="cvv2" name="cvv2" placeholder= "CVV2")
+                            div.ta-right(v-if="validation('cvv2')")
+                                span.text-danger {{ errors.first('cvv2') }}
 
                     div.row.no-margin
                         div.col-xs.nav-buttons.no-left-margin
-                            button.btn.success.pull-left(v-ripple="" @click="getZarinCardStatment") مشاهده گردش حساب
+                            button.btn.success.pull-left(v-ripple="" @click="validateForm") مشاهده گردش حساب
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
 
             <!--Report result-->
             span(v-else)
@@ -69,22 +67,37 @@
                 cardId: null,
                 password: null,
                 cvv2: null,
-                zarinCardStatements : null
+                zarinCardStatements: null
             }
         },
-        props:['card'],
+        props: ['card'],
         computed: {
             user(){
                 return this.$store.state.auth.user;
-            },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
             },
         },
         created(){
             store.commit('clearValidationErrors');
         },
         methods: {
+            validation(name) {
+                if(this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    password: this.password,
+                    cvv2: this.cvv2,
+                }).then((result) => {
+                    if (result) {
+                        this.getZarinCardStatment();
+                    }
+                });
+            },
             closeModal() {
                 this.$emit('closeModal');
             },
@@ -99,15 +112,15 @@
                     cvv2: this.cvv2
                 };
                 this.$store.state.http.requests['zarincard.postStatement'].save(zarincardData).then(
-                    (response)=> {
+                    (response) => {
                         this.loading = false;
                         this.validationErrors = null;
                         this.zarinCardStatements = response.data.data;
                     },
                     (response) => {
                         this.loading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger'
                         });

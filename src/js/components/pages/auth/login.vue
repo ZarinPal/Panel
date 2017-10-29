@@ -16,9 +16,9 @@
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(:class="{'input-danger': validationErrors.username}" type="text" name="username" v-model="username" placeholder="موبایل یا ایمیل" autofocus autocomplete="username")
-                            div.ta-right(v-if="validationErrors.username")
-                                span.text-danger {{ $i18n.t(validationErrors.username) }}
+                            input.ta-left.dir-ltr(v-validate="'required'" :class="{'input-danger': errors.has('username')}" v-bind:data-vv-as="$i18n.t('user.mobMail')" type="text"  v-model="username" name="username" id="username" :placeholder= "$i18n.t('user.mobMail')" autofocus autocomplete="username")
+                            div.ta-right(v-if="validation('username')")
+                                span.text-danger {{ errors.first('username') }}
 
                         div.row.nav-user-not-registered(v-if="userNotRegister")
                             router-link.col-xs( tag="div" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
@@ -29,7 +29,7 @@
                             span {{ $i18n.t('user.notRegistered') }}
                             router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.register') }}
                         div.col-xs.no-margin
-                            button.gold.pull-left(id="btnSubmitEnter") {{$i18n.t('user.enter')}}
+                            button.gold.pull-left(id="btnSubmitEnter" ) {{$i18n.t('user.enter')}}
                                 svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -72,11 +72,8 @@
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(v-on:paste="pasteOtp()" @keyup="otpMaxLength()" v-validate="{size: 6}" type="number" min="0" name="otp" v-model="otp" id="txtOtp")
+                                    input(v-on:paste="pasteOtp()" @change="otpMaxLength()" @keyup="otpMaxLength()" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
                                 div.dashed-line
-
-                        div.ta-right(v-if="validationErrors.otp")
-                            span.text-danger {{ $i18n.t(validationErrors.otp) }}
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
@@ -129,13 +126,17 @@
                 visibleSendSms: true
             }
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
         },
         mounted(){
-            if(this.$route.query.mobile){
+            let txtUsername = document.getElementById('username');
+            if (txtUsername) {
+                txtUsername.focus();
+            }
+            if (this.$route.query.mobile) {
                 this.username = this.$route.query.mobile;
             }
         },
@@ -143,23 +144,32 @@
             let vm = this;
             this.$store.state.http.requests['oauth.check']
                 .get()
-                .then(()=>{
+                .then(() => {
                     vm.$router.push({name: 'home.index'});
                 })
-                .catch(()=>{});
+                .catch(() => {
+                });
 
-            if(this.$store.state.auth.check) {
+            if (this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
         },
         methods: {
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
             pasteOtp() {
                 this.otpMaxLength();
             },
             sendOtp(channel){
                 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 //if username is email
-                if(emailRegex.test(this.username)) {
+                if (emailRegex.test(this.username)) {
                     channel = 'email';
                 }
 
@@ -167,7 +177,7 @@
                 let postData = {
                     username: this.username,
                 };
-                if(channel && channel === 'sms'){
+                if (channel && channel === 'sms') {
                     postData.channel = channel;
                     this.visibleOtpTimer = true;
                     this.otpObject = {};
@@ -175,22 +185,22 @@
 
                 this.$store.state.http.requests['oauth.postInitializeLogin']
                     .save(postData)
-                    .then((response)=>{
+                    .then((response) => {
                         this.getOtpLoading = false;
                         this.step = 2;
-                        this.avatar = 'https:'+response.data.data.avatar;
+                        this.avatar = 'https:' + response.data.data.avatar;
                         this.channel = response.data.data.channel;
-                        if(response.data.data.ussd_code) {
+                        if (response.data.data.ussd_code) {
                             this.ussdCode = response.data.data.ussd_code;
                         }
 
-                        if(channel && channel === 'sms'){
+                        if (channel && channel === 'sms') {
                             store.commit('flashMessage', {
                                 text: 'otp-sent-by-sms',
                                 type: 'success',
                                 timeout: 10000,
                             });
-                        }else if(channel === 'email') {
+                        } else if (channel === 'email') {
                             store.commit('flashMessage', {
                                 text: 'otp-send-to-you-by-email',
                                 type: 'success',
@@ -201,14 +211,14 @@
                         setTimeout(function () {
                             document.getElementById("txtOtp").focus();
                         }, 10);
-                    }).catch((response)=>{
-                        this.loginLoading = false;
-                        this.getOtpLoading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        if(!this.validationErrors.username) {
-                            this.userNotRegister = true;
-                        }
-                    });
+                    }).catch((response) => {
+                    this.loginLoading = false;
+                    this.getOtpLoading = false;
+                    store.commit('setValidationErrors', response.data.validation_errors);
+                    if (!this.validationErrors.username) {
+                        this.userNotRegister = true;
+                    }
+                });
             },
             login(){
                 this.loginLoading = true;
@@ -229,8 +239,8 @@
                         this.$router.push({name: 'home.index'});
                     }, (response) => {
                         this.loginLoading = false;
-                        store.commit('setValidationErrors',response.data.validation_errors);
-                        store.commit('flashMessage',{
+                        // store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             important: false,
                             type: 'danger'
@@ -239,8 +249,8 @@
                 );
             },
             changeUssdType() {
-                if(this.ussdType === 'Code') {
-                   this.ussdType = 'Qr';
+                if (this.ussdType === 'Code') {
+                    this.ussdType = 'Qr';
                     let ussdCode = this.ussdCode.substring(0, this.ussdCode.length - 1);
                     this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:' + ussdCode + '%2523';
                 } else {
@@ -253,13 +263,32 @@
                 this.channel = 'ussd';
             },
             otpMaxLength() {
-                let txtOtp = document.getElementById('txtOtp').value;
-                if(txtOtp.length > 0 && txtOtp.length === 6) {
-                    document.getElementById("btnSubmitLogin").click();
-                }                
+                setTimeout(function () {
+                    if (document.getElementById('txtOtp')) {
+                        let txtOtp = document.getElementById('txtOtp');
+                        if (txtOtp.value.length > 0 && txtOtp.value.length === 6) {
+                            document.getElementById("btnSubmitLogin").click();
+                        }
+
+                        if (txtOtp.value.length === 6) {
+                            txtOtp.classList.remove("remove-otp-curse");
+                            txtOtp.className += " remove-otp-curse";
+                        } else {
+                            txtOtp.classList.remove("remove-otp-curse");
+                        }
+                    }
+                }, 20);
+            },
+            preventMaxSize(event) {
+                document.getElementById('txtOtp');
+                let txtOtp = document.getElementById('txtOtp');
+                if (txtOtp.value.length > 5) {
+                    event.preventDefault();
+                    return false;
+                }
             }
         },
-        components:{
+        components: {
             timer
         }
     }

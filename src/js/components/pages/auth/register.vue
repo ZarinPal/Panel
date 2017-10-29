@@ -16,19 +16,19 @@
 
                     div.row.row-margin
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-right-margin
-                            input.half-input(:class="{'input-danger': validationErrors.first_name}" type="text" name="firstName" v-model="firstName" id="firstname" placeholder="نام" autofocus)
-                            div.ta-right(v-if="validationErrors.first_name")
-                                span.text-danger {{ $i18n.t(validationErrors.first_name) }}
+                            input.half-input(v-validate="'required'" :class="{'input-danger': errors.has('first_name')}"  v-bind:data-vv-as="$i18n.t('user.firstName')" type="text" name="first_name" v-model="first_name" id="first_name" :placeholder= "$i18n.t('user.firstName')"  autofocus)
+                            div.ta-right(v-if="validation('first_name')")
+                                span.text-danger {{ errors.first('first_name') }}
 
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-left-margin
-                            input.half-input(:class="{'input-danger': validationErrors.last_name}" type="text" v-model="lastName" id="lastname" placeholder="نام خانوادگی")
-                            div.ta-right(v-if="validationErrors.last_name")
-                                span.text-danger {{ $i18n.t(validationErrors.last_name) }}
+                            input.half-input(v-validate="'required'" :class="{'input-danger': errors.has('last_name')}" v-bind:data-vv-as="$i18n.t('user.lastName')" type="text" v-model="last_name" id="last_name" name="last_name" :placeholder= "$i18n.t('user.lastName')" )
+                            div.ta-right(v-if="validation('last_name')")
+                                span.text-danger {{ errors.first('last_name') }}
 
                     div.row.row-margin
-                        input(:class="{'input-danger': validationErrors.mobile}" type="text" v-model="mobile" id="mobile" placeholder="موبایل")
-                        div.ta-right(v-if="validationErrors.mobile")
-                            span.text-danger {{ $i18n.t(validationErrors.mobile) }}
+                        input.half-input(v-validate="{rules: {required: true, regex: /^09[0-9]{9}$/} }" :class="{'input-danger': errors.has('mobile')}"  v-bind:data-vv-as="$i18n.t('user.mobile')" type="text" v-model="mobile" id="mobile" name="mobile" :placeholder= "$i18n.t('user.mobile')" )
+                        div.ta-right(v-if="validation('mobile')")
+                            span.text-danger {{ errors.first('mobile') }}
 
 
                     div.row.bottom-xs
@@ -36,7 +36,7 @@
                             span عضو زرین‌پال هستید ؟
                             router-link.link(v-bind:to="{ name: 'auth.login',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.enter') }}
                         div.col-xs.no-margin
-                            button.gold.pull-left(id="register" @click="register") {{$i18n.t('user.register')}}
+                            button.gold.pull-left(id="register" @click="validateForm") {{$i18n.t('user.register')}}
 
 
             <!--Privacy Policy-->
@@ -53,35 +53,57 @@
         name: 'auth-register',
         data () {
             return {
-                firstName: "",
-                lastName: "",
+                first_name: "",
+                last_name: "",
                 mobile: "",
             }
         },
-        computed:{
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
         },
         created() {
-            if(this.$route.params.mobile) {
+            if (this.$route.params.mobile) {
                 this.mobile = this.$route.params.mobile;
             }
 
-            if(this.$store.state.auth.check) {
+            if (this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
         },
+        mounted(){
+            document.getElementById('first_name').focus();
+        },
         methods: {
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    first_name: this.first_name,
+                    last_name: this.last_name,
+                    mobile: this.mobile
+                }).then((result) => {
+                    if (result) {
+                        this.register();
+                    }
+                });
+            },
             register(event){
-                event.preventDefault();
+//                event.preventDefault();
                 let auth2Data = {
-                    first_name: this.firstName,
-                    last_name: this.lastName,
+                    first_name: this.first_name,
+                    last_name: this.last_name,
                     mobile: this.mobile,
                 };
 
-                if(this.$route.params.refererId) {
+                if (this.$route.params.refererId) {
                     auth2Data.referer = this.$route.params.refererId;
                 }
 
@@ -99,7 +121,7 @@
                         });
                     },
                     (response) => {
-                        store.commit('setValidationErrors',response.data.validation_errors);
+                        store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
                             text: response.data.meta.error_message,
                             type: 'danger',

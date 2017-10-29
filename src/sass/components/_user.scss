@@ -1,10 +1,10 @@
 /*** User Notification setting ***/
-.nav-user-setting{
-  .warning-box-message{
+.nav-user-setting {
+  .warning-box-message {
     margin: 20px 0;
   }
 
-  .nav-notification-row{
+  .nav-notification-row {
     padding-bottom: 5px;
     border-bottom: 1px solid #bbb;
     margin: 10px 20px;
@@ -13,36 +13,35 @@
       border-bottom: none !important;
     }
 
-    >h4 {
+    > h4 {
       font-weight: 100;
       margin: 10px;
     }
 
-    .check-box{
+    .check-box {
       padding: 10px 20px;
     }
   }
 
-  .nav-button{
-    >div{
+  .nav-button {
+    > div {
       margin: 20px;
     }
   }
 }
 
-
 /*** Add address ***/
-.nav-add-address{
-  .box{
+.nav-add-address {
+  .box {
     padding: 20px;
 
     .nav-address {
       margin-top: 20px;
 
-      .close-address{
+      .close-address {
         display: inline-block;
 
-        &:before{
+        &:before {
           content: $iconClose;
           font-family: 'zarinpal';
           color: #FF0D3C;
@@ -57,14 +56,14 @@
         }
       }
 
-      .address-title{
+      .address-title {
         font-size: 13px;
         position: relative;
         right: 10px;
       }
 
-      .z-row{
-        input{
+      .z-row {
+        input {
           text-indent: 13px;
         }
 
@@ -72,7 +71,7 @@
           margin: 5px 0;
         }
 
-        .input-icon{
+        .input-icon {
           &::before {
             font-family: 'zarinpal';
             color: #424242;
@@ -84,21 +83,21 @@
           }
         }
 
-        .icon-tel{
+        .icon-tel {
           &::before {
             content: $iconPhone;
           }
         }
 
-        .icon-postal-code{
+        .icon-postal-code {
           &::before {
             content: $iconPostalCode;
             font-size: 14px !important;
-            top:-6px !important;
+            top: -6px !important;
           }
         }
 
-        .icon-location{
+        .icon-location {
           float: right;
           &::before {
             content: $iconLocation;
@@ -109,9 +108,9 @@
           }
         }
 
-        .btn-show-location{
+        .btn-show-location {
           width: 100%;
-          display:inline-block;
+          display: inline-block;
           font-size: 13px;
           padding: 6px 10px 5px 14px;
           border-radius: 5px;
@@ -121,18 +120,18 @@
           border: 1px solid #cecece;
           box-sizing: border-box;
           cursor: pointer;
-          color:#727272;
+          color: #727272;
           overflow: hidden;
           height: 35px;
         }
 
-        .has-geo-location{
+        .has-geo-location {
           border: 1px solid #2ECC71 !important;
         }
       }
     }
 
-    .btn-add-new-address{
+    .btn-add-new-address {
       border: 2px solid #2ECC71;
       border-radius: 20px;
       padding: 3px 10px;
@@ -140,10 +139,10 @@
       color: #2ECC71;
       font-size: 13px;
       display: inline-block;
-      cursor:pointer;
+      cursor: pointer;
       margin: 20px 0;
 
-      .icon-add{
+      .icon-add {
         position: relative;
         top: 3px;
         margin-left: 7px;
@@ -162,14 +161,14 @@
   }
 
   /*** Modal fix ***/
-  .modal-content-father{
+  .modal-content-father {
     .modal-content {
-      .header{
+      .header {
         padding: 15px !important;
         height: 22px;
       }
 
-      .contains{
+      .contains {
         padding: 0 !important;
       }
     }

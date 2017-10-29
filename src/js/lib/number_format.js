@@ -5,9 +5,9 @@ export default {
      */
     faToEn(number) {
         let farsiValue = number.replace(/,/g, "");
-        return Number( farsiValue.replace(/[٠١٢٣٤٥٦٧٨٩]/g, function(d) {
+        return Number(farsiValue.replace(/[٠١٢٣٤٥٦٧٨٩]/g, function (d) {
             return d.charCodeAt(0) - 1632;
-        }).replace(/[۰۱۲۳۴۵۶۷۸۹]/g, function(d) {
+        }).replace(/[۰۱۲۳۴۵۶۷۸۹]/g, function (d) {
             return d.charCodeAt(0) - 1776;
         }));
     }

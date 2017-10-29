@@ -57,27 +57,27 @@
     import couponDetails from '../partials/details.vue';
 
     export default {
-        name:'pages-coupon-partials-singleCoupon',
+        name: 'pages-coupon-partials-singleCoupon',
         data(){
-            return{
+            return {
                 visibleCouponDetails: false,
             }
         },
-        props:['coupon'],
-        methods:{
+        props: ['coupon'],
+        methods: {
             closeModal(){
                 this.visibleCouponDetails = false;
                 store.commit('clearValidationErrors');
             },
             clipboardMessage() {
-                store.commit('flashMessage',{
+                store.commit('flashMessage', {
                     text: 'copied',
                     type: 'success',
                     timeout: '1500'
                 });
             }
         },
-        components:{
+        components: {
             couponDetails
         }
     }

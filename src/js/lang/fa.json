@@ -31,7 +31,12 @@
     "accountOwnerName": "نام صاحب حساب",
     "distAccountNumber": "شماره حساب مقصد",
     "refrenceNumber": "شماره مرجع",
-    "amount": "مقدار"
+    "amount": "مقدار",
+    "pan": "شماره کارت",
+    "transferAmountTitle": "(مبلغ (تومان",
+    "dstZarinpalId": "زرین‌پال مقصد",
+    "newCard": "کارت جدید",
+    "card": "کارت"
   },
   "common": {
     "send": "ارسال",
@@ -264,7 +269,12 @@
     "noLimit": "بدون محدودیت",
     "deleteEasypay": "حذف آسان پرداخت",
     "yesDeleteIt": "بله، حذف کن",
-    "advance": "پیشرفته"
+    "advance": "پیشرفته",
+    "title": "عنوان محصول یا خدمات",
+    "priceToman": "(مبلغ (تومان",
+    "price": "مبلغ",
+    "successfulRedirectUrl": "لینک بازگشت پرداخت موفق",
+    "failedRedirectUrl": "لینک بازگشت پرداخت ناموفق"
   },
   "error": {
     "NotFound": "These credentials do not match our records.",
@@ -313,7 +323,10 @@
     "webservice-edited-success": "وب سرویس با موفقیت ویرایش شد.",
     "ussd-code-activated": "کد Ussd فعال شد",
     "please-select-purse-name": "لطفا کیف پول مورد نظر را انتخاب نمایید",
-    "transfer-money-is-successfully": "تسویه حساب با موفقیت ثبت شد."
+    "transfer-money-is-successfully": "تسویه حساب با موفقیت ثبت شد.",
+    "mobile-number-not-valid": "شماره موبایل معتبر نمی باشد.",
+    "fix-validation-errors": "خطا های اعتبار سنجی را تکمیل کنید",
+    "invalid-destination-pan": "شماره کارت مقصد نامعتبر است."
   },
   "panel": {
     "home": "پیشخوان",
@@ -497,7 +510,8 @@
     "autoReply": "پاسخ های آماده",
     "assignedAll": "تیکت های ارجاع داده شده",
     "addTicket": "افزودن تیکت جدید",
-    "sendDescription": "از طریق فرم زیر نسبت به ایجاد تیکت جدید اقدام کنید"
+    "sendDescription": "از طریق فرم زیر نسبت به ایجاد تیکت جدید اقدام کنید",
+    "ticketReplyContent": "متن پاسخ تیکت ..."
   },
   "transaction": {
     "title": "تراکنش‌ها",
@@ -857,13 +871,19 @@
     "newTicket": "تیکت جدید",
     "ticketReply": "پاسخ به تیکت",
     "updateSetting": "بروزرسانی تنظیمات",
-    "notificationSmsPriceNotice": "هزينه هر پيامک اطلاع رسانی 40 تومان مي باشد، که از موجودی کيف پول پيامک کسر مي گردد.",
+    "notificationSmsPriceNotice": "هزینه هر پیامک اطلاع رسانی 40 تومان می باشد، که از موجودی کیف پول پیامک کسر می گردد.",
     "notice": "توجه",
     "addNewAddress": "افزودن آدرس جدید",
     "addNewAddressDescription": "در این صفحه شما می توانید آدرس جدید اضافه کنید",
     "positionOnTheMap": "موقعیت روی نقشه",
     "addressTitle": "آدرس",
-    "deleteAddress": "حذف آدرس"
+    "deleteAddress": "حذف آدرس",
+    "addressTitlePlaceholder": "عنوان",
+    "addressLandlinePlaceholder": "شماره تلفن (ثابت)",
+    "addressPostalCodePlaceholder": "کد پستی",
+    "addressPlaceholder": "آدرس",
+    "mobMail": "موبایل یا ایمیل"
+
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",
@@ -1080,7 +1100,11 @@
     "zarinGateNotice": "برای بهره مندی از زرین گیت (درگاه اختصاصی) میبایست وب گیت (درگاه عادی زرین‌پال) روی وبسایت فعال باشد. بدیهی است هزینه صدور درگاه بر اساس تعداد تراکنش های موجود روی همان درگاه از صفر تا بیست هزار تومان، متغیر میباشد. بنابراین برای بهره مندی از تعرفه پایین تر، لطفا ابتدا وب گیت (درگاه عادی زرین‌پال) را روی سایت فعال و پس از وجود تراکنش، اقدام به ثبت زرین گیت (درگاه اختصاصی) نمائید.",
     "ussdNotice": "برای بهره مندی از همپا (سرویس USSD) میبایست وب گیت (درگاه عادی زرین‌پال) روی وبسایت فعال باشد. بدیهی است هزینه فعالسازی این سرویس بر اساس تعداد تراکنش های موجود روی همان درگاه از صفر تا بیست هزار تومان، متغییر میباشد. بنابراین برای بهره مندی از تعرفه پایین تر، لطفا ابتدا وب گیت (درگاه عادی زرین‌پال) را روی سایت فعال و پس از وجود تراکنش، اقدام به ثبت همپا (سرویس USSD) نمائید.کد دستوری (USSD",
     "webserviceCode": "کد درگاه",
-    "unlimited": "نا محدود",
-    "transactionSession": "سشن‌های پرداخت"
+    "unlimited": "بدون محدودیت",
+    "transactionSession": "سشن‌های پرداخت",
+    "withoutIpLimit": "بدون محدودیت IP",
+    "withIpLimit": "با محدودیت IP",
+    "activation": "فعالسازی",
+    "inActive": "غیر فعال"
   }
 }

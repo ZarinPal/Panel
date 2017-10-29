@@ -5,15 +5,15 @@ body {
   //height: 100vh !important;
   direction: rtl;
 
-  .font{
+  .font {
     font-family: $fontName;
   }
 
-  .clear-both{
+  .clear-both {
     clear: both;
   }
 
-  a{
+  a {
     text-decoration: none;
   }
 
@@ -21,22 +21,22 @@ body {
     border-color: #d9d9d9;
   }
 
-  li{
+  li {
     list-style-type: none;
   }
 
-  .zp-container{
+  .zp-container {
     //height: 100vh !important;
     margin: 0;
   }
 
-  .main-content{
+  .main-content {
     margin-top: 50px;
     min-height: 93vh !important;
     padding-right: 0;
   }
 
-  .inner-content{
+  .inner-content {
     width: $innerContentWidth;
     max-width: $innerContentMaxWidth;
     margin: 5px auto 55px auto;
@@ -46,8 +46,8 @@ body {
 .slide-enter-active {
   animation-name: slideDown;
   -webkit-animation-name: slideDown;
-  animation-duration:  0.5s;
-  -webkit-animation-duration:  0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-duration: 0.5s;
   animation-timing-function: ease;
   -webkit-animation-timing-function: ease;
   visibility: visible !important;
@@ -55,7 +55,7 @@ body {
 
 .slide-leave-active {
   animation-name: slideUp;
-  animation-duration:  0.8s;
+  animation-duration: 0.8s;
   -webkit-animation-duration: 0.8s;
   animation-timing-function: ease;
   -webkit-animation-timing-function: ease;
@@ -66,16 +66,16 @@ body {
   0% {
     transform: translateY(-10%);
   }
-  50%{
+  50% {
     transform: translateY(8%);
   }
-  65%{
+  65% {
     transform: translateY(-4%);
   }
-  80%{
+  80% {
     transform: translateY(4%);
   }
-  95%{
+  95% {
     transform: translateY(-2%);
   }
   100% {
@@ -87,16 +87,16 @@ body {
   0% {
     transform: translateY(0);
   }
-  50%{
+  50% {
     transform: translateY(-20%);
   }
-  65%{
+  65% {
     transform: translateY(-400%);
   }
-  80%{
+  80% {
     transform: translateY(-60%);
   }
-  95%{
+  95% {
     transform: translateY(-80%);
   }
   100% {
@@ -108,16 +108,16 @@ body {
   0% {
     -webkit-transform: translateY(-100%);
   }
-  50%{
+  50% {
     -webkit-transform: translateY(8%);
   }
-  65%{
+  65% {
     -webkit-transform: translateY(-4%);
   }
-  80%{
+  80% {
     -webkit-transform: translateY(4%);
   }
-  95%{
+  95% {
     -webkit-transform: translateY(-2%);
   }
   100% {
@@ -126,7 +126,7 @@ body {
 }
 
 /*-------Navbar (Header)-------*/
-.navbar{
+.navbar {
   width: 100%;
   background: #fff;
   line-height: 0;
@@ -140,11 +140,11 @@ body {
   padding: 0;
   height: 50px;
 
-  .mobile-sidebar-collapse{
+  .mobile-sidebar-collapse {
     display: none;
   }
 
-  .normal-sidebar-collapse{
+  .normal-sidebar-collapse {
     display: inline-block;
     cursor: pointer;
     padding: 9px 9px;
@@ -168,13 +168,13 @@ body {
       position: relative
     }
 
-    &:hover{
+    &:hover {
       background-color: $iconHoverBackground;
       transition: $animateTime;
     }
   }
 
-  .navbar-title{
+  .navbar-title {
     font-size: 16px;
     color: $labelColor;
     font-weight: 300;
@@ -184,12 +184,12 @@ body {
     top: -11px;
   }
 
-  .navigation-logo{
+  .navigation-logo {
     margin: 0 auto !important;
     display: inline-block;
     text-align: center;
 
-    .logo{
+    .logo {
       background-image: url("../../img/ZarinPal-Logo.svg");
       width: 31px;
       height: 31px;
@@ -198,7 +198,7 @@ body {
     }
   }
 
-  .left-box{
+  .left-box {
     text-align: left;
 
     .notification {
@@ -229,7 +229,7 @@ body {
       }
     }
 
-    .notification-empty{
+    .notification-empty {
       &::before {
         content: $iconNotificationEmpty;
         font-family: 'zarinpal';
@@ -259,7 +259,7 @@ body {
       top: -1px;
     }
 
-    .reload{
+    .reload {
       display: inline-block;
       margin-top: 6px;
       margin-left: 5px;
@@ -270,10 +270,10 @@ body {
 
       &::before {
         content: $iconReload;
-        font-family:'zarinpal';
-        color:$labelColor;
-        font-size:22px;
-        line-height:18px;
+        font-family: 'zarinpal';
+        color: $labelColor;
+        font-size: 22px;
+        line-height: 18px;
         font-style: normal;
         position: relative;
         top: -1px;
@@ -287,7 +287,7 @@ body {
     }
   }
 
-  .profile-dropdown-avatar{
+  .profile-dropdown-avatar {
     width: 25px;
     border-radius: 50%;
     float: left;
@@ -308,16 +308,16 @@ body {
     z-index: 999;
     top: 40px;
 
-    .head{
+    .head {
       padding: 15px;
       background-color: #F1F1F1;
 
-      .avatar{
+      .avatar {
         width: 35px;
         border-radius: 50%;
       }
 
-      .name{
+      .name {
         font-size: 13px;
         margin-right: 45px;
         position: relative;
@@ -326,7 +326,7 @@ body {
         font-weight: bold;
       }
 
-      .zp-id{
+      .zp-id {
         font-size: 12px;
         margin-right: 45px;
         position: relative;
@@ -334,17 +334,17 @@ body {
       }
     }
 
-    .body{
+    .body {
       padding: 5px 0;
       background-color: #fff;
 
-      .items{
+      .items {
         transition: $animateTime;
         font-size: 13px;
         padding: 10px 18px 16px;
         cursor: default;
 
-        &:hover{
+        &:hover {
           background-color: #F1F1F1;
           transition: $animateTime;
         }
@@ -352,10 +352,10 @@ body {
 
       .icon {
         &::before {
-          font-family:'zarinpal';
-          color:#737373;
-          font-size:18px;
-          line-height:18px;
+          font-family: 'zarinpal';
+          color: #737373;
+          font-size: 18px;
+          line-height: 18px;
           font-style: normal;
           position: relative;
           top: 3px;
@@ -363,26 +363,26 @@ body {
         }
       }
 
-      .logout{
+      .logout {
         &::before {
           content: $iconLogout;
         }
       }
 
-      .notif{
+      .notif {
         &::before {
           content: $iconNotificationEmpty;
         }
       }
 
-      .location{
+      .location {
         &::before {
           content: $iconLocation;
         }
       }
 
-      .divider{
-        margin:5px 0;
+      .divider {
+        margin: 5px 0;
         background-color: #ececec;
         height: 1px;
       }
@@ -433,14 +433,14 @@ body {
       border-bottom: 10px solid #cecece;
     }
 
-    .content{
+    .content {
       overflow-y: auto;
       max-height: 300px;
       overflow-x: hidden;
     }
 
-    .header{
-      .notification-count{
+    .header {
+      .notification-count {
         display: inline-block;
         float: right;
         font-size: 13px;
@@ -450,19 +450,19 @@ body {
         color: #fff;
       }
 
-      .zarinpal-title{
+      .zarinpal-title {
         color: #B0B0B0;
         margin-top: 5px;
         display: inline-block;
         font-size: 20px;
         //margin-right: 38px;
 
-        &:before{
+        &:before {
           content: $iconZarinpal;
           font-family: 'zarinpal';
           color: #B0B0B0;
           font-size: 23px;
-          margin-top:50px !important;
+          margin-top: 50px !important;
           position: relative;
           top: 7px;
           margin-left: 4px;
@@ -475,11 +475,11 @@ body {
         border-radius: 50%;
         transition: $animateTime;
 
-        &:before{
+        &:before {
           content: $iconSetting;
-          font-family:'zarinpal';
-          color:#6D6D6D;
-          font-size:23px;
+          font-family: 'zarinpal';
+          color: #6D6D6D;
+          font-size: 23px;
           position: relative;
           top: 2px;
         }
@@ -494,7 +494,7 @@ body {
     .body {
       margin-top: 20px;
 
-      .empty-notification{
+      .empty-notification {
         > span {
           color: #aaa;
           font-size: 12px;
@@ -504,25 +504,25 @@ body {
         }
       }
 
-      .notification-box{
+      .notification-box {
         padding: 26px 12px;
         border-bottom: 1px solid #ccc;
         transition: $animateTime;
         cursor: pointer;
         padding: 30px;
-        .title{
+        .title {
           width: 100% !important;
           margin: 10px 0 31px;
           font-size: 15px;
           color: #424242;
         }
 
-        .body{
+        .body {
           font-size: 13px;
           color: #777;
         }
 
-        &:last-child{
+        &:last-child {
           border-bottom: 0 !important;
         }
 
@@ -535,31 +535,31 @@ body {
   }
 }
 
-.opened-dropdown{
+.opened-dropdown {
   background-color: $sidebarHoverBgColor;
-  ul{
+  ul {
     background-color: $sidebarHoverBgColor;
   }
 }
 
-#userProgress{
-  zoom:0.25 !important;
+#userProgress {
+  zoom: 0.25 !important;
 }
 
-.small-user-image{
+.small-user-image {
   zoom: 0.15 !important;
   margin-right: -55px !important;
   animation: userInfoFade 0.8s ease-in-out;
 }
 
 /*Small sidebar*/
-.sticky-sidebar{
+.sticky-sidebar {
   position: -webkit-sticky;
   position: sticky;
-  top:50px;
+  top: 50px;
 }
 
-.dot-hidden{
+.dot-hidden {
   display: inline-block;
   width: 5px;
   height: 5px;
@@ -570,7 +570,7 @@ body {
   transition: $animateTime;
 }
 
-.dot-show{
+.dot-show {
   display: inline-block;
   width: 5px;
   height: 5px;
@@ -578,38 +578,37 @@ body {
   border-radius: 50%;
   margin-right: 10px;
   opacity: 1;
-  -webkit-animation-duration:  0.5s;
+  -webkit-animation-duration: 0.5s;
   animation-timing-function: ease;
   -webkit-animation-timing-function: ease;
 }
 
-.small-sidebar{
+.small-sidebar {
   width: $smallSidebarWidth !important;
   padding: 0;
   bottom: 0;
-  background:none repeat scroll 0 0  #fff;
+  background: none repeat scroll 0 0 #fff;
   border-left: 2px solid #eceff1;
   transition: $animateTime;
   margin-top: 50px;
 
-
   .router-link-exact-active,
-  .router-link-active{
-    background-color: #f4f4f4  !important;
+  .router-link-active {
+    background-color: #f4f4f4 !important;
     color: #333 !important;
   }
 
-  .close-mobile-sidebar{
+  .close-mobile-sidebar {
     display: none;
   }
 
-  .user-info{
-    .user-image{
+  .user-info {
+    .user-image {
       width: 45px !important;
       height: 45px !important;
       margin: 30px auto;
 
-      img{
+      img {
         margin-left: auto;
         margin-right: auto;
         width: 45px;
@@ -620,21 +619,21 @@ body {
       }
     }
 
-    .user-name{
+    .user-name {
       display: none;
     }
 
-    .nav-zp-id{
+    .nav-zp-id {
       display: none;
     }
 
   }
 
   /*side item*/
-  ul{
+  ul {
     padding: 0;
 
-    li{
+    li {
       padding: 15px 0;
       display: block;
       text-align: center !important;
@@ -643,44 +642,44 @@ body {
       font-size: 20px;
       cursor: pointer;
 
-      .icon-zp-easy-pay:before{
+      .icon-zp-easy-pay:before {
         margin-right: -5px !important;
       }
 
-      .dot-show{
+      .dot-show {
         opacity: 0 !important;
       }
 
-      .submenu{
+      .submenu {
         background-color: $sidebarHoverBgColor !important;
         position: absolute;
         right: $smallSidebarWidth + 2;
         padding: 10px;
         width: $smallSubMenuWidth;
 
-        li{
+        li {
           padding: 5px !important;
         }
       }
 
-      .item-icon{
+      .item-icon {
         font-size: $smallSidebarIconSize;
         color: $sideItemColor;
       }
-      .item-label{
+      .item-label {
         display: none !important;
 
-        span{
+        span {
           display: none !important;
         }
       }
 
-      .item-arrow{
+      .item-arrow {
         display: none;
       }
     }
 
-    li:hover{
+    li:hover {
       background-color: $sidebarHoverBgColor;
       transition: $animateTime;
       text-decoration: none;
@@ -688,7 +687,7 @@ body {
 
   }
 
-  .unread-ticket-count{
+  .unread-ticket-count {
     margin-left: -20px !important;
     position: relative;
     left: 30px;
@@ -696,13 +695,13 @@ body {
   }
 }
 
-.unread-ticket-count{
+.unread-ticket-count {
   padding: 2px 8px;
   border-radius: 11px;
   font-size: 9px;
   color: #424242;
-  border: 1px solid rgba(255,255,255,.1);
-  background-color: #ffd600!important;
+  border: 1px solid rgba(255, 255, 255, .1);
+  background-color: #ffd600 !important;
   float: left;
   margin-left: 10px;
   margin-top: 2px;
@@ -714,33 +713,32 @@ body {
   padding: 0;
   top: 68px !important;
   bottom: 0;
-  background:none repeat scroll 0 0  #fff;
+  background: none repeat scroll 0 0 #fff;
   color: #eee;
   border-left: 2px solid #eceff1;
   transition: $animateTime;
   margin-top: 50px;
 
-
   .router-link-exact-active,
-  .router-link-active{
-    background-color: #f4f4f4  !important;
+  .router-link-active {
+    background-color: #f4f4f4 !important;
     color: #333 !important;
   }
 
-  .close-mobile-sidebar{
+  .close-mobile-sidebar {
     display: none;
   }
 
-  .user-info{
+  .user-info {
     animation: userInfoFade 0.8s ease-in-out;
 
-    .user-image{
+    .user-image {
       height: 90px;
       text-align: center;
       margin-top: 30px;
     }
 
-    .user-name{
+    .user-name {
       color: #424242;
       text-align: center;
       font-size: 13px;
@@ -748,24 +746,24 @@ body {
   }
 
   /*side item*/
-  ul{
+  ul {
     padding: 0;
     transition: 0s !important;
     width: 90%;
     margin: 0 auto;
 
-    .submenu{
+    .submenu {
       background-color: $sidebarHoverBgColor !important;
-      li{
-        padding: 7px 0!important;
+      li {
+        padding: 7px 0 !important;
 
-        span{
+        span {
           padding-right: 10px;
         }
       }
     }
 
-    li{
+    li {
       width: 100%;
       transition: $animateTime;
       color: #8e8e8e;
@@ -773,15 +771,15 @@ body {
       cursor: pointer;
       border-radius: 5px;
 
-      div{
+      div {
         height: 100%;
         padding: 10px 0;
 
-        .icon-zp-easy-pay:before{
+        .icon-zp-easy-pay:before {
           margin-right: -5px !important;
         }
 
-        i{
+        i {
           display: inline-block;
           margin-right: 15px;
           font-size: 17px;
@@ -789,11 +787,11 @@ body {
           top: 4px;
         }
 
-        .item-label{
+        .item-label {
           margin-right: 15px;
         }
 
-        .item-arrow{
+        .item-arrow {
           display: inline-block !important;
           float: left !important;
           margin-left: 20px;
@@ -808,13 +806,13 @@ body {
       }
     }
 
-    li:hover{
+    li:hover {
       background-color: $sidebarHoverBgColor;
       transition: $animateTime;
       text-decoration: none;
     }
 
-    li:hover .ul{
+    li:hover .ul {
       transition: $animateTime;
       background-color: $sidebarHoverBgColor !important;
     }
@@ -822,22 +820,23 @@ body {
 
 }
 
-.nav-zp-gold{
+.nav-zp-gold {
   border: 1px solid $goldColor;
 }
 
-.nav-zp-silver{
+.nav-zp-silver {
   border: 1px solid $silverColor;
 }
 
 .nav-zp-gray {
   border: 1px solid $grayColor;
 }
+
 .nav-zp-black {
   border: 1px solid $blackColor;
 }
 
-.nav-zp-id{
+.nav-zp-id {
   border-radius: 20px;
   margin: 14px auto 22px auto;
   text-align: center;
@@ -846,7 +845,7 @@ body {
   width: 205px;
   font-size: 13px;
 
-  span{
+  span {
     margin-top: 4px;
     margin-right: 4px;
     display: inline-block;
@@ -860,7 +859,7 @@ body {
     position: relative;
     top: -5px;
     height: 27px;
-    .icon-zarinpal{
+    .icon-zarinpal {
 
       &::before {
         content: $iconZarinpal;
@@ -872,7 +871,7 @@ body {
         padding-right: 4px;
       }
     }
-    span{
+    span {
       color: #5a4c01;
       font-size: 12px;
       display: inline-block;
@@ -882,28 +881,28 @@ body {
     }
   }
 
-  .zp-id-gold{
+  .zp-id-gold {
     border: 1px solid $goldColor;
     background-color: $goldColor;
 
-    .zp-id-color{
-      span{
+    .zp-id-color {
+      span {
         color: #5a4c01;
       }
     }
   }
 
-  .zp-id-silver{
+  .zp-id-silver {
     border: 1px solid $silverColor;
     background-color: $silverColor;
-    .zp-id-color{
-      span{
+    .zp-id-color {
+      span {
         color: #464849;
       }
     }
   }
 
-  .zp-id-gray{
+  .zp-id-gray {
     border: 1px solid $grayColor;
     background-color: $grayColor;
     color: #fff !important;
@@ -913,7 +912,7 @@ body {
     }
   }
 
-  .zp-id-black{
+  .zp-id-black {
     border: 1px solid $blackColor;
     background-color: $blackColor;
     color: #fff !important;
@@ -938,16 +937,17 @@ body {
     color: #056c31;
   }
 }
+
 @media (max-width: $mobileSize) {
-  .main-content{
+  .main-content {
     padding-right: 10px !important;
   }
 
-  .inner-content{
+  .inner-content {
     width: 100% !important;
   }
 
-  .hidden-xs{
+  .hidden-xs {
     display: none !important;
   }
 
@@ -961,8 +961,8 @@ body {
       margin-right: 10px !important;
       &::before {
         content: $iconMenu;
-        font-family:'zarinpal' !important;
-        font-size:25px;
+        font-family: 'zarinpal' !important;
+        font-size: 25px;
         margin-left: 10px;
       }
     }
@@ -1001,8 +1001,8 @@ body {
     padding-top: 60px;
 
     .router-link-exact-active,
-    .router-link-active{
-      background-color: #f4f4f4  !important;
+    .router-link-active {
+      background-color: #f4f4f4 !important;
       color: #333 !important;
     }
 
@@ -1016,21 +1016,21 @@ body {
       display: inline-block;
       &::before {
         content: $iconBackArrow;
-        font-family:'zarinpal' !important;
-        color:$sideItemColor;
-        font-size:25px;
+        font-family: 'zarinpal' !important;
+        color: $sideItemColor;
+        font-size: 25px;
         margin-left: 10px;
       }
     }
 
-    .user-info{
-      .user-image{
+    .user-info {
+      .user-image {
         width: 85px;
         height: 85px;
         margin: 30px auto 20px auto;
       }
 
-      .user-name{
+      .user-name {
         display: block !important;
         color: #424242;
         text-align: center;
@@ -1044,23 +1044,23 @@ body {
     }
 
     /*side item*/
-    ul{
+    ul {
       position: relative !important;
       right: 0 !important;
       padding: 0 !important;
       width: 90% !important;
       margin: 0 auto;
 
-      .submenu{
+      .submenu {
         position: relative !important;
         right: 0 !important;
         padding: 0px !important;
         width: 100% !important;
       }
 
-      li{
+      li {
         width: 100%;
-        height:auto !important;
+        height: auto !important;
         transition: $animateTime;
         color: #8e8e8e;
         font-size: 13px;
@@ -1069,15 +1069,15 @@ body {
         padding: 0;
         text-align: right !important;
 
-        div{
+        div {
           height: 100%;
           padding: 10px 0;
 
-          .icon-zp-easy-pay:before{
+          .icon-zp-easy-pay:before {
             margin-right: -5px !important;
           }
 
-          i{
+          i {
             display: inline-block;
             margin-right: 15px;
             font-size: 17px;
@@ -1085,12 +1085,12 @@ body {
             top: 4px;
           }
 
-          .item-label{
+          .item-label {
             display: inline-block !important;
             margin-right: 15px;
           }
 
-          .item-arrow{
+          .item-arrow {
             display: inline-block !important;
             float: left !important;
             margin-left: 10px;
@@ -1106,7 +1106,7 @@ body {
 
       }
 
-      li:hover .ul{
+      li:hover .ul {
         transition: $animateTime;
         background-color: $sidebarHoverBgColor !important;
       }

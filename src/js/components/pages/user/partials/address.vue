@@ -12,38 +12,41 @@
 
                 span.address-title(v-if="addressId > 1" ) {{$i18n.t('user.addressTitle') + ' ' + addressId | persianNumbers}}
             div.row.z-row
+
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                    input(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.title']}" type="text" v-model="address.title" @input="updateAddress" placeholder="عنوان" )
-                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.title']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.title']) }}
+                    input(v-validate="'required|max:255'" v-bind:data-vv-as="$i18n.t('user.addressTitlePlaceholder')"  :class="{'input-danger': errors.has('addresses.'+ (addressId -1) + '.title')}" type="text" v-model="address.title" :name="'addresses.'+ (addressId -1) +'.title'" @input="updateAddress" :placeholder="$i18n.t('user.addressTitlePlaceholder')")
+                    div.ta-right(v-if="validation('addresses.'+ (addressId -1) +'.title')")
+                        span.text-danger {{ errors.first('addresses.'+ (addressId -1) +'.title') }}
+
 
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     span.input-icon.icon-tel
-                    input(v-validate="{type: 'number'}" maxlength="14" :class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.landline']}" type="text" v-model="address.landline" @input="updateAddress" placeholder="شماره تلفن (ثابت)" )
-                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.landline']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.landline']) }}
+                    input(v-validate="{ rules: {required: true, numeric: true, regex: /^0[1-8][0-9]{3,10}$/} }" v-bind:data-vv-as="$i18n.t('user.addressLandlinePlaceholder')" :class="{'input-danger': errors.has('addresses.'+ (addressId -1) + '.landline')}" type="text" v-model="address.landline" :name="'addresses.'+ (addressId -1) +'.landline'" @input="updateAddress" :placeholder="$i18n.t('user.addressLandlinePlaceholder')")
+                    div.ta-right(v-if="validation('addresses.'+ (addressId -1) +'.landline')")
+                        span.text-danger {{ errors.first('addresses.'+ (addressId -1) +'.landline') }}
+
 
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     span.input-icon.icon-postal-code
-                    input(v-validate="{type: 'number'}" maxlength="10" :class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.postal_code']}" type="text" v-model="address.postal_code"  @input="updateAddress" placeholder="کد پستی" )
-                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.postal_code']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.postal_code'])}}
+                    input(v-validate="{ rules: {required: true, numeric: true} }" v-bind:data-vv-as="$i18n.t('user.addressPostalCodePlaceholder')" :class="{'input-danger': errors.has('addresses.'+ (addressId -1) + '.postal_code')}" type="text" maxlength="10" v-model="address.postal_code" :name="'addresses.'+ (addressId -1) +'.postal_code'" @input="updateAddress" :placeholder="$i18n.t('user.addressPostalCodePlaceholder')")
+                    div.ta-right(v-if="validation('addresses.'+ (addressId -1) +'.postal_code')")
+                        span.text-danger {{ errors.first('addresses.'+ (addressId -1) + '.postal_code') }}
 
             div.row.z-row
-                div.col-lg-9.col-md-9.col-sm-12.col-xs-12
-                    input(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.address']}" type="text" v-model="address.address"  @input="updateAddress" placeholder="آدرس" )
-                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.address']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.address']) }}
+                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+                    input(v-validate="'required|max:255'" v-bind:data-vv-as="$i18n.t('user.addressPlaceholder')" :class="{'input-danger': errors.has('addresses.'+ (addressId -1) + '.address')}" type="text" v-model="address.address" :name="'addresses.'+ (addressId -1) +'.address'" @input="updateAddress" :placeholder="$i18n.t('user.addressPlaceholder')")
+                    div.ta-right(v-if="validation('addresses.'+ (addressId -1) +'.address')")
+                        span.text-danger {{ errors.first('addresses.'+ (addressId -1) +'.address') }}
 
-                div.col-lg-3.col-md-3.col-sm-12.col-xs-12(@click="visibleMap = true")
-                    div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.geo_location'], 'has-geo-location': address.geo_location}")
-                        span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}
-                        span(v-else) {{address.geo_location | persianNumbers}}
 
-                        span.input-icon.icon-location
-                    div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.geo_location']")
-                        span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.geo_location']) }}
+                <!--div.col-lg-3.col-md-3.col-sm-12.col-xs-12(@click="visibleMap = true")-->
+                <!--div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+ (addressId -1) +'.geo_location'], 'has-geo-location': address.geo_location}")-->
+                <!--span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}-->
+                <!--span(v-else) {{address.geo_location | persianNumbers}}-->
 
+                <!--span.input-icon.icon-location-->
+                div.ta-right(v-if="validationErrors['addresses.'+ (addressId -1) +'.geo_location']")
+                    span.text-danger {{ $i18n.t(validationErrors['addresses.'+ (addressId -1) +'.geo_location']) }}
 
             <!--Show google map to select location-->
             google-map(v-if="visibleMap" v-on:locationData="locationData" v-on:closeModal="closeModal()")
@@ -65,7 +68,6 @@
 
     export default {
         name: 'address',
-        props: ['addressId', 'singleAddress'],
         data() {
             return {
                 visibleCloseIcon: false,
@@ -82,7 +84,8 @@
                 confirm: false,
             }
         },
-        computed:{
+        props: ['addressId', 'singleAddress'],
+        computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -91,8 +94,16 @@
             this.initAddress();
         },
         methods: {
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.clear();
+                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
             initAddress() {
-                if(this.singleAddress) {
+                if (this.singleAddress) {
                     this.address.address = this.singleAddress.address;
                     this.address.landline = this.singleAddress.landline;
                     this.address.postal_code = this.singleAddress.postal_code;
@@ -123,7 +134,7 @@
                 this.confirmVisible = false;
             },
         },
-        components:{
+        components: {
             'google-map': map,
             confirm
         }

@@ -34,11 +34,11 @@
     export default {
         name: 'ticket-index',
         data() {
-          return {
-              showTicketReplies: false,
-          }
+            return {
+                showTicketReplies: false,
+            }
         },
-        computed:{
+        computed: {
             user(){
                 return this.$store.state.auth.user;
             },

@@ -68,7 +68,6 @@
                     circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
-
 </template>
 
 <script>
@@ -107,9 +106,9 @@
             this.search();
             let vm = this;
 
-            window.onscroll = function(ev) {
+            window.onscroll = function (ev) {
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                && !vm.$store.state.paginator.isLoading) {
+                    && !vm.$store.state.paginator.isLoading) {
                     vm.$store.dispatch(
                         'paginator/next'
                     );
@@ -120,7 +119,7 @@
             restart() {
                 this.filterValue = null;
                 this.searchOptions = {};
-                this.addFilter('webserviceId',this.$route.params.id)
+                this.addFilter('webserviceId', this.$route.params.id)
             },
             addFilter(filter, value) {
                 this.searchOptions[filter] = value;
@@ -131,8 +130,8 @@
                     'paginator/make',
                     {
                         vm,
-                        resource:vm.$store.state.http.requests['transaction.getSessions'],
-                        resourceData:vm.searchOptions
+                        resource: vm.$store.state.http.requests['transaction.getSessions'],
+                        resourceData: vm.searchOptions
                     }
                 );
             },
@@ -140,7 +139,7 @@
                 this.filterType = value;
                 switch (value) {
                     case 'authority':
-                        this.placeholder ='39xxxxxx';
+                        this.placeholder = '39xxxxxx';
                         break;
                     case 'mobile':
                         this.placeholder = '09xxxxxxxxx';
@@ -154,7 +153,7 @@
                 return this.$store.state.auth.user;
             },
             transactionSessions() {
-                if(this.$store.state.paginator.data) {
+                if (this.$store.state.paginator.data) {
                     this.isLoaded = true;
                 }
                 return this.$store.state.paginator.data;

@@ -95,7 +95,7 @@
         },
         props: ['transaction'],
         created() {
-            if(this.transaction.to_user) {
+            if (this.transaction.to_user) {
                 this.purseName = this.getPurseName(this.transaction.to_user.purse);
             }
         },
@@ -107,7 +107,7 @@
                 this.$emit('closeModal')
             },
             getPurseName(purseId) {
-                return _.find(this.$store.state.auth.user.purses, function(purse) {
+                return _.find(this.$store.state.auth.user.purses, function (purse) {
                     return purse.purse === purseId;
                 });
 

@@ -15,21 +15,21 @@
                 let categoryParents = [];
 
                 //make parents
-                categories.forEach(function(category) {
-                    if(!category.parent_id) {
+                categories.forEach(function (category) {
+                    if (!category.parent_id) {
                         categoryParents.push({public_id: category.public_id, title: category.title, disable: 1});
                     }
                 });
 
                 //make childs
-                categories.forEach(function(category) {
-                    if(category.parent_id) {
-                        let parentCategoryIndex = _.findIndex(categoryParents, function(parentCategory) {
+                categories.forEach(function (category) {
+                    if (category.parent_id) {
+                        let parentCategoryIndex = _.findIndex(categoryParents, function (parentCategory) {
                             return parentCategory.public_id === category.parent_id;
                         });
 
                         let categoryChild = {public_id: category.public_id, title: category.title, disable: 0};
-                        categoryParents.splice(parentCategoryIndex+1, 0, categoryChild);
+                        categoryParents.splice(parentCategoryIndex + 1, 0, categoryChild);
                     }
                 });
 

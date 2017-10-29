@@ -46,6 +46,15 @@ new Vue({
                 vm.$store.commit('app/ready');
             }
         });
+
+
+        //Try to fix app ready after 10 seconds
+        let vm = this;
+        setTimeout(function () {
+            if(vm.$store.state.auth.check && vm.$store.state.auth.isLoaded && !vm.$store.state.app.isLoaded) {
+                vm.$store.commit('app/ready');
+            }
+        }, 5000);
     },
     watch: {
         '$route' (to) {

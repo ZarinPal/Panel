@@ -15,8 +15,8 @@
                     return this.$store.state.auth.user.purses.map(function (purse) {
                         let sep = ',';
                         let balance = null;
-                        if(purse.balance) {
-                            if(purse.balance.balance){
+                        if (purse.balance) {
+                            if (purse.balance.balance) {
                                 balance = purse.balance.balance.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
                             } else {
                                 balance = purse.balance.balance;

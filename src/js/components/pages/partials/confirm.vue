@@ -42,7 +42,7 @@
                 this.closeModal();
             }
         },
-        components:{
+        components: {
             modal
         }
     }

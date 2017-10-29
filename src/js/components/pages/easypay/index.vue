@@ -33,7 +33,7 @@
 
     export default {
         name: 'easypay-index',
-        computed:{
+        computed: {
             user(){
                 return this.$store.state.auth.user;
             },
@@ -49,7 +49,7 @@
             this.getEasypays();
 
             let vm = this;
-            window.onscroll = function() {
+            window.onscroll = function () {
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
                     && !vm.$store.state.paginator.paginator.EasypayList.isLoading) {
                     vm.$store.dispatch(
@@ -68,7 +68,7 @@
                     'paginator/make',
                     {
                         vm,
-                        resource:vm.$store.state.http.requests['easypay.getList'],
+                        resource: vm.$store.state.http.requests['easypay.getList'],
                         requestName: "EasypayList"
                     }
                 );

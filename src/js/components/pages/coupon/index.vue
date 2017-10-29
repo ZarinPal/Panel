@@ -34,10 +34,9 @@
     export default {
         name: 'coupon-index',
         data(){
-            return{
-            }
+            return {}
         },
-        computed:{
+        computed: {
             user(){
                 return this.$store.state.auth.user;
             },
@@ -53,7 +52,7 @@
             this.getCoupon();
 
             let vm = this;
-            window.onscroll = function() {
+            window.onscroll = function () {
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
                     && !vm.$store.state.paginator.paginator.CouponList.isLoading) {
                     vm.$store.dispatch(
@@ -72,7 +71,7 @@
                     'paginator/make',
                     {
                         vm,
-                        resource:vm.$store.state.http.requests['coupon.getIndex'],
+                        resource: vm.$store.state.http.requests['coupon.getIndex'],
                         requestName: "CouponList"
                     }
                 );
