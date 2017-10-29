@@ -72,11 +72,8 @@
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(v-on:paste="pasteOtp()" @change="otpMaxLength()" @keyup="otpMaxLength()" :class="{'input-danger': errors.has('otp')}"  v-bind:data-vv-as="$i18n.t('user.otpPass')" v-validate="'required|numeric|digits:6'" type="number" min="0" name="otp" v-model="otp"  id="txtOtp")
+                                    input(v-on:paste="pasteOtp()" @change="otpMaxLength()" @keyup="otpMaxLength()" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
                                 div.dashed-line
-
-                        div.ta-right(v-if="validation('otp')")
-                            span.text-danger {{ errors.first('otp') }}
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
@@ -135,7 +132,10 @@
             },
         },
         mounted(){
-            document.getElementById('username').focus();
+            let txtUsername = document.getElementById('username');
+            if (txtUsername) {
+                txtUsername.focus();
+            }
             if (this.$route.query.mobile) {
                 this.username = this.$route.query.mobile;
             }
@@ -265,12 +265,27 @@
             otpMaxLength() {
                 setTimeout(function () {
                     if (document.getElementById('txtOtp')) {
-                        let txtOtp = document.getElementById('txtOtp').value;
-                        if (txtOtp.length > 0 && txtOtp.length === 6) {
+                        let txtOtp = document.getElementById('txtOtp');
+                        if (txtOtp.value.length > 0 && txtOtp.value.length === 6) {
                             document.getElementById("btnSubmitLogin").click();
+                        }
+
+                        if (txtOtp.value.length === 6) {
+                            txtOtp.classList.remove("remove-otp-curse");
+                            txtOtp.className += " remove-otp-curse";
+                        } else {
+                            txtOtp.classList.remove("remove-otp-curse");
                         }
                     }
                 }, 20);
+            },
+            preventMaxSize(event) {
+                document.getElementById('txtOtp');
+                let txtOtp = document.getElementById('txtOtp');
+                if (txtOtp.value.length > 5) {
+                    event.preventDefault();
+                    return false;
+                }
             }
         },
         components: {
