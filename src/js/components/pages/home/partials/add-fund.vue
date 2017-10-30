@@ -46,14 +46,16 @@
             this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
             this.closeModalContent = false;
 
-            let vm = this;
-            let zarinak = document.createElement("script");
-            zarinak.type = "application/javascript";
-            zarinak.src = 'https://cdn.zarinpal.com/zarinak/v1/checkout.js';
-            zarinak.onload = function() {
-                vm.zarinakReady = true;
-            };
-            document.body.appendChild(zarinak);
+            if (!window.Zarinak) {
+                let vm = this;
+                let zarinak = document.createElement("script");
+                zarinak.type = "application/javascript";
+                zarinak.src = 'https://cdn.zarinpal.com/zarinak/v1/checkout.js';
+                zarinak.onload = function() {
+                    vm.zarinakReady = true;
+                };
+                document.body.appendChild(zarinak);
+            }
         },
         computed: {
             activeCards() {
