@@ -55,6 +55,8 @@
                     vm.zarinakReady = true;
                 };
                 document.body.appendChild(zarinak);
+            } else {
+                vm.zarinakReady = true;
             }
         },
         computed: {
