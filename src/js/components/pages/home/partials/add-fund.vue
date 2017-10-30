@@ -38,26 +38,12 @@
                 card_id: null,
                 purse: null,
                 maxAmountLimit: 10000000,
-                redirect_url: null,
-                zarinakReady: false
+                redirect_url: null
             }
         },
-        mounted(){
+        mounted() {
             this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
             this.closeModalContent = false;
-
-            if (!window.Zarinak) {
-                let vm = this;
-                let zarinak = document.createElement("script");
-                zarinak.type = "application/javascript";
-                zarinak.src = 'https://cdn.zarinpal.com/zarinak/v1/checkout.js';
-                zarinak.onload = function() {
-                    vm.zarinakReady = true;
-                };
-                document.body.appendChild(zarinak);
-            } else {
-                vm.zarinakReady = true;
-            }
         },
         computed: {
             activeCards() {
@@ -78,7 +64,7 @@
         },
         methods: {
             validation(name) {
-                if(this.$store.state.alert.validationErrors[name]) {
+                if (this.$store.state.alert.validationErrors[name]) {
                     this.errors.clear();
                     this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
                     this.$store.state.alert.validationErrors[name] = false;
@@ -95,7 +81,7 @@
                     }
                 });
             },
-            removeErrors : function (field) {
+            removeErrors: function (field) {
                 !!this[field] && this.errors.remove(field);
             },
             closeModal() {
@@ -105,14 +91,6 @@
                 this.purse = purse;
             },
             addFund() {
-                if (!this.zarinakReady) {
-                    this.$store.commit('flashMessage', {
-                        text: 'zarinak is not loaded try again.',
-                        type: 'danger',
-                        important: true,
-                    });
-                    return;
-                }
                 if (this.amount > this.maxAmountLimit) {
                     this.$store.commit('flashMessage', {
                         text: 'add found max amount limit',
@@ -134,8 +112,22 @@
 
                 this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
                     (response) => {
-                        Zarinak.setAuthority(response.data.data.authority);
-                        Zarinak.open();
+                        let openZarinak = () => {
+                            Zarinak.setAuthority(response.data.data.authority);
+                            Zarinak.open();
+
+                        };
+                        if (!window.Zarinak) {
+                            let zarinak = document.createElement("script");
+                            zarinak.type = "application/javascript";
+                            zarinak.src = 'https://cdn.zarinpal.com/zarinak/v1/checkout.js';
+                            zarinak.onload = function () {
+                                openZarinak();
+                            };
+                            document.body.appendChild(zarinak);
+                        } else {
+                            openZarinak();
+                        }
                     },
                     (response) => {
                         this.loading = false;

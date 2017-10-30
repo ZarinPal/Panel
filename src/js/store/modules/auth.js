@@ -45,6 +45,13 @@ export default {
                     dispatch('fetchPurseBalance');
                     // rootState.app.isLoaded = true;
 
+                    if (!!this.$raven) {
+                        this.$raven.setUserContext({
+                            email: this.$store.state.auth.auth.email,
+                            id: this.$store.state.auth.auth.public_id
+                        });
+                    }
+
                     callback(true);
                 }
             ).catch((response) => {
