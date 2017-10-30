@@ -8,6 +8,10 @@ window.moment.loadPersian();
  * using reactive data binding and reusable components. Vue's API is clean
  * and simple, leaving you to focus on building your next great project.
  */
+
+import offlineJs from "offline-js";
+window.offlineJs = offlineJs;
+
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
