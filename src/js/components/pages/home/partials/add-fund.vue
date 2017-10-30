@@ -23,7 +23,6 @@
 
 
 <script>
-    import zarinak from '@zarinpal/zarinak'
     import selectbox from '../../partials/selectbox.vue';
     import modal from '../../partials/modal.vue';
     import cards from '../../partials/cards.vue';
@@ -39,12 +38,22 @@
                 card_id: null,
                 purse: null,
                 maxAmountLimit: 10000000,
-                redirect_url: null
+                redirect_url: null,
+                zarinakReady: false
             }
         },
         mounted(){
             this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
-            this.closeModalContent = false
+            this.closeModalContent = false;
+
+            let vm = this;
+            let zarinak = document.createElement("script");
+            zarinak.type = "application/javascript";
+            zarinak.src = 'https://cdn.zarinpal.com/zarinak/v1/checkout.js';
+            zarinak.onload = function() {
+                vm.zarinakReady = true;
+            };
+            document.body.appendChild(zarinak);
         },
         computed: {
             activeCards() {
@@ -92,6 +101,14 @@
                 this.purse = purse;
             },
             addFund() {
+                if (!this.zarinakReady) {
+                    this.$store.commit('flashMessage', {
+                        text: 'zarinak is not loaded try again.',
+                        type: 'danger',
+                        important: true,
+                    });
+                    return;
+                }
                 if (this.amount > this.maxAmountLimit) {
                     this.$store.commit('flashMessage', {
                         text: 'add found max amount limit',
