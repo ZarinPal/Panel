@@ -56,7 +56,7 @@
                 };
                 document.body.appendChild(zarinak);
             } else {
-                vm.zarinakReady = true;
+                this.zarinakReady = true;
             }
         },
         computed: {
