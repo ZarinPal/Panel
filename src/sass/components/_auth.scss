@@ -180,18 +180,26 @@
 
     .otp-container {
       #txtOtp {
+        font-family: 'VazirCode', monospaced !important;
         width: 300px;
         border: none;
         outline: none;
-        font-size: 13px;
         letter-spacing: 30px;
         text-align: left;
-        margin-left: 63px;
+        margin-left: 61px;
         direction: ltr;
+        font-size: 20px;
 
         &:focus {
           box-shadow: none;
         }
+      }
+
+      .remove-otp-curse {
+        border: none;
+        color: transparent;
+        text-shadow: 0 0 0 gray;
+        text-align: center;
       }
 
       .dashed-line {

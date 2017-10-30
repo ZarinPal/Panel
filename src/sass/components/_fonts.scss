@@ -56,6 +56,15 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: VazirCode;
+  src: url('../fonts/code/Vazir-Code.eot');
+  src: url('../fonts/code/Vazir-Code.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/code/Vazir-Code.woff') format('woff'),
+  url('../fonts/code/Vazir-Code.ttf') format('truetype');
+  font-weight: normal;
+}
+
 i[class^="icon-"], i[class*=" icon-"],
 span[class^="icon-"], span[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */

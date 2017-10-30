@@ -13,11 +13,6 @@
                         div.ta-right(v-if="validation('amount')")
                             span.text-danger {{ errors.first('amount') }}
 
-                    div.row.no-margin
-                        cards(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" v-bind:visibleNewCard="false" v-on:select="selectedCard" tabindex="2")
-                        div.ta-right(v-if="validation('card_id')")
-                            span.text-danger {{ errors.first('card_id') }}
-
                     div.row
                         div.col-xs.no-margin
                             button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('purse.addFund')}}
@@ -43,12 +38,26 @@
                 card_id: null,
                 purse: null,
                 maxAmountLimit: 10000000,
-                redirect_url: null
+                redirect_url: null,
+                zarinakReady: false
             }
         },
         mounted(){
             this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
-            this.closeModalContent = false
+            this.closeModalContent = false;
+
+            if (!window.Zarinak) {
+                let vm = this;
+                let zarinak = document.createElement("script");
+                zarinak.type = "application/javascript";
+                zarinak.src = 'https://cdn.zarinpal.com/zarinak/v1/checkout.js';
+                zarinak.onload = function() {
+                    vm.zarinakReady = true;
+                };
+                document.body.appendChild(zarinak);
+            } else {
+                vm.zarinakReady = true;
+            }
         },
         computed: {
             activeCards() {
@@ -79,7 +88,6 @@
             validateForm() {
                 this.$validator.validateAll({
                     amount: this.amount,
-                    card_id: this.card_id,
                     purse: this.purse
                 }).then((result) => {
                     if (result) {
@@ -97,6 +105,14 @@
                 this.purse = purse;
             },
             addFund() {
+                if (!this.zarinakReady) {
+                    this.$store.commit('flashMessage', {
+                        text: 'zarinak is not loaded try again.',
+                        type: 'danger',
+                        important: true,
+                    });
+                    return;
+                }
                 if (this.amount > this.maxAmountLimit) {
                     this.$store.commit('flashMessage', {
                         text: 'add found max amount limit',
@@ -106,7 +122,6 @@
                     return;
                 }
 
-                this.loading = true;
                 let amount = this.amount;
                 if (/,/g.test(this.amount)) {
                     amount = this.amount.replace(/,/g, ""); //remove , from amount
@@ -114,16 +129,13 @@
                 let addFundData = {
                     purse: this.purse,
                     amount: amount,
-                    card_id: this.card_id,
                     redirect_url: this.redirect_url
                 };
 
                 this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
                     (response) => {
-                        let addFundWindow = window.open(
-                            'https://www.zarinpal.com/pg/StartPay/' + response.data.data.authority + '/ZarinGate',
-                            '_self'
-                        );
+                        Zarinak.setAuthority(response.data.data.authority);
+                        Zarinak.open();
                     },
                     (response) => {
                         this.loading = false;

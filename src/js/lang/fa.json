@@ -1103,6 +1103,8 @@
     "unlimited": "بدون محدودیت",
     "transactionSession": "سشن‌های پرداخت",
     "withoutIpLimit": "بدون محدودیت IP",
-    "withIpLimit": "با محدودیت IP"
+    "withIpLimit": "با محدودیت IP",
+    "activation": "فعالسازی",
+    "inActive": "غیر فعال"
   }
 }
