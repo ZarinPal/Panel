@@ -17,8 +17,6 @@ import VueI18n from "vue-i18n";
  */
 import VeeValidate from "vee-validate";
 import messagesFa from "./lang/validation/fa";
-import Raven from "raven-js";
-import RavenVue from "raven-js/plugins/vue";
 window.Vue = Vue;
 require('vue-resource');
 
@@ -44,10 +42,15 @@ VeeValidate.Validator.addLocale(messagesFa);
 Vue.use(VeeValidate, {locale: 'fa'});
 Vue.use(VeeValidate);
 
-Raven
-    .config('https://0e52e25ebe614c0892b9a057b52a8d21@sentry.zarinpal.com/5')
-    .addPlugin(RavenVue, Vue)
-    .install();
+import VueSentry from 'vue2-sentry';
+Vue.use(VueSentry, {
+    protocol: 'https', // default is https
+    key: '0e52e25ebe614c0892b9a057b52a8d21',
+    server: 'sentry.zarinpal.com',
+    project: '5',
+    config: {}, // custom config,
+    enable: process.env.NODE_ENV === 'production',
+});
 
 Vue.directive(
     'clipboard',
