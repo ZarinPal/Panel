@@ -22,7 +22,7 @@
 
                 div.row.input-group.no-margin(:class="{'input-danger': errors.has('iban')}")
                     div.col-xs.no-margin
-                        input.input.ta-left.dir-ltr(v-validate="{ rules: {required: true, numeric: true, max: 24} }" v-bind:data-vv-as="$i18n.t('card.iban')" maxlength="24" type="text" v-model="iban" name="iban" :placeholder= "$i18n.t('card.iban')")
+                        input.input.ta-left.dir-ltr(v-validate="{ rules: {required: true, numeric: true, digits: 24} }" v-bind:data-vv-as="$i18n.t('card.iban')" maxlength="24" type="text" v-model="iban" name="iban" id="iban" :placeholder= "$i18n.t('card.iban')" autofocus tabindex="1")
                     div.no-margin.first-label
                         span IR
 
@@ -31,7 +31,7 @@
 
                 div(v-if="isLegal == 0")
                     div.row
-                        input.ta-left.dir-ltr(v-validate="{ rules: {required: true, max: 19}}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder= "$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat('pan')")
+                        input.ta-left.dir-ltr(v-validate="{ rules: {required: true, regex: /^[5-6](\\d{3})(-(\\d{4})){3}/ }}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder= "$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat('pan')" tabindex="2")
                         div.ta-right(v-if="validation('pan')")
                             span.text-danger {{ errors.first('pan') }}
 
@@ -42,10 +42,10 @@
                             div.row.nav-expiration-input
                                 div.col-xs.no-margin
                                     span.label {{$i18n.t('card.month')}}:
-                                    input#month(v-validate="{ rules: {required: true, numeric: true, max_value: 12}}" v-bind:data-vv-as="$i18n.t('card.month')" :class="{'input-danger': errors.has('month')}" maxlength="2" type="text" v-model="month" name="month" :placeholder= "$i18n.t('card.month')" @keyup="changeMonthFocus")
+                                    input#month(v-validate="{ rules: {required: true, numeric: true, min_value: 1 ,max_value: 12}}" v-bind:data-vv-as="$i18n.t('card.month')" :class="{'input-danger': errors.has('month')}" maxlength="2" type="text" v-model="month" name="month" :placeholder= "$i18n.t('card.month')" @keyup="changeMonthFocus")
                                 div.col-xs.no-margin
                                     span.label {{$i18n.t('card.year')}}:
-                                    input#year(v-validate="{ rules: {required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('card.year')" :class="{'input-danger': errors.has('year')}" maxlength="4" type="text" v-model="year" name="year" :placeholder="$i18n.t('card.year')" @keyup="changeYearFocus")
+                                    input#year(v-validate="{ rules: {required: true, numeric: true, min_value : 1396 , max_value: 1425}}" v-bind:data-vv-as="$i18n.t('card.year')" :class="{'input-danger': errors.has('year')}" maxlength="4" type="text" v-model="year" name="year" :placeholder="$i18n.t('card.year')" @keyup="changeYearFocus")
 
                                 div.ta-right
                                     div.text-danger(v-if="validation('year')") {{ errors.first('year') }}
@@ -100,6 +100,7 @@
             store.commit('clearValidationErrors');
         },
         mounted() {
+            document.getElementById('iban').focus();
             this.closeModalContent = false
         },
         methods: {
