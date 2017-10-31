@@ -32,6 +32,7 @@
     "distAccountNumber": "شماره حساب مقصد",
     "refrenceNumber": "شماره مرجع",
     "amount": "مقدار",
+    "fee" : "مبلغ",
     "pan": "شماره کارت",
     "transferAmountTitle": "(مبلغ (تومان",
     "dstZarinpalId": "زرین‌پال مقصد",
