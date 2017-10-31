@@ -12,12 +12,12 @@
                     form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row
                             div.col-xs-12.no-margin
-                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse"  tabindex="3" placeholder="انتخاب کیف پول")
                                 div.ta-right(v-if="validation('purse')")
                                     span.text-danger {{ errors.first('purse') }}
 
                             div.col-xs.no-right-margin
-                                input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
+                                input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')" autofocus tabindex="1")
                                 div.ta-right(v-if="validation('amount')")
                                     span.text-danger {{ errors.first('amount') }}
 
@@ -27,13 +27,13 @@
                                     span.text-danger {{ errors.first('zpId') }}
 
                         div.row
-                            textarea(v-validate="{rules: {required: true, max:255}}" v-bind:data-vv-as="$i18n.t('common.description')" :class="{'input-danger': errors.has('description')}" type="text" v-model="description" name="description" :placeholder="$i18n.t('common.description')" tabindex="3")
+                            textarea(v-validate="{rules: {required: true, max:255}}" v-bind:data-vv-as="$i18n.t('common.description')" :class="{'input-danger': errors.has('description')}" type="text" v-model="description" name="description" :placeholder="$i18n.t('common.description')" tabindex="4")
                             div.ta-right(v-if="validation('description')")
                                 span.text-danger {{ errors.first('description') }}
 
                         div.row
                             div.col-xs.no-margin
-                                button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="4") {{ $i18n.t('purse.nextStep') }}
+                                button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="5") {{ $i18n.t('purse.nextStep') }}
 
                 div(v-else)
                     div.list(v-if="destinationUser")
@@ -112,6 +112,7 @@
         },
         mounted(){
             this.closeModalContent = false
+            document.getElementById('amount').focus();
         },
         created() {
             store.commit('clearValidationErrors');

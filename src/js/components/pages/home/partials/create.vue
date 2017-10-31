@@ -4,11 +4,11 @@
         div(slot="content")
             form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
-                    input(v-validate="{ rules: {required: true, min:3, max: 50}}" v-bind:data-vv-as="$i18n.t('user.purseName')" :class="{'input-danger': errors.has('name')}" type="text" v-model="name" name="name" :placeholder="$i18n.t('user.purseName')")
+                    input(v-validate="{ rules: {required: true, min:3, max: 50}}" v-bind:data-vv-as="$i18n.t('user.purseName')" :class="{'input-danger': errors.has('name')}" type="text" v-model="name" name="name" id="name" autofocus tabindex="1" :placeholder="$i18n.t('user.purseName')")
                     div.ta-right(v-if="validation('name')")
                         span.text-danger {{ errors.first('name') }}
 
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" tabindex="2")
                     div.ta-right(v-if="validation('purse')")
                         span.text-danger {{ errors.first('purse') }}
 
@@ -17,7 +17,7 @@
 
                 div.row
                     div.col-xs.no-margin
-                        button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('purse.addPurse')}}
+                        button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="3") {{$i18n.t('purse.addPurse')}}
                             svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                 circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
@@ -52,6 +52,9 @@
         },
         created(){
             store.commit('clearValidationErrors');
+        },
+        mounted(){
+            document.getElementById('name').focus();
         },
         methods: {
             validation(name) {
