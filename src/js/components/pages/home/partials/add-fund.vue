@@ -4,14 +4,14 @@
         div(slot="content")
             div(v-if="activeCards.length")
                 form(autocomplete="on" onsubmit="event.preventDefault();")
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
-                    div.ta-right(v-if="validation('purse')")
-                        span.text-danger {{ errors.first('purse') }}
-
-                    div.row.no-margin
+                    div.row
                         input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
                         div.ta-right(v-if="validation('amount')")
                             span.text-danger {{ errors.first('amount') }}
+
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                    div.ta-right(v-if="validation('purse')")
+                        span.text-danger {{ errors.first('purse') }}
 
                     div.row
                         div.col-xs.no-margin
@@ -23,7 +23,6 @@
 
 
 <script>
-    import zarinak from '@zarinpal/zarinak'
     import selectbox from '../../partials/selectbox.vue';
     import modal from '../../partials/modal.vue';
     import cards from '../../partials/cards.vue';
@@ -42,9 +41,9 @@
                 redirect_url: null
             }
         },
-        mounted(){
+        mounted() {
             this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
-            this.closeModalContent = false
+            this.closeModalContent = false;
         },
         computed: {
             activeCards() {
@@ -65,7 +64,7 @@
         },
         methods: {
             validation(name) {
-                if(this.$store.state.alert.validationErrors[name]) {
+                if (this.$store.state.alert.validationErrors[name]) {
                     this.errors.clear();
                     this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
                     this.$store.state.alert.validationErrors[name] = false;
@@ -82,7 +81,7 @@
                     }
                 });
             },
-            removeErrors : function (field) {
+            removeErrors: function (field) {
                 !!this[field] && this.errors.remove(field);
             },
             closeModal() {
@@ -113,8 +112,22 @@
 
                 this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
                     (response) => {
-                        Zarinak.setAuthority(response.data.data.authority);
-                        Zarinak.open();
+                        let openZarinak = () => {
+                            Zarinak.setAuthority(response.data.data.authority);
+                            Zarinak.open();
+
+                        };
+                        if (!window.Zarinak) {
+                            let zarinak = document.createElement("script");
+                            zarinak.type = "application/javascript";
+                            zarinak.src = 'https://cdn.zarinpal.com/zarinak/v1/checkout.js';
+                            zarinak.onload = function () {
+                                openZarinak();
+                            };
+                            document.body.appendChild(zarinak);
+                        } else {
+                            openZarinak();
+                        }
                     },
                     (response) => {
                         this.loading = false;
