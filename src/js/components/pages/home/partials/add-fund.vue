@@ -5,7 +5,7 @@
             div(v-if="activeCards.length")
                 form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.row
-                        input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')" autofocus tabindex="1")
+                        input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
                         div.ta-right(v-if="validation('amount')")
                             span.text-danger {{ errors.first('amount') }}
 
@@ -15,7 +15,7 @@
 
                     div.row
                         div.col-xs.no-margin
-                            button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="3") {{$i18n.t('purse.addFund')}}
+                            button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('purse.addFund')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -61,9 +61,6 @@
         },
         created() {
             store.commit('clearValidationErrors');
-        },
-        mounted(){
-            document.getElementById('amount').focus();
         },
         methods: {
             validation(name) {
