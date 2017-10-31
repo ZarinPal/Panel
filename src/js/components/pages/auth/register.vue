@@ -16,17 +16,17 @@
 
                     div.row.row-margin
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-right-margin
-                            input.half-input(v-validate="'required'" :class="{'input-danger': errors.has('first_name')}"  v-bind:data-vv-as="$i18n.t('user.firstName')" type="text" name="first_name" v-model="first_name" id="first_name" :placeholder= "$i18n.t('user.firstName')"  autofocus)
+                            input.half-input(v-validate="'required'" :class="{'input-danger': errors.has('first_name')}"  v-bind:data-vv-as="$i18n.t('user.firstName')" type="text" name="first_name" v-model="first_name" id="first_name" :placeholder= "$i18n.t('user.firstName')"  autofocus tabindex="1" )
                             div.ta-right(v-if="validation('first_name')")
                                 span.text-danger {{ errors.first('first_name') }}
 
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-left-margin
-                            input.half-input(v-validate="'required'" :class="{'input-danger': errors.has('last_name')}" v-bind:data-vv-as="$i18n.t('user.lastName')" type="text" v-model="last_name" id="last_name" name="last_name" :placeholder= "$i18n.t('user.lastName')" )
+                            input.half-input(v-validate="'required'" :class="{'input-danger': errors.has('last_name')}" v-bind:data-vv-as="$i18n.t('user.lastName')" type="text" v-model="last_name" id="last_name" name="last_name" :placeholder= "$i18n.t('user.lastName')" tabindex="2" )
                             div.ta-right(v-if="validation('last_name')")
                                 span.text-danger {{ errors.first('last_name') }}
 
                     div.row.row-margin
-                        input.half-input(v-validate="{rules: {required: true, regex: /^09[0-9]{9}$/} }" :class="{'input-danger': errors.has('mobile')}"  v-bind:data-vv-as="$i18n.t('user.mobile')" type="text" v-model="mobile" id="mobile" name="mobile" :placeholder= "$i18n.t('user.mobile')" )
+                        input.half-input(v-validate="{rules: {required: true, regex: /^09[0-9]{9}$/} }" :class="{'input-danger': errors.has('mobile')}"  v-bind:data-vv-as="$i18n.t('user.mobile')" type="text" v-model="mobile" id="mobile" name="mobile" :placeholder= "$i18n.t('user.mobile')" tabindex="3" )
                         div.ta-right(v-if="validation('mobile')")
                             span.text-danger {{ errors.first('mobile') }}
 
@@ -36,7 +36,7 @@
                             span عضو زرین‌پال هستید ؟
                             router-link.link(v-bind:to="{ name: 'auth.login',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.enter') }}
                         div.col-xs.no-margin
-                            button.gold.pull-left(id="register" @click="validateForm") {{$i18n.t('user.register')}}
+                            button.gold.pull-left(id="register" @click="validateForm" tabindex="4") {{$i18n.t('user.register')}}
 
 
             <!--Privacy Policy-->
