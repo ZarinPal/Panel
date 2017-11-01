@@ -32,6 +32,7 @@
     "distAccountNumber": "شماره حساب مقصد",
     "refrenceNumber": "شماره مرجع",
     "amount": "مقدار",
+    "fee" : "مبلغ",
     "pan": "شماره کارت",
     "transferAmountTitle": "(مبلغ (تومان",
     "dstZarinpalId": "زرین‌پال مقصد",
@@ -882,8 +883,9 @@
     "addressLandlinePlaceholder": "شماره تلفن (ثابت)",
     "addressPostalCodePlaceholder": "کد پستی",
     "addressPlaceholder": "آدرس",
-    "mobMail": "موبایل یا ایمیل"
-
+    "mobMail": "موبایل یا ایمیل",
+    "editInformationTitle": "ویرایش اطلاعات",
+    "editInformationDescription": "جهت ارتقا به سطح طلایی اطلاعات را تکمیل کنید"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

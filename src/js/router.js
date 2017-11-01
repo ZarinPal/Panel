@@ -198,11 +198,11 @@ export default new VueRouter({
                             }
                         },
                         {
-                            path: 'user/uploadDocument',
-                            name: 'user.uploadDocument',
-                            component: require('./components/pages/user/partials/upload_document.vue'),
+                            path: 'user/levelUp',
+                            name: 'user.levelUp',
+                            component: require('./components/pages/user/partials/level_up'),
                             meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
