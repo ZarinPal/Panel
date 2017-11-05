@@ -24,12 +24,30 @@
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                                     input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
                                     div.break
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-8
+                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                                     selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" placeholder="انتخاب کنید ...")
+                                    div.break
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
                                     button.btn.info.pull-right(v-ripple="" @click="search()")
                                         span {{ $i18n.t('common.search') }}
+
+
+                            div
+                                div.hand(@click="visibleAdvanceSearch = !visibleAdvanceSearch") {{$i18n.t('transaction.advanceSearch')}}
+                                transition(name="fade"
+                                enter-active-class="fade-in"
+                                leave-active-class="fade-out")
+                                    div.row(v-show="visibleAdvanceSearch")
+                                        div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+                                            input(v-mask="{type: 'date'}" @change="addFilter('fromDate', $event.target.value)" type="text" :placeholder="$i18n.t('transaction.fromDate')")
+                                            div.break
+                                        div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+                                            input(v-mask="{type: 'date'}" @change="addFilter('toDate', $event.target.value)" type="text" :placeholder="$i18n.t('transaction.toDate')")
+
+                                        div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
+                                            a.btn.success.pull-right(:href="'/rest/v3/transaction/excel.json?' + excelUrl") {{$i18n.t('transaction.excelExport')}}
+
 
         div.row.filter-row
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
@@ -68,7 +86,7 @@
 
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
             span(v-if="transactions.data.length")
-                singleTransaction(v-for="transaction in transactions.data"  v-bind:key="transaction.public_id" v-bind:transaction="transaction")
+                singleTransaction(v-for="transaction in transactions.data" v-bind:key="transaction.public_id" v-bind:transaction="transaction")
 
             div.row(v-if="!loadingState.status && !transactions.data.length")
                 div.col-xs.ta-center
@@ -97,7 +115,7 @@
                 placeholder: '123456******6273',
                 searchOptions: {},
                 filterType: null,
-                filterValue: null,
+                filterValue: [],
                 generalFilter: 'all',
                 filterTypeData: [
                     {
@@ -124,6 +142,9 @@
                 ],
                 transaction: null,
                 showTransactionDetail: false,
+                visibleAdvanceSearch: false,
+                visibleDownloadExcel: false,
+                excelUrl: null
             }
         },
         watch: {
@@ -149,7 +170,7 @@
                     status: this.$store.state.paginator.paginator.TransactionList.isLoading,
                     update: this.$store.state.paginator.update,
                 }
-            },
+            }
         },
         created() {
             this.restart();
@@ -203,7 +224,17 @@
                     this.search();
                 }
             },
+            shamsiToGeorgian(shamsiDate) {
+                let gerogianDate = moment(shamsiDate, 'jYYYY-jMM-jDD');
+                return gerogianDate._i.substr(0, gerogianDate._i.length - 3);
+            },
             search(){
+                //Convert shamsi from and to date to georgian
+                if (this.searchOptions.fromDate || this.searchOptions.toDate) {
+                    this.searchOptions.fromDate = this.shamsiToGeorgian(this.searchOptions.fromDate);
+                    this.searchOptions.toDate = this.shamsiToGeorgian(this.searchOptions.toDate);
+                }
+
                 let vm = this;
                 this.$store.dispatch(
                     'paginator/make',
@@ -214,6 +245,9 @@
                         requestName: "TransactionList"
                     }
                 );
+
+                //make excel export query string
+                this.makeExcelQueryString();
             },
             selectFilter(value){
                 this.filterType = value;
@@ -234,6 +268,10 @@
                         this.placeholder = '09xxxxxxxxx';
                         break;
                 }
+            },
+            makeExcelQueryString() {
+                let urlQuery = Object.keys(this.searchOptions).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).join('&');
+                this.excelUrl = urlQuery; //this.$root.baseUrl + '?' + urlQuery;
             },
             showStandAloneTransaction() {
                 if (this.$route.params.transactionId) {

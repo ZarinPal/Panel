@@ -550,7 +550,10 @@
     },
     "payerMobile": "موبایل پرداخت کننده",
     "payerEmail": "ایمیل پرداخت کننده",
-    "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."
+    "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید.",
+    "excelExport": "خروجی اکسل",
+    "fromDate": "از تاریخ: 12-03-1396",
+    "toDate": "تا تاریخ: 12-12-1399"
   },
   "transactionSession": {
     "description": "تمامی سشن های بانکی وب سرویس شما در این صفحه لیست شده اند",
