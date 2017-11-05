@@ -46,7 +46,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.expirationDate') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-validate="'required'" :class="{'input-danger': errors.has('expired_at')}" v-bind:data-vv-as="$i18n.t('coupon.expirationDate')"  v-mask="{type: 'date'}"  maxlength="10" type="text" v-model="expired_at" name="expired_at" id="expired_at" placeholder="1398-09-21" tabindex="4")
+                                input.ltr-input(v-validate="'required'" :class="{'input-danger': errors.has('expired_at')}" v-bind:data-vv-as="$i18n.t('coupon.expirationDate')" v-mask="{type: 'date'}"  maxlength="10" type="text" v-model="expired_at" name="expired_at" id="expired_at" placeholder="1398-09-21" tabindex="4")
                                 div.ta-right(v-if="validation('expired_at')")
                                     span.text-danger {{ errors.first('expired_at') }}
 
