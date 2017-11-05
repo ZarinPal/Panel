@@ -551,6 +551,8 @@
     },
     "payerMobile": "موبایل پرداخت کننده",
     "payerEmail": "ایمیل پرداخت کننده",
+    "payerMask": "شماره کارت پرداخت کننده",
+    "payerIssuer": "بانک صادر کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."
   },
   "transactionSession": {
