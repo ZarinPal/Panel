@@ -256,6 +256,10 @@ export default {
                 url: "transaction/p2pTransfer.json"
             },
             {
+                name: "transaction.excelExport",
+                url: "transaction/excel.json"
+            },
+            {
                 name: "requestMoney.postRequestMoney",
                 url: "requestMoney.json"
             },
