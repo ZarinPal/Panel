@@ -551,6 +551,11 @@
     },
     "payerMobile": "موبایل پرداخت کننده",
     "payerEmail": "ایمیل پرداخت کننده",
+    "excelExport": "خروجی اکسل",
+    "fromDate": "از تاریخ: 12-03-1396",
+    "toDate": "تا تاریخ: 12-12-1399",
+    "payerMask": "شماره کارت پرداخت کننده",
+    "payerIssuer": "بانک صادر کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."
   },
   "transactionSession": {

@@ -35,17 +35,42 @@
                 div.nav-rows
                     div.row
                         div.col-xs.ta-right
+                            span.title {{$i18n.t('transaction.id')}}
+                        div.col-xs.ta-left
+                            span.value  {{ transaction.public_id | persianNumbers}}
+                    div.row
+                        div.col-xs.ta-right
+                            span.title {{$i18n.t('transaction.status')}}
+                        div.col-xs.ta-left
                             span.title.tick(v-if="transaction.confirmed == 'confirmed' ") {{ $i18n.t('transaction.confirmed') }}
                             span.title.moving-out-icon(v-else-if="transaction.confirmed == 'pendingExit'") {{ $i18n.t('transaction.movingOut') }}
                             span.title.unverified(v-else) {{ $i18n.t('transaction.movingOut') }}
+
+                    div.row
+                        div.col-xs.ta-right
+                            span.title {{$i18n.t('transaction.date')}}
                         div.col-xs.ta-left
                             span.value {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD') | persianNumbers}}
+
+
 
                     div.row
                         div.col-xs.ta-right
                             span.title {{$i18n.t('common.ip')}}
                         div.col-xs.ta-left
                             span.value  {{ transaction.from_ip}}
+
+                    div.row(v-if="transaction.card_info.mask")
+                        div.col-xs.ta-right
+                            span.title(v-if="transaction.card_info.mask")  {{$i18n.t('transaction.payerMask')}}
+                        div.col-xs.ta-left.dir-ltr
+                            span.value(v-if="transaction.card_info.mask")  {{ $options.filters.cardNumber(transaction.card_info.mask) | persianNumbers}}
+
+                    div.row(v-if="transaction.card_info.issuer.name")
+                        div.col-xs.ta-right
+                            span.title(v-if="transaction.card_info.issuer.name")  {{$i18n.t('transaction.payerIssuer')}}
+                        div.col-xs.ta-left
+                            span.value(v-if="transaction.card_info.issuer.name")  {{ transaction.card_info.issuer.name | persianNumbers}}
 
                     div.row(v-if="transaction.to_user")
                         div.col-xs.ta-right
