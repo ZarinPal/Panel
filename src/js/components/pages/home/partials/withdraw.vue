@@ -16,12 +16,12 @@
             span(v-else)
                 div(v-if="this.$store.state.auth.user.cards")
                     form(autocomplete="on" onsubmit="event.preventDefault();")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse"  id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="1" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse"  id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" placeholder="انتخاب کیف پول")
                         div.ta-right(v-if="validation('purse')")
                             span.text-danger {{ errors.first('purse') }}
 
                         div.row
-                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15,min_value : 5000}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount"  tabindex="2" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
+                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15,min_value : 5000}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount"  id="amount" tabindex="1" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
                             div.ta-right(v-if="validation('amount')")
                                 span.text-danger {{ errors.first('amount') }}
 
@@ -136,7 +136,7 @@
             this.getFees();
         },
         mounted() {
-            document.getElementById('purse').focus();
+            document.getElementById('amount').focus();
             this.closeModalContent = false;
         },
         methods: {
