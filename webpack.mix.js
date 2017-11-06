@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+let webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@ mix.js('src/js/app.js', 'assets/js')
     .setPublicPath('assets')
     .setResourceRoot('../')
     .version();
+mix.webpackConfig({
+    plugins: [
+        new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|fa)$/)
+    ]
+});
+
 // .copyDirectory('src/img', 'assets/img');
 
 // Full API
