@@ -99,7 +99,6 @@ export default {
                 (response) => {
                     commit('empty');
                     dispatch('stopWebPushSocket', {}, {root: true});
-                    rootState.app.isLoaded = false;
                     vm.$router.push({name: 'auth.login'});
                 }
             );
