@@ -6,8 +6,8 @@
                 div.row.top-xs
                     span.zp-icon
                     span.zp-title {{ $i18n.t('common.zarinPal') }}
-
                 <!--Body-->
+
                 form(action="#" method="post" onsubmit="event.preventDefault();")
                     div.row.middle-xs
                         div.col-xs-12.no-margin.body-messages
@@ -30,13 +30,13 @@
                         div.ta-right(v-if="validation('mobile')")
                             span.text-danger {{ errors.first('mobile') }}
 
-
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
                             span عضو زرین‌پال هستید ؟
                             router-link.link(v-bind:to="{ name: 'auth.login',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.enter') }}
                         div.col-xs.no-margin
-                            button.gold.pull-left(id="register" @click="validateForm" tabindex="4") {{$i18n.t('user.register')}}
+                            div#recaptcha.g-recaptcha(data-sitekey="6LcDpDcUAAAAAMiXOz1gA3By9oEJ4-PYqct1Ihn5", data-size="invisible")
+                            button.gold.pull-left(id="register" @click="validateForm"  tabindex="4") {{$i18n.t('user.register')}}
 
 
             <!--Privacy Policy-->
@@ -56,6 +56,7 @@
                 first_name: "",
                 last_name: "",
                 mobile: "",
+                g_recaptcha: "1",
             }
         },
         computed: {
@@ -74,6 +75,16 @@
         },
         mounted(){
             document.getElementById('first_name').focus();
+
+            let vm = this;
+            //Load google map script tag
+            let tag = document.createElement("script");
+            tag.src = "https://www.google.com/recaptcha/api.js";
+            document.getElementsByTagName("head")[0].appendChild(tag);
+            tag.onload = () => {
+                setTimeout(()=>{grecaptcha.execute();},1000);
+            };
+
         },
         methods: {
             validation(name) {
@@ -85,6 +96,9 @@
                 return this.errors.has(name);
             },
             validateForm() {
+
+                this.g_recaptcha = grecaptcha.getResponse();
+                console.log(grecaptcha.getResponse());
                 this.$validator.validateAll({
                     first_name: this.first_name,
                     last_name: this.last_name,
@@ -101,6 +115,9 @@
                     first_name: this.first_name,
                     last_name: this.last_name,
                     mobile: this.mobile,
+                    g_recaptcha: this.g_recaptcha,
+
+
                 };
 
                 if (this.$route.params.refererId) {
