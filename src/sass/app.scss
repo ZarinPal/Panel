@@ -39,3 +39,12 @@ a {
   font-size: 13px;
   color: #2979ff;
 }
+.offline-ui-down {
+  background: rgba(0, 0, 0, .4);
+  position: absolute;
+  z-index: 99999999999999;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
