@@ -56,6 +56,17 @@ new Vue({
             }
         }, 5000);
     },
+    methods: {
+        offlineCheck() {
+            OfflineJs.on('confirmed-down', function () {
+                console.log('is-offline');
+            });
+
+            OfflineJs.on('confirmed-up', function () {
+                console.log('is-online');
+            });
+        }
+    },
     watch: {
         '$route' (to) {
             this.$store.commit('app/changeTabData', to.name.split('.')[0])

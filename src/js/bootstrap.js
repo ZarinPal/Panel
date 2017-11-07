@@ -37,6 +37,8 @@ const i18n = new VueI18n({
 });
 window.i18n = i18n;
 
+import OfflineJs from 'offline-js/offline';
+window.OfflineJs = OfflineJs;
 
 VeeValidate.Validator.addLocale(messagesFa);
 Vue.use(VeeValidate, {locale: 'fa'});
