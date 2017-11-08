@@ -75,7 +75,7 @@
 
                         div.row.nav-button
                             div.col-xs
-                                button.btn.success.pull-left(v-ripple="" @click="postUploadDocuments" tabindex="9") {{$i18n.t('coupon.createCoupon')}}
+                                button.btn.success.pull-left(v-ripple="" @click="postUploadDocuments" tabindex="9") {{$i18n.t('user.editInformationTitle')}}
                                     svg.material-spinner(v-if="sendRequest" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                         circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -83,7 +83,6 @@
 
 
 <script>
-
     export default {
         name: 'uploadDocument',
         data() {
@@ -95,10 +94,10 @@
                  * User information
                  */
                 gender: 'male',
-                first_name: 'amin',
-                last_name: 'nazari',
-                birthday: '1374-09-14',
-                ssn: '4890271880',
+                first_name: '',
+                last_name: '',
+                birthday: '',
+                ssn: '',
 
                 /**
                  * upload documents variables
@@ -215,7 +214,7 @@
                 let formData = new FormData();
                 formData.append('type', 'document');
 
-                let uploadedFileNames = [];
+                let uploadedFileNames = {};
                 _.forEach(this.documentFiles, function(file, fileKey) {
                     formData.append('file', file);
 
@@ -227,6 +226,7 @@
 
                         //save user uploaded file in db
                         if (vm.howManyFileUploaded === vm.maxFileUpload) {
+                            console.log(uploadedFileNames);
                             //change file uploading stauts
                             vm.isUploading = false;
 
@@ -241,7 +241,12 @@
                                         vm.sendRequest = false;
                                         vm.isSaving = false;
 
-                                        this.$router.push({name: 'ticket.index'});
+                                        store.commit('flashMessage', {
+                                            text: 'all user file uploaded',
+                                            type: 'success'
+                                        });
+
+                                        vm.$router.push({name: 'ticket.index'});
                                     }, (response) => {
                                         vm.isSaving = 'Failed';
                                         vm.sendRequest = false;

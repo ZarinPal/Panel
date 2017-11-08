@@ -28,7 +28,7 @@
                     i.btn-icon.ptop
                     span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
 
-                button.btn-gradient-radius.zarin-card(v-if="!haveZarinCard" v-ripple="" @click="visibleRequestZarinCard = !visibleRequestZarinCard")
+                button.btn-gradient-radius.zarin-card(v-if="!haveZarinCard && this.$store.state.auth.user.level >=2" v-ripple="" @click="visibleRequestZarinCard = !visibleRequestZarinCard")
                     i.btn-icon
                     span.btn-label {{ $i18n.t('card.requestZarinCardTitle') }}
 

@@ -42,7 +42,7 @@
                         link: 'home.index',
                         icon: 'icon-zp-dashboard',
                         titleTransKey: 'panel.home',
-                        accessLevel: [-1, 1, 2, 3]
+                        accessLevel: [-1, 0, 1, 2, 3]
                     },
                     webservice: {
                         link: 'webservice.index',
@@ -72,7 +72,7 @@
                         link: 'ticket.index',
                         icon: 'icon-zp-tickets',
                         titleTransKey: 'panel.ticket',
-                        accessLevel: [-1, 1, 2, 3]
+                        accessLevel: [-1, 0, 1, 2, 3]
                     }
                 },
             }
@@ -119,7 +119,6 @@
                 // reload tickets
                 if (this.$route.name === 'ticket.index') {
                     let vm = this;
-                    this.$store.state.paginator.paginator.TicketList = null;
                     this.$store.dispatch(
                         'paginator/make',
                         {

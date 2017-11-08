@@ -5,12 +5,12 @@
         leave-active-class="fade-out")
             div.modal(v-on:click.self="closeModal()")
 
-        div.modal-content-father.scrollbar(v-on:click.self="closeModal()")
+        div.modal-content-father(v-on:click.self="closeModal()")
             transition(name="zoom"
             enter-active-class="zoom-in"
             leave-active-class="zoom-out")
-                div.row.center-xs.middle-xs.modal-content(v-if="!closeModalContent" v-on:click.self="closeModal()")
-                    div.col-lg-5.col-md-5.col-sm-12.col-xs-12
+                div.row.center-xs.modal-content(v-if="!closeModalContent" v-on:click.self="closeModal()")
+                    div.col-lg-5.col-md-5.col-sm-12.col-xs-12.modal-inner-content
                         div.header
                             span.icon-close(@click="closeModal()")
                             span.title
