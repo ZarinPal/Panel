@@ -202,7 +202,7 @@ export default new VueRouter({
                             name: 'user.levelUp',
                             component: require('./components/pages/user/partials/level_up'),
                             meta: {
-                                accessLevel: ['silver', 'gold']
+                                accessLevel: ['basic']
                             }
                         },
                         {

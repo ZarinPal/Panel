@@ -232,6 +232,10 @@ export default {
                 url: "zarincard/requestIssue.json"
             },
             {
+                name: "zarincard.cost",
+                url: "zarincard/cost.json"
+            },
+            {
                 name: "transaction.getRecents",
                 url: "transaction.json"
             },

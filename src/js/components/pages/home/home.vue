@@ -27,9 +27,13 @@
                 button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visiblePtop = !visiblePtop")
                     i.btn-icon.ptop
                     span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
+
+                button.btn-gradient-radius.zarin-card(v-if="!haveZarinCard" v-ripple="" @click="visibleRequestZarinCard = !visibleRequestZarinCard")
+                    i.btn-icon
+                    span.btn-label {{ $i18n.t('card.requestZarinCardTitle') }}
+
+
             div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
-                <!--button.btn-gradient-radius.zarin-card(v-ripple="")-->
-                <!--span.btn-label درخواست زرین‌کارت-->
                 button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
@@ -41,6 +45,7 @@
         addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()")
         pTop(v-if="visiblePtop" v-on:closeModal="closeModal()")
         withdraw(v-if="visibleWithdraw" v-on:closeModal="closeModal()")
+        zarin-card(v-if="visibleRequestZarinCard" v-on:closeModal="closeModal()")
 
         <!--Show modal to say user dont have access to this page-->
         access-level(v-if="visibleUserAccessModal" v-on:closeModal="closeModal()")
@@ -54,6 +59,7 @@
     import pTop from './partials/ptop.vue';
     import withdraw from './partials/withdraw.vue';
     import accessLevel from '../partials/access_level_modal';
+    import zarinCard from './zarin_card/request';
 
     export default {
         name: 'pages-home',
@@ -65,6 +71,8 @@
                 visiblePtop: false,
                 visibleWithdraw: false,
                 visibleUserAccessModal: false,
+                visibleRequestZarinCard: false,
+
                 message: [],
                 purseLimit: 10,
             }
@@ -88,6 +96,13 @@
                     data: this.$store.state.auth.user.purses,
                     update: this.$store.state.auth.updatePurseListener
                 }
+            },
+            haveZarinCard() {
+                let zarinCards = {};
+                zarinCards =  _.find(this.$store.state.auth.user.cards, function(card) {
+                    return card.issuer.slug === 'ZarinCard';
+                });
+                return typeof zarinCards !== 'undefined';
             }
         },
         created(){
@@ -108,6 +123,7 @@
                 this.visibleAddFund = false;
                 this.visiblePtop = false;
                 this.visibleWithdraw = false;
+                this.visibleRequestZarinCard = false;
 
                 if (this.$route.query.error === 'suspend') {
                     this.visibleUserAccessModal = false;
@@ -164,7 +180,8 @@
             pTop,
             withdraw,
             modal,
-            'access-level': accessLevel
+            'access-level': accessLevel,
+            'zarin-card': zarinCard
         }
     }
 </script>

@@ -37,7 +37,11 @@
     "transferAmountTitle": "(مبلغ (تومان",
     "dstZarinpalId": "زرین‌پال مقصد",
     "newCard": "کارت جدید",
-    "card": "کارت"
+    "card": "کارت",
+    "requestZarinCardTitle": "درخواست زرین‌کارت",
+    "requestZarinCardDescription": "جهت درخواست زرین‌کارت اطلاعات زیر را تکمیل و تایید کنید.",
+    "acceptTopInformationOfRequestZarinCard": "صحت اطلاعات فوق را تایید می نمایم.",
+    "zarinCardPrice": "هزینه صدور زرین‌کارت"
   },
   "common": {
     "send": "ارسال",
@@ -225,7 +229,9 @@
     "doYouDelete": "حذف می کنید؟",
     "UpgradeToSilverLevel": "ارتقاء به سطح نقره ای",
     "upgradeToGoldLevel": "ارتقاء به سطح طلایی",
-    "accessLevelLimitTitle": "محدودیت سطح دسترسی"
+    "accessLevelLimitTitle": "محدودیت سطح دسترسی",
+    "male": "مرد",
+    "female": "زن"
   },
   "coupon": {
     "couponsDescription": "تمامی کد هدیه های شما در این صفحه قرار دارد",
@@ -327,7 +333,10 @@
     "transfer-money-is-successfully": "تسویه حساب با موفقیت ثبت شد.",
     "mobile-number-not-valid": "شماره موبایل معتبر نمی باشد.",
     "fix-validation-errors": "خطا های اعتبار سنجی را تکمیل کنید",
-    "invalid-destination-pan": "شماره کارت مقصد نامعتبر است."
+    "invalid-destination-pan": "شماره کارت مقصد نامعتبر است.",
+    "please-accept-top-information": "لطفا صحت اطلاعات بالا را تایید کنید.",
+    "you-can-only-request-one-zarincard-for-your-account": "هر کاربر حداکثر حق دریافت یک زرین‌کارت را دارد.",
+    "zarin-card-request-success": "درخواست زرین‌کارت شما با موفقیت ثبت شد. کارت شما حداکثر تا دو هفته آینده از طریق پست به آدرس پستی انتخاب شده ارسال خواهد شد."
   },
   "panel": {
     "home": "پیشخوان",
