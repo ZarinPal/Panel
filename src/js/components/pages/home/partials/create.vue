@@ -54,7 +54,7 @@
             store.commit('clearValidationErrors');
         },
         mounted(){
-            document.getElementById('name').focus();
+            setTimeout(()=>{document.getElementById('name').focus()},500);
         },
         methods: {
             validation(name) {
