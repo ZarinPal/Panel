@@ -172,7 +172,7 @@
                 let myLength = target.value.length;
 
                 if (myLength >= maxLength) {
-                    document.getElementById("year").focus();
+                    setTimeout(()=>{document.getElementById("year").focus()},500);
                 }
             },
             changeYearFocus(event) {
