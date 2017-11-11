@@ -74,7 +74,7 @@
             }
         },
         mounted(){
-            document.getElementById('first_name').focus();
+            setTimeout(()=>{document.getElementById('first_name').focus()},500);
 
             let vm = this;
             //Load google map script tag
