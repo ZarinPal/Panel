@@ -174,14 +174,14 @@ export default new VueRouter({
                                 accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
-                        {
-                            path: 'report/:type/:id',
-                            name: 'report.index',
-                            component: require('./components/pages/report/index.vue'),
-                            meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
-                            }
-                        },
+                        // {
+                        //     path: 'report/:type/:id',
+                        //     name: 'report.index',
+                        //     component: require('./components/pages/report/index.vue'),
+                        //     meta: {
+                        //         accessLevel: ['basic', 'silver', 'gold']
+                        //     }
+                        // },
                         {
                             path: 'requestMoney/:type?',
                             name: 'requestMoney.index',

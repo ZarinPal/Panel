@@ -12,6 +12,7 @@ export default {
     },
     mutations: {
         fill(state, user) {
+            user.avatar = 'https:' + user.avatar;
             state.user = user;
             state.check = true;
             state.isLoaded = true;

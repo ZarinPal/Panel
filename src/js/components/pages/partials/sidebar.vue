@@ -7,7 +7,7 @@
                 router-link(tag="span" v-bind:to="{ name: 'user.addAddress'}" title="پروفایل")
                     div.user-image
                         span(v-if="!this.$store.state.app.smallSidebar")
-                            userProgress.hand(v-if="user.user_progress" v-bind:avatar="'https:'+user.avatar" v-bind:user_progress="user.user_progress")
+                            userProgress.hand(v-if="user.user_progress" v-bind:avatar="user.avatar" v-bind:user_progress="user.user_progress")
                         img.hand(v-else v-bind:src="'https:' + user.avatar")
                     p.user-name {{user.name}}
 
