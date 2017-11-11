@@ -3,6 +3,12 @@ export default new VueRouter({
     // base:'panel',
     routes: [
         {
+            path: '/auth/verify/:email/:otp',
+            name: 'auth.verify',
+            component: require('./components/pages/auth/login.vue'),
+            meta: {standAlone: true}
+        },
+        {
             path: '/auth/login/:refererId?',
             name: 'auth.login',
             component: require('./components/pages/auth/login.vue'),
@@ -81,7 +87,7 @@ export default new VueRouter({
                             name: 'card.index',
                             component: require('./components/pages/card/index.vue'),
                             meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
@@ -168,14 +174,14 @@ export default new VueRouter({
                                 accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
-                        {
-                            path: 'report/:type/:id',
-                            name: 'report.index',
-                            component: require('./components/pages/report/index.vue'),
-                            meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
-                            }
-                        },
+                        // {
+                        //     path: 'report/:type/:id',
+                        //     name: 'report.index',
+                        //     component: require('./components/pages/report/index.vue'),
+                        //     meta: {
+                        //         accessLevel: ['basic', 'silver', 'gold']
+                        //     }
+                        // },
                         {
                             path: 'requestMoney/:type?',
                             name: 'requestMoney.index',
@@ -202,7 +208,7 @@ export default new VueRouter({
                             name: 'user.levelUp',
                             component: require('./components/pages/user/partials/level_up'),
                             meta: {
-                                accessLevel: ['silver', 'gold']
+                                accessLevel: ['basic']
                             }
                         },
                         {

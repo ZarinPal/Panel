@@ -123,7 +123,13 @@
                 qrCodeSrc: null,
                 userNotRegister: false,
                 visibleOtpTimer: false,
-                visibleSendSms: true
+                visibleSendSms: true,
+
+
+                /**
+                 * login failed date
+                 */
+                lockout_time: null
             }
         },
         computed: {
@@ -141,6 +147,16 @@
             }
         },
         created() {
+            /**
+             * Automatic login
+             */
+            this.username = this.$route.params.email;
+            this.otp = this.$route.params.otp;
+            if (this.username || this.otp) {
+                this.login();
+            }
+
+
             let vm = this;
             this.$store.state.http.requests['oauth.check']
                 .get()
@@ -212,12 +228,22 @@
                             document.getElementById("txtOtp").focus();
                         }, 10);
                     }).catch((response) => {
-                    this.loginLoading = false;
-                    this.getOtpLoading = false;
-                    store.commit('setValidationErrors', response.data.validation_errors);
-                    if (!this.validationErrors.username) {
-                        this.userNotRegister = true;
-                    }
+                        this.loginLoading = false;
+                        this.getOtpLoading = false;
+
+                        /**
+                         * lockout_tiem
+                         */
+
+                        if (response.data.meta.error_type === 'UserOtpRateLimit') {
+                            this.lockout_time = response.data.data.lockout_time;
+                            return
+                        }
+
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        if (!this.validationErrors.username) {
+                            this.userNotRegister = true;
+                        }
                 });
             },
             login(){

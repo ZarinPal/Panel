@@ -748,6 +748,10 @@ body {
   margin-bottom: 30px;
   height: 90%;
 
+  .modal-inner-content {
+    height: 0;
+  }
+
   /*Header*/
   .header {
     text-align: right;

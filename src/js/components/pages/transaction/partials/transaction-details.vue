@@ -60,13 +60,13 @@
                         div.col-xs.ta-left
                             span.value  {{ transaction.from_ip}}
 
-                    div.row(v-if="transaction.card_info.mask")
+                    div.row(v-if="transaction.card_info")
                         div.col-xs.ta-right
                             span.title(v-if="transaction.card_info.mask")  {{$i18n.t('transaction.payerMask')}}
                         div.col-xs.ta-left.dir-ltr
                             span.value(v-if="transaction.card_info.mask")  {{ $options.filters.cardNumber(transaction.card_info.mask) | persianNumbers}}
 
-                    div.row(v-if="transaction.card_info.issuer.name")
+                    div.row(v-if="transaction.card_info")
                         div.col-xs.ta-right
                             span.title(v-if="transaction.card_info.issuer.name")  {{$i18n.t('transaction.payerIssuer')}}
                         div.col-xs.ta-left

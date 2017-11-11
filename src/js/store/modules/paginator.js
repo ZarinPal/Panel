@@ -17,15 +17,6 @@ export default {
 
     },
     mutations: {
-        reset(state, requestName) {
-            // if (!requestName) {
-            //     requestName = 'default';
-            // }
-            //
-            // if(state.paginator[requestName]) {
-            //     state.paginator[requestName].data = [];
-            // }
-        },
         setVm(state, vm) {
             state.vm = vm;
         },
@@ -58,14 +49,17 @@ export default {
         }
     },
     actions: {
-        make ({commit, dispatch}, {vm, resource, params, requestName}) {
-            commit('reset', requestName);
+        make({commit, dispatch, state}, {vm, resource, params, requestName}) {
+            if (state.paginator[requestName] && state.paginator[requestName].isLoading) {
+                return;
+            }
             commit('setVm', vm);
             commit('initData', {resource, params, requestName});
             dispatch('next', {requestName});
         },
-        next ({commit, state}, {requestName}) {
-            if (state.paginator[requestName].resource.resource) {
+        next({commit, state}, {requestName}) {
+            if (state.paginator[requestName].resource.resource
+                && !state.paginator[requestName].isLoading) {
                 commit('changeLoading', {requestName, type: true});
                 if (!requestName) {
                     requestName = 'default';
@@ -87,7 +81,6 @@ export default {
                     commit('changeLoading', {requestName, type: false});
                 });
             }
-
         }
     }
 };
