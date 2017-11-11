@@ -136,7 +136,7 @@
             this.getFees();
         },
         mounted() {
-            setTimeout(()=>{document.getElementById('amount').focus()},500);
+            setTimeout(()=>{document.getElementById('purse').focus()},3000);
             this.closeModalContent = false;
         },
         methods: {
