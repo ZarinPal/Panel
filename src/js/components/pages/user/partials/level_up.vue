@@ -146,11 +146,15 @@
              */
             postLevelUp() {
                 this.isSavingInformation = true;
+
+                let georgianBirthday = moment(this.birthday, 'jYYYY-jMM-jDD');
+                georgianBirthday = georgianBirthday._i.substr(0, georgianBirthday._i.length - 3);
+
                 let userData = {
                     gender: this.gender,
                     first_name: this.first_name,
                     last_name: this.last_name,
-                    birthday: this.birthday,
+                    birthday: georgianBirthday,
                     ssn: this.ssn,
                 };
 
