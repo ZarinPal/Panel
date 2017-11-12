@@ -72,7 +72,7 @@
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(v-on:paste="pasteOtp()" @change="otpMaxLength()" @keyup="otpMaxLength()" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
+                                    input(@change="otpMaxLength()" @keyup="otpMaxLength()" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
                                 div.dashed-line
 
                     div.row.bottom-xs
@@ -178,9 +178,6 @@
                     this.$store.state.alert.validationErrors[name] = false;
                 }
                 return this.errors.has(name);
-            },
-            pasteOtp() {
-                this.otpMaxLength();
             },
             sendOtp(channel){
                 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

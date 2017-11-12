@@ -2,91 +2,126 @@
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title {{ $i18n.t('user.editInformationTitle') }}
+                p.page-title {{ $i18n.t('user.' + pageTitle) }}
                 p.page-description {{ $i18n.t('user.editInformationDescription') }}
 
 
         div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.level-up
             div.box
-
                 form(autocomplete="on" onsubmit="event.preventDefault();")
+                    div.body
+                        div.row
+                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12
 
-                    <!--Step 1-->
-                    div(v-if="step == 1")
-                        <!--gender-->
-                        div.row.no-margin
-                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
-                                input(name="gender" v-model="gender" value="male" type="radio" id="rdoMale")
-                                label(for="rdoMale")
-                                    span
-                                    | {{ $i18n.t('user.male') }}
+                                div.row
+                                    div.col-lg-6.col-md-12.col-sm-12.col-xs-12
 
-                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
-                                input(name="gender" v-model="gender" value="female" type="radio" id="rdoFemale")
-                                label(for="rdoFemale")
-                                    span
-                                    | {{ $i18n.t('user.female') }}
+                                        <!--Step 1-->
+                                        div(v-if="step == 1")
+                                            <!--gender-->
+                                            div.row.nav-rows
+                                                div.col-lg-5.col-md-5.col-sm-5.col-xs-5.no-margin
+                                                    span.label {{ $i18n.t('user.gender') }}
 
+                                                div.col-lg-7.col-md-7.col-sm-7.col-xs-7.no-margin
+                                                    div.row
+                                                        div.col-lg-6.col-md-6.col-sm-6.col-xs-6.ta-center.no-margin
+                                                            input(name="gender" v-model="gender" value="male" type="radio" id="rdoMale")
+                                                            label(for="rdoMale")
+                                                                span
+                                                                | {{ $i18n.t('user.male') }}
 
-                        <!--first_name-->
-                        div.row.no-margin
-                            input(v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.firstName')" :class="{'input-danger': errors.has('first_name')}" type="text" name="first_name" id="first_name" v-model="first_name" :placeholder= "$i18n.t('user.firstName')" autofocus tabindex="1" )
-                            div.ta-right(v-if="validation('first_name')")
-                                span.text-danger {{ errors.first('first_name') }}
-
-                        div.row.no-margin
-                            input(v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.lastName')" :class="{'input-danger': errors.has('last_name')}" type="text" name="last_name" id="last_name" v-model="last_name" :placeholder= "$i18n.t('user.lastName')" autofocus tabindex="1" )
-                            div.ta-right(v-if="validation('last_name')")
-                                span.text-danger {{ errors.first('last_name') }}
-
-
-                        div.row.no-margin
-                            input(v-mask="{type: 'date'}" v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.birthday')" :class="{'input-danger': errors.has('birthday')}" type="text" name="birthday" id="birthday" v-model="birthday" :placeholder= "$i18n.t('user.birthday')" autofocus tabindex="1" )
-                            div.ta-right(v-if="validation('birthday')")
-                                span.text-danger {{ errors.first('birthday') }}
+                                                        div.col-lg-6.col-md-6.col-sm-6.col-xs-6.ta-center.no-margin
+                                                            input(name="gender" v-model="gender" value="female" type="radio" id="rdoFemale")
+                                                            label(for="rdoFemale")
+                                                                span
+                                                                | {{ $i18n.t('user.female') }}
 
 
-                        div.row.no-margin
-                            input(v-validate="'required|digits:10'" v-bind:data-vv-as="$i18n.t('user.ssn')" :class="{'input-danger': errors.has('ssn')}" type="text" name="ssn" id="ssn" v-model="ssn" :placeholder= "$i18n.t('user.ssn')" autofocus tabindex="1" )
-                            div.ta-right(v-if="validation('ssn')")
-                                span.text-danger {{ errors.first('ssn') }}
+                                            <!--first_name-->
+                                            div.row.nav-rows
+                                                input(v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.firstName')" :class="{'input-danger': errors.has('first_name')}" type="text" name="first_name" id="first_name" v-model="first_name" :placeholder= "$i18n.t('user.firstName')" autofocus tabindex="1" )
+                                                div.ta-right(v-if="validation('first_name')")
+                                                    span.text-danger {{ errors.first('first_name') }}
+
+                                            div.row.nav-rows
+                                                input(v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.lastName')" :class="{'input-danger': errors.has('last_name')}" type="text" name="last_name" id="last_name" v-model="last_name" :placeholder= "$i18n.t('user.lastName')" autofocus tabindex="1" )
+                                                div.ta-right(v-if="validation('last_name')")
+                                                    span.text-danger {{ errors.first('last_name') }}
 
 
-                        div.row.nav-button
-                            div.col-xs
-                                button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="9") {{$i18n.t('purse.nextStep')}}
-                                    svg.material-spinner(v-if="isSavingInformation" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                                            div.row.nav-rows
+                                                input(v-mask="{type: 'date'}" v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.birthday')" :class="{'input-danger': errors.has('birthday')}" type="text" name="birthday" id="birthday" v-model="birthday" :placeholder= "$i18n.t('user.birthday')" autofocus tabindex="1" )
+                                                div.ta-right(v-if="validation('birthday')")
+                                                    span.text-danger {{ errors.first('birthday') }}
 
 
-                    <!--Step 2-->
-                    div.row(v-if="step == 2")
-                        input(type="file" name="file" @change="createFile($event, 'id_card_file')")
-                        input(type="file" name="file" @change="createFile($event, 'national_card_file')")
-                        input(type="file" name="file" @change="createFile($event, 'introduction_file')")
+                                            div.row.nav-rows
+                                                input(v-validate="'required|digits:10'" v-bind:data-vv-as="$i18n.t('user.ssn')" :class="{'input-danger': errors.has('ssn')}" type="text" name="ssn" id="ssn" v-model="ssn" :placeholder= "$i18n.t('user.ssn')" autofocus tabindex="1" )
+                                                div.ta-right(v-if="validation('ssn')")
+                                                    span.text-danger {{ errors.first('ssn') }}
 
-                        div(v-if="!isSaving")
-                            span(v-if="isUploading") در حال آپلود فایل ...
-                            span(v-if="isUploading == 'Failed' ") مشکل آپلود فایل
+                                        <!--Step 2-->
+                                        div(v-if="step == 2")
+                                            <!--id_card_file-->
+                                            div.row.nav-rows
+                                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.no-margin
+                                                    span.label {{ $i18n.t('user.idCardFile') }}
+                                                div.col-lg-4.col-md-4.col-sm-8.col-xs-12.no-margin
+                                                    input(type="file" name="file" @change="createFile($event, 'id_card_file')")
 
-                        div(v-if="!isUploading")
-                            span(v-if="isSaving") در حال ذخیره سازی
-                            span(v-if="isSaving == 'Failed' ") مشکل در ذخیره سازی
 
-                        div.row.nav-button
-                            div.col-xs
-                                button.btn.success.pull-left(v-ripple="" @click="postUploadDocuments" tabindex="9") {{$i18n.t('user.editInformationTitle')}}
-                                    svg.material-spinner(v-if="sendRequest" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                                            <!--national_card_file-->
+                                            div.row.nav-rows
+                                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.no-margin
+                                                    span.label {{ $i18n.t('user.nationalCardFile') }}
+                                                div.col-lg-4.col-md-4.col-sm-8.col-xs-12.no-margin
+                                                    input(type="file" name="file" @change="createFile($event, 'national_card_file')")
+
+                                            <!--introduction_file-->
+                                            div.row.nav-rows
+                                                div.col-xs-12.agreement-label
+                                                    span.label {{ $i18n.t('common.agreement') }}
+                                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.no-margin
+                                                    span.label {{ $i18n.t('user.introductionFile') }}
+                                                div.col-lg-4.col-md-4.col-sm-8.col-xs-12.no-margin
+                                                    input(type="file" name="file" @change="createFile($event, 'introduction_file')")
+
+                                            div(v-if="!isSaving")
+                                                span(v-if="isUploading") در حال آپلود مدارک
+                                                span(v-if="isUploading == 'Failed' ") مشکل آپلود فایل
+                                                loading.dis-ib.upload-loading(v-if="isUploading" v-bind:width="15" v-bind:height="15")
+
+                                            div(v-if="!isUploading")
+                                                span(v-if="isSaving") در حال ذخیره سازی
+                                                span(v-if="isSaving == 'Failed' ") مشکل در ذخیره سازی
+                                                loading.dis-ib.upload-loading(v-if="isSaving" v-bind:width="15" v-bind:height="15")
+
+
+                            div.full-width.nav-button
+                                <!--Add information button-->
+                                div.col-xs(v-if="step == 1")
+                                    button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="9") {{$i18n.t('purse.nextStep')}}
+                                        svg.material-spinner(v-if="isSavingInformation" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
+                                <!--Upload documents button-->
+                                div.col-xs(v-if="step == 2")
+                                    button.btn.success.pull-left(v-ripple="" @click="postUploadDocuments" tabindex="9") {{$i18n.t('user.editInformationTitle')}}
+                                        svg.material-spinner(v-if="sendRequest" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
 
 <script>
+    import loading from '../../partials/loading';
+
     export default {
         name: 'uploadDocument',
         data() {
             return {
+                pageTitle: 'editInformationTitle',
                 step: 1, // [1=> user information, 2=> user documents]
                 isSavingInformation: false,
 
@@ -162,8 +197,8 @@
                     () => {
                         this.isSavingInformation = false;
                         //increase step to show upload documents
+                        this.pageTitle = 'uploadDocumentTitle';
                         this.step = 2;
-
                     },
                     (response) => {
                         this.isSavingInformation = false;
@@ -273,5 +308,8 @@
             }
 
         },
+        components: {
+            loading
+        }
     }
 </script>

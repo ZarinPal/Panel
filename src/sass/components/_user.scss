@@ -174,3 +174,23 @@
     }
   }
 }
+
+
+/*** Level Up ***/
+.level-up {
+  .upload-loading {
+    margin: 5px 8px;
+    position: relative;
+    top: 3px;
+  }
+
+  .nav-rows {
+    margin: 10px;
+  }
+
+  .agreement-label {
+    margin: 10px 0 25px 0;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+}

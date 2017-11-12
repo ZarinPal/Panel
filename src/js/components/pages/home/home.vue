@@ -32,7 +32,6 @@
                     i.btn-icon
                     span.btn-label {{ $i18n.t('card.requestZarinCardTitle') }}
 
-
             div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
                 button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")
                     span.icon-add-circle
