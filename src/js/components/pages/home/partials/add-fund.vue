@@ -5,7 +5,7 @@
             div(v-if="activeCards.length")
                 form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.row
-                        input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, min_value: 100}}" v-bind:data-vv-as="$i18n.t('card.fee')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
+                        input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, min_value: 100}}" v-bind:data-vv-as="$i18n.t('card.fee')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
                         div.ta-right(v-if="validation('amount')")
                             span.text-danger {{ errors.first('amount') }}
 
@@ -44,6 +44,10 @@
         mounted() {
             this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
             this.closeModalContent = false;
+
+            setTimeout(() => {
+                document.getElementById('amount').focus()
+            }, 10);
         },
         computed: {
             activeCards() {

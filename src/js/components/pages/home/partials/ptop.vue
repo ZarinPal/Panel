@@ -112,7 +112,9 @@
         },
         mounted(){
             this.closeModalContent = false
-            document.getElementById('amount').focus();
+            setTimeout(() => {
+                document.getElementById('amount').focus()
+            }, 10);
         },
         created() {
             store.commit('clearValidationErrors');

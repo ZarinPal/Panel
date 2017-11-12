@@ -40,7 +40,10 @@
             }
         },
         mounted(){
-            this.closeModalContent = false
+            this.closeModalContent = false;
+            setTimeout(() => {
+                document.getElementById('name').focus()
+            }, 10);
         },
         computed: {
             validationErrors() {
@@ -52,9 +55,6 @@
         },
         created(){
             store.commit('clearValidationErrors');
-        },
-        mounted(){
-            document.getElementById('name').focus();
         },
         methods: {
             validation(name) {

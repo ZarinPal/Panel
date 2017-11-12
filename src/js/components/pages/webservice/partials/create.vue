@@ -72,7 +72,6 @@
             return {
                 loading: false,
                 fileHover: false,
-                messages: {},
                 domain: null,
                 tel: null,
                 purse: null,
@@ -100,7 +99,9 @@
             this.$store.dispatch('app/getWebserviceCategories');
         },
         mounted(){
-            document.getElementById('siteName').focus();
+            setTimeout(() => {
+                document.getElementById('siteName').focus()
+            }, 10);
         },
         methods: {
             validation(name) {
@@ -177,9 +178,8 @@
                     (response) => {
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
-                        this.messages = response.data.meta.error_message;
                         store.commit('flashMessage', {
-                            text: this.messages,
+                            text: response.data.meta.error_message,
                             type: 'danger'
                         });
                     }

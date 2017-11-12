@@ -7,7 +7,7 @@
                 router-link(tag="span" v-bind:to="{ name: 'user.addAddress'}" title="پروفایل")
                     div.user-image
                         span(v-if="!this.$store.state.app.smallSidebar")
-                            userProgress.hand(v-if="user.user_progress" v-bind:avatar="'https:'+user.avatar" v-bind:user_progress="user.user_progress")
+                            userProgress.hand(v-if="user.user_progress" v-bind:avatar="user.avatar" v-bind:user_progress="user.user_progress")
                         img.hand(v-else v-bind:src="'https:' + user.avatar")
                     p.user-name {{user.name}}
 
@@ -42,7 +42,7 @@
                         link: 'home.index',
                         icon: 'icon-zp-dashboard',
                         titleTransKey: 'panel.home',
-                        accessLevel: [-1, 1, 2, 3]
+                        accessLevel: [-1, 0, 1, 2, 3]
                     },
                     webservice: {
                         link: 'webservice.index',
@@ -72,7 +72,7 @@
                         link: 'ticket.index',
                         icon: 'icon-zp-tickets',
                         titleTransKey: 'panel.ticket',
-                        accessLevel: [-1, 1, 2, 3]
+                        accessLevel: [-1, 0, 1, 2, 3]
                     }
                 },
             }
@@ -119,7 +119,6 @@
                 // reload tickets
                 if (this.$route.name === 'ticket.index') {
                     let vm = this;
-                    this.$store.state.paginator.paginator.TicketList = null;
                     this.$store.dispatch(
                         'paginator/make',
                         {

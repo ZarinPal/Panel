@@ -136,7 +136,9 @@
             this.getFees();
         },
         mounted() {
-            document.getElementById('amount').focus();
+            setTimeout(() => {
+                document.getElementById('amount').focus()
+            }, 20);
             this.closeModalContent = false;
         },
         methods: {

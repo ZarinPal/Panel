@@ -57,13 +57,14 @@
             checkUserLevel(acceptedLevels, vm) {
                 let levels = {
                     '0': 'suspend',
+                    '1': 'basic',
                     '2': 'basic',
                     '3': 'silver',
                     '4': 'gold',
                 };
 
                 let userLevel = (vm.$store.state.auth.user.level + 1).toString();
-                if (!acceptedLevels || !acceptedLevels.length) return true;
+                if (!acceptedLevels || !acceptedLevels.length || userLevel === 1) return true;
                 return _.indexOf(acceptedLevels, levels[userLevel]) !== -1;
             },
         },

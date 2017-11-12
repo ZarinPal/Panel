@@ -100,7 +100,9 @@
             store.commit('clearValidationErrors');
         },
         mounted() {
-            document.getElementById('iban').focus();
+            setTimeout(() => {
+                document.getElementById('iban').focus()
+            }, 10);
             this.closeModalContent = false
         },
         methods: {
