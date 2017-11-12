@@ -44,6 +44,10 @@
         mounted() {
             this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
             this.closeModalContent = false;
+
+            setTimeout(() => {
+                document.getElementById('amount').focus()
+            }, 10);
         },
         computed: {
             activeCards() {
@@ -61,9 +65,6 @@
         },
         created() {
             store.commit('clearValidationErrors');
-        },
-        mounted() {
-            setTimeout(()=>{document.getElementById('amount').focus()},1000);
         },
         methods: {
             validation(name) {

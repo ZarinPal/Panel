@@ -61,7 +61,10 @@
         },
         props: ['card'],
         mounted(){
-            this.closeModalContent = false
+            this.closeModalContent = false;
+            setTimeout(() => {
+                document.getElementById('pan').focus()
+            }, 10);
         },
         computed: {
             validationErrors() {
@@ -172,7 +175,9 @@
                 let myLength = target.value.length;
 
                 if (myLength >= maxLength) {
-                    setTimeout(()=>{document.getElementById("year").focus()},500);
+                    setTimeout(() => {
+                        document.getElementById("year").focus()
+                    }, 10);
                 }
             },
             changeYearFocus(event) {
