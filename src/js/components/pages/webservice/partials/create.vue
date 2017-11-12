@@ -99,7 +99,7 @@
             this.$store.dispatch('app/getWebserviceCategories');
         },
         mounted(){
-            document.getElementById('siteName').focus();
+            setTimeout(()=>{document.getElementById('siteName').focus()},500);
         },
         methods: {
             validation(name) {

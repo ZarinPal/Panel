@@ -280,7 +280,7 @@
             },
         },
         mounted(){
-            document.getElementById('title').focus();
+            setTimeout(()=>{document.getElementById('title').focus()},500);
         },
         methods: {
             validation(name) {
