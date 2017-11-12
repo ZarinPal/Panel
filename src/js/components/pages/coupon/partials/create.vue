@@ -158,7 +158,9 @@
             this.easypaySelection.unshift(easypayAll);
         },
         mounted(){
-            setTimeout(()=>{document.getElementById('code').focus()},500);
+            setTimeout(() => {
+                document.getElementById('code').focus()
+            }, 10);
         },
         methods: {
             validation(name) {

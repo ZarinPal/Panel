@@ -99,7 +99,9 @@
             this.$store.dispatch('app/getWebserviceCategories');
         },
         mounted(){
-            setTimeout(()=>{document.getElementById('siteName').focus()},500);
+            setTimeout(() => {
+                document.getElementById('siteName').focus()
+            }, 10);
         },
         methods: {
             validation(name) {
