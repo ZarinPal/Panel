@@ -28,7 +28,6 @@
                                     div.ta-right(v-if="validation('domain')")
                                         span.text-danger {{ errors.first('domain') }}
 
-
                                 div.row.no-margin
                                     span.input-icon.mobile-icon
                                     input.ltr-input(v-validate="{rules: {required: true, regex: /^09[0-9]{9}$/} }" :class="{'input-danger': errors.has('tel')}"  v-bind:data-vv-as="$i18n.t('webservice.tel')" type="text" v-model="tel" name="tel" :placeholder= "$i18n.t('webservice.tel')" tabindex="3" )
