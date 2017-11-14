@@ -74,16 +74,16 @@
             }
         },
         mounted(){
-            setTimeout(()=>{document.getElementById('first_name').focus()},500);
+            setTimeout(() => {
+                document.getElementById('first_name').focus()
+            }, 500);
 
             let vm = this;
             //Load google map script tag
             let tag = document.createElement("script");
             tag.src = "https://www.google.com/recaptcha/api.js";
             document.getElementsByTagName("head")[0].appendChild(tag);
-            tag.onload = () => {
-                setTimeout(()=>{grecaptcha.execute();},1000);
-            };
+
 
         },
         methods: {
@@ -96,9 +96,8 @@
                 return this.errors.has(name);
             },
             validateForm() {
-
+                grecaptcha.execute();
                 this.g_recaptcha = grecaptcha.getResponse();
-                console.log(grecaptcha.getResponse());
                 this.$validator.validateAll({
                     first_name: this.first_name,
                     last_name: this.last_name,
