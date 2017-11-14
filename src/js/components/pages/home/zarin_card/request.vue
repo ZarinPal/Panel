@@ -1,5 +1,5 @@
 <template lang="pug">
-    modal.add-fund(v-on:closeModal="closeModal()")
+    modal.request-zarin-card(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('card.requestZarinCardTitle') }}
         div(slot="content")
             form(autocomplete="on" onsubmit="event.preventDefault();")
@@ -9,16 +9,21 @@
                         div.ta-right(v-if="validation('purse')")
                             span.text-danger {{ errors.first('purse') }}
 
-                    div
+                    p.user-information-description.ta-right {{ $i18n.t('card.requestZarinCardDescriptionOfUserInformation') }}
+
+                    div.user-information-box.ta-right
                         div {{ $i18n.t('user.firstName') }} : {{ user.name }}
                         div {{ $i18n.t('user.userAddress') }} : {{ user.address }}
                         div {{ $i18n.t('user.postal') }} : {{ user.postal | persianNumbers}}
 
-                    div.row.no-margin
-                        span {{ $i18n.t('card.zarinCardPrice') }}
-                        span {{coupon.cost | persianNumbers | numberFormat}} {{ $i18n.t('transaction.toman') }}
+                    div.row.zarin-card-request-box
+                        div.col-xs.right-box
+                            span {{ $i18n.t('card.zarinCardPrice') }}
+                        div.col-xs.left-box
+                            span.cost {{coupon.cost | persianNumbers | numberFormat}}
+                            span.toman {{ $i18n.t('transaction.toman') }}
 
-                    div.row.no-margin
+                    div.row.accept-information-box
                         input(type="checkbox" v-model="acceptInformation" id="chkPermission")
                         label(for="chkPermission")
                             span

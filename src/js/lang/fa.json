@@ -41,7 +41,8 @@
     "requestZarinCardTitle": "درخواست زرین‌کارت",
     "requestZarinCardDescription": "جهت درخواست زرین‌کارت اطلاعات زیر را تکمیل و تایید کنید.",
     "acceptTopInformationOfRequestZarinCard": "صحت اطلاعات فوق را تایید می نمایم.",
-    "zarinCardPrice": "هزینه صدور زرین‌کارت"
+    "zarinCardPrice": "هزینه صدور زرین‌کارت",
+    "requestZarinCardDescriptionOfUserInformation": "زرین‌کارت شما به آدرس زیر ارسال خواهد شد. از صحیح بودن آدرس مطمئن شوید."
   },
   "common": {
     "send": "ارسال",
@@ -337,7 +338,8 @@
     "please-accept-top-information": "لطفا صحت اطلاعات بالا را تایید کنید.",
     "you-can-only-request-one-zarincard-for-your-account": "هر کاربر حداکثر حق دریافت یک زرین‌کارت را دارد.",
     "zarin-card-request-success": "درخواست زرین‌کارت شما با موفقیت ثبت شد. کارت شما حداکثر تا دو هفته آینده از طریق پست به آدرس پستی انتخاب شده ارسال خواهد شد.",
-    "all-user-file-uploaded": "اطلاعات شما با موفقیت ثبت شد."
+    "all-user-file-uploaded": "اطلاعات شما با موفقیت ثبت شد.",
+    "you-can-not-edit-information-because-this-information-confirmed": "شما قادر به ویرایش اطلاعات نمی باشید چون این اطلاعات قبلا تایید شده اند"
   },
   "panel": {
     "home": "پیشخوان",
@@ -631,7 +633,6 @@
     "nationalIdFile": "فایل اسکن کارت ملی",
     "updateDocsSuccess": "به‌روزرسانی اطلاعات و مدارک با موفقیت انجام شد.",
     "DocsUploaded": "اطلاعات کاربری به‌روزرسانی شد.",
-    "introductionFile": "فایل اسکن معرفی‌نامه",
     "introductionFileNote": "(ویژه اشخاص حقوقی)",
     "updateDocsNote": "برای آپلود فایل اینجا کلیک نمایید",
     "updateDocs": "ارسال مدارک",
@@ -900,7 +901,11 @@
     "addressPlaceholder": "آدرس",
     "mobMail": "موبایل یا ایمیل",
     "editInformationTitle": "ویرایش اطلاعات",
-    "editInformationDescription": "جهت ارتقا به سطح طلایی اطلاعات را تکمیل کنید"
+    "uploadDocumentTitle": "آپلود مدارک",
+    "editInformationDescription": "جهت ارتقا به سطح طلایی اطلاعات را تکمیل کنید",
+    "introductionFile": "فایل اسکن معرفی نامه",
+    "nationalCardFile": "فایل اسکن کارت ملی",
+    "idCardFile": "فایل اسکن شناسنامه"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

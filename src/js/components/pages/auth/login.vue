@@ -19,9 +19,11 @@
                             input.ta-left.dir-ltr(v-validate="'required'" :class="{'input-danger': errors.has('username')}" v-bind:data-vv-as="$i18n.t('user.mobMail')" type="text"  v-model="username" name="username" id="username" :placeholder= "$i18n.t('user.mobMail')" autofocus autocomplete="username" tabindex="1")
                             div.ta-right(v-if="validation('username')")
                                 span.text-danger {{ errors.first('username') }}
-                            div.ta-right(v-if="lockout_time")
-                                span.text-danger شما به تازگی درخواست ارسال کد را ارسال کرده اید لطفا تا {{ lockout_time_min }} دقیقه و {{ lockout_time_sec }} ثانیه دیگر منتظر بمانید و مجددا درخواست دهید.
-
+                            div.ta-right(v-if="lockout_time_min || lockout_time_sec")
+                                span.text-danger(v-if="lockout_time_min || lockout_time_sec‌")
+                                    span شما به تازگی درخواست ارسال کد را ارسال کرده اید لطفا تا
+                                    span(v-if="lockout_time_min > 0") {{lockout_time_min }} دقیقه و
+                                    span {{lockout_time_sec }} ثانیه دیگر منتظر بمانید و مجددا درخواست دهید.
 
                         div.row.nav-user-not-registered(v-if="userNotRegister")
                             router-link.col-xs( tag="div" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
@@ -32,7 +34,7 @@
                             span {{ $i18n.t('user.notRegistered') }}
                             router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.register') }}
                         div.col-xs.no-margin
-                            button.gold.pull-left(id="btnSubmitEnter" ) {{$i18n.t('user.enter')}}
+                            button.gold.pull-left(id="btnSubmitEnter" :class="{'inactive-step' : lockLogin}") {{$i18n.t('user.enter')}}
                                 svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -76,7 +78,7 @@
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(v-on:paste="pasteOtp()" @change="otpMaxLength()" @keyup="otpMaxLength()" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
+                                    input(@change="otpMaxLength()" @keyup="otpMaxLength()" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
                                 div.dashed-line
 
                     div.row.bottom-xs
@@ -133,13 +135,16 @@
                 /**
                  * login failed date
                  */
-                lockout_time: null
+                lockLogin: false,
+                lockout_time_min: null,
+                lockout_time_sec: null
+
             }
         },
         computed: {
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
-            },
+            }
         },
         mounted(){
             let txtUsername = document.getElementById('username');
@@ -160,7 +165,6 @@
                 this.login();
             }
 
-
             let vm = this;
             this.$store.state.http.requests['oauth.check']
                 .get()
@@ -169,13 +173,8 @@
                 })
                 .catch(() => {
                 });
-
-            if (this.$store.state.auth.check) {
-                this.$router.push({name: 'home.index'});
-            }
         },
         methods: {
-
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
                     this.errors.clear();
@@ -183,9 +182,6 @@
                     this.$store.state.alert.validationErrors[name] = false;
                 }
                 return this.errors.has(name);
-            },
-            pasteOtp() {
-                this.otpMaxLength();
             },
             sendOtp(channel){
                 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -233,29 +229,41 @@
                             document.getElementById("txtOtp").focus();
                         }, 10);
                     }).catch((response) => {
-                    this.loginLoading = false;
-                    this.getOtpLoading = false;
+                        this.loginLoading = false;
+                        this.getOtpLoading = false;
 
-                    /**
-                     * lockout_tiem
-                     */
+                        /**
+                         * lockout_tiem
+                         */
 
-                    if (response.data.meta.error_type === 'UserOtpRateLimit') {
+                        if (response.data.meta.error_type === 'UserOtpRateLimit') {
+                            this.lockLogin = true;
+                            let duration = response.data.data.lockout_time;
+                            let minutes, seconds, vm = this;
+
+                            let timer = setInterval(function () {
+                                minutes = parseInt(duration / 60, 10);
+                                seconds = parseInt(duration % 60, 10);
+
+                                console.log()
+                                vm.lockout_time_min = minutes < 10 ? "0" + minutes : minutes;
+                                vm.lockout_time_sec = seconds < 10 ? "0" + seconds : seconds;
+
+                                if (--duration < 0) {
+                                    clearInterval(timer);
+                                    vm.onFinishedLockTime();
+                                }
+                            }, 1000);
 
 
-                        setInterval(function () {
-                                this.lockout_time = response.data.data.lockout_time;
-                                this.lockout_time_min = parseInt(this.lockout_time / 60);
-                                this.lockout_time_sec = parseInt(this.lockout_time % 60);
-                                return
+                        } else {
+                            store.commit('setValidationErrors', response.data.validation_errors);
+                            if (!this.validationErrors.username) {
+                                this.userNotRegister = true;
                             }
-                            , 1000)
-                    }
+                        }
 
-                    store.commit('setValidationErrors', response.data.validation_errors);
-                    if (!this.validationErrors.username) {
-                        this.userNotRegister = true;
-                    }
+
                 });
             },
             login(){
@@ -324,8 +332,12 @@
                     event.preventDefault();
                     return false;
                 }
+            },
+            onFinishedLockTime() {
+                this.lockout_time_min = null;
+                this.lockout_time_sec = null;
+                this.lockLogin = false;
             }
-
         },
         components: {
             timer
