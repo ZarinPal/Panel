@@ -19,6 +19,9 @@
                             input.ta-left.dir-ltr(v-validate="'required'" :class="{'input-danger': errors.has('username')}" v-bind:data-vv-as="$i18n.t('user.mobMail')" type="text"  v-model="username" name="username" id="username" :placeholder= "$i18n.t('user.mobMail')" autofocus autocomplete="username" tabindex="1")
                             div.ta-right(v-if="validation('username')")
                                 span.text-danger {{ errors.first('username') }}
+                            div.ta-right(v-if="lockout_time")
+                                span.text-danger شما به تازگی درخواست ارسال کد را ارسال کرده اید لطفا تا {{ lockout_time_min }} دقیقه و {{ lockout_time_sec }} ثانیه دیگر منتظر بمانید و مجددا درخواست دهید.
+
 
                         div.row.nav-user-not-registered(v-if="userNotRegister")
                             router-link.col-xs( tag="div" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
@@ -55,6 +58,7 @@
 
                                     span(v-else-if="channel == 'sms'")
                                         span رمز یکبار مصرف ارسال شده به  خود را وارد کنید
+
 
                             <!--Ussd Box-->
                             div.row.ussd-box.no-margin(v-if="channel == 'ussd'")
@@ -167,6 +171,7 @@
                 });
         },
         methods: {
+
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
                     this.errors.clear();
@@ -221,22 +226,29 @@
                             document.getElementById("txtOtp").focus();
                         }, 10);
                     }).catch((response) => {
-                        this.loginLoading = false;
-                        this.getOtpLoading = false;
+                    this.loginLoading = false;
+                    this.getOtpLoading = false;
 
-                        /**
-                         * lockout_tiem
-                         */
+                    /**
+                     * lockout_tiem
+                     */
 
-                        if (response.data.meta.error_type === 'UserOtpRateLimit') {
-                            this.lockout_time = response.data.data.lockout_time;
-                            return
-                        }
+                    if (response.data.meta.error_type === 'UserOtpRateLimit') {
 
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        if (!this.validationErrors.username) {
-                            this.userNotRegister = true;
-                        }
+
+                        setInterval(function () {
+                                this.lockout_time = response.data.data.lockout_time;
+                                this.lockout_time_min = parseInt(this.lockout_time / 60);
+                                this.lockout_time_sec = parseInt(this.lockout_time % 60);
+                                return
+                            }
+                            , 1000)
+                    }
+
+                    store.commit('setValidationErrors', response.data.validation_errors);
+                    if (!this.validationErrors.username) {
+                        this.userNotRegister = true;
+                    }
                 });
             },
             login(){
@@ -306,6 +318,7 @@
                     return false;
                 }
             }
+
         },
         components: {
             timer
