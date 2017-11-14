@@ -165,10 +165,6 @@
                 })
                 .catch(() => {
                 });
-
-            if (this.$store.state.auth.check) {
-                this.$router.push({name: 'home.index'});
-            }
         },
         methods: {
             validation(name) {

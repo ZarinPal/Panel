@@ -367,12 +367,12 @@ export default {
 
                     let error = response.data.meta;
 
-                    let checkRouteIndex = _.findIndex(state.routes, function(route) {
+                    let checkRoute = _.find(state.routes, function(route) {
                         return route.name === 'oauth.check';
                     });
 
                     if (error.error_type === "OauthAccessDenied"
-                        && request.url !== state.routes[checkRouteIndex].url) {
+                        && request.url !== checkRoute.url) {
 
                         vm.$store.commit('app/ready');
                         vm.$router.push({name: 'auth.login'});
