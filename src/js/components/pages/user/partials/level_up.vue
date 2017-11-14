@@ -107,7 +107,7 @@
 
                                 <!--Upload documents button-->
                                 div.col-xs(v-if="step == 2")
-                                    button.btn.success.pull-left(v-ripple="" @click="postUploadDocuments" tabindex="9") {{$i18n.t('user.editInformationTitle')}}
+                                    button.btn.success.pull-left(v-ripple="" @click="postUploadDocuments" tabindex="9") {{$i18n.t('user.upload')}}
                                         svg.material-spinner(v-if="sendRequest" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -122,7 +122,7 @@
         data() {
             return {
                 pageTitle: 'editInformationTitle',
-                step: 1, // [1=> user information, 2=> user documents]
+                step: 2, // [1=> user information, 2=> user documents]
                 isSavingInformation: false,
 
                 /**
