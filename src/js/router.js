@@ -38,6 +38,7 @@ export default new VueRouter({
             path: '/panel',
             component: require('./components/pages/panel.vue'),
             children: [
+                {path: '/', redirect: '/panel/home'},
                 {
                     path: '',
                     component: require('./components/pages/partials/containers/standard.vue'),
