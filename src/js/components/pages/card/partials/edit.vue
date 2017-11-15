@@ -15,7 +15,7 @@
                         span.label {{card.iban}}
 
                 div.row
-                    input.ta-left.dir-ltr(v-validate="{ rules: {required: true, max: 19}}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder="$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat()")
+                    input.ta-left.dir-ltr(v-focus="" v-validate="{ rules: {required: true, max: 19}}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder="$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat()")
                     div.ta-right(v-if="validation('pan')")
                         span.text-danger {{ errors.first('pan') }}
 
@@ -62,9 +62,6 @@
         props: ['card'],
         mounted(){
             this.closeModalContent = false;
-            setTimeout(() => {
-                document.getElementById('pan').focus()
-            }, 10);
         },
         computed: {
             validationErrors() {

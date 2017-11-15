@@ -90,6 +90,10 @@ Vue.directive(
 Vue.directive(
     'avatar',
     require('./directives/avatar').default
+)
+Vue.directive(
+    'focus',
+    require('./directives/focus').default
 );
 
 /**
