@@ -8,7 +8,7 @@
                     div.user-image
                         span(v-if="!this.$store.state.app.smallSidebar")
                             userProgress.hand(v-if="user.user_progress" v-bind:avatar="user.avatar" v-bind:user_progress="user.user_progress")
-                        img.hand(v-else v-bind:src="'https:' + user.avatar")
+                        img.hand(v-else :src="user.avatar")
                     p.user-name {{user.name}}
 
                 zpId(v-bind:data="user")
@@ -116,18 +116,14 @@
                     }
                 }
 
+                //reload cards
+                if (this.$route.name === 'card.index') {
+                    this.reloadData('CardList', 'card.index');
+                }
+
                 // reload tickets
                 if (this.$route.name === 'ticket.index') {
-                    let vm = this;
-                    this.$store.dispatch(
-                        'paginator/make',
-                        {
-                            vm,
-                            resource: vm.$store.state.http.requests['ticket.index'],
-                            params: vm.searchOptions,
-                            requestName: 'TicketList'
-                        }
-                    );
+                    this.reloadData('TicketList', 'ticket.index');
                 }
             },
             detectWidth(){
@@ -135,6 +131,18 @@
                     this.toggleMobileSidebar(false);
                 }
             },
+            reloadData(dataListName, dataUrlName) {
+                let vm = this;
+                this.$store.dispatch(
+                    'paginator/make',
+                    {
+                        vm,
+                        resource: vm.$store.state.http.requests[dataUrlName],
+                        params: vm.searchOptions,
+                        requestName: dataListName
+                    }
+                );
+            }
         },
         components: {
             dropDown,
