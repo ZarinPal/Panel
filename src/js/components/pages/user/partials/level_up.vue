@@ -122,7 +122,7 @@
         data() {
             return {
                 pageTitle: 'editInformationTitle',
-                step: 2, // [1=> user information, 2=> user documents]
+                step: 1, // [1=> user information, 2=> user documents]
                 isSavingInformation: false,
 
                 /**
