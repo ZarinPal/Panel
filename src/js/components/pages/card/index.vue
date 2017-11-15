@@ -11,18 +11,30 @@
                     span.text {{ $i18n.t('card.createCard') }}
 
         div.row.nav-cards
-            singleCard(v-for="card in cards" v-bind:key="card.entity_id" v-bind:card="card")
+            singleCard(v-for="card in cards.data" v-bind:key="card.entity_id" v-bind:card="card")
 
-        div.row(v-if="!cards.length")
-            div.col-xs.ta-center
-                span.txt-nothing-to-show {{ $i18n.t('common.nothingToShow') }}
-
+        <!--Components-->
         createCard(v-if="visibleCreateCard" v-on:closeModal="closeModal()")
+
+
+
+        <!--Loading data -->
+        div.ta-center(v-if="cards.status")
+            loading
+
+        div.ta-center(v-if="!this.$store.state.paginator.paginator.CardList.resource.resource && cards.data.length")
+            span.txt-nothing-to-show {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
+
+        div.row(v-if="!cards.status && !cards.data.length")
+            div.col-xs.ta-center
+                span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 </template>
 
 <script>
     import singleCard from './partials/single-card.vue';
     import createCard from './partials/create.vue';
+    import loading from '../../pages/partials/loading.vue';
+
     export default {
         name: 'card-index',
         data(){
@@ -35,7 +47,14 @@
                 let activeCards = [];
                 let inActiveCards = [];
                 let reorderedCards = [];
-                this.$store.state.auth.user.cards.forEach(function (card) {
+
+                let cards =  {
+                    data: this.$store.state.paginator.paginator.CardList.data,
+                    status: this.$store.state.paginator.paginator.CardList.isLoading,
+                    update: this.$store.state.paginator.update,
+                };
+
+                cards.data.forEach(function (card) {
                     if (card.status === 'Active') {
                         activeCards.push(card);
                     } else {
@@ -43,8 +62,14 @@
                     }
                 });
                 reorderedCards = activeCards.concat(inActiveCards);
-                return reorderedCards;
+                return {
+                    data: reorderedCards,
+                    status: this.$store.state.paginator.paginator.CardList.isLoading,
+                };
             }
+        },
+        created() {
+            this.getCards();
         },
         methods: {
             closeModal(){
@@ -54,10 +79,23 @@
             userHasAccess(validLevels) {
                 return _.indexOf(validLevels, this.$store.state.auth.user.level);
             },
+            getCards() {
+                let vm = this;
+                this.$store.dispatch(
+                    'paginator/make',
+                    {
+                        vm,
+                        resource: vm.$store.state.http.requests['card.getList'],
+                        params: vm.searchOptions,
+                        requestName: 'CardList'
+                    }
+                );
+            }
         },
         components: {
             singleCard,
-            createCard
+            createCard,
+            loading
         }
     }
 </script>
