@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.full-height(v-if="$store.state.app.isLoaded")
+    div.full-height(:class="{'blur-screen': $store.state.app.logOuting || !$store.state.app.isLoaded}")
         navbar
 
         div.zp-container.row
@@ -9,10 +9,15 @@
                 <!--button.success.pull-left(v-back="") back-->
                 router-view
 
+            div.three-circle-loading(v-if="$store.state.app.logOuting || !$store.state.app.isLoaded")
+                div.spinner
+                div.spinner
+                div.spinner
+
         div.clear-both
-    div(v-else)
-        div.loading.ta-center
-            div.spinner
+    <!--div(v-else)-->
+        <!--div.loading.ta-center-->
+            <!--div.spinner-->
 
 </template>
 

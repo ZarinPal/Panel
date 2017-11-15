@@ -147,3 +147,66 @@
   }
 }
 
+
+/*** 3 dot loading***/
+.three-circle-loading {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  z-index: 2;
+  transform: translate(50%, -50%);
+
+  .zarinpal-type {
+    color: #424242;
+    font-size: 30px;
+    margin-top: -70px;
+    font-family: 'iransans';
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    //margin: 100px auto;
+    display: inline-block;
+    background-color: #ffd600;
+    visibility: hidden;
+
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+    animation: sk-scaleout 1.0s infinite ease-in-out;
+
+    &:nth-child(1n) {
+      animation-delay: 0s;
+    }
+    &:nth-child(2n) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(3n) {
+      animation-delay: 0.4s;
+    }
+  }
+
+  @-webkit-keyframes sk-scaleout {
+    0% {
+      visibility: visible;
+      transform: scale(0)
+    }
+    100% {
+      visibility: visible;
+      transform: scale(1.4);
+      opacity: 0;
+    }
+  }
+
+  @keyframes sk-scaleout {
+    0% {
+      visibility: visible;
+      transform: scale(0);
+    }
+    100% {
+      visibility: visible;
+      transform: scale(1.4);
+      opacity: 0;
+    }
+  }
+}

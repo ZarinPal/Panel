@@ -33,12 +33,12 @@
                     span.btn-label {{ $i18n.t('card.requestZarinCardTitle') }}
 
             div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
-                button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")
+                button.btn.success(v-if="purses.data" @click="visibleCreatePurse = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
 
         div.row
-            singlePurse(v-for="purse in purses.data" v-bind:balance="purse.balance" v-bind:key="purse.purse" v-bind:update="purses.update" v-bind:purse="purse" v-bind:showMore="showMore")
+            singlePurse(v-if="purse.visible" v-for="purse in purses.data" v-bind:balance="purse.balance" v-bind:key="purse.purse" v-bind:update="purses.update" v-bind:purse="purse" v-bind:showMore="showMore")
 
         createPurse(v-if="visibleCreatePurse" v-on:closeModal="closeModal()")
         addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()")
@@ -84,12 +84,12 @@
         },
         computed: {
             purses(){
-                if (this.$store.state.auth.user.purses.length == 0) {
-                    return {
-                        data: [],
-                        update: 0
-                    }
-                }
+                // if (!!this.$store.state.auth.user.purses) {
+                //     return {
+                //         data: [],
+                //         update: 1
+                //     }
+                // }
 
                 return {
                     data: this.$store.state.auth.user.purses,
