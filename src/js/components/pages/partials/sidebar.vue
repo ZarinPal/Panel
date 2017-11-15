@@ -8,7 +8,7 @@
                     div.user-image
                         span(v-if="!this.$store.state.app.smallSidebar")
                             userProgress.hand(v-if="user.user_progress" v-bind:avatar="user.avatar" v-bind:user_progress="user.user_progress")
-                        img.hand(v-else v-bind:src="'https:' + user.avatar")
+                        img.hand(v-else :src="user.avatar")
                     p.user-name {{user.name}}
 
                 zpId(v-bind:data="user")
