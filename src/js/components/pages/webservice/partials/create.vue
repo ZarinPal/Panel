@@ -13,7 +13,7 @@
                             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                                 div.row.no-margin
                                     span.input-icon.home-icon
-                                    input(v-validate="'required'" v-bind:data-vv-as="$i18n.t('webservice.siteName')"  :class="{'input-danger': errors.has('site_name')}" type="text" name="site_name"  id="siteName" v-model="site_name" :placeholder= "$i18n.t('webservice.siteName')" autofocus tabindex="1" )
+                                    input(v-focus="" v-validate="'required'" v-bind:data-vv-as="$i18n.t('webservice.siteName')"  :class="{'input-danger': errors.has('site_name')}" type="text" name="site_name"  id="siteName" v-model="site_name" :placeholder= "$i18n.t('webservice.siteName')" autofocus tabindex="1" )
                                     div.ta-right(v-if="validation('site_name')")
                                         span.text-danger {{ errors.first('site_name') }}
 
@@ -96,11 +96,6 @@
         created(){
             store.commit('clearValidationErrors');
             this.$store.dispatch('app/getWebserviceCategories');
-        },
-        mounted(){
-            setTimeout(() => {
-                document.getElementById('siteName').focus()
-            }, 10);
         },
         methods: {
             validation(name) {
