@@ -16,7 +16,7 @@
 
                     div.row.row-margin
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-right-margin
-                            input.half-input(v-validate="'required'" :class="{'input-danger': errors.has('first_name')}"  v-bind:data-vv-as="$i18n.t('user.firstName')" type="text" name="first_name" v-model="first_name" id="first_name" :placeholder= "$i18n.t('user.firstName')"  autofocus tabindex="1" )
+                            input.half-input(v-focus="" v-validate="'required'" :class="{'input-danger': errors.has('first_name')}"  v-bind:data-vv-as="$i18n.t('user.firstName')" type="text" name="first_name" v-model="first_name" id="first_name" :placeholder= "$i18n.t('user.firstName')"  autofocus tabindex="1" )
                             div.ta-right(v-if="validation('first_name')")
                                 span.text-danger {{ errors.first('first_name') }}
 
@@ -74,10 +74,6 @@
             }
         },
         mounted(){
-            setTimeout(() => {
-                document.getElementById('first_name').focus()
-            }, 500);
-
             let vm = this;
             //Load google map script tag
             let tag = document.createElement("script");
