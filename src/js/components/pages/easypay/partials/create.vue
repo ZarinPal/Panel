@@ -23,7 +23,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.home-icon
-                                            input(v-validate="'required|min:3'" :class="{'input-danger': errors.has('title')}"  v-bind:data-vv-as="$i18n.t('easypay.title')" type="text" v-model="title" name="title" id="title" :placeholder= "$i18n.t('easypay.title')" tabindex="1")
+                                            input(v-focus="" v-validate="'required|min:3'" :class="{'input-danger': errors.has('title')}"  v-bind:data-vv-as="$i18n.t('easypay.title')" type="text" v-model="title" name="title" id="title" :placeholder= "$i18n.t('easypay.title')" tabindex="1")
                                             div.ta-right(v-if="validation('title')")
                                                 span.text-danger {{ errors.first('title') }}
 
@@ -278,11 +278,6 @@
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
-        },
-        mounted(){
-            setTimeout(() => {
-                document.getElementById('title').focus()
-            }, 10);
         },
         methods: {
             validation(name) {

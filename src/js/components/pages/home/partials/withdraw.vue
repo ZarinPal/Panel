@@ -16,7 +16,7 @@
             span(v-else)
                 div(v-if="this.$store.state.auth.user.cards")
                     form(autocomplete="on" onsubmit="event.preventDefault();")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse"  id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse"  id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" placeholder="انتخاب کیف پول")
                         div.ta-right(v-if="validation('purse')")
                             span.text-danger {{ errors.first('purse') }}
 
@@ -136,9 +136,6 @@
             this.getFees();
         },
         mounted() {
-            setTimeout(() => {
-                document.getElementById('amount').focus()
-            }, 20);
             this.closeModalContent = false;
         },
         methods: {

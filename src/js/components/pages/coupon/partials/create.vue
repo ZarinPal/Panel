@@ -14,7 +14,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.offCode') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input(v-validate="'required'" :class="{'input-danger': errors.has('code')}" v-bind:data-vv-as="$i18n.t('coupon.offCode')" type="text"  id="code" v-model="code" name="code"  placeholder="مثال:zarinfriends" autofocus tabindex="1"  )
+                                input(v-focus="" v-validate="'required'" :class="{'input-danger': errors.has('code')}" v-bind:data-vv-as="$i18n.t('coupon.offCode')" type="text"  id="code" v-model="code" name="code"  placeholder="مثال:zarinfriends" autofocus tabindex="1"  )
                                 div.ta-right(v-if="validation('code')")
                                     span.text-danger {{ errors.first('code') }}
 
@@ -156,11 +156,6 @@
                 'value': 'all'
             };
             this.easypaySelection.unshift(easypayAll);
-        },
-        mounted(){
-            setTimeout(() => {
-                document.getElementById('code').focus()
-            }, 10);
         },
         methods: {
             validation(name) {

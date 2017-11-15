@@ -4,7 +4,7 @@
         div(slot="content")
             form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
-                    input(v-validate="{ rules: {required: true, min:3, max: 50}}" v-bind:data-vv-as="$i18n.t('user.purseName')" :class="{'input-danger': errors.has('name')}" type="text" v-model="name" name="name" id="name" autofocus tabindex="1" :placeholder="$i18n.t('user.purseName')")
+                    input(v-focus="" v-validate="{ rules: {required: true, min:3, max: 50}}" v-bind:data-vv-as="$i18n.t('user.purseName')" :class="{'input-danger': errors.has('name')}" type="text" v-model="name" name="name" id="name" autofocus tabindex="1" :placeholder="$i18n.t('user.purseName')")
                     div.ta-right(v-if="validation('name')")
                         span.text-danger {{ errors.first('name') }}
 
@@ -41,9 +41,6 @@
         },
         mounted(){
             this.closeModalContent = false;
-            setTimeout(() => {
-                document.getElementById('name').focus()
-            }, 10);
         },
         computed: {
             validationErrors() {

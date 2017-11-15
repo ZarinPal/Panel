@@ -22,7 +22,7 @@
 
                 div.row.input-group.no-margin(:class="{'input-danger': errors.has('iban')}")
                     div.col-xs.no-margin
-                        input.input.ta-left.dir-ltr(v-validate="{ rules: {required: true, numeric: true, digits: 24} }" v-bind:data-vv-as="$i18n.t('card.iban')" maxlength="24" type="text" v-model="iban" name="iban" id="iban" :placeholder= "$i18n.t('card.iban')" autofocus tabindex="1")
+                        input.input.ta-left.dir-ltr(v-focus="" v-validate="{ rules: {required: true, numeric: true, digits: 24} }" v-bind:data-vv-as="$i18n.t('card.iban')" maxlength="24" type="text" v-model="iban" name="iban" id="iban" :placeholder= "$i18n.t('card.iban')" autofocus tabindex="1")
                     div.no-margin.first-label
                         span IR
 
@@ -100,9 +100,6 @@
             store.commit('clearValidationErrors');
         },
         mounted() {
-            setTimeout(() => {
-                document.getElementById('iban').focus()
-            }, 10);
             this.closeModalContent = false
         },
         methods: {

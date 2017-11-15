@@ -9,7 +9,7 @@
                     form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row.no-margin
                             div.col-xs.no-right-margin
-                                input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('common.secondaryPass')" :class="{'input-danger': errors.has('password')}" type="password" v-model="password" name="password" :placeholder="$i18n.t('common.secondaryPass')")
+                                input(v-focus="" v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('common.secondaryPass')" :class="{'input-danger': errors.has('password')}" type="password" v-model="password" name="password" :placeholder="$i18n.t('common.secondaryPass')")
                                 div.ta-right(v-if="validation('password')")
                                     span.text-danger {{ errors.first('password') }}
 
