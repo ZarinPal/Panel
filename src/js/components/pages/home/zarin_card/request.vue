@@ -5,7 +5,7 @@
             form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.body
                     div.row.no-margin
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus=""  v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                         div.ta-right(v-if="validation('purse')")
                             span.text-danger {{ errors.first('purse') }}
 
@@ -84,7 +84,7 @@
                     }
                 });
             },
-            removeErrors : function (field) {
+            removeErrors: function (field) {
                 !!this[field] && this.errors.remove(field);
             },
             closeModal() {
@@ -97,17 +97,17 @@
                 this.$store.state.http.requests['zarincard.cost']
                     .get()
                     .then((response) => {
-                        this.coupon = response.data.data;
+                            this.coupon = response.data.data;
 
-                        this.isGettingCouponCost = false;
-                    }, (response) => {
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
-                            type: 'danger'
-                        });
-                    }
-                );
+                            this.isGettingCouponCost = false;
+                        }, (response) => {
+                            store.commit('setValidationErrors', response.data.validation_errors);
+                            store.commit('flashMessage', {
+                                text: response.data.meta.error_message,
+                                type: 'danger'
+                            });
+                        }
+                    );
             },
             setRequestZarinCard() {
                 if (!this.acceptInformation) {
@@ -127,24 +127,24 @@
                 this.$store.state.http.requests['zarincard.postRequestIssue']
                     .save(zarinCardDate)
                     .then(
-                    () => {
-                        this.requesting = false;
+                        () => {
+                            this.requesting = false;
 
-                        store.commit('flashMessage', {
-                            text: 'zarin card request success',
-                            important: true,
-                            type: 'success'
-                        });
-                        this.$router.push({name: 'card.index'})
-                    }, (response) => {
-                        this.requesting = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
-                            type: 'danger'
-                        });
-                    }
-                )
+                            store.commit('flashMessage', {
+                                text: 'zarin card request success',
+                                important: true,
+                                type: 'success'
+                            });
+                            this.$router.push({name: 'card.index'})
+                        }, (response) => {
+                            this.requesting = false;
+                            store.commit('setValidationErrors', response.data.validation_errors);
+                            store.commit('flashMessage', {
+                                text: response.data.meta.error_message,
+                                type: 'danger'
+                            });
+                        }
+                    )
             }
         },
         components: {
