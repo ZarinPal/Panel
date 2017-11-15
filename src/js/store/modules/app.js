@@ -15,6 +15,7 @@ export default {
         refererId: null,
         selectedTab: 'dashboard',
         isOpenModal: false,
+        logOuting: false,
     },
     mutations: {
         loading(state) {
@@ -53,6 +54,9 @@ export default {
         },
         changeModalStatus(state, status) {
             state.isOpenModal = status
+        },
+        changeLogOutStatus(state) {
+            state.logOuting = false;
         }
     },
     actions: {
