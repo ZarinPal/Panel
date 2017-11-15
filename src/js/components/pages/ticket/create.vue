@@ -13,7 +13,7 @@
                     div.right-box.col-lg-7.col-md-6.col-sm-12.col-xs-12
                         div.row.field-row
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12.field-box
-                                input.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="{ rules: {required: true, min: 5, max:255}}"  v-bind:data-vv-as="$i18n.t('ticket.title')" :class="{'input-danger': errors.has('title')}" v-model="title" name="title" type="text" :placeholder="$i18n.t('ticket.title')" tabindex="1")
+                                input.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-focus="" v-validate="{ rules: {required: true, min: 5, max:255}}"  v-bind:data-vv-as="$i18n.t('ticket.title')" :class="{'input-danger': errors.has('title')}" v-model="title" name="title" type="text" :placeholder="$i18n.t('ticket.title')" tabindex="1")
                                 div.ta-right(v-if="validation('title')")
                                     span.text-danger {{ errors.first('title') }}
 
