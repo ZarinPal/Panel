@@ -42,6 +42,9 @@
             }
         },
         created(){
+            let body = document.getElementById('body');
+            body.classList.remove("no-scroll");
+
             this.$store.commit('app/loading');
             let vm = this;
             this.$store.dispatch('auth/fetch', (isOk) => {
