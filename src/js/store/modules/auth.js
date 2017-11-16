@@ -104,7 +104,8 @@ export default {
         logout({dispatch, commit, rootState}, vm) {
             rootState.http.requests['oauth.getLogout'].get().then(
                 (response) => {
-                    commit('app/changeLogOutStatus', null, { root: true })
+                    commit('app/changeLogOutStatus', null, { root: true });
+                    commit('app/changeModalStatus', false, { root: true });
                     commit('empty');
                     dispatch('stopWebPushSocket', {}, {root: true});
                     vm.$router.push({name: 'auth.login'});
