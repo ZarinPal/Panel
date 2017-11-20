@@ -1,5 +1,8 @@
 <template lang="pug">
-    div.inner-content
+    span(v-if="step == 2")
+        user-address(v-on:incrementUserLevelUpStep="incrementStep")
+
+    div.inner-content(v-else)
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 p.page-title {{ $i18n.t('user.' + pageTitle) }}
@@ -62,7 +65,7 @@
                                                     span.text-danger {{ errors.first('ssn') }}
 
                                         <!--Step 2-->
-                                        div(v-if="step == 2")
+                                        div(v-if="step == 3")
                                             <!--id_card_file-->
                                             div.row.nav-rows
                                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.no-margin
@@ -106,7 +109,7 @@
                                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
                                 <!--Upload documents button-->
-                                div.col-xs(v-if="step == 2")
+                                div.col-xs(v-if="step == 3")
                                     button.btn.success.pull-left(v-ripple="" @click="postUploadDocuments" tabindex="9") {{$i18n.t('user.upload')}}
                                         svg.material-spinner(v-if="sendRequest" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
@@ -116,6 +119,7 @@
 
 <script>
     import loading from '../../partials/loading';
+    import address from './add_address';
 
     export default {
         name: 'uploadDocument',
@@ -174,6 +178,9 @@
                         this.postLevelUp();
                     }
                 });
+            },
+            incrementStep() {
+                this.step++;
             },
 
             /**
@@ -309,6 +316,7 @@
 
         },
         components: {
+            'user-address': address,
             loading
         }
     }

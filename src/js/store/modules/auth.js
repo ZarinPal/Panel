@@ -2,7 +2,35 @@ export default {
     namespaced: true,
     state: {
         isLoaded: false,
-        user: {},
+        user: {
+            name: 'کاربر تست',
+            public_id: '123456',
+            level: 1,
+            purses: [
+                {
+                    balance: {
+                        balance: 0,
+                        today_income: 0,
+                        today_outcome: 0,
+                        total_to_exit: 0
+                    },
+                    name: 'اصلی زرين پال',
+                    purse: 1,
+                    visible: true
+                },
+                {
+                    balance: {
+                        balance: 0,
+                        today_income: 0,
+                        today_outcome: 0,
+                        total_to_exit: 0
+                    },
+                    name: 'پيامک',
+                    purse: 99,
+                    visible: true
+                },
+            ]
+        },
         check: false,
         isRequested: false,
         otpTime: 30, //As seconds
@@ -30,6 +58,9 @@ export default {
         change(state, data) {
             state.user[data.name] = data.value;
         },
+        updatePurseListener(state) {
+            state.updatePurseListener++;
+        }
     },
     actions: {
         fetch({commit, rootState, state, dispatch}, callback) {
@@ -59,7 +90,7 @@ export default {
                 callback(false);
             });
         },
-        fetchPurseBalance({rootState, state, dispatch}) {
+        fetchPurseBalance({rootState, state, dispatch, commit}) {
             state.user.purses.forEach(function (purse) {
                 rootState.http.requests['purse.getBalance'].get({purseId: purse.purse}).then(response => {
                     state.purseLoadedCount++;
@@ -75,18 +106,21 @@ export default {
                 dispatch('addBalanceToPurse', {purseId: purseId, purseBalance: response.data.data});
             });
         },
-        addBalanceToPurse({state, dispatch}, {purseId, purseBalance}) {
+        addBalanceToPurse({state, dispatch, commit}, {purseId, purseBalance}) {
             let purseIndex = _.findIndex(state.user.purses, function (filterPurse) {
                 return filterPurse.purse === purseId
             });
             state.user.purses[purseIndex].balance = purseBalance;
+            state.user.purses[purseIndex].visible = true;
             dispatch('chanePurseBalanceStatus');
+            commit('updatePurseListener');
         },
-        chanePurseBalanceStatus({state, rootState}) {
+        chanePurseBalanceStatus({state, rootState, commit}) {
             let pursesCount = state.user.purses.length;
             if (pursesCount === state.purseLoadedCount) {
                 rootState.app.isLoaded = true;
             }
+            commit('updatePurseListener');
         },
         save({state, rootState}) {
             rootState.http.requests['profile'].update({
@@ -98,6 +132,8 @@ export default {
         logout({dispatch, commit, rootState}, vm) {
             rootState.http.requests['oauth.getLogout'].get().then(
                 (response) => {
+                    commit('app/changeLogOutStatus', null, { root: true });
+                    commit('app/changeModalStatus', false, { root: true });
                     commit('empty');
                     dispatch('stopWebPushSocket', {}, {root: true});
                     vm.$router.push({name: 'auth.login'});
