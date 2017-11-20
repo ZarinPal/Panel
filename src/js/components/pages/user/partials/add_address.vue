@@ -125,6 +125,10 @@
                             type: 'success'
                         });
                         this.loading = false;
+
+                        //this run in user level up
+                        this.$emit('incrementUserLevelUpStep');
+
                         // this.$router.push({name: 'home.index'})
                     },
                     (response) => {
