@@ -11,7 +11,7 @@ export default {
             let errors = {};
             if (validationErrors) {
                 validationErrors.forEach(function (error) {
-                    errors[error.input] = error.translation_key;
+                    errors[error.input] = error.rule;
                     state.validationErrors = errors;
                 });
             }

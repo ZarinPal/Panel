@@ -5,7 +5,7 @@ export default {
         user: {
             name: 'کاربر تست',
             public_id: '123456',
-            level: 1,
+            level: 2,
             purses: [
                 {
                     balance: {
