@@ -2,7 +2,35 @@ export default {
     namespaced: true,
     state: {
         isLoaded: false,
-        user: {},
+        user: {
+            name: 'کاربر تست',
+            public_id: '123456',
+            level: 1,
+            purses: [
+                {
+                    balance: {
+                        balance: 0,
+                        today_income: 0,
+                        today_outcome: 0,
+                        total_to_exit: 0
+                    },
+                    name: 'اصلی زرين پال',
+                    purse: 1,
+                    visible: true
+                },
+                {
+                    balance: {
+                        balance: 0,
+                        today_income: 0,
+                        today_outcome: 0,
+                        total_to_exit: 0
+                    },
+                    name: 'پيامک',
+                    purse: 99,
+                    visible: true
+                },
+            ]
+        },
         check: false,
         isRequested: false,
         otpTime: 30, //As seconds
