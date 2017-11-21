@@ -33,7 +33,7 @@
                     span.btn-label {{ $i18n.t('card.requestZarinCardTitle') }}
 
             div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
-                button.btn.success(v-if="purses.data" @click="visibleCreatePurse = true")
+                button.btn.success(v-if="userHasAccess([1, 2, 3]) >= 0" @click="visibleCreatePurse = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
 
@@ -98,7 +98,7 @@
             },
             haveZarinCard() {
                 let zarinCards = {};
-                zarinCards =  _.find(this.$store.state.auth.user.cards, function(card) {
+                zarinCards = _.find(this.$store.state.auth.user.cards, function (card) {
                     return card.issuer.slug === 'ZarinCard';
                 });
                 return typeof zarinCards !== 'undefined';
