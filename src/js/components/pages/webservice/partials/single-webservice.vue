@@ -5,7 +5,7 @@
                 div.row
                     div.col-xs.right-box
                         p(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id")
-                            span.green-small-circle
+                            span.green-small-circle.flash
                             span.header-title(:title="webservice.name") {{webservice.name}}
 
                     div.col-xs.ta-left-box.left-box

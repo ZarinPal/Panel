@@ -2,12 +2,12 @@
     "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (n.__vee_validate_locale__fa = n.__vee_validate_locale__fa || {}, n.__vee_validate_locale__fa.js = e())
 }(this, function () {
     "use strict";
-    var n = function (n) {
-        var e = ["Byte", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
+    let n = function (n) {
+        let e = ["Byte", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
             t = 0 === (n = 1024 * Number(n)) ? 0 : Math.floor(Math.log(n) / Math.log(1024));
         return 1 * (n / Math.pow(1024, t)).toFixed(2) + " " + e[t]
     }, e = function (e) {
-        var t = {Byte: "بايت", KB: "كيلوبايت", GB: "جيجابايت", PB: "بيتابايت"};
+        let t = {Byte: "بايت", KB: "كيلوبايت", GB: "گیگابایت", PB: "پتابایت"};
         return n(e).replace(/(Byte|KB|GB|PB)/, function (n) {
             return t[n]
         })
@@ -37,7 +37,7 @@
                 return n + " باید در قالب " + e[0] + " باشد."
             }, decimal: function (n, e) {
                 void 0 === e && (e = ["*"]);
-                var t = e[0];
+                let t = e[0];
                 return n + " باید یک مقدار عددی " + ("*" === t ? "" : " با حداکثر " + t + " اعشار") + " باشد."
             }, digits: function (n, e) {
                 return n + " باید یک مقدار عددی و دقیقاً " + e[0] + " رقم باشد."
@@ -72,10 +72,12 @@
             }, required: function (n) {
                 return n + " الزامی است."
             }, size: function (n, t) {
-                var r = t[0];
+                let r = t[0];
                 return "حجم " + n + " کمتر از " + e(r) + " باشد."
             }, url: function (n) {
                 return n + " باید یک تارنمای معتبر باشد."
+            }, iban: function (n) {
+                return n + "باید یک شماره شبای معتبر باشد"
             }
         }, attributes: {}
     };

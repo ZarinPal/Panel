@@ -21,7 +21,7 @@
                             span.text-danger {{ errors.first('purse') }}
 
                         div.row
-                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15,min_value : 5000}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount"  id="amount" tabindex="1" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
+                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount"  id="amount" tabindex="1" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
                             div.ta-right(v-if="validation('amount')")
                                 span.text-danger {{ errors.first('amount') }}
 
