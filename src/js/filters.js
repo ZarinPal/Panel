@@ -29,11 +29,11 @@ Vue.filter('numberFormat', function (num) {
     return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
     //return num;
 });
-Vue.filter('less', function (value) {
-    if (value.length < 20) {
+Vue.filter('less', function (value, length = 20) {
+    if (value.length < length) {
         return value;
     }
-    let trimmedString = value.substr(0, 20);
+    let trimmedString = value.substr(0, length);
     trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
     return trimmedString + '...';
 });
