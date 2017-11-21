@@ -224,10 +224,6 @@
                                 timeout: 10000,
                             });
                         }
-
-                        setTimeout(function () {
-                            document.getElementById("txtOtp").focus();
-                        }, 10);
                     }).catch((response) => {
                         this.loginLoading = false;
                         this.getOtpLoading = false;
