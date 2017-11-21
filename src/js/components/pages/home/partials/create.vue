@@ -56,18 +56,24 @@
         methods: {
             validation(name) {
                 if(this.$store.state.alert.validationErrors[name]) {
-                    this.errors.clear();
-                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    this.$validator.attach(
+                        name,
+                        this.$store.state.alert.validationErrors[name],
+                        {
+                            alias: this.$validator.fields.find(name).el.attributes.getNamedItem('data-vv-as').value
+                        }
+                        );
                     this.$store.state.alert.validationErrors[name] = false;
+                    this.validateForm(true);
                 }
                 return this.errors.has(name);
             },
-            validateForm() {
+            validateForm(isInternal) {
                 this.$validator.validateAll({
                     purse: this.purse,
                     name: this.name,
                 }).then((result) => {
-                    if (result) {
+                    if (result && isInternal) {
                         this.createPurse();
                     }
                 });

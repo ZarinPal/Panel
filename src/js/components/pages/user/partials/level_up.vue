@@ -133,10 +133,10 @@
                  * User information
                  */
                 gender: 'male',
-                first_name: '',
-                last_name: '',
-                birthday: '',
-                ssn: '',
+                first_name: null,
+                last_name: null,
+                birthday: null,
+                ssn: null,
 
                 /**
                  * upload documents variables
