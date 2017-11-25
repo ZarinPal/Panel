@@ -40,7 +40,6 @@ window.i18n = i18n;
 
 VeeValidate.Validator.addLocale(messagesFa);
 Vue.use(VeeValidate, {locale: 'fa'});
-Vue.use(VeeValidate);
 
 import VueSentry from 'vue2-sentry';
 Vue.use(VueSentry, {

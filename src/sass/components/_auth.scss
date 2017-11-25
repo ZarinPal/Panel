@@ -354,4 +354,5 @@ div.time {
 /*** Log out ***/
 .blur-screen {
   filter: blur(5px);
+  pointer-events: none;
 }
