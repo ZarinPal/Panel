@@ -11,7 +11,10 @@ export default {
             let errors = {};
             if (validationErrors) {
                 validationErrors.forEach(function (error) {
-                    errors[error.input] = error.rule;
+                    errors[error.input] = {
+                        rule: error.rule,
+                        params: error.params
+                    };
                     state.validationErrors = errors;
                 });
             }
