@@ -76,8 +76,30 @@
                 return "حجم " + n + " کمتر از " + e(r) + " باشد."
             }, url: function (n) {
                 return n + " باید یک تارنمای معتبر باشد."
+            }, exists: function (n) {
+                return n + "باید یک شماره شبای معتبر باشد"
+            }, requiredWithoutStrict: function (n) {
+                return n + "باید یک شماره شبای معتبر باشد"
+            }, complexPassword: function (n) {
+                return n + "باید یک شماره شبای معتبر باشد"
+            }, uniqueDomain: function (n) {
+                return n + "باید یک شماره شبای معتبر باشد"
+            }, containsAlpha: function (n) {
+                return n + "باید یک شماره شبای معتبر باشد"
+            }, recaptcha: function (n) {
+                return n + "باید یک شماره شبای معتبر باشد"
+            }, notVerifiedMobile: function (n) {
+                return n + "باید یک شماره شبای معتبر باشد"
             }, iban: function (n) {
                 return n + "باید یک شماره شبای معتبر باشد"
+            }, uniqueuser: function (n) {
+                return n + "قبلا در سیستم ثبت شده است"
+            }, attachment: function (n) {
+                return n + "قبلا در سیستم ثبت شده است"
+            }, luhn: function (n) {
+                return n + " خطای luhn"
+            }, pan: function (n) {
+                return n + "شماره کارت اشتباه است"
             }
         }, attributes: {}
     };

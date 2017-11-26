@@ -55,25 +55,25 @@
         },
         methods: {
             validation(name) {
-                if(this.$store.state.alert.validationErrors[name]) {
-                    this.$validator.attach(
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.add(
                         name,
-                        this.$store.state.alert.validationErrors[name],
-                        {
-                            alias: this.$validator.fields.find(name).el.attributes.getNamedItem('data-vv-as').value
-                        }
-                        );
+                        this.$validator.dictionary.container.fa.messages[this.$store.state.alert.validationErrors[name].rule](
+                            this.$validator.fields.find(name).el.getAttribute('data-vv-as'),
+                            this.$store.state.alert.validationErrors[name].params
+                        ),
+                        'api'
+                    );
                     this.$store.state.alert.validationErrors[name] = false;
-                    this.validateForm(true);
                 }
                 return this.errors.has(name);
             },
-            validateForm(isInternal) {
+            validateForm() {
                 this.$validator.validateAll({
                     purse: this.purse,
                     name: this.name,
                 }).then((result) => {
-                    if (result && isInternal) {
+                    if (result) {
                         this.createPurse();
                     }
                 });
