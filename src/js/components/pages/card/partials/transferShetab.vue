@@ -153,8 +153,6 @@
                 }
                 return this.errors.has(name);
             },
-                return this.errors.has(name);
-            },
             validateForm() {
                 this.$validator.validateAll({
                     password: this.password,
