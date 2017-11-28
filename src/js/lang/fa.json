@@ -312,7 +312,7 @@
     "user-not-found": "کاربر یافت نشد",
     "webservice-not-found": "وب سرویس یافت نشد",
     "purse-does-not-have-enough-credit": "موجودی کیف پول کافی نیست",
-    "the-user-credentials-were-incorrect": "سطح دسترسی حساب کاربری شما غیر مجاز است.",
+    "the-user-credentials-were-incorrect": "رمز یک بار مصرف وارد شده صحیح نیست.",
     "you-can-not-create-more-purses": "شما حداکثر تعداد کیف پول های خود را ایجاد کرده اید و بیش از این امکان ایجاد کیف پول وجود ندارد.",
     "user-register-successfully": "تبریک،عضویت شما با موفیت انجام شد.",
     "you-are-not-register-yet": "شما هنوز ثبت نام نکرده اید آیا ثبت نام می کنید؟",
