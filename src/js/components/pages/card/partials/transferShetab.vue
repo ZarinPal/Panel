@@ -137,9 +137,15 @@
         },
         methods: {
             validation(name) {
-                if(this.$store.state.alert.validationErrors[name]) {
-                    this.errors.clear();
-                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                if (this.$store.state.alert.validationErrors[name]) {
+                    this.errors.add(
+                        name,
+                        this.$validator.dictionary.container.fa.messages[this.$store.state.alert.validationErrors[name].rule](
+                            this.$validator.fields.find(name).el.getAttribute('data-vv-as'),
+                            this.$store.state.alert.validationErrors[name].params
+                        ),
+                        'api'
+                    );
                     this.$store.state.alert.validationErrors[name] = false;
                 }
                 return this.errors.has(name);
