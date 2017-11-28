@@ -91,14 +91,14 @@
                                                     input(type="file" name="file" @change="createFile($event, 'introduction_file')")
 
                                             div(v-if="!isSaving")
-                                                span(v-if="isUploading") در حال آپلود مدارک
-                                                span(v-if="isUploading == 'Failed' ") مشکل آپلود فایل
-                                                loading.dis-ib.upload-loading(v-if="isUploading" v-bind:width="15" v-bind:height="15")
+                                                span(v-if="isUploading && isUploading != 'Failed'") در حال آپلود مدارک
+                                                span.text-danger(v-if="isUploading == 'Failed' ") مشکل آپلود فایل
+                                                loading.dis-ib.upload-loading(v-if="isUploading && isUploading != 'Failed'" v-bind:width="15" v-bind:height="15")
 
                                             div(v-if="!isUploading")
-                                                span(v-if="isSaving") در حال ذخیره سازی
+                                                span.text-danger(v-if="isSaving && isSaving != 'Failed'") در حال ذخیره سازی
                                                 span(v-if="isSaving == 'Failed' ") مشکل در ذخیره سازی
-                                                loading.dis-ib.upload-loading(v-if="isSaving" v-bind:width="15" v-bind:height="15")
+                                                loading.dis-ib.upload-loading(v-if="isSaving && isSaving != 'Failed'" v-bind:width="15" v-bind:height="15")
 
 
                             div.full-width.nav-button
@@ -126,7 +126,7 @@
         data() {
             return {
                 pageTitle: 'editInformationTitle',
-                step: 1, // [1=> user information, 2=> user documents]
+                step: 1, // [1=> user information, 2=> add address, 3=>user documents]
                 isSavingInformation: false,
 
                 /**
@@ -256,12 +256,18 @@
                 this.isUploading = true;
 
                 let vm = this;
-
                 let formData = new FormData();
                 formData.append('type', 'document');
 
+                //filter selected files
+                let documentFiles = _.filter(this.documentFiles, function(file) {
+                    if(file) {
+                        return file;
+                    }
+                });
+
                 let uploadedFileNames = {};
-                _.forEach(this.documentFiles, function(file, fileKey) {
+                _.forEach(documentFiles, function(file, fileKey) {
                     formData.append('file', file);
 
                     vm.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
@@ -271,8 +277,7 @@
                         uploadedFileNames[fileKey] = response.data.meta.file_id;
 
                         //save user uploaded file in db
-                        if (vm.howManyFileUploaded === vm.maxFileUpload) {
-                            console.log(uploadedFileNames);
+                        if (vm.howManyFileUploaded === documentFiles.length) {
                             //change file uploading stauts
                             vm.isUploading = false;
 
