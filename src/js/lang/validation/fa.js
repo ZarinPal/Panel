@@ -7,7 +7,7 @@
             t = 0 === (n = 1024 * Number(n)) ? 0 : Math.floor(Math.log(n) / Math.log(1024));
         return 1 * (n / Math.pow(1024, t)).toFixed(2) + " " + e[t]
     }, e = function (e) {
-        let t = {Byte: "بايت", KB: "كيلوبايت", GB: "گیگابایت", PB: "پتابایت"};
+        let t = {Byte: "بایت", KB: "كیلوبایت", GB: "گیگابایت", PB: "پتابایت"};
         return n(e).replace(/(Byte|KB|GB|PB)/, function (n) {
             return t[n]
         })
@@ -101,7 +101,7 @@
             }, pan: function (n) {
                 return n + "شماره کارت اشتباه است"
             }, unique: function (n) {
-                return n + " تکراری است "
+                return n + " قبلا در سیستم ثبت شده است "
             }
         }, attributes: {}
     };
