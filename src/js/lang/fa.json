@@ -907,8 +907,7 @@
     "uploadDocumentTitle": "آپلود مدارک",
     "editInformationDescription": "جهت ارتقا به سطح طلایی اطلاعات را تکمیل کنید",
     "introductionFile": "فایل اسکن معرفی نامه",
-    "nationalCardFile": "فایل اسکن کارت ملی",
-    "idCardFile": "فایل اسکن شناسنامه"
+    "nationalCardFile": "فایل اسکن شناسنامه"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",
