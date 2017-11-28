@@ -97,7 +97,7 @@
             }, attachment: function (n) {
                 return n + "قبلا در سیستم ثبت شده است"
             }, luhn: function (n) {
-                return n + " خطای luhn"
+                return n + " وارد شده صحیح نیست "
             }, pan: function (n) {
                 return n + "شماره کارت اشتباه است"
             }
