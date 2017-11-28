@@ -100,6 +100,8 @@
                 return n + " وارد شده صحیح نیست "
             }, pan: function (n) {
                 return n + "شماره کارت اشتباه است"
+            }, unique: function (n) {
+                return n + "تکراری است"
             }
         }, attributes: {}
     };
