@@ -37,6 +37,7 @@ new Vue({
         root: 'https://next.zarinpal.com/rest/v3',// production: panel base
     },
     created() {
+        this.offlineCheck();
         //init active tab on load
         this.$store.commit('app/changeTabData', this.$route.name.split('.')[0]);
         this.$store.commit('app/loading');
@@ -58,13 +59,14 @@ new Vue({
     },
     methods: {
         offlineCheck() {
-            OfflineJs.on('confirmed-down', function () {
-                console.log('is-offline');
-            });
-
-            OfflineJs.on('confirmed-up', function () {
-                console.log('is-online');
-            });
+            // console.log(OfflineJs);
+            // OfflineJs.on('confirmed-down', function () {
+            //     console.log('is-offline');
+            // });
+            //
+            // OfflineJs.on('confirmed-up', function () {
+            //     console.log('is-online');
+            // });
         }
     },
     watch: {
