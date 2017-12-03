@@ -631,7 +631,7 @@
     "idNumber": "شماره شناسنامه",
     "nationalId": "کد ملی",
     "fatherName": "نام پدر",
-    "idCardFile": "فایل اسکن شناسنامه",
+    "idCardFile": "فایل اسکن کارت ملی",
     "nationalIdFile": "فایل اسکن کارت ملی",
     "updateDocsSuccess": "به‌روزرسانی اطلاعات و مدارک با موفقیت انجام شد.",
     "DocsUploaded": "اطلاعات کاربری به‌روزرسانی شد.",
