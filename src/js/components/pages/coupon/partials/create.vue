@@ -21,8 +21,8 @@
 
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                input(name="coupon-type" v-model="type" value="webservice"   type="radio" id="rdoWebserviceٌ")
-                                label(for="rdoWebserviceٌ")
+                                input(name="coupon-type" v-model="type" value="webservice"   type="radio" id="rdoWebservice")
+                                label(for="rdoWebservice")
                                     span
                                     | {{ $i18n.t('coupon.webservice') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
