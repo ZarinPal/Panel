@@ -21,12 +21,12 @@
 
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                input(name="coupon-type" v-model="type" value="webservice" type="radio" id="rdoWebserviceٌ")
+                                input(name="coupon-type" v-model="type" value="webservice"   type="radio" id="rdoWebserviceٌ")
                                 label(for="rdoWebserviceٌ")
                                     span
                                     | {{ $i18n.t('coupon.webservice') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice"  v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay', 'input-danger': errors.has('webservice_id')}" placeholder="انتخاب وب سرویس" tabindex="2" )
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice"   id="webservice_id" name="webservice_id" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay', 'input-danger': errors.has('webservice_id')}" placeholder="انتخاب وب سرویس" tabindex="2" )
                                 div.ta-right(v-if="validation('webservice_id')")
                                     span.text-danger {{ errors.first('webservice_id') }}
 
@@ -46,7 +46,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.expirationDate') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-validate="'required'" :class="{'input-danger': errors.has('expired_at')}" v-bind:data-vv-as="$i18n.t('coupon.expirationDate')" v-mask="{type: 'date'}"  maxlength="10" type="text" v-model="expired_at" name="expired_at" id="expired_at" placeholder="1398-09-21" tabindex="4")
+                                input.ltr-input(v-validate="'required|date_format:YYYY-MM-D'" :class="{'input-danger': errors.has('expired_at')}" v-bind:data-vv-as="$i18n.t('coupon.expirationDate')" v-mask="{type: 'date'}"  maxlength="10" type="text" v-model="expired_at" name="expired_at" id="expired_at" placeholder="1398-09-21" tabindex="4")
                                 div.ta-right(v-if="validation('expired_at')")
                                     span.text-danger {{ errors.first('expired_at') }}
 
@@ -54,13 +54,13 @@
                     div.right-box.col-lg-6.col-md-6.col-sm-12.col-xs-12
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                input( type="checkbox" v-model="visibleLimit" id="chkLimit" name="limit" tabindex="5")
+                                input( type="checkbox" v-model="visibleLimit" id="chkLimit"  name="limit" tabindex="5")
                                 label(for="chkLimit")
                                     span
                                     | {{ errors.first('coupon.limit') }}
 
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12(v-bind:class="{'disable' : !visibleLimit}")
-                                input.ltr-input(v-validate="'required'"  v-bind:data-vv-as="$i18n.t('coupon.limit')" :class="{'input-danger':errors.has('limit')}" type="text" v-model="limit" placeholder="محدودیت در تعداد استفاده")
+                                input.ltr-input(v-validate="'numeric'"  id="limit" name="limit" v-bind:data-vv-as="$i18n.t('coupon.limit')" :class="{'input-danger':errors.has('limit')}" type="text" v-model="limit" placeholder="محدودیت در تعداد استفاده")
                                 div.ta-right(v-if="validation('limit')")
                                     span.text-danger {{ errors.first('limit') }}
 
@@ -160,8 +160,17 @@
         methods: {
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
-                    this.errors.clear();
-                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                    let element = _.find(this.$validator.fields.items, function (field) {
+                        return field.name == name;
+                    });
+                    this.errors.add(
+                        name,
+                        this.$validator.dictionary.container.fa.messages[this.$store.state.alert.validationErrors[name].rule](
+                            element.el.dataset.vvAs,
+                            this.$store.state.alert.validationErrors[name].params
+                        ),
+                        'api'
+                    );
                     this.$store.state.alert.validationErrors[name] = false;
                 }
                 return this.errors.has(name);
@@ -171,8 +180,10 @@
                     code: this.code,
                     expired_at: this.expired_at,
                     min_amount: this.min_amount,
+                    limit: this.limit,
                     max_amount: this.max_amount,
                     percent: this.percent
+
                 }).then((result) => {
                     if (result) {
                         this.createCoupon();

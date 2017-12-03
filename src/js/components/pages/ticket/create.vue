@@ -19,7 +19,7 @@
 
 
                             div.col-lg-5.col-md-5.col-sm-12.col-xs-12.field-box
-                                selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('ticket_department_id')" v-validate="{ rules: {required: true}}" name="ticket_department_id" v-bind:data-vv-as="$i18n.t('ticket.department')" :class="{'input-danger': errors.has('ticket_department_id')}" v-on:select="selectDepartment" v-bind:selected="priority" v-bind:data="departmentSelection" :placeholder="$i18n.t('ticket.department')" tabindex="2")
+                                selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('ticket_department_id')" v-validate="{ rules: {required: true}}" name="ticket_department_id" id="ticket_department_id" v-bind:data-vv-as="$i18n.t('ticket.department')" :class="{'input-danger': errors.has('ticket_department_id')}" v-on:select="selectDepartment" v-bind:selected="priority" v-bind:data="departmentSelection" :placeholder="$i18n.t('ticket.department')" tabindex="2")
                                 div.ta-right(v-if="validation('ticket_department_id')")
                                     span.text-danger {{ errors.first('ticket_department_id') }}
 
@@ -115,9 +115,18 @@
         },
         methods: {
             validation(name) {
-                if(this.$store.state.alert.validationErrors[name]) {
-                    this.errors.clear();
-                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
+                if (this.$store.state.alert.validationErrors[name]) {
+                    let element = _.find(this.$validator.fields.items, function (field) {
+                        return field.name == name;
+                    });
+                    this.errors.add(
+                        name,
+                        this.$validator.dictionary.container.fa.messages[this.$store.state.alert.validationErrors[name].rule](
+                            element.el.dataset.vvAs,
+                            this.$store.state.alert.validationErrors[name].params
+                        ),
+                        'api'
+                    );
                     this.$store.state.alert.validationErrors[name] = false;
                 }
                 return this.errors.has(name);
@@ -126,7 +135,7 @@
                 this.$validator.validateAll({
                     title : this.title,
                     content : this.content,
-                    ticket_department_id : this.ticket_department_id,
+                    ticket_department_id : this.ticket_department_id
                 }).then((result) => {
                     if (result) {
                         this.send();
