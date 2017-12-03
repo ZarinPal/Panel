@@ -92,11 +92,9 @@
         methods: {
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
-<<<<<<< HEAD
-                    let element = _.find(this.$validator.fields.items, function (field) {
-=======
+
                     let element = _.find(this.$validator.fields.items, function(field) {
->>>>>>> refs/remotes/origin/master
+
                         return field.name == name;
                     });
                     this.errors.add(
