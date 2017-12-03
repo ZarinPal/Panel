@@ -220,6 +220,14 @@ export default new VueRouter({
                                 accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
+                        {
+                            path: 'user/showProgress',
+                            name: 'user.showProgress',
+                            component: require('./components/pages/user/user_progress.vue'),
+                            meta: {
+                                accessLevel: ['suspend', 'basic', 'silver', 'gold']
+                            }
+                        }
                     ]
                 },
                 {

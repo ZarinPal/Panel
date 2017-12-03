@@ -312,7 +312,7 @@
     "user-not-found": "کاربر یافت نشد",
     "webservice-not-found": "وب سرویس یافت نشد",
     "purse-does-not-have-enough-credit": "موجودی کیف پول کافی نیست",
-    "the-user-credentials-were-incorrect": "سطح دسترسی حساب کاربری شما غیر مجاز است.",
+    "the-user-credentials-were-incorrect": "رمز یک بار مصرف وارد شده صحیح نیست.",
     "you-can-not-create-more-purses": "شما حداکثر تعداد کیف پول های خود را ایجاد کرده اید و بیش از این امکان ایجاد کیف پول وجود ندارد.",
     "user-register-successfully": "تبریک،عضویت شما با موفیت انجام شد.",
     "you-are-not-register-yet": "شما هنوز ثبت نام نکرده اید آیا ثبت نام می کنید؟",
@@ -340,7 +340,9 @@
     "zarin-card-request-success": "درخواست زرین‌کارت شما با موفقیت ثبت شد. کارت شما حداکثر تا دو هفته آینده از طریق پست به آدرس پستی انتخاب شده ارسال خواهد شد.",
     "all-user-file-uploaded": "اطلاعات شما با موفقیت ثبت شد.",
     "you-can-not-edit-information-because-this-information-confirmed": "شما قادر به ویرایش اطلاعات نمی باشید چون این اطلاعات قبلا تایید شده اند",
+    "the-card-already-exists": "این شماره کارت قبلا در سیستم ثبت شده است",
     "flash-reject-request-money-successfull": "درخواست وجه لغو شد.",
+    "the-coupon-is-expired": "تاریخ انقضای کد هدیه نباید قدیمی تر از تاریخ امروز باشد.",
     "the-card-or-iban-already-exists": "شماره کارت یا شماره شبا وجود دارد"
   },
   "panel": {
