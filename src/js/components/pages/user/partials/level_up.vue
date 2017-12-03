@@ -126,7 +126,7 @@
         data() {
             return {
                 pageTitle: 'editInformationTitle',
-                step: 3, // [1=> user information, 2=> add address, 3=>user documents]
+                step: 1, // [1=> user information, 2=> add address, 3=>user documents]
                 isSavingInformation: false,
 
                 /**
@@ -273,8 +273,6 @@
                                 //add file name to uploaded file object
                                 uploadedFileNames[fileKey] = response.data.meta.file_id;
 
-                                // console.log(vm.howManyFileUploaded, _.size(vm.documentFiles));
-                                // return;
                                 //save user uploaded file in db
                                 if (vm.howManyFileUploaded === _.size(vm.documentFiles)) {
                                     //change file uploading stauts
@@ -319,8 +317,6 @@
 
                 });
             },
-            saveUploadedFileNames() {}
-
         },
         components: {
             'user-address': address,
