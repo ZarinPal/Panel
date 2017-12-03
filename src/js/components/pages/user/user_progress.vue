@@ -6,9 +6,14 @@
                 p.page-description {{ $i18n.t('user.notificationSettingDescription') }}
 
 
+
         div.row.section.nav-add-address
-            div.box.full-width
-                span {{userProgress}}
+        div.col-xs.ta-left.no-left-margin.dir-ltr(v-if="userProgress.referrer.check")
+            span.text-value.persian-num هست
+        div.col-xs.ta-left.no-left-margin(v-else)
+            span.tag.pull-left نیست
+        div.box.full-width
+            span {{userProgress}}
 </template>
 
 
