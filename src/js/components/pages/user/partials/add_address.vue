@@ -10,7 +10,7 @@
                 div.box.full-width
                     div.address-box(id="addressBox" v-if="isLoadedAddress")
                         span(v-for="(address,key) in addresses")
-                            address-book.address-book(v-bind:singleAddress="address" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+                            address-book.address-book(v-bind:singleAddress="address" v-bind:id="address.id" v-on:getAddresses="getAddresses" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
 
                     div.ta-center(v-else)
                         loading
@@ -58,7 +58,14 @@
             getAddresses() {
                 this.$store.state.http.requests['user.postAddress'].get().then(
                     (response) => {
-                        this.addresses = response.data.data;
+                        if (response.data.data.length) {
+                            this.addresses = response.data.data;
+                            let addressCounter = 1;
+                            _.forEach(this.addresses, function(address) {
+                                address.id = addressCounter++;
+                            });
+                        }
+
                         if(!this.addresses.length){
                             this.addNewAddress();
                         }
@@ -90,27 +97,21 @@
                 let addressIndex = _.findIndex(
                     this.addresses,
                     function (originalsAddress) {
-                        return address.id === originalsAddress.id;
+                        return originalsAddress.id === address.id;
                     }
                 );
-                console.log(addressIndex, address);
                 this.addresses[addressIndex] = address;
             },
             deleteAddress(address) {
                 if (address.entity_id) {
                     this.$store.state.http.requests['user.getAddress'].delete({id: address.entity_id}).then(
                         () => {
-                            let addressIndex = _.findIndex(this.addresses, function (selectAddress) {
-                                return selectAddress.entity_id === address.entity_id;
-                            });
-
-                            let elem = document.getElementById(addressIndex);
+                            let elem = document.getElementById(address.id);
                             elem.parentNode.removeChild(elem);
 
-                            delete this.addresses[addressIndex];
-                            // this.address = _.remove(this.address, function(selectAddress) {
-                            //     return selectAddress.entity_id === address.entity_id;
-                            // });
+                            _.remove(this.addresses, function(singleAddress) {
+                                return singleAddress.id == address.id;
+                            });
                         },
                         (response) => {
                             store.commit('flashMessage', {
@@ -121,14 +122,22 @@
                         }
                     );
                 } else {
-                    this.addresses = _.filter(this.addresses, function (selectAddress) {
-                        return selectAddress.addressIndex !== address.index;
+                    let elem = document.getElementById(address.id);
+                    elem.parentNode.removeChild(elem);
+
+                    _.remove(this.addresses, function(singleAddress) {
+                        return singleAddress.id == address.id;
                     });
                 }
             },
             postUserAddress() {
                 this.loading = true;
-                this.$store.state.http.requests['user.postAddress'].save({'addresses': this.addresses}).then(
+                let addresses = this.addresses;
+                // _.forEach(addresses, function(address) {
+                //     delete address.id;
+                // });
+
+                this.$store.state.http.requests['user.postAddress'].save({'addresses': addresses}).then(
                     () => {
                         store.commit('flashMessage', {
                             text: 'your address added success',
