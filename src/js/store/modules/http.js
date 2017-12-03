@@ -325,7 +325,7 @@ export default {
             },
             {
                 name: "user.getAddress",
-                url: "user/address/{landline}.json"
+                url: "user/address/{id}.json"
             },
             {
                 name: "user.postInformation",

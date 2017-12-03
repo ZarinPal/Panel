@@ -9,14 +9,8 @@
             div.row.section.nav-add-address
                 div.box.full-width
                     div.address-box(id="addressBox" v-if="isLoadedAddress")
-
-                        <!--if user don`‍‍‍t have address-->
-                        address-book.address-book(v-if="addressCount == 1 && !address" v-bind:id="1" v-bind:addressId="1" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
-                        address-book.address-book(v-else-if="addressCount == 1 && address" v-bind:id="1" v-bind:addressId="1" v-bind:singleAddress="address[0]" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
-
-                        <!--if user has address-->
-                        span(v-for="addressId in addressCount" v-else-if="addressCount > 1")
-                            address-book.address-book(v-bind:id="addressId" v-bind:addressId="addressId" v-bind:singleAddress="address[addressId-1]" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+                        span(v-for="(address,key) in addresses")
+                            address-book.address-book(v-bind:singleAddress="address" v-bind:id="address.id" v-on:getAddresses="getAddresses" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
 
                     div.ta-center(v-else)
                         loading
@@ -47,7 +41,7 @@
                 loading: false,
                 getAddressesData: null,
                 addressCount: 1,
-                address: {},
+                addresses: [],
                 isLoadedAddress: false,
             }
         },
@@ -64,9 +58,16 @@
             getAddresses() {
                 this.$store.state.http.requests['user.postAddress'].get().then(
                     (response) => {
-                        this.address = response.data.data;
                         if (response.data.data.length) {
-                            this.addressCount = response.data.data.length;
+                            this.addresses = response.data.data;
+                            let addressCounter = 1;
+                            _.forEach(this.addresses, function(address) {
+                                address.id = addressCounter++;
+                            });
+                        }
+
+                        if(!this.addresses.length){
+                            this.addNewAddress();
                         }
                         this.isLoadedAddress = true;
                     },
@@ -80,25 +81,37 @@
                 );
             },
             addNewAddress() {
-                this.addressCount++;
+                this.addresses.push({
+                    id: this.addresses.length + 1,
+                    data: {
+                        address: null,
+                        landline: null,
+                        postal_code: null,
+                        geo_location: null,
+                        title: null
+                    }
+                });
             },
             //update from address child on input change not request to api
             updateAddress(address) {
-                this.address[address.index - 1] = address.address;
+                let addressIndex = _.findIndex(
+                    this.addresses,
+                    function (originalsAddress) {
+                        return originalsAddress.id === address.id;
+                    }
+                );
+                this.addresses[addressIndex] = address;
             },
             deleteAddress(address) {
-                if (address.landline) {
-                    this.$store.state.http.requests['user.getAddress'].delete({landline: address.landline}).then(
+                if (address.entity_id) {
+                    this.$store.state.http.requests['user.getAddress'].delete({id: address.entity_id}).then(
                         () => {
-                            let addressIndex = _.findIndex(this.address, function (selectAddress) {
-                                return selectAddress.landline === address.landline;
+                            let elem = document.getElementById(address.id);
+                            elem.parentNode.removeChild(elem);
+
+                            _.remove(this.addresses, function(singleAddress) {
+                                return singleAddress.id == address.id;
                             });
-
-                            addressIndex++;
-
-                            delete this.address[addressIndex];
-                            let elem = document.getElementById(addressIndex);
-                            return elem.parentNode.removeChild(elem);
                         },
                         (response) => {
                             store.commit('flashMessage', {
@@ -109,15 +122,22 @@
                         }
                     );
                 } else {
-                    delete this.address[address.index];
-                    let elem = document.getElementById(address.index);
-                    return elem.parentNode.removeChild(elem);
-                }
+                    let elem = document.getElementById(address.id);
+                    elem.parentNode.removeChild(elem);
 
+                    _.remove(this.addresses, function(singleAddress) {
+                        return singleAddress.id == address.id;
+                    });
+                }
             },
             postUserAddress() {
                 this.loading = true;
-                this.$store.state.http.requests['user.postAddress'].save({'addresses': this.address}).then(
+                let addresses = this.addresses;
+                // _.forEach(addresses, function(address) {
+                //     delete address.id;
+                // });
+
+                this.$store.state.http.requests['user.postAddress'].save({'addresses': addresses}).then(
                     () => {
                         store.commit('flashMessage', {
                             text: 'your address added success',
