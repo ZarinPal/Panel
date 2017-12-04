@@ -93,9 +93,9 @@
             }, iban: function (n) {
                 return n + "باید یک شماره شبای معتبر باشد"
             }, uniqueuser: function (n) {
-                return n + "قبلا در سیستم ثبت شده است"
+                return n + " قبلا در سیستم ثبت شده است "
             }, attachment: function (n) {
-                return n + "قبلا در سیستم ثبت شده است"
+                return n + " قبلا در سیستم ثبت شده است "
             }, luhn: function (n) {
                 return n + " وارد شده صحیح نیست "
             }, pan: function (n) {
