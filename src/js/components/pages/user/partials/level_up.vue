@@ -54,7 +54,7 @@
 
 
                                             div.row.nav-rows
-                                                input(v-mask="{type: 'date'}" v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.birthday')" :class="{'input-danger': errors.has('birthday')}" type="text" name="birthday" id="birthday" v-model="birthday" :placeholder= "$i18n.t('user.birthday')" autofocus tabindex="1" )
+                                                input(v-mask="{type: 'date'}" v-validate="'required|date_format:YYYY-MM-D'" v-bind:data-vv-as="$i18n.t('user.birthday')" :class="{'input-danger': errors.has('birthday')}" type="text" name="birthday" id="birthday" v-model="birthday" :placeholder= "$i18n.t('user.birthday')" autofocus tabindex="1" )
                                                 div.ta-right(v-if="validation('birthday')")
                                                     span.text-danger {{ errors.first('birthday') }}
 
