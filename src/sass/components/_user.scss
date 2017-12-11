@@ -175,7 +175,6 @@
   }
 }
 
-
 /*** Level Up ***/
 .level-up {
   .upload-loading {
@@ -194,3 +193,70 @@
     border-bottom: 1px solid #eee;
   }
 }
+
+/*** User Progress ***/
+.nav-user-setting {
+  .user-avatar {
+    border: 5px solid rgba(255, 255, 255, .3);
+    border-radius: 50%;
+    width: 84px;
+    height: 84px;
+    position: relative;
+    top: 10px;
+  }
+
+  .user-name {
+    color: #424242;
+    font-size: 19px;
+    padding: 0 10px 10px 0;
+    display: block;
+  }
+
+  .box-style{
+    padding: 5px;
+    margin: 10px 0;
+    height: 40px;
+  }
+  .text-style{
+    margin-top: 10px;
+    margin-right: 5px;
+    display: inline-block;
+    font-size: 14px;
+
+  }
+
+  .done-prog {
+    span {
+      color: #00c853 !important;
+      font-size: 13px;
+      &:after {
+        content: $activeTagIcon;
+        font-family: 'zarinpal';
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        margin-left: 5px;
+        color: #00c853;
+        font-size: 17px;
+      }
+    }
+  }
+
+  .pending-prog {
+    span {
+      color: #ff9800 !important;
+      font-size: 13px;
+      &:after {
+        content: $pendingCardIcon;
+        font-family: 'zarinpal';
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        margin-left: 5px;
+        font-size: 17px;
+      }
+    }
+  }
+
+}
+

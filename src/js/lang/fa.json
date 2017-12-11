@@ -908,7 +908,20 @@
     "uploadDocumentTitle": "آپلود مدارک",
     "editInformationDescription": "جهت ارتقا به سطح طلایی اطلاعات را تکمیل کنید",
     "introductionFile": "فایل اسکن معرفی نامه",
-    "nationalCardFile": "فایل اسکن شناسنامه"
+    "nationalCardFile": "فایل اسکن شناسنامه",
+    "percentOfComplate": "درصد کامل شده",
+    "userProgress": "مشاهده وضعیت حساب کاربری",
+    "userProgressDescription": "در این صفحه شما می توانید وضعیت تمکیل بودن حساب کاربری خود را مشاهده کنید",
+    "progress": {
+      "addresses": "افزودن آدرس پستی",
+      "botTelegram": "عضویت در ربات تلگرام",
+      "card": "افزودن کارت بانکی",
+      "email": "تایید ادرس ایمیل",
+      "mobile": "تایید شماره تلفن همراه",
+      "referrer": "معرفی کردن یک کاربر",
+      "ssn": "تایید کد ملی",
+      "username": "افزودن نام کاربری"
+    }
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",
