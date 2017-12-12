@@ -23,7 +23,7 @@
                             span.user-zp-id zp.{{user.public_id | persianNumbers}}
                     div.col-lg-6.col-md-6.col-sm-12.col-xs-12.nav-left
                         div.nav-buttons
-                            <!--span.request-button.zarin-friends دوستان زرین پالی-->
+                            <!--span.request-button.zarin-friends دوستان زرین‌پالی-->
                             span.request-button(@click="visibleNewRequestMoney = true") دنگی دُنگی جدید
 
 
@@ -33,7 +33,7 @@
 
             div.col-lg-12.col-md-12.col-sm-12.col-xs-12.nav-menu
                 ul.no-margin
-                    li(:class="{'active': whichTab == 'requests'}" @click="changeTab('requests')") درخواست ها
+                    li(:class="{'active': whichTab == 'requests'}" @click="changeTab('requests')") درخواست‌ها
                     li(:class="{'active': whichTab == 'debt'}" @click="changeTab('debt')") بدهی
 
 

@@ -14,7 +14,7 @@
                         div.text متاسفیم، صفحه‌ای که می‌خواستید پیدا نشد. به نظر آدرس را اشتباه وارد کرده‌اید. آدرس صفحه را بررسی و مجددا تلاش کنید.
 
                         div.buttons
-                            router-link.btn.gold(type="button" v-bind:to="{ name: 'home.index'}") بازگشت به پیشخوان
+                            router-link.btn.gold(type="button" v-bind:to="{ name: 'home.index'}") بازگشت به پیش‌خوان
                             router-link.btn(type="button" v-bind:to="{ name: 'home.index'}") صفحه اصلی
 
                 div.col-lg-7.col-md-6.col-xs-12.left-box

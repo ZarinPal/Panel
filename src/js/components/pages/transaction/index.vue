@@ -119,11 +119,11 @@
                 generalFilter: 'all',
                 filterTypeData: [
                     {
-                        title: 'شماره تراکنش',
+                        title: 'شماره‌تراکنش',
                         value: 'transaction_id'
                     },
                     {
-                        title: 'شماره کارت',
+                        title: 'شماره‌کارت',
                         value: 'pan'
                     },
                     {
@@ -135,7 +135,7 @@
                         value: 'email'
                     },
                     {
-                        title: 'شماره موبایل',
+                        title: 'شماره‌موبایل',
                         value: 'mobile'
                     }
 

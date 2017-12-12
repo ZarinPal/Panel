@@ -9,7 +9,7 @@
                             div.col-xs.right-box
                                 p
                                     span.green-small-circle
-                                    span.header-title زرین پال
+                                    span.header-title زرین‌پال
 
                             div.ta-left-box
                                 router-link.header-link(tag="span" v-bind:to="{ name: 'auth.register'}") http://www.zarinpal.com
@@ -36,7 +36,7 @@
 
                         div.row.box-row
                             div.right
-                                span.label سرویس ها
+                                span.label سرویس‌ها
 
                             div.col-xs.ta-left
                                 span.tag.tag-active.pull-left USSD
@@ -46,9 +46,9 @@
                     div.bottom-xs.box-footer
                         div.row
                             div.col-xs
-                                router-link.transaction(tag="span" v-bind:to="{ name: 'auth.register'}") تراکنش ها
+                                router-link.transaction(tag="span" v-bind:to="{ name: 'auth.register'}") تراکنش‌ها
                             div.col-xs
-                                router-link.edit(tag="span" v-bind:to="{ name: 'auth.register'}") سشن های پرداخت
+                                router-link.edit(tag="span" v-bind:to="{ name: 'auth.register'}") سشن‌های پرداخت
                             div
                                 span.more
 
@@ -85,7 +85,7 @@
                             div.col-xs.ta-left
                                 span.tag-deposit-to.pull-left
                                     img(src="assets/img/zarin-logo.png")
-                                    span اصلی زرین پال
+                                    span اصلی زرین‌پال
 
 
                         div.row.box-row
@@ -99,7 +99,7 @@
                     div.bottom-xs.box-footer
                         div.row
                             div.col-xs
-                                router-link.transaction(tag="span" v-bind:to="{ name: 'auth.register'}") تراکنش ها
+                                router-link.transaction(tag="span" v-bind:to="{ name: 'auth.register'}") تراکنش‌ها
                             div.col-xs
                                 router-link.edit(tag="span" v-bind:to="{ name: 'auth.register'}") ویرایش
                             div.col-xs
@@ -132,7 +132,7 @@
 
                         div.row.box-row
                             div.right
-                                span.label وب سرویس
+                                span.label وب‌سرویس
 
                             div.col-xs.ta-left
                                 span.text-value رد ریسلر
@@ -162,7 +162,7 @@
                                 img(src="assets/img/zarin-logo.png")
                             div.ta-left
                                 span.accepted-card
-                                    span تایید شده
+                                    span تایید‌شده
 
                         div.row
                             span.card-number
@@ -181,7 +181,7 @@
                     div.bottom-xs.box-footer
                         div.row
                             div.col-xs
-                                router-link.edit-bank-account(tag="span" v-bind:to="{ name: 'auth.register'}") ویرایش حساب بانکی
+                                router-link.edit-bank-account(tag="span" v-bind:to="{ name: 'auth.register'}") ویرایش حساب‌بانکی
 
 
             <!--File uploader-->

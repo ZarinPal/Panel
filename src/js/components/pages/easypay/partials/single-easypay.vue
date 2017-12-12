@@ -15,7 +15,7 @@
                         leave-active-class="drop-down-hide")
                             span.drop-down.pull-left(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singleEasypayMoreTrigger == easypay.entity_id")
                                 span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
-                                router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش ها
+                                router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش‌ها
                                 router-link.drop-down-item.edit(v-ripple="" tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
                                 span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
 

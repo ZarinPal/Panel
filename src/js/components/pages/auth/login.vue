@@ -50,7 +50,7 @@
                                 div.col-xs
                                     p {{ $i18n.t('user.yourWelcome') }}
                                     span(v-if="channel == 'ussd'")
-                                        span کد دستوری زیر را توسط شماره موبایل
+                                        span کد دستوری زیر را توسط شماره‌موبایل
                                         span.mobile-number {{ username | persianNumbers}}
                                         span شماره گیری کنید.
                                         span.change-mobile(@click="step--") (تغیر شماره تلفن)

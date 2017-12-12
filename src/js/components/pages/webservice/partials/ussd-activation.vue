@@ -4,7 +4,7 @@
         div(slot="content")
             div.row
                 <!--p.create-description {{ $i18n.t('webservice.ussdNotice') }}-->
-                span.create-description هزینه فعالسازی سرویس همپا(USSD) براساس تعداد تراکنش های موجود بر روی درگاه عادی زرین پال متغیر است.
+                span.create-description هزینه فعالسازی سرویس همپا(USSD) براساس تعداد تراکنش‌های موجود بر روی درگاه عادی زرین‌پال متغیر است.
                     span.read-description(@click="visibleDescription=!visibleDescription") {{ $i18n.t('webservice.description') }}
 
             transition(name="fade"
@@ -32,7 +32,7 @@
                 div.row.body-bottom
                     div.col-lg-9.col-md-12.col-sm-12.col-xs-12.ta-right
                         loading(v-if="getPriceLoading" v-bind:width="20" v-bind:height="20")
-                        span.persian-num.activation-price(v-else)  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می باشد.
+                        span.persian-num.activation-price(v-else)  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می‌باشد.
 
                     div.no-margin.col-lg-3.col-md-12.col-sm-12.col-xs-12.ta-left
                         button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('webservice.activation')}}
