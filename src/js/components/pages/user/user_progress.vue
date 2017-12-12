@@ -4,7 +4,8 @@
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 p.page-title {{ $i18n.t('user.userProgress') }}
                 p.page-description {{ $i18n.t('user.userProgressDescription') }}
-
+            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+                router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
 
             div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
                 div.box.ta-center
@@ -17,8 +18,8 @@
         div.row.section
             div.col-lg-4(v-for="(progress, progressKey) in userProgress" v-if="progressKey !== 'points'")
                 div.box.box-style
-                    i.icon-zp-dashboard.text-style
-                    span.text-style {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point }}%)
+                    i.icon-zp-progressKey.text-style
+                    span.text-style {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point| persianNumbers }}%)
                     span.done-prog(v-if="progress.check")
                         span.pull-left.text-style انجام شده
                     span.pending-prog(v-else)

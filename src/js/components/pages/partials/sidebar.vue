@@ -4,11 +4,12 @@
         div.side-content.sticky-sidebar(v-sticky="")
 
             div.user-info
-                div.user-image
-                    span(v-if="!this.$store.state.app.smallSidebar")
-                        userProgress(v-if="user.user_progress" v-bind:avatar="user.avatar" v-bind:user_progress="user.user_progress")
-                    img(v-else :src="user.avatar")
-                p.user-name {{user.name}}
+                router-link(tag="span" v-bind:to="{ name: 'user.showProgress'}" title="پروفایل")
+                    div.user-image
+                        span(v-if="!this.$store.state.app.smallSidebar")
+                            userProgress.hand(v-if="user.user_progress" v-bind:avatar="user.avatar" v-bind:user_progress="user.user_progress")
+                        img.hand(v-else :src="user.avatar")
+                    p.user-name {{user.name}}
 
                 zpId(v-bind:data="user")
 
