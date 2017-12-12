@@ -4,7 +4,7 @@
         div(slot="content")
             div.row
                 <!--p.create-description {{ $i18n.t('webservice.zarinGateNotice') }}-->
-                span.create-description  هزینه زرین گیت براساس تعداد تراکنش موجود بر روی درگاه عادی زرین پال متغیر است.
+                span.create-description  هزینه زرین‌گیت براساس تعداد تراکنش موجود بر روی درگاه عادی زرین‌پال متغیر است.
                     span.read-description(@click="visibleDescription=!visibleDescription") {{ $i18n.t('webservice.description') }}
 
 
@@ -22,7 +22,7 @@
             div.row.body-bottom
                 div.col-lg-9.col-md-12.col-sm-12.col-xs-12.ta-right
                     loading(v-if="getPriceLoading" v-bind:width="20" v-bind:height="20")
-                    span.persian-num.activation-price(v-else)  هزینه ی درخواست زرین گیت {{priceZaringate.amount | numberFormat}} تومان می باشد.
+                    span.persian-num.activation-price(v-else)  هزینه ی درخواست زرین‌گیت {{priceZaringate.amount | numberFormat}} تومان می‌باشد.
 
                 div.col-lg-3.col-md-12.col-sm-12.col-xs-12.ta-left
                     button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('webservice.activeZarinGateSubmit')}}

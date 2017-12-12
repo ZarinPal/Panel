@@ -3,7 +3,7 @@
         span(slot="title")
             span {{ $i18n.t('common.accessLevelLimitTitle') }}
         div.content(slot="content")
-            span سطح دسترسی شما مجاز نمی باشد
+            span سطح دسترسی شما مجاز نمی‌باشد
 
 </template>
 

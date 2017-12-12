@@ -22,7 +22,7 @@
                                     span.text-danger {{ errors.first('amount') }}
 
                             div.col-xs.no-left-margin
-                                input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('card.dstZarinpalId')" :class="{'input-danger': errors.has('zpId')}" type="text" v-model="zpId" name="zpId" placeholder="زرین پال مقصد، مثال: zp.123 یا 09365363586 یا domain@gmail.com" tabindex="2")
+                                input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('card.dstZarinpalId')" :class="{'input-danger': errors.has('zpId')}" type="text" v-model="zpId" name="zpId" placeholder="$i18n.t('card.ptopTo')" tabindex="2")
                                 div.ta-right(v-if="validation('zpId')")
                                     span.text-danger {{ errors.first('zpId') }}
 
