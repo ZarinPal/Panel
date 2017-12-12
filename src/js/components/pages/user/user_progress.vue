@@ -21,7 +21,7 @@
                     i.icon-zp-progressKey.text-style
                     span.text-style {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point| persianNumbers }}%)
                     span.done-prog(v-if="progress.check")
-                        span.pull-left.text-style انجام شده
+                        span.pull-left.text-style انجام‌شده
                     span.pending-prog(v-else)
                         span.pull-left.text-style در انتظار
 

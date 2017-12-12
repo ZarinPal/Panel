@@ -55,11 +55,11 @@
                                         span شماره گیری کنید.
                                         span.change-mobile(@click="step--") (تغیر شماره تلفن)
                                     span(v-else-if="channel == 'email'")
-                                        span رمز یکبار مصرف ارسال شده به ایمیل خود را وارد کنید
+                                        span رمز یکبار مصرف ارسال‌شده به ایمیل خود را وارد کنید
                                         span.change-mobile(@click="step--") (تغیر ایمیل)
 
                                     span(v-else-if="channel == 'sms'")
-                                        span رمز یکبار مصرف ارسال شده به  خود را وارد کنید
+                                        span رمز یکبار مصرف ارسال‌شده به  خود را وارد کنید
 
 
                             <!--Ussd Box-->

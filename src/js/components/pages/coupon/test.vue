@@ -162,7 +162,7 @@
                                 img(src="assets/img/zarin-logo.png")
                             div.ta-left
                                 span.accepted-card
-                                    span تایید‌شده
+                                    span تأیید‌شده
 
                         div.row
                             span.card-number
@@ -170,7 +170,7 @@
 
                         div.row.box-row
                             div.ta-right
-                                span.label  شماره حساب :
+                                span.label  شماره‌حساب :
                                 span  ۳۴۵۶۷۸۹۰۱۲۳۴۵۶۹۸
 
 
