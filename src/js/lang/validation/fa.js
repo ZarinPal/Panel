@@ -16,13 +16,13 @@
             after: function (n, e) {
                 return n + " باید بعد از تاریخ " + e[0] + " باشد."
             }, alpha_dash: function (n) {
-                return n + " فقط می تواند از حروف، اعداد، خط فاصله و زیرخط تشکیل شود."
+                return n + " فقط می‌تواند از حروف، اعداد، خط فاصله و زیرخط تشکیل شود."
             }, alpha_num: function (n) {
                 return n + " فقط میتواند از حروف و اعداد تشکیل شود."
             }, alpha_spaces: function (n) {
-                return n + " فقط می تواند از حروف و فاصله تشکیل شود."
+                return n + " فقط می‌تواند از حروف و فاصله تشکیل شود."
             }, alpha: function (n) {
-                return n + " فقط می تواند از حروف تشکیل شود."
+                return n + " فقط می‌تواند از حروف تشکیل شود."
             }, before: function (n, e) {
                 return n + " باید قبل از تاریخ " + e[0] + " باشد."
             }, between: function (n, e) {
@@ -66,11 +66,11 @@
             }, not_in: function (n) {
                 return n + "باید یک مقدار معتبر باشد."
             }, numeric: function (n) {
-                return n + " فقط می تواند عددی باشد."
+                return n + " فقط می‌تواند عددی باشد."
             }, regex: function (n) {
                 return "قالب " + n + " قابل قبول نیست."
             }, required: function (n) {
-                return n + " الزامی است."
+                return n + " الزامی‌است."
             }, size: function (n, t) {
                 let r = t[0];
                 return "حجم " + n + " کمتر از " + e(r) + " باشد."
@@ -93,13 +93,13 @@
             }, iban: function (n) {
                 return n + "باید یک شماره شبای معتبر باشد"
             }, uniqueuser: function (n) {
-                return n + "قبلا در سیستم ثبت شده است"
+                return n + " قبلا در سیستم ثبت شده است "
             }, attachment: function (n) {
-                return n + "قبلا در سیستم ثبت شده است"
+                return n + " قبلا در سیستم ثبت شده است "
             }, luhn: function (n) {
                 return n + " وارد شده صحیح نیست "
             }, pan: function (n) {
-                return n + "شماره کارت اشتباه است"
+                return n + "شماره‌کارت اشتباه است"
             }, unique: function (n) {
                 return n + " قبلا در سیستم ثبت شده است "
             }

@@ -28,7 +28,7 @@
                                     span
                                     | {{ $i18n.t('coupon.webservice') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-if="webserviceId || type" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay' }" placeholder="انتخاب وب سرویس"  tabindex="2")
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-if="webserviceId || type" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay' }" placeholder="انتخاب وب‌سرویس"  tabindex="2")
                                 div.ta-right(v-if="validation('webservice_id')")
                                     span.text-danger {{ errors.first('webservice_id') }}
 
@@ -39,7 +39,7 @@
                                     span
                                     | {{ $i18n.t('coupon.easypay') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedEasypay" v-bind:data="easypaySelection" v-if="easyPayId || type" v-bind:selected="easyPayId" v-bind:class="{'disable' : type == 'webservice' }"  placeholder="انتخاب آسان پرداخت"  tabindex="3")
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedEasypay" v-bind:data="easypaySelection" v-if="easyPayId || type" v-bind:selected="easyPayId" v-bind:class="{'disable' : type == 'webservice' }"  placeholder="انتخاب آسان‌پرداخت"  tabindex="3")
                                 div.ta-right(v-if="validation('easypay_id')")
                                     span.text-danger {{ errors.first('easypay_id') }}
 

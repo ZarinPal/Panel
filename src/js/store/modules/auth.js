@@ -14,7 +14,7 @@ export default {
                         today_outcome: 0,
                         total_to_exit: 0
                     },
-                    name: 'اصلی زرين پال',
+                    name: 'اصلی زرین‌پال',
                     purse: 1,
                     visible: true
                 },
@@ -25,7 +25,7 @@ export default {
                         today_outcome: 0,
                         total_to_exit: 0
                     },
-                    name: 'پيامک',
+                    name: 'پیامک',
                     purse: 99,
                     visible: true
                 },

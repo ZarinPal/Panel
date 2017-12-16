@@ -22,10 +22,10 @@
                 confirm(v-if="confirmVisible" v-on:confirmed="logout()" v-on:closeModal="closeModal")
                     span(slot="title") {{$i18n.t('common.logout')}}
                     div.ta-right(slot="message")
-                        div آیا خارج می شوید؟
+                        div آیا خارج می‌شوید؟
 
                     span(slot="messageDanger") {{$i18n.t('common.cancel')}}
-                    span(slot="messageSuccess") بله، خارج می شوم
+                    span(slot="messageSuccess") بله، خارج می‌شوم
 </template>
 
 

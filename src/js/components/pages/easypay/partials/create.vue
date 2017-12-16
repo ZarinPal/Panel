@@ -58,7 +58,7 @@
                                                     | {{ $i18n.t('coupon.webservice') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" placeholder="انتخاب وب سرویس")
+                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" placeholder="انتخاب وب‌سرویس")
                                                 div.ta-right(v-if="validation('webservice_id')")
                                                     span.text-danger {{ errors.first('webservice_id') }}
 

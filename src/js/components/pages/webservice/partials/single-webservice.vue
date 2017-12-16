@@ -46,7 +46,7 @@
                 <!--Web gate-->
                 div.row.box-row
                     div.col-xs.ta-right
-                        span.label وب گیت
+                        span.label {{ $i18n.t('webservice.zarinGate') }}
 
 
                     div.col-xs.ta-left.no-left-margin(v-if="webservice.zaringate_status == 'NotActivated'")
