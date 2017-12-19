@@ -84,8 +84,8 @@
                 return n + "باید یک شماره شبای معتبر باشد"
             }, uniqueDomain: function (n) {
                 return n + "باید یک شماره شبای معتبر باشد"
-            }, containsAlpha: function (n) {
-                return n + "باید یک شماره شبای معتبر باشد"
+            }, containsalpha: function (n) {
+                return n + " باید شامل حرف باشد"
             }, recaptcha: function (n) {
                 return n + "باید یک شماره شبای معتبر باشد"
             }, notVerifiedMobile: function (n) {
@@ -102,6 +102,8 @@
                 return n + "شماره‌کارت اشتباه است"
             }, unique: function (n) {
                 return n + " قبلا در سیستم ثبت‌شده است "
+            }, alphanum: function (n) {
+                return n + " باید شامل حروف و اعداد باشد "
             }
         }, attributes: {}
     };

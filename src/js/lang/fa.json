@@ -233,7 +233,8 @@
     "upgradeToGoldLevel": "ارتقاء به سطح طلایی",
     "accessLevelLimitTitle": "محدودیت سطح دسترسی",
     "male": "مرد",
-    "female": "زن"
+    "female": "زن",
+    "request": "درخواست"
   },
   "coupon": {
     "couponsDescription": "تمامی‌کد هدیه‌های شما در این صفحه قرار دارد",
@@ -344,7 +345,8 @@
     "the-card-already-exists": "این شماره‌کارت قبلا در سیستم ثبت‌شده است",
     "flash-reject-request-money-successfull": "درخواست وجه لغو‌شد.",
     "the-coupon-is-expired": "تاریخ انقضای کد هدیه نباید قدیمی‌تر از تاریخ امروز باشد.",
-    "the-card-or-iban-already-exists": "شماره‌کارت یا شماره شبا وجود دارد"
+    "the-card-or-iban-already-exists": "شماره‌کارت یا شماره شبا وجود دارد",
+    "username-created": "نام کاربری ذخیره شد"
   },
   "panel": {
     "home": "پیش‌خوان",
@@ -922,7 +924,10 @@
       "referrer": "معرفی کردن یک کاربر",
       "ssn": "تأیید کد ملی",
       "username": "افزودن نام کاربری"
-    }
+    },
+    "requestPersonalLinkTitle": "درخواست نام‌کاربری",
+    "checkingUsername": "در حال جستجوی نام‌کاربری",
+    "youCanUserThisUsername": "این نام کاربری آزاد است"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

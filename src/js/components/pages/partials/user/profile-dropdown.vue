@@ -48,6 +48,7 @@
         methods: {
             closeModal(){
                 this.confirmVisible = false;
+                this.visibleRequestPersonalLink = false;
             },
             logout(){
                 this.confirm = true;

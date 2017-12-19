@@ -80,7 +80,6 @@
     import addFund from '../partials/add-fund.vue';
     import pTop from '../partials/ptop.vue';
     import withdraw from '../partials/withdraw.vue';
-    import validation from '../../../../lib/validation';
 
     export default {
         name: 'pages-home-partials-singlePurse',
