@@ -104,7 +104,7 @@
                     }
 
 //                  && e.target.parentNode.parentNode.id !== 'navProfileDropdown'
-                    if (e.target.id !== 'btnProfileDropdown' && e.target.id !== 'btnLogout' && e.target.id !== 'btnPL') {
+                    if (e.target.id !== 'btnProfileDropdown' && e.target.id !== 'btnLogout') {
                         vm.visibleProfileDropdown = false;
                     }
                 });
