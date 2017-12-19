@@ -21,7 +21,7 @@
                             input.input.ltr-input(v-focus="" v-validate="'required|numeric|max:5'" v-bind:data-vv-as="$i18n.t('webservice.ussd')" maxlength="5" type="text" v-model="ussd_id" name="ussd_id" :placeholder="$i18n.t('webservice.ussd')" autofocus tabindex="1")
                         div.no-margin.first-label
                             span *788*97*
-                    div.ta-right(v-if="validation('ussd_id')")
+                    div.ta-right.full-width(v-if="validation('ussd_id')")
                         span.text-danger {{ errors.first('ussd_id') }}
 
                 div.row
@@ -32,7 +32,7 @@
                 div.row.body-bottom
                     div.col-lg-9.col-md-12.col-sm-12.col-xs-12.ta-right
                         loading(v-if="getPriceLoading" v-bind:width="20" v-bind:height="20")
-                        span.persian-num.activation-price(v-else)  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می‌باشد.
+                        span.persian-num.activation-price(v-else-if="!getPriceLoading && priceUssd")  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می‌باشد.
 
                     div.no-margin.col-lg-3.col-md-12.col-sm-12.col-xs-12.ta-left
                         button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('webservice.activation')}}
