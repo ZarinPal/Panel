@@ -5,14 +5,14 @@
                 p.page-title {{ $i18n.t('user.connectZarinToTelegramBot') }}
 
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                router-link.btn.success(v-ripple="" tag="button" v-bind:to="{ name: 'home.index', params: {createPurse: 'Yes'}}" title="ساخت کیف پول")
+                router-link.btn.success(v-ripple="" tag="button" v-bind:to="{ name: 'home.index', params: {createPurse: 'Yes'}}" title="ساخت کیف‌پول")
                     span.icon-add-circle
                     span.text {{ $i18n.t('purse.addPurse') }}
 
         div.row.section
             div.row.box
                 div.col-lg-6
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف پول")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول")
 
                 div.row
                     div.col-xs.no-margin

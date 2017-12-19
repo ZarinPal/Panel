@@ -10,6 +10,11 @@
                     span.icon-add-circle
                     span.text {{ $i18n.t('easypay.createEasypay') }}
 
+                button.btn.success(@click="visibleRequestPersonalLink = true")
+                    span.icon-add-circle
+                    span.text {{ $i18n.t('user.requestPersonalLinkTitle') }}
+
+
         div.row
             singleEasypay(v-for="easypay in easypays.data" v-bind:key="easypay.public_id" v-bind:easypay="easypay")
 
@@ -25,14 +30,22 @@
                 span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
 
+        <!--Personal link-->
+        personal-link(v-if="visibleRequestPersonalLink" v-on:closeModal="closeModal")
 </template>
 
 <script>
     import singleEasypay from './partials/single-easypay.vue';
     import loading from '../../pages/partials/loading.vue';
+    import personalLink from '../../pages/easypay/partials/personal_link';
 
     export default {
         name: 'easypay-index',
+        data() {
+            return {
+                visibleRequestPersonalLink: false,
+            }
+        },
         computed: {
             user(){
                 return this.$store.state.auth.user;
@@ -62,6 +75,9 @@
             };
         },
         methods: {
+            closeModal(){
+                this.visibleRequestPersonalLink = false;
+            },
             getEasypays() {
                 let vm = this;
                 this.$store.dispatch(
@@ -76,7 +92,8 @@
         },
         components: {
             singleEasypay,
-            loading
+            loading,
+            'personal-link': personalLink
         }
     }
 </script>

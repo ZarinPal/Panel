@@ -162,7 +162,7 @@
                                 img(src="assets/img/zarin-logo.png")
                             div.ta-left
                                 span.accepted-card
-                                    span تایید‌شده
+                                    span تأیید‌شده
 
                         div.row
                             span.card-number
@@ -170,7 +170,7 @@
 
                         div.row.box-row
                             div.ta-right
-                                span.label  شماره حساب :
+                                span.label  شماره‌حساب :
                                 span  ۳۴۵۶۷۸۹۰۱۲۳۴۵۶۹۸
 
 
@@ -215,7 +215,7 @@
 
 
                     div.middle-xs.body.ta-right
-                        p تغییر اطلاعات کاربر شماره تلفن همراه (سابق) (جدید)09213724752 ش
+                        p تغییر اطلاعات کاربر شماره موبایل (سابق) (جدید)09213724752 ش
 
 
 
@@ -233,7 +233,7 @@
                                 p.ticket-date ۳ هفته پیش
 
                     div.middle-xs.body.ta-right
-                        p تغییر اطلاعات کاربر شماره تلفن همراه (سابق) (جدید)09213724752 ش
+                        p تغییر اطلاعات کاربر شماره موبایل (سابق) (جدید)09213724752 ش
 
 
             <!--Picker-->

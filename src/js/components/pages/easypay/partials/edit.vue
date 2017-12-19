@@ -42,7 +42,7 @@
                                                 span.text-danger {{ errors.first('description') }}
 
                                         <!--div.row.no-margin-->
-                                        <!--purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول")-->
+                                        <!--purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'input-danger': validationErrors.purse}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف‌پول")-->
                                         <!--div.ta-right(v-if="validationErrors.purse")-->
                                         <!--span.text-danger {{ $i18n.t(validationErrors.purse) }}-->
 
@@ -56,7 +56,7 @@
                                                     | {{ $i18n.t('user.purse') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
-                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف پول" tabindex="4")
+                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف‌پول" tabindex="4")
                                                 div.ta-right(v-if="validation('purse')")
                                                     span.text-danger {{ errors.first('purse') }}
 
