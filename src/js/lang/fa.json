@@ -234,7 +234,7 @@
     "accessLevelLimitTitle": "محدودیت سطح دسترسی",
     "male": "مرد",
     "female": "زن",
-    "request": "درخواست"
+    "request": "ایجاد لینک شخصی"
   },
   "coupon": {
     "couponsDescription": "تمامی‌کد هدیه‌های شما در این صفحه قرار دارد",
@@ -346,6 +346,7 @@
     "flash-reject-request-money-successfull": "درخواست وجه لغو‌شد.",
     "the-coupon-is-expired": "تاریخ انقضای کد هدیه نباید قدیمی‌تر از تاریخ امروز باشد.",
     "the-card-or-iban-already-exists": "شماره‌کارت یا شماره شبا وجود دارد",
+    "username-fix-late-you-can-not-change-this-name": "امکان تغییر نام کاربری وجود ندارد",
     "username-created": "نام کاربری ذخیره شد"
   },
   "panel": {
@@ -923,9 +924,9 @@
       "mobile": "تأیید شماره موبایل",
       "referrer": "معرفی کردن یک کاربر",
       "ssn": "تأیید کد ملی",
-      "username": "افزودن نام کاربری"
+      "username": "ایجاد لینک شخصی"
     },
-    "requestPersonalLinkTitle": "درخواست نام‌کاربری",
+    "requestPersonalLinkTitle": "ایجد لینک شخصی",
     "checkingUsername": "در حال جستجوی نام‌کاربری",
     "youCanUserThisUsername": "این نام کاربری آزاد است"
   },

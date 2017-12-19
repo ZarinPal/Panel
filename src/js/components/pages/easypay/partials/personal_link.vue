@@ -4,21 +4,29 @@
         div(slot="content")
             <!--if not set username-->
             form(v-if="!user.username" autocomplete="off" onsubmit="event.preventDefault();")
-                div.row
-                    div.col-xs-12.no-margin
-                        input.ltr-input(@keyup="validateForm" v-validate="{ rules: {required: true, min: 5, max: 20, alpha_num: true}}" v-bind:data-vv-as="$i18n.t('user.username')" :class="{'input-danger': errors.has('username')}" name="username" type="text" v-model="username" :placeholder="$i18n.t('user.username')")
-                        div.ta-right(v-if="validation('username')")
-                            span.text-danger {{ errors.first('username') }}
 
-                    div.col-xs-12.no-margin.ta-right(v-if="checking")
+                div.row.no-margin.end-xs
+                    div.col-xs-12.col-md-6.col-lg-6.col-sm-12.no-margin.ta-right(v-if="checking")
                         span.dis-ib.checking-loading
                             loading(v-bind:width="15" v-bind:height="15")
                         span.checking-text {{$i18n.t('user.checkingUsername')}}
-
                     div.col-xs-12.no-margin.ta-right(v-if="!checking")
                         span.free-username(v-if="usable") {{$i18n.t('user.youCanUserThisUsername')}}
+                    div.col-xs-12.col-md-6.col-lg-6.col-sm-12.no-margin
+                        div.row.input-group.no-margin.full-width(:class="{'input-danger': errors.has('username')}")
+                            div.col-xs.no-margin
+                                input.input.ltr-input(@keyup="validateForm" v-validate="{ rules: {required: true, min: 5, max: 20, alpha_num: true}}"  v-bind:data-vv-as="$i18n.t('user.username')"   type="text" v-model="username"  name="username"  :placeholder="$i18n.t('user.username')")
+                            div.no-margin.first-label
+                                span {{preLink}}
+                        span.text-danger {{ errors.first('username') }}
+                        div.col-xs-12.no-margin.ta-right(v-if="!checking")
+                            span.free-username(v-if="usable") {{$i18n.t('user.youCanUserThisUsername')}}
 
-                div.row
+                        div.col-xs-12.no-margin.ta-right(v-if="error_message")
+                            span.text-danger {{$i18n.t('flash.' + error_message)}}
+
+
+                div.row.no-margin
                     div.col-xs.nav-buttons
                         button.btn.success.pull-left(v-ripple="" @click="validateForm('Save')" tabindex="3") {{$i18n.t('common.request')}}
                             svg.material-spinner(v-if="requesting" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
@@ -27,7 +35,8 @@
             <!--if username set-->
             div(v-else)
                 div.col-xs-12.no-margin
-                    span {{user.username}}
+                    span لینک شخصی شما برابر است با  :
+                    a(:href="preLink + user.username") {{ preLink + user.username}}
 
 </template>
 
@@ -40,10 +49,12 @@
         name: 'personal-link',
         data() {
             return {
+                preLink: 'https://Zarinp.al/@',
                 requesting: false,
                 checking: false,
                 usable: false,
                 username: null,
+                error_message: null,
             }
         },
         computed: {
@@ -118,6 +129,9 @@
                         this.usable = false;
                         this.checking = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
+                        if (response.data.meta.error_type == 'UserUserNameFixLate') {
+                            this.error_message = _.kebabCase(response.data.meta.error_message)
+                        }
                     }
                 );
             }
