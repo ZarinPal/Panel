@@ -35,7 +35,7 @@
             <!--if username set-->
             div(v-else)
                 div.col-xs-12.no-margin
-                    span لینک شخصی شما برابر است با  :
+                    span لینک شخصی  :
                     a(:href="preLink + user.username") {{ preLink + user.username}}
 
 </template>
