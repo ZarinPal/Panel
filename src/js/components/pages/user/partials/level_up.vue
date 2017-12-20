@@ -54,10 +54,9 @@
 
 
                                             div.row.nav-rows
-                                                input(v-mask="{type: 'date'}" v-validate="'required|date_format:YYYY-M-D'" v-bind:data-vv-as="$i18n.t('user.birthday')" :class="{'input-danger': errors.has('birthday')}" type="text" name="birthday" id="birthday" v-model="birthday" :placeholder= "$i18n.t('user.birthday')" autofocus tabindex="1" )
+                                                calendar(:default="currentDate" @change="selectBirthdate")
                                                 div.ta-right(v-if="validation('birthday')")
                                                     span.text-danger {{ errors.first('birthday') }}
-
 
                                             div.row.nav-rows
                                                 input(v-validate="'required|digits:10'" v-bind:data-vv-as="$i18n.t('user.ssn')" :class="{'input-danger': errors.has('ssn')}" type="text" name="ssn" id="ssn" v-model="ssn" :placeholder= "$i18n.t('user.ssn')" autofocus tabindex="1" )
@@ -152,9 +151,17 @@
                 isSaving: false,
                 maxFileUpload: 3,
                 howManyFileUploaded: 0,
+
+                /**
+                 * Date picker data
+                 * */
+                currentDate: moment(),
             }
         },
         methods: {
+            selectBirthdate(day) {
+                this.birthday = day;
+            },
             /**
              * Validation
              */
@@ -197,15 +204,11 @@
              */
             postLevelUp() {
                 this.isSavingInformation = true;
-
-                let georgianBirthday = moment(this.birthday, 'jYYYY-jMM-jDD');
-                georgianBirthday = georgianBirthday._i.substr(0, georgianBirthday._i.length - 3);
-
                 let userData = {
                     gender: this.gender,
                     first_name: this.first_name,
                     last_name: this.last_name,
-                    birthday: georgianBirthday,
+                    birthday: this.birthday.format('YYYY-MM-DD'),
                     ssn: this.ssn,
                 };
 

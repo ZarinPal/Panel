@@ -51,6 +51,9 @@ Vue.use(VueSentry, {
     enable: process.env.NODE_ENV === 'production',
 });
 
+import VueJCalendar from 'vue-j-calendar';
+Vue.use(VueJCalendar);
+
 Vue.directive(
     'clipboard',
     require('./directives/clipboard')

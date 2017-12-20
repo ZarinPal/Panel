@@ -47,7 +47,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.expirationDate') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-validate="'required'" :class="{'input-danger': errors.has('expired_at')}" v-bind:data-vv-as="$i18n.t('coupon.expirationDate')"  v-mask="{type: 'date'}"  maxlength="10" type="text" v-model="expired_at" name="expired_at" id="expired_at" placeholder="1398-09-21" tabindex="4")
+                                calendar(:default="currentDate" @change="selectExpiredDate")
                                 div.ta-right(v-if="validation('expired_at')")
                                     span.text-danger {{ errors.first('expired_at') }}
 
@@ -118,27 +118,48 @@
                 type: '',
                 percent: '',
                 visibleLimit: false,
+
+                /**
+                 * Date picker data
+                 * */
+                currentDate: moment(),
             }
         },
         computed: {
             webserviceSelection() {
                 if (this.$store.state.auth.user.webservices) {
-                    return this.$store.state.auth.user.webservices.map(function (webservice) {
+                    let webservices =  this.$store.state.auth.user.webservices.map(function (webservice) {
                         return {
                             'title': webservice.name,
                             'value': webservice.entity_id
                         }
                     });
+
+                    let webserviceAll = {
+                        'title': 'همه',
+                        'value': 'all'
+                    };
+
+                    webservices.unshift(webserviceAll);
+                    return webservices;
                 }
             },
             easypaySelection() {
                 if (this.$store.state.auth.user.easypays) {
-                    return this.$store.state.auth.user.easypays.map(function (easypay) {
+                    let easypays = this.$store.state.auth.user.easypays.map(function (easypay) {
                         return {
                             'title': easypay.title,
                             'value': easypay.entity_id
                         }
                     });
+
+                    let easypayAll = {
+                        'title': 'همه',
+                        'value': 'all'
+                    };
+                    easypays.unshift(easypayAll);
+
+                    return easypays;
                 }
             },
             validationErrors() {
@@ -157,28 +178,15 @@
                 return this.easypay_id;
             }
         },
-        beforeCreate() {
-
-        },
         created(){
             store.commit('clearValidationErrors');
-            //Add all item to webservice and easypay
-            let webserviceAll = {
-                'title': 'همه',
-                'value': 'all'
-            };
-            this.webserviceSelection.unshift(webserviceAll);
-
-            let easypayAll = {
-                'title': 'همه',
-                'value': 'all'
-            };
-            this.easypaySelection.unshift(easypayAll);
-
             /*** Get coupon data***/
             this.getCoupon();
         },
         methods: {
+            selectExpiredDate(day) {
+                this.expired_at = day;
+            },
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
                     let element = _.find(this.$validator.fields.items, function (field) {
@@ -248,9 +256,6 @@
             editCoupon() {
                 this.loading = true;
 
-                let georgianExpiredDate = moment(this.expired_at, 'jYYYY-jMM-jDD');
-                georgianExpiredDate = georgianExpiredDate._i.substr(0, georgianExpiredDate._i.length - 3);
-
                 let minAmount = this.min_amount.replace(/,/g, "");
                 let maxAmount = this.max_amount.replace(/,/g, "");
 
@@ -262,7 +267,7 @@
                     },
                     webservice_id: this.webserviceId,
                     easypay_id: this.easyPayId,
-                    expired_at: georgianExpiredDate,
+                    expired_at: this.expired_at.format('YYYY-MM-DD'),
                     limit: this.limit,
                     min_amount: minAmount,
                     type: this.type,

@@ -13,7 +13,6 @@ export default {
         singleEasypayMoreTrigger: null,
         ticketSummary: {},
         refererId: null,
-        selectedTab: 'dashboard',
         isOpenModal: false,
         logOuting: false,
     },
@@ -48,9 +47,6 @@ export default {
                 state.refererId = refId;
                 return
             }
-        },
-        changeTabData(state, data) {
-            state.selectedTab = data
         },
         changeModalStatus(state, status) {
             state.isOpenModal = status

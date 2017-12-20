@@ -31,7 +31,7 @@
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
                                 input.txt-webservice-id(:id="'txtWebserviceId-' + webservice.entity_id" onfocus="this.select();" v-bind:value="webservice.entity_id" readonly="readonly")
-                            div.icon(@click="clipboardMessage(webservice.entity_id)"   v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
+                            div.icon(@click="clipboardMessage(webservice.entity_id)" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
 
                 div.row.box-row
                     div.col-xs.ta-right
