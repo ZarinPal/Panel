@@ -50,16 +50,8 @@
                     ctx.stroke();
                     ctx.save();
 
-
                     // green line
                     ctx.beginPath();
-//                let grad1 = ctx.createRadialGradient(350, 200, 20, 350, 100, 200);
-//                grad1.addColorStop(0, "#fb5c17");
-//                grad1.addColorStop(0.5, "#00f");
-//                grad1.addColorStop(1, "#fb5c17");
-//
-//                ctx.strokeStyle = grad1;
-
                     ctx.strokeStyle = "#89E000";
                     ctx.lineWidth = 5;
                     ctx.arc(46, 46, 42, 1.5 * Math.PI, radians + 1.5 * Math.PI);
@@ -90,19 +82,15 @@
                     ctx.save();
 
                     // percent
-                    if (percent < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = "#ffd600";
-                        ctx.lineWidth = 1;
-                        ctx.arc(84, 21, 14, 0, 2 * Math.PI, true);
-                        ctx.fillStyle = '#ffd600';
-                        ctx.fill();
-                        ctx.fillStyle = '#000';
-                        ctx.font = "11px IRANSans";
-                        ctx.fillText(vm.numberToFarsi(percent) + "%", 95, 24);
-                    } else {
-
-                    }
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#ffd600";
+                    ctx.lineWidth = 1;
+                    ctx.arc(84, 21, 14, 0, 2 * Math.PI, true);
+                    ctx.fillStyle = '#ffd600';
+                    ctx.fill();
+                    ctx.fillStyle = '#000';
+                    ctx.font = "11px IRANSans";
+                    ctx.fillText(vm.numberToFarsi(percent) + "%", 95, 24);
 
                     ctx.stroke();
                     ctx.save();
@@ -118,9 +106,5 @@
                 });
             }
         },
-
-
     }
-
-
 </script>

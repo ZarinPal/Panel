@@ -28,17 +28,16 @@ new Vue({
     router: require('./router').default,
     data() {
       return {
-          // baseUrl: 'https://api.zarinpal.dev', // local: panel base
+          // baseUrl: 'http://api.zarinpal.localhost', // local: panel base
           baseUrl: 'https://next.zarinpal.com', // production: panel base
       }
     },
     http: {
-        // root: 'http://api.zarinpal.dev/rest/v3',// local: panel base
+        // root: 'http://api.zarinpal.localhost/rest/v3',// local: panel base
         root: 'https://next.zarinpal.com/rest/v3',// production: panel base
     },
     created() {
         //init active tab on load
-        this.$store.commit('app/changeTabData', this.$route.name.split('.')[0]);
         this.$store.commit('app/loading');
         this.$store.commit('http/boot', this);
         require('./i18n').default(this, function (vm) {
@@ -47,7 +46,6 @@ new Vue({
             }
         });
 
-
         //Try to fix app ready after 10 seconds
         let vm = this;
         setTimeout(function () {
@@ -55,11 +53,6 @@ new Vue({
                 vm.$store.commit('app/ready');
             }
         }, 5000);
-    },
-    watch: {
-        '$route' (to) {
-            this.$store.commit('app/changeTabData', to.name.split('.')[0])
-        }
     },
     components: {
         "flash-message": require('./components/pages/partials/flash-message.vue')

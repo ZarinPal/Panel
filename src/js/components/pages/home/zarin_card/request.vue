@@ -20,8 +20,8 @@
                         div.col-xs.right-box
                             span {{ $i18n.t('card.zarinCardPrice') }}
                         div.col-xs.left-box
-                            span.cost {{coupon.cost | persianNumbers | numberFormat}}
-                            span.toman {{ $i18n.t('transaction.toman') }}
+                            span.cost.persian-num {{coupon.cost | numberFormat}}
+                            span.toman {{ ' ' + $i18n.t('transaction.toman') }}
 
                     div.row.accept-information-box
                         input(type="checkbox" v-model="acceptInformation" id="chkPermission")

@@ -102,10 +102,6 @@
             toggleMobileSidebar(condition = null, tabData = null){
                 this.$store.commit('app/toggleMobileSidebar', condition);
 
-                if (tabData) {
-                    this.$store.commit('app/changeTabData', tabData)
-                }
-
                 //reload purse balance
                 if (this.$route.name === 'home.index') {
                     let requestTimeDiff = Math.abs(Date.now() - this.$store.state.timer.getPurseBalanceTime) / 100;
