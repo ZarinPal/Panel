@@ -20,7 +20,7 @@
                             img.user-avatar(:src="user.avatar")
                             span.user-name {{user.name}}
                             br
-                            span.user-zp-id zp.{{user.public_id | persianNumbers}}
+                            span.user-zp-id.persian-num zp.{{user.public_id}}
                     div.col-lg-6.col-md-6.col-sm-12.col-xs-12.nav-left
                         div.nav-buttons
                             <!--span.request-button.zarin-friends دوستان زرین‌پالی-->

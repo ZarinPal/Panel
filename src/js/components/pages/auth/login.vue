@@ -51,7 +51,7 @@
                                     p {{ $i18n.t('user.yourWelcome') }}
                                     span(v-if="channel == 'ussd'")
                                         span کد دستوری زیر را توسط شماره‌موبایل
-                                        span.mobile-number {{ username | persianNumbers}}
+                                        span.mobile-number.persian-num {{ username }}
                                         span شماره گیری کنید.
                                         span.change-mobile(@click="step--") (تغیر شماره تلفن)
                                     span(v-else-if="channel == 'email'")

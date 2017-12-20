@@ -4,7 +4,7 @@
         div(slot="content")
             div.row
                 div.col-xs.ta-center.nav-amount
-                    span {{debt.amount | numberFormat | persianNumbers}}
+                    span.persian-num {{debt.amount | numberFormat}}
                     small {{ $i18n.t('transaction.toman') }}
 
             div.row.no-margin.nav-description

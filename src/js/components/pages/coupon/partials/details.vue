@@ -14,7 +14,7 @@
                 div.col-xs.ta-right
                     span.label {{ $i18n.t('coupon.limit') }}
                 div.col-xs.ta-left
-                    span.value(v-if="coupon.limit") {{coupon.limit | numberFormat | persianNumbers}}
+                    span.value.persian-num(v-if="coupon.limit") {{coupon.limit | numberFormat}}
                     span.value(v-else) {{ $i18n.t('coupon.noLimit') }}
 
             div.row
@@ -28,26 +28,26 @@
                 div.col-xs.ta-right
                     span.label {{ $i18n.t('coupon.expirationDate') }}
                 div.col-xs.ta-left
-                    span.value {{coupon.expired_at | jalali('jYYYY-jMM-jDD') | persianNumbers}}
+                    span.value.persian-num {{coupon.expired_at | jalali('jYYYY-jMM-jDD')}}
 
 
             div.row
                 div.col-xs.ta-right
                     span.label {{ $i18n.t('coupon.minAmount') }}
                 div.col-xs.ta-left
-                    span.value {{coupon.min_amount | numberFormat | persianNumbers}}
+                    span.value.persian-num {{coupon.min_amount | numberFormat}}
 
             div.row
                 div.col-xs.ta-right
                     span.label {{ $i18n.t('coupon.maxAmount') }}
                 div.col-xs.ta-left
-                    span.value {{coupon.discount.max_amount | numberFormat | persianNumbers}}
+                    span.value.persian-num {{coupon.discount.max_amount | numberFormat}}
 
             div.row
                 div.col-xs.ta-right
                     span.label {{ $i18n.t('coupon.offPercent') }}
                 div.col-xs.ta-left
-                    span.value(v-if="coupon.discount.percent") {{coupon.discount.percent | persianNumbers}}
+                    span.value.persian-num(v-if="coupon.discount.percent") {{coupon.discount.percent}}
                     span.value(v-else) -
 
 </template>

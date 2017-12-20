@@ -41,7 +41,7 @@
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('transaction.amount') }}
                             div.col-xs.ta-left
-                                span.value {{ this.amount | numberFormat | persianNumbers}}
+                                span.value.persian-num {{ this.amount | numberFormat }}
                                 small {{ $i18n.t('transaction.toman') }}
 
                         div.row

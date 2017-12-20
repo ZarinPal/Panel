@@ -38,12 +38,12 @@
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('card.srcAccountNumber')}}
                             div.col-xs.ta-left
-                                span.value {{card.pan| persianNumbers}}
+                                span.value.persian-num {{card.pan}}
                         div.row
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('card.distCardNumber')}}
                             div.col-xs.ta-left
-                                span.value {{this.dst_pan | persianNumbers}}
+                                span.value.persian-num {{this.dst_pan}}
                         div.row
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('card.exporterBank')}}
@@ -58,7 +58,7 @@
                             div.col-xs.ta-right
                                 span.label {{$i18n.t('common.amount') + '(' + $i18n.t('transaction.toman') + ')' }}
                             div.col-xs.ta-left
-                                span.value {{this.amount | numberFormat | persianNumbers}}
+                                span.value.persian-num {{this.amount | numberFormat }}
 
                         div.row.nav-buttons.no-left-margin.nav-buttons
                             div.col-xs.no-margin
@@ -75,12 +75,12 @@
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('card.cardBalance')}}
                             div.col-xs.ta-left
-                                span.value {{ transferResponse.card_balance| numberFormat | persianNumbers}}
+                                span.value.persian-num {{ transferResponse.card_balance| numberFormat }}
                         div.row
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('common.date')}}
                             div.col-xs.ta-left
-                                span.value {{transferResponse.date | persianNumbers}}
+                                span.value.persian-num {{transferResponse.date}}
                         div.row
                             div.col-xs.ta-right
                                 span.label  {{ $i18n.t('card.distAccountOwnerName')}}
@@ -90,17 +90,17 @@
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('card.distAccountNumber')}}
                             div.col-xs.ta-left
-                                span.value {{transferResponse.dst_card_pan | persianNumbers}}
+                                span.value.persian-num {{transferResponse.dst_card_pan}}
                         div.row
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('card.refrenceNumber')}}
                             div.col-xs.ta-left
-                                span.value {{transferResponse.ref_id | persianNumbers}}
+                                span.value.persian-num {{transferResponse.ref_id }}
                         div.row
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('card.amount')}}
                             div.col-xs.ta-left
-                                span.value {{transferResponse.transfer_amount | numberFormat | persianNumbers}}
+                                span.value.persian-num {{transferResponse.transfer_amount | numberFormat}}
 </template>
 
 

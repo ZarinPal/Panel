@@ -42,14 +42,14 @@
                                 div.col-xs
                                     span حداکثر زمان واریز
                                 div.col-xs.left-box
-                                    span(v-if="feeDetails.details") {{ calcFeeDate(feeDetails.details.reconcile_in)  | persianNumbers}}
+                                    span.persian-num(v-if="feeDetails.details") {{ calcFeeDate(feeDetails.details.reconcile_in)  }}
 
                             div.row.bx.fee-amount
                                 div.col-xs
                                     span.title مبلغ کارمزد
                                 div.col-xs.left-box
-                                    div(v-if="feeDetails.details") {{ feeDetails.details.percent | numberFormat| persianNumbers}} %
-                                    div(v-if="feeDetails.details") {{ withdrawAmount | numberFormat | persianNumbers }} تومان
+                                    div.persian-num(v-if="feeDetails.details") {{ feeDetails.details.percent | numberFormat}} %
+                                    div.persian-num(v-if="feeDetails.details") {{ withdrawAmount | numberFormat }} تومان
 
                             div.fee-description
                                 span {{ selectedFee.description }}
@@ -167,7 +167,7 @@
                     }
                 });
             },
-            removeErrors : function (field) {
+            removeErrors: function (field) {
                 this.errors.remove(field);
             },
             closeModal() {

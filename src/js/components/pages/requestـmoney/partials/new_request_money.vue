@@ -31,7 +31,7 @@
             div.nav-request-type.ta-right(v-else-if="step == 2")
                 div.nav-selected-avatars
                     img.avatar(v-for="(user, index) in selectedUsers" v-if="index <= 4" :src="user.avatar")
-                    span.remain-user-number(v-if="checkUsers.length > 5") {{checkUsers.length - 5 |persianNumbers}}+
+                    span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5 }}+
 
                 div.top-text {{ $i18n.t('requestMoney.chooseOneOfTheFollowingMethods') }}
 
@@ -62,13 +62,13 @@
                 div.selected-users-avatar
                     div.avatar-container
                         img.avatar(v-for="(user, index) in selectedUsers" v-if="index <= 4" :src="user.avatar")
-                        span.remain-user-number(v-if="checkUsers.length > 5") {{checkUsers.length - 5 | persianNumbers}}+
+                        span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5}}+
 
                     div.arrow
 
                 div.nav-request-amount
                     span.amount-text {{ $i18n.t('requestMoney.amountPerPerson') }}
-                    span.sum-amount {{ autoPersonAmount | numberFormat | persianNumbers }}
+                    span.sum-amount.persian-num {{ autoPersonAmount | numberFormat }}
                     span.amount-text {{ $i18n.t('transaction.toman') }}
 
                 div.row
@@ -102,7 +102,7 @@
                 div.row.nav-request-amount
                     div.col-xs.ta-center
                         span.amount-text {{ $i18n.t('requestMoney.sum') }}
-                        span.sum-amount {{ manuallyTotalAmount | numberFormat | persianNumbers}}
+                        span.sum-amount.persian-num {{ manuallyTotalAmount | numberFormat }}
                         span.amount-text {{ $i18n.t('transaction.toman') }}
 
                 input.amount-input(id="txtManuallyAmount" v-validate="{type: 'number'}" maxlength="8" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
@@ -114,7 +114,7 @@
                 div.selected-users-static
                     span(v-for="(user, index) in selectedUsers")
                         img(v-if="index <= 4" :src="user.avatar")
-                    span.remain-user-number(v-if="checkUsers.length > 5") {{checkUsers.length - 5 | persianNumbers}}+
+                    span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5 }}+
 
                 div.nav-description
                     div.row.description-title {{$i18n.t('requestMoney.fillDescriptionToContinue')}}
@@ -129,8 +129,8 @@
 
                     div.row
                         div.col-xs.ta-center
-                            span.total-amount(v-if="requestType == 'Auto'") {{requestAmount | numberFormat | persianNumbers}}
-                            span.total-amount(v-else) {{manuallyTotalAmount | numberFormat | persianNumbers}}
+                            span.total-amount.persian-num(v-if="requestType == 'Auto'") {{requestAmount | numberFormat }}
+                            span.total-amount.persian-num(v-else) {{manuallyTotalAmount | numberFormat}}
                             span.total-toman {{$i18n.t('transaction.toman')}}
 
                     div.line
@@ -138,7 +138,7 @@
                         div.col-xs.ta-right
                             span.multi-person {{ $i18n.t('requestMoney.count') }}
                         div.col-xs.ta-left
-                            span.multi-person {{ selectedUsers.length + ' ' + $i18n.t('requestMoney.person') | persianNumbers}}
+                            span.multi-person.persian-num {{ selectedUsers.length + ' ' + $i18n.t('requestMoney.person')}}
 
 
             div.footer(v-if="phoneBook.data.length")

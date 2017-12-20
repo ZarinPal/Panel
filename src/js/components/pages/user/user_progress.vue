@@ -12,14 +12,14 @@
                     div
                         img.user-avatar(:src="user.avatar")
                     div
-                        span.user-name(v-if="userProgress") {{userProgress.points | persianNumbers}} {{ $i18n.t('user.percentOfComplate') }}
+                        span.user-name.persian-num(v-if="userProgress") {{userProgress.points }} {{ $i18n.t('user.percentOfComplate') }}
 
 
         div.row.section
             div.col-lg-4.col-xs-12.col-sm-12(v-for="(progress, progressKey) in userProgress" v-if="progressKey !== 'points'")
                 div.box.box-style
                     i.icon-zp-progressKey.text-style
-                    span.text-style {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point| persianNumbers }}%)
+                    span.text-style.persian-num {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point }}%)
                     span.done-prog(v-if="progress.check")
                         span.pull-left.text-style انجام‌شده
                     span.pending-prog(v-else)

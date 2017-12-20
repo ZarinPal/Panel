@@ -5,17 +5,17 @@
                 div.col-xs
                     span.ticket-title {{ticket.title}}
                 div.col-xs
-                    span.ticket-id.pull-left(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="ticket.public_id") {{ticket.public_id | persianNumbers}}
+                    span.ticket-id.pull-left.persian-num(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="ticket.public_id") {{ticket.public_id }}
                     button.btn.info.close-ticket.pull-left(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
 
             div.ver-line
             div.row.bottom-row
                 div.col-lg-3.col-md-6.col-sm-6.col-xs-12
                     span.title {{ $i18n.t('ticket.updated') }} :
-                    span.value {{ticket.updated_at | fromNow | persianNumbers}}
+                    span.value.persian-num {{ticket.updated_at | fromNow }}
                 div.col-lg-3.col-md-6.col-sm-6.col-xs-12
                     span.title {{ $i18n.t('ticket.created') }} :
-                    span.value {{ticket.created_at | fromNow | persianNumbers}}
+                    span.value.persian-num {{ticket.created_at | fromNow }}
                 div.col-lg-3.col-md-6.col-sm-6.col-xs-12
                     span.title {{ $i18n.t('ticket.status') }} :
                     span.value {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
@@ -37,7 +37,7 @@
                                     img(v-avatar="" v-bind:src="'https:'+reply.user_info.avatar")
                                 span.nav-ticket-status
                                     p.username {{ reply.user_info.name }}
-                                    p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
+                                    p.ticket-date.iransans-light.persian-num {{reply.created_at | fromNow }}
 
                         div.middle-xs.body.ta-right
                             pre(v-html="$options.filters.code(reply.content)")
@@ -54,7 +54,7 @@
 
                                 span.nav-ticket-status
                                     p.username {{ reply.user_info.name }}
-                                    p.ticket-date.iransans-light {{reply.created_at | fromNow | persianNumbers}}
+                                    p.ticket-date.iransans-light.persian-num {{reply.created_at | fromNow }}
 
                         div.middle-xs.body.ta-right
                             pre(v-html="$options.filters.code(reply.content)")

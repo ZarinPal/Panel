@@ -3,10 +3,10 @@
         div.timer
         div.alive
             div.minutes
-                span {{ $store.state.timer.minutes | persianNumbers }}
+                span.persian-num {{ $store.state.timer.minutes }}
             div.sprator :
             div.seconds
-                span {{ $store.state.timer.seconds | persianNumbers }}
+                span.persian-num {{ $store.state.timer.seconds }}
 </template>
 
 <script>

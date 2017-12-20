@@ -25,7 +25,7 @@
                 div.content
                     div.row.header
                         div.col-xs.ta-center
-                            span.notification-count(v-if="notifications.data.length") {{ notifications.count | persianNumbers}}
+                            span.notification-count.persian-num(v-if="notifications.data.length") {{ notifications.count }}
                             span.zarinpal-title {{$i18n.t('common.zarinPal')}}
                         div.ta-left
                             <!--span.icon-setting-->
@@ -34,17 +34,17 @@
                         div.full-width(v-for="notification in notifications.data")
                             <!--Ticket-->
                             router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'ticket' && notification.id" tag="div" @click.native="toggleNotification(notification.uuid)" v-bind:to="{ name: 'ticket.show', params: {id: notification.id}}")
-                                div.title {{notification.title | persianNumbers}}
+                                div.title.persian-num {{notification.title }}
                                 div.body {{notification.body | less}}
 
                             <!--Transaction-->
                             router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'transaction' && notification.id" tag="div" @click.native="toggleNotification(notification.uuid)" v-bind:to="{ name: 'transaction.index', params: {id: notification.data.purse, type: 'purse', transactionId: notification.id}}")
-                                div.title {{notification.title | persianNumbers}}
+                                div.title.persian-num {{notification.title }}
                                 div.body {{notification.body | less}}
 
                             <!--Request money-->
                             router-link.notification-box.col-lg-12.col-md-12.col-xs-12(v-ripple="" v-if="notification.type === 'request_money' && notification.data.entity_id" tag="div" @click.native="toggleNotification(notification.uuid)" v-bind:to="{ name: 'requestMoney.index', params: {type: 'debt'}}")
-                                div.title {{notification.title | persianNumbers}}
+                                div.title.persian-num {{notification.title }}
                                 div.body {{notification.body | less}}
 
                         div.ta-center.empty-notification.col-lg-12.col-md-12.col-xs-12(v-if="!notifications.data.length")
