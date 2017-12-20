@@ -6,7 +6,7 @@
             div.demand-details(v-if="demand")
                 div.nav-top
                     div.nav-amount
-                        span {{ demand.total_amount | numberFormat | persianNumbers }}
+                        span.persian-num {{ demand.total_amount | numberFormat }}
                         small {{ $i18n.t('transaction.toman') }}
 
                     div.nav-request-status
@@ -14,7 +14,7 @@
                             div.col-xs.ta-right
                                 span {{ $i18n.t('common.date') }}
                             div.col-xs.ta-left
-                                span {{ demand.created_at | fromNow | persianNumbers }}
+                                span.persian-num.persian-num {{ demand.created_at | fromNow }}
 
                         div.row
                             div.ta-right
@@ -30,7 +30,7 @@
                                     img.avatar(:src="user.avatar")
                                 div.col-xs.ta-right
                                     div.name {{user.name}}
-                                    span.amount {{user.amount | numberFormat | persianNumbers}}
+                                    span.amount.persian-num {{user.amount | numberFormat}}
                                     small {{ $i18n.t('transaction.toman') }}
                         div.ta-left.nav-status
                             span(:class="{'paid-text': user.status == 'paid', 'reject-text': user.status == 'reject', 'pending-text': user.status == 'pending'}") {{ $i18n.t('requestMoney.' + user.status) }}
@@ -45,7 +45,7 @@
                     div.zp-id ZP.{{debt.zp}}
 
                 div.nav-amount
-                    span {{ debt.amount | numberFormat | persianNumbers }}
+                    span.persian-num {{ debt.amount | numberFormat }}
                     small {{ $i18n.t('transaction.toman') }}
 
                 div.nav-request-status

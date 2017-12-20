@@ -9,7 +9,7 @@
                 div.row.center-xs(v-if="!closeModalContent" v-on:click.self="closeModal()")
                     div.col-lg-5.col-md-5.col-sm-10.col-xs-10.content
                         div.header
-                            span.title {{$i18n.t('transaction.id')}} : {{ transaction.public_id | persianNumbers}}
+                            span.title.persian-num {{$i18n.t('transaction.id')}} : {{ transaction.public_id}}
                             span.icon-close(@click="closeModal()")
 
                         div.body
@@ -39,7 +39,7 @@
                                                     div.user-name {{transaction.to_merchant.name}}
                                                     div.user-zp-id ZP.{{transaction.to_merchant.public_id}}
 
-                            span.amount {{ transaction.amount | numberFormat | persianNumbers }}
+                            span.amount.persian-num {{ transaction.amount | numberFormat }}
                             span {{$i18n.t('transaction.toman')}}
 
                             div.nav-rows
@@ -48,7 +48,7 @@
                                         span.title.tick(v-if="transaction.confirmed == 'confirmed' ") {{ $i18n.t('transaction.confirmed') }}
                                         span.title.unverified(v-else) {{ $i18n.t('transaction.notConfirmed') }}
                                     div.col-xs.ta-left
-                                        span.value {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD') | persianNumbers}}
+                                        span.value.persian-num {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD')}}
 
                                 div.row
                                     div.col-xs.ta-right

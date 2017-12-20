@@ -24,7 +24,7 @@
             <!--Report result-->
             span(v-else)
                 div.row.ta-right.top-box
-                    span.label {{ $i18n.t('common.balance') + ':' + zarinCardStatements.balance | numberFormat | persianNumbers }}
+                    span.label.persian-num {{ $i18n.t('common.balance') + ':' + zarinCardStatements.balance | numberFormat }}
                     span.label {{ ' ' + $i18n.t('transaction.toman') }}
 
                 div.bottom-box
@@ -44,10 +44,10 @@
                             span.icon-outcome-trans(v-else-if="statement.effectiveSign == -1")
 
                         div.col-lg-3.col-md-3.col-sm-3.col-xs-5.ta-center
-                            span.text.created {{statement.time | fromNow | persianNumbers}}
+                            span.text.created.persian-num {{statement.time | fromNow}}
 
                         div.col-lg-3.col-md-3.col-sm-3.col-xs-6.ta-center
-                            span.text {{statement.amount | numberFormat | persianNumbers}}
+                            span.text.persian-num {{statement.amount | numberFormat}}
 
                         div.col-lg-5.col-md-5.col-sm-5.ta-center.hidden-xs
                             span.text(v-if="statement.description") {{statement.description}}

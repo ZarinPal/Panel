@@ -14,7 +14,7 @@
                     div.user-information-box.ta-right
                         div {{ $i18n.t('user.firstName') }} : {{ user.name }}
                         div {{ $i18n.t('user.userAddress') }} : {{ user.address }}
-                        div {{ $i18n.t('user.postal') }} : {{ user.postal | persianNumbers}}
+                        div.persian-num {{ $i18n.t('user.postal') }} : {{ user.postal }}
 
                     div.row.zarin-card-request-box
                         div.col-xs.right-box

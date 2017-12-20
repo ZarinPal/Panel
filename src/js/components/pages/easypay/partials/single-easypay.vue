@@ -27,7 +27,7 @@
                         span.label {{$i18n.t('easypay.amount')}}
 
                     div.col-xs.ta-left
-                        span.text-value {{easypay.price | numberFormat | persianNumbers}} تومان
+                        span.text-value.persian-num {{easypay.price | numberFormat }} تومان
 
                 div.row.box-row
                     div.col-xs.ta-right
@@ -44,7 +44,7 @@
                         span.label {{$i18n.t('easypay.limit')}}
 
                     div.col-xs.ta-left
-                        span.text-value(v-if="easypay.limit") {{easypay.limit | persianNumbers}}
+                        span.text-value.persian-num(v-if="easypay.limit") {{easypay.limit }}
                         span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
 
 

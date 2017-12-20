@@ -10,7 +10,7 @@
 
                 div.row
                     div.col-xs.ta-right
-                        span.label {{$i18n.t('card.iban') | persianNumbers}}:
+                        span.label.persian-num {{$i18n.t('card.iban')}}:
                     div.col-xs.ta-left
                         span.label {{card.iban}}
 

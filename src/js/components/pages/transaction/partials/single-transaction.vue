@@ -16,7 +16,7 @@
                 span(v-else)
                     span.icon-pending-trans
 
-                span.text {{transaction.public_id | persianNumbers}}
+                span.text.persian-num {{transaction.public_id}}
 
             <!--From -> to -->
             div.col-lg-6.col-md-3.col-sm-4.hidden-xs.nav-to-from(v-if="transaction.confirmed =='confirmed'")
@@ -40,26 +40,26 @@
                 span.text {{ $i18n.t('transaction.movingOut') }}
 
             div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
-                span.text.created {{transaction.created | jalali('HH:mm:ss | jYYYY-jMM-jDD') | persianNumbers}}
+                span.text.created.persian-num {{transaction.created | jalali('HH:mm:ss | jYYYY-jMM-jDD')}}
 
             div.col-lg-1.col-md-2.col-sm-12.col-xs-12.ta-center
                 span.nav-amount
                     span(v-if="transaction.confirmed =='confirmed'")
                         span(v-if="transaction.effective_sign == 1")
-                            span.text.color-success {{transaction.amount | numberFormat | persianNumbers}}
+                            span.text.color-success.persian-num {{transaction.amount | numberFormat}}
 
                         span(v-if="transaction.effective_sign == 0")
-                            span.text {{transaction.amount | numberFormat | persianNumbers}}
+                            span.text.persian-num {{transaction.amount | numberFormat}}
 
 
                         span(v-if="transaction.effective_sign == -1")
-                            span.text.color-danger {{transaction.amount | numberFormat | persianNumbers}}
+                            span.text.color-danger.persian-num {{transaction.amount | numberFormat}}
 
 
                     small.hidden-lg.show-xs {{ $i18n.t('transaction.toman') }}
 
             div.col-lg-1.col-md-2.col-sm-2.ta-center.hidden-xs
-                span.text {{transaction.balance | numberFormat | persianNumbers}}
+                span.text.persian-num {{transaction.balance | numberFormat}}
 
         transactionDetails(v-if="showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal()")
 </template>

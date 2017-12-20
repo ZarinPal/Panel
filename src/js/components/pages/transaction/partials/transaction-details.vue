@@ -1,6 +1,6 @@
 <template lang="pug">
     modal.transaction-detail(v-on:closeModal="closeModal()")
-        span(slot="title") {{$i18n.t('transaction.id')}} : {{ transaction.public_id | persianNumbers}}
+        span.persian-num(slot="title") {{$i18n.t('transaction.id')}} : {{ transaction.public_id}}
         div.content(slot="content")
             div.body
                 div.deposit-background
@@ -29,7 +29,7 @@
                                         div.user-name {{transaction.to_merchant.name}}
                                         div.user-zp-id ZP.{{transaction.to_merchant.public_id}}
 
-                span.amount {{ transaction.amount | numberFormat | persianNumbers }}
+                span.amount.persian-num {{ transaction.amount | numberFormat }}
                 span {{$i18n.t('transaction.toman')}}
 
                 div.nav-rows
@@ -37,7 +37,7 @@
                         div.col-xs.ta-right
                             span.title {{$i18n.t('transaction.id')}}
                         div.col-xs.ta-left
-                            span.value  {{ transaction.public_id | persianNumbers}}
+                            span.value.persian-num  {{ transaction.public_id}}
                     div.row
                         div.col-xs.ta-right
                             span.title {{$i18n.t('transaction.status')}}
@@ -50,7 +50,7 @@
                         div.col-xs.ta-right
                             span.title {{$i18n.t('transaction.date')}}
                         div.col-xs.ta-left
-                            span.value {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD') | persianNumbers}}
+                            span.value.persian-num {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD')}}
 
 
 
@@ -64,13 +64,13 @@
                         div.col-xs.ta-right
                             span.title(v-if="transaction.card_info.mask")  {{$i18n.t('transaction.payerMask')}}
                         div.col-xs.ta-left.dir-ltr
-                            span.value(v-if="transaction.card_info.mask")  {{ $options.filters.cardNumber(transaction.card_info.mask) | persianNumbers}}
+                            span.value.persian-num(v-if="transaction.card_info.mask")  {{ $options.filters.cardNumber(transaction.card_info.mask)}}
 
                     div.row(v-if="transaction.card_info")
                         div.col-xs.ta-right
                             span.title(v-if="transaction.card_info.issuer.name")  {{$i18n.t('transaction.payerIssuer')}}
                         div.col-xs.ta-left
-                            span.value(v-if="transaction.card_info.issuer.name")  {{ transaction.card_info.issuer.name | persianNumbers}}
+                            span.value.persian-num(v-if="transaction.card_info.issuer.name")  {{ transaction.card_info.issuer.name}}
 
                     div.row(v-if="transaction.to_user")
                         div.col-xs.ta-right
@@ -86,7 +86,7 @@
                         div.col-xs.ta-right
                             span.title(v-if="transaction.payer.mobile")  {{$i18n.t('transaction.payerMobile')}}
                         div.col-xs.ta-left
-                            span.value(v-if="transaction.payer.mobile")  {{ transaction.payer.mobile | persianNumbers}}
+                            span.value.persian-num(v-if="transaction.payer.mobile")  {{ transaction.payer.mobile}}
 
                     div.row(v-if="transaction.payer.email")
                         div.col-xs.ta-right

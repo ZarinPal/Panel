@@ -7,7 +7,7 @@
             div.head
                 img.avatar(:src="user.avatar")
                 span.name(:title="user.name") {{user.name | less}}
-                span.zp-id {{user.mobile | persianNumbers}}
+                span.zp-id.persian-num {{user.mobile}}
             div.body
                 router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.addAddress'}")
                     span.icon.location {{$i18n.t('user.addNewAddress')}}
