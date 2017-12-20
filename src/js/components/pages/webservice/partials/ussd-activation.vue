@@ -18,7 +18,7 @@
                         div.no-margin.last-label
                             span #
                         div.col-xs.no-margin
-                            input.input.ltr-input(v-focus="" v-validate="'required|numeric|max:5'" v-bind:data-vv-as="$i18n.t('webservice.ussd')" maxlength="5" type="text" v-model="ussd_id" name="ussd_id" :placeholder="$i18n.t('webservice.ussd')" autofocus tabindex="1")
+                            input.input.ltr-input(v-focus="" v-validate="'required|numeric|min:4|max:6'" v-bind:data-vv-as="$i18n.t('webservice.ussd')" maxlength="5" type="text" v-model="ussd_id" name="ussd_id" :placeholder="$i18n.t('webservice.ussd')" autofocus tabindex="1")
                         div.no-margin.first-label
                             span *788*97*
                     div.ta-right.full-width(v-if="validation('ussd_id')")
@@ -111,7 +111,7 @@
                     this.getPriceLoading = false;
                 });
             },
-            createWebservice() {
+            activeUssd() {
                 this.loading = true;
                 let ussdData = {
                     webservice: this.webservice.entity_id,
