@@ -16,7 +16,7 @@
                     div.right
                         span.label {{$i18n.t('easypay.limit')}}
                     div.col-xs.ta-left
-                        span.text-value(v-if="coupon.limit") {{coupon.limit | persianNumbers}}
+                        span.text-value.persian-num(v-if="coupon.limit") {{coupon.limit}}
                         span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
 
                 div.row.box-row
@@ -41,7 +41,7 @@
                         span.label {{$i18n.t('coupon.expirationDate')}}
 
                     div.col-xs.ta-left
-                        span.text-value {{coupon.expired_at  | jalali('jYYYY-jMM-jDD') | persianNumbers}}
+                        span.text-value.persian-num {{coupon.expired_at  | jalali('jYYYY-jMM-jDD') }}
 
             div.bottom-xs.box-footer
                 div.row

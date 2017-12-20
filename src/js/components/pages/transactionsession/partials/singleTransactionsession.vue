@@ -2,17 +2,17 @@
     div
         div.row.transaction-row
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
-                span.text {{session.authority | persianNumbers}}
+                span.text.persian-num {{session.authority}}
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
-                span.transaction-fields-title {{session.created_at | persianNumbers}}
+                span.transaction-fields-title.persian-num {{session.created_at}}
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
-                span.transaction-fields-title {{session.amount | numberFormat | persianNumbers}}
+                span.transaction-fields-title.persian-num {{session.amount | numberFormat}}
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
-                span.transaction-fields-title {{session.cellnum | persianNumbers}}
+                span.transaction-fields-title.persian-num {{session.cellnum }}
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
                 span.transaction-fields-title {{session.email }}
             div.col-lg-2.col-md-2.col-sm-3.hidden-xs.ta-center
-                span.transaction-fields-title(@click="showTransaction(session.transaction.public_id)") {{session.transaction.public_id | persianNumbers }}
+                span.transaction-fields-title.persian-num(@click="showTransaction(session.transaction.public_id)") {{session.transaction.public_id }}
 
         transactionDetails(v-if="showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal()")
 

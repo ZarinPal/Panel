@@ -1,10 +1,10 @@
 <template lang="pug">
     div.inner-content.nav-user-setting
         div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 p.page-title {{ $i18n.t('user.userProgress') }}
                 p.page-description {{ $i18n.t('user.userProgressDescription') }}
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
 
             div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
@@ -12,14 +12,15 @@
                     div
                         img.user-avatar(:src="user.avatar")
                     div
-                        span.user-name(v-if="userProgress") {{userProgress.points | persianNumbers}} {{ $i18n.t('user.percentOfComplate') }}
+                        span.user-name.persian-num(v-if="userProgress") {{userProgress.points }} {{ $i18n.t('user.percentOfComplate') }}
 
+        <!--Boxes-->
         div.row.section
             div.col-lg-4(v-for="(progress, progressKey) in userProgress" v-if="progressKey !== 'points'")
                 div.box.box-style(v-if="progressKey == 'botTelegram'")
                     a(href="https://t.me/zarinpalrobot" target="blank")
                         i.icon-zp-progressKey.text-style
-                        span.text-style {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point| persianNumbers }}%)
+                        span.text-style {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point}}%)
                         span.done-prog(v-if="progress.check")
                             span.pull-left.text-style انجام شده
                         span.pending-prog(v-else)
@@ -27,9 +28,9 @@
 
                 div.box.box-style(v-else @click="redirect(progressKey)")
                     i.icon-zp-progressKey.text-style
-                    span.text-style {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point| persianNumbers }}%)
+                    span.text-style.persian-num {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point }}%)
                     span.done-prog(v-if="progress.check")
-                        span.pull-left.text-style انجام شده
+                        span.pull-left.text-style انجام‌شده
                     span.pending-prog(v-else)
                         span.pull-left.text-style در انتظار
 

@@ -10,7 +10,7 @@
                 leave-active-class="fade-out")
                     span.close-address(@click="confirmVisible = true" v-if="singleAddress.id > 1 && visibleCloseIcon")
 
-                span.address-title(v-if="singleAddress.id > 0" ) {{$i18n.t('user.addressTitle') + ' ' + singleAddress.id | persianNumbers}}
+                span.address-title.persian-num(v-if="singleAddress.id > 0" ) {{$i18n.t('user.addressTitle') + ' ' + singleAddress.id}}
             div.row.z-row
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     input(v-validate="'required|max:255'" v-bind:data-vv-as="$i18n.t('user.addressTitlePlaceholder')"  :class="{'input-danger': errors.has('addresses.'+ (singleAddress.id - 1) + '.title')}" type="text" v-model="address.title" :name="'addresses.'+ (singleAddress.id - 1) +'.title'" @input="updateAddress" :placeholder="$i18n.t('user.addressTitlePlaceholder')")
@@ -38,7 +38,7 @@
                 <!--div.col-lg-3.col-md-3.col-sm-12.col-xs-12(@click="visibleMap = true")-->
                 <!--div.btn-show-location(:class="{'input-danger': validationErrors['addresses.'+ (singleAddress.id -1) +'.geo_location'], 'has-geo-location': address.geo_location}")-->
                 <!--span(v-if="!address.geo_location") {{ $i18n.t('user.positionOnTheMap') }}-->
-                <!--span(v-else) {{address.geo_location | persianNumbers}}-->
+                <!--span(v-else) {{address.geo_location}}-->
 
                 <!--span.input-icon.icon-location-->
                 <!--div.ta-right(v-if="validationErrors['addresses.'+ singleAddress.id +'.geo_location']")-->

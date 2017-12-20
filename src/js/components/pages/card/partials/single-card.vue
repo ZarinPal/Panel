@@ -25,12 +25,12 @@
                 div.row.box-row
                     div.ta-right
                         span.label {{$i18n.t('card.accountId')}}:
-                        span.account-id(v-if="card.account_id") {{ card.account_id | persianNumbers}}
+                        span.account-id.persian-num(v-if="card.account_id") {{ card.account_id}}
                         span(v-else) -
 
                     div.col-xs.ta-left(v-if="card.pan")
                         span {{ $i18n.t('card.expiration') }}:
-                        span.text-value {{card.expired_at| jalali("jYYYY/jM") | persianNumbers}}
+                        span.text-value.persian-num {{card.expired_at| jalali("jYYYY/jM")}}
 
             <!--InActive OR Pending Card-->
             div.middle-xs.body.bank-card.disable-card(v-else-if="card.status == 'InActive' || card.status == 'Pending' || card.status == 'Expired'")
@@ -58,12 +58,12 @@
                 div.row.box-row
                     div.ta-right
                         span.label {{$i18n.t('card.accountId')}}:
-                        span.account-id(v-if="card.account_id") {{ card.account_id | persianNumbers}}
+                        span.account-id.persian-num(v-if="card.account_id") {{ card.account_id }}
                         span(v-else) -
 
                     div.col-xs.ta-left(v-if="card.pan")
                         span {{ $i18n.t('card.expiration') }}:
-                        span.text-value {{card.expired_at| jalali("jYYYY/jM") | persianNumbers}}
+                        span.text-value.persian-num {{card.expired_at| jalali("jYYYY/jM") }}
 
             div.bottom-xs.box-footer
                 div.row

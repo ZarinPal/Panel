@@ -1,7 +1,7 @@
 <template lang="pug">
     modal.withdraw(v-on:closeModal="closeModal()")
         span(slot="title")
-            span {{ $i18n.t('transaction.withdraw') }} از کیف پول
+            span {{ $i18n.t('transaction.withdraw') }} از کیف‌پول
         div(slot="content")
 
             <!-- If user dont have any card -->
@@ -16,7 +16,7 @@
             span(v-else)
                 div(v-if="this.$store.state.auth.user.cards")
                     form(autocomplete="on" onsubmit="event.preventDefault();")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse"  id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" placeholder="انتخاب کیف پول")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse"  id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" placeholder="انتخاب کیف‌پول")
                         div.ta-right(v-if="validation('purse')")
                             span.text-danger {{ errors.first('purse') }}
 
@@ -42,14 +42,14 @@
                                 div.col-xs
                                     span حداکثر زمان واریز
                                 div.col-xs.left-box
-                                    span(v-if="feeDetails.details") {{ calcFeeDate(feeDetails.details.reconcile_in)  | persianNumbers}}
+                                    span.persian-num(v-if="feeDetails.details") {{ calcFeeDate(feeDetails.details.reconcile_in)  }}
 
                             div.row.bx.fee-amount
                                 div.col-xs
                                     span.title مبلغ کارمزد
                                 div.col-xs.left-box
-                                    div(v-if="feeDetails.details") {{ feeDetails.details.percent | numberFormat| persianNumbers}} %
-                                    div(v-if="feeDetails.details") {{ withdrawAmount | numberFormat | persianNumbers }} تومان
+                                    div.persian-num(v-if="feeDetails.details") {{ feeDetails.details.percent | numberFormat}} %
+                                    div.persian-num(v-if="feeDetails.details") {{ withdrawAmount | numberFormat }} تومان
 
                             div.fee-description
                                 span {{ selectedFee.description }}
@@ -167,7 +167,7 @@
                     }
                 });
             },
-            removeErrors : function (field) {
+            removeErrors: function (field) {
                 this.errors.remove(field);
             },
             closeModal() {
