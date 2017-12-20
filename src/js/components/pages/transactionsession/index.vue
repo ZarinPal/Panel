@@ -90,7 +90,7 @@
                         value: 'authority'
                     },
                     {
-                        title: 'شماره تلفن همراه',
+                        title: 'شماره موبایل',
                         value: 'mobile'
                     }
                 ],

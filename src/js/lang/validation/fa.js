@@ -18,7 +18,7 @@
             }, alpha_dash: function (n) {
                 return n + " فقط می‌تواند از حروف، اعداد، خط فاصله و زیرخط تشکیل شود."
             }, alpha_num: function (n) {
-                return n + " فقط میتواند از حروف و اعداد تشکیل شود."
+                return n + " فقط ‌می‌تواند از حروف و اعداد تشکیل شود."
             }, alpha_spaces: function (n) {
                 return n + " فقط می‌تواند از حروف و فاصله تشکیل شود."
             }, alpha: function (n) {
@@ -28,7 +28,7 @@
             }, between: function (n, e) {
                 return n + " باید بین " + e[0] + " و " + e[1] + " کارکتر باشد."
             }, confirmed: function (n) {
-                return n + " با تاییدیه اش مطابقت ندارد."
+                return n + " با تأییدیه اش مطابقت ندارد."
             }, credit_card: function (n) {
                 return n + " غیر معتبر است."
             }, date_between: function (n, e) {
@@ -84,8 +84,8 @@
                 return n + "باید یک شماره شبای معتبر باشد"
             }, uniqueDomain: function (n) {
                 return n + "باید یک شماره شبای معتبر باشد"
-            }, containsAlpha: function (n) {
-                return n + "باید یک شماره شبای معتبر باشد"
+            }, containsalpha: function (n) {
+                return n + " باید شامل حرف باشد"
             }, recaptcha: function (n) {
                 return n + "باید یک شماره شبای معتبر باشد"
             }, notVerifiedMobile: function (n) {
@@ -93,15 +93,17 @@
             }, iban: function (n) {
                 return n + "باید یک شماره شبای معتبر باشد"
             }, uniqueuser: function (n) {
-                return n + " قبلا در سیستم ثبت شده است "
+                return n + " قبلا در سیستم ثبت‌شده است "
             }, attachment: function (n) {
-                return n + " قبلا در سیستم ثبت شده است "
+                return n + " قبلا در سیستم ثبت‌شده است "
             }, luhn: function (n) {
-                return n + " وارد شده صحیح نیست "
+                return n + " وارد‌شده صحیح نیست "
             }, pan: function (n) {
                 return n + "شماره‌کارت اشتباه است"
             }, unique: function (n) {
-                return n + " قبلا در سیستم ثبت شده است "
+                return n + " قبلا در سیستم ثبت‌شده است "
+            }, alphanum: function (n) {
+                return n + " باید شامل حروف و اعداد باشد "
             }
         }, attributes: {}
     };

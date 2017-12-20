@@ -55,11 +55,12 @@ textarea {
   direction: rtl;
   text-align: right;
   border: 1px solid #cecece;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
+
 
   @include placeholder {
     color: #676767;

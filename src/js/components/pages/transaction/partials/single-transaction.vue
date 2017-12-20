@@ -40,7 +40,7 @@
                 span.text {{ $i18n.t('transaction.movingOut') }}
 
             div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
-                span.text.created {{transaction.created | fromNow | persianNumbers}}
+                span.text.created {{transaction.created | jalali('HH:mm:ss | jYYYY-jMM-jDD') | persianNumbers}}
 
             div.col-lg-1.col-md-2.col-sm-12.col-xs-12.ta-center
                 span.nav-amount
