@@ -332,6 +332,14 @@ export default {
                 url: "user/information.json"
             },
             {
+                name: "user.referrer",
+                url: "referrer/referredUsers.json"
+            },
+            {
+                name: "user.referred",
+                url: "referrer/users/{userPublicId}.json"
+            },
+            {
                 name: "checkout.getAuthorityInfo",
                 url: "checkout/authorityInfo/{authorityId}.json"
             },
