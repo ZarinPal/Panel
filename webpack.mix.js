@@ -21,7 +21,18 @@ mix.js('src/js/app.js', 'assets/js')
     .sourceMaps();
 
 let plugins = [];
-plugins.push(new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|fa)$/));
+
+plugins.push(
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|fa)$/)
+);
+
+plugins.push(
+    new webpack.DefinePlugin({
+        'process.env': {
+            'GIT_SHA': JSON.stringify(process.env.GIT_SHA)
+        }
+    })
+);
 
 if ('production' === process.env.NODE_ENV) {
     let SentryPlugin = require('webpack-sentry-plugin');
