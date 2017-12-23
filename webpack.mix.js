@@ -17,11 +17,29 @@ mix.js('src/js/app.js', 'assets/js')
     .sass('src/sass/oauth/app.scss', 'assets/css/oauth.css')
     .setPublicPath('assets')
     .setResourceRoot('../')
-    .version();
+    .version()
+    .sourceMaps();
+
+let plugins = [];
+plugins.push(new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|fa)$/));
+
+if ('production' === process.env.NODE_ENV) {
+    let SentryPlugin = require('webpack-sentry-plugin');
+    plugins.push(new SentryPlugin({
+        // Sentry options are required
+        organization: 'sentry',
+        project: 'panel',
+        apiKey: '2f7d2e3c06a24d9c9642ff51c44269a13d3935075f194a91982386667b4cf730',
+
+        // Release version name/hash is required
+        release: process.env.GIT_SHA,
+        baseSentryURL: 'https://sentry.zarinpal.com/api/0'
+    }));
+
+}
+
 mix.webpackConfig({
-    plugins: [
-        new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|fa)$/)
-    ]
+    plugins: plugins
 });
 
 // .copyDirectory('src/img', 'assets/img');

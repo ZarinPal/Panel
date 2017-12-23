@@ -43,6 +43,7 @@
     "vue-resource": "^1.0.3",
     "vue-router": "^2.4.0",
     "vue2-sentry": "^1.2.1",
-    "vuex": "^2.2.1"
+    "vuex": "^2.2.1",
+    "webpack-sentry-plugin": "^1.14.1"
   }
 }
