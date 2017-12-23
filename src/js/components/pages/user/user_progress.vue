@@ -9,7 +9,7 @@
 
             div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
                 div.box.ta-center
-                    div
+                    div.avatar-bg
                         img.user-avatar(:src="user.avatar")
                     div
                         span.user-name.persian-num(v-if="userProgress") {{userProgress.points }} {{ $i18n.t('user.percentOfComplate') }}
@@ -26,7 +26,7 @@
                         span.pending-prog(v-else)
                             span.pull-left.text-style در انتظار
 
-                div.box.box-style(v-else @click="redirect(progressKey)")
+                div.box.box-style.hand(v-else @click="redirect(progressKey)")
                     i.icon-zp-progressKey.text-style
                     span.text-style.persian-num {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point }}%)
                     span.done-prog(v-if="progress.check")
