@@ -32,7 +32,7 @@
     "distAccountNumber": "شماره‌حساب مقصد",
     "refrenceNumber": "شماره مرجع",
     "amount": "مقدار",
-    "fee" : "مبلغ",
+    "fee": "مبلغ",
     "pan": "شماره‌کارت",
     "transferAmountTitle": "(مبلغ (تومان",
     "dstZarinpalId": "زرین‌پال مقصد",
@@ -341,7 +341,7 @@
     "you-can-only-request-one-zarincard-for-your-account": "هر کاربر حداکثر حق دریافت یک زرین‌کارت را دارد.",
     "zarin-card-request-success": "درخواست زرین‌کارت شما با موفقیت ثبت شد. کارت شما حداکثر تا دو هفته آینده از طریق پست به آدرس پستی انتخاب شده ارسال خواهد شد.",
     "all-user-file-uploaded": "اطلاعات شما با موفقیت ثبت شد.",
-    "you-can-not-edit-information-because-this-information-confirmed": "شما قادر به ویرایش اطلاعات نمی‌باشید چون این اطلاعات قبلا تایید‌شده اند",
+    "you-can-not-edit-information-because-this-information-confirmed": "شما قادر به ویرایش اطلاعات نمی‌باشید چون این اطلاعات قبلا تأیید‌شده اند",
     "the-card-already-exists": "این شماره‌کارت قبلا در سیستم ثبت شده است",
     "flash-reject-request-money-successfull": "درخواست وجه لغو شد.",
     "the-coupon-is-expired": "تاریخ انقضای کد تخفیف نباید قدیمی‌تر از تاریخ امروز باشد.",
@@ -930,8 +930,8 @@
       "email": "تأیید ادرس ایمیل",
       "mobile": "تأیید شماره موبایل",
       "referrer": "معرفی کردن یک کاربر",
-      "ssn": "تایید کد ملی",
-      "username": "افزودن نام کاربری"
+      "ssn": "تأیید کد ملی",
+      "username": "ایجاد لینک شخصی"
     },
     "referredUsers": "کاربران معرفی‌شده",
     "ssn": "تأیید کد ملی",
