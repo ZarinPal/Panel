@@ -17,6 +17,7 @@ import VueI18n from "vue-i18n";
  */
 import VeeValidate from "vee-validate";
 import messagesFa from "./lang/validation/fa";
+
 window.Vue = Vue;
 require('vue-resource');
 
@@ -42,16 +43,20 @@ VeeValidate.Validator.addLocale(messagesFa);
 Vue.use(VeeValidate, {locale: 'fa'});
 
 import VueSentry from 'vue2-sentry';
+
 Vue.use(VueSentry, {
     protocol: 'https', // default is https
     key: '0e52e25ebe614c0892b9a057b52a8d21',
     server: 'sentry.zarinpal.com',
     project: '5',
-    config: {}, // custom config,
+    config: {
+        release: process.env.GIT_SHA
+    }, // custom config,
     enable: process.env.NODE_ENV === 'production',
 });
 
 import VueJCalendar from 'vue-j-calendar';
+
 Vue.use(VueJCalendar);
 
 Vue.directive(
