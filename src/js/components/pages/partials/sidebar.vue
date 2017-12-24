@@ -54,13 +54,13 @@
                         link: 'card.index',
                         icon: 'icon-zp-card',
                         titleTransKey: 'panel.card',
-                        accessLevel: [1, 2, 3]
+                        accessLevel: [0,1, 2, 3]
                     },
                     easypay: {
                         link: 'easypay.index',
                         icon: 'icon-zp-easy-pay',
                         titleTransKey: 'panel.easypay',
-                        accessLevel: [1, 2, 3]
+                        accessLevel: [0,1, 2, 3]
                     },
                     coupon: {
                         link: 'coupon.index',
