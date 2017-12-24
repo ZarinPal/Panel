@@ -50,7 +50,7 @@
             user(){
                 return this.$store.state.auth.user;
             },
-            easypays(){
+            easypays() {
                 return {
                     data: this.$store.state.paginator.paginator.EasypayList.data,
                     status: this.$store.state.paginator.paginator.EasypayList.isLoading,

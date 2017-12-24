@@ -7,7 +7,7 @@
 
             div.col-xs.main-content
                 <!--button.success.pull-left(v-back="") back-->
-                router-view
+                router-view(v-if="$store.state.auth.check")
 
             div.three-circle-loading(v-if="$store.state.app.logOuting || !$store.state.app.isLoaded")
                 div.spinner

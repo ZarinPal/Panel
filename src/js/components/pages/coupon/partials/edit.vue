@@ -8,7 +8,7 @@
 
         loading(v-if="loadingContent")
 
-        form(autocomplete="on" onsubmit="event.preventDefault();")
+        form(v-else autocomplete="on" onsubmit="event.preventDefault();")
             div.row.section.nav-create-coupon( :class="{'inactive-step': loadingContent}" )
                 div.row.box
                     <!--Right box-->
@@ -24,7 +24,7 @@
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 input(name="coupon-type" v-model="type" value="webservice" type="radio" id="rdoWebserviceٌ")
-                                label(for="rdoWebserviceٌ")
+                                label(for="rdoWebservice")
                                     span
                                     | {{ $i18n.t('coupon.webservice') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
@@ -122,7 +122,7 @@
                 /**
                  * Date picker data
                  * */
-                currentDate: moment(),
+                currentDate: null,
             }
         },
         computed: {
@@ -231,14 +231,12 @@
             getCoupon() {
                 this.$store.state.http.requests['coupon.getShow'].get({'coupon_id': this.$route.params.entity_id}).then(
                     (response) => {
-                        let jalaliExpiredDate = moment(response.data.data.expired_at, 'YYYY-MM-DD').format('jYYYY-jMM-jDD');
-
                         this.code = response.data.data.code;
                         this.max_amount = response.data.data.discount.max_amount;
                         this.min_amount = response.data.data.min_amount;
                         this.webservice_id = response.data.data.webservice_id;
                         this.easypay_id = response.data.data.easypay_id;
-                        this.expired_at = jalaliExpiredDate;
+                        this.expired_at = moment(response.data.data.expired_at).format('jYYYY-jMM-jDD');
                         this.limit = response.data.data.limit;
                         this.type = response.data.data.type;
                         this.percent = response.data.data.discount.percent;
