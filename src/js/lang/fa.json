@@ -938,7 +938,8 @@
     "username": "ایجاد لینک شخصی",
     "requestPersonalLinkTitle": "ایجد لینک شخصی",
     "checkingUsername": "در حال جستجوی نام‌کاربری",
-    "youCanUserThisUsername": "این نام کاربری آزاد است"
+    "youCanUserThisUsername": "این نام کاربری آزاد است",
+    "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین پال برخودار شوید"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

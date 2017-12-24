@@ -3,6 +3,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  color: $labelColor !important;
+}
+
 /*** Scrollbar ***/
 ::-webkit-scrollbar {
   width: 8px;

@@ -16,7 +16,7 @@
 
         <!--Boxes-->
         div.row.section
-            div.col-lg-4(v-for="(progress, progressKey) in userProgress" v-if="progressKey !== 'points'")
+            div.col-lg-4.col-md-6.col-xs-12(v-for="(progress, progressKey) in userProgress" v-if="progressKey !== 'points'")
                 div.box.box-style(v-if="progressKey == 'botTelegram'")
                     a(href="https://t.me/zarinpalrobot" target="blank")
                         i.icon-zp-progressKey.text-style
