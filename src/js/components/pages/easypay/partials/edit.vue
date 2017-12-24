@@ -7,7 +7,7 @@
 
         loading(v-if="!isLoadedEasypay")
 
-        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay(:class="{'inactive-step': !isLoadedEasypay}" )
+        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-easypay(v-else :class="{'inactive-step': !isLoadedEasypay}" )
             form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.box
                     <!--1-->
@@ -275,7 +275,9 @@
         computed: {
             webserviceSelection() {
                 if (this.$store.state.auth.user.webservices) {
-                    return this.$store.state.auth.user.webservices.map(function (webservice) {
+                    return this.$store.state.auth.user.webservices.filter(function(webservice) {
+                        return webservice.status;
+                    }).map(function (webservice) {
                         return {
                             'title': webservice.name,
                             'value': webservice.entity_id
