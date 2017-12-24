@@ -1,4 +1,4 @@
-<template lang="pug">
+f<template lang="pug">
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
@@ -52,7 +52,7 @@
 
                                         div.row.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebserviceٌ")
+                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
                                                 label(for="rdoWebserviceٌ")
                                                     span
                                                     | {{ $i18n.t('coupon.webservice') }}

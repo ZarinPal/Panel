@@ -32,7 +32,15 @@
                             div.col-xs.text.merchant-code
                                 input.txt-webservice-id(:id="'txtWebserviceId-' + webservice.entity_id" onfocus="this.select();" v-bind:value="webservice.entity_id" readonly="readonly")
                             div.icon(@click="clipboardMessage(webservice.entity_id)" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
+                div.row.box-row
+                    div.col-xs.ta-right
+                        span.label {{$i18n.t('webservice.depositTo')}}
 
+                    div.col-xs.ta-left.no-margin
+                        span.tag-deposit-to.pull-left
+                            div.logo(v-if="webservice.purse == 1")
+                            span.purse-color(v-else v-bind:class="'color-' + webservice.purse")
+                            span {{getPurseName(webservice.purse).name}}
                 div.row.box-row
                     div.col-xs.ta-right
                         span.label {{ $i18n.t('webservice.ip') }}
@@ -117,6 +125,11 @@
                     text: 'copied',
                     type: 'success',
                     timeout: '1500'
+                });
+            },
+            getPurseName(purseId) {
+                return _.find(this.$store.state.auth.user.purses, function (purse) {
+                    return purse.purse === purseId;
                 });
             }
         },
