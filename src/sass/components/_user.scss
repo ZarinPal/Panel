@@ -212,17 +212,22 @@
     display: block;
   }
 
-  .box-style{
+  .box-style {
     padding: 5px;
     margin: 10px 0;
     height: 40px;
   }
-  .text-style{
+  .text-style {
     margin-top: 10px;
     margin-right: 5px;
     display: inline-block;
     font-size: 14px;
 
+  }
+  .avatar-bg {
+    background-image: url('../img/user/avatar-bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .done-prog {
