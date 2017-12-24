@@ -1,29 +1,30 @@
 <template lang="pug">
     modal.request-personal-link(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('user.referredUsers') }}
-        div(slot="content")
-
+        div.user-referrer(slot="content")
             <!--Referrer link-->
             div.row.referrer-link
+                div.row.description
+                    span.ta-right {{$i18n.t('user.copyReferrerLinkDescription')}}
                 div.col-xs.ta-left.no-margin
-                    div.row.label-group.pull-left
+                    div.row.label-group.full-width.no-margin
                         div.col-xs.text.merchant-code
-                            input.txt-referrer-link(:id="'txtReferrerId-' + referrer.public_id" onfocus="this.select();" v-bind:value="referrer.public_id" readonly="readonly")
-                        div.icon(@click="clipboardMessage(referrer.public_id)" v-clipboard="" v-bind:data-clipboard-text="referrer.link")
-
+                            input.txt-referrer-link(:id="'txtReferrerId'" onfocus="this.select();" v-bind:value="referrer.link" readonly="readonly")
+                        div.icon(@click="clipboardMessage(referrer.link)" v-clipboard="" v-bind:data-clipboard-text="referrer.link")
 
             <!--Referred Users-->
-            div.referrer-box(v-if="referredUsers")
-                loading(v-if="loadingData")
+            div.referrers
+                div.referrer-box(v-if="referredUsers")
+                    loading(v-if="loadingData")
 
-                div.row(v-else v-for="referrer in referredUsers")
-                    div.col-lg-2
-                        img(:src="referrer.avatar")
-                    div.col-lg-5
-                        span {{referrer.name}}
-                        span {{referrer.public_id}}
-                    div.col-lg-5
-                        span {{referrer.referrer_fee}}
+                    div.row(v-else v-for="referrer in referredUsers")
+                        div.col-lg-2
+                            img.avatar(:src="referrer.avatar")
+                        div.col-lg-5.ta-right
+                            span {{referrer.name}}
+                            span.persian-num (ZP.{{referrer.public_id}})
+                        div.col-lg-5
+                            span.persian-num {{referrer.referrer_fee | numberFormat}} {{$i18n.t('transaction.toman')}}
 
 </template>
 
@@ -38,37 +39,34 @@
                 loadingData: true,
                 referredUsers: {},
                 referrer: {
-                    public_id: 123,
-                    link: 'https:link'
+                    link: 'https://www.zarinpal.com/auth/register?referrer=' + btoa(this.$store.state.auth.user.email)
                 }
             }
         },
         created() {
-            this.getReferrerLink();
             this.getReferredUsers();
         },
         methods: {
-            getReferrerLink() {
-
-            },
             getReferredUsers() {
-                this.$store.state.http.requests['user.referred']
-                    .get({userPublicId: this.$store.state.auth.user.public_id})
-                    .then((response) => {
-                            this.referredUsers = response.data.data;
-                            this.loadingData = false;
-                        }, (response) => {
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_message,
-                                type: 'danger'
-                            });
-                        }
-                    );
+                if (!this.referredUsers.length) {
+                    this.$store.state.http.requests['user.referred']
+                        .get()
+                        .then((response) => {
+                                this.referredUsers = response.data.data;
+                                this.loadingData = false;
+                            }, (response) => {
+                                store.commit('setValidationErrors', response.data.validation_errors);
+                                store.commit('flashMessage', {
+                                    text: response.data.meta.error_message,
+                                    type: 'danger'
+                                });
+                            }
+                        );
+                }
             },
-            clipboardMessage(event) {
+            clipboardMessage() {
                 setTimeout(function () {
-                    let txtReferrerId = document.getElementById('txtReferrerId-' + event);
+                    let txtReferrerId = document.getElementById('txtReferrerId');
                     if (txtReferrerId) {
                         txtReferrerId.select();
                     }

@@ -192,11 +192,6 @@ export default new VueRouter({
                             }
                         },
                         {
-                            path: 'telegram/referer',
-                            name: 'telegram.referer',
-                            component: require('./components/pages/telegram/referer.vue'),
-                        },
-                        {
                             path: 'user/addAddress',
                             name: 'user.addAddress',
                             component: require('./components/pages/user/partials/add_address.vue'),

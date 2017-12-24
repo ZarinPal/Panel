@@ -290,3 +290,52 @@
     margin-top: 10px;
   }
 }
+
+
+
+/***User Referrer ***/
+.user-referrer {
+  margin-bottom: -20px;
+
+  .description {
+    font-size: 13px;
+    color: $labelColor;
+    padding: 0 15px 13px 0;
+  }
+
+  .referrer-link {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+
+    .full-width {
+      width: 100% !important;
+    }
+
+    input {
+      border: none !important;
+      width: 100%;
+    }
+  }
+
+
+  .referrers {
+    margin-top: 10px;
+
+    .referrer-box {
+      font-size: 13px;
+      color: $labelColor;
+      border-bottom: 1px solid #eee;
+      margin: 20px 0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .avatar {
+        width: 30px;
+        border-radius: 50%;
+        margin-top: -5px;
+      }
+    }
+  }
+}
