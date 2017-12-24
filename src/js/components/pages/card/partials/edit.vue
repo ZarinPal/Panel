@@ -20,9 +20,9 @@
                         span.text-danger {{ errors.first('pan') }}
 
                 div.row.no-margin
-                    div.col-lg-6.col-md-4.col-xs-12.ta-right.nav-expiration-label
+                    div.col-lg-4.col-md-4.col-xs-12.ta-right.nav-expiration-label
                         span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
-                    div.col-lg-6.col-md-8.col-xs-12.no-margin
+                    div.col-lg-8.col-md-8.col-xs-12.no-margin
                         div.row.nav-expiration-input
                             div.col-xs.no-margin
                                 span.label {{$i18n.t('card.month')}}:
