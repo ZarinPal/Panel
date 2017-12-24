@@ -45,19 +45,20 @@
                                         div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                                             input(v-mask="{type: 'date'}" @change="addFilter('toDate', $event.target.value)" type="text" :placeholder="$i18n.t('transaction.toDate')")
 
-                                        div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                                            a.btn.success.pull-right(:href="'/rest/v3/transaction/excel.json?' + excelUrl") {{$i18n.t('transaction.excelExport')}}
+
 
 
         div.row.filter-row
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+            div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                 span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
                 span(v-for="purse in user.purses")
                     span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
+            div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
+                a.btn.success.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl") {{$i18n.t('transaction.excelExport')}}
 
                 div.break
 
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+            div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                 ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
                     li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
                     li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}

@@ -40,7 +40,7 @@
                 span.text {{ $i18n.t('transaction.movingOut') }}
 
             div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
-                span.text.created.persian-num {{transaction.created | jalali('HH:mm:ss | jYYYY-jMM-jDD')}}
+                span.text.created.persian-num {{transaction.created | fromNow}}
 
             div.col-lg-1.col-md-2.col-sm-12.col-xs-12.ta-center
                 span.nav-amount
@@ -59,7 +59,7 @@
                     small.hidden-lg.show-xs {{ $i18n.t('transaction.toman') }}
 
             div.col-lg-1.col-md-2.col-sm-2.ta-center.hidden-xs
-                span.text.persian-num {{transaction.balance | numberFormat}}
+                span.text.persian-num {{transaction.balance | numberFormat }}
 
         transactionDetails(v-if="showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal()")
 </template>
