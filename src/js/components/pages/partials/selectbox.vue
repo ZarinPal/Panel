@@ -5,8 +5,8 @@
             span.arrow
         ul(v-if="isOpen && data")
             span(v-for="item in data")
-                li.row.dropdown-item-row.disable(v-if="item.disable == 1" v-html="item.title")
-                li.row.dropdown-item-row(v-else @click="selectItem(item)" v-ripple="" v-html="item.title")
+                li.row.dropdown-item-row.disable(v-if="item && item.disable == 1" v-html="item.title")
+                li.row.dropdown-item-row(v-else-if="item && item.disable !== 1" @click="selectItem(item)" v-ripple="" v-html="item.title")
 </template>
 
 

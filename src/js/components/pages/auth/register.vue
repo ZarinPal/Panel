@@ -113,16 +113,17 @@
                     }
                 });
             },
-            register(event){
-//                event.preventDefault();
+            register(){
                 let auth2Data = {
                     first_name: this.first_name,
                     last_name: this.last_name,
                     mobile: this.mobile,
                     g_recaptcha: this.g_recaptcha,
-
-
                 };
+
+                if (this.$route.query.referrer) {
+                    auth2Data.referer = atob(this.$route.query.referrer)
+                }
 
                 if (this.$route.params.refererId) {
                     auth2Data.referer = this.$route.params.refererId;
@@ -151,6 +152,5 @@
                 );
             }
         },
-        components: {}
     }
 </script>

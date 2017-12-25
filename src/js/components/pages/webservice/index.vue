@@ -13,7 +13,6 @@
         div.row
             singleWebservice(v-for="webservice in webservices.data" v-bind:key="webservice.public_id" v-bind:webservice="webservice")
 
-
         div.row
             div.col-xs
                 div.ta-center(v-if="webservices.status")

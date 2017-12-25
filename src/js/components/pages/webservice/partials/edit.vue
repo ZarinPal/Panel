@@ -4,12 +4,11 @@
             div.col-lg-6.col-md-6.col-sm-6.col-xs-6
                 p.page-title ٖ{{ $i18n.t('webservice.editTitle') }}
                 p.page-description ٖ{{ $i18n.t('webservice.editWebserviceDescription') }}
-        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
+        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice(v-if="isLoadedData")
             div.box
                 form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.body
                         div.row
-
                             div.col-lg-6.col-md-8.col-sm-12.col-xs-12
                                 div.row
                                     div.col-xs.ta-right
@@ -33,7 +32,7 @@
                                         span.text-danger {{ errors.first('site_ip') }}
 
                                 div.row.no-margin
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" v-if="purse" v-bind:selected="purse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
 
@@ -89,6 +88,7 @@
             return {
                 fileUploadFormData: new FormData(),
                 loading: false,
+                isLoadedData: false,
                 visibleIp: 'yes',
                 messages: {},
                 fileHover: false,
@@ -122,6 +122,7 @@
             } else {
                 this.visibleIp = 'no';
             }
+            this.isLoadedData = true;
         },
         computed: {
             webservice(){
@@ -146,7 +147,6 @@
                         }
                     });
                 }
-
             },
             validationErrors() {
                 return this.$store.state.alert.validationErrors;

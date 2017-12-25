@@ -46,8 +46,9 @@
                     div.nav-balance
                         div.txt-balance {{ $i18n.t('common.balance') }}
 
-                        div.balance-amount.persian-num(v-if="purse.balance") {{balance.balance | numberFormat }}
+                        span.balance-amount.persian-num(v-if="purse.balance") {{balance.balance | numberFormat }}
                         div.balance-amount(v-else) -
+                        span {{ $i18n.t('transaction.toman') }}
                         div.nav-show-chart
                             <!--span.chart-icon-->
                             <!--span {{ $i18n.t('common.showChart')}}-->
