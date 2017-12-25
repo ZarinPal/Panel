@@ -35,11 +35,14 @@
                         span.pull-left.text-style در انتظار
 
             referrer(v-if="visibleReferrer" v-on:closeModal="closeModal()")
+            get-email(v-if="visibleGetEmailFromUser" v-on:closeModal="closeModal()")
+
 </template>
 
 
 <script>
     import referrer from "./referrer";
+    import getEmail from "./get_email.vue";
     export default {
         name: 'user-show-progress',
         data() {
@@ -59,6 +62,7 @@
         methods: {
             closeModal() {
                 this.visibleReferrer = false;
+                this.visibleGetEmailFromUser = false;
             },
             redirect(progressKey) {
                 switch(progressKey) {
@@ -80,11 +84,15 @@
                     case 'username':
                         this.$router.push({name: 'easypay.index'});
                         break;
+                    case 'email':
+                        this.visibleGetEmailFromUser = true;
+                        break;
                 }
             }
         },
         components: {
-            referrer
+            referrer,
+            'get-email': getEmail
         }
     }
 </script>

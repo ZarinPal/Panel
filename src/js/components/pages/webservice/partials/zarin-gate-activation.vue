@@ -4,7 +4,7 @@
         div(slot="content")
             div.row
                 <!--p.create-description {{ $i18n.t('webservice.zarinGateNotice') }}-->
-                span.create-description  هزینه زرین‌گیت براساس تعداد تراکنش موجود بر روی درگاه عادی زرین‌پال متغیر است.
+                span.create-description  هزینه زرین‌گیت براساس تعداد تراکنش موجود بر روی درگاه عادی زرین‌پال متغییر است.
                     span.read-description(@click="visibleDescription=!visibleDescription") {{ $i18n.t('webservice.description') }}
 
 
