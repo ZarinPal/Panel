@@ -258,7 +258,7 @@ a.btn {
 
   &.success {
     background-color: #2ecc71;
-    color: #ffffff;
+    color: #ffffff !important;
 
     &:active, &:hover {
       background-color: #0abe57;
