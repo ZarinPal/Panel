@@ -94,7 +94,7 @@
         },
         components: {
             referrer,
-            'get-email': getEmail
+            getEmail
         }
     }
 </script>

@@ -354,7 +354,8 @@
     "the-coupon-is-expired": "تاریخ انقضای کد هدیه نباید قدیمی‌تر از تاریخ امروز باشد.",
     "the-card-or-iban-already-exists": "شماره‌کارت یا شماره شبا وجود دارد",
     "username-fix-late-you-can-not-change-this-name": "امکان تغییر نام کاربری وجود ندارد",
-    "username-created": "نام کاربری ذخیره شد"
+    "username-created": "نام کاربری ذخیره شد",
+    "email-set-success-check-your-email": "ایمیل شما با موفقیت ثبت شد. لطفا حساب ایمیل خودرا جهت فعالسازی بررسی نمایید."
   },
   "panel": {
     "home": "پیش‌خوان",
@@ -941,7 +942,8 @@
     "requestPersonalLinkTitle": "ایجاد لینک شخصی",
     "checkingUsername": "در حال جستجوی نام‌کاربری",
     "youCanUserThisUsername": "این نام کاربری آزاد است",
-    "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین پال برخودار شوید"
+    "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین پال برخودار شوید",
+    "setEmailTitle": "ثبت ایمیل"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

@@ -340,6 +340,10 @@ export default {
                 url: "referrer/users.json"
             },
             {
+                name: "user.changeEmail",
+                url: "user/changeEmail.json"
+            },
+            {
                 name: "checkout.getAuthorityInfo",
                 url: "checkout/authorityInfo/{authorityId}.json"
             },
