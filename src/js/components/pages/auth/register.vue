@@ -125,10 +125,6 @@
                     auth2Data.referer = atob(this.$route.query.referrer)
                 }
 
-                if (this.$route.params.refererId) {
-                    auth2Data.referer = this.$route.params.refererId;
-                }
-
                 this.$store.state.http.requests['oauth.PostRegisterUser'].save(auth2Data).then(
                     response => {
                         store.commit('flashMessage', {
