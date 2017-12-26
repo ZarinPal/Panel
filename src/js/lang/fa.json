@@ -358,7 +358,7 @@
     "email-set-success-check-your-email": "ایمیل شما با موفقیت ثبت شد. لطفا حساب ایمیل خودرا جهت فعالسازی بررسی نمایید."
   },
   "panel": {
-    "home": "پیش‌خوان",
+    "home": "پیشخوان",
     "webservice": "درگاه‌های پرداخت",
     "card": "کارت‌ها",
     "easypay": "زرین‌لینک",
@@ -943,7 +943,8 @@
     "checkingUsername": "در حال جستجوی نام‌کاربری",
     "youCanUserThisUsername": "این نام کاربری آزاد است",
     "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین پال برخودار شوید",
-    "setEmailTitle": "ثبت ایمیل"
+    "setEmailTitle": "ثبت ایمیل",
+    "loginToOldPanel": "ورود به پنل قدیمی"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",
