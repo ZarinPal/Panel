@@ -39,7 +39,7 @@
                 loadingData: true,
                 referredUsers: {},
                 referrer: {
-                    link: 'https://next.zarinpal.com/auth/register?referrer=' + btoa(this.$store.state.auth.user.email)
+                    link: 'https://my.zarinpal.com/auth/register?referrer=' + btoa(this.$store.state.auth.user.email)
                 }
             }
         },
