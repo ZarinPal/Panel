@@ -53,7 +53,7 @@ f<template lang="pug">
                                         div.row.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                                 input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
-                                                label(for="rdoWebserviceٌ")
+                                                label(for="rdoWebservice")
                                                     span
                                                     | {{ $i18n.t('coupon.webservice') }}
 
@@ -68,10 +68,7 @@ f<template lang="pug">
                                                 svg.material-spinner(v-if="isLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-
-
                             div.col-lg-5.col-md-5.col-sm-12.col-xs-12
-
                     div.body
                         <!--2-->
                         div.row(v-bind:class="{'inactive-step' : step !== 2}")
@@ -257,7 +254,9 @@ f<template lang="pug">
         computed: {
             webserviceSelection() {
                 if (this.$store.state.auth.user.webservices) {
-                    return this.$store.state.auth.user.webservices.map(function (webservice) {
+                    return this.$store.state.auth.user.webservices.filter(function(webservice) {
+                        return webservice.status;
+                    }).map(function (webservice) {
                         return {
                             'title': webservice.name,
                             'value': webservice.entity_id
