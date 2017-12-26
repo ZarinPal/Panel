@@ -54,7 +54,7 @@
 
 
                                             div.row.nav-rows
-                                                calendar(:default="currentDate" @change="selectBirthdate")
+                                                date-picker.persian-num(v-model="birthday")
                                                 div.ta-right(v-if="validation('birthday')")
                                                     span.text-danger {{ errors.first('birthday') }}
 
@@ -117,6 +117,7 @@
 
 
 <script>
+    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import loading from '../../partials/loading';
     import address from './add_address';
 
@@ -134,7 +135,7 @@
                 gender: 'male',
                 first_name: null,
                 last_name: null,
-                birthday: null,
+                birthday: moment().format('jYYYY/jMM/jDD'),
                 ssn: null,
 
                 /**
@@ -151,11 +152,6 @@
                 isSaving: false,
                 maxFileUpload: 3,
                 howManyFileUploaded: 0,
-
-                /**
-                 * Date picker data
-                 * */
-                currentDate: moment(),
             }
         },
         methods: {
@@ -208,7 +204,7 @@
                     gender: this.gender,
                     first_name: this.first_name,
                     last_name: this.last_name,
-                    birthday: this.birthday.format('YYYY-MM-DD'),
+                    birthday: moment(this.birthday, 'jYYYY/jMM/jDD').format('YYYY-M-D'),
                     ssn: this.ssn,
                 };
 
@@ -332,7 +328,8 @@
         },
         components: {
             'user-address': address,
-            loading
+            loading,
+            datePicker: VuePersianDatetimePicker
         }
     }
 </script>

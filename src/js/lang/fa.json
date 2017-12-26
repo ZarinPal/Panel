@@ -579,8 +579,8 @@
     "payerMobile": "موبایل پرداخت کننده",
     "payerEmail": "ایمیل پرداخت کننده",
     "excelExport": "خروجی اکسل",
-    "fromDate": "از تاریخ: 12-03-1396",
-    "toDate": "تا تاریخ: 12-12-1399",
+    "fromDate": "از تاریخ",
+    "toDate": "تا تاریخ",
     "payerMask": "شماره‌کارت پرداخت کننده",
     "payerIssuer": "بانک صادر‌کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."

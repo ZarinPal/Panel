@@ -20,10 +20,10 @@
                     div.row(v-else v-for="referrer in referredUsers")
                         div.col-lg-2
                             img.avatar(:src="referrer.avatar")
-                        div.col-lg-5.ta-right
+                        div.col-lg-6.ta-right
                             span {{referrer.name}}
                             span.persian-num (ZP.{{referrer.public_id}})
-                        div.col-lg-5
+                        div.col-lg-4.ta-left
                             span.persian-num {{referrer.referrer_fee | numberFormat}} {{$i18n.t('transaction.toman')}}
 
 </template>
@@ -39,7 +39,7 @@
                 loadingData: true,
                 referredUsers: {},
                 referrer: {
-                    link: 'https://www.zarinpal.com/auth/register?referrer=' + btoa(this.$store.state.auth.user.email)
+                    link: 'https://www.next.zarinpal.com/register?referrer=' + btoa(this.$store.state.auth.user.email)
                 }
             }
         },

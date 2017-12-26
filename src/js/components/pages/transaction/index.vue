@@ -32,7 +32,6 @@
                                     button.btn.info.pull-right(v-ripple="" @click="search()")
                                         span {{ $i18n.t('common.search') }}
 
-
                             div
                                 div.hand(@click="visibleAdvanceSearch = !visibleAdvanceSearch") {{$i18n.t('transaction.advanceSearch')}}
                                 transition(name="fade"
@@ -40,13 +39,9 @@
                                 leave-active-class="fade-out")
                                     div.row(v-show="visibleAdvanceSearch")
                                         div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                            input(v-mask="{type: 'date'}" @change="addFilter('fromDate', $event.target.value)" type="text" :placeholder="$i18n.t('transaction.fromDate')")
-                                            div.break
+                                            date-picker.persian-num(v-model="fromDate" type="datetime" :placeholder="$i18n.t('transaction.fromDate')")
                                         div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                            input(v-mask="{type: 'date'}" @change="addFilter('toDate', $event.target.value)" type="text" :placeholder="$i18n.t('transaction.toDate')")
-
-
-
+                                            date-picker.persian-num(v-model="toDate" type="datetime" :placeholder="$i18n.t('transaction.toDate')")
 
         div.row.filter-row
             div.col-lg-4.col-md-4.col-sm-4.col-xs-12
@@ -64,7 +59,6 @@
                     li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
                     li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
                     li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
-
 
         div.transaction-header-container
             div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
@@ -104,6 +98,7 @@
 </template>
 
 <script>
+    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import transactionDetails from './partials/transaction-details.vue';
     import singleTransaction from './partials/single-transaction.vue';
     import selectbox from '../partials/selectbox.vue';
@@ -114,6 +109,8 @@
         data () {
             return {
                 placeholder: '123456******6273',
+                fromDate: '',
+                toDate: '',
                 searchOptions: {},
                 filterType: null,
                 filterValue: [],
@@ -179,7 +176,6 @@
             let vm = this;
 
             window.onscroll = function (ev) {
-                //load more transaction if end of page
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
                     && !vm.$store.state.paginator.paginator.TransactionList.isLoading) {
                     vm.$store.dispatch(
@@ -189,16 +185,6 @@
                         }
                     );
                 }
-
-                //fix transaction title on scroll
-//                let transactionHeader = document.getElementById('transactionsHeader');
-//                if(window.scrollY > 390) {
-//                    transactionHeader.classList.remove("fix-transaction-header");
-//                    transactionHeader.className += " fix-transaction-header";
-//                } else {
-//                    transactionHeader.classList.remove("fix-transaction-header");
-//                }
-
             };
             this.showStandAloneTransaction();
         },
@@ -225,15 +211,10 @@
                     this.search();
                 }
             },
-            shamsiToGeorgian(shamsiDate) {
-                let gerogianDate = moment(shamsiDate, 'jYYYY-jMM-jDD');
-                return gerogianDate._i.substr(0, gerogianDate._i.length - 3);
-            },
             search(){
-                //Convert shamsi from and to date to georgian
-                if (this.searchOptions.fromDate || this.searchOptions.toDate) {
-                    this.searchOptions.fromDate = this.shamsiToGeorgian(this.searchOptions.fromDate);
-                    this.searchOptions.toDate = this.shamsiToGeorgian(this.searchOptions.toDate);
+                if (this.fromDate || this.toDate) {
+                    this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format('YYYY-M-D HH:mm:ss');
+                    this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format('YYYY-M-D HH:mm:ss');
                 }
 
                 let vm = this;
@@ -247,7 +228,6 @@
                     }
                 );
 
-                //make excel export query string
                 this.makeExcelQueryString();
             },
             selectFilter(value){
@@ -295,7 +275,8 @@
             singleTransaction,
             selectbox,
             loading,
-            transactionDetails
+            transactionDetails,
+            datePicker: VuePersianDatetimePicker
         }
     }
 </script>
