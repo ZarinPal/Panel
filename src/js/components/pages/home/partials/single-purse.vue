@@ -18,7 +18,7 @@
 
                             span.nav-edit-wallet(v-if="isEditingPurseName")
                                 form(autocomplete="on" onsubmit="event.preventDefault();")
-                                    input.txt-wallet-name(:class="{'input-danger': validationErrors.name}" :id="'txtPurseName-' + purse.purse" onfocus="this.select();" v-bind:value="purse.name" v-model="newPurseName")
+                                    input.txt-wallet-name(:class="{'input-danger': validationErrors.name}" :id="'txtPurseName-' + purse.purse" onfocus="this.select();" v-model="newPurseName")
 
                                     button.save(@click="send()") {{ $i18n.t('common.save') }}
                                     span.cancel(@click="toggleEditPurse()") {{ $i18n.t('common.cancel') }}
@@ -102,6 +102,7 @@
         },
         created(){
             store.commit('clearValidationErrors');
+            this.newPurseName = this.purse.name;
         },
         methods: {
             changeMoreTriggerOn() {
