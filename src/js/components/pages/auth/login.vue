@@ -53,10 +53,10 @@
                                         span کد دستوری زیر را توسط شماره‌موبایل
                                         span.mobile-number.persian-num {{ username }}
                                         span شماره گیری کنید.
-                                        span.change-mobile(@click="step--") (تغیر شماره تلفن)
+                                        span.change-mobile(@click="step--") (تغییر شماره تلفن)
                                     span(v-else-if="channel == 'email'")
                                         span رمز یکبار مصرف ارسال‌شده به ایمیل خود را وارد کنید
-                                        span.change-mobile(@click="step--") (تغیر ایمیل)
+                                        span.change-mobile(@click="step--") (تغییر ایمیل)
 
                                     span(v-else-if="channel == 'sms'")
                                         span رمز یکبار مصرف ارسال‌شده به  خود را وارد کنید

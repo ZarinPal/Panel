@@ -100,6 +100,7 @@ $plusIcon: $icon-zp-add;
             margin: 0 5px 0 0;
           }
 
+
           .date {
             font-size: 11px;
             color: #FFFFFF;
@@ -189,15 +190,23 @@ $plusIcon: $icon-zp-add;
           font-size: 12px;
           color: #8b8b8b;
         }
-
-        .priority {
-          background-color: #9f9f9f;
-          color: #efefef;
+        .status {
           display: inline-block;
-          border-radius: 30px;
-          padding: 2px 10px;
+          background-color: #606568;
+          padding: 2px 8px;
+          color: #fff;
           font-size: 10px;
-          margin-top: 10px;
+          border-radius: 30px;
+          margin: 0 5px;
+        }
+        .priority {
+          display: inline-block;
+          background-color: #ffd600;
+          padding: 2px 8px;
+          color: #5a4c01;
+          font-size: 10px;
+          border-radius: 30px;
+          margin: 0 5px 0 0;
         }
       }
     }

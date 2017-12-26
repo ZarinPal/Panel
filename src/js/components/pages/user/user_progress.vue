@@ -20,26 +20,31 @@
                 div.box.box-style(v-if="progressKey == 'botTelegram'")
                     a(href="https://t.me/zarinpalrobot" target="blank")
                         i.icon-zp-progressKey.text-style
-                        span.text-style {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point}}%)
+                        span.text-style {{ $i18n.t('user.progress.' + progressKey) }}
                         span.done-prog(v-if="progress.check")
                             span.pull-left.text-style انجام شده
                         span.pending-prog(v-else)
                             span.pull-left.text-style در انتظار
+                        span.priority.persian-num %{{progress.point}}+
 
                 div.box.box-style.hand(v-else @click="redirect(progressKey)")
                     i.icon-zp-progressKey.text-style
-                    span.text-style.persian-num {{ $i18n.t('user.progress.' + progressKey) }}({{ progress.point }}%)
+                    span.text-style.persian-num {{ $i18n.t('user.progress.' + progressKey) }}
                     span.done-prog(v-if="progress.check")
                         span.pull-left.text-style انجام‌شده
                     span.pending-prog(v-else)
                         span.pull-left.text-style در انتظار
+                    span.priority.persian-num %{{progress.point}}+
 
             referrer(v-if="visibleReferrer" v-on:closeModal="closeModal()")
+            get-email(v-if="visibleGetEmailFromUser" v-on:closeModal="closeModal()")
+
 </template>
 
 
 <script>
     import referrer from "./referrer";
+    import getEmail from "./get_email.vue";
     export default {
         name: 'user-show-progress',
         data() {
@@ -59,6 +64,7 @@
         methods: {
             closeModal() {
                 this.visibleReferrer = false;
+                this.visibleGetEmailFromUser = false;
             },
             redirect(progressKey) {
                 switch(progressKey) {
@@ -80,11 +86,15 @@
                     case 'username':
                         this.$router.push({name: 'easypay.index'});
                         break;
+                    case 'email':
+                        this.visibleGetEmailFromUser = true;
+                        break;
                 }
             }
         },
         components: {
-            referrer
+            referrer,
+            'get-email': getEmail
         }
     }
 </script>
