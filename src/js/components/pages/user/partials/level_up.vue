@@ -135,7 +135,7 @@
                 gender: 'male',
                 first_name: null,
                 last_name: null,
-                birthday: moment().format('jYYYY/jMM/jDD'),
+                birthday: '',
                 ssn: null,
 
                 /**
@@ -155,9 +155,6 @@
             }
         },
         methods: {
-            selectBirthdate(day) {
-                this.birthday = day;
-            },
             /**
              * Validation
              */
@@ -204,7 +201,7 @@
                     gender: this.gender,
                     first_name: this.first_name,
                     last_name: this.last_name,
-                    birthday: moment(this.birthday, 'jYYYY/jMM/jDD').format('YYYY-M-D'),
+                    birthday: moment(this.birthday).format('jYYYY-jMM-jDD'),
                     ssn: this.ssn,
                 };
 

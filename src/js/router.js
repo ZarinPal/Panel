@@ -130,10 +130,6 @@ export default new VueRouter({
                             meta: {
                                 accessLevel: ['silver', 'gold']
                             }
-                        }, {
-                            path: 'coupon/test',
-                            name: 'coupon.test',
-                            component: require('./components/pages/coupon/test.vue'),
                         },
                         {
                             path: 'coupon/create',
