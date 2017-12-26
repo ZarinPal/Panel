@@ -1,15 +1,15 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section(:class="{'disable': !webservice.status}")
         div.box
             div.top-xs.header
                 div.row
                     div.col-xs.right-box
                         p(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id")
-                            span.green-small-circle.flash
+                            span.green-small-circle.flash(v-if="webservice.status")
                             span.header-title(:title="webservice.name") {{webservice.name}}
 
                     div.col-xs.ta-left-box.left-box
-                        span.icon-more(@click="changeMoreTriggerOn()" id="btnMoreIcon")
+                        span.icon-more(v-if="webservice.status" @click="changeMoreTriggerOn()" id="btnMoreIcon")
                         transition( name="bounce"
                         enter-active-class="drop-down-show"
                         leave-active-class="drop-down-hide")
