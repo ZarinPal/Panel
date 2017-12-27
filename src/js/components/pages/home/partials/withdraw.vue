@@ -120,10 +120,11 @@
         },
         computed: {
             cards() {
+                //check user cant withdraw or not
                 if (this.$store.state.auth.user.cards) {
                     let activeCards = [];
                     _.forEach(this.$store.state.auth.user.cards, function (card) {
-                        if (card.status === "Active" && card.pan !== null) {
+                        if (card.status === "Active") {
                             activeCards.unshift(card);
                         }
                     });

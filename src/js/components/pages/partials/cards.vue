@@ -22,9 +22,12 @@
                     }
 
                     _.forEach(this.$store.state.auth.user.cards, function (card) {
-                        if (card.status === "Active" && card.pan !== null) {
+                        if (card.status === "Active" && card.iban) {
+                            let cardPan = card.account_id;
+                            if (!card.issuer.slug === 'ZarinCard')
+                                cardPan = card.pan;
                             activeCards.unshift({
-                                'title': '<div class="col-xs ta-right"><span class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() + '"></span> <span class="nav-card-item-bank-name">' + card.issuer.name + '</span></div><div class="col-xs"><span class="nav-card-item-bank-card-id pull-left persian-num">' + card.pan + '</span></div>',
+                                'title': '<div class="col-xs ta-right"><span class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() + '"></span> <span class="nav-card-item-bank-name">' + card.issuer.name + '</span></div><div class="col-xs"><span class="nav-card-item-bank-card-id pull-left persian-num">' + cardPan + '</span></div>',
                                 'value': card.entity_id
                             });
                         }
