@@ -67,7 +67,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.minAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-validate="'required|numeric|min_value:100'" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" maxlength="15" :class="{'input-danger': errors.has('min_amount')}" type="text" v-model="min_amount"   name="min_amount" id="min_amount" placeholder="(حداقل مبلغ خرید (تومان" tabindex="6")
+                                input.ltr-input(v-validate="'required|numeric|min_value:100'" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" maxlength="15" :class="{'input-danger': errors.has('min_amount')}" type="text" v-model="min_amount"   name="min_amount" id="min_amount" placeholder="(حداقل مبلغ تخفیف (تومان" tabindex="6")
                                 div.ta-right(v-if="validation('min_amount')")
                                     span.text-danger {{ errors.first('min_amount') }}
 
@@ -75,7 +75,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.maxAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-validate="'required|numeric|min_value:100'"  v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" maxlength="15" :class="{'input-danger': errors.has('max_amount')}" type="text" v-model="max_amount"  name="max_amount" id="max_amount"  placeholder="(حداکثر مبلغ خرید (تومان" tabindex="7")
+                                input.ltr-input(v-validate="'required|numeric|min_value:100'"  v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" maxlength="15" :class="{'input-danger': errors.has('max_amount')}" type="text" v-model="max_amount"  name="max_amount" id="max_amount"  placeholder="(حداکثر مبلغ تخفیف (تومان" tabindex="7")
                                 div.ta-right(v-if="validation('max_amount')")
                                     span.text-danger {{ errors.first('max_amount') }}
 
