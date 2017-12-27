@@ -9,19 +9,17 @@
                     button.btn.info.close-ticket.pull-left(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
 
             div.ver-line
-            div.row.bottom-row
-                div.col-lg-4.col-md-4.col-sm-6.col-xs-12
+            div.row.bottom-row(v-if="!isLoadReplies")
+                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     span.title {{ $i18n.t('ticket.updated') }} :
                     span.value.persian-num {{ticket.updated_at | fromNow }}
-                div.col-lg-4.col-md-4.col-sm-6.col-xs-12
+                div.col-lg-5.col-md-4.col-sm-4.col-xs-12
                     span.title {{ $i18n.t('ticket.created') }} :
                     span.value.persian-num {{ticket.created_at | fromNow }}
-                div.col-lg-3.col-md-3.col-sm-6.col-xs-12
+                div.col-lg-3.col-md-4.col-sm-4.col-xs-12
                     span.status.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
-                div.col-lg-1.col-md-1.col-sm-6.col-xs-12
                     span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
                     button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
-
 
         div.replies
             div.col-xs.ta-center

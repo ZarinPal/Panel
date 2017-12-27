@@ -11,14 +11,12 @@ Vue.filter('numberFormat', function (num) {
     if (typeof num == 'undefined') {
         return num;
     }
-    // if(typeof num == 'undefined'){
-    //     return 1916628;
-    // }
-    // return num.split('').reverse().join('');
-    var sep = ',';
-    var number = typeof num === "number" ? num.toString() : num;
-    return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + sep);
-    //return num;
+    // let number = typeof num === "number" ? num.toString() : num;
+    let number = num;
+    if (/,/g.test(num))
+        number = num.replace(/,/g, "");
+
+    return number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + ',');
 });
 Vue.filter('less', function (value, length = 20) {
     if (value.length < length) {
