@@ -2,19 +2,18 @@
     modal.request-personal-link(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('user.setEmailTitle') }}
         div.get-email-from-user(slot="content")
-            div.row
-                div.col-xs
-                    input(v-focus="" v-validate="{ rules: {required: true, email: true}}" v-bind:data-vv-as="$i18n.t('user.email')" :class="{'input-danger': errors.has('email')}" type="text" v-model="email" name="email" id="email" autofocus tabindex="1" :placeholder="$i18n.t('user.email')")
-                    div.ta-right(v-if="validation('email')")
-                        span.text-danger {{ errors.first('email') }}
+            form(autocomplete="on" onsubmit="event.preventDefault();")
+                div.row
+                    div.col-xs
+                        input(v-focus="" v-validate="{ rules: {required: true, email: true}}" v-bind:data-vv-as="$i18n.t('user.email')" :class="{'input-danger': errors.has('email')}" type="text" v-model="email" name="email" id="email" autofocus tabindex="1" :placeholder="$i18n.t('user.email')")
+                        div.ta-right(v-if="validation('email')")
+                            span.text-danger {{ errors.first('email') }}
 
-            div.row.buttons
-                div.col-xs.no-margin
-                    button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('user.setEmailTitle')}}
-                        svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
-
+                div.row.buttons
+                    div.col-xs.no-margin
+                        button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('user.setEmailTitle')}}
+                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
 
 
