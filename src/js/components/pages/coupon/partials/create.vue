@@ -18,7 +18,6 @@
                                 div.ta-right(v-if="validation('code')")
                                     span.text-danger {{ errors.first('code') }}
 
-
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 input(name="coupon-type" v-model="type" value="webservice" type="radio" id="rdoWebservice")
@@ -219,7 +218,7 @@
                     },
                     webservice_id: this.webservice_id,
                     easypay_id: this.easypay_id,
-                    expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-M-D'),
+                    expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
                     limit: this.limit,
                     min_amount: minAmount,
                     type: this.type,

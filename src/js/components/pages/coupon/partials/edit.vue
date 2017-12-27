@@ -263,7 +263,7 @@
                     },
                     webservice_id: this.webserviceId,
                     easypay_id: this.easyPayId,
-                    expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-M-D'),
+                    expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
                     limit: this.limit,
                     min_amount: minAmount,
                     type: this.type,

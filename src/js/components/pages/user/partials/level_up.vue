@@ -201,7 +201,7 @@
                     gender: this.gender,
                     first_name: this.first_name,
                     last_name: this.last_name,
-                    birthday: moment(this.birthday, 'jYYYY/jMM/jDD').format('YYYY-M-D'),
+                    birthday: moment(this.birthday, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
                     ssn: this.ssn,
                 };
 
