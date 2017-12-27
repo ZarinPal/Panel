@@ -6,8 +6,8 @@
             div.row.referrer-link
                 div.row.description
                     span.ta-right {{$i18n.t('user.copyReferrerLinkDescription')}}
-                div.col-xs.ta-left.no-margin
-                    div.row.label-group.full-width.no-margin
+                div.row.full-width.no-margin
+                    div.col-xs.label-group.full-width.no-margin
                         div.col-xs.text.merchant-code
                             input.txt-referrer-link(:id="'txtReferrerId'" onfocus="this.select();" v-bind:value="$root.baseUrl + '/auth/register?referrer=' + referrer.link" readonly="readonly")
                         div.icon(@click="clipboardMessage(referrer.link)" v-clipboard="" v-bind:data-clipboard-text="$root.baseUrl + '/auth/register?referrer=' + referrer.link")
