@@ -48,6 +48,22 @@ a {
   font-family: IRANSansLightPersian !important;
 }
 
+.p-datetime-picker-container{
+  button {
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .p-datetime-picker-month {
+    font-size: 13px !important;
+    color: #424242 !important;
+  }
+
+  .p-datetime-picker-addon-list-item {
+    width:30.33333% !important;
+  }
+}
+
 //Colors
 .color-success {
   color: #00c853;
