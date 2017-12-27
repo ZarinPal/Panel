@@ -249,7 +249,7 @@
     "all": "همه",
     "limit": "محدودیت",
     "noLimit": "بدون محدودیت",
-    "minAmount": "حداقل تخفیف",
+    "minAmount": "حداقل مبلغ خرید",
     "maxAmount": "حداکثر تخفیف",
     "offPercent": "درصد تخفیف",
     "couponDetails": "جزییات کد تخفیف",
