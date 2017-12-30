@@ -18,6 +18,13 @@ import VueI18n from "vue-i18n";
 import VeeValidate from "vee-validate";
 import messagesFa from "./lang/validation/fa";
 
+Vue.use(VeeValidate, {
+    locale: 'fa',
+    dictionary: {
+        fa: messagesFa,
+    }
+});
+
 window.Vue = Vue;
 require('vue-resource');
 
@@ -38,10 +45,6 @@ const i18n = new VueI18n({
 });
 window.i18n = i18n;
 
-
-VeeValidate.Validator.addLocale(messagesFa);
-Vue.use(VeeValidate, {locale: 'fa'});
-
 import VueSentry from 'vue2-sentry';
 
 Vue.use(VueSentry, {
@@ -51,13 +54,9 @@ Vue.use(VueSentry, {
     project: '5',
     config: {
         release: process.env.GIT_SHA
-    }, // custom config,
+    },
     enable: process.env.NODE_ENV === 'production',
 });
-
-import VueJCalendar from 'vue-j-calendar';
-
-Vue.use(VueJCalendar);
 
 Vue.directive(
     'clipboard',

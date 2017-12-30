@@ -18,10 +18,9 @@
                                 div.ta-right(v-if="validation('code')")
                                     span.text-danger {{ errors.first('code') }}
 
-
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                input(name="coupon-type" v-model="type" value="webservice"   type="radio" id="rdoWebservice")
+                                input(name="coupon-type" v-model="type" value="webservice" type="radio" id="rdoWebservice")
                                 label(for="rdoWebservice")
                                     span
                                     | {{ $i18n.t('coupon.webservice') }}
@@ -46,7 +45,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.expirationDate') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                calendar(:default="currentDate" @change="selectExpiredDate")
+                                date-picker.persian-num(v-model="expired_at")
                                 div.ta-right(v-if="validation('expired_at')")
                                     span.text-danger {{ errors.first('expired_at') }}
 
@@ -68,17 +67,9 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.minAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-validate="'required|numeric|min_value:100'" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" maxlength="15" :class="{'input-danger': errors.has('min_amount')}" type="text" v-model="min_amount"   name="min_amount" id="min_amount" placeholder="(حداقل مبلغ خرید (تومان" tabindex="6")
+                                input.ltr-input(v-validate="'required|numeric|min_value:100'" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" maxlength="15" :class="{'input-danger': errors.has('min_amount')}" type="text" v-model="min_amount"   name="min_amount" id="min_amount" placeholder="(حداقل مبلغ تخفیف (تومان" tabindex="6")
                                 div.ta-right(v-if="validation('min_amount')")
                                     span.text-danger {{ errors.first('min_amount') }}
-
-                        div.row
-                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                span.label {{ $i18n.t('coupon.maxAmount') }}
-                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-validate="'required|numeric|min_value:100'"  v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" maxlength="15" :class="{'input-danger': errors.has('max_amount')}" type="text" v-model="max_amount"  name="max_amount" id="max_amount"  placeholder="(حداکثر مبلغ خرید (تومان" tabindex="7")
-                                div.ta-right(v-if="validation('max_amount')")
-                                    span.text-danger {{ errors.first('max_amount') }}
 
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
@@ -87,6 +78,14 @@
                                 input.ltr-input(v-validate="'required|numeric|min_value:1|max_value:99'" maxlength="3"  v-bind:data-vv-as="$i18n.t('coupon.offPercent')" :class="{'input-danger': errors.has('percent')}" type="text" v-model="percent" name="percent" id="percent" placeholder="مثال: ۲۵" tabindex="8")
                                 div.ta-right(v-if="validation('percent')")
                                     span.text-danger {{ errors.first('percent') }}
+
+                        div.row
+                            div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                span.label {{ $i18n.t('coupon.maxAmount') }}
+                            div.col-lg-8.col-md-8.col-sm-12.col-xs-12
+                                input.ltr-input(v-validate="'required|numeric|min_value:100'"  v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" maxlength="15" :class="{'input-danger': errors.has('max_amount')}" type="text" v-model="max_amount"  name="max_amount" id="max_amount"  placeholder="(حداکثر تخفیف (تومان" tabindex="7")
+                                div.ta-right(v-if="validation('max_amount')")
+                                    span.text-danger {{ errors.first('max_amount') }}
 
                         div.row.nav-button
                             div.col-xs
@@ -97,6 +96,7 @@
 
 
 <script>
+    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import selectbox from '../../partials/selectbox.vue';
 
     export default {
@@ -109,22 +109,19 @@
                 min_amount: '',
                 webservice_id: '',
                 easypay_id: '',
-                expired_at: '',
+                expired_at: moment().format('jYYYY/jMM/jDD'),
                 limit: '',
                 type: 'webservice',
                 percent: '',
                 visibleLimit: false,
-
-                /**
-                 * Date picker data
-                 * */
-                currentDate: moment(),
             }
         },
         computed: {
             webserviceSelection() {
                 if (this.$store.state.auth.user.webservices) {
-                    let webservices =  this.$store.state.auth.user.webservices.map(function (webservice) {
+                    let webservices = this.$store.state.auth.user.webservices.filter(function(webservice) {
+                        return webservice.status;
+                    }).map(function (webservice) {
                         return {
                             'title': webservice.name,
                             'value': webservice.entity_id
@@ -221,7 +218,7 @@
                     },
                     webservice_id: this.webservice_id,
                     easypay_id: this.easypay_id,
-                    expired_at: this.expired_at.format('YYYY-MM-DD'),
+                    expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
                     limit: this.limit,
                     min_amount: minAmount,
                     type: this.type,
@@ -244,7 +241,8 @@
             }
         },
         components: {
-            selectbox
+            selectbox,
+            datePicker: VuePersianDatetimePicker
         }
     }
 

@@ -312,6 +312,10 @@
     padding: 0 15px 13px 0;
   }
 
+  .merchant-code {
+    width: 80% !important;
+  }
+
   .referrer-link {
     padding-bottom: 20px;
     border-bottom: 1px solid #eee;
@@ -346,5 +350,14 @@
         margin-top: -5px;
       }
     }
+  }
+}
+
+
+/***Set email***/
+.get-email-from-user {
+  .buttons {
+    margin: 20px 0 0 0;
+    padding: 0 !important;
   }
 }

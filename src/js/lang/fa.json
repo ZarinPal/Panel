@@ -221,7 +221,7 @@
     "cards": "کارت‌ها",
     "coupons": "کد تخفیف",
     "easypayDescription": "تمامی‌زرین‌لینک‌های شما دراین صفحه نمایش داده می‌شود.",
-    "createWebservice": "ایجاد وب‌سرویس",
+    "createWebservice": "ایجاد درگاه‌پرداخت",
     "nothingToShow": "موردی برای نمایش وجود ندارد",
     "thereIsNoOtherItemToDisplay": "مورد دیگری برای نمایش وجود ندارد",
     "transactionSession": "سشن‌های بانکی",
@@ -249,8 +249,8 @@
     "all": "همه",
     "limit": "محدودیت",
     "noLimit": "بدون محدودیت",
-    "minAmount": "حداقل خرید",
-    "maxAmount": "حداکثر خرید",
+    "minAmount": "حداقل مبلغ خرید",
+    "maxAmount": "حداکثر تخفیف",
     "offPercent": "درصد تخفیف",
     "couponDetails": "جزییات کد تخفیف",
     "editCoupon": "ویرایش کد تخفیف",
@@ -354,10 +354,11 @@
     "the-coupon-is-expired": "تاریخ انقضای کد هدیه نباید قدیمی‌تر از تاریخ امروز باشد.",
     "the-card-or-iban-already-exists": "شماره‌کارت یا شماره شبا وجود دارد",
     "username-fix-late-you-can-not-change-this-name": "امکان تغییر نام کاربری وجود ندارد",
-    "username-created": "نام کاربری ذخیره شد"
+    "username-created": "نام کاربری ذخیره شد",
+    "email-set-success-check-your-email": "ایمیل شما با موفقیت ثبت شد. لطفا حساب ایمیل خودرا جهت فعالسازی بررسی نمایید."
   },
   "panel": {
-    "home": "پیش‌خوان",
+    "home": "پیشخوان",
     "webservice": "درگاه‌های پرداخت",
     "card": "کارت‌ها",
     "easypay": "زرین‌لینک",
@@ -579,8 +580,8 @@
     "payerMobile": "موبایل پرداخت کننده",
     "payerEmail": "ایمیل پرداخت کننده",
     "excelExport": "خروجی اکسل",
-    "fromDate": "از تاریخ: 12-03-1396",
-    "toDate": "تا تاریخ: 12-12-1399",
+    "fromDate": "از تاریخ",
+    "toDate": "تا تاریخ",
     "payerMask": "شماره‌کارت پرداخت کننده",
     "payerIssuer": "بانک صادر‌کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."
@@ -941,7 +942,9 @@
     "requestPersonalLinkTitle": "ایجاد لینک شخصی",
     "checkingUsername": "در حال جستجوی نام‌کاربری",
     "youCanUserThisUsername": "این نام کاربری آزاد است",
-    "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین پال برخودار شوید"
+    "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین پال برخودار شوید",
+    "setEmailTitle": "ثبت ایمیل",
+    "loginToOldPanel": "ورود به پنل قدیمی"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

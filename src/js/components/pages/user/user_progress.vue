@@ -69,7 +69,7 @@
             redirect(progressKey) {
                 switch(progressKey) {
                     case 'mobile':
-                        this.visibleGetEmailFromUser = true;
+                        // this.visibleGetEmailFromUser = true;
                         break;
                     case 'referrer':
                         this.visibleReferrer = true;
@@ -94,7 +94,7 @@
         },
         components: {
             referrer,
-            'get-email': getEmail
+            getEmail
         }
     }
 </script>
