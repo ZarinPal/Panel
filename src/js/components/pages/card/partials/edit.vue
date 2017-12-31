@@ -20,7 +20,7 @@
                     div.col-xs.ta-left
                         div.row.label-group.pull-left
                             div.col-xs.text
-                                input(v-bind:value="$options.filters.cardNumber(card.pan)" readonly="readonly")
+                                input(v-if="card.pan" v-bind:value="$options.filters.cardNumber(card.pan)" readonly="readonly")
                             div.icon.edit(@click="editPan = !editPan")
 
                 div.row(v-if="editPan")
@@ -65,8 +65,8 @@
                 closeModalContent: true,
                 editPan: false,
                 pan: '',
-                month: '',
-                year: '',
+                month: null,
+                year: null,
             }
         },
         props: ['card'],
@@ -178,6 +178,7 @@
                 let expiredAt = this.jalaliToGregorian(this.year, this.month);
                 this.$store.state.auth.user.cards[cardIndex].expired_at = expiredAt;
                 this.$store.state.auth.user.cards[cardIndex].pan = this.pan;
+                this.$store.state.auth.user.cards[cardIndex].status = 'Pending';
             },
             jalaliToGregorian(year, month, day = null) {
                 let jalali = year + '/' + month + '/' + day;
