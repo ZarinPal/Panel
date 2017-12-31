@@ -10,7 +10,7 @@
                     div.col-xs.ta-ta-left
                         div.row.label-group.pull-left
                             div.col-xs.text {{coupon.code}}
-                            div.icon(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="coupon.code")
+                            div.icon.copy(@click="clipboardMessage()" v-clipboard="" v-bind:data-clipboard-text="coupon.code")
 
                 div.row.box-row
                     div.right

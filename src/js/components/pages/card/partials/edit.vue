@@ -15,7 +15,17 @@
                         span.label {{card.iban}}
 
                 div.row
-                    input.ta-left.dir-ltr(v-focus="" v-validate="{ rules: {required: true, max: 19}}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder="$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat()")
+                    div.col-xs.ta-right
+                        span.label.card-pan-label {{$i18n.t('card.pan')}}:
+                    div.col-xs.ta-left
+                        div.row.label-group.pull-left
+                            div.col-xs.text
+                                input(v-if="card.pan" v-bind:value="$options.filters.cardNumber(card.pan)" readonly="readonly")
+                            div.icon.edit(@click="editPan = !editPan")
+
+                div.row(v-if="editPan")
+                    div.col-xs-12
+                        input.ta-left.dir-ltr(v-focus="" v-validate="{ rules: {max: 19}}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder="$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat()")
                     div.ta-right(v-if="validation('pan')")
                         span.text-danger {{ errors.first('pan') }}
 
@@ -35,7 +45,6 @@
                             div.text-danger(v-if="validation('year')") {{ errors.first('year') }}
                             div.text-danger(v-if="validation('month')") {{ errors.first('month') }}
 
-
                 div.row
                     div.col-xs.no-margin
                         button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('common.save')}}
@@ -54,9 +63,10 @@
             return {
                 loading: false,
                 closeModalContent: true,
+                editPan: false,
                 pan: '',
-                month: '',
-                year: '',
+                month: null,
+                year: null,
             }
         },
         props: ['card'],
@@ -168,6 +178,7 @@
                 let expiredAt = this.jalaliToGregorian(this.year, this.month);
                 this.$store.state.auth.user.cards[cardIndex].expired_at = expiredAt;
                 this.$store.state.auth.user.cards[cardIndex].pan = this.pan;
+                this.$store.state.auth.user.cards[cardIndex].status = 'Pending';
             },
             jalaliToGregorian(year, month, day = null) {
                 let jalali = year + '/' + month + '/' + day;

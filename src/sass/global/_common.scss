@@ -636,13 +636,26 @@ a {
     cursor: pointer;
     width: 20px !important;
 
+
     &:before {
-      content: $iconCopy;
       font-family: 'zarinpal';
       color: $labelColor !important;
       display: inline-block;
       vertical-align: middle;
     }
+
+    &.copy {
+      &:before {
+        content: $iconCopy;
+      }
+    }
+
+    &.edit {
+      &:before {
+        content: $iconEdit;
+      }
+    }
+
   }
 
   .text {
@@ -652,6 +665,10 @@ a {
     font-size: 13px;
     overflow: hidden;
     height: 32px;
+
+    input {
+      border: none !important;
+    }
   }
 }
 
