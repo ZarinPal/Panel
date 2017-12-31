@@ -1,6 +1,6 @@
 <template lang="pug">
     div.row.center-xs.no-margin(v-if="$store.state.app.isLoaded")
-        div.col-xs-11.col-sm-11.col-md-5.col-lg-4.section.auth-box
+        div.col-xs-12.col-sm-5.col-md-5.col-lg-4.section.auth-box
             div.box
                 <!--Header-->
                 div.row.top-xs
