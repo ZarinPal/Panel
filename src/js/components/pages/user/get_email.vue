@@ -2,7 +2,13 @@
     modal.request-personal-link(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('user.setEmailTitle') }}
         div.get-email-from-user(slot="content")
-            form(autocomplete="on" onsubmit="event.preventDefault();")
+            div.row(v-if="user.email")
+                div.col-xs.ta-right
+                    span.label {{ $i18n.t('common.email') }}
+                div.col-xs.ta-left
+                    span.value {{ user.email }}
+
+            form(v-else autocomplete="on" onsubmit="event.preventDefault();")
                 div.row
                     div.col-xs
                         input(v-focus="" v-validate="{ rules: {required: true, email: true}}" v-bind:data-vv-as="$i18n.t('user.email')" :class="{'input-danger': errors.has('email')}" type="text" v-model="email" name="email" id="email" autofocus tabindex="1" :placeholder="$i18n.t('user.email')")
@@ -28,6 +34,11 @@
                 email: null,
                 loading: false,
             }
+        },
+        computed: {
+            user(){
+                return this.$store.state.auth.user;
+            },
         },
         methods: {
             closeModal() {

@@ -258,7 +258,7 @@
   },
   "easypay": {
     "createEasypay": "ایجاد زرین‌لینک",
-    "createEasypayDescription": "در این صفحه میتوانید آاسان پرداخت ایجاد کنید",
+    "createEasypayDescription": "در این صفحه میتوانید زرین‌لینک ایجاد کنید",
     "optional": "اختیاری",
     "mandatory": "اجباری",
     "username": "نام کاربر",

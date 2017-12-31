@@ -496,6 +496,17 @@ $disableToColor: #eee;
         margin: 5px 0;
       }
 
+      .card-pan-label {
+        margin-top: 17px;
+        display: inline-block;
+      }
+
+      .label-group {
+        input {
+          direction: ltr;
+        }
+      }
+
       .nav-expiration-label {
         margin: 23px 0;
         .expiration-label {

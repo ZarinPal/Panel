@@ -15,11 +15,10 @@
                         span.in-active-card(v-else-if="card.status === 'InActive'")
                             span {{$i18n.t('card.inActive')}}
 
-                div.row(v-if="card.pan")
-                    span.card-number
+                div.row
+                    span.card-number(v-if="card.pan")
                         span(v-html="$options.filters.cardNumber(card.pan)")
-                div.row(v-else)
-                    span.card-number
+                    span.card-number(v-if="card.is_legal")
                         span.iransans {{$i18n.t('card.legalAccount')}}
 
                 div.row.box-row
@@ -48,11 +47,10 @@
                         span.in-active-card(v-else-if="card.status === 'Expired'")
                             span {{$i18n.t('card.expired')}}
 
-                div.row(v-if="card.pan")
-                    span.card-number
+                div.row
+                    span.card-number(v-if="card.pan")
                         span(v-html="$options.filters.cardNumber(card.pan)")
-                div.row(v-else)
-                    span.card-number
+                    span.card-number(v-if="card.is_legal")
                         span.iransans {{$i18n.t('card.legalAccount')}}
 
                 div.row.box-row
