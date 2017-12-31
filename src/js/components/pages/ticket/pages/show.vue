@@ -9,6 +9,7 @@
                     button.btn.info.close-ticket.pull-left(v-if="ticket.status != 'close'" @click="closeTicket()") {{ $i18n.t('ticket.closeTicket')}}
 
             div.ver-line
+
             div.row.bottom-row(v-if="!isLoadReplies")
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     span.title {{ $i18n.t('ticket.updated') }} :
