@@ -28,13 +28,13 @@ new Vue({
     router: require('./router').default,
     data() {
       return {
-          // baseUrl: 'http://api.zarinpal.localhost', // local: panel base
-          baseUrl: 'https://my.zarinpal.com', // production: panel base
+          baseUrl: 'http://api.zarinpal.localhost', // local: panel base
+          // baseUrl: 'https://my.zarinpal.com', // production: panel base
       }
     },
     http: {
-        // root: 'http://api.zarinpal.localhost/rest/v3',// local: panel base
-        root: 'https://my.zarinpal.com/rest/v3',// production: panel base
+        root: 'http://api.zarinpal.localhost/rest/v3',// local: panel base
+        // root: 'https://my.zarinpal.com/rest/v3',// production: panel base
     },
     created() {
         //init active tab on load
