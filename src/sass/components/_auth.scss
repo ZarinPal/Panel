@@ -1,5 +1,5 @@
 .auth-box {
-  max-width: 410px;
+  //max-width: 410px;
   margin-top: 100px;
 
   .box-top-links {
@@ -27,6 +27,7 @@
     padding: 25px;
     font-size: 13px !important;
     color: $labelColor;
+    overflow: hidden;
 
     .row-margin {
       input {

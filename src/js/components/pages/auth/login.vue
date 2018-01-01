@@ -1,6 +1,6 @@
 <template lang="pug">
     div.row.center-xs.no-margin(v-if="$store.state.app.isLoaded")
-        div.col-xs-11.col-sm-11.col-md-5.col-lg-4.section.auth-box
+        div.col-xs-12.col-sm-5.col-md-5.col-lg-4.section.auth-box
             div.box
                 <!--Header-->
                 div.row.top-xs
@@ -72,8 +72,9 @@
                                         span #
 
                                 div.col-xs
-                                    div.ussd-text.persian-num(v-if="ussdType =='Code'") {{ussdCode}}
+                                    div.ussd-text.persian-num(v-if="ussdType =='Code'" @click="clipboardMessage(ussdCode)" v-clipboard="" v-bind:data-clipboard-text="ussdCode") {{ussdCode}}
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
+                            span.hidden-lg.hidden-md {{ $i18n.t('user.copyUssd') }}
 
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
@@ -342,6 +343,20 @@
                 this.lockout_time_min = null;
                 this.lockout_time_sec = null;
                 this.lockLogin = false;
+            },
+            clipboardMessage(event) {
+                setTimeout(function () {
+                    let txtWebserviceId = document.getElementById('txtWebserviceId-' + event);
+                    if (txtWebserviceId) {
+                        txtWebserviceId.select();
+                    }
+                }, 10);
+
+                store.commit('flashMessage', {
+                    text: 'copied',
+                    type: 'success',
+                    timeout: '1500'
+                });
             }
         },
         components: {
