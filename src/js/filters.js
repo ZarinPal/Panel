@@ -1,3 +1,12 @@
+Vue.filter('persianNumbers', function (value) {
+    if (typeof value == 'undefined') {
+        return value;
+    }
+    var value = typeof value === "number" ? value.toString() : value;
+    return value.toString().replace(/\d/g, function (match) {
+        return ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'][parseInt(match)];
+    });
+});
 Vue.filter('jalali', function (date, format) {
     return moment(date, 'YYYY-MM-DD HH:mm:ss')
         .format(format);
