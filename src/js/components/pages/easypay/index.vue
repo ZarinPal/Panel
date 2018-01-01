@@ -14,21 +14,26 @@
                     span.icon-add-circle
                     span.text {{ $i18n.t('user.requestPersonalLinkTitle') }}
 
+        <!--Search Form-->
+        form.row(onsubmit="event.preventDefault();")
+            div.col-lg-4.col-md-4.col-sm-8.col-xs-8
+                input(v-model="searchOptions.title" type="text" :placeholder="$i18n.t('easypay.title')")
+            div.col-lg-4.col-md-4.col-sm-4.col-xs-4.search-box-buttons
+                button.btn.info.pull-right(v-ripple="" @click="search()")
+                    span {{ $i18n.t('common.search') }}
 
+        <!--easypays-->
         div.row
             singleEasypay(v-for="easypay in easypays.data" v-bind:key="easypay.public_id" v-bind:easypay="easypay")
 
         div.ta-center(v-if="easypays.status")
             loading
-
         div.ta-center(v-if="!this.$store.state.paginator.paginator.EasypayList.resource.resource && easypays.data.length")
             span.txt-nothing-to-show {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
-
 
         div.row(v-if="!easypays.status && !easypays.data.length")
             div.col-xs.ta-center
                 span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
-
 
         <!--Personal link-->
         personal-link(v-if="visibleRequestPersonalLink" v-on:closeModal="closeModal")
@@ -43,6 +48,9 @@
         name: 'easypay-index',
         data() {
             return {
+                searchOptions: {
+                    title: ''
+                },
                 visibleRequestPersonalLink: false,
             }
         },
@@ -59,7 +67,7 @@
             }
         },
         created() {
-            this.getEasypays();
+            this.search();
 
             let vm = this;
             window.onscroll = function () {
@@ -68,7 +76,8 @@
                     vm.$store.dispatch(
                         'paginator/next',
                         {
-                            requestName: "EasypayList"
+                            params: vm.searchOptions,
+                            requestName: "EasypayList",
                         }
                     );
                 }
@@ -78,6 +87,11 @@
             closeModal(){
                 this.visibleRequestPersonalLink = false;
             },
+            search() {
+
+
+                this.getEasypays();
+            },
             getEasypays() {
                 let vm = this;
                 this.$store.dispatch(
@@ -85,7 +99,8 @@
                     {
                         vm,
                         resource: vm.$store.state.http.requests['easypay.getList'],
-                        requestName: "EasypayList"
+                        requestName: "EasypayList",
+                        params: vm.searchOptions,
                     }
                 );
             }

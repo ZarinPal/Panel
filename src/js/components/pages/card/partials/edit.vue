@@ -157,7 +157,6 @@
                         this.changeCardState();
                         this.loading = false;
                         this.closeModal();
-                        this.$router.push({name: 'card.index'});
                     },
                     (response) => {
                         this.loading = false;
@@ -176,9 +175,12 @@
                 });
 
                 let expiredAt = this.jalaliToGregorian(this.year, this.month);
-                this.$store.state.auth.user.cards[cardIndex].expired_at = expiredAt;
-                this.$store.state.auth.user.cards[cardIndex].pan = this.pan;
-                this.$store.state.auth.user.cards[cardIndex].status = 'Pending';
+                this.$store.state.paginator.paginator.CardList.data[cardIndex].expired_at = expiredAt;
+                if (this.pan) {
+                    this.$store.state.paginator.paginator.CardList.data[cardIndex].pan = this.pan;
+                }
+                this.$store.state.paginator.paginator.CardList.data[cardIndex].status = 'Pending';
+                this.$store.state.paginator.paginator.update++;
             },
             jalaliToGregorian(year, month, day = null) {
                 let jalali = year + '/' + month + '/' + day;

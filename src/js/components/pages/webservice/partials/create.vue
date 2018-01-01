@@ -30,7 +30,7 @@
 
                                 div.row.no-margin
                                     span.input-icon.mobile-icon
-                                    input.ltr-input(v-validate="{rules: {required: true, regex: /^09[0-9]{9}$/} }" :class="{'input-danger': errors.has('tel')}"  v-bind:data-vv-as="$i18n.t('webservice.tel')" type="text" v-model="tel" name="tel" :placeholder= "$i18n.t('webservice.tel')" tabindex="3" )
+                                    input.ltr-input(v-validate="{rules: {required: true}}" :class="{'input-danger': errors.has('tel')}"  v-bind:data-vv-as="$i18n.t('webservice.tel')" type="text" v-model="tel" name="tel" :placeholder= "$i18n.t('webservice.tel')" tabindex="3" )
                                     div.ta-right(v-if="validation('tel')")
                                         span.text-danger {{ errors.first('tel') }}
 
@@ -57,7 +57,6 @@
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
-
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
@@ -174,7 +173,6 @@
                         store.commit('flashMessage', {
                             text: 'ticket new webservice',
                             type: 'success',
-                            important: true,
                         });
                         this.$router.push({name: 'webservice.index'})
                     },
