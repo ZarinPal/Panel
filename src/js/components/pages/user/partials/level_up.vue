@@ -135,7 +135,7 @@
                 gender: 'male',
                 first_name: this.$store.state.auth.user.first_name,
                 last_name: this.$store.state.auth.user.last_name,
-                birthday: '',
+                birthday: moment().format('jYYYY/jMM/jDD'),
                 ssn: null,
 
                 /**
