@@ -109,8 +109,8 @@
         data () {
             return {
                 placeholder: '123456******6273',
-                fromDate: '',
-                toDate: '',
+                fromDate: moment().format('jYYYY/jMM/jDD'),
+                toDate: moment().format('jYYYY/jMM/jDD'),
                 searchOptions: {},
                 filterType: null,
                 filterValue: [],
