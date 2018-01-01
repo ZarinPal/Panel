@@ -133,8 +133,8 @@
                  * User information
                  */
                 gender: 'male',
-                first_name: null,
-                last_name: null,
+                first_name: this.$store.state.auth.user.first_name,
+                last_name: this.$store.state.auth.user.last_name,
                 birthday: '',
                 ssn: null,
 
