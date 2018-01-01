@@ -96,7 +96,7 @@
             div.row.auth-privacy-footer
                 div.col-xs.ta-right
                     span.icon-prev
-                    a.link(href="https://www.zarinpal.com/auth/login") {{$i18n.t('user.loginToOldPanel')}}
+                    a.link(href="https://www.zarinpal.com/auth/login" target="_blank") {{$i18n.t('user.loginToOldPanel')}}
                     <!--router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{$i18n.t('user.register')}}-->
                 div.col-xs.ta-left
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
