@@ -72,7 +72,7 @@
                                         span #
 
                                 div.col-xs
-                                    div.ussd-text.persian-num(v-if="ussdType =='Code'" @click="clipboardMessage(ussdCode)" v-clipboard="" v-bind:data-clipboard-text="ussdCode") {{ussdCode}}
+                                    div.ussd-text.vazir(v-if="ussdType =='Code'" @click="clipboardMessage(ussdCode)" v-clipboard="" v-bind:data-clipboard-text="ussdCode") {{ussdCode | persianNumbers}}
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
                             span.hidden-lg.hidden-md {{ $i18n.t('user.copyUssd') }}
 
