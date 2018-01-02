@@ -29,19 +29,24 @@
                                     div.break
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                                    button.btn.info.pull-right(v-ripple="" @click="search()")
+                                    button.btn.info.pull-right(v-ripple="" @click="validateForm")
                                         span {{ $i18n.t('common.search') }}
 
                             div
-                                div.hand(@click="visibleAdvanceSearch = !visibleAdvanceSearch") {{$i18n.t('transaction.advanceSearch')}}
+                                div.hand(@click="toggleDatePicker()") {{$i18n.t('transaction.advanceSearch')}}
                                 transition(name="fade"
                                 enter-active-class="fade-in"
                                 leave-active-class="fade-out")
-                                    div.row(v-show="visibleAdvanceSearch")
+                                    div.row(v-if="visibleAdvanceSearch")
                                         div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                            date-picker.persian-num(v-model="fromDate" type="datetime" :placeholder="$i18n.t('transaction.fromDate')")
+                                            date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="fromDate" name="fromDate" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" type="datetime" :placeholder="$i18n.t('transaction.fromDate')")
+                                            div.ta-right(v-if="validation('fromDate')")
+                                                span.text-danger {{ errors.first('fromDate') }}
+
                                         div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                            date-picker.persian-num(v-model="toDate" type="datetime" :placeholder="$i18n.t('transaction.toDate')")
+                                            date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="toDate" name="toDate" v-bind:data-vv-as="$i18n.t('transaction.toDate')" type="datetime" :placeholder="$i18n.t('transaction.toDate')")
+                                            div.ta-right(v-if="validation('toDate')")
+                                                span.text-danger {{ errors.first('toDate') }}
 
         div.row.filter-row
             div.col-lg-4.col-md-4.col-sm-4.col-xs-12
@@ -109,8 +114,8 @@
         data () {
             return {
                 placeholder: '123456******6273',
-                fromDate: moment().format('jYYYY/jMM/jDD'),
-                toDate: moment().format('jYYYY/jMM/jDD'),
+                fromDate: '',
+                toDate: '',
                 searchOptions: {},
                 filterType: null,
                 filterValue: [],
@@ -189,6 +194,40 @@
             this.showStandAloneTransaction();
         },
         methods: {
+            toggleDatePicker() {
+                this.visibleAdvanceSearch = !this.visibleAdvanceSearch;
+                if (!this.visibleAdvanceSearch) {
+                    this.fromDate = '';
+                    this.toDate = '';
+                }
+            },
+            validation(name) {
+                if (this.$store.state.alert.validationErrors[name]) {
+                    let element = _.find(this.$validator.fields.items, function (field) {
+                        return field.name == name;
+                    });
+                    this.errors.add(
+                        name,
+                        this.$validator.dictionary.container.fa.messages[this.$store.state.alert.validationErrors[name].rule](
+                            element.el.dataset.vvAs,
+                            this.$store.state.alert.validationErrors[name].params
+                        ),
+                        'api'
+                    );
+                    this.$store.state.alert.validationErrors[name] = false;
+                }
+                return this.errors.has(name);
+            },
+            validateForm() {
+                this.$validator.validateAll({
+                    fromDate: this.fromDate,
+                    toDate: this.toDate
+                }).then((result) => {
+                    if (result) {
+                        this.search();
+                    }
+                });
+            },
             restart() {
                 this.filterValue = null;
                 this.searchOptions = {};
@@ -212,9 +251,15 @@
                 }
             },
             search(){
-                if (this.fromDate || this.toDate) {
-                    this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format('YYYY-M-D HH:mm:ss');
-                    this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format('YYYY-M-D HH:mm:ss');
+                if (this.fromDate && this.toDate) {
+                    this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+                    this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+                } else if (this.fromDate && !this.toDate) {
+                    this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+                    this.searchOptions.toDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').add(1, 'months').format();
+                } else if (!this.fromDate && this.toDate) {
+                    this.searchOptions.fromDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').subtract(1, 'months').format();
+                    this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
                 }
 
                 let vm = this;

@@ -29,7 +29,7 @@ f<template lang="pug">
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input.ltr-input(v-mask="{money: true}"  v-validate="'required'" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')"  type="text" v-model="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
+                                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true}}" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')"  type="text" v-model="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
                                             div.ta-right(v-if="validation('price')")
                                                 span.text-danger {{ errors.first('price') }}
 
@@ -40,27 +40,27 @@ f<template lang="pug">
 
                                         div.row.no-margin.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
-                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
+                                                input(@change="changePayTo" name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
                                                 label(for="rdoPurseٌ")
                                                     span
                                                     | {{ $i18n.t('user.purse') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
-                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(:class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" tabindex="4")
+                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" :class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" tabindex="4")
                                                 div.ta-right(v-if="validation('purse')")
                                                     span.text-danger {{ errors.first('purse') }}
 
                                         div.row.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
+                                                input(@change="changePayTo" name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
                                                 label(for="rdoWebservice")
                                                     span
                                                     | {{ $i18n.t('coupon.webservice') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" placeholder="انتخاب وب‌سرویس")
-                                                div.ta-right(v-if="validation('webservice_id')")
-                                                    span.text-danger {{ errors.first('webservice_id') }}
+                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" :placeholder="$i18n.t('easypay.selectWebservice')")
+                                                <!--div.ta-right(v-if="validation('webservice_id')")-->
+                                                    <!--span.text-danger {{ errors.first('webservice_id') }}-->
 
                                         div.cb
                                         div.row.nav-buttons
@@ -299,13 +299,16 @@ f<template lang="pug">
             validateForm() {
                 this.$validator.validateAll({
                     title: this.title,
-                    title: this.title,
+                    price: this.price,
                     description: this.description
                 }).then((result) => {
                     if (result) {
                         this.stepTwo();
                     }
                 });
+            },
+            removeErrors(field) {
+                !!this[field] && this.errors.remove(field);
             },
             selectedPurse(purseId) {
                 this.purse = purseId;
@@ -317,7 +320,24 @@ f<template lang="pug">
                 this.purse = null;
                 this.purse_name = null;
             },
+            changePayTo() {
+                if (this.payTo === 'webservice') {
+                    this.purse = null;
+                    this.purse_name = null;
+                } else if(this.payTo === 'purse') {
+                    this.webservice_id = null;
+                }
+            },
             stepTwo() {
+                if ((this.payTo === 'purse' && !this.purse) || (this.payTo === 'webservice' && !this.webservice_id)) {
+                    this.errors.add(
+                        'purse',
+                        this.$i18n.t('easypay.selectPurseOrWebserviceId'),
+                        'api'
+                    );
+                    return;
+                }
+
                 if (this.purse || this.webservice_id) {
                     //create easypay here
                     this.createEasypay();
@@ -340,12 +360,6 @@ f<template lang="pug">
 
                         store.commit('setValidationErrors', webserviceValidationError);
                     }
-
-//                    store.commit('flashMessage',{
-//                        text: 'please select purse name',
-//                        important: false,
-//                        type: 'danger'
-//                    });
                 }
             },
             stepThree() {
