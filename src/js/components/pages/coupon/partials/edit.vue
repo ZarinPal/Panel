@@ -182,9 +182,6 @@
             this.getCoupon();
         },
         methods: {
-            selectExpiredDate(day) {
-                this.expired_at = day;
-            },
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
                     let element = _.find(this.$validator.fields.items, function (field) {
