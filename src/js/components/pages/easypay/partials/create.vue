@@ -338,9 +338,6 @@ f<template lang="pug">
                     return;
                 }
 
-                return;
-
-
                 if (this.purse || this.webservice_id) {
                     //create easypay here
                     this.createEasypay();
