@@ -104,6 +104,8 @@
                 return n + " قبلا در سیستم ثبت‌شده است "
             }, alphanum: function (n) {
                 return n + " باید شامل حروف و اعداد باشد "
+            }, uniquedomain: function (n) {
+                return " این دامنه قبلا در سیستم ثبت شده است "
             }
         }, attributes: {}
     };
