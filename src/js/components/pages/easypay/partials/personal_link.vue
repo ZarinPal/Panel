@@ -20,7 +20,7 @@
                                 span {{preLink}}
                         span.text-danger {{ errors.first('username') }}
                         div.col-xs-12.no-margin.ta-right(v-if="!checking")
-                            span.free-username(v-if="usable") {{$i18n.t('user.youCanUserThisUsername')}}
+
 
                         div.col-xs-12.no-margin.ta-right(v-if="error_message")
                             span.text-danger {{$i18n.t('flash.' + error_message)}}

@@ -134,12 +134,12 @@
 
         .ussd-text {
           position: relative;
-          top: 3px;
+          line-height: 46px;
         }
 
         .icon-ussd-text {
           position: relative;
-          top: 4px;
+          top: 2px;
           font-weight: 900;
           left: 13px;
           color: #424242;
@@ -164,7 +164,7 @@
             display: inline-block;
             position: relative;
             left: 13px;
-            top: 4px;
+            top: 2px;
             color: #424242;
           }
         }
@@ -356,4 +356,9 @@ div.time {
 .blur-screen {
   filter: blur(5px);
   pointer-events: none;
+}
+
+/*** Vazir Font ***/
+.vazir {
+  font-family: VazirCode !important;
 }
