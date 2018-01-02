@@ -49,10 +49,10 @@
                                     img.user-avatar(v-bind:src="avatar")
                                 div.col-xs
                                     p {{ $i18n.t('user.yourWelcome') }}
-                                    span(v-if="channel == 'ussd'")
-                                        span کد دستوری زیر را توسط شماره‌موبایل
+                                    span.inline-block(v-if="channel == 'ussd'")
+                                        | کد دستوری زیر را توسط شماره‌موبایل
                                         span.mobile-number.persian-num {{ username }}
-                                        span شماره گیری کنید.
+                                        | شماره گیری کنید.
                                         span.change-mobile(@click="step--") (تغییر شماره تلفن)
                                     span(v-else-if="channel == 'email'")
                                         span رمز یکبار مصرف ارسال‌شده به ایمیل خود را وارد کنید
