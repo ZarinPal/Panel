@@ -1,5 +1,5 @@
 .auth-box {
-  //max-width: 410px;
+  max-width: 375px !important;
   margin-top: 100px;
 
   .box-top-links {
@@ -77,7 +77,12 @@
 
         .mobile-number {
           color: #2979ff;
-          margin: 0 5px;
+          margin: 0 2px;
+          display: inline-block;
+        }
+        .inline-block {
+          display: inline-block;
+          width: 100%;
         }
 
         .change-mobile {
@@ -180,14 +185,15 @@
     .otp-container {
       #txtOtp {
         font-family: 'VazirCode', monospaced !important;
-        width: 300px;
+        width: 270px;
         border: none;
         outline: none;
         letter-spacing: 30px;
         text-align: left;
-        margin-left: 61px;
+        margin-left: 30px;
         direction: ltr;
         font-size: 20px;
+        overflow: hidden;
 
         &:focus {
           box-shadow: none;

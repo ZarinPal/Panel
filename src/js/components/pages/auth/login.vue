@@ -49,10 +49,10 @@
                                     img.user-avatar(v-bind:src="avatar")
                                 div.col-xs
                                     p {{ $i18n.t('user.yourWelcome') }}
-                                    span(v-if="channel == 'ussd'")
-                                        span کد دستوری زیر را توسط شماره‌موبایل
+                                    span.inline-block(v-if="channel == 'ussd'")
+                                        | کد دستوری زیر را توسط شماره‌موبایل
                                         span.mobile-number.persian-num {{ username }}
-                                        span شماره گیری کنید.
+                                        | شماره گیری کنید.
                                         span.change-mobile(@click="step--") (تغییر شماره تلفن)
                                     span(v-else-if="channel == 'email'")
                                         span رمز یکبار مصرف ارسال‌شده به ایمیل خود را وارد کنید
@@ -96,12 +96,11 @@
             div.row.auth-privacy-footer
                 div.col-xs.ta-right
                     span.icon-prev
-                    a.link(href="https://www.zarinpal.com/auth/login") {{$i18n.t('user.loginToOldPanel')}}
+                    a.link(href="https://www.zarinpal.com/auth/login" target="_blank") {{$i18n.t('user.loginToOldPanel')}}
                     <!--router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{$i18n.t('user.register')}}-->
                 div.col-xs.ta-left
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
-                    span.gap
-                    a.link(href="https://www.zarinpal.com/policy.html" target="blank") {{$i18n.t('user.privacy')}}
+
 
     div(v-else)
         div.loading.ta-center
