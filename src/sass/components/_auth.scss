@@ -182,14 +182,15 @@
     .otp-container {
       #txtOtp {
         font-family: 'VazirCode', monospaced !important;
-        width: 300px;
+        width: 270px;
         border: none;
         outline: none;
         letter-spacing: 30px;
         text-align: left;
-        margin-left: 61px;
+        margin-left: 30px;
         direction: ltr;
         font-size: 20px;
+        overflow: hidden;
 
         &:focus {
           box-shadow: none;
