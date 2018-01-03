@@ -100,6 +100,12 @@
                         div.col-xs.ta-left
                             span.value  {{ transaction.description}}
 
+                    div.row(v-if="transaction.note")
+                        div.col-xs.ta-right
+                            span.title(v-if="transaction.note")  {{$i18n.t('transaction.note')}}
+                        div.col-xs.ta-left
+                            span.value(v-if="transaction.note")  {{ transaction.note }}
+
             div.footer.bottom-xs
                 a.print.hand(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
 
