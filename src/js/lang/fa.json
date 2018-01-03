@@ -584,6 +584,7 @@
     "excelExport": "خروجی اکسل",
     "fromDate": "از تاریخ",
     "toDate": "تا تاریخ",
+    "note": "یادداشت",
     "payerMask": "شماره‌کارت پرداخت کننده",
     "payerIssuer": "بانک صادر‌کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."
