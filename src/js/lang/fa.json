@@ -348,16 +348,10 @@
     "flash-reject-request-money-successfull": "درخواست وجه لغو شد.",
     "the-coupon-is-expired": "تاریخ انقضای کد تخفیف نباید قدیمی‌تر از تاریخ امروز باشد.",
     "the-card-or-iban-already-exists": "شماره‌کارت یا شماره شبا وجود دارد",
-    "zarin-card-request-success": "درخواست زرین‌کارت شما با موفقیت ثبت‌شد. کارت شما حداکثر تا دو هفته آینده از طریق پست به آدرس پستی انتخاب‌شده ارسال خواهد‌شد.",
-    "all-user-file-uploaded": "اطلاعات شما با موفقیت ثبت‌شد.",
-    "you-can-not-edit-information-because-this-information-confirmed": "شما قادر به ویرایش اطلاعات نمی‌باشید چون این اطلاعات قبلا تأیید‌شده اند",
-    "the-card-already-exists": "این شماره‌کارت قبلا در سیستم ثبت‌شده است",
-    "flash-reject-request-money-successfull": "درخواست وجه لغو‌شد.",
-    "the-coupon-is-expired": "تاریخ انقضای کد هدیه نباید قدیمی‌تر از تاریخ امروز باشد.",
-    "the-card-or-iban-already-exists": "شماره‌کارت یا شماره شبا وجود دارد",
     "username-fix-late-you-can-not-change-this-name": "امکان تغییر نام کاربری وجود ندارد",
     "username-created": "نام کاربری ذخیره شد",
-    "email-set-success-check-your-email": "ایمیل شما با موفقیت ثبت شد. لطفا حساب ایمیل خودرا جهت فعالسازی بررسی نمایید."
+    "email-set-success-check-your-email": "ایمیل شما با موفقیت ثبت شد. لطفا حساب ایمیل خودرا جهت فعالسازی بررسی نمایید.",
+    "the-user-does-not-have-access": "کاربر دسترسی ندارد"
   },
   "panel": {
     "home": "پیشخوان",
@@ -588,7 +582,9 @@
     "note": "یادداشت",
     "payerMask": "شماره‌کارت پرداخت کننده",
     "payerIssuer": "بانک صادر‌کننده کارت",
-    "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."
+    "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید.",
+    "note": "یادداشت",
+    "addNote": "افزودن یادداشت"
   },
   "transactionSession": {
     "description": "تمامی‌سشن‌های بانکی درگاه پرداخت شما در این صفحه لیست‌شده اند",
