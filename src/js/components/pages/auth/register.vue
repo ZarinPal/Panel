@@ -20,15 +20,15 @@
                             div.ta-right(v-if="validation('first_name')")
                                 span.text-danger {{ errors.first('first_name') }}
 
-                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-left-margin
+                        div.col-lg-6.col-md-6.col-sm-6.col-xs-12.no-right-margin
                             input.half-input(v-validate="'required'" :class="{'input-danger': errors.has('last_name')}" v-bind:data-vv-as="$i18n.t('user.lastName')" type="text" v-model="last_name" id="last_name" name="last_name" :placeholder= "$i18n.t('user.lastName')" tabindex="2" )
                             div.ta-right(v-if="validation('last_name')")
                                 span.text-danger {{ errors.first('last_name') }}
 
-                    div.row.row-margin
-                        input.half-input(v-validate="{rules: {required: true, regex: /^09[0-9]{9}$/} }" :class="{'input-danger': errors.has('mobile')}"  v-bind:data-vv-as="$i18n.t('user.mobile')" type="text" v-model="mobile" id="mobile" name="mobile" :placeholder= "$i18n.t('user.mobile')" tabindex="3" )
-                        div.ta-right(v-if="validation('mobile')")
-                            span.text-danger {{ errors.first('mobile') }}
+                        div.row.row-margin.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-right-margin
+                            input.half-input(v-validate="{rules: {required: true, regex: /^09[0-9]{9}$/} }" :class="{'input-danger': errors.has('mobile')}"  v-bind:data-vv-as="$i18n.t('user.mobile')" type="text" v-model="mobile" id="mobile" name="mobile" :placeholder= "$i18n.t('user.mobile')" tabindex="3" )
+                            div.ta-right(v-if="validation('mobile')")
+                                span.text-danger {{ errors.first('mobile') }}
 
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
@@ -45,8 +45,6 @@
                     a.link(href="http://zarinpal.com") {{$i18n.t('user.backToHomePage')}}
                 div.col-xs.ta-left
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
-                    span.gap
-                    a.link(href="https://www.zarinpal.com/policy.html" target="blank") {{$i18n.t('user.privacy')}}
 </template>
 <script>
     export default {
