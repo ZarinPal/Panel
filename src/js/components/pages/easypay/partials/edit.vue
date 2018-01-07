@@ -404,15 +404,6 @@
                 if (/,/g.test(price)) {
                     price = price.replace(/,/g, "");
                 }
-
-                //if easypay not advance
-                if (this.type === 0) {
-                    this.limit = null;
-                    this.successfulRedirectUrl = '';
-                    this.failedRedirectUrl = '';
-                    this.limited = 0;
-                }
-
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
@@ -424,7 +415,6 @@
                         name: this.handleOrderOptionsSave('name'),
                         mobile: this.handleOrderOptionsSave('mobile')
                     },
-                    type: this.type,
                     show_receipt: this.showReceipt,
                     successful_redirect_url: this.successfulRedirectUrl,
                     failed_redirect_url: this.failedRedirectUrl,
@@ -496,12 +486,6 @@
                     this.showReceipt = 1;
                 }
 
-                //set is easypay has advance or not and set it to 0 OR 1
-                if (this.type === true || this.type === 1) {
-                    this.type = 1;
-                } else {
-                    this.type = 0;
-                }
 
                 if (this.limited === false || this.limited === 0) {
                     this.limited = 0;
