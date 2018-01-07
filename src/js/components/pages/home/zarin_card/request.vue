@@ -13,8 +13,8 @@
 
                     div.user-information-box.ta-right
                         div {{ $i18n.t('user.firstName') }} : {{ user.name }}
-                        div {{ $i18n.t('user.userAddress') }} : {{ user.address }}
-                        div.persian-num {{ $i18n.t('user.postal') }} : {{ user.postal }}
+                        div {{ $i18n.t('user.userAddress') }} : {{ user.addresses[0].address }}
+                        div.persian-num {{ $i18n.t('user.postal') }} : {{ user.addresses[0].postal_code }}
 
                     div.row.zarin-card-request-box
                         div.col-xs.right-box

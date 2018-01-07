@@ -82,6 +82,13 @@
 
 
                     <!--span(v-if="transaction.to_merchant")-->
+                    div.row(v-if="transaction.payer.name")
+                        div.col-xs.ta-right
+                            span.title(v-if="transaction.payer.name")  {{$i18n.t('transaction.payerName')}}
+                        div.col-xs.ta-left
+                            span.value.persian-num(v-if="transaction.payer.name")  {{ transaction.payer.name}}
+
+
                     div.row(v-if="transaction.payer.mobile")
                         div.col-xs.ta-right
                             span.title(v-if="transaction.payer.mobile")  {{$i18n.t('transaction.payerMobile')}}
