@@ -579,6 +579,7 @@
       "pendingEffective": "در انتظار پرداخت",
       "undefined": "مشخص نشده"
     },
+    "payerName": "نام پرداخت کننده",
     "payerMobile": "موبایل پرداخت کننده",
     "payerEmail": "ایمیل پرداخت کننده",
     "excelExport": "خروجی اکسل",
