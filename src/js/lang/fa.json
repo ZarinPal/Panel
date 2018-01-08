@@ -947,7 +947,6 @@
     "setEmailTitle": "ثبت ایمیل",
     "loginToOldPanel": "ورود به پنل قدیمی",
     "copyUssd": "برای کپی کردن کد را لمس کنید"
-
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

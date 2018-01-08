@@ -67,7 +67,7 @@
                 this.visibleGetEmailFromUser = false;
             },
             redirect(progressKey) {
-                switch(progressKey) {
+                switch (progressKey) {
                     case 'mobile':
                         // this.visibleGetEmailFromUser = true;
                         break;

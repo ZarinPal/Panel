@@ -133,16 +133,16 @@
             },
             validateForm() {
                 this.$validator.validateAll({
-                    title : this.title,
-                    content : this.content,
-                    ticket_department_id : this.ticket_department_id
+                    title: this.title,
+                    content: this.content,
+                    ticket_department_id: this.ticket_department_id
                 }).then((result) => {
                     if (result) {
                         this.send();
                     }
                 });
             },
-            removeErrors : function (field) {
+            removeErrors: function (field) {
                 !!this[field] && this.errors.remove(field);
             },
             dragOver() {
