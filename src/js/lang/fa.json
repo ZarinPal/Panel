@@ -285,6 +285,7 @@
     "price": "مبلغ",
     "successfulRedirectUrl": "لینک بازگشت پرداخت موفق",
     "failedRedirectUrl": "لینک بازگشت پرداخت ناموفق",
+    "searchEasypay": "جستجو در زرین‌لینک ها",
     "selectPurseOrWebserviceId": "انتخاب کیف پول و یا درگاه پرداخت الزامی است",
     "selectWebservice": "انتخاب درگاه پرداخت"
   },
