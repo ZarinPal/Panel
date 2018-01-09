@@ -268,7 +268,7 @@
         computed: {
             webserviceSelection() {
                 if (this.$store.state.auth.user.webservices) {
-                    return this.$store.state.auth.user.webservices.filter(function(webservice) {
+                    return this.$store.state.auth.user.webservices.filter(function (webservice) {
                         return webservice.status;
                     }).map(function (webservice) {
                         return {
@@ -341,7 +341,7 @@
                 if (this.payTo === 'webservice') {
                     this.purse = null;
                     this.purse_name = null;
-                } else if(this.payTo === 'purse') {
+                } else if (this.payTo === 'purse') {
                     this.webservice_id = null;
                 }
             },

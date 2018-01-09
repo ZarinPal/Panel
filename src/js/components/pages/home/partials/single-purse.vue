@@ -7,14 +7,13 @@
                         p(v-if="this.$store.state.app.singlePurseMoreTrigger != purse.purse")
                             span.wallet-color(v-bind:class="'color-' + purse.purse")
 
-                            span(v-if="purse.purse == 1")
+                            span(v-if="purse.purse == 1 || purse.purse == 99")
                                 span.header-title {{ purse.name }}
-
-                            span(v-else-if="purse.purse == 99")
-                                span.header-title {{ purse.name }}
+                                span.zpid-box.pull-left ZP.{{user.public_id}}.{{ purse.purse }}
 
                             span(v-else)
                                 span.header-title.hand(v-if="!isEditingPurseName" @click="toggleEditPurse($event)") {{ purse.name }}
+                                span.zpid-box.pull-left(v-if="!isEditingPurseName") ZP.{{user.public_id}}.{{ purse.purse }}
 
                             span.nav-edit-wallet(v-if="isEditingPurseName")
                                 form(autocomplete="on" onsubmit="event.preventDefault();")
@@ -99,6 +98,9 @@
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
+            user(){
+                return this.$store.state.auth.user;
+            }
         },
         created(){
             store.commit('clearValidationErrors');
@@ -173,7 +175,8 @@
         components: {
             addFund,
             pTop,
-            withdraw,
+            withdraw
+
         }
     }
 </script>

@@ -15,13 +15,13 @@
                                         input(v-model="visibleIp" name="ipOptional" value="yes" type="radio" id="rdoWithIp")
                                         label(for="rdoWithIp")
                                             span
-                                            |{{ $i18n.t('webservice.withIpLimit')}}
+                                            | {{ $i18n.t('webservice.withIpLimit')}}
 
                                     div.col-xs.ta-right
                                         input(v-model="visibleIp" name="ipOptional" value="no" type="radio" id="rdoWithoutIp")
                                         label(for="rdoWithoutIp")
                                             span
-                                            |{{ $i18n.t('webservice.withoutIpLimit')}}
+                                            | {{ $i18n.t('webservice.withoutIpLimit')}}
 
 
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
@@ -181,7 +181,7 @@
                     }
                 });
             },
-            removeErrors : function (field) {
+            removeErrors: function (field) {
                 !!this[field] && this.errors.remove(field);
             },
             selectedPurse(purseId) {

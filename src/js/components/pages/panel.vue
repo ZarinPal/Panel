@@ -16,8 +16,8 @@
 
         div.clear-both
     <!--div(v-else)-->
-        <!--div.loading.ta-center-->
-            <!--div.spinner-->
+    <!--div.loading.ta-center-->
+    <!--div.spinner-->
 
 </template>
 

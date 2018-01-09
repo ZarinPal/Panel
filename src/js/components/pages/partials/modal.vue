@@ -37,7 +37,7 @@
             let body = document.getElementById('body');
 
             body.classList.remove("no-scroll");
-            if(this.$store.state.app.isOpenModal) {
+            if (this.$store.state.app.isOpenModal) {
                 body.className += " no-scroll";
             } else {
                 body.classList.remove("no-scroll");

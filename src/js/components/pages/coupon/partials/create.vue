@@ -119,7 +119,7 @@
         computed: {
             webserviceSelection() {
                 if (this.$store.state.auth.user.webservices) {
-                    let webservices = this.$store.state.auth.user.webservices.filter(function(webservice) {
+                    let webservices = this.$store.state.auth.user.webservices.filter(function (webservice) {
                         return webservice.status;
                     }).map(function (webservice) {
                         return {

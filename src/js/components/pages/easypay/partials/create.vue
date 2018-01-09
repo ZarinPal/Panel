@@ -1,4 +1,5 @@
-f<template lang="pug">
+f
+<template lang="pug">
     div.inner-content
         div.row.nav-page-header
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
@@ -60,7 +61,7 @@ f<template lang="pug">
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
                                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" :placeholder="$i18n.t('easypay.selectWebservice')")
                                                 <!--div.ta-right(v-if="validation('webservice_id')")-->
-                                                    <!--span.text-danger {{ errors.first('webservice_id') }}-->
+                                                <!--span.text-danger {{ errors.first('webservice_id') }}-->
 
                                         div.cb
                                         div.row.nav-buttons
@@ -254,7 +255,7 @@ f<template lang="pug">
         computed: {
             webserviceSelection() {
                 if (this.$store.state.auth.user.webservices) {
-                    return this.$store.state.auth.user.webservices.filter(function(webservice) {
+                    return this.$store.state.auth.user.webservices.filter(function (webservice) {
                         return webservice.status;
                     }).map(function (webservice) {
                         return {
@@ -324,7 +325,7 @@ f<template lang="pug">
                 if (this.payTo === 'webservice') {
                     this.purse = null;
                     this.purse_name = null;
-                } else if(this.payTo === 'purse') {
+                } else if (this.payTo === 'purse') {
                     this.webservice_id = null;
                 }
             },

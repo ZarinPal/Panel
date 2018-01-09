@@ -42,7 +42,7 @@
 
                 <!--span.input-icon.icon-location-->
                 <!--div.ta-right(v-if="validationErrors['addresses.'+ singleAddress.id +'.geo_location']")-->
-                    <!--span.text-danger {{ $i18n.t(validationErrors['addresses.'+ singleAddress.id +'.geo_location']) }}-->
+                <!--span.text-danger {{ $i18n.t(validationErrors['addresses.'+ singleAddress.id +'.geo_location']) }}-->
 
             <!--Show google map to select location-->
             <!--google-map(v-if="visibleMap" v-on:locationData="locationData" v-on:closeModal="closeModal()")-->
@@ -93,7 +93,7 @@
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
 
-                    let element = _.find(this.$validator.fields.items, function(field) {
+                    let element = _.find(this.$validator.fields.items, function (field) {
 
                         return field.name == name;
                     });

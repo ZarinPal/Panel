@@ -267,7 +267,7 @@
                 this.documentFiles = _.pickBy(this.documentFiles, _.isObject);
 
                 let uploadedFileNames = {};
-                _.forEach(this.documentFiles, function(file, fileKey) {
+                _.forEach(this.documentFiles, function (file, fileKey) {
                     if (file) {
                         formData.append('file', file);
 

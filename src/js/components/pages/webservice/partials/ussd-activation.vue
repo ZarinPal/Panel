@@ -96,7 +96,7 @@
                     }
                 });
             },
-            removeErrors : function (field) {
+            removeErrors: function (field) {
                 !!this[field] && this.errors.remove(field);
             },
             closeModal() {

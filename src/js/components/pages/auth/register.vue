@@ -83,7 +83,7 @@
         methods: {
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
-                    let element = _.find(this.$validator.fields.items, function(field) {
+                    let element = _.find(this.$validator.fields.items, function (field) {
                         return field.name == name;
                     });
                     this.errors.add(
