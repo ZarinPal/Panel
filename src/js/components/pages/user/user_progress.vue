@@ -86,7 +86,7 @@
                         this.$router.push({name: 'user.addAddress'});
                         break;
                     case 'username':
-                        this.$router.push({name: 'easypay.index'});
+                        this.$router.push({name: 'easypay.index', params: {visiblePersonalLink: 'Yes'}});
                         break;
                     case 'email':
                         this.visibleGetEmailFromUser = true;
