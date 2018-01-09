@@ -177,7 +177,7 @@
         methods: {
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
-                    let element = _.find(this.$validator.fields.items, function(field) {
+                    let element = _.find(this.$validator.fields.items, function (field) {
                         return field.name == name;
                     });
                     this.errors.add(
@@ -234,39 +234,39 @@
                             });
                         }
                     }).catch((response) => {
-                        this.loginLoading = false;
-                        this.getOtpLoading = false;
+                    this.loginLoading = false;
+                    this.getOtpLoading = false;
 
-                        /**
-                         * lockout_tiem
-                         */
+                    /**
+                     * lockout_tiem
+                     */
 
-                        if (response.data.meta.error_type === 'UserOtpRateLimit') {
-                            this.lockLogin = true;
-                            let duration = response.data.data.lockout_time;
-                            let minutes, seconds, vm = this;
+                    if (response.data.meta.error_type === 'UserOtpRateLimit') {
+                        this.lockLogin = true;
+                        let duration = response.data.data.lockout_time;
+                        let minutes, seconds, vm = this;
 
-                            let timer = setInterval(function () {
-                                minutes = parseInt(duration / 60, 10);
-                                seconds = parseInt(duration % 60, 10);
+                        let timer = setInterval(function () {
+                            minutes = parseInt(duration / 60, 10);
+                            seconds = parseInt(duration % 60, 10);
 
-                                console.log()
-                                vm.lockout_time_min = minutes < 10 ? "0" + minutes : minutes;
-                                vm.lockout_time_sec = seconds < 10 ? "0" + seconds : seconds;
+                            console.log()
+                            vm.lockout_time_min = minutes < 10 ? "0" + minutes : minutes;
+                            vm.lockout_time_sec = seconds < 10 ? "0" + seconds : seconds;
 
-                                if (--duration < 0) {
-                                    clearInterval(timer);
-                                    vm.onFinishedLockTime();
-                                }
-                            }, 1000);
-
-
-                        } else {
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                            if (!this.validationErrors.username) {
-                                this.userNotRegister = true;
+                            if (--duration < 0) {
+                                clearInterval(timer);
+                                vm.onFinishedLockTime();
                             }
+                        }, 1000);
+
+
+                    } else {
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        if (!this.validationErrors.username) {
+                            this.userNotRegister = true;
                         }
+                    }
 
 
                 });

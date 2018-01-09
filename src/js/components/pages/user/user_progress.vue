@@ -39,6 +39,7 @@
             referrer(v-if="visibleReferrer" v-on:closeModal="closeModal()")
             get-email(v-if="visibleGetEmailFromUser" v-on:closeModal="closeModal()")
 
+
 </template>
 
 
@@ -67,7 +68,7 @@
                 this.visibleGetEmailFromUser = false;
             },
             redirect(progressKey) {
-                switch(progressKey) {
+                switch (progressKey) {
                     case 'mobile':
                         // this.visibleGetEmailFromUser = true;
                         break;
@@ -75,7 +76,8 @@
                         this.visibleReferrer = true;
                         break;
                     case 'ssn':
-                        this.$router.push({name: 'user.levelUp'});
+                        if(!this.$store.state.auth.user.user_progress.ssn.check)
+                            this.$router.push({name: 'user.levelUp'});
                         break;
                     case 'card':
                         this.$router.push({name: 'card.index'});
@@ -95,6 +97,7 @@
         components: {
             referrer,
             getEmail
+
         }
     }
 </script>

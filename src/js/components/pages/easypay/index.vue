@@ -13,14 +13,24 @@
                 button.btn.success(@click="visibleRequestPersonalLink = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('user.requestPersonalLinkTitle') }}
-
-        <!--Search Form-->
-        form.row(onsubmit="event.preventDefault();")
-            div.col-lg-4.col-md-4.col-sm-8.col-xs-8
-                input(v-model="searchOptions.title" type="text" :placeholder="$i18n.t('easypay.title')")
-            div.col-lg-4.col-md-4.col-sm-4.col-xs-4.search-box-buttons
-                button.btn.info.pull-right(v-ripple="" @click="search()")
-                    span {{ $i18n.t('common.search') }}
+        div.row
+            div.col-xs
+                div.section
+                    div.box
+                        div.body.search-box
+                            div.row
+                                span.icon-search
+                                span.search-title {{ $i18n.t('easypay.searchEasypay') }}
+                                span.break
+                                    <!--Search Form-->
+                            div.row
+                                form.row.search-padding(onsubmit="event.preventDefault();")
+                                    div.col-lg-8.col-md-8.col-sm-8.col-xs-12
+                                        input(v-model="searchOptions.title" type="text" :placeholder="$i18n.t('easypay.title')")
+                                        div.break
+                                    div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
+                                        button.btn.info.pull-right(v-ripple="" @click="search()")
+                                            span {{ $i18n.t('common.search') }}
 
         <!--easypays-->
         div.row

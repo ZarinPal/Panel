@@ -82,6 +82,13 @@
 
 
                     <!--span(v-if="transaction.to_merchant")-->
+                    div.row(v-if="transaction.payer.name")
+                        div.col-xs.ta-right
+                            span.title(v-if="transaction.payer.name")  {{$i18n.t('transaction.payerName')}}
+                        div.col-xs.ta-left
+                            span.value.persian-num(v-if="transaction.payer.name")  {{ transaction.payer.name}}
+
+
                     div.row(v-if="transaction.payer.mobile")
                         div.col-xs.ta-right
                             span.title(v-if="transaction.payer.mobile")  {{$i18n.t('transaction.payerMobile')}}
@@ -99,6 +106,12 @@
                             span.title {{$i18n.t('common.description')}}
                         div.col-xs.ta-left
                             span.value  {{ transaction.description}}
+
+                    div.row(v-if="transaction.note")
+                        div.col-xs.ta-right
+                            span.title(v-if="transaction.note")  {{$i18n.t('transaction.note')}}
+                        div.col-xs.ta-left
+                            span.value(v-if="transaction.note")  {{ transaction.note }}
 
             div.footer.bottom-xs
                 a.print.hand(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}

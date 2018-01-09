@@ -285,6 +285,7 @@
     "price": "مبلغ",
     "successfulRedirectUrl": "لینک بازگشت پرداخت موفق",
     "failedRedirectUrl": "لینک بازگشت پرداخت ناموفق",
+    "searchEasypay": "جستجو در زرین‌لینک ها",
     "selectPurseOrWebserviceId": "انتخاب کیف پول و یا درگاه پرداخت الزامی است",
     "selectWebservice": "انتخاب درگاه پرداخت"
   },
@@ -573,11 +574,13 @@
       "pendingEffective": "در انتظار پرداخت",
       "undefined": "مشخص نشده"
     },
+    "payerName": "نام پرداخت کننده",
     "payerMobile": "موبایل پرداخت کننده",
     "payerEmail": "ایمیل پرداخت کننده",
     "excelExport": "خروجی اکسل",
     "fromDate": "از تاریخ",
     "toDate": "تا تاریخ",
+    "note": "یادداشت",
     "payerMask": "شماره‌کارت پرداخت کننده",
     "payerIssuer": "بانک صادر‌کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید.",
@@ -944,7 +947,6 @@
     "setEmailTitle": "ثبت ایمیل",
     "loginToOldPanel": "ورود به پنل قدیمی",
     "copyUssd": "برای کپی کردن کد را لمس کنید"
-
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

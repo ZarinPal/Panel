@@ -48,7 +48,7 @@
                 let inActiveCards = [];
                 let reorderedCards = [];
 
-                let cards =  {
+                let cards = {
                     data: this.$store.state.paginator.paginator.CardList.data,
                     status: this.$store.state.paginator.paginator.CardList.isLoading,
                     update: this.$store.state.paginator.update,
