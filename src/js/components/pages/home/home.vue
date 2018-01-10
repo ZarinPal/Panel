@@ -10,6 +10,7 @@
                 <!--span.icon-add-circle-->
                 <!--span.text {{ $i18n.t('common.createPurse') }}-->
 
+
         div.nav-top-buttons.row
             div.col-lg-9.col-md-9.col-sm-12.col-xs-12.xs-ta-center.sm-ta-center
                 button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
