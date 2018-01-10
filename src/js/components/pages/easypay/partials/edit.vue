@@ -32,7 +32,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input.ltr-input(v-mask="{money: true}"  v-validate="'required'" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')"  type="text" v-model="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
+                                            input.ltr-input(v-mask="{money: true}"  v-validate="'required'" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')" type="text" v-model.lazy="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
                                             div.ta-right(v-if="validation('price')")
                                                 span.text-danger {{ errors.first('price') }}
 
@@ -361,17 +361,6 @@
                             this.payTo = 'webservice';
                             this.webservice_id = response.data.data.webservice_id;
                         }
-
-//                        if (
-//                            response.data.data.show_receipt ||
-//                            response.data.data.successful_redirect_url ||
-//                            response.data.data.failed_redirect_url ||
-//                            response.data.data.limit
-//                        ) {
-//                            this.type = 1;
-//                        } else {
-//                            this.type = 0
-//                        }
                         this.limit = response.data.data.limit;
 
                         this.handleOrderOptions('email');
