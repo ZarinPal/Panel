@@ -21,7 +21,7 @@
                             span.text-danger {{ errors.first('purse') }}
 
                         div.row
-                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount"  id="amount" tabindex="1" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
+                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model.lazy="amount" name="amount"  id="amount" tabindex="1" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
                             div.ta-right(v-if="validation('amount')")
                                 span.text-danger {{ errors.first('amount') }}
 
@@ -99,7 +99,7 @@
                 loading: false,
                 closeModalContent: false,
                 confirmVisible: false,
-                amount: 0,
+                amount: null,
                 purse: null,
                 redirectUrl: encodeURI(
                     'https://' + window.location.hostname + '/'
@@ -244,8 +244,6 @@
                 let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function (purse) {
                     return purse.purse === purseId;
                 });
-
-                this.amount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
                 this.withdrawAmount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
             },
             getPursesBalances() {
@@ -295,7 +293,8 @@
                 let withdrawData = {
                     amount: amount,
                     card_id: this.card.id,
-                    purse: this.purse
+                    purse: this.purse,
+                    fee_id: this.feeDetails.id
                 };
 
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
@@ -305,7 +304,6 @@
                         this.loading = false;
                         this.$store.commit('flashMessage', {
                             text: response.data.meta.message,
-                            important: false,
                             type: 'success'
                         });
 

@@ -30,7 +30,7 @@ f
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true}}" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')"  type="text" v-model="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
+                                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true}}" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')" type="text" v-model.lazy="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
                                             div.ta-right(v-if="validation('price')")
                                                 span.text-danger {{ errors.first('price') }}
 

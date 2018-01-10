@@ -10,7 +10,7 @@
                     div.col-xs.label-group.full-width.no-margin
                         div.col-xs.text.merchant-code
                             input.txt-referrer-link(:id="'txtReferrerId'" onfocus="this.select();" v-bind:value="$root.baseUrl + '/auth/register?referrer=' + referrer.link" readonly="readonly")
-                        div.icon(@click="clipboardMessage(referrer.link)" v-clipboard="" v-bind:data-clipboard-text="$root.baseUrl + '/auth/register?referrer=' + referrer.link")
+                        div.icon.edit(@click="clipboardMessage(referrer.link)" v-clipboard="" v-bind:data-clipboard-text="$root.baseUrl + '/auth/register?referrer=' + referrer.link")
 
             <!--Referred Users-->
             div.referrers

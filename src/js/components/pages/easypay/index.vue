@@ -77,6 +77,8 @@
             }
         },
         created() {
+            this.showPersonalLink();
+
             this.search();
 
             let vm = this;
@@ -98,8 +100,6 @@
                 this.visibleRequestPersonalLink = false;
             },
             search() {
-
-
                 this.getEasypays();
             },
             getEasypays() {
@@ -113,7 +113,12 @@
                         params: vm.searchOptions,
                     }
                 );
-            }
+            },
+            showPersonalLink() {
+                if (this.$route.params.visiblePersonalLink == 'Yes') {
+                    this.visibleRequestPersonalLink = true;
+                }
+            },
         },
         components: {
             singleEasypay,

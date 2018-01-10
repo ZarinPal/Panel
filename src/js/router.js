@@ -100,7 +100,7 @@ export default new VueRouter({
                             }
                         },
                         {
-                            path: 'easypay',
+                            path: 'easypay/:visiblePersonalLink?',
                             name: 'easypay.index',
                             component: require('./components/pages/easypay/index.vue'),
                             meta: {
