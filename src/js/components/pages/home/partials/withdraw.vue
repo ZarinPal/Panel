@@ -99,7 +99,7 @@
                 loading: false,
                 closeModalContent: false,
                 confirmVisible: false,
-                amount: 0,
+                amount: null,
                 purse: null,
                 redirectUrl: encodeURI(
                     'https://' + window.location.hostname + '/'
@@ -244,8 +244,6 @@
                 let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function (purse) {
                     return purse.purse === purseId;
                 });
-
-                this.amount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
                 this.withdrawAmount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
             },
             getPursesBalances() {
@@ -295,7 +293,8 @@
                 let withdrawData = {
                     amount: amount,
                     card_id: this.card.id,
-                    purse: this.purse
+                    purse: this.purse,
+                    fee_id: this.feeDetails.id
                 };
 
                 this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
@@ -305,7 +304,6 @@
                         this.loading = false;
                         this.$store.commit('flashMessage', {
                             text: response.data.meta.message,
-                            important: false,
                             type: 'success'
                         });
 
