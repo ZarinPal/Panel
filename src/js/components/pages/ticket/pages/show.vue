@@ -68,7 +68,7 @@
                         b.title پاسخ به تیکت:
                         span.value {{ ticket.title }}
                     div
-                        textarea(v-validate="{ rules: {required: true, min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
+                        textarea(v-validate="{ rules: { min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
                         div.ta-right(v-if="validation('content')")
                             span.text-danger {{ errors.first('content') }}
 
