@@ -67,13 +67,13 @@
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('purse.destinationZpId') }}
                             div.col-xs.ta-left
-                                span.value {{destinationUser.name}}
+                                span.value {{destinationUser.zp_id}}
 
                         div.row
                             div.col-xs.ta-right
                                 span.label {{ $i18n.t('purse.destinationUserName') }}
                             div.col-xs.ta-left
-                                span.value {{destinationUser.zp_id}}
+                                span.value {{destinationUser.name}}
 
                         div.row
                             div.col-xs.ta-right
