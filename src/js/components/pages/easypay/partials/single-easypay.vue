@@ -3,7 +3,7 @@
         div.box
             div.top-xs.header
                 div.row
-                    div.col-xs.right-box
+                    div.col-xs.right-box.overflow-hidden
                         p(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id")
                             span.green-small-circle(@click="confirmVisible = true")
                             span.header-title(:title="easypay.title") {{easypay.title}}
@@ -19,7 +19,7 @@
                                 router-link.drop-down-item.edit(v-ripple="" tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
                                 span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
 
-                        a.header-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
+                        a.header-link.overflow-visible(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
 
             div.middle-xs.body
                 div.row.box-row
