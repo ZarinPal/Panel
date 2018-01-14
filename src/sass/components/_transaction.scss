@@ -243,6 +243,16 @@ $transactionInternalColor: #656565;
             }
           }
         }
+        .nav-deposit-toexit {
+          background-color: $depositColorToexit;
+          .from {
+            background-color: $depositColorToexitFrom;
+
+            &:before {
+              border-color: transparent $depositColorToexitFrom transparent transparent;
+            }
+          }
+        }
 
         .nav-deposit-internal {
           background-color: $depositColorP2p;

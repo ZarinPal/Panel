@@ -68,7 +68,7 @@
                         b.title پاسخ به تیکت:
                         span.value {{ ticket.title }}
                     div
-                        textarea(v-validate="{ rules: {required: true, min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
+                        textarea(v-validate="{ rules: { min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
                         div.ta-right(v-if="validation('content')")
                             span.text-danger {{ errors.first('content') }}
 
@@ -79,8 +79,8 @@
                         label.attach
                             span.select-text(:class="{'uploaded' : fileUploaded}")
                             input(type="file" name="file" @change="onFileChange")
-
-                        span(v-if="fileUploading == 'Failed'") upload failed
+                            span.msg-danger(v-if="uploadResult.error_message") {{ $i18n.t('ticket.' + uploadResult.error_type)}}
+                            span.msg-success(v-if="uploadResult.file_id") {{ $i18n.t('ticket.uploadSuccess')}}
                         span.nav-upload-loading(v-if="fileUploading")
                             loading
 
@@ -93,6 +93,7 @@
         data() {
             return {
                 fileUploading: false,
+                uploadResult: false,
                 fileUploaded: false,
                 loading: false,
                 isLoadReplies: false,
@@ -196,6 +197,10 @@
                         this.getReplies(this.$route.params.id);
                         this.loading = false;
                         this.validationErrors.content = '';
+                        store.commit('flashMessage', {
+                            text: 'reply-success',
+                            type: 'success'
+                        });
                     },
                     (response) => {
                         this.loading = false;
@@ -237,6 +242,7 @@
                     this.attachment = response.data.meta.file_id;
                     this.fileUploading = false;
                     this.fileUploaded = true;
+                    this.uploadResult = response.data.meta;
                 }, (response) => {
                     this.fileUploading = 'Failed';
                 });

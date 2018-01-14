@@ -351,6 +351,7 @@
     "the-card-or-iban-already-exists": "شماره‌کارت یا شماره شبا وجود دارد",
     "username-fix-late-you-can-not-change-this-name": "امکان تغییر نام کاربری وجود ندارد",
     "username-created": "نام کاربری ذخیره شد",
+    "reply-success": "پاسخ تیکت با موفقیت ارسال شد.",
     "email-set-success-check-your-email": "ایمیل شما با موفقیت ثبت شد. لطفا حساب ایمیل خودرا جهت فعالسازی بررسی نمایید.",
     "the-user-does-not-have-access": "کاربر دسترسی ندارد"
   },
@@ -537,6 +538,15 @@
     "assignedAll": "تیکت‌های ارجاع داده‌شده",
     "addTicket": "افزودن تیکت جدید",
     "sendDescription": "از طریق فرم زیر نسبت به ایجاد تیکت جدید اقدام کنید",
+    "uploadSuccess": "فایل با موفقیت آپلود شد",
+    "InvalidType": "نوع فایل ارسالی صحیح نیست.",
+    "InvalidFile": "نوع فایل ارسالی صحیح نیست.",
+    "InvalidFileEmpty": "لطفا فایلی را برای اپلود انتخاب کنید.",
+    "InvalidFileSize": "سایز فایل باید کمتر از ۲ مگابایت باشد.",
+    "InvalidFileExt": "فایل دارای پسوند مجاز نسیت ،پسوند هاس مجاز : jpg،png،gif،zip ",
+    "InvalidFileImg": "تصویر دارای فرمت صحیح نیست.",
+    "InvalidFileDimen": "طول و عرض لوگو باید 500*500 پیکسل باشد",
+    "InternalError": "خطای داخلی در زمان آپلود فایل رخ داد.",
     "ticketReplyContent": "متن پاسخ تیکت ..."
   },
   "transaction": {
@@ -581,6 +591,7 @@
     "fromDate": "از تاریخ",
     "toDate": "تا تاریخ",
     "note": "یادداشت",
+    "addNote": "افزودن یادداشت",
     "payerMask": "شماره‌کارت پرداخت کننده",
     "payerIssuer": "بانک صادر‌کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید.",

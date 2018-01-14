@@ -4,7 +4,7 @@
         div.content(slot="content")
             div.body
                 div.deposit-background
-                    div.row.nav-deposit(v-bind:class="{'nav-deposit-in': transaction.effective_sign == 1, 'nav-deposit-internal': transaction.effective_sign == 0, 'nav-deposit-out': transaction.effective_sign == -1 }")
+                    div.row.nav-deposit(v-bind:class="{'nav-deposit-in': transaction.effective_sign == 1 && transaction.confirmed =='confirmed', 'nav-deposit-internal': transaction.effective_sign == 0 && transaction.confirmed =='confirmed', 'nav-deposit-out': transaction.effective_sign == -1 && transaction.confirmed =='confirmed' ,'nav-deposit-toexit': transaction.confirmed =='pendingExit' }")
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-6.from
                             div.row
                                 div.user-image

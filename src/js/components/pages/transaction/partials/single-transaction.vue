@@ -44,7 +44,7 @@
 
             div.col-lg-1.col-md-2.col-sm-12.col-xs-12.ta-center
                 span.nav-amount
-                    span(v-if="transaction.confirmed =='confirmed'")
+                    span(v-if="transaction.confirmed =='confirmed' || transaction.confirmed =='pendingExit'")
                         span(v-if="transaction.effective_sign == 1")
                             span.text.color-success.persian-num {{transaction.amount | numberFormat}}
 
