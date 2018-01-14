@@ -353,7 +353,8 @@
     "username-created": "نام کاربری ذخیره شد",
     "reply-success": "پاسخ تیکت با موفقیت ارسال شد.",
     "email-set-success-check-your-email": "ایمیل شما با موفقیت ثبت شد. لطفا حساب ایمیل خودرا جهت فعالسازی بررسی نمایید.",
-    "the-user-does-not-have-access": "کاربر دسترسی ندارد"
+    "the-user-does-not-have-access": "کاربر دسترسی ندارد",
+    "card-added-success": "حساب بانکی اضافه شد"
   },
   "panel": {
     "home": "پیشخوان",

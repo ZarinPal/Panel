@@ -160,19 +160,14 @@
                     return;
                 }
 
-                if (this.isLegal === 1) {
-                    this.pan = '';
-                    this.year = '';
-                    this.month = '';
-                }
-
-
                 let formatedPan = this.pan;
                 if (/-/g.test(formatedPan)) {
                     formatedPan = this.pan.split('-').join('');
                 }
 
                 let expiredAt = this.jalaliToGregorian(this.year, this.month);
+
+
 
                 let cardData = {
                     iban: 'IR' + this.iban,
@@ -181,10 +176,19 @@
                     expired_at: expiredAt,
                 };
 
+                if (this.isLegal === "1") {
+                    delete cardData.pan;
+                    delete cardData.expired_at;
+                }
+
                 this.$store.state.http.requests['card.getList'].save(cardData).then(
                     () => {
                         this.loading = false;
-                        this.$router.push({name: 'card.index'});
+                        store.commit('flashMessage', {
+                            text: 'card added success',
+                            type: 'success'
+                        });
+                        this.closeModal();
                     },
                     (response) => {
                         this.loading = false;
