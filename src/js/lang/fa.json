@@ -543,7 +543,7 @@
     "InvalidFile": "نوع فایل ارسالی صحیح نیست.",
     "InvalidFileEmpty": "لطفا فایلی را برای اپلود انتخاب کنید.",
     "InvalidFileSize": "سایز فایل باید کمتر از ۲ مگابایت باشد.",
-    "InvalidFileExt": "فایل دارای پسوند مجاز نسیت ،پسوند هاس مجاز : jpg،png،gif،zip ",
+    "InvalidFileExt": "فایل دارای پسوند مجاز نسیت ،پسوند های مجاز : jpg png gif zip ",
     "InvalidFileImg": "تصویر دارای فرمت صحیح نیست.",
     "InvalidFileDimen": "طول و عرض لوگو باید 500*500 پیکسل باشد",
     "InternalError": "خطای داخلی در زمان آپلود فایل رخ داد.",
