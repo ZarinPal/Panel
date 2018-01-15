@@ -353,7 +353,9 @@
     "username-created": "نام کاربری ذخیره شد",
     "reply-success": "پاسخ تیکت با موفقیت ارسال شد.",
     "email-set-success-check-your-email": "ایمیل شما با موفقیت ثبت شد. لطفا حساب ایمیل خودرا جهت فعالسازی بررسی نمایید.",
-    "the-user-does-not-have-access": "کاربر دسترسی ندارد"
+    "the-user-does-not-have-access": "کاربر دسترسی ندارد",
+    "verify-telegram-done": "فعالسازی ربات تلگرام با موفقیت انجام شد",
+    "verify-telegram-error": "متاسفانه فعالسازی ربات تلگرام با مشکل مواجه شد"
   },
   "panel": {
     "home": "پیشخوان",
@@ -938,6 +940,9 @@
     "userProgress": "مشاهده وضعیت حساب کاربری",
     "userProgressDescription": "در این صفحه شما می‌توانید وضعیت تمکیل بودن حساب کاربری خود را مشاهده کنید",
     "addEmailDescription": "در این صفحه شما می‌توانید ادرس ایمیل خود را وارد نمایید",
+    "verifyTelegramTitle": "فعالسازی ربات تلگرام",
+    "verifyTelegramDesk": "آیا فعالسازی ربات تلگرام زرین پال را برای این اکانت تایید می نمایید ؟",
+    "verifyTelegramConfirm": "بله ، فعال شود",
     "progress": {
       "addresses": "افزودن آدرس پستی",
       "botTelegram": "عضویت در ربات تلگرام",

@@ -124,6 +124,14 @@ export default new VueRouter({
                             }
                         },
                         {
+                            path: 'user/verifyNotification/:id',
+                            name: 'user.verifyNotification',
+                            component: require('./components/pages/user/verfiy-telegram.vue'),
+                            meta: {
+                                accessLevel: ['basic', 'silver', 'gold']
+                            }
+                        },
+                        {
                             path: 'coupon',
                             name: 'coupon.index',
                             component: require('./components/pages/coupon/index.vue'),
