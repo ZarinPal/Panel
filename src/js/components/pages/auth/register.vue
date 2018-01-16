@@ -120,7 +120,7 @@
                 };
 
                 if (this.$route.query.referrer) {
-                    auth2Data.referer = atob(this.$route.query.referrer)
+                    auth2Data.referrer = atob(this.$route.query.referrer)
                 }
 
                 this.$store.state.http.requests['oauth.PostRegisterUser'].save(auth2Data).then(
