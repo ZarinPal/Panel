@@ -23,6 +23,10 @@
             closeModal(){
                 this.$router.push({name: 'home.index'})
                 this.confirmVisible = false;
+                store.commit('flashMessage', {
+                    text: 'verifyTelegramCancel',
+                    type: 'danger'
+                });
             },
             verify(){
                 this.confirm = true;
