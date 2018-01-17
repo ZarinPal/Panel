@@ -42,7 +42,7 @@
             },
             confirmed() {
                 this.$emit('confirmed');
-                if (!keepConfirmedOpen) {
+                if (!this.keepConfirmedOpen) {
                     this.closeModal();
                 }
 
