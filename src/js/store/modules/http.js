@@ -379,7 +379,7 @@ export default {
 
                     let error = response.data.meta;
 
-                    let checkRoute = _.find(state.routes, function(route) {
+                    let checkRoute = _.find(state.routes, function (route) {
                         return route.name === 'oauth.check';
                     });
 

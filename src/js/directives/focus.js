@@ -1,6 +1,6 @@
 export default {
     bind: function (el) {
-        Vue.nextTick(function() {
+        Vue.nextTick(function () {
             el.focus();
         });
     }

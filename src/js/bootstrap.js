@@ -17,6 +17,7 @@ import VueI18n from "vue-i18n";
  */
 import VeeValidate from "vee-validate";
 import messagesFa from "./lang/validation/fa";
+import VueSentry from "vue2-sentry";
 
 Vue.use(VeeValidate, {
     locale: 'fa',
@@ -44,8 +45,6 @@ const i18n = new VueI18n({
     fallbackLocale: 'en',
 });
 window.i18n = i18n;
-
-import VueSentry from 'vue2-sentry';
 
 Vue.use(VueSentry, {
     protocol: 'https', // default is https

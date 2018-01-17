@@ -88,7 +88,7 @@ export default new VueRouter({
                             name: 'card.index',
                             component: require('./components/pages/card/index.vue'),
                             meta: {
-                                accessLevel: ['basic','silver', 'gold']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
