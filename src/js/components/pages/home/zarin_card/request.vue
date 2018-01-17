@@ -13,8 +13,10 @@
 
                     div.user-information-box.ta-right
                         div {{ $i18n.t('user.firstName') }} : {{ user.name }}
-                        div {{ $i18n.t('user.userAddress') }} : {{ user.addresses[0].address }}
-                        div.persian-num {{ $i18n.t('user.postal') }} : {{ user.addresses[0].postal_code }}
+                        div(v-if="user.addresses[0].address") {{ $i18n.t('user.userAddress') }} : {{ user.addresses[0].address }}
+                        div.persian-num(v-if="user.addresses[0].postal_code") {{ $i18n.t('user.postal') }} : {{ user.addresses[0].postal_code }}
+                        div.text-danger(v-if="!user.addresses[0].address" @click="goAddAddress") {{ $i18n.t('user.userAddress') }} : {{ $i18n.t('user.addressEmpty') }}
+                        div.text-danger(v-if="!user.addresses[0].postal_code" @click="goAddAddress") {{ $i18n.t('user.postal') }} : {{ $i18n.t('user.postalCodeEmpty') }}
 
                     div.row.zarin-card-request-box
                         div.col-xs.right-box
@@ -98,6 +100,9 @@
             },
             closeModal() {
                 this.$emit('closeModal')
+            },
+            goAddAddress() {
+                this.$router.push({name: 'user.addAddress'})
             },
             selectedPurse(purseId) {
                 this.purse_number = purseId;

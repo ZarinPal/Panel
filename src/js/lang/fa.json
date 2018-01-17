@@ -653,6 +653,8 @@
     "userLandLine": "شماره تلفن ثابت",
     "userPostal": "کد پستی",
     "userAddress": "آدرس پستی",
+    "addressEmpty": "آدرس پستی وارد نشده، برای وارد کردن ادرس کلیک کنید",
+    "postalCodeEmpty": "کد پستی وارد نشده ، برای وارد کردن کلیک کنید",
     "userUpdateInfo": "به‌روزرسانی",
     "userSMS": "تنظیمات پیام کوتاه",
     "VerifyMobile": "تأیید شماره  موبایل",
