@@ -76,7 +76,7 @@
                         this.visibleReferrer = true;
                         break;
                     case 'ssn':
-                        if(!this.$store.state.auth.user.user_progress.ssn.check)
+                        if (!this.$store.state.auth.user.user_progress.ssn.check)
                             this.$router.push({name: 'user.levelUp'});
                         break;
                     case 'card':
