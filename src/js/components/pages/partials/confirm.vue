@@ -22,6 +22,9 @@
                 closeModalContent: false,
             }
         },
+        props: [
+            'keepConfirmedOpen'
+        ],
         computed: {
             hasMessageDanger() {
                 return this.$slots.messageDanger;
@@ -39,7 +42,10 @@
             },
             confirmed() {
                 this.$emit('confirmed');
-                this.closeModal();
+                if (!this.keepConfirmedOpen) {
+                    this.closeModal();
+                }
+
             }
         },
         components: {

@@ -121,9 +121,10 @@
             store.commit('clearValidationErrors');
             //Change ticket list new ticket button
             this.$store.commit('app/changeTicketState');
+            this.getReplies(this.$route.params.id);
         },
         mounted() {
-            this.getReplies(this.$route.params.id);
+
             let vm = this;
             let ticketContent = document.getElementById('ticketContent');
 

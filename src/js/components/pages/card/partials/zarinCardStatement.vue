@@ -29,12 +29,13 @@
 
                 div.bottom-box
                     div.row.transaction-fields-title
-                        div.col-lg-4.col-md-4.col-sm-4.col-xs-6
+                        div.col-lg-1.col-md-1.col-sm-1.col-xs-1
+                        div.col-lg-3.col-md-3.col-sm-3.col-xs-5
                             span {{ $i18n.t('transaction.date') }}
                         div.col-lg-3.col-md-3.col-sm-3.col-xs-6
                             span {{ $i18n.t('common.amount') }}
                             small ({{ $i18n.t('transaction.toman') }})
-                        div.col-lg-5.col-md-5.col-sm-5.hidden-xs
+                        div.col-lg-5.col-md-5.col-sm-5.hidden-xs.ta-center
                             span {{ $i18n.t('common.description') }}
 
                     div.row.transaction-row(v-for="statement in zarinCardStatements.statements")

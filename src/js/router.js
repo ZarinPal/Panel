@@ -88,7 +88,7 @@ export default new VueRouter({
                             name: 'card.index',
                             component: require('./components/pages/card/index.vue'),
                             meta: {
-                                accessLevel: ['basic','silver', 'gold']
+                                accessLevel: ['basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -119,6 +119,14 @@ export default new VueRouter({
                             path: 'easypay/edit/:public_id',
                             name: 'easypay.edit',
                             component: require('./components/pages/easypay/partials/edit.vue'),
+                            meta: {
+                                accessLevel: ['basic', 'silver', 'gold']
+                            }
+                        },
+                        {
+                            path: 'user/verifyNotification/:id',
+                            name: 'user.verifyNotification',
+                            component: require('./components/pages/user/verfiy-telegram.vue'),
                             meta: {
                                 accessLevel: ['basic', 'silver', 'gold']
                             }

@@ -19,7 +19,7 @@
                     span.icon.logout {{$i18n.t('common.logout')}}
 
                 <!--Logout confirm dialog-->
-                confirm(v-if="confirmVisible" v-on:confirmed="logout()" v-on:closeModal="closeModal")
+                confirm(v-if="confirmVisible" v-on:confirmed="logout()" v-on:closeModal="closeModal" :keepConfirmedOpen="true")
                     span(slot="title") {{$i18n.t('common.logout')}}
                     div.ta-right(slot="message")
                         div آیا خارج می‌شوید؟
