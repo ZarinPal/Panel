@@ -36,10 +36,10 @@
                         div.row.nav-expiration-input
                             div.col-xs.no-margin
                                 span.label {{$i18n.t('card.month')}}:
-                                input#month(v-validate="{ rules: {required: true, numeric: true, max_value: 12}}" v-bind:data-vv-as="$i18n.t('card.month')" :class="{'input-danger': errors.has('month')}" type="text" v-model="month" name="month" :placeholder= "$i18n.t('card.month')" maxlength="2" @keyup="changeMonthFocus")
+                                input#month(v-validate="{ rules: {required: true, numeric: true, max_value: 12}}" v-bind:data-vv-as="$i18n.t('card.month')" :class="{'input-danger': errors.has('month')}" type="text" v-model="month" name="month" :placeholder= "$i18n.t('card.month')" maxlength="2")
                             div.col-xs.no-margin
                                 span.label {{$i18n.t('card.year')}}:
-                                input#year(v-validate="{ rules: {required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('card.year')" :class="{'input-danger': errors.has('year')}" type="text" v-model="year" name="year" :placeholder= "$i18n.t('card.year')"  maxlength="4" @keyup="changeYearFocus")
+                                input#year(v-validate="{ rules: {required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('card.year')" :class="{'input-danger': errors.has('year')}" type="text" v-model="year" name="year" :placeholder= "$i18n.t('card.year')"  maxlength="4")
 
                         div.ta-right
                             div.text-danger(v-if="validation('year')") {{ errors.first('year') }}
@@ -171,27 +171,27 @@
                 gregorian = gregorian._i;
                 return gregorian.substr(0, gregorian.length - 3);
             },
-            changeMonthFocus(event) {
-                let target = event.srcElement;
-                let maxLength = parseInt(target.attributes["maxlength"].value);
-                let myLength = target.value.length;
-
-                if (myLength >= maxLength) {
-                    setTimeout(() => {
-                        document.getElementById("year").focus()
-                    }, 10);
-                }
-            },
-            changeYearFocus(event) {
-                let target = event.srcElement;
-                let maxLength = parseInt(target.attributes["maxlength"].value);
-                let myLength = target.value.length;
-
-                if (myLength >= maxLength) {
-                    document.getElementById("month").focus();
-                }
-
-            }
+//            changeMonthFocus(event) {
+//                let target = event.srcElement;
+//                let maxLength = parseInt(target.attributes["maxlength"].value);
+//                let myLength = target.value.length;
+//
+//                if (myLength >= maxLength) {
+//                    setTimeout(() => {
+//                        document.getElementById("year").focus()
+//                    }, 10);
+//                }
+//            },
+//            changeYearFocus(event) {
+//                let target = event.srcElement;
+//                let maxLength = parseInt(target.attributes["maxlength"].value);
+//                let myLength = target.value.length;
+//
+//                if (myLength >= maxLength) {
+//                    document.getElementById("month").focus();
+//                }
+//
+//            }
         },
         components: {
             modal
