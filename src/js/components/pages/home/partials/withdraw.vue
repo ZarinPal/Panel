@@ -266,12 +266,9 @@
             withdraw() {
                 this.loading = true;
                 let amount = this.amount;
-                if (/,/g.test(this.amount)) {
-                    amount = this.amount.replace(/,/g, "");
-                }
 
                 let withdrawData = {
-                    amount: amount,
+                    amount: this.clearNumber(this.amount),
                     card_id: this.card.id,
                     purse: this.purse,
                     fee_id: this.feeDetails.id
