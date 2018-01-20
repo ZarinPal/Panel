@@ -90,12 +90,10 @@
     import purse from '../../partials/purses.vue';
     import confirm from '../../partials/confirm.vue';
 
-
     export default {
         name: 'home-purse-withdraw',
         data() {
             return {
-
                 loading: false,
                 closeModalContent: false,
                 confirmVisible: false,
@@ -115,7 +113,6 @@
                 selectedFee: {},
                 reconcileIn: null,
                 fees: [],
-
             }
         },
         computed: {

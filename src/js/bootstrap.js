@@ -8,6 +8,7 @@ window.moment.loadPersian();
  * using reactive data binding and reusable components. Vue's API is clean
  * and simple, leaving you to focus on building your next great project.
  */
+
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
@@ -19,6 +20,9 @@ import VeeValidate from "vee-validate";
 import messagesFa from "./lang/validation/fa";
 import VueSentry from "vue2-sentry";
 
+import NumberFormat from './mixin/number_format';
+import Validation from './mixin/validation';
+
 Vue.use(VeeValidate, {
     locale: 'fa',
     dictionary: {
@@ -29,16 +33,13 @@ Vue.use(VeeValidate, {
 window.Vue = Vue;
 require('vue-resource');
 
-
 window.VueRouter = VueRouter;
 Vue.use(window.VueRouter);
 
 window.Vuex = Vuex;
 Vue.use(Vuex);
 
-
 Vue.use(VueI18n);
-
 
 const i18n = new VueI18n({
     locale: 'fa',
@@ -95,7 +96,7 @@ Vue.directive(
 Vue.directive(
     'avatar',
     require('./directives/avatar').default
-)
+);
 Vue.directive(
     'focus',
     require('./directives/focus').default
