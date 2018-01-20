@@ -175,23 +175,6 @@
                 });
         },
         methods: {
-            validation(name) {
-                if (this.$store.state.alert.validationErrors[name]) {
-                    let element = _.find(this.$validator.fields.items, function (field) {
-                        return field.name == name;
-                    });
-                    this.errors.add(
-                        name,
-                        this.$validator.dictionary.container.fa.messages[this.$store.state.alert.validationErrors[name].rule](
-                            element.el.dataset.vvAs,
-                            this.$store.state.alert.validationErrors[name].params
-                        ),
-                        'api'
-                    );
-                    this.$store.state.alert.validationErrors[name] = false;
-                }
-                return this.errors.has(name);
-            },
             sendOtp(channel){
                 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 //if username is email
