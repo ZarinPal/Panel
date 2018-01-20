@@ -92,13 +92,9 @@
                     return;
                 }
 
-                let amount = this.amount;
-                if (/,/g.test(this.amount)) {
-                    amount = this.amount.replace(/,/g, ""); //remove , from amount
-                }
                 let addFundData = {
                     purse: this.purse,
-                    amount: amount,
+                    amount: this.clearNumber(this.amount),
                     redirect_url: this.redirect_url
                 };
 
