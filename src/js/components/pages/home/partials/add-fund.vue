@@ -92,8 +92,6 @@
                     return;
                 }
 
-                let amount = this.amount;
-
                 let addFundData = {
                     purse: this.purse,
                     amount: this.clearNumber(this.amount),

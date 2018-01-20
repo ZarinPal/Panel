@@ -265,8 +265,6 @@
             },
             withdraw() {
                 this.loading = true;
-                let amount = this.amount;
-
                 let withdrawData = {
                     amount: this.clearNumber(this.amount),
                     card_id: this.card.id,
