@@ -201,15 +201,10 @@
                     zarinId = this.destinationUser.zp_id.toLowerCase();
                 }
 
-                let amount = this.amount;
-                if (/,/g.test(this.amount)) {
-                    amount = this.amount.replace(/,/g, ""); //remove , from amount
-                }
-
                 let ptopData = {
                     purse: this.purse,
                     zpId: zarinId,
-                    amount: amount,
+                    amount: this.clearNumber(this.amount),
                     description: this.description
                 };
 
