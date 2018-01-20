@@ -137,23 +137,6 @@
             this.closeModalContent = false;
         },
         methods: {
-            validation(name) {
-                if (this.$store.state.alert.validationErrors[name]) {
-                    let element = _.find(this.$validator.fields.items, function (field) {
-                        return field.name == name;
-                    });
-                    this.errors.add(
-                        name,
-                        this.$validator.dictionary.container.fa.messages[this.$store.state.alert.validationErrors[name].rule](
-                            element.el.dataset.vvAs,
-                            this.$store.state.alert.validationErrors[name].params
-                        ),
-                        'api'
-                    );
-                    this.$store.state.alert.validationErrors[name] = false;
-                }
-                return this.errors.has(name);
-            },
             validateForm() {
                 this.$validator.validateAll({
                     amount: this.amount,
@@ -282,13 +265,8 @@
             },
             withdraw() {
                 this.loading = true;
-                let amount = this.amount;
-                if (/,/g.test(this.amount)) {
-                    amount = this.amount.replace(/,/g, "");
-                }
-
                 let withdrawData = {
-                    amount: amount,
+                    amount: this.clearNumber(this.amount),
                     card_id: this.card.id,
                     purse: this.purse,
                     fee_id: this.feeDetails.id
