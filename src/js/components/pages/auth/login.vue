@@ -9,7 +9,7 @@
 
                 <!--Body-->
                 <!--First step enter mobile-->
-                form(method="post" @submit.prevent="sendOtp('ussd')" v-if="step == 1" action="#" onsubmit="event.preventDefault();" autocomplete)
+                form(method="post" @submit.prevent="sendOtp('ussd')" v-if="step == 1 && !loginByMobileApp" action="#" onsubmit="event.preventDefault();" autocomplete)
                     div.row.middle-xs
                         div.col-xs-12.no-margin.body-messages
                             div.col-lg-12.ta-right
@@ -38,6 +38,19 @@
                                 svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
+                    <!--div.row.no-margin.ta-right-->
+                        <!--div.col-xs.no-margin.hand(@click="loginByMobileApplication()") {{ $i18n.t('user.loginByMobileApp') }}-->
+
+                <!--Login by mobile app-->
+                div.login-by-mobile-app(v-if="loginByMobileApp")
+                    div.col-xs-12.no-margin.body-messages
+                        div.ta-right
+                            span.hand.icon-arrow-right(@click="loginByMobileApp = !loginByMobileApp")
+                        div.col-lg-12.ta-right
+                            h2 {{ $i18n.t('user.loginToUserAccount') }}
+                            h4 {{ $i18n.t('user.loginByMobileApp') }}
+
+                    img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri")
 
                 <!--Second step call ussd code-->
                 form(method="post" @submit.prevent="login" v-if="step == 2" onsubmit="event.preventDefault();")
@@ -131,14 +144,20 @@
                 visibleOtpTimer: false,
                 visibleSendSms: true,
 
-
                 /**
                  * login failed date
                  */
                 lockLogin: false,
                 lockout_time_min: null,
-                lockout_time_sec: null
+                lockout_time_sec: null,
 
+                /**
+                 * Mobile Login
+                 */
+                loginByMobileApp: false,
+                nchanSubscriber: null,
+                mobile_expire_in: null,
+                mobile_socket_uri: null,
             }
         },
         computed: {
@@ -233,7 +252,6 @@
                             minutes = parseInt(duration / 60, 10);
                             seconds = parseInt(duration % 60, 10);
 
-                            console.log()
                             vm.lockout_time_min = minutes < 10 ? "0" + minutes : minutes;
                             vm.lockout_time_sec = seconds < 10 ? "0" + seconds : seconds;
 
@@ -243,15 +261,12 @@
                             }
                         }, 1000);
 
-
                     } else {
                         store.commit('setValidationErrors', response.data.validation_errors);
                         if (!this.validationErrors.username) {
                             this.userNotRegister = true;
                         }
                     }
-
-
                 });
             },
             login(){
@@ -339,6 +354,46 @@
                     type: 'success',
                     timeout: '1500'
                 });
+            },
+            getOtpAuthorization(callback) {
+                this.$store.state.http.requests['oauth.otpAuthorization'].get()
+                    .then((response) => {
+                        this.mobile_expire_in = response.data.data.expire_in;
+                        this.mobile_socket_uri = response.data.data.uri;
+                        let sessionId = this.mobile_socket_uri.match('session_id=([^&#]+)')[1];
+
+                        callback(sessionId);
+                    }, (response) => {
+
+                    }
+                );
+            },
+            loginByMobileApplication() {
+                this.getOtpAuthorization((sessionId)=> {
+                    this.startWebPushSocket(sessionId);
+                });
+                this.loginByMobileApp = !this.loginByMobileApp;
+            },
+            startWebPushSocket(sessionId) {
+                let vm = this;
+                let NchanSubscriber = require("nchan");
+                this.nchanSubscriber = new NchanSubscriber(
+                        'https://pubsub.zarinpal.com/otp/' + sessionId,
+                        {
+                            subscriber: 'websocket',
+                            reconnect: 'persist',
+                            shared: true
+                        }
+                );
+                this.nchanSubscriber.on('message', function (message) {
+                    message = JSON.parse(message);
+                    vm.username = message.mobile;
+                    vm.otp = message.otp;
+                    vm.login();
+                    vm.nchanSubscriber.stop();
+                });
+
+                this.nchanSubscriber.start();
             }
         },
         components: {
