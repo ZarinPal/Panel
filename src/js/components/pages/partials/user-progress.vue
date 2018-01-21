@@ -1,24 +1,26 @@
 <template lang="pug">
-    canvas#userProgress(v-if="!isSmallSidebar" width="400" height="400")
-    canvas#userProgress.small-user-image(v-else width="400" height="400")
+    canvas#userProgress(v-if="!isSmallSidebar" width="440" height="450")
+    canvas#userProgress.small-user-image(v-else width="440" height="450")
 </template>
 
 
 <script>
     export default {
         name: 'partial-sidebar-userProgress',
+        data() {
+            return {
+                levelColorCode: '#ffd600',
+            }
+        },
         props: [
-            'avatar',
+            'user',
             'user_progress'
         ],
         mounted(){
             let canvas = document.getElementById("userProgress");
-            this.profilePicture(canvas, this.user_progress.points, this.avatar);
+            this.profilePicture(canvas, this.user_progress.points, this.user.avatar);
         },
         computed: {
-            user(){
-                return this.$store.state.auth.user;
-            },
             isSmallSidebar(){
                 return this.$store.state.app.smallSidebar;
             },
@@ -26,74 +28,111 @@
         methods: {
             profilePicture(canvas, percent, avatar){
                 let vm = this;
-                let ctx = canvas.getContext("2d");
-                ctx.scale(4, 4);
-                ctx.webkitImageSmoothingEnabled =
-                    ctx.mozImageSmoothingEnabled = false;
-
-                let thumbImg = document.createElement('img');
-                thumbImg.src = avatar;
 
                 let degrees = percent * 3.6;
                 let radians = degrees * (Math.PI / 180);
                 let gap = 7 * (Math.PI / 180);
 
-                ctx.stroke();
+                let ctx = canvas.getContext("2d");
+                ctx.scale(4, 4);
+                ctx.webkitImageSmoothingEnabled =
+                    ctx.mozImageSmoothingEnabled = false;
+                let thumbImg = document.createElement('img');
+                thumbImg.src = avatar;
+
                 thumbImg.onload = function () {
+                    ctx.translate(5, 5);
 
-                    // gray line
-                    ctx.beginPath();
-                    ctx.strokeStyle = "#838383";
-                    ctx.lineWidth = 3;
-                    ctx.lineCap = 'round';
-                    ctx.arc(46, 46, 42, radians + 1.5 * Math.PI + gap, (1.5 * Math.PI) - gap);
-                    ctx.stroke();
                     ctx.save();
-
-                    // green line
                     ctx.beginPath();
-                    ctx.strokeStyle = "#89E000";
-                    ctx.lineWidth = 5;
-                    ctx.arc(46, 46, 42, 1.5 * Math.PI, radians + 1.5 * Math.PI);
-                    ctx.stroke();
-                    ctx.save();
-
-
-                    //image
-                    ctx.beginPath();
-                    ctx.arc(46, 46, 38, 0, Math.PI * 2, true);
+                    ctx.arc(50, 50, 35, 0, Math.PI * 2, true);
                     ctx.closePath();
                     ctx.clip();
-                    ctx.drawImage(thumbImg, 6, 6, 80, 80);
+                    ctx.drawImage(thumbImg, 15, 15, 70, 70);
                     ctx.beginPath();
                     ctx.arc(0, 0, 25, 0, Math.PI * 2, true);
                     ctx.clip();
                     ctx.closePath();
                     ctx.restore();
+                    ctx.save();
 
-                    // gray filter
+                    // white circle
                     ctx.beginPath();
-                    ctx.strokeStyle = "rgba(255, 255, 255,.4)";
-                    ctx.lineWidth = 38;
-                    ctx.lineCap = 'butt';
-                    ctx.arc(46, 46, 19, radians + 1.5 * Math.PI, 1.5 * Math.PI);
+                    ctx.strokeStyle = "#fff";
+                    ctx.lineWidth = 7;
+                    ctx.lineCap = "round";
+                    ctx.arc(50, 50, 46, 0, 2 * Math.PI);
+                    ctx.shadowColor = '#000';
+                    ctx.shadowBlur = 30;
+                    ctx.shadowOffsetX = 2;
+                    ctx.shadowOffsetY = 10;
                     ctx.stroke();
                     ctx.closePath();
+                    ctx.restore();
+                    ctx.save();
+
+                    // green circle
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#89E000";
+                    ctx.lineWidth = 7;
+                    ctx.lineCap = "round";
+                    ctx.arc(50, 50, 46, 1.5 * Math.PI, radians + 1.5 * Math.PI);
+                    ctx.stroke();
+                    ctx.closePath();
+                    ctx.restore();
                     ctx.save();
 
                     // percent
                     ctx.beginPath();
-                    ctx.strokeStyle = "#ffd600";
                     ctx.lineWidth = 1;
-                    ctx.arc(84, 21, 14, 0, 2 * Math.PI, true);
-                    ctx.fillStyle = '#ffd600';
+                    ctx.arc(81, 19, 15, 0, 2 * Math.PI, true);
+                    ctx.fillStyle = '#fff';
                     ctx.fill();
                     ctx.fillStyle = '#000';
                     ctx.font = "11px IRANSans";
-                    ctx.fillText(vm.numberToFarsi(percent) + "%", 95, 24);
-
-                    ctx.stroke();
+                    ctx.textAlign="center";
+                    ctx.fillText(vm.numberToFarsi(percent) + "%", 81, 22);
+                    ctx.closePath();
+                    ctx.restore();
                     ctx.save();
+
+
+                    // zpid
+                    ctx.beginPath();
+                    ctx.lineCap = "round";
+                    ctx.strokeStyle='#fff';
+                    ctx.lineWidth = 21;
+                    ctx.moveTo(23, 89);
+                    ctx.lineTo(77, 89);
+                    ctx.stroke();
+                    ctx.stroke();
+                    ctx.stroke();
+                    ctx.restore();
+                    ctx.save();
+
+                    ctx.beginPath();
+                    ctx.fillStyle='#000';
+                    ctx.textAlign="center";
+                    ctx.font="10px IRANSans";
+                    ctx.fillText('ZP.' + vm.numberToFarsi(vm.user.public_id), 50, 93);
+                    ctx.stroke();
+                    ctx.restore();
+                    ctx.save();
+                }
+            },
+            levelColor() {
+                switch(this.user.level) {
+                    case '1':
+                        return '#ffd600';
+                        break;
+                    case '2':
+                        return '#bbb';
+                        break;
+                    case '3':
+                        return '#000';
+                        break;
+                    default:
+                        return '#000';
                 }
             },
             numberToFarsi(value) {
