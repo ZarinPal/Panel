@@ -1,11 +1,19 @@
 export default {
     bind(el, binding, vnode) {
-        /** ---------------
+
+        // el.addEventListener('keypress', function (event) {
+        //     if (event.key < 48 || event.key > 57) {
+        //     } else {
+        //         console.log('not valid number');
+        //         event.preventDefault();
+        //     }
+        // });
+            /** ---------------
          *      Keyup
          ----------------**/
         el.addEventListener('keyup', function (event) {
             /** ---------------
-             Money
+                    Money
              ----------------**/
             Vue.nextTick(function () {
                 if (binding.value.money && el.value) {

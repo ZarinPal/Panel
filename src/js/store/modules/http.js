@@ -80,6 +80,10 @@ export default {
                 url: "oauth/sendMobileVerifyCode.json"
             },
             {
+                name: "oauth.otpAuthorization",
+                url: "oauth/otpAuthorization.json"
+            },
+            {
                 name: "app.postPreInit",
                 url: "app/preInit.json"
             },
