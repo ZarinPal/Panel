@@ -70,6 +70,13 @@
             if (this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
+            if (this.$route.query.referrer) {
+                localStorage.setItem('zp_referrer',
+                    JSON.stringify({
+                        referrer: this.$route.query.referrer,
+                        expire_in: moment().add(3, 'day').unix()
+                    }));
+            }
         },
         mounted(){
             let vm = this;
@@ -101,9 +108,19 @@
                     mobile: this.mobile,
                     g_recaptcha: this.g_recaptcha,
                 };
-
                 if (this.$route.query.referrer) {
-                    auth2Data.referrer = atob(this.$route.query.referrer)
+                    auth2Data.referrer = atob(this.$route.query.referrer);
+                    localStorage.setItem('zp_referrer',
+                        {
+                            referrer: auth2Data.referrer,
+                            expire_in: moment().add(3, 'day').unix()
+                        });
+                } else {
+                    let referrerObj = JSON.parse(localStorage.getItem('zp_referrer'));
+                    if (referrerObj.expire_in > moment().unix()) {
+                        auth2Data.referrer = atob(referrerObj.referrer);
+                    }
+
                 }
 
                 this.$store.state.http.requests['oauth.PostRegisterUser'].save(auth2Data).then(
