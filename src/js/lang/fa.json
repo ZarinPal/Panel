@@ -357,8 +357,8 @@
     "verify-telegram-done": "فعالسازی ربات تلگرام با موفقیت انجام شد",
     "verify-telegram-error": "متاسفانه فعالسازی ربات تلگرام با مشکل مواجه شد",
     "card-added-success": "حساب بانکی اضافه شد",
-    "the-card-is-expire": "کارت منقضی شده است",
-    "please-add-one-card-and-try-again-before-this-request-you-must-add-a-card": "قبل از این درخواست باید یک کارت اضافه کنید."
+    "please-add-one-card-and-try-again-before-this-request-you-must-add-a-card": "لطفا ابتدا یک حساب بانکی به پنل اضافه کنید و بعد از آن درخواست زرین‌کارت دهید.",
+    "the-card-is-expire": "کارت منقضی شده است"
   },
   "panel": {
     "home": "پیشخوان",

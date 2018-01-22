@@ -39,7 +39,7 @@
                 loadingData: true,
                 referredUsers: {},
                 referrer: {
-                    link: btoa(this.$store.state.auth.user.email)
+                    link: btoa(this.$store.state.auth.user.public_id)
                 }
             }
         },
