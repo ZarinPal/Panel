@@ -38,8 +38,8 @@
                                 svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                    <!--div.row.no-margin.ta-right-->
-                        <!--div.col-xs.no-margin.hand(@click="loginByMobileApplication()") {{ $i18n.t('user.loginByMobileApp') }}-->
+                    div.row.no-margin.ta-right
+                    div.col-xs.no-margin.hand.pull-right(@click="loginByMobileApplication()") {{ $i18n.t('user.loginByMobileApp') }}
 
                 <!--Login by mobile app-->
                 div.login-by-mobile-app(v-if="loginByMobileApp")
@@ -358,18 +358,18 @@
             getOtpAuthorization(callback) {
                 this.$store.state.http.requests['oauth.otpAuthorization'].get()
                     .then((response) => {
-                        this.mobile_expire_in = response.data.data.expire_in;
-                        this.mobile_socket_uri = response.data.data.uri;
-                        let sessionId = this.mobile_socket_uri.match('session_id=([^&#]+)')[1];
+                            this.mobile_expire_in = response.data.data.expire_in;
+                            this.mobile_socket_uri = response.data.data.uri;
+                            let sessionId = this.mobile_socket_uri.match('session_id=([^&#]+)')[1];
 
-                        callback(sessionId);
-                    }, (response) => {
+                            callback(sessionId);
+                        }, (response) => {
 
-                    }
-                );
+                        }
+                    );
             },
             loginByMobileApplication() {
-                this.getOtpAuthorization((sessionId)=> {
+                this.getOtpAuthorization((sessionId) => {
                     this.startWebPushSocket(sessionId);
                 });
                 this.loginByMobileApp = !this.loginByMobileApp;
@@ -378,12 +378,12 @@
                 let vm = this;
                 let NchanSubscriber = require("nchan");
                 this.nchanSubscriber = new NchanSubscriber(
-                        'https://pubsub.zarinpal.com/otp/' + sessionId,
-                        {
-                            subscriber: 'websocket',
-                            reconnect: 'persist',
-                            shared: true
-                        }
+                    'https://pubsub.zarinpal.com/otp/' + sessionId,
+                    {
+                        subscriber: 'websocket',
+                        reconnect: 'persist',
+                        shared: true
+                    }
                 );
                 this.nchanSubscriber.on('message', function (message) {
                     message = JSON.parse(message);
