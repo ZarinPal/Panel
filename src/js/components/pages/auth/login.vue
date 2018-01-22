@@ -378,7 +378,7 @@
                 let vm = this;
                 let NchanSubscriber = require("nchan");
                 this.nchanSubscriber = new NchanSubscriber(
-                    'https://pubsub.zarinpal.com/otp/' + sessionId,
+                    'https://pubsub.zarinpal.com/otp?session_id=' + sessionId,
                     {
                         subscriber: 'websocket',
                         reconnect: 'persist',
