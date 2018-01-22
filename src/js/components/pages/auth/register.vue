@@ -33,10 +33,12 @@
                     div.row.bottom-xs
                         div.col-xs.no-margin.ta-right
                             span عضو زرین‌پال هستید ؟
-                            router-link.link(v-bind:to="{ name: 'auth.login',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.enter') }}
+                            router-link.link(v-bind:to="{ name: 'auth.login',params:{referrerId:this.$route.params.referrerId}}") {{ $i18n.t('user.enter') }}
                         div.col-xs.no-margin
                             div#recaptcha.g-recaptcha(data-sitekey="6LcDpDcUAAAAAMiXOz1gA3By9oEJ4-PYqct1Ihn5", data-size="invisible")
                             button.gold.pull-left(id="register" @click="validateForm"  tabindex="4") {{$i18n.t('user.register')}}
+                                svg.material-spinner(v-if="requesting" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
             <!--Privacy Policy-->
@@ -55,6 +57,7 @@
                 last_name: "",
                 mobile: "",
                 g_recaptcha: "1",
+                requesting: false,
             }
         },
         computed: {
@@ -70,10 +73,10 @@
             if (this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
-            if (this.$route.query.referrer) {
+            if (this.$route.query.referrerId) {
                 localStorage.setItem('zp_referrer',
                     JSON.stringify({
-                        referrer: this.$route.query.referrer,
+                        referrer: this.$route.query.referrerId,
                         expire_in: moment().add(3, 'day').unix()
                     }));
             }
@@ -84,8 +87,6 @@
             let tag = document.createElement("script");
             tag.src = "https://www.google.com/recaptcha/api.js";
             document.getElementsByTagName("head")[0].appendChild(tag);
-
-
         },
         methods: {
             validateForm() {
@@ -102,25 +103,24 @@
                 });
             },
             register(){
+                this.requesting = true;
                 let auth2Data = {
                     first_name: this.first_name,
                     last_name: this.last_name,
                     mobile: this.mobile,
                     g_recaptcha: this.g_recaptcha,
                 };
-                if (this.$route.query.referrer) {
-                    auth2Data.referrer = atob(this.$route.query.referrer);
-                    localStorage.setItem('zp_referrer',
-                        {
+                if (this.$route.query.referrerId) {
+                    auth2Data.referrer = atob(this.$route.query.referrerId);
+                    localStorage.setItem('zp_referrer', {
                             referrer: auth2Data.referrer,
                             expire_in: moment().add(3, 'day').unix()
                         });
                 } else {
                     let referrerObj = JSON.parse(localStorage.getItem('zp_referrer'));
-                    if (referrerObj.expire_in > moment().unix()) {
+                    if (referrerObj && referrerObj.expire_in > moment().unix()) {
                         auth2Data.referrer = atob(referrerObj.referrer);
                     }
-
                 }
 
                 this.$store.state.http.requests['oauth.PostRegisterUser'].save(auth2Data).then(
@@ -135,8 +135,9 @@
                                 mobile: this.mobile
                             }
                         });
-                    },
-                    (response) => {
+                        this.requesting = false;
+                    }, (response) => {
+                        this.requesting = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
                             text: response.data.meta.error_message,
