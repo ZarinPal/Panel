@@ -967,7 +967,8 @@
     "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین پال برخودار شوید",
     "setEmailTitle": "ثبت ایمیل",
     "loginToOldPanel": "ورود به پنل قدیمی",
-    "copyUssd": "برای کپی کردن کد را لمس کنید"
+    "copyUssd": "برای کپی کردن کد را لمس کنید",
+    "loginByMobileApp": "ورود با اپ موبایل"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

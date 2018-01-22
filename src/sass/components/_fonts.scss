@@ -123,3 +123,14 @@ span[class^="icon-"], span[class*=" icon-"] {
     content: $icon-zp-add-circle;
   }
 }
+
+.icon-arrow-left {
+  &:before {
+    content: $icon-zp-arrow-left;
+  }
+}
+.icon-arrow-right {
+  &:before {
+    content: $icon-zp-arrow-right;
+  }
+}

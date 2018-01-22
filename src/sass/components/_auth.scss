@@ -255,6 +255,19 @@
       cursor: pointer;
     }
   }
+
+  .login-by-mobile-app {
+    .hand.icon-arrow-right {
+      border-radius: 30px;
+      font-size: 20px;
+      color: #777;
+
+      &:hover {
+        transition: $animateTime;
+        background-color: #eee;
+      }
+    }
+  }
 }
 
 /*** Timer ***/
@@ -368,3 +381,4 @@ div.time {
 .vazir {
   font-family: VazirCode !important;
 }
+
