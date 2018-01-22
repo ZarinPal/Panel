@@ -604,9 +604,11 @@ body {
 
   .user-info {
     .user-image {
-      width: 45px !important;
-      height: 45px !important;
-      margin: 30px auto;
+      text-align: center;
+      position: relative;
+      height: 45px;
+      margin-top: 20px;
+      padding-top: 10px;
 
       img {
         margin-left: auto;
@@ -718,6 +720,7 @@ body {
   border-left: 2px solid #eceff1;
   transition: $animateTime;
   margin-top: 50px;
+  overflow: hidden;
 
   .router-link-exact-active,
   .router-link-active {
@@ -733,15 +736,30 @@ body {
     animation: userInfoFade 0.8s ease-in-out;
 
     .user-image {
-      height: 90px;
+      background-image: linear-gradient(-135deg, #21254E 0%, #232C58 19%, #232C58 19%, #232C58 19%, #232D5A 23%, #232D5A 23%, #24305D 40%, #24305D 29%, #24305D 29%, #2B4A83 87%);
       text-align: center;
-      margin-top: 30px;
+      position: relative;
+      top: -73px;
+      width: 140%;
+      height: 175px;
+      margin-right: -20%;
+      margin-bottom: -50px;
+      margin-top: 20px;
+      padding-top: 70px;
+      border-radius: 700px / 251px;
     }
 
     .user-name {
-      color: #424242;
+      color: #fff;
       text-align: center;
-      font-size: 13px;
+      font-size: 16px;
+      margin-top: -10px;
+    }
+
+    .user-level {
+      font-size: 12px !important;
+      margin-top: -18px !important;
+      opacity: 0.8 !important;
     }
   }
 
@@ -751,6 +769,7 @@ body {
     transition: 0s !important;
     width: 90%;
     margin: 0 auto;
+    margin-bottom: 20px;
 
     .submenu {
       background-color: $sidebarHoverBgColor !important;
@@ -770,6 +789,7 @@ body {
       font-size: 13px;
       cursor: pointer;
       border-radius: 5px;
+      margin: 5px 0;
 
       div {
         height: 100%;
@@ -925,20 +945,30 @@ body {
   }
 }
 
-.to-silver-level-link {
-  text-align: center;
-  margin-top: -10px;
-  margin-bottom: 10px;
+.section-level-up {
+  width: 200px;
+  margin: 0 auto 20px auto;
 
-  span {
-    color: #2ecc71;
-    font-size: 13px;
-    cursor: pointer;
-  }
-  span:hover {
-    color: #056c31;
+  .btn-to-level {
+    border-radius: 100px;
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+    padding: 8px;
+
+    &.to-silver-level-link {
+      background-image: linear-gradient(-222deg, #E8EBED 0%, #DADEE0 73%, #D5D9DB 100%);
+      box-shadow: 0 3px 9px 0 rgba(216,220,222,0.30);
+    }
+
+    &.to-gold-level-link {
+      background-image: linear-gradient(-226deg, #FFE16C 0%, #FFDA47 100%);
+      box-shadow: 0 3px 7px 0 rgba(255,218,71,0.30);
+    }
+
   }
 }
+
 
 @media (max-width: $mobileSize) {
   .main-content {
@@ -999,8 +1029,8 @@ body {
     top: -60px !important;
     right: 0;
     background-color: #fff;
-    overflow-x: auto !important;
-    padding-top: 60px;
+    overflow: hidden;
+    overflow-y: auto;
 
     .router-link-exact-active,
     .router-link-active {
@@ -1009,17 +1039,18 @@ body {
     }
 
     .close-mobile-sidebar {
-      position: absolute;
-      top: 25px;
+      position: fixed;
+      top: 20px;
+      z-index: 99;
       right: 25px;
       font-size: 22px;
-      color: #777;
       cursor: pointer;
       display: inline-block;
+
       &::before {
         content: $iconBackArrow;
         font-family: 'zarinpal' !important;
-        color: $sideItemColor;
+        color: #fff;
         font-size: 25px;
         margin-left: 10px;
       }
@@ -1027,16 +1058,16 @@ body {
 
     .user-info {
       .user-image {
-        width: 85px;
-        height: 85px;
-        margin: 30px auto 20px auto;
+        top: -103px !important;
+        margin-bottom: -80px !important;
+        border-radius: 700px / 181px !important;
       }
 
       .user-name {
-        display: block !important;
-        color: #424242;
+        color: #fff;
         text-align: center;
-        font-size: 13px;
+        font-size: 16px;
+        margin-top: -10px;
       }
 
       .nav-zp-id {
@@ -1052,6 +1083,7 @@ body {
       padding: 0 !important;
       width: 90% !important;
       margin: 0 auto;
+      //margin-bottom: 20px;
 
       .submenu {
         position: relative !important;

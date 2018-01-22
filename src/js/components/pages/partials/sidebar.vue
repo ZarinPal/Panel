@@ -9,10 +9,12 @@
                         span(v-if="!this.$store.state.app.smallSidebar")
                             userProgress.hand(v-if="user.user_progress" v-bind:user="user" v-bind:user_progress="user.user_progress")
                         img.hand(v-else :src="user.avatar")
-                    p.user-name {{user.name}}
+                        p.user-name {{user.name}}
+                        p.user-name.user-level {{$i18n.t('user.level') + ': ' +$i18n.t('user.user_level_' + user.level)}}
 
-                router-link.to-silver-level-link(tag="div" v-if="user.level < 2" v-bind:to="{ name: 'user.levelUp'}")
-                    span {{ $i18n.t('common.UpgradeToSilverLevel') }}
+                div.ta-center.section-level-up(v-if="user.level < 2")
+                    router-link.btn-to-level.hand(tag="div" :class="{'to-silver-level-link': user.level == 1, 'to-gold-level-link': user.level == 2}" v-bind:to="{ name: 'user.levelUp'}")
+                        span {{ $i18n.t('common.UpgradeToSilverLevel') }}
 
                 ul
                     span(v-for="(tab, index) in tabs")

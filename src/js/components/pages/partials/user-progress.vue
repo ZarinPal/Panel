@@ -62,10 +62,6 @@
                     ctx.lineWidth = 7;
                     ctx.lineCap = "round";
                     ctx.arc(50, 50, 46, 0, 2 * Math.PI);
-                    ctx.shadowColor = '#000';
-                    ctx.shadowBlur = 30;
-                    ctx.shadowOffsetX = 2;
-                    ctx.shadowOffsetY = 10;
                     ctx.stroke();
                     ctx.closePath();
                     ctx.restore();
@@ -86,7 +82,7 @@
                     ctx.beginPath();
                     ctx.lineWidth = 1;
                     ctx.arc(81, 19, 15, 0, 2 * Math.PI, true);
-                    ctx.fillStyle = '#fff';
+                    ctx.fillStyle = vm.levelColor(vm.user.level);
                     ctx.fill();
                     ctx.fillStyle = '#000';
                     ctx.font = "11px IRANSans";
@@ -100,7 +96,11 @@
                     // zpid
                     ctx.beginPath();
                     ctx.lineCap = "round";
-                    ctx.strokeStyle='#fff';
+                    ctx.strokeStyle= vm.levelColor(vm.user.level);
+                    // ctx.shadowColor = vm.levelColor(vm.user.level);
+                    // ctx.shadowBlur = 20;
+                    // ctx.shadowOffsetX = 0;
+                    // ctx.shadowOffsetY = 4;
                     ctx.lineWidth = 21;
                     ctx.moveTo(23, 89);
                     ctx.lineTo(77, 89);
@@ -114,7 +114,7 @@
                     ctx.fillStyle='#000';
                     ctx.textAlign="center";
                     ctx.font="10px IRANSans";
-                    ctx.fillText('ZP.' + vm.numberToFarsi(vm.user.public_id), 50, 93);
+                    ctx.fillText('ZP.' + vm.user.public_id, 50, 93);
                     ctx.stroke();
                     ctx.restore();
                     ctx.save();
@@ -122,17 +122,17 @@
             },
             levelColor() {
                 switch(this.user.level) {
-                    case '1':
-                        return '#ffd600';
+                    case 1:
+                        return '#FFFFFF';
                         break;
-                    case '2':
-                        return '#bbb';
+                    case 2:
+                        return '#D5D9DB';
                         break;
-                    case '3':
-                        return '#000';
+                    case 3:
+                        return '#FFDA47';
                         break;
                     default:
-                        return '#000';
+                        return '#f80';
                 }
             },
             numberToFarsi(value) {
