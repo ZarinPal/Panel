@@ -15,7 +15,7 @@ export default new VueRouter({
             meta: {standAlone: true}
         },
         {
-            path: '/auth/register/:refererId?/:mobile?',
+            path: '/auth/register/:referrerId?/:mobile?',
             name: 'auth.register',
             component: require('./components/pages/auth/register.vue'),
             meta: {standAlone: true}
