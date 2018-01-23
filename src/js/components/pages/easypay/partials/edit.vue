@@ -196,7 +196,7 @@
                                                                     | {{ $i18n.t('easypay.showEasypayReceipt')}}
 
                                                         div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                            input(:class="{'input-danger': errors.has('limit')}" v-validate="{type: 'number'}" v-show="limited" type="number" v-model="limit" placeholder="تعداد")
+                                                            input(:class="{'input-danger': errors.has('limit')}" v-validate="'numeric'" v-show="limited" type="number" v-model="limit" placeholder="تعداد")
                                                             div.ta-right(v-if="validation('limit')")
                                                                 span.text-danger {{  errors.first('limit') }}
 
