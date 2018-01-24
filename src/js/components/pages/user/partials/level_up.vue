@@ -54,7 +54,7 @@
 
 
                                             div.row.nav-rows
-                                                date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('common.birthday')" v-model="birthday" :placeholder="$i18n.t('common.birthday')")
+                                                date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('common.birthday')" v-model="birthday" min="1300/01/01" :placeholder="$i18n.t('common.birthday')")
                                                 div.ta-right(v-if="validation('birthday')")
                                                     span.text-danger {{ errors.first('birthday') }}
 
