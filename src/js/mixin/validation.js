@@ -18,5 +18,8 @@ Vue.mixin({
             }
             return this.errors.has(name);
         },
+        removeErrors(field) {
+            !!this[field] && this.errors.remove(field);
+        },
     }
 });

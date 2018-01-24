@@ -275,9 +275,6 @@ f
                     });
                 }
             },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
         },
         methods: {
             validateForm() {
