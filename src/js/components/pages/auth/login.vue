@@ -224,13 +224,13 @@
 
                         if (channel && channel === 'sms') {
                             store.commit('flashMessage', {
-                                text: 'otp-sent-by-sms',
+                                text: 'OauthOtpSentSmsLocal',
                                 type: 'success',
                                 timeout: 10000,
                             });
                         } else if (channel === 'email') {
                             store.commit('flashMessage', {
-                                text: 'otp-send-to-you-by-email',
+                                text: 'OauthOtpSentEmailLocal',
                                 type: 'success',
                                 timeout: 10000,
                             });
@@ -290,7 +290,7 @@
                         this.loginLoading = false;
                         // store.commit('setValidationErrors',response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });
@@ -350,7 +350,7 @@
                 }, 10);
 
                 store.commit('flashMessage', {
-                    text: 'copied',
+                    text: 'Copied',
                     type: 'success',
                     timeout: '1500'
                 });
