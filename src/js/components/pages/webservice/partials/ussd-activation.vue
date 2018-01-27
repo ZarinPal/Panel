@@ -111,7 +111,7 @@
                         this.$store.state.auth.user.webservices[webserviceIndex].ussd_id = this.ussd_id;
                         this.validationErrors = null;
                         store.commit('flashMessage', {
-                            text: 'ussd code activated',
+                            text: 'WebserviceUssdCodeActivatedLocal',
                             type: 'success'
                         });
                         this.closeModal();
@@ -121,7 +121,7 @@
                         store.commit('setValidationErrors', response.data.validation_errors);
 
                         this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });
