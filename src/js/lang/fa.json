@@ -410,7 +410,7 @@
     "__Easypay__": "<----------#Easypay#---------->",
     "EasypayNotFound": "زرین لینک موردنظر یافت نشد.",
     "EasypayDeletedLocal": "زرین‌لینک حذف شد",
-    "EasypayUsernameCreated": "نام کاربری ذخیره شد"
+    "EasypayUsernameCreated": "نام کاربری ذخیره شد",
     "__User__": "<----------#User#---------->",
     "UserNotFound": "کاربر موردنظر یافت نشد.",
     "UserUpdateFailed": "به‌روزرسانی با خطا مواجه شد.",
@@ -494,7 +494,6 @@
     "RequestMoneyPaidLocal": "درخواست وجه پرداخت‌شد. ",
     "RequestMoneyNotPaidLocal": "درخواست وجه پرداخت‌ نشد. ",
     "RequestMoneyRejectSuccessful": "درخواست وجه رد‌شد"
-
   },
   "panel": {
     "home": "پیشخوان",
