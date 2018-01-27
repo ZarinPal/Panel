@@ -73,7 +73,7 @@
                     },
                     (response) => {
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });
@@ -115,7 +115,7 @@
                         },
                         (response) => {
                             store.commit('flashMessage', {
-                                text: response.data.meta.error_message,
+                                text: response.data.meta.error_type,
                                 important: false,
                                 type: 'danger'
                             });
@@ -140,7 +140,7 @@
                 this.$store.state.http.requests['user.postAddress'].save({'addresses': addresses}).then(
                     () => {
                         store.commit('flashMessage', {
-                            text: 'your address added success',
+                            text: 'UserAddressAddedSuccessLocal',
                             important: false,
                             type: 'success'
                         });
@@ -154,7 +154,7 @@
                     (response) => {
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });

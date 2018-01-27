@@ -298,7 +298,7 @@
                     (response) => {
                         store.commit('setValidationErrors', response.data.validation_errors);
                         this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });

@@ -57,7 +57,7 @@
                             }, (response) => {
                                 store.commit('setValidationErrors', response.data.validation_errors);
                                 store.commit('flashMessage', {
-                                    text: response.data.meta.error_message,
+                                    text: response.data.meta.error_type,
                                     type: 'danger'
                                 });
                             }
@@ -73,7 +73,7 @@
                 }, 10);
 
                 store.commit('flashMessage', {
-                    text: 'copied',
+                    text: 'Copied',
                     type: 'success',
                     timeout: '1500'
                 });

@@ -58,7 +58,7 @@
                 this.$store.state.http.requests['user.changeEmail'].save({email: this.email}).then(
                     () => {
                         this.$store.commit('flashMessage', {
-                            text: 'email set success check your email',
+                            text: 'UserEmailSetSuccessCheckYourEmailLocal',
                             important: false,
                             type: 'success'
                         });

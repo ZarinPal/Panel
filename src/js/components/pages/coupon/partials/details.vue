@@ -74,7 +74,7 @@
             },
             clipboardMessage() {
                 store.commit('flashMessage', {
-                    text: 'copied',
+                    text: 'Copied',
                     type: 'success',
                     timeout: '500'
                 });

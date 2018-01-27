@@ -178,7 +178,7 @@
                     (response) => {
                         this.requesting = false;
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });
@@ -213,7 +213,7 @@
                         this.transferCompelled = false;
                         this.requesting = false;
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });

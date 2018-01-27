@@ -123,7 +123,7 @@
             createWebservice() {
                 if (this.errors.length) {
                     store.commit('flashMessage', {
-                        text: 'fix validation errors',
+                        text: 'WebserviceFixValidationErrorsLocal',
                         type: 'danger',
                     });
                     return false;
@@ -133,7 +133,7 @@
                 if (/^09/g.test(this.tel)) {
                     if (!(/^09[0-9]{9}$/g.test(this.tel))) {
                         store.commit('flashMessage', {
-                            text: 'mobile number not valid',
+                            text: 'WebserviceMobileNumberNotValidLocal',
                             type: 'danger',
                         });
                         this.loading = false;
@@ -154,7 +154,7 @@
                 this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
                     () => {
                         store.commit('flashMessage', {
-                            text: 'ticket new webservice',
+                            text: 'WebserviceTicketNewLocal',
                             type: 'success',
                         });
                         this.$router.push({name: 'webservice.index'})
@@ -163,7 +163,7 @@
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }
@@ -193,7 +193,7 @@
             createImage(file) {
                 if (!file.type.match('image.*')) {
                     store.commit('flashMessage', {
-                        text: 'fileNotImage',
+                        text: 'WebserviceFileNotImageLocal',
                         type: 'danger'
                     });
                     return;
