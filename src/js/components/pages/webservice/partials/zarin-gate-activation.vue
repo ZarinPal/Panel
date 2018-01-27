@@ -102,7 +102,7 @@
                         this.$store.state.auth.user.webservices[webserviceIndex].zaringate_status = 'Activate';
 
                         store.commit('flashMessage', {
-                            text: 'zarin gate activated',
+                            text: 'WebserviceZarinGateActivatedLocal',
                             type: 'success'
                         });
 
@@ -113,7 +113,7 @@
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });
