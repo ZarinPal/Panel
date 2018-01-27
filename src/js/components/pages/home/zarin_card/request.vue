@@ -100,7 +100,7 @@
                         }, (response) => {
                             store.commit('setValidationErrors', response.data.validation_errors);
                             store.commit('flashMessage', {
-                                text: response.data.meta.error_message,
+                                text: response.data.meta.error_type,
                                 type: 'danger'
                             });
                         }
@@ -109,7 +109,7 @@
             setRequestZarinCard() {
                 if (!this.acceptInformation) {
                     store.commit('flashMessage', {
-                        text: 'please accept top information',
+                        text: 'ZarinCardPleaseAcceptTopInformationLocal',
                         type: 'danger'
                     });
                     return false;
@@ -128,7 +128,7 @@
                             this.requesting = false;
 
                             store.commit('flashMessage', {
-                                text: 'zarin card request success',
+                                text: 'ZarinCardRequestSuccessLocal',
                                 important: true,
                                 type: 'success'
                             });
@@ -137,7 +137,7 @@
                             this.requesting = false;
                             store.commit('setValidationErrors', response.data.validation_errors);
                             store.commit('flashMessage', {
-                                text: response.data.meta.error_message,
+                                text: response.data.meta.error_type,
                                 type: 'danger'
                             });
                         }
