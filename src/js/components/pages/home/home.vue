@@ -150,7 +150,7 @@
                 let authority = parseInt(this.getParameterByName('Authority'));
                 if (status || authority) {
                     if (status === 'OK') {
-                        this.message = 'add fund success';
+                        this.message = 'UserAddFundSuccessLocal';
 
                         store.commit('flashMessage', {
                             text: this.message,
@@ -162,7 +162,7 @@
                             params: {id: '1', type: 'purse', transactionId: authority}
                         });
                     } else {
-                        this.message = 'add fund failed';
+                        this.message = 'UserAddFundFailLocal';
                         store.commit('flashMessage', {
                             text: this.message,
                             type: 'danger',

@@ -9,7 +9,7 @@
             transition="fade") {{message.handleShowEvent()}}
                 span.close(v-show="message.important" @click="message.remove()") &times;
                 i(v-bind:class="'icon-ic_'+message.type+'_black_24px'")
-                | {{ $i18n.t('flash.' + kebabCase(message.text)) }}
+                | {{ $i18n.t('flash.' + message.text) }}
 </template>
 
 
@@ -21,11 +21,6 @@
                 return store.state.alert.messages.filter(function (message) {
                     return message.show;
                 })
-            }
-        },
-        methods: {
-            kebabCase(value) {
-                return _.kebabCase(value);
             }
         }
     }

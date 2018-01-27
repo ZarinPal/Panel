@@ -162,7 +162,7 @@
                         (response) => {
                             this.requesting = false;
                             store.commit('flashMessage', {
-                                text: response.data.meta.error_message,
+                                text: response.data.meta.error_type,
                                 important: false,
                                 type: 'danger'
                             });
@@ -171,7 +171,7 @@
                     );
                 } else {
                     store.commit('flashMessage', {
-                        text: 'please fill all fields',
+                        text: 'UserPleaseFillAllFieldsLocal',
                         important: false,
                         type: 'danger'
                     });
@@ -204,7 +204,7 @@
                             }
                         });
                         store.commit('flashMessage', {
-                            text: 'ptop-transfer-success',
+                            text: 'UserTransferSuccessLocal',
                             type: 'success'
                         });
                     },
@@ -212,7 +212,7 @@
                         this.requesting = false;
                         this.step = 1;
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                         store.commit('setValidationErrors', response.data.validation_errors);

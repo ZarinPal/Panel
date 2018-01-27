@@ -221,7 +221,7 @@
                 if (this.step === 1) {
                     if (this.checkUsers.length <= 0) {
                         store.commit('flashMessage', {
-                            text: 'check-users-you-want',
+                            text: 'RequestMoneyCheckUsersYouWantLocal',
                             type: 'danger'
                         });
                         return;
@@ -258,7 +258,7 @@
                 if (this.step === 3 && this.requestType === 'Auto') {
                     if (!this.requestAmount) {
                         store.commit('flashMessage', {
-                            text: 'enter-request-amount',
+                            text: 'RequestMoneyEnterRequestAmountLocal',
                             type: 'danger'
                         });
                         return
@@ -275,7 +275,7 @@
                     if (users) {
                         if (users.length !== this.selectedUsers.length) {
                             store.commit('flashMessage', {
-                                text: 'enter-all-user-amount',
+                                text: 'RequestMoneyEnterAllUserAmountLocal',
                                 type: 'danger'
                             });
                             return;
@@ -356,7 +356,7 @@
             postRequestMoney() {
                 if (!this.description) {
                     store.commit('flashMessage', {
-                        text: 'fill-description-input',
+                        text: 'RequestMoneyFillDescriptionInputLocal',
                         type: 'danger'
                     });
                     return;
@@ -366,7 +366,7 @@
                 if (this.requestType === 'Auto') {
                     if (this.requestAmount <= 100 || this.requestAmount > this.maxAmountLimit) {
                         store.commit('flashMessage', {
-                            text: 'request-money-amount-limit',
+                            text: 'RequestMoneyAmountLimitLocal',
                             type: 'danger'
                         });
                         return;
@@ -374,7 +374,7 @@
                 } else if (this.requestType === 'Manually') {
                     if (this.manuallyTotalAmount <= 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
                         store.commit('flashMessage', {
-                            text: 'request-money-amount-limit',
+                            text: 'RequestMoneyAmountLimitLocal',
                             type: 'danger'
                         });
                         return;
@@ -418,7 +418,7 @@
                     (response) => {
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             important: false,
                             type: 'danger'
                         });

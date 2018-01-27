@@ -156,7 +156,7 @@
                 let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png|\.zip)$/i;
                 if (!fileExtension.exec(file.name)) {
                     store.commit('flashMessage', {
-                        text: 'fileNotImage',
+                        text: 'TicketFileNotImageLocal',
                         type: 'danger'
                     });
                     return;
@@ -203,7 +203,7 @@
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }

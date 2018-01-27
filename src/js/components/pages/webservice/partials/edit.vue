@@ -195,7 +195,7 @@
                     () => {
                         this.changeWebserviceState();
                         store.commit('flashMessage', {
-                            text: 'webservice edited success',
+                            text: 'WebserviceEditedSuccessLocal',
                             type: 'success'
                         });
                         this.$router.push({name: 'webservice.index'})
@@ -204,7 +204,7 @@
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }
@@ -245,7 +245,7 @@
             createFile(file) {
                 if (!file.type.match('image.*')) {
                     store.commit('flashMessage', {
-                        text: 'fileNotImage',
+                        text: 'WebserviceFileNotImageLocal',
                         type: 'danger'
                     });
                     return;

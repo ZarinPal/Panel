@@ -122,7 +122,7 @@
                 }, 10);
 
                 store.commit('flashMessage', {
-                    text: 'copied',
+                    text: 'Copied',
                     type: 'success',
                     timeout: '1500'
                 });
