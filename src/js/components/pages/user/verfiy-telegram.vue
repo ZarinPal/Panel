@@ -34,13 +34,13 @@
                     this.$store.state.http.requests['user.postVerifyNotificationSystem'].save(params, {}).then(
                         () => {
                             store.commit('flashMessage', {
-                                text: 'verifyTelegramDone',
+                                text: 'UserVerifyTelegramDoneLocal',
                                 type: 'success'
                             });
                         },
                         (response) => {
                             store.commit('flashMessage', {
-                                text: 'verifyTelegramError',
+                                text: 'UserVerifyTelegramErrorLocal',
                                 type: 'danger'
                             });
                             this.closeModal();
