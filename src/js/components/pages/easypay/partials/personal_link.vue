@@ -103,7 +103,7 @@
                             //update user store
                             this.$store.state.auth.user.username = this.username;
                             this.$store.commit('flashMessage', {
-                                text: 'username created',
+                                text: 'EasypayUsernameCreated',
                                 type: 'success'
                             });
                         }

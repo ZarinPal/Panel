@@ -85,7 +85,7 @@
             addFund() {
                 if (this.amount > this.maxAmountLimit) {
                     this.$store.commit('flashMessage', {
-                        text: 'add found max amount limit',
+                        text: 'PurseMaxAmountLimitLocal',
                         type: 'danger',
                         important: true,
                     });
@@ -121,7 +121,7 @@
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }

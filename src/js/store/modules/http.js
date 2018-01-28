@@ -397,7 +397,7 @@ export default {
                     // console.log(state.requests);
                     // if (error.error_type === "InternalError") {
                     //     store.commit('flashMessage', {
-                    //         text: response.data.meta.error_message,
+                    //         text: response.data.meta.error_type,
                     //     });
                     //
                     // }

@@ -213,7 +213,7 @@
                         this.$store.state.auth.user.setting = this.setting;
 
                         store.commit('flashMessage', {
-                            text: 'notification setting set success',
+                            text: 'UserNotificationSettingSetSuccessLocal',
                             important: false,
                             type: 'success'
                         });
@@ -225,7 +225,7 @@
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }

@@ -229,7 +229,7 @@
                 if (status || authority) {
                     if (status === 'OK') {
                         store.commit('flashMessage', {
-                            text: 'request money paid',
+                            text: 'RequestMoneyPaidLocal',
                             type: 'success',
                             important: true
                         });
@@ -238,7 +238,7 @@
                             params: {id: '1', type: 'purse', transactionId: authority}
                         });
                     } else {
-                        this.message = 'request money not paid';
+                        this.message = 'RequestMoneyNotPaidLocal';
                         store.commit('flashMessage', {
                             text: this.message,
                             type: 'danger',

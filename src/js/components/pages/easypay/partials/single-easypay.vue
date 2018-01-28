@@ -74,7 +74,7 @@
         methods: {
             clipboardMessage() {
                 store.commit('flashMessage', {
-                    text: 'copied',
+                    text: 'Copied',
                     type: 'success',
                     timeout: '1500'
                 });
@@ -113,14 +113,14 @@
                             this.$store.state.paginator.update++;
 
                             store.commit('flashMessage', {
-                                text: 'easypay deleted',
+                                text: 'EasypayDeletedLocal',
                                 important: false,
                                 type: 'success'
                             });
                         },
                         (response) => {
                             store.commit('flashMessage', {
-                                text: response.data.meta.error_message,
+                                text: response.data.meta.error_type,
                                 important: false,
                                 type: 'danger'
                             });

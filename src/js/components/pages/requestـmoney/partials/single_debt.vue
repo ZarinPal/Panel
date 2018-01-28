@@ -83,7 +83,7 @@
                         this.rejectLoading = false;
                         this.changeRequestMode();
                         store.commit('flashMessage', {
-                            text: 'flash.reject-request-money-successfull',
+                            text: 'RequestMoneyRejectSuccessful',
                             type: 'success'
                         });
                     },
@@ -91,7 +91,7 @@
                         this.rejectLoading = false;
                         this.changeRequestMode();
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }

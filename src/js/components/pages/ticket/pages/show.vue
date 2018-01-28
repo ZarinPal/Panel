@@ -182,7 +182,7 @@
                         this.loading = false;
                         this.validationErrors.content = '';
                         store.commit('flashMessage', {
-                            text: 'reply-success',
+                            text: 'TicketReplySuccessLocal',
                             type: 'success'
                         });
                     },
@@ -190,7 +190,7 @@
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }
@@ -242,7 +242,7 @@
                     },
                     (response) => {
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }
@@ -250,7 +250,7 @@
             },
             clipboardMessage() {
                 store.commit('flashMessage', {
-                    text: 'copied',
+                    text: 'Copied',
                     type: 'success',
                     timeout: '500'
 

@@ -199,7 +199,7 @@
                         this.isSavingInformation = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }
@@ -218,7 +218,7 @@
                 let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png)$/i;
                 if (!fileExtension.exec(file.name)) {
                     store.commit('flashMessage', {
-                        text: 'fileNotImage',
+                        text: 'UserFileNotImageLocal',
                         type: 'danger'
                     });
                     return;
@@ -278,7 +278,7 @@
                                                 vm.isSaving = false;
 
                                                 store.commit('flashMessage', {
-                                                    text: 'all user file uploaded',
+                                                    text: 'UserFileUploadedLocal',
                                                     type: 'success'
                                                 });
 
@@ -289,7 +289,7 @@
 
                                                 store.commit('setValidationErrors', response.data.validation_errors);
                                                 store.commit('flashMessage', {
-                                                    text: response.data.meta.error_message,
+                                                    text: response.data.meta.error_type,
                                                     type: 'danger'
                                                 });
                                             }

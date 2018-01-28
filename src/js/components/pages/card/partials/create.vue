@@ -136,7 +136,7 @@
 
                 if (this.year > 3150 || this.month > 12) {
                     store.commit('flashMessage', {
-                        text: 'invalid-date',
+                        text: 'CardInvalidDateLocal',
                         type: 'danger'
                     });
                     this.loading = false;
@@ -167,7 +167,7 @@
                     () => {
                         this.loading = false;
                         store.commit('flashMessage', {
-                            text: 'card added success',
+                            text: 'CardAddedSuccessLocal',
                             type: 'success'
                         });
                         this.closeModal();
@@ -176,7 +176,7 @@
                         this.loading = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
                         store.commit('flashMessage', {
-                            text: response.data.meta.error_message,
+                            text: response.data.meta.error_type,
                             type: 'danger'
                         });
                     }

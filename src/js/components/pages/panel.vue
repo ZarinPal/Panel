@@ -53,13 +53,13 @@
                 }
             });
 
-            if (this.refererId) {
-                store.commit('flashMessage', {
-                    text: 'back-to-referer',
-                    type: 'danger',
-                    important: true
-                });
-            }
+//            if (this.refererId) {
+//                store.commit('flashMessage', {
+//                    text: 'BackToReferrer',
+//                    type: 'danger',
+//                    important: true
+//                });
+//            }
         },
         methods: {
             checkUserLevel(acceptedLevels, vm) {
