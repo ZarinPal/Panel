@@ -39,7 +39,7 @@
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
                     div.row.no-margin.ta-right
-                    div.col-xs.no-margin.hand.pull-right(@click="loginByMobileApplication()") .
+                    div.col-xs.no-margin.hand.pull-right(@click="loginByMobileApplication()") {{ $i18n.t('user.loginByMobileApp') }}
 
                 <!--Login by mobile app-->
                 div.login-by-mobile-app(v-if="loginByMobileApp")
