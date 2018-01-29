@@ -49,7 +49,7 @@
                             span {{ $i18n.t('user.loginByMobileApp') }}
                     div.ta-center.no-margin.col-lg-12
                         img.qr-image(v-if="mobile_socket_uri"  :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri"  alt='Qr Code')
-                        span.qr-image(v-else   alt='Qr Code') لطفا چند لحطه صبر کنید ...
+                        span.qr-image(v-else) لطفا چند لحظه صبر کنید ...
                         a.link(href="http://www.zarinpal.mobi" target="blank") {{$i18n.t('user.downloadMobileApp')}}
 
 
@@ -370,6 +370,7 @@
                     );
             },
             loginByMobileApplication() {
+                this.mobile_socket_uri = null;
                 this.getOtpAuthorization((sessionId) => {
                     this.startWebPushSocket(sessionId);
                 });
