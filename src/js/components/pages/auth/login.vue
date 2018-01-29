@@ -370,6 +370,7 @@
                     );
             },
             loginByMobileApplication() {
+                this.mobile_socket_uri = null;
                 this.getOtpAuthorization((sessionId) => {
                     this.startWebPushSocket(sessionId);
                 });
