@@ -71,9 +71,7 @@
           margin: 6px 8px 0 0;
         }
 
-        p {
-          font-size: 18px !important;
-        }
+
 
         .mobile-number {
           color: #2979ff;
@@ -91,6 +89,9 @@
           color: #2979ff;
           cursor: pointer;
         }
+      }
+      p {
+        font-size: 18px !important;
       }
 
       .nav-user-not-registered {
@@ -173,13 +174,15 @@
             color: #424242;
           }
         }
-
-        .qr-image {
-          width: 150px;
-          margin-top: 20px;
-          margin-right: 30px;
-        }
       }
+      .qr-image {
+        width: 150px;
+        height: 150px;
+        display: block;
+        margin: 0 auto;
+        background-color: rgba(204, 210, 160, 0.11);
+      }
+
     }
 
     .otp-container {
@@ -267,6 +270,26 @@
         background-color: #eee;
       }
     }
+  }
+  .change-login-type {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-left: -25px;
+    margin-top: -25px;
+    background-image: url('../img/auth/qr-corner.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .change-login-type-keybord {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-left: -25px;
+    margin-top: -25px;
+    background-image: url('../img/auth/keyboard-corner.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
   }
 }
 
