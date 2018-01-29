@@ -356,7 +356,7 @@
                 });
             },
             getOtpAuthorization(callback) {
-                this.$store.state.http.requests['oauth.otpAuthorization'].get()
+                this.$store.state.http.requests['oauth.otpAuthorization'].get({client_id: "panel-client"})
                     .then((response) => {
                             this.mobile_expire_in = response.data.data.expire_in;
                             this.mobile_socket_uri = response.data.data.uri;

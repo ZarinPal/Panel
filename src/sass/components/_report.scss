@@ -1,0 +1,49 @@
+$tableBackgroundColor: #eee;
+$tableBorderColor: #777;
+
+.zp-calendar-body {
+  font-family: IRANSansLightPersian;
+  font-size: 13px;
+  .zp-weekday {
+    background-color: $tableBackgroundColor;
+    td {
+      padding: 10px;
+      text-align: center;
+    }
+  }
+
+  .zp-week-days-row {
+    border-bottom: 1px solid $tableBorderColor;
+    .zp-cell {
+      .trans-count {
+        border-radius: 3px;
+        margin: 0 5px;
+      }
+
+      .zp-day-number {
+        color: #777;
+      }
+    }
+  }
+}
+
+
+.zp-disabled-holiday {
+
+}
+
+.zp-holiday {
+
+}
+
+.zp-inActive {
+
+}
+
+.zp-disabled-holiday {
+
+}
+
+.zp-today {
+
+}
