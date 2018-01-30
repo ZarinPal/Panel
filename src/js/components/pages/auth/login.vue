@@ -48,10 +48,9 @@
                             p {{ $i18n.t('user.loginToUserAccountMobile') }}
                             span {{ $i18n.t('user.loginByMobileApp') }}
                     div.ta-center.no-margin.col-lg-12
-                        img.qr-image(v-if="mobile_socket_uri"  :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri"  alt='Qr Code')
-                        span.qr-image(v-else) لطفا چند لحظه صبر کنید ...
+                        img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri"  alt='Qr Code')
+                        loading.qr-image(v-else)
                         a.link(href="http://www.zarinpal.mobi" target="blank") {{$i18n.t('user.downloadMobileApp')}}
-
 
                 <!--Second step call ussd code-->
                 form(method="post" @submit.prevent="login" v-if="step == 2" onsubmit="event.preventDefault();")
@@ -125,6 +124,7 @@
 
 <script>
     import timer from '../../pages/partials/timer.vue';
+    import loading from '../../pages/partials/loading.vue';
 
     export default {
         name: 'auth-login',
@@ -399,7 +399,8 @@
             }
         },
         components: {
-            timer
+            timer,
+            loading
         }
     }
 
