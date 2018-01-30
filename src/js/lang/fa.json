@@ -407,6 +407,7 @@
     "WebserviceFileNotImageLocal": "فایل ارسال شده دارای فرمت مجاز نیست.",
     "WebserviceFixValidationErrorsLocal": "خطا‌های اعتبار سنجی را بررسی و اصلاح کنید",
     "WebserviceZarinGateActivatedLocal": "زرین‌گیت فعال شد",
+    "InvalidFileExt": "تصویر دارای فرمت صحیح نیست.",
     "__Easypay__": "<----------#Easypay#---------->",
     "EasypayNotFound": "زرین لینک موردنظر یافت نشد.",
     "EasypayDeletedLocal": "زرین‌لینک حذف شد",
