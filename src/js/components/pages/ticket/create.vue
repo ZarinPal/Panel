@@ -181,7 +181,10 @@
                     this.fileUploaded = true;
                 }, (response) => {
                     this.fileUploading = 'Failed';
-                    console.log('Error occurred...');
+                    store.commit('flashMessage', {
+                        text: response.data.meta.error_type,
+                        type: 'danger'
+                    });
                 });
             },
             send() {
