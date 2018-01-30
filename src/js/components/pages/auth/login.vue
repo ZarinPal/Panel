@@ -3,6 +3,8 @@
         div.col-xs-12.col-sm-5.col-md-5.col-lg-3.section.auth-box
             div.box
                 <!--Header-->
+                span.hand.change-login-type(@click="loginByMobileApplication()" v-if="step == 1 && !loginByMobileApp" title='ورود با موبایل')
+                span.hand.change-login-type-keybord(@click="loginByMobileApp = !loginByMobileApp"  v-if="loginByMobileApp")
                 div.row.top-xs
                     span.zp-icon
                     span.zp-title {{ $i18n.t('common.zarinPal') }}
@@ -16,7 +18,7 @@
                                 p {{ $i18n.t('user.loginToUserAccount') }}
                                 span {{ $i18n.t('user.forUseHaveToLogin') }}
                         div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(v-focus="" v-validate="'required'" :class="{'input-danger': errors.has('username')}" v-bind:data-vv-as="$i18n.t('user.mobMail')" type="text"  v-model="username" name="username" id="username" :placeholder= "$i18n.t('user.mobMail')" autofocus autocomplete="username" tabindex="1")
+                            input.ta-left.dir-ltr(v-focus="" :class="{'input-danger': errors.has('username')}" v-bind:data-vv-as="$i18n.t('user.mobMail')" type="text"  v-model="username" name="username" id="username" :placeholder= "$i18n.t('user.mobMail')" autofocus autocomplete="username" tabindex="1")
                             div.ta-right(v-if="validation('username')")
                                 span.text-danger {{ errors.first('username') }}
                             div.ta-right(v-if="lockout_time_min || lockout_time_sec")
@@ -39,18 +41,16 @@
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
                     div.row.no-margin.ta-right
-                    div.col-xs.no-margin.hand.pull-right(@click="loginByMobileApplication()") {{ $i18n.t('user.loginByMobileApp') }}
-
                 <!--Login by mobile app-->
-                div.login-by-mobile-app(v-if="loginByMobileApp")
-                    div.col-xs-12.no-margin.body-messages
-                        div.ta-right
-                            span.hand.icon-arrow-right(@click="loginByMobileApp = !loginByMobileApp")
+                div.login-by-mobile-app.row.middle-xs(v-if="loginByMobileApp")
+                    div.col-xs-12
                         div.col-lg-12.ta-right
-                            h2 {{ $i18n.t('user.loginToUserAccount') }}
-                            h4 {{ $i18n.t('user.loginByMobileApp') }}
-
-                    img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri")
+                            p {{ $i18n.t('user.loginToUserAccountMobile') }}
+                            span {{ $i18n.t('user.loginByMobileApp') }}
+                    div.ta-center.no-margin.col-lg-12
+                        img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri"  alt='Qr Code')
+                        loading.qr-image(v-else)
+                        a.link(href="http://www.zarinpal.mobi" target="blank") {{$i18n.t('user.downloadMobileApp')}}
 
                 <!--Second step call ussd code-->
                 form(method="post" @submit.prevent="login" v-if="step == 2" onsubmit="event.preventDefault();")
@@ -124,6 +124,7 @@
 
 <script>
     import timer from '../../pages/partials/timer.vue';
+    import loading from '../../pages/partials/loading.vue';
 
     export default {
         name: 'auth-login',
@@ -369,6 +370,7 @@
                     );
             },
             loginByMobileApplication() {
+                this.mobile_socket_uri = null;
                 this.getOtpAuthorization((sessionId) => {
                     this.startWebPushSocket(sessionId);
                 });
@@ -397,7 +399,8 @@
             }
         },
         components: {
-            timer
+            timer,
+            loading
         }
     }
 
