@@ -268,7 +268,10 @@
                 this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
                     this.site_logo = response.data.meta.file_id;
                 }, (response) => {
-                    console.log('Error occurred...');
+                    store.commit('flashMessage', {
+                        text: response.data.meta.error_type,
+                        type: 'danger'
+                    });
                 });
             }
         },
