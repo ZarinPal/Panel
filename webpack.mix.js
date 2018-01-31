@@ -42,7 +42,7 @@ if ('production' === process.env.NODE_ENV) {
         project: 'panel',
         apiKey: '2f7d2e3c06a24d9c9642ff51c44269a13d3935075f194a91982386667b4cf730',
         filenameTransform: function(filename) {
-            return '~' + filename
+            return '~/panel/v1/assets' + filename
         },
         // Release version name/hash is required
         release: process.env.GIT_SHA,
