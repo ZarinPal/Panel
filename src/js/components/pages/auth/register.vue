@@ -110,8 +110,8 @@
                     mobile: this.mobile,
                     g_recaptcha: this.g_recaptcha,
                 };
-                if (this.$route.query.referrerId) {
-                    auth2Data.referrer = atob(this.$route.query.referrerId);
+                if (this.$route.query.referrer) {
+                    auth2Data.referrer = atob(this.$route.query.referrer);
                     localStorage.setItem('zp_referrer', {
                             referrer: auth2Data.referrer,
                             expire_in: moment().add(3, 'day').unix()
