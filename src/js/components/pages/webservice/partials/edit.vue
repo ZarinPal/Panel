@@ -52,7 +52,8 @@
                                     div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
                                         div.row
                                             div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                                span.upload-icon
+                                                span.upload-icon(v-if="!uploading")
+                                                loading.upload-loading(v-if="uploading")
 
                                             div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
                                                 p.attachment-text(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
@@ -68,16 +69,15 @@
                                 div.ta-right(v-if="validationErrors.site_logo")
                                     span.text-danger {{ $i18n.t(validationErrors.attachment) }}
 
-
                     div.row
                         div.col-xs.nav-buttons
-                            button.btn.success.pull-left( v-ripple="" @click="validateForm" tabindex="5") {{$i18n.t('webservice.edit')}}
+                            button.btn.success.pull-left(v-ripple="" @click="validateForm" :class="{'disable': uploading}" tabindex="5") {{$i18n.t('webservice.edit')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
 
-
 <script>
+    import loading from '../../partials/loading.vue';
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
     import webserviceCategories from '../../partials/webservice-categories.vue';
@@ -86,6 +86,7 @@
         name: 'pages-webservice-partials-edit',
         data(){
             return {
+                uploading: false,
                 fileUploadFormData: new FormData(),
                 loading: false,
                 isLoadedData: false,
@@ -251,6 +252,8 @@
                     return;
                 }
 
+                this.uploading = true;
+
                 //set image on image element
                 let image = new Image();
                 let reader = new FileReader();
@@ -267,7 +270,9 @@
 
                 this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
                     this.site_logo = response.data.meta.file_id;
+                    this.uploading = false;
                 }, (response) => {
+                    this.uploading = false;
                     store.commit('flashMessage', {
                         text: response.data.meta.error_type,
                         type: 'danger'
@@ -276,6 +281,7 @@
             }
         },
         components: {
+            loading,
             selectbox,
             purse,
             webserviceCategories
