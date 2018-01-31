@@ -407,6 +407,7 @@
     "WebserviceFileNotImageLocal": "فایل ارسال شده دارای فرمت مجاز نیست.",
     "WebserviceFixValidationErrorsLocal": "خطا‌های اعتبار سنجی را بررسی و اصلاح کنید",
     "WebserviceZarinGateActivatedLocal": "زرین‌گیت فعال شد",
+    "InvalidFileExt": "تصویر دارای فرمت صحیح نیست.",
     "__Easypay__": "<----------#Easypay#---------->",
     "EasypayNotFound": "زرین لینک موردنظر یافت نشد.",
     "EasypayDeletedLocal": "زرین‌لینک حذف شد",
@@ -512,7 +513,7 @@
     "addPurseTitle": "افزودن کیف‌پول",
     "addPurse": "افزودن کیف‌پول",
     "createPurseSilverUsersDescription": "برای کاربران نقره‌ای ایجاد کیف‌پول مشمول کسر ۱,۵۰۰ تومان از کیف‌پول انتخاب‌شده خواهد بود. کابران طلایی از این قاعده مستثنا هستند.",
-    "addFund": "افزایش اعتبار کیف‌پول",
+    "addFund": "افزایش اعتبار",
     "addFundNotActiveCard": "در حال حال حاضر در حساب زرین‌پالی شما هیچ حساب‌بانکی ثبت نشده یا اینکه فعال نمی‌باشد. لطفا برای استفاده از این سرویس اقدام به ثبت و فعال کردن یک حساب کنید.",
     "shetabMoneyTransfer": " انتقال وجه شتابی",
     "transferFromPurse": "انتقال از کیف‌پول",
@@ -1039,6 +1040,7 @@
     "uploadDocument": "مدارک مورد نظر برای تأیید سطح پذیرندگی با موفقیت ارسال گردید.",
     "notRegistered": "عضو نیستید؟ ",
     "loginToUserAccount": "ورود به حساب کاربری",
+    "loginToUserAccountMobile": "ورود سریع با اپلیکیشن زرین‌پال من",
     "forUseHaveToLogin": "برای استفاده از خدمات ابتدا وارد شوید",
     "backToHomePage": "بازگشت به صفحه اصلی",
     "rulesAndRegulations": "قوانین و مقررات",
@@ -1081,7 +1083,7 @@
     "userProgressDescription": "در این صفحه شما می‌توانید وضعیت تمکیل بودن حساب کاربری خود را مشاهده کنید",
     "addEmailDescription": "در این صفحه شما می‌توانید ادرس ایمیل خود را وارد نمایید",
     "verifyTelegramTitle": "فعالسازی ربات تلگرام",
-    "verifyTelegramDesk": "آیا فعالسازی ربات تلگرام زرین پال را برای این اکانت تایید می نمایید ؟",
+    "verifyTelegramDesk": "آیا فعالسازی ربات تلگرام زرین‌پال را برای این اکانت تایید می نمایید ؟",
     "verifyTelegramConfirm": "بله ، فعال شود",
     "progress": {
       "addresses": "افزودن آدرس پستی",
@@ -1099,11 +1101,12 @@
     "requestPersonalLinkTitle": "ایجاد لینک شخصی",
     "checkingUsername": "در حال جستجوی نام‌کاربری",
     "youCanUserThisUsername": "این نام کاربری آزاد است",
-    "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین پال برخودار شوید",
+    "copyReferrerLinkDescription": "با عضو شدن دوستانتان توسط این لینک از مزایای همکاری در جذب کاربر زرین‌پال برخودار شوید",
     "setEmailTitle": "ثبت ایمیل",
     "loginToOldPanel": "ورود به پنل قدیمی",
     "copyUssd": "برای کپی کردن کد را لمس کنید",
-    "loginByMobileApp": "ورود با اپ موبایل"
+    "loginByMobileApp": "برای ورود کافی است رمزینه زیر را با اپلیکیشن زرین‌پال من اسکن کنید",
+    "downloadMobileApp": "دانلود اپلیکیشن زرین‌پال من"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",
