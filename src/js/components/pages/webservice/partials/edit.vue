@@ -48,7 +48,9 @@
                                 div.col-lg-12.col-md-12.col-sm-12.col-xs-12.ta-center
                                     img.webservice-logo(:src="selectedLogo")
 
+
                                 div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+                                    span {{$i18n.t('webservice.uploadLogoNote')}}
                                     div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
                                         div.row
                                             div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")

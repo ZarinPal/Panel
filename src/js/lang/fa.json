@@ -1328,6 +1328,7 @@
     "withIpLimit": "با محدودیت IP",
     "activation": "فعالسازی",
     "depositTo": "متصل به",
+    "uploadLogoNote": "* توجه:‌ لوگو باید حتما با فرمت PNG و در ابعاد 500*500 پیکسل باشد.",
     "inActive": "غیر‌فعال"
   }
 }
