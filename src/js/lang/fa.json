@@ -469,6 +469,8 @@
     "OauthUserMobileVerifiedBefore": "این شماره موبایل قبلاً تأییدشده است.",
     "OauthOtpSentSmsLocal": "رمز یکبار مصرف از طریق پیامک برای شما ارسال خواهد‌شد.",
     "OauthOtpSentEmailLocal": "رمز یکبار مصرف از طریق ایمیل برای شما ارسال خواهد‌شد.",
+    "OauthSuccessRegisterLocal": "تبریک، عضویت شما با موفقیت انجام شد.",
+
     "__ZarinCard__": "<----------#ZarinCard#---------->",
     "ZarinCardAmountTooSmall": "مبلغ واردشده کمتر از حد مجاز است.",
     "ZarinCardInvalidParams": "پارامترهای ارسال صحیح نیستند.",
