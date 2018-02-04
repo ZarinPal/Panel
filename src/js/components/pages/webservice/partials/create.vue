@@ -40,15 +40,14 @@
                                     span.text-danger {{ errors.first('site_content') }}
 
                                 div.row.no-margin
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
 
                                 div.row.no-margin
-                                    webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" @select="selectedWebserviceCat" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
+                                    webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" v-model="webservice_category_id" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" @select="selectedWebserviceCat" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
                                     div.ta-right(v-if="validation('webservice_category_id')")
                                         span.text-danger {{ errors.first('webservice_category_id') }}
-
 
                     div.row
                         div.col-xs.nav-buttons
@@ -110,9 +109,6 @@
                         this.createWebservice();
                     }
                 });
-            },
-            removeErrors: function (field) {
-                !!this[field] && this.errors.remove(field);
             },
             selectedPurse(purseId) {
                 this.purse = purseId;
