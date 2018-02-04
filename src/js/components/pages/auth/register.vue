@@ -126,7 +126,7 @@
                 this.$store.state.http.requests['oauth.PostRegisterUser'].save(auth2Data).then(
                     response => {
                         store.commit('flashMessage', {
-                            text: response.data.meta.message,
+                            text: 'OauthSuccessRegisterLocal',
                             type: 'success',//optional
                         });
                         this.$router.push({
