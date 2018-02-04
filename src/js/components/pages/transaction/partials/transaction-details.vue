@@ -107,14 +107,29 @@
                         div.col-xs.ta-left
                             span.value  {{ transaction.description}}
 
-                    div.row(v-if="transaction.note")
+                    div.row(v-if="transaction.note && !isEditingNote")
                         div.col-xs.ta-right
                             span.title(v-if="transaction.note")  {{$i18n.t('transaction.note')}}
                         div.col-xs.ta-left
                             span.value(v-if="transaction.note")  {{ transaction.note }}
 
-            div.footer.bottom-xs
-                a.print.hand(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'") {{$i18n.t('transaction.print')}}
+                    div.row(v-if="isEditingNote")
+                        div.col-xs.ta-right
+                            span.title  {{$i18n.t('transaction.note')}}
+                        div.col-xs.ta-left
+                            form(autocomplete="on" onsubmit="event.preventDefault();")
+                                input( v-validate="{ rules: { min:5, max: 255}}" v-model="txtTransactionNote" name='txtTransactionNote'  id='txtTransactionNote' onfocus="this.select()" v-bind:data-vv-as="$i18n.t('transaction.note')" )
+                                div.ta-right(v-if="validation('txtTransactionNote')")
+                                    span.text-danger {{ errors.first('txtTransactionNote') }}
+
+                    div.row
+                        div.col-xs
+                            button.btn.success(@click="saveNote" v-if="isEditingNote" ) ذخیره یادداشت
+                            button.btn(@click="addNote" v-else-if="transaction.note" ) ویرایش یادداشت
+                            button.btn(@click="addNote" v-else="!transaction.note" ) افزودن یادداشت
+                        div.col-xs
+                            a(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'")
+                                button.btn {{$i18n.t('transaction.print')}}
 
 
 </template>
@@ -129,10 +144,18 @@
             return {
                 closeModalContent: true,
                 purseName: null,
+                txtTransactionNote: this.transaction.note,
+                isEditingNote: false,
             }
         },
         props: ['transaction'],
+        computed: {
+            validationErrors() {
+                return this.$store.state.alert.validationErrors;
+            }
+        },
         created() {
+            store.commit('clearValidationErrors');
             if (this.transaction.to_user) {
                 this.purseName = this.getPurseName(this.transaction.to_user.purse);
             }
@@ -150,23 +173,36 @@
                 });
 
             },
-            printDetail() {
-                window.print();
+            addNote() {
+                this.isEditingNote = true;
+            },
+            saveNote() {
+                let sendContent = {
+                    note: this.txtTransactionNote
+                };
+                this.$store.state.http.requests['transaction.getInfo']
+                    .update({'transactionId': this.transaction.public_id}, sendContent)
+                    .then(() => {
+                            this.transaction.note = this.txtTransactionNote;
+                            this.isEditingNote = false;
+                            store.commit('flashMessage', {
+                                text: 'TransactionEditNoteDoneLocal',
+                                type: 'success'
+                            });
+                        },
+                        (response) => {
+                            store.commit('setValidationErrors', response.data.validation_errors);
+                            store.commit('flashMessage', {
+                                text: response.data.meta.error_type,
+                                type: 'danger'
+                            });
+
+                        }
+                    );
 
 
-//            :href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'"
-
-//                this.$store.state.http.requests['transaction.getInfoPdf'].get({transactionId: documentId}).then(
-//                    (response) => {
-//                        let blob = new Blob([response.data], { type: 'application/pdf' } ),
-//                            url = window.URL.createObjectURL(blob);
-//
-//                        window.open(url);
-//                    }
-//                ).catch((response) => {
-
-//                });
             }
+
         },
         components: {
             modal
