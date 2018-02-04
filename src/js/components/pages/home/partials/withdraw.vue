@@ -16,17 +16,17 @@
             span(v-else)
                 div(v-if="this.$store.state.auth.user.cards")
                     form(autocomplete="on" onsubmit="event.preventDefault();")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse"  id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" placeholder="انتخاب کیف‌پول")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" placeholder="انتخاب کیف‌پول")
                         div.ta-right(v-if="validation('purse')")
                             span.text-danger {{ errors.first('purse') }}
 
                         div.row
-                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model.lazy="amount" name="amount"  id="amount" tabindex="1" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
+                            input.ltr-input(v-validate="{ rules: {required: true}}" v-mask="{money: true}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" id="amount" tabindex="1" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
                             div.ta-right(v-if="validation('amount')")
                                 span.text-danger {{ errors.first('amount') }}
 
                         div.row
-                            cards.cards(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" tabindex="3" v-on:select="selectedCard")
+                            cards.cards(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-model="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" tabindex="3" v-on:select="selectedCard")
                             div.ta-right(v-if="validation('card_id')")
                                 span.text-danger {{ errors.first('card_id') }}
 
@@ -103,6 +103,7 @@
                     'https://' + window.location.hostname + '/'
                     + this.$router.resolve({name: 'home.finishAddFund'}).href),
                 card: {},
+                card_id: null,
                 isLoadedFees: false,
                 withdrawAmount: 0,
                 feeDetails: {
@@ -140,7 +141,7 @@
             validateForm() {
                 this.$validator.validateAll({
                     amount: this.amount,
-                    card_id: this.card.id,
+                    card_id: this.card_id,
                     purse: this.purse
                 }).then((result) => {
                     if (result) {
@@ -182,6 +183,7 @@
             },
             selectedCard(cardId) {
                 this.card.id = cardId;
+                this.card_id = cardId;
 
                 let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function (card) {
                     return card.entity_id === cardId;
@@ -267,7 +269,7 @@
                 this.loading = true;
                 let withdrawData = {
                     amount: this.clearNumber(this.amount),
-                    card_id: this.card.id,
+                    card_id: this.card_id,
                     purse: this.purse,
                     fee_id: this.feeDetails.id
                 };

@@ -36,7 +36,7 @@
                 let ctx = canvas.getContext("2d");
                 ctx.scale(4, 4);
                 ctx.webkitImageSmoothingEnabled =
-                    ctx.mozImageSmoothingEnabled = false;
+                    ctx.mozImageSmoothingEnabled = true;
                 let thumbImg = document.createElement('img');
                 thumbImg.src = avatar;
 
@@ -85,9 +85,9 @@
                     ctx.fillStyle = vm.levelColor(vm.user.level);
                     ctx.fill();
                     ctx.fillStyle = '#000';
-                    ctx.font = "11px IRANSans";
+                    ctx.font = "12px IRANSans";
                     ctx.textAlign="center";
-                    ctx.fillText(vm.numberToFarsi(percent) + "%", 81, 22);
+                    ctx.fillText(vm.numberToFarsi(percent) + "٪", 81, 22);
                     ctx.closePath();
                     ctx.restore();
                     ctx.save();

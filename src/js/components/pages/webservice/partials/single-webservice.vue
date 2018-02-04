@@ -65,17 +65,17 @@
                         span.tag.tag-active.pull-left(v-ripple="") {{ $i18n.t('common.active') }}
 
                 <!--Ussd-->
-                div.row.box-row
-                    div.col-xs.ta-right
-                        span.label USSD
+                <!--div.row.box-row-->
+                    <!--div.col-xs.ta-right-->
+                        <!--span.label USSD-->
 
-                    div.col-xs.ta-left.no-left-margin.dir-ltr(v-if="webservice.ussd_id")
-                        span.text-value.persian-num *788*97*{{ webservice.ussd_id }}#
-                    div.col-xs.ta-left.no-left-margin(v-else)
-                        span.tag.pull-left {{ $i18n.t('webservice.inActive') }}
-                        span.pull-left.text-activation(v-ripple="" @click="visibleUssdActivation = true") {{ $i18n.t('webservice.activation') }}
+                    <!--div.col-xs.ta-left.no-left-margin.dir-ltr(v-if="webservice.ussd_id")-->
+                        <!--span.text-value.persian-num *788*97*{{ webservice.ussd_id }}#-->
+                    <!--div.col-xs.ta-left.no-left-margin(v-else)-->
+                        <!--span.tag.pull-left {{ $i18n.t('webservice.inActive') }}-->
+                        <!--span.pull-left.text-activation(v-ripple="" @click="visibleUssdActivation = true") {{ $i18n.t('webservice.activation') }}-->
 
-        ussdActivation(v-if="visibleUssdActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")
+        <!--ussdActivation(v-if="visibleUssdActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")-->
         zarinGateActivation(v-if="visibleZarinGateActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")
 </template>
 
