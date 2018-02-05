@@ -21,7 +21,6 @@ export default {
                     if (/^[0-9]*$/.test(input)) {
                         let number = parseInt(el.value.replace(/\D/g, ''), 10);
                         el.value = number.toLocaleString();
-                        this.vm.$set(this.key, '12345');
                     }
                 }
             });

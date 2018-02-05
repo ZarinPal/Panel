@@ -124,7 +124,7 @@
                 password: null,
                 cvv2: null,
                 dst_pan: null,
-                amount: 0,
+                amount: '',
             }
         },
         props: ['card'],
