@@ -32,7 +32,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input.ltr-input(v-mask="{money: true}"  v-validate="'required'" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')" type="text" v-model.lazy="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
+                                            vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('price')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="price" name="price" :placeholder="$i18n.t('card.transferAmountTitle')")
                                             div.ta-right(v-if="validation('price')")
                                                 span.text-danger {{ errors.first('price') }}
 
@@ -227,6 +227,7 @@
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
     import loading from '../../partials/loading.vue';
+    import VueNumeric from 'vue-numeric';
 
     export default {
         name: 'pages-easypay-partials-edit',
@@ -240,7 +241,7 @@
                 messages: {},
                 title: null,
                 description: null,
-                price: null,
+                price: '',
                 payTo: null,
                 webservice_id: null,
                 purse: null,
@@ -494,7 +495,8 @@
         components: {
             selectbox,
             purse,
-            loading
+            loading,
+            VueNumeric
         }
     }
 

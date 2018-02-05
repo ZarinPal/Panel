@@ -69,7 +69,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.minAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-mask="{money: true}" v-validate="'required'" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" maxlength="15" :class="{'input-danger': errors.has('min_amount')}" type="text" v-model.lazy="min_amount"   name="min_amount" id="min_amount" placeholder="(حداقل مبلغ خرید (تومان" tabindex="6")
+                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" :class="{'input-danger': errors.has('min_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="min_amount" name="min_amount" id="min_amount" placeholder="(حداقل مبلغ تخفیف (تومان" tabindex="6")
                                 div.ta-right(v-if="validation('min_amount')")
                                     span.text-danger {{ errors.first('min_amount') }}
 
@@ -85,7 +85,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.maxAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-mask="{money: true}" v-validate="'required'" v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" maxlength="15" :class="{'input-danger': errors.has('max_amount')}" type="text" v-model.lazy="max_amount"  name="max_amount" id="max_amount"  placeholder="(حداکثر تخفیف (تومان" tabindex="7")
+                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" :class="{'input-danger': errors.has('max_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="max_amount" name="max_amount" id="max_amount"  placeholder="(حداکثر تخفیف (تومان" tabindex="7")
                                 div.ta-right(v-if="validation('max_amount')")
                                     span.text-danger {{ errors.first('max_amount') }}
 
@@ -102,6 +102,7 @@
     import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import selectbox from '../../partials/selectbox.vue';
     import loading from '../../partials/loading.vue';
+    import VueNumeric from 'vue-numeric';
 
     export default {
         name: 'pages-coupon-partials-edit',
@@ -272,7 +273,8 @@
         components: {
             selectbox,
             loading,
-            datePicker: VuePersianDatetimePicker
+            datePicker: VuePersianDatetimePicker,
+            VueNumeric
         }
     }
 

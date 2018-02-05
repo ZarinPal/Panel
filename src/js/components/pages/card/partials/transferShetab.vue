@@ -24,7 +24,7 @@
                                 span.text-danger {{ errors.first('dst_pan') }}
 
                         div.row.no-margin
-                            input.ltr-input(v-mask="{money: true, min_value:100}" v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
+                            vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
                             div.ta-right(v-if="validation('amount')")
                                 span.text-danger {{ errors.first('amount') }}
 
@@ -107,6 +107,7 @@
 <script>
     import modal from '../../partials/modal.vue';
     import loading from '../../partials/loading.vue';
+    import VueNumeric from 'vue-numeric';
 
     export default {
         name: 'pages-card-partials-transferShetab',
@@ -123,7 +124,7 @@
                 password: null,
                 cvv2: null,
                 dst_pan: null,
-                amount: null,
+                amount: '',
             }
         },
         props: ['card'],
@@ -235,7 +236,8 @@
         },
         components: {
             modal,
-            loading
+            loading,
+            VueNumeric
         }
     }
 
