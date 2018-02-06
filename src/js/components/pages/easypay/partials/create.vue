@@ -30,7 +30,7 @@ f
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true}}" maxlength="15" :class="{'input-danger': errors.has('price')}" v-bind:data-vv-as="$i18n.t('easypay.price')" type="text" v-model.lazy="price" id="price" name="price" :placeholder= "$i18n.t('easypay.priceToman')" tabindex="2")
+                                            vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('price')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="price" name="price" :placeholder="$i18n.t('card.transferAmountTitle')")
                                             div.ta-right(v-if="validation('price')")
                                                 span.text-danger {{ errors.first('price') }}
 
@@ -219,6 +219,7 @@ f
 <script>
     import selectbox from '../../partials/selectbox.vue';
     import purse from '../../partials/purses.vue';
+    import VueNumeric from 'vue-numeric';
 
     export default {
         name: 'pages-easypay-partials-create',
@@ -348,10 +349,6 @@ f
             },
             createEasypay() {
                 this.isLoading = true;
-                let price = this.price;
-                if (/,/g.test(this.price)) {
-                    price = this.price.replace(/,/g, "");
-                }
 
                 let purseName = null;
                 if (this.purse_name) {
@@ -361,7 +358,7 @@ f
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
-                    price: price,
+                    price: this.price,
                     purse: this.purse,
                     webservice_id: this.webservice_id,
                     purse_name: purseName,
@@ -401,13 +398,12 @@ f
                     this.limited = 0;
                     this.limit = '';
                 }
-                let price = this.price.replace(/,/g, "");
 
                 let easyPayData = {
                     isLoading: false,
                     title: this.title,
                     description: this.description,
-                    price: price,
+                    price: this.price,
                     purse: this.purse,
                     required_fields: {
                         email: this.requiredFields.email,
@@ -440,8 +436,6 @@ f
 
             },
             addEasypayToState(easypayData) {
-                let price = this.price.replace(/,/g, "");
-
                 let purseName = null;
                 if (this.purse_name) {
                     purseName = this.purse_name.name;
@@ -453,7 +447,7 @@ f
                     entity_id: easypayData.entity_id,
                     failed_redirect_url: null,
                     limit: null,
-                    price: price,
+                    price: this.price,
                     public_id: easypayData.public_id,
                     purse: this.purse,
                     purse_name: purseName,
@@ -515,7 +509,8 @@ f
         },
         components: {
             selectbox,
-            purse
+            purse,
+            VueNumeric
         }
     }
 

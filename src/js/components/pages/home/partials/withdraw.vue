@@ -21,7 +21,7 @@
                             span.text-danger {{ errors.first('purse') }}
 
                         div.row
-                            input.ltr-input(v-validate="{ rules: {required: true}}" v-mask="{money: true}" v-bind:data-vv-as="$i18n.t('transaction.amount')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" id="amount" tabindex="1" @keyup="calcPercentAmount()" :placeholder="$i18n.t('card.transferAmountTitle')")
+                            vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
                             div.ta-right(v-if="validation('amount')")
                                 span.text-danger {{ errors.first('amount') }}
 
@@ -89,6 +89,7 @@
     import cards from '../../partials/cards.vue';
     import purse from '../../partials/purses.vue';
     import confirm from '../../partials/confirm.vue';
+    import VueNumeric from 'vue-numeric';
 
     export default {
         name: 'home-purse-withdraw',
@@ -97,7 +98,7 @@
                 loading: false,
                 closeModalContent: false,
                 confirmVisible: false,
-                amount: null,
+                amount: '',
                 purse: null,
                 redirectUrl: encodeURI(
                     'https://' + window.location.hostname + '/'
@@ -130,6 +131,11 @@
                 }
             }
         },
+        watch: {
+            amount: function () {
+                this.withdrawAmount = (this.amount * (this.feeDetails.details.percent / 100)).toFixed(0);
+            },
+        },
         created() {
             store.commit('clearValidationErrors');
             this.getFees();
@@ -160,11 +166,7 @@
                 }
             },
             calcPercentAmount() {
-                if (/,/g.test(this.amount)) {
-                    this.withdrawAmount = (this.amount.replace(/,/g, "") * (this.feeDetails.details.percent / 100)).toFixed(0)
-                } else {
-                    this.withdrawAmount = (this.amount * (this.feeDetails.details.percent / 100)).toFixed(0);
-                }
+                this.withdrawAmount = (this.clearNumber(this.amount) * (this.feeDetails.details.percent / 100)).toFixed(0);
             },
             calcFeeDate(seconds) {
                 let numDays = Math.floor(seconds / 86400);
@@ -315,7 +317,8 @@
             cards,
             purse,
             loading,
-            confirm
+            confirm,
+            VueNumeric
         }
     }
 </script>

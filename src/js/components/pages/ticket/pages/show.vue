@@ -72,7 +72,7 @@
                         div.ta-right(v-if="validation('content')")
                             span.text-danger {{ errors.first('content') }}
 
-                        button.submit(@click="validateForm") {{ $i18n.t('ticket.send')}}
+                        button.submit(@click="validateForm" :class="{'disable': loading}") {{ $i18n.t('ticket.send')}}
                             svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                 circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
                             <!--input.attach(type="file" name="file" @change="onFileChange" :class="{'uploaded' : fileUploaded}")-->
