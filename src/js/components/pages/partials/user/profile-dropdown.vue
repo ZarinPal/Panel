@@ -12,7 +12,7 @@
                 router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.addAddress'}")
                     span.icon.location {{$i18n.t('user.addNewAddress')}}
                 router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.notificationSetting'}")
-                    span.icon.notif {{$i18n.t('user.notificationSetting')}}
+                    span.icon.nav-loadingnav-loading {{$i18n.t('user.notificationSetting')}}
 
                 div.divider
                 div.items(id="btnLogout" v-ripple="" @click="confirmVisible = true")
@@ -22,15 +22,19 @@
                 confirm(v-if="confirmVisible" v-on:confirmed="logout()" v-on:closeModal="closeModal" :keepConfirmedOpen="true")
                     span(slot="title") {{$i18n.t('common.logout')}}
                     div.ta-right(slot="message")
-                        div آیا خارج می‌شوید؟
+                        div(v-if="!ShowLoading") آیا برای خروج از زرین‌پال مطمان هستید ؟
+                        div(v-if="ShowLoading")
+                            div.ta-center لطفا چند لحظه صبر کنید
+                                loading
 
-                    span(slot="messageDanger") {{$i18n.t('common.cancel')}}
+                    span(slot="messageDanger" ) {{$i18n.t('common.cancel')}}
                     span(slot="messageSuccess") بله، خارج می‌شوم
 </template>
 
 
 <script>
     import confirm from '../confirm.vue';
+    import loading from '../../../pages/partials/loading.vue';
 
     export default {
         name: 'profile-drop-down',
@@ -38,6 +42,7 @@
             return {
                 confirmVisible: false,
                 confirm: false,
+                ShowLoading: false,
             }
         },
         computed: {
@@ -52,12 +57,14 @@
             logout(){
                 this.confirm = true;
                 if (this.confirm) {
+                    this.ShowLoading = true;
                     this.$store.dispatch('auth/logout', this);
                 }
             },
         },
         components: {
             confirm,
+            loading
         }
     };
 </script>
