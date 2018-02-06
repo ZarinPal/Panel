@@ -71,8 +71,6 @@
           margin: 6px 8px 0 0;
         }
 
-
-
         .mobile-number {
           color: #2979ff;
           margin: 0 2px;
@@ -178,6 +176,14 @@
       .qr-image {
         width: 150px;
         height: 150px;
+        display: block;
+        margin: 0 auto;
+        background-color: rgba(204, 210, 160, 0.11);
+      }
+      .nav-loading {
+        padding-top: 55px;
+        width: 150px;
+        height: 90px;
         display: block;
         margin: 0 auto;
         background-color: rgba(204, 210, 160, 0.11);
