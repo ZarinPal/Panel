@@ -189,16 +189,14 @@
             },
             acceptTransfer() {
                 this.transferCompelled = true;
-
                 let destPan = this.dst_pan.split('-').join('');
-                let amount = this.amount.replace(/,/g, "");
 
                 let transferData = {
                     card_id: this.card.entity_id,
                     password: this.password,
                     cvv2: this.cvv2,
                     dst_pan: destPan,
-                    amount: amount
+                    amount: this.amount
                 };
 
                 this.$store.state.http.requests['zarincard.postTransferShetab'].save(transferData).then(
