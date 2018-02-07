@@ -297,6 +297,8 @@
                         });
                     }
                 );
+                vm.nchanSubscriber.stop();
+
             },
             changeUssdType() {
                 if (this.ussdType === 'Code') {
@@ -370,12 +372,12 @@
                     );
             },
             loginByMobileApplication() {
-               if (!this.mobile_socket_uri){
-                   this.getOtpAuthorization((sessionId) => {
-                       this.startWebPushSocket(sessionId);
-                   });
+                if (!this.mobile_socket_uri) {
+                    this.getOtpAuthorization((sessionId) => {
+                        this.startWebPushSocket(sessionId);
+                    });
 
-               }
+                }
                 this.loginByMobileApp = !this.loginByMobileApp;
             },
             startWebPushSocket(sessionId) {
@@ -394,7 +396,6 @@
                     vm.username = message.mobile;
                     vm.otp = message.otp;
                     vm.login();
-                    vm.nchanSubscriber.stop();
                 });
 
                 this.nchanSubscriber.start();
