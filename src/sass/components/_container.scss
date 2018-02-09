@@ -542,10 +542,6 @@ body {
   }
 }
 
-#userProgress {
-  zoom: 0.25 !important;
-}
-
 .small-user-image {
   zoom: 0.15 !important;
   margin-right: -55px !important;
@@ -744,8 +740,7 @@ body {
       height: 175px;
       margin-right: -20%;
       margin-bottom: -50px;
-      margin-top: 20px;
-      padding-top: 70px;
+      padding-top: 65px;
       border-radius: 700px / 251px;
     }
 
@@ -958,17 +953,16 @@ body {
 
     &.to-silver-level-link {
       background-image: linear-gradient(-222deg, #E8EBED 0%, #DADEE0 73%, #D5D9DB 100%);
-      box-shadow: 0 3px 9px 0 rgba(216,220,222,0.30);
+      box-shadow: 0 3px 9px 0 rgba(216, 220, 222, 0.30);
     }
 
     &.to-gold-level-link {
       background-image: linear-gradient(-226deg, #FFE16C 0%, #FFDA47 100%);
-      box-shadow: 0 3px 7px 0 rgba(255,218,71,0.30);
+      box-shadow: 0 3px 7px 0 rgba(255, 218, 71, 0.30);
     }
 
   }
 }
-
 
 @media (max-width: $mobileSize) {
   .main-content {
@@ -1058,7 +1052,6 @@ body {
 
     .user-info {
       .user-image {
-        top: -103px !important;
         margin-bottom: -80px !important;
         border-radius: 700px / 181px !important;
       }
@@ -1147,4 +1140,12 @@ body {
 
     }
   }
+}
+
+.progress .progress_step {
+  stroke-dasharray: 257.6106;
+  -webkit-transition: stroke-dashoffset 600ms ease-in-out;
+  transition: stroke-dashoffset 600ms ease-in-out;
+  transform: rotate(-90deg);
+  transform-origin: 45px 45px;
 }
