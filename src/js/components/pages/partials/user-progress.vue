@@ -49,6 +49,9 @@
             appIsLoaded() {
                 this.renderProgress();
             },
+            user() {
+                this.renderProgress();
+            },
         },
         methods: {
             levelColor() {
