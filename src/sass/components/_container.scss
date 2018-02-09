@@ -184,6 +184,17 @@ body {
     top: -11px;
   }
 
+  .navbar-title-cu {
+    font-size: 16px;
+    font-weight: 300;
+    border-radius: 5px;
+    background-color: #f2f3f5bd;
+    margin-left: 10px;
+    position: relative;
+    top: 25px;
+    padding: 3px 12px 2px 10px;
+  }
+
   .navigation-logo {
     margin: 0 auto !important;
     display: inline-block;
@@ -253,10 +264,9 @@ body {
       background-color: #ff2e56;
       border-radius: 50%;
       position: relative;
-      margin-top: 16px;
       margin-left: -13px;
       left: 0;
-      top: -1px;
+      top: 15px;
     }
 
     .reload {

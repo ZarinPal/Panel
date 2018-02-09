@@ -19,10 +19,9 @@
 
 
                             div.col-lg-5.col-md-5.col-sm-12.col-xs-12.field-box
-                                selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('ticket_department_id')" v-validate="{ rules: {required: true}}" name="ticket_department_id" id="ticket_department_id" v-bind:data-vv-as="$i18n.t('ticket.department')" :class="{'input-danger': errors.has('ticket_department_id')}" v-on:select="selectDepartment" v-bind:selected="priority" v-bind:data="departmentSelection" :placeholder="$i18n.t('ticket.department')" tabindex="2")
+                                selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('ticket_department_id')" v-validate="{ rules: {required: true}}" name="ticket_department_id" v-model="ticket_department_id" id="ticket_department_id" v-bind:data-vv-as="$i18n.t('ticket.department')" :class="{'input-danger': errors.has('ticket_department_id')}" v-on:select="selectDepartment" v-bind:selected="priority" v-bind:data="departmentSelection" :placeholder="$i18n.t('ticket.department')" tabindex="2")
                                 div.ta-right(v-if="validation('ticket_department_id')")
                                     span.text-danger {{ errors.first('ticket_department_id') }}
-
 
                         div.row.no-margin
                             textarea(v-validate="{ rules: {required: true, min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('common.description')" :class="{'input-danger': errors.has('content')}" v-model="content" name="content" :placeholder="$i18n.t('common.description')" tabindex="3")
@@ -64,10 +63,9 @@
 
                         div.row.nav-button
                             div.col-xs.no-margin
-                                button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('ticket.createTicket')}}
+                                button.btn.success.pull-left(v-ripple="" @click="validateForm" :class="{'disable': loading}") {{$i18n.t('ticket.createTicket')}}
                                     svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                         circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
 </template>
 
 <script>

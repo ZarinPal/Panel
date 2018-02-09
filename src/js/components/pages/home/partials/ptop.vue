@@ -12,12 +12,12 @@
                     form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row
                             div.col-xs-12.no-margin
-                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse"  tabindex="3" placeholder="انتخاب کیف‌پول")
+                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse"  tabindex="3" placeholder="انتخاب کیف‌پول")
                                 div.ta-right(v-if="validation('purse')")
                                     span.text-danger {{ errors.first('purse') }}
 
                             div.col-xs.no-right-margin
-                                input.ltr-input(v-mask="{money: true}" v-validate="{ rules: {required: true, max: 15}}" v-bind:data-vv-as="$i18n.t('card.transferAmountTitle')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model.lazy="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')"  tabindex="1")
+                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
                                 div.ta-right(v-if="validation('amount')")
                                     span.text-danger {{ errors.first('amount') }}
 
@@ -94,6 +94,7 @@
     import modal from '../../partials/modal.vue';
     import loading from '../../partials/loading.vue';
     import alert from "../../../../store/modules/alert";
+    import VueNumeric from 'vue-numeric';
 
     export default {
         name: 'home-purse-ptop',
@@ -104,7 +105,7 @@
                 step: 1,
                 purse: null,
                 zpId: null,
-                amount: null,
+                amount: '',
                 description: null,
                 destinationUser: null,
                 purse_name: null,
@@ -233,7 +234,8 @@
             selectbox,
             purse,
             modal,
-            loading
+            loading,
+            VueNumeric
         }
     }
 

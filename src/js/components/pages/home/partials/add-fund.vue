@@ -5,11 +5,11 @@
             div
                 form(autocomplete="on" onsubmit="event.preventDefault();")
                     div.row
-                        input.ltr-input(v-mask="{money: true}" v-focus="" v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('card.fee')" maxlength="15" :class="{'input-danger': errors.has('amount')}" type="text" v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')" tabindex="1")
+                        vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
                         div.ta-right(v-if="validation('amount')")
                             span.text-danger {{ errors.first('amount') }}
 
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" tabindex="2")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" tabindex="2")
                     div.ta-right(v-if="validation('purse')")
                         span.text-danger {{ errors.first('purse') }}
 
@@ -27,6 +27,7 @@
     import modal from '../../partials/modal.vue';
     import cards from '../../partials/cards.vue';
     import purse from '../../partials/purses.vue';
+    import VueNumeric from 'vue-numeric';
 
     export default {
         name: 'home-purse-addFund',
@@ -34,7 +35,7 @@
             return {
                 loading: false,
                 closeModalContent: false,
-                amount: null,
+                amount: '',
                 card_id: null,
                 purse: null,
                 maxAmountLimit: 10000000,
@@ -149,7 +150,8 @@
             selectbox,
             modal,
             cards,
-            purse
+            purse,
+            VueNumeric
         }
     }
 </script>
