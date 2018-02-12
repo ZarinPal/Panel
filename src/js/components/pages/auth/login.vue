@@ -176,6 +176,8 @@
             }
         },
         created() {
+            let vm = this;
+
             /**
              * Automatic login
              */
@@ -185,7 +187,16 @@
                 this.login();
             }
 
-            let vm = this;
+            if(this.decode(this.otp).includes("@")){
+                this.$store.state.http.requests['user.getVerify']
+                    .get({email: this.$route.params.otp, token: this.$route.params.email})
+                    .then(() => {
+                        vm.$router.push({name: 'home.index'});
+                    }).catch(() => {
+
+                    });
+            }
+
             this.$store.state.http.requests['oauth.check']
                 .get()
                 .then(() => {
@@ -399,7 +410,12 @@
                 });
 
                 this.nchanSubscriber.start();
-            }
+            },
+            decode(str) {
+                return decodeURIComponent(atob(str).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+            },
         },
         components: {
             timer,
