@@ -1,127 +1,61 @@
 <template lang="pug">
-    canvas#userProgress(v-if="!isSmallSidebar" width="440" height="450")
-    canvas#userProgress.small-user-image(v-else width="440" height="450")
+    svg.progress(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="120" viewBox="0 0 90 92")
+        defs
+            filter#group-3-c( width="137.8%" height="233.3%" x="-18.9%" y="-47.6%" filterUnits="objectBoundingBox")
+                feOffset( dy="4" in="SourceAlpha" result="shadowOffsetOuter1")
+                feGaussianBlur( in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4")
+                feColorMatrix( in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 1   0 0 0 0 0.831775701   0 0 0 0 0  0 0 0 0.349665987 0")
+                feMerge
+                    feMergeNode( in="shadowMatrixOuter1")
+                    feMergeNode( in="SourceGraphic")
+            pattern( id="image" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 140 140")
+                image( x="0%" y="0%" width="140" height="140" :xlink:href="user.avatar")
+        g(fill="none" fill-rule="evenodd")
+            circle( cx="45" cy="45" r="41" fill="none" stroke="#e6e6e6" stroke-width="6")
+            circle.progress_step#userProgress(stroke-linecap="round" cx="45" cy="45" r="41" fill="none" stroke="#1CDB26" stroke-width="6")
+
+            g( transform="translate(14 14)")
+                circle(fill="url(#image)" cx="30.25" cy="30.25" r="30.25")
+            circle( cx="73" cy="17" r="15" fill="#FFDA61")
+            text( fill="#2A2A2A" font-family="IRANSans-Bold, IRANSans" font-size="12" font-weight="bold")
+                tspan( x="73" y="21" text-anchor="middle") {{numberToPersian(user.user_progress.points)}}%
+            g(filter="url(#group-3-c)" transform="translate(9 68)")
+                rect( width="74" height="21" :fill="levelColor()" rx="10.5")
+                text( fill="#2A2A2A" font-family="IRANSans-Medium, IRANSans" font-size="10" font-weight="400")
+                    tspan( x="35" y="13" text-anchor="middle") ZP.{{user.public_id}}
 </template>
 
 
 <script>
     export default {
         name: 'partial-sidebar-userProgress',
-        data() {
-            return {
-                levelColorCode: '#ffd600',
-            }
-        },
-        props: [
-            'user',
-            'user_progress'
-        ],
-        mounted(){
-            let canvas = document.getElementById("userProgress");
-            this.profilePicture(canvas, this.user_progress.points, this.user.avatar);
+        mounted() {
+            this.renderProgress();
         },
         computed: {
-            isSmallSidebar(){
+            isSmallSidebar() {
                 return this.$store.state.app.smallSidebar;
+            },
+            appIsLoaded() {
+                return this.$store.state.app.isLoaded;
+            },
+            user() {
+                if (!this.$store.state.auth.check)
+                    return {user_progress: {points: 0}, public_id: 1};
+                return this.$store.state.auth.user;
+            },
+        },
+        watch: {
+            appIsLoaded() {
+                this.renderProgress();
+            },
+            user() {
+                this.renderProgress();
             },
         },
         methods: {
-            profilePicture(canvas, percent, avatar){
-                let vm = this;
-
-                let degrees = percent * 3.6;
-                let radians = degrees * (Math.PI / 180);
-                let gap = 7 * (Math.PI / 180);
-
-                let ctx = canvas.getContext("2d");
-                ctx.scale(4, 4);
-                ctx.webkitImageSmoothingEnabled =
-                    ctx.mozImageSmoothingEnabled = true;
-                let thumbImg = document.createElement('img');
-                thumbImg.src = avatar;
-
-                thumbImg.onload = function () {
-                    ctx.translate(5, 5);
-
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(50, 50, 35, 0, Math.PI * 2, true);
-                    ctx.closePath();
-                    ctx.clip();
-                    ctx.drawImage(thumbImg, 15, 15, 70, 70);
-                    ctx.beginPath();
-                    ctx.arc(0, 0, 25, 0, Math.PI * 2, true);
-                    ctx.clip();
-                    ctx.closePath();
-                    ctx.restore();
-                    ctx.save();
-
-                    // white circle
-                    ctx.beginPath();
-                    ctx.strokeStyle = "#fff";
-                    ctx.lineWidth = 7;
-                    ctx.lineCap = "round";
-                    ctx.arc(50, 50, 46, 0, 2 * Math.PI);
-                    ctx.stroke();
-                    ctx.closePath();
-                    ctx.restore();
-                    ctx.save();
-
-                    // green circle
-                    ctx.beginPath();
-                    ctx.strokeStyle = "#89E000";
-                    ctx.lineWidth = 7;
-                    ctx.lineCap = "round";
-                    ctx.arc(50, 50, 46, 1.5 * Math.PI, radians + 1.5 * Math.PI);
-                    ctx.stroke();
-                    ctx.closePath();
-                    ctx.restore();
-                    ctx.save();
-
-                    // percent
-                    ctx.beginPath();
-                    ctx.lineWidth = 1;
-                    ctx.arc(81, 19, 15, 0, 2 * Math.PI, true);
-                    ctx.fillStyle = vm.levelColor(vm.user.level);
-                    ctx.fill();
-                    ctx.fillStyle = '#000';
-                    ctx.font = "12px IRANSans";
-                    ctx.textAlign="center";
-                    ctx.fillText(vm.numberToFarsi(percent) + "٪", 81, 22);
-                    ctx.closePath();
-                    ctx.restore();
-                    ctx.save();
-
-
-                    // zpid
-                    ctx.beginPath();
-                    ctx.lineCap = "round";
-                    ctx.strokeStyle= vm.levelColor(vm.user.level);
-                    // ctx.shadowColor = vm.levelColor(vm.user.level);
-                    // ctx.shadowBlur = 20;
-                    // ctx.shadowOffsetX = 0;
-                    // ctx.shadowOffsetY = 4;
-                    ctx.lineWidth = 21;
-                    ctx.moveTo(23, 89);
-                    ctx.lineTo(77, 89);
-                    ctx.stroke();
-                    ctx.stroke();
-                    ctx.stroke();
-                    ctx.restore();
-                    ctx.save();
-
-                    ctx.beginPath();
-                    ctx.fillStyle='#000';
-                    ctx.textAlign="center";
-                    ctx.font="10px IRANSans";
-                    ctx.fillText('ZP.' + vm.user.public_id, 50, 93);
-                    ctx.stroke();
-                    ctx.restore();
-                    ctx.save();
-                }
-            },
             levelColor() {
-                switch(this.user.level) {
+                switch (this.user.level) {
                     case 1:
                         return '#FFFFFF';
                         break;
@@ -135,7 +69,7 @@
                         return '#f80';
                 }
             },
-            numberToFarsi(value) {
+            numberToPersian(value) {
                 if (typeof value == 'undefined') {
                     return value;
                 }
@@ -143,7 +77,28 @@
                 return value.toString().replace(/\d/g, function (match) {
                     return ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'][parseInt(match)];
                 });
-            }
+            },
+            renderProgress() {
+                let circle = document.getElementById("userProgress");
+                let dashoffset = 257.6106;
+                if (this.$store.state.app.isLoaded) {
+                    if (isNaN(this.user.user_progress.points)) {
+                        this.user.user_progress.points = 100;
+                    } else {
+                        if (this.user.user_progress.points < 0) {
+                            this.user.user_progress.points = 0;
+                        }
+                        if (this.user.user_progress.points > 100) {
+                            this.user.user_progress.points = 100;
+                        }
+                    }
+                    let RADIUS = circle.getAttribute("r");
+                    let CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+                    let progress = this.user.user_progress.points / 100;
+                    dashoffset = CIRCUMFERENCE * (1 - progress);
+                }
+                circle.setAttribute('stroke-dashoffset', dashoffset);
+            },
         },
     }
 </script>
