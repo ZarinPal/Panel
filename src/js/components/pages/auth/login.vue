@@ -283,6 +283,7 @@
             },
             login(){
                 this.loginLoading = true;
+                let vm = this;
 
                 let auth2Data = {
                     grant_type: "password",
@@ -296,8 +297,12 @@
 
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
-                        this.loginLoading = false;
-                        this.$router.push({name: 'home.index'});
+                        vm.loginLoading = false;
+                        vm.$router.push({name: 'home.index'});
+
+                        if (vm.nchanSubscriber) {
+                            vm.nchanSubscriber.stop();
+                        }
                     }, (response) => {
                         this.loginLoading = false;
                         // store.commit('setValidationErrors',response.data.validation_errors);
@@ -308,8 +313,6 @@
                         });
                     }
                 );
-                vm.nchanSubscriber.stop();
-
             },
             changeUssdType() {
                 if (this.ussdType === 'Code') {
