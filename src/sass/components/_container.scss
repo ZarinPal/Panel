@@ -264,10 +264,9 @@ body {
       background-color: #ff2e56;
       border-radius: 50%;
       position: relative;
-      margin-top: 16px;
       margin-left: -13px;
       left: 0;
-      top: -1px;
+      top: 15px;
     }
 
     .reload {
@@ -553,10 +552,6 @@ body {
   }
 }
 
-#userProgress {
-  zoom: 0.25 !important;
-}
-
 .small-user-image {
   zoom: 0.15 !important;
   margin-right: -55px !important;
@@ -755,8 +750,7 @@ body {
       height: 175px;
       margin-right: -20%;
       margin-bottom: -50px;
-      margin-top: 20px;
-      padding-top: 70px;
+      padding-top: 65px;
       border-radius: 700px / 251px;
     }
 
@@ -1068,7 +1062,6 @@ body {
 
     .user-info {
       .user-image {
-        top: -103px !important;
         margin-bottom: -80px !important;
         border-radius: 700px / 181px !important;
       }
@@ -1157,4 +1150,12 @@ body {
 
     }
   }
+}
+
+.progress .progress_step {
+  stroke-dasharray: 257.6106;
+  -webkit-transition: stroke-dashoffset 600ms ease-in-out;
+  transition: stroke-dashoffset 600ms ease-in-out;
+  transform: rotate(-90deg);
+  transform-origin: 45px 45px;
 }

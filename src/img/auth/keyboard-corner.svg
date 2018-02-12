@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="39" viewBox="0 0 40 39">
+  <defs>
+    <polygon id="group-4-a" points="42 0 0 0 0 41"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(-1 -1)">
+    <mask id="group-4-b" fill="#fff">
+      <use xlink:href="#group-4-a"/>
+    </mask>
+    <use fill="#D8D8D8" opacity="0" xlink:href="#group-4-a"/>
+    <path fill="#4A4A4A" fill-rule="nonzero" d="M57.7,1 L1,1 L1,38.7142857 C1,42.1714286 3.835,45 7.3,45 L57.7,45 C61.165,45 64,42.1714286 64,38.7142857 L64,7.28571429 C64,3.82857143 61.165,1 57.7,1 Z M29,10 L35,10 L35,16 L29,16 L29,10 Z M29,20 L35,20 L35,26 L29,26 L29,20 Z M20,10 L26,10 L26,16 L20,16 L20,10 Z M20,20 L26,20 L26,26 L20,26 L20,20 Z M16,26 L10,26 L10,20 L16,20 L16,26 Z M16,16 L10,16 L10,10 L16,10 L16,16 Z M45,38 L20,38 L20,32 L45,32 L45,38 Z M45,26 L39,26 L39,20 L45,20 L45,26 Z M45,16 L39,16 L39,10 L45,10 L45,16 Z M54,26 L48,26 L48,20 L54,20 L54,26 Z M54,16 L48,16 L48,10 L54,10 L54,16 Z" mask="url(#group-4-b)"/>
+  </g>
+</svg>
