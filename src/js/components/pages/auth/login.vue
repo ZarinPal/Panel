@@ -187,7 +187,7 @@
                 this.login();
             }
 
-            if(this.decode(this.otp).includes("@")){
+            if(this.otp.length !== 6 && this.decode(this.otp).includes("@")){
                 this.$store.state.http.requests['user.getVerify']
                     .get({email: this.$route.params.otp, token: this.$route.params.email})
                     .then(() => {
