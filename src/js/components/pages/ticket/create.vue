@@ -186,6 +186,10 @@
                 });
             },
             send() {
+                if (this.loading) {
+                    return;
+                }
+
                 this.loading = true;
                 let ticketData = {
                     title: this.title,

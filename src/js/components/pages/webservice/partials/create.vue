@@ -51,7 +51,7 @@
 
                     div.row
                         div.col-xs.nav-buttons
-                            button.btn.success.pull-left(v-ripple=""  @click="validateForm" tabindex="7") {{$i18n.t('webservice.create')}}
+                            button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="7" :class="{'disable': loading}") {{$i18n.t('webservice.create')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -135,6 +135,10 @@
                         this.loading = false;
                         return;
                     }
+                }
+
+                if (this.loading) {
+                    return;
                 }
 
                 this.loading = true;
