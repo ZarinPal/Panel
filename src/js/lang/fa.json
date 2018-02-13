@@ -288,7 +288,7 @@
     "searchEasypay": "جستجو در زرین‌لینک ها",
     "selectPurseOrWebserviceId": "انتخاب کیف پول و یا درگاه پرداخت الزامی است",
     "selectWebservice": "انتخاب درگاه پرداخت",
-    "EasypayShowLinkLocal": "نمایش کد HTML"
+    "showLinkLocal": "نمایش کد HTML"
   },
   "error": {
     "NotFound": "These credentials do not match our records.",
