@@ -2,7 +2,7 @@
     modal.request-personal-link(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('user.setEmailTitle') }}
         div.get-email-from-user(slot="content")
-            div.row(v-if="user.email")
+            div.row(v-if="user.user_progress.email.check")
                 div.col-xs.ta-right
                     span.label {{ $i18n.t('common.email') }}
                 div.col-xs.ta-left
@@ -31,12 +31,12 @@
         name: 'user-get-email',
         data() {
             return {
-                email: null,
+                email: this.$store.state.auth.user.email,
                 loading: false,
             }
         },
         computed: {
-            user(){
+            user() {
                 return this.$store.state.auth.user;
             },
         },
@@ -57,6 +57,9 @@
                 this.loading = true;
                 this.$store.state.http.requests['user.changeEmail'].save({email: this.email}).then(
                     () => {
+                        this.$store.state.auth.user.user_progress.email.check = false;
+                        this.$store.state.auth.user.user_progress.points = parseInt(this.$store.state.auth.user.user_progress.points) - 15;
+
                         this.$store.commit('flashMessage', {
                             text: 'UserEmailSetSuccessCheckYourEmailLocal',
                             important: false,
