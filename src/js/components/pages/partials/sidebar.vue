@@ -6,8 +6,7 @@
             div.user-info
                 router-link(tag="span" v-bind:to="{ name: 'user.showProgress'}" title="پروفایل")
                     div.user-image
-                        span(v-if="!this.$store.state.app.smallSidebar")
-                            userProgress.hand(v-if="user.user_progress" v-bind:user="user" v-bind:user_progress="user.user_progress")
+                        userProgress.hand(v-if="!this.$store.state.app.smallSidebar")
                         img.hand(v-else :src="user.avatar")
                         p.user-name {{user.name}}
                         p.user-name.user-level {{$i18n.t('user.level') + ': ' +$i18n.t('user.user_level_' + user.level)}}

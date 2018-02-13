@@ -479,6 +479,7 @@
     "TransactionInvalidZpID": "حساب زیرین پال وارد شده صحیح نیست.",
     "TransactionTransferToThisAccountIsNotPossible": "انتقال وجه به این حساب کاربری امکان پذیر نیست.",
     "TransactionInvalidUserPurseId":"کیف پول وراد شده صحیح نیست",
+    "TransactionInvalidFeeGroup":"روش تسویه حساب انتخاب شده مجاز نیست.",
     "__Oauth__": "<----------#Oauth#---------->",
     "OauthAccessDenied": "دسترسی از سمت سرور مجاز شناخته نشد",
     "OauthInvalidClient": "اطلاعات اهراز هویت کاربر صحیح نیست",

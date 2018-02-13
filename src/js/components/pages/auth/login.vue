@@ -176,6 +176,8 @@
             }
         },
         created() {
+            let vm = this;
+
             /**
              * Automatic login
              */
@@ -185,9 +187,16 @@
                 this.login();
             }
 
-            let vm = this;
+            let oauthCheckParams = {};
+            if (this.$route.params.otp && this.$route.params.email) {
+                oauthCheckParams = {
+                    token: this.$route.params.otp,
+                    email: this.$route.params.email
+                };
+            }
+
             this.$store.state.http.requests['oauth.check']
-                .get()
+                .get(oauthCheckParams)
                 .then(() => {
                     vm.$router.push({name: 'home.index'});
                 })
@@ -272,6 +281,7 @@
             },
             login(){
                 this.loginLoading = true;
+                let vm = this;
 
                 let auth2Data = {
                     grant_type: "password",
@@ -285,8 +295,12 @@
 
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
-                        this.loginLoading = false;
-                        this.$router.push({name: 'home.index'});
+                        vm.loginLoading = false;
+                        vm.$router.push({name: 'home.index'});
+
+                        if (vm.nchanSubscriber) {
+                            vm.nchanSubscriber.stop();
+                        }
                     }, (response) => {
                         this.loginLoading = false;
                         // store.commit('setValidationErrors',response.data.validation_errors);
@@ -370,12 +384,12 @@
                     );
             },
             loginByMobileApplication() {
-               if (!this.mobile_socket_uri){
-                   this.getOtpAuthorization((sessionId) => {
-                       this.startWebPushSocket(sessionId);
-                   });
+                if (!this.mobile_socket_uri) {
+                    this.getOtpAuthorization((sessionId) => {
+                        this.startWebPushSocket(sessionId);
+                    });
 
-               }
+                }
                 this.loginByMobileApp = !this.loginByMobileApp;
             },
             startWebPushSocket(sessionId) {
@@ -394,11 +408,10 @@
                     vm.username = message.mobile;
                     vm.otp = message.otp;
                     vm.login();
-                    vm.nchanSubscriber.stop();
                 });
 
                 this.nchanSubscriber.start();
-            }
+            },
         },
         components: {
             timer,

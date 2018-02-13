@@ -79,7 +79,7 @@ export default {
                     }
                 )
             );
-
+            state.nchanSubscriber.reconnectTimeout = 10000;
             state.nchanSubscriber.on('message', function (message) {
                 message = JSON.parse(message);
                 commit('addNotification', message);
