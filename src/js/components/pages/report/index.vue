@@ -27,23 +27,23 @@
 
 
         div.row.no-margin
-            div.section.full-width
+            div.full-width
                 div.box
-                    table.zp-calendar-body.full-width(v-if="reports")
-                        tr.zp-weekday
-                            td(v-for='titles in calendarDayTitles')
+                    div.full-width(v-if="reports")
+                        div.row
+                            div.col-xs.ta-center(v-for='titles in calendarDayTitles')
                                 span {{titles}}
-                        tr.zp-week-days-row(v-for='week in reports')
-                            td.zp-cell(v-for='day in week' :class="{'zp-holiday': day.holiday, 'zp-inActive': day.inActived, 'zp-disabled-holiday': day.holiday && day.inActived, 'zp-today': day.date.format('YYYYMMDD') === momentNow.format('YYYYMMDD')}")
-                                div {{'ورودی:'}}
-                                    span {{day.income_amount | numberFormat}} |
-                                    span.trans-count {{day.income_count}}
-
-                                div {{'خروجی: '}}
-                                    span {{day.outgo_amount | numberFormat}} |
-                                    span.trans-count {{day.outgo_count}}
-
-                                div.ta-left.zp-day-number {{ day.date.format('jDD')}}
+                        div.section(v-for='week in reports')
+                            div.box.row
+                                div.col-xs.cell(v-for='day in week' :class="{'zp-holiday': day.holiday, 'zp-inActive': day.inActived, 'zp-disabled-holiday': day.holiday && day.inActived, 'zp-today': day.date.format('YYYYMMDD') === momentNow.format('YYYYMMDD')}")
+                                    div(v-if="day.income_count")
+                                        span.show-income-count.pull-left.persian-num {{day.income_count}}
+                                        span.show-income-amount.pull-right.persian-num {{day.income_amount | numberFormat}}
+                                    div(v-if="day.outgo_count")
+                                        span.show-outgo-count.pull-left.persian-num {{day.outgo_count}}
+                                        span.show-outgo-amount.pull-right.persian-num {{day.outgo_amount | numberFormat}}
+                                    div.row.bottom-xs.pull-left.persian-num.day-of-month
+                                        |{{ day.date.format('jDD')}}
 </template>
 
 <script>
