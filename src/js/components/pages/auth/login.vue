@@ -187,8 +187,16 @@
                 this.login();
             }
 
+            let oauthCheckParams = {};
+            if (this.$route.params.otp && this.$route.params.email) {
+                oauthCheckParams = {
+                    token: this.$route.params.otp,
+                    email: this.$route.params.email
+                };
+            }
+
             this.$store.state.http.requests['oauth.check']
-                .get()
+                .get(oauthCheckParams)
                 .then(() => {
                     vm.$router.push({name: 'home.index'});
                 })
