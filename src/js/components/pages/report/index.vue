@@ -16,7 +16,7 @@
 
                             div.row
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01" :max="selectDay" :placeholder="$i18n.t('transaction.fromDate')")
+                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01" :max="maxDate" :placeholder="$i18n.t('transaction.fromDate')")
                                     div.ta-right(v-if="validation('date')")
                                         span.text-danger {{ errors.first('date') }}
 
@@ -56,7 +56,9 @@
         data() {
             return {
                 selectDay: moment().format('jYYYY-jMM-jDD'),
-                durationDate: moment(),//'1396-11-24',
+                durationDate: moment(),
+                maxDate: moment().format('jYYYY-jMM-jDD'),
+
                 fetching: false,
                 /**
                  * Request
