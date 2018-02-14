@@ -135,8 +135,8 @@
                 gender: 'male',
                 first_name: this.$store.state.auth.user.first_name,
                 last_name: this.$store.state.auth.user.last_name,
-                birthday: '',
-                ssn: null,
+                birthday: moment(this.$store.state.auth.user.birthday).format('jYYYY-jMM-jDD'),
+                ssn: this.$store.state.auth.user.ssn,
 
                 /**
                  * upload documents variables
