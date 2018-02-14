@@ -19,6 +19,7 @@
                                 <!--router-link.drop-down-item.transaction-session-icon(tag="span" v-bind:to="{ name: 'transactionsession.index', params: { id:webservice.entity_id}}") {{ $i18n.t('common.transactionSession') }}-->
                                 <!--router-link.drop-down-item.withdraw-icon(tag="span" v-bind:to="{ name: 'report.index', params: { type:'webservice', id:webservice.entity_id}}") {{$i18n.t('common.calendar')}}-->
                                 router-link.drop-down-item.edit-icon(tag="span" v-bind:to="{ name: 'webservice.edit', params: { merchantCode:webservice.entity_id}}") {{$i18n.t('webservice.edit')}}
+                                router-link.drop-down-item(tag="span" v-bind:to="{ name: 'report.index', params: { reportFor: 'webservice', reportId: webservice.entity_id }}") روزشمار تراکنش ها
 
                         a.header-link(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id" v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
 
@@ -66,14 +67,14 @@
 
                 <!--Ussd-->
                 <!--div.row.box-row-->
-                    <!--div.col-xs.ta-right-->
-                        <!--span.label USSD-->
+                <!--div.col-xs.ta-right-->
+                <!--span.label USSD-->
 
-                    <!--div.col-xs.ta-left.no-left-margin.dir-ltr(v-if="webservice.ussd_id")-->
-                        <!--span.text-value.persian-num *788*97*{{ webservice.ussd_id }}#-->
-                    <!--div.col-xs.ta-left.no-left-margin(v-else)-->
-                        <!--span.tag.pull-left {{ $i18n.t('webservice.inActive') }}-->
-                        <!--span.pull-left.text-activation(v-ripple="" @click="visibleUssdActivation = true") {{ $i18n.t('webservice.activation') }}-->
+                <!--div.col-xs.ta-left.no-left-margin.dir-ltr(v-if="webservice.ussd_id")-->
+                <!--span.text-value.persian-num *788*97*{{ webservice.ussd_id }}#-->
+                <!--div.col-xs.ta-left.no-left-margin(v-else)-->
+                <!--span.tag.pull-left {{ $i18n.t('webservice.inActive') }}-->
+                <!--span.pull-left.text-activation(v-ripple="" @click="visibleUssdActivation = true") {{ $i18n.t('webservice.activation') }}-->
 
         <!--ussdActivation(v-if="visibleUssdActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")-->
         zarinGateActivation(v-if="visibleZarinGateActivation" v-on:closeModal="closeModal()" v-bind:webservice="webservice")

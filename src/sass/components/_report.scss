@@ -40,7 +40,7 @@ $tableBorderColor: #777;
 .day-of-month {
   font-weight: bold;
   position: absolute;
-  left:0;
+  left: 0;
   bottom: 0;
   height: 20px;
   width: 20px;
@@ -53,16 +53,61 @@ $tableBorderColor: #777;
   font-size: 12px;
 }
 
-
 .cell {
   padding: 10px 5px 20px 5px !important;
-  border-left: 1px  solid #f2f3f5;
+  border-left: 1px solid #f2f3f5;
   position: relative;
-  &:last-child{
-    border-left:none;
+  &:last-child {
+    border-left: none;
+  }
+
+  &.today {
+    border: 2px solid;
+    border-radius: 5px;
+    border-color: rgba(159, 202, 241, 0.50);
+    background-color: rgba(159, 202, 241, 0.15);
+
   }
 }
 
 .min-height-box {
-min-height: 100px;
+  min-height: 100px;
+}
+
+.btn-gradient-radius {
+  background-color: #fff;
+  border-radius: 60px;
+  margin-left: 10px;
+  height: 38px;
+  transition: $animateTime;
+  margin-top: 10px;
+
+  .btn-icon {
+    position: relative;
+    top: -2px;
+
+    &:before {
+      font-family: 'zarinpal';
+      font-style: normal;
+      font-size: 22px;
+      color: $labelColor !important;
+      position: relative;
+      top: 3px;
+    }
+  }
+  .btn-label {
+    font-size: 14px;
+    color: $labelColor;
+    margin-right: 7px;
+    position: relative;
+    top: -5px;
+  }
+
+  .icon-zp-calendar {
+    &::before {
+      content: $icon-zp-calendar;
+      position: relative;
+      top: 3px;
+    }
+  }
 }
