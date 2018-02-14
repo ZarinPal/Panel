@@ -16,7 +16,7 @@
 
                             div.row
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1300/01/01" :placeholder="$i18n.t('transaction.fromDate')")
+                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01" :max="selectDay" :placeholder="$i18n.t('transaction.fromDate')")
                                     div.ta-right(v-if="validation('date')")
                                         span.text-danger {{ errors.first('date') }}
 
@@ -36,13 +36,13 @@
                         div.section(v-for='week in this.monthDays')
                             div.box.row
                                 div.col-xs.cell(v-for='day in week' :class="{'zp-holiday': day.holiday, 'zp-inActive': day.inActived, 'zp-disabled-holiday': day.holiday && day.inActived}")
-                                    div(v-if="day.turnovers")
-                                        div(v-if="day.turnovers.income_count")
+                                    div.row(v-if="day.turnovers")
+                                        div.col-xs-12(v-if="day.turnovers.income_count")
                                             span.show-income-count.pull-left.persian-num {{day.turnovers.income_count}}
-                                            span.show-income-amount.pull-right.persian-num {{day.turnovers.income_amount | numberFormat}}
-                                        div(v-if="day.turnovers.outgo_count")
-                                            span.show-outgo-count.pull-left.persian-num {{day.turnovers.outgo_count}}
-                                            span.show-outgo-amount.pull-right.persian-num {{day.turnovers.outgo_amount | numberFormat}}
+                                            span.show-income-amount.pull-right.persian-num(title='تراکنش ورودی') {{day.turnovers.income_amount | numberFormat}}
+                                        div.col-xs-12(v-if="day.turnovers.outgo_count")
+                                            span.show-outgo-count.persian-num.pull-left {{day.turnovers.outgo_count}}
+                                            span.show-outgo-amount.persian-num.pull-right(title='تراکنش خروجی') {{day.turnovers.outgo_amount | numberFormat}}
                                     div.row.bottom-xs.pull-left.persian-num.day-of-month
                                         | {{day.date.format('jD')}}
 
