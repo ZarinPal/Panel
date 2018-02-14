@@ -16,7 +16,7 @@
 
                             div.row
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01" :max="maxDate" :placeholder="$i18n.t('transaction.fromDate')")
+                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01"  :max="maxDate"  :placeholder="$i18n.t('transaction.fromDate')")
                                     div.ta-right(v-if="validation('date')")
                                         span.text-danger {{ errors.first('date') }}
 
@@ -28,7 +28,7 @@
 
         div.row.no-margin
             div.full-width
-                div.box
+                div.box.xs-hidden
                     div.full-width(v-if="reports")
                         div.row
                             div.col-xs.ta-center(v-for='titles in calendarDayTitles')
@@ -44,7 +44,7 @@
                                             span.show-outgo-count.persian-num.pull-left {{day.turnovers.outgo_count}}
                                             span.show-outgo-amount.persian-num.pull-right(title='تراکنش خروجی') {{day.turnovers.outgo_amount | numberFormat}}
                                     div.row.bottom-xs.pull-left.persian-num.day-of-month
-                                        | {{day.date.format('jD')}}
+                                        div(:title="day.date.format('jD jMMMM jYY')") {{day.date.format('jD')}}
 
 </template>
 
@@ -57,7 +57,7 @@
             return {
                 selectDay: moment().format('jYYYY-jMM-jDD'),
                 durationDate: moment(),
-                maxDate: moment().format('jYYYY-jMM-jDD'),
+                maxDate: moment().format('jYYYY/jMM/jDD'),
 
                 fetching: false,
                 /**
