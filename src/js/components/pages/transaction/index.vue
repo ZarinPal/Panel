@@ -8,7 +8,9 @@
                 p.page-description {{ $i18n.t('transaction.description') }}
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
-                <!--router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'report.index', params: {reportFor: 'purse', reportId: this.$route.params.id}} ") گزارش-->
+                router-link.btn.btn-gradient-radius.pull-left(tag="button" v-bind:to="{ name: 'report.index', params: {reportFor: 'purse', reportId: this.$route.params.id}} ")
+                    i.btn-icon.icon-zp-calendar
+                    span.btn-label روزشمار ماهانه
 
         div.row
             div.col-xs
