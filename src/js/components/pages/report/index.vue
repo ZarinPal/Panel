@@ -34,7 +34,7 @@
                             div.col-xs.ta-center(v-for='titles in calendarDayTitles')
                                 span {{titles}}
                         div.section(v-for='week in this.monthDays')
-                            div.box.row
+                            div.box.row.min-height-box
                                 div.col-xs.cell(v-for='day in week' :class="{'zp-holiday': day.holiday, 'zp-inActive': day.inActived, 'zp-disabled-holiday': day.holiday && day.inActived}")
                                     div.row(v-if="day.turnovers")
                                         div.col-xs-12(v-if="day.turnovers.income_count")
@@ -95,7 +95,6 @@
                     durationDate: this.durationDate,
                 }).then((result) => {
                     if (result) {
-                        console.log(this.selectDay);
                         this.durationDate = moment(this.selectDay, 'jYYYY/jM/jD');
                         this.fetchReports(this.getMonthDays);
                     }
