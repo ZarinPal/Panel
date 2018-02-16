@@ -157,8 +157,6 @@
         created() {
             if (this.$store.state.auth.user.birthday) {
                 this.birthday = moment(this.$store.state.auth.user.birthday).format('jYYYY-jMM-jDD')
-
-                return this.birthday;
             }
 
             this.birthday = '';
