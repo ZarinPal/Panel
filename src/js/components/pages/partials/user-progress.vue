@@ -66,7 +66,7 @@
                         return '#FFDA47';
                         break;
                     default:
-                        return '#f80';
+                        return '#FFFFFF';
                 }
             },
             numberToPersian(value) {
