@@ -135,7 +135,7 @@
                 gender: 'male',
                 first_name: this.$store.state.auth.user.first_name,
                 last_name: this.$store.state.auth.user.last_name,
-                birthday: moment(this.$store.state.auth.user.birthday).format('jYYYY-jMM-jDD'),
+                birthday: '',
                 ssn: this.$store.state.auth.user.ssn,
 
                 /**
@@ -153,6 +153,15 @@
                 maxFileUpload: 3,
                 howManyFileUploaded: 0,
             }
+        },
+        created() {
+            if (this.$store.state.auth.user.birthday) {
+                this.birthday = moment(this.$store.state.auth.user.birthday).format('jYYYY-jMM-jDD')
+
+                return this.birthday;
+            }
+
+            this.birthday = '';
         },
         methods: {
             /**
