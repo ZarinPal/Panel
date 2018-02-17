@@ -9,7 +9,7 @@
             div.logo.hand
 
         div.col-lg-5.col-sm-5.col-xs-5.left-box
-            a.hidden-xs.navbar-title-cu(href='tel:+982141239')  پشتیبانی: ۴۱۲۳۹-۰۲۱
+            <!--a.hidden-xs.navbar-title-cu(href='tel:+982141239')  پشتیبانی: ۴۱۲۳۹-۰۲۱-->
             img.profile-dropdown-avatar(@click="visibleProfileDropdown = !visibleProfileDropdown" id="btnProfileDropdown" :src="this.$store.state.auth.user.avatar")
             a.notification.notification-fill(v-if="notifications.data.length >= 1" v-ripple="" id="btnNotification" @click="toggleNotification()" title="اعلانات")
             a.notification.notification-empty(v-else v-ripple="" id="btnNotification" @click="toggleNotification()" title="اعلانات")
