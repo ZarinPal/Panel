@@ -1134,7 +1134,8 @@
     "loginToOldPanel": "ورود به پنل قدیمی",
     "copyUssd": "برای کپی کردن کد را لمس کنید",
     "loginByMobileApp": "برای ورود کافی است رمزینه زیر را با اپلیکیشن زرین‌پال من اسکن کنید",
-    "downloadMobileApp": "دانلود اپلیکیشن زرین‌پال من"
+    "downloadMobileApp": "دانلود اپلیکیشن زرین‌پال من",
+    "selectAddressTitle": "انتخاب‌ عنوان آدرس"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",
