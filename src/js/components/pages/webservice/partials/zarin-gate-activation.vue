@@ -7,15 +7,13 @@
                 span.create-description  هزینه زرین‌گیت براساس تعداد تراکنش موجود بر روی درگاه عادی زرین‌پال متغیر  است.
                     span.read-description(@click="visibleDescription=!visibleDescription") {{ $i18n.t('webservice.description') }}
 
-
             transition(name="fade"
             enter-active-class="fade-in"
             leave-active-class="fade-out")
                 div.ta-right.more-description(v-if="visibleDescription") {{ $i18n.t('webservice.zarinGateNotice') }}
 
-
             div.row
-                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus=""  v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse"  placeholder="انتخاب کیف‌پول" autofocus tabindex="1")
+                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse"  placeholder="انتخاب کیف‌پول" autofocus tabindex="1")
                 div.ta-right(v-if="validation('purse')")
                     span.text-danger {{ errors.first('purse') }}
 
@@ -60,14 +58,6 @@
             this.getPriceZaringate();
         },
         methods: {
-            validation(name) {
-                if (this.$store.state.alert.validationErrors[name]) {
-                    this.errors.clear();
-                    this.errors.add(name, this.$store.state.alert.validationErrors[name], 'api');
-                    this.$store.state.alert.validationErrors[name] = false;
-                }
-                return this.errors.has(name);
-            },
             validateForm() {
                 this.$validator.validateAll({
                     purse: this.purse,
