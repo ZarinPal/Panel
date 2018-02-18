@@ -105,7 +105,7 @@
                         span.sum-amount.persian-num {{ manuallyTotalAmount | numberFormat }}
                         span.amount-text {{ $i18n.t('transaction.toman') }}
 
-                input.amount-input(id="txtManuallyAmount" v-validate="{type: 'number'}" maxlength="8" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
+                input.amount-input(id="txtManuallyAmount" v-validate="{type: 'numeric'}" maxlength="8" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
 
 
 
