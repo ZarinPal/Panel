@@ -16,26 +16,26 @@
 
                             div.row
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01" :max="maxDate" :placeholder="$i18n.t('transaction.fromDate')")
+                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01"  :max="today"  :placeholder="$i18n.t('transaction.fromDate')")
                                     div.ta-right(v-if="validation('date')")
                                         span.text-danger {{ errors.first('date') }}
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                                    button.btn.info.pull-right(v-ripple="" @click="validateForm") {{ $i18n.t('common.search') }}
+                                    button.btn.info.pull-right(v-ripple="" @click="validateForm" :class="{'disable': fetching}") {{ $i18n.t('common.search') }}
                                         svg.material-spinner(v-if="fetching" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
         div.row.no-margin
             div.full-width
-                div.box
+                div.box.xs-hidden
                     div.full-width(v-if="reports")
                         div.row
                             div.col-xs.ta-center(v-for='titles in calendarDayTitles')
                                 span {{titles}}
                         div.section(v-for='week in this.monthDays')
-                            div.box.row
-                                div.col-xs.cell(v-for='day in week' :class="{'zp-holiday': day.holiday, 'zp-inActive': day.inActived, 'zp-disabled-holiday': day.holiday && day.inActived}")
+                            div.box.row.min-height-box
+                                div.col-xs.cell(v-for='day in week' :class="{'today': today == day.date.format('jYYYY/jMM/jDD'),'zp-inActive': day.inActived, 'zp-disabled': day.holiday && day.inActived}")
                                     div.row(v-if="day.turnovers")
                                         div.col-xs-12(v-if="day.turnovers.income_count")
                                             span.show-income-count.pull-left.persian-num {{day.turnovers.income_count}}
@@ -44,7 +44,7 @@
                                             span.show-outgo-count.persian-num.pull-left {{day.turnovers.outgo_count}}
                                             span.show-outgo-amount.persian-num.pull-right(title='تراکنش خروجی') {{day.turnovers.outgo_amount | numberFormat}}
                                     div.row.bottom-xs.pull-left.persian-num.day-of-month
-                                        | {{day.date.format('jD')}}
+                                        div(:title="day.date.format('jD jMMMM jYY')") {{day.date.format('jD')}}
 
 </template>
 
@@ -57,7 +57,7 @@
             return {
                 selectDay: moment().format('jYYYY-jMM-jDD'),
                 durationDate: moment(),
-                maxDate: moment().format('jYYYY-jMM-jDD'),
+                today: moment().format('jYYYY/jMM/jDD'),
 
                 fetching: false,
                 /**
@@ -95,7 +95,6 @@
                     durationDate: this.durationDate,
                 }).then((result) => {
                     if (result) {
-                        console.log(this.selectDay);
                         this.durationDate = moment(this.selectDay, 'jYYYY/jM/jD');
                         this.fetchReports(this.getMonthDays);
                     }

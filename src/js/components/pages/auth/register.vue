@@ -73,10 +73,10 @@
             if (this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
-            if (this.$route.query.referrerId) {
+            if (this.$route.query.referrer) {
                 localStorage.setItem('zp_referrer',
                     JSON.stringify({
-                        referrer: this.$route.query.referrerId,
+                        referrer: this.$route.query.referrer,
                         expire_in: moment().add(3, 'day').unix()
                     }));
             }

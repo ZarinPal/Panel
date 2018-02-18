@@ -233,20 +233,17 @@
             editCoupon() {
                 this.loading = true;
 
-                let minAmount = this.min_amount.replace(/,/g, "");
-                let maxAmount = this.max_amount.replace(/,/g, "");
-
                 let couponData = {
                     code: this.code,
                     discount: {
-                        max_amount: maxAmount,
+                        max_amount: this.clearNumber(this.max_amount),
                         percent: this.percent
                     },
                     webservice_id: this.webserviceId,
                     easypay_id: this.easyPayId,
                     expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
                     limit: this.limit,
-                    min_amount: minAmount,
+                    min_amount: this.clearNumber(this.min_amount),
                     type: this.type,
                 };
 
