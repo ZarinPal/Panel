@@ -40,6 +40,8 @@
                                                                 span
                                                                 | {{ $i18n.t('user.female') }}
 
+                                                    div.ta-right(v-if="validation('gender')")
+                                                        span.text-danger {{ errors.first('gender') }}
 
                                             <!--first_name-->
                                             div.row.nav-rows
@@ -52,9 +54,8 @@
                                                 div.ta-right(v-if="validation('last_name')")
                                                     span.text-danger {{ errors.first('last_name') }}
 
-
                                             div.row.nav-rows
-                                                date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('common.birthday')" v-model="birthday" min="1300/01/01" :placeholder="$i18n.t('common.birthday')")
+                                                date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('common.birthday')" v-model="birthday" name="birthday" min="1300/01/01" :placeholder="$i18n.t('common.birthday')")
                                                 div.ta-right(v-if="validation('birthday')")
                                                     span.text-danger {{ errors.first('birthday') }}
 

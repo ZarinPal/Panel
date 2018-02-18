@@ -24,7 +24,7 @@
             }, alpha: function (n) {
                 return n + " فقط می‌تواند از حروف تشکیل شود."
             }, before: function (n, e) {
-                return n + " باید قبل از تاریخ " + e[0] + " باشد."
+                return n + " باید قبل از تاریخ " + moment(e[0]).format('jYYYY/jMM/jDD') + " باشد."
             }, between: function (n, e) {
                 return n + " باید بین " + e[0] + " و " + e[1] + " کارکتر باشد."
             }, confirmed: function (n) {
