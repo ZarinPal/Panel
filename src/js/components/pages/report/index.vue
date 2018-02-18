@@ -16,6 +16,8 @@
 
                             div.row
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+                                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="monthsTitles" placeholder="ماه")
+                                    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="yearsTitles" placeholder="سال")
                                     date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01"  :max="today"  :placeholder="$i18n.t('transaction.fromDate')")
                                     div.ta-right(v-if="validation('date')")
                                         span.text-danger {{ errors.first('date') }}
@@ -49,6 +51,7 @@
 </template>
 
 <script>
+    import selectbox from '../partials/selectbox.vue';
     import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
     export default {
@@ -83,6 +86,37 @@
              */
             momentNow() {
                 return moment();
+            },
+            monthsTitles() {
+                return _.map(moment()._locale._jMonths, function (month, monthIndex) {
+                    return {
+                        title: month,
+                        value: parseInt(monthIndex) + 1
+                    };
+                });
+            },
+            yearsTitles() {
+
+                let date = moment();
+
+                let startDate = moment('1389-01-01');
+
+
+                while (date.format('jY') >= '1389') {
+                    console.log(startDate.format('jYYYY'));
+
+                    startDate.add(1, 'jYear')
+                }
+
+
+
+//                return _.map(moment()._locale.years, function (month, monthIndex) {
+//                    console.log(moment().year());
+//                    return {
+//                        title: month,
+//                        value: parseInt(monthIndex) + 1
+//                    };
+//                });
             }
         },
         created() {
@@ -155,8 +189,8 @@
                 if (this.monthDays) {
                     let vm = this;
 
-                    let finalMonthReport = _.forEach(this.monthDays, function(day) {
-                        day.turnovers = _.find(vm.reports, function(report) {
+                    let finalMonthReport = _.forEach(this.monthDays, function (day) {
+                        day.turnovers = _.find(vm.reports, function (report) {
                             return report.date == day.date.format('YYYY-MM-DD');
                         });
                     });
@@ -225,10 +259,11 @@
                 if (singleDate.days() === 5)
                     return true;
                 return false;
-            },
+            }
         },
         components: {
-            datePicker: VuePersianDatetimePicker
+            datePicker: VuePersianDatetimePicker,
+            selectbox
         }
     }
 </script>
