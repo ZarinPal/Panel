@@ -72,7 +72,7 @@
                     span.amount-text {{ $i18n.t('transaction.toman') }}
 
                 div.row
-                    input.amount-input(v-validate="{type: 'number'}" maxlength="8" type="text" v-model="requestAmount" placeholder="مبلغ" @keyup="calcAutoRequestAmount" autofocus)
+                    input.amount-input(v-validate="{type: 'numeric'}" maxlength="8" type="text" v-model="requestAmount" placeholder="مبلغ" @keyup="calcAutoRequestAmount" autofocus)
 
                 div.row.share-in-request-text
                     input(type="checkbox" id="shareRequestChk" v-model="shareRequestWithMe" @change="calcAutoRequestAmount")
