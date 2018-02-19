@@ -158,9 +158,9 @@
         created() {
             if (this.$store.state.auth.user.birthday) {
                 this.birthday = moment(this.$store.state.auth.user.birthday).format('jYYYY-jMM-jDD')
+            } else {
+                this.birthday = '';
             }
-
-            this.birthday = '';
         },
         methods: {
             /**
@@ -206,10 +206,15 @@
                     (response) => {
                         this.isSavingInformation = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
-                        this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
+
+                        if (response.data.meta.error_type == 'UserYouCanNotEditInfo') {
+                            this.step++;
+                        } else {
+                            this.$store.commit('flashMessage', {
+                                text: response.data.meta.error_type,
+                                type: 'danger'
+                            });
+                        }
                     }
                 )
             },
