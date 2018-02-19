@@ -282,6 +282,15 @@ a.btn {
     }
   }
 
+  &.excel {
+    background-color: #00592D;
+    color: #ffffff !important;
+
+    &:active, &:hover {
+      background-color: rgba(0, 89, 45, 0.88) !important;
+    }
+  }
+
   &.rounded {
     border-radius: 50px;
   }

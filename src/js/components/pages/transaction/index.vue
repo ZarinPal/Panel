@@ -57,7 +57,9 @@
                 span(v-for="purse in user.purses")
                     span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
             div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                a.icon-excel.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl") {{$i18n.t('transaction.excelExport')}}
+                a.btn.excel.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
+                    span.icon-zp-excel
+                    span {{$i18n.t('transaction.excelExport')}}
 
                 div.break
 
