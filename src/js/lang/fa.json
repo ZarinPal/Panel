@@ -287,7 +287,8 @@
     "failedRedirectUrl": "لینک بازگشت پرداخت ناموفق",
     "searchEasypay": "جستجو در زرین‌لینک ها",
     "selectPurseOrWebserviceId": "انتخاب کیف پول و یا درگاه پرداخت الزامی است",
-    "selectWebservice": "انتخاب درگاه پرداخت"
+    "selectWebservice": "انتخاب درگاه پرداخت",
+    "showLinkLocal": "نمایش کد HTML"
   },
   "error": {
     "NotFound": "These credentials do not match our records.",
@@ -1134,7 +1135,8 @@
     "loginToOldPanel": "ورود به پنل قدیمی",
     "copyUssd": "برای کپی کردن کد را لمس کنید",
     "loginByMobileApp": "برای ورود کافی است رمزینه زیر را با اپلیکیشن زرین‌پال من اسکن کنید",
-    "downloadMobileApp": "دانلود اپلیکیشن زرین‌پال من"
+    "downloadMobileApp": "دانلود اپلیکیشن زرین‌پال من",
+    "selectAddressTitle": "انتخاب‌ عنوان آدرس"
   },
   "validation": {
     "accepted": "The :attribute must be accepted.",

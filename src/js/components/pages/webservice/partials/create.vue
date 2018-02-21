@@ -54,7 +54,6 @@
                             button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="7" :class="{'disable': loading}") {{$i18n.t('webservice.create')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
 </template>
 
 <script>
@@ -117,6 +116,10 @@
                 this.webservice_category_id = webserviceCatId;
             },
             createWebservice() {
+                if (this.loading) {
+                    return;
+                }
+
                 if (this.errors.length) {
                     store.commit('flashMessage', {
                         text: 'WebserviceFixValidationErrorsLocal',
@@ -137,10 +140,6 @@
                     }
                 }
 
-                if (this.loading) {
-                    return;
-                }
-
                 this.loading = true;
                 let webserviceData = {
                     domain: this.domain,
@@ -152,12 +151,14 @@
                 };
 
                 this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
-                    () => {
+                    (response) => {
                         store.commit('flashMessage', {
                             text: 'WebserviceTicketNewLocal',
                             type: 'success',
                         });
-                        this.$router.push({name: 'webservice.index'})
+                        this.loading = false;
+
+                        this.$router.push({name: 'ticket.show', params: {id: response.data.data.ticket_id}})
                     },
                     (response) => {
                         this.loading = false;

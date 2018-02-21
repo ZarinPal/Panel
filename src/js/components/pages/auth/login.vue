@@ -48,7 +48,7 @@
                             p {{ $i18n.t('user.loginToUserAccountMobile') }}
                             span {{ $i18n.t('user.loginByMobileApp') }}
                     div.ta-center.no-margin.col-lg-12
-                        img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri"  alt='Qr Code')
+                        img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri")
                         loading(v-else)
                         a.link(href="http://www.zarinpal.mobi" target="blank") {{$i18n.t('user.downloadMobileApp')}}
 
@@ -87,7 +87,7 @@
                                 div.col-xs
                                     div.ussd-text.vazir(v-if="ussdType =='Code'" @click="clipboardMessage(ussdCode)" v-clipboard="" v-bind:data-clipboard-text="ussdCode") {{ussdCode | persianNumbers}}
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
-                            span.hidden-lg.hidden-md {{ $i18n.t('user.copyUssd') }}
+                            span.hidden-lg.hidden-md(v-if="ussdType =='Qr'") {{ $i18n.t('user.copyUssd') }}
 
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
@@ -183,9 +183,7 @@
              */
             this.username = this.$route.params.email;
             this.otp = this.$route.params.otp;
-            if (this.username || this.otp) {
-                this.login();
-            }
+
 
             let oauthCheckParams = {};
             if (this.$route.params.otp && this.$route.params.email) {
@@ -201,6 +199,9 @@
                     vm.$router.push({name: 'home.index'});
                 })
                 .catch(() => {
+                    if (this.username || this.otp) {
+                        this.login();
+                    }
                 });
         },
         methods: {

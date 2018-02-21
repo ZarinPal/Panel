@@ -52,7 +52,7 @@
 <script>
     import singleEasypay from './partials/single-easypay.vue';
     import loading from '../../pages/partials/loading.vue';
-    import personalLink from '../../pages/easypay/partials/personal_link';
+    import personalLink from '../../pages/easypay/partials/personal_link.vue';
 
     export default {
         name: 'easypay-index',

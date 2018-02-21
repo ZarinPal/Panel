@@ -40,6 +40,8 @@
                                                                 span
                                                                 | {{ $i18n.t('user.female') }}
 
+                                                    div.ta-right(v-if="validation('gender')")
+                                                        span.text-danger {{ errors.first('gender') }}
 
                                             <!--first_name-->
                                             div.row.nav-rows
@@ -52,9 +54,8 @@
                                                 div.ta-right(v-if="validation('last_name')")
                                                     span.text-danger {{ errors.first('last_name') }}
 
-
                                             div.row.nav-rows
-                                                date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('common.birthday')" v-model="birthday" min="1300/01/01" :placeholder="$i18n.t('common.birthday')")
+                                                date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('common.birthday')" v-model="birthday" name="birthday" min="1300/01/01" :placeholder="$i18n.t('common.birthday')")
                                                 div.ta-right(v-if="validation('birthday')")
                                                     span.text-danger {{ errors.first('birthday') }}
 
@@ -136,7 +137,7 @@
                 first_name: this.$store.state.auth.user.first_name,
                 last_name: this.$store.state.auth.user.last_name,
                 birthday: '',
-                ssn: null,
+                ssn: this.$store.state.auth.user.ssn,
 
                 /**
                  * upload documents variables
@@ -152,6 +153,13 @@
                 isSaving: false,
                 maxFileUpload: 3,
                 howManyFileUploaded: 0,
+            }
+        },
+        created() {
+            if (this.$store.state.auth.user.birthday) {
+                this.birthday = moment(this.$store.state.auth.user.birthday).format('jYYYY-jMM-jDD')
+            } else {
+                this.birthday = '';
             }
         },
         methods: {
@@ -198,10 +206,15 @@
                     (response) => {
                         this.isSavingInformation = false;
                         store.commit('setValidationErrors', response.data.validation_errors);
-                        this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
+
+                        if (response.data.meta.error_type == 'UserYouCanNotEditInfo') {
+                            this.step++;
+                        } else {
+                            this.$store.commit('flashMessage', {
+                                text: response.data.meta.error_type,
+                                type: 'danger'
+                            });
+                        }
                     }
                 )
             },
