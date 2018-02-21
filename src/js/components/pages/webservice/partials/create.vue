@@ -140,10 +140,6 @@
                     }
                 }
 
-                if (this.loading) {
-                    return;
-                }
-
                 this.loading = true;
                 let webserviceData = {
                     domain: this.domain,
@@ -155,12 +151,14 @@
                 };
 
                 this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
-                    () => {
+                    (response) => {
                         store.commit('flashMessage', {
                             text: 'WebserviceTicketNewLocal',
                             type: 'success',
                         });
-                        this.$router.push({name: 'webservice.index'})
+                        this.loading = false;
+
+                        this.$router.push({name: 'ticket.show', params: {id: response.data.data.ticket_id}})
                     },
                     (response) => {
                         this.loading = false;

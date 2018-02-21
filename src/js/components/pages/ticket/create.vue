@@ -72,7 +72,6 @@
     import selectbox from '../partials/selectbox.vue';
     import loading from '../../pages/partials/loading.vue';
 
-
     export default {
         name: 'ticket-create',
         data() {
@@ -200,9 +199,11 @@
                     attachment: this.attachment,
                 };
                 this.$store.state.http.requests['ticket.postAdd'].save(ticketData).then(
-                    () => {
+                    (response) => {
+                        this.loading = false;
                         this.fileUploaded = false;
-                        this.$router.push({name: 'ticket.index'})
+
+                        this.$router.push({name: 'ticket.show', params: {id: response.data.data.public_id}})
                     },
                     (response) => {
                         this.loading = false;
