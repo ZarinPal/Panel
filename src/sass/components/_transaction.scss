@@ -377,6 +377,7 @@ $transactionInternalColor: #656565;
     display: inline-block;
   }
 
+
   /*Transaction row in mobile width*/
   .transaction-row {
     height: 56px;
@@ -438,7 +439,7 @@ $transactionInternalColor: #656565;
 }
 
 //Delete forward icon
-@media (max-width: 1200px) {
+@media (max-width: $mediumWidth) {
   .hidden-title-md {
     display: none !important;
   }
@@ -448,6 +449,11 @@ $transactionInternalColor: #656565;
   }
 
   .icon-forward {
+    display: none !important;
+  }
+}
+@media (max-width: $smallWidth) {
+  .hidden-sm {
     display: none !important;
   }
 }

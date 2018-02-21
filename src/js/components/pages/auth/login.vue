@@ -183,9 +183,7 @@
              */
             this.username = this.$route.params.email;
             this.otp = this.$route.params.otp;
-            if (this.username || this.otp) {
-                this.login();
-            }
+
 
             let oauthCheckParams = {};
             if (this.$route.params.otp && this.$route.params.email) {
@@ -201,6 +199,9 @@
                     vm.$router.push({name: 'home.index'});
                 })
                 .catch(() => {
+                    if (this.username || this.otp) {
+                        this.login();
+                    }
                 });
         },
         methods: {
