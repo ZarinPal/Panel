@@ -30,6 +30,11 @@
       content: $iconEdit;
     }
   }
+  .report-icon {
+    &::before {
+      content: $iconReport;
+    }
+  }
 
   .header {
     .ta-left-box {
