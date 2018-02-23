@@ -63,10 +63,10 @@ Vue.directive(
     require('./directives/clipboard')
 );
 
-Vue.directive(
-    'sticky',
-    require('./directives/sticky')
-);
+// Vue.directive(
+//     'sticky',
+//     require('./directives/sticky')
+// );
 
 Vue.directive(
     'ripple',
