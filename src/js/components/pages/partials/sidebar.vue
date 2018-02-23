@@ -1,7 +1,7 @@
 <template lang="pug">
     div(v-bind:class="{'small-sidebar hidden-sidebar': isSmallSidebar, 'normal-sidebar hidden-sidebar': !isSmallSidebar, 'mobile-sidebar': isMobileSidebar}")
         span.close-mobile-sidebar(@click="toggleMobileSidebar()")
-        div.side-content.sticky-sidebar(v-sticky="")
+        div.side-content.sticky-sidebar
 
             div.user-info
                 router-link(tag="span" v-bind:to="{ name: 'user.showProgress'}" title="پروفایل")
