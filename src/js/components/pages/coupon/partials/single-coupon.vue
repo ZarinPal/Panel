@@ -16,8 +16,11 @@
                     div.right
                         span.label {{$i18n.t('easypay.limit')}}
                     div.col-xs.ta-left
-                        span.text-value.persian-num(v-if="coupon.limit") {{coupon.limit}}
-                        span.text-value(v-else) {{$i18n.t('easypay.noLimit')}}
+                        span.text-value(v-if="coupon.limit == '0'") {{$i18n.t('coupon.finished')}}
+                        span.text-value(v-else-if="coupon.limit == ''") {{$i18n.t('coupon.noLimit')}}
+                        span.text-value.persian-num(v-else="coupon.limit != ''") {{coupon.limit}}
+
+
 
                 div.row.box-row
                     div.right
