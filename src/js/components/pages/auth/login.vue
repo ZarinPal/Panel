@@ -92,7 +92,7 @@
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(@change="otpMaxLength()" @keyup="otpMaxLength()" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
+                                    input(@input="otpMaxLength" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
                                 div.dashed-line
 
                     div.row.bottom-xs
@@ -101,7 +101,7 @@
                             timer(v-if="visibleOtpTimer" v-bind:seconds="$store.state.auth.otpTime" v-on:onFinished="finishTimer")
 
                         div.col-xs.no-margin
-                            button.gold.pull-left(id="btnSubmitLogin") {{$i18n.t('user.enter')}}
+                            button.gold.pull-left(id="btnSubmitLogin" :class="{'disable': loginLoading}") {{$i18n.t('user.enter')}}
                                 svg.material-spinner(v-if="loginLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -283,7 +283,6 @@
             login(){
                 this.loginLoading = true;
                 let vm = this;
-
                 let auth2Data = {
                     grant_type: "password",
                     client_id: "panel-client",
@@ -296,7 +295,7 @@
 
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
-                        vm.loginLoading = false;
+                        vm.loginLoading = true
                         vm.$router.push({name: 'home.index'});
 
                         if (vm.nchanSubscriber) {
@@ -312,6 +311,8 @@
                         });
                     }
                 );
+
+
             },
             changeUssdType() {
                 if (this.ussdType === 'Code') {
@@ -332,7 +333,9 @@
                     if (document.getElementById('txtOtp')) {
                         let txtOtp = document.getElementById('txtOtp');
                         if (txtOtp.value.length > 0 && txtOtp.value.length === 6) {
-                            document.getElementById("btnSubmitLogin").click();
+                                document.getElementById("btnSubmitLogin").click();
+                                document.getElementById("btnSubmitLogin").focus();
+
                         }
 
                         if (txtOtp.value.length === 6) {
@@ -358,12 +361,6 @@
                 this.lockLogin = false;
             },
             clipboardMessage(event) {
-                setTimeout(function () {
-                    let txtWebserviceId = document.getElementById('txtWebserviceId-' + event);
-                    if (txtWebserviceId) {
-                        txtWebserviceId.select();
-                    }
-                }, 10);
 
                 store.commit('flashMessage', {
                     text: 'Copied',
