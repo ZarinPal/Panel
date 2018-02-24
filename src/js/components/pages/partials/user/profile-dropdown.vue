@@ -12,7 +12,7 @@
                 router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.addAddress'}")
                     span.icon.location {{$i18n.t('user.addNewAddress')}}
                 router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.notificationSetting'}")
-                    span.icon.nav-loadingnav-loading {{$i18n.t('user.notificationSetting')}}
+                    span.icon.notif {{$i18n.t('user.notificationSetting')}}
 
                 div.divider
                 div.items(id="btnLogout" v-ripple="" @click="confirmVisible = true")

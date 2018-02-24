@@ -58,7 +58,14 @@
                             pre(v-html="$options.filters.code(reply.content)")
                             a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") {{ $i18n.t('ticket.downloadFile') }}
 
-
+        div.nav-send
+            div.row
+                div.col-xs
+                    div
+                        b.title لطفا به نکات زیر توجه فرمایید:
+                        div * پس از ارسال تیکت حداکثر تا ۱۲ ساعت آینده پاسخ برای شما ارسال خواهد شد.
+                        div * تیکت های فنی نیاز به زمان بیشتری برای بررسی دارند.
+                        div *  نیازی به تماس تلفنی پس از ارسال تیکت نیست ، تیکت شما قطعا توسط همکاران ما بررسی خواهد شد.
         div.nav-send
             div.row
                 div
