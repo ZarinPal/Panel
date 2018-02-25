@@ -31,7 +31,7 @@
 
 
 <script>
-    import addressBook from './address.vue';
+    import addressBook from './single_address.vue';
     import loading from '../../partials/loading.vue';
 
     export default {
