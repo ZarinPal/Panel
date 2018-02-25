@@ -743,11 +743,15 @@ body {
       position: relative;
       top: -73px;
       width: 140%;
-      height: 175px;
+      height: 205px;
       margin-right: -20%;
       margin-bottom: -50px;
       padding-top: 65px;
       border-radius: 700px / 251px;
+
+      .progress {
+        margin-top: 20px;
+      }
     }
 
     .user-name {
