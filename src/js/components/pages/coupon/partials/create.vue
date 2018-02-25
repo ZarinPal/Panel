@@ -104,7 +104,7 @@
         data() {
             return {
                 loading: false,
-                today: moment().format('jYYYY/jMM/jDD'),
+                today: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
                 visibleLimit: false,
 
                 code: '',
@@ -112,7 +112,7 @@
                 min_amount: '',
                 webservice_id: '',
                 easypay_id: '',
-                expired_at: moment().format('jYYYY/jMM/jDD'),
+                expired_at: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
                 limit: '',
                 type: 'webservice',
                 percent: '',
