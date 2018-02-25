@@ -14,8 +14,6 @@
             div.row.z-row
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     select-box.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.addressTitlePlaceholder')" :class="{'input-danger': errors.has('addresses.'+ (singleAddress.id - 1) + '.title')}" :name="'addresses.'+ (singleAddress.id - 1) +'.title'" v-on:select="selectTitle" v-bind:selected="address.title" v-bind:data="addressTitles" :placeholder="$i18n.t('user.selectAddressTitle')")
-
-                    <!--input(v-validate="'required|max:255'" v-bind:data-vv-as="$i18n.t('user.addressTitlePlaceholder')"  :class="{'input-danger': errors.has('addresses.'+ (singleAddress.id - 1) + '.title')}" type="text" v-model="address.title" :name="'addresses.'+ (singleAddress.id - 1) +'.title'" @input="updateAddress" :placeholder="$i18n.t('user.addressTitlePlaceholder')")-->
                     div.ta-right(v-if="validation('addresses.'+ (singleAddress.id - 1) +'.title')")
                         span.text-danger {{ errors.first('addresses.'+ (singleAddress.id - 1) +'.title') }}
 
