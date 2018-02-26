@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section(:class="{'disable': !webservice.status}")
+    div.col-xs-12.col-sm-12.col-md-4.col-lg-4.section(:class="{'disable': !webservice.status}")
         div.box
             div.top-xs.header
                 div.row
@@ -21,7 +21,7 @@
                                 router-link.drop-down-item.edit-icon(tag="span" v-bind:to="{ name: 'webservice.edit', params: { merchantCode:webservice.entity_id}}") {{$i18n.t('webservice.edit')}}
                                 router-link.drop-down-item.report-icon(tag="span" v-bind:to="{ name: 'report.index', params: { reportFor: 'webservice', reportId: webservice.entity_id }}") روزشمار
 
-                        a.header-link(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id" v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
+                        a.header-link.link.color-link(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id" v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
 
             div.middle-xs.body
                 div.row.box-row
