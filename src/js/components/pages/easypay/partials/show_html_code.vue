@@ -37,7 +37,6 @@
                             div.icon.copy(@click="clipboardMessage(zarinLinkBb)" v-clipboard="zarinLinkBb" v-bind:data-clipboard-text="zarinLinkBb")
 
 
-
 </template>
 
 
@@ -50,7 +49,7 @@
         props: ['entity'],
         computed: {
             zarinLinkUrl(){
-                return 'https://Zarinp.al/' + this.entity ;
+                return 'https://Zarinp.al/' + this.entity;
             },
             zarinLinkHtml(){
                 return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl + '\'>پرداخت آنلاین</a>';
