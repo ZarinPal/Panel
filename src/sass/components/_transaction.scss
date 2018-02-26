@@ -55,7 +55,7 @@ $transactionInternalColor: #656565;
     &::before {
       content: $icon-zp-receipt;
       padding-left: 5px;
-      top:3px;
+      top: 3px;
       position: relative;
     }
   }
@@ -196,7 +196,6 @@ $transactionInternalColor: #656565;
               margin: 10px;
             }
           }
-
 
           .nav-user-info {
             margin: 6px;
@@ -377,7 +376,6 @@ $transactionInternalColor: #656565;
     display: inline-block;
   }
 
-
   /*Transaction row in mobile width*/
   .transaction-row {
     height: 56px;
@@ -452,6 +450,7 @@ $transactionInternalColor: #656565;
     display: none !important;
   }
 }
+
 @media (max-width: $smallWidth) {
   .hidden-sm {
     display: none !important;
