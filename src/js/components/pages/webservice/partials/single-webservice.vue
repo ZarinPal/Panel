@@ -3,7 +3,7 @@
         div.box
             div.top-xs.header
                 div.row
-                    div.col-xs.right-box
+                    div.right-box
                         p(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id")
                             span.green-small-circle.flash(v-if="webservice.status")
                             span.header-title(:title="webservice.name") {{webservice.name}}
@@ -25,7 +25,7 @@
 
             div.middle-xs.body
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right.webservice-code-label
                         span.label {{ $i18n.t('webservice.webserviceCode') }}
 
                     div.col-xs.ta-left.no-margin
@@ -34,7 +34,7 @@
                                 input.txt-webservice-id(:id="'txtWebserviceId-' + webservice.entity_id" onfocus="this.select();" v-bind:value="webservice.entity_id" readonly="readonly")
                             div.icon.copy(@click="clipboardMessage(webservice.entity_id)" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label {{$i18n.t('webservice.depositTo')}}
 
                     div.col-xs.ta-left.no-margin
@@ -54,7 +54,7 @@
 
                 <!--Web gate-->
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label {{ $i18n.t('webservice.zarinGate') }}
 
 

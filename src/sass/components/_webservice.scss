@@ -67,7 +67,7 @@
     }
 
     span.merchant-code {
-      width: 90%;
+      width: 95%;
       overflow: hidden;
       height: 10px;
     }
@@ -80,6 +80,9 @@
         margin-top: -3px;
         margin-bottom: -3px;
       }
+    }
+    .webservice-code-label{
+      padding-top: 8px;
     }
   }
 }
