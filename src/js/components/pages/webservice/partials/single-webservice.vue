@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-4.col-lg-4.section(:class="{'disable': !webservice.status}")
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section(:class="{'disable': !webservice.status}")
         div.box
             div.top-xs.header
                 div.row

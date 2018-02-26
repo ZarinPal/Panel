@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-4.col-lg-4.section.single-coupon
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section.single-coupon
         div.box
             div.middle-xs.body
 
