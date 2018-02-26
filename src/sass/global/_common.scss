@@ -356,6 +356,7 @@ a {
             overflow: hidden;
             position: relative;
             top: 5px;
+            width: 85px;
           }
           .zpid-box {
             font-size: 11px;
@@ -638,7 +639,8 @@ a {
 .label-group {
   border: 1px solid $labelGroupBorderColor;
   border-radius: 3px;
-  width: 195px;
+  width: 100%;
+  max-width: 280px;
   text-align: center;
 
   .icon {

@@ -3,7 +3,7 @@
         div.box
             div.top-xs.header
                 div.row
-                    div.col-xs.right-box.overflow-hidden
+                    div.right-box.overflow-hidden
                         p(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id")
                             span.green-small-circle(@click="confirmVisible = true")
                             span.header-title(:title="easypay.title") {{easypay.title}}
@@ -20,7 +20,7 @@
                                 span.drop-down-item(v-ripple="" @click="showHtmlVisible = true" ) {{$i18n.t('easypay.showLinkLocal')}}
                                 span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
 
-                        a.header-link.overflow-visible.color-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
+                        span.header-link.overflow-visible.color-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id"  v-ripple="" @click="showHtmlVisible = true") {{$i18n.t('easypay.showLinkLocal')}}
 
             div.middle-xs.body
                 div.row.box-row
@@ -31,7 +31,7 @@
                         span.text-value.persian-num {{easypay.price | numberFormat }} تومان
 
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label {{$i18n.t('easypay.depositTo')}}
 
                     div.col-xs.ta-left.no-margin

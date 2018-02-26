@@ -243,7 +243,7 @@
     "easypayName": "زرین‌لینک",
     "webservice": "درگاه پرداخت",
     "offCode": "کد تخفیف",
-    "showDetails": "نمایش جزییات",
+    "showDetails": "جزییات",
     "createCouponDescription": "در این صفحه شما میتوانید کد تخفیف خود را ایجاد کنید.",
     "easypay": "زرین‌لینک",
     "all": "همه",
@@ -289,7 +289,7 @@
     "searchEasypay": "جستجو در زرین‌لینک ها",
     "selectPurseOrWebserviceId": "انتخاب کیف پول و یا درگاه پرداخت الزامی است",
     "selectWebservice": "انتخاب درگاه پرداخت",
-    "showLinkLocal": "نمایش کد HTML"
+    "showLinkLocal": "نمایش کد"
   },
   "error": {
     "NotFound": "These credentials do not match our records.",

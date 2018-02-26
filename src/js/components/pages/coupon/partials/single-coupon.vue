@@ -4,7 +4,7 @@
             div.middle-xs.body
 
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label  {{$i18n.t('coupon.offCode')}}
 
                     div.col-xs.ta-ta-left
@@ -52,6 +52,7 @@
                         router-link.footer-icon.edit(tag="span" v-bind:to="{ name: 'coupon.edit', params:{entity_id: coupon.entity_id}}") {{$i18n.t('common.edit')}}
                     div.col-xs
                         span.footer-icon.details(@click="visibleCouponDetails = true") {{$i18n.t('coupon.showDetails')}}
+
 
         couponDetails(v-if="visibleCouponDetails" v-on:closeModal="closeModal()" v-bind:coupon="coupon")
 
