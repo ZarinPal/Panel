@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+    div.col-xs-12.col-sm-12.col-md-4.col-lg-4.section
         div.box
             div.top-xs.header
                 div.row
@@ -20,7 +20,7 @@
                                 span.drop-down-item(v-ripple="" @click="showHtmlVisible = true" ) {{$i18n.t('easypay.showLinkLocal')}}
                                 span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
 
-                        a.header-link.overflow-visible(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
+                        a.header-link.overflow-visible.color-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
 
             div.middle-xs.body
                 div.row.box-row
