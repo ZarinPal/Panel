@@ -88,7 +88,6 @@ span[class^="icon-"], span[class*=" icon-"] {
   }
 }
 
-
 .icon-zp-web-service {
   &:before {
     content: $icon-zp-web-service;
@@ -130,6 +129,7 @@ span[class^="icon-"], span[class*=" icon-"] {
     content: $icon-zp-arrow-left;
   }
 }
+
 .icon-arrow-right {
   &:before {
     content: $icon-zp-arrow-right;

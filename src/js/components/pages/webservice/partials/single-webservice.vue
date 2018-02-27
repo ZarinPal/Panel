@@ -1,9 +1,9 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section(:class="{'disable': !webservice.status}")
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section(:class="{'disable': !webservice.status}")
         div.box
             div.top-xs.header
                 div.row
-                    div.col-xs.right-box
+                    div.right-box
                         p(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id")
                             span.green-small-circle.flash(v-if="webservice.status")
                             span.header-title(:title="webservice.name") {{webservice.name}}
@@ -21,11 +21,11 @@
                                 router-link.drop-down-item.edit-icon(tag="span" v-bind:to="{ name: 'webservice.edit', params: { merchantCode:webservice.entity_id}}") {{$i18n.t('webservice.edit')}}
                                 router-link.drop-down-item.report-icon(tag="span" v-bind:to="{ name: 'report.index', params: { reportFor: 'webservice', reportId: webservice.entity_id }}") روزشمار
 
-                        a.header-link(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id" v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
+                        a.header-link.link.color-link(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id" v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
 
             div.middle-xs.body
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right.webservice-code-label
                         span.label {{ $i18n.t('webservice.webserviceCode') }}
 
                     div.col-xs.ta-left.no-margin
@@ -34,7 +34,7 @@
                                 input.txt-webservice-id(:id="'txtWebserviceId-' + webservice.entity_id" onfocus="this.select();" v-bind:value="webservice.entity_id" readonly="readonly")
                             div.icon.copy(@click="clipboardMessage(webservice.entity_id)" v-clipboard="" v-bind:data-clipboard-text="webservice.entity_id")
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label {{$i18n.t('webservice.depositTo')}}
 
                     div.col-xs.ta-left.no-margin
@@ -54,7 +54,7 @@
 
                 <!--Web gate-->
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label {{ $i18n.t('webservice.zarinGate') }}
 
 

@@ -155,8 +155,8 @@
                 if (this.monthDays) {
                     let vm = this;
 
-                    let finalMonthReport = _.forEach(this.monthDays, function(day) {
-                        day.turnovers = _.find(vm.reports, function(report) {
+                    let finalMonthReport = _.forEach(this.monthDays, function (day) {
+                        day.turnovers = _.find(vm.reports, function (report) {
                             return report.date == day.date.format('YYYY-MM-DD');
                         });
                     });

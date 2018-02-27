@@ -333,8 +333,8 @@
                     if (document.getElementById('txtOtp')) {
                         let txtOtp = document.getElementById('txtOtp');
                         if (txtOtp.value.length > 0 && txtOtp.value.length === 6) {
-                                document.getElementById("btnSubmitLogin").click();
-                                document.getElementById("btnSubmitLogin").focus();
+                            document.getElementById("btnSubmitLogin").click();
+                            document.getElementById("btnSubmitLogin").focus();
 
                         }
 

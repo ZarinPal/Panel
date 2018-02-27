@@ -1,10 +1,10 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section.single-coupon
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section.single-coupon
         div.box
             div.middle-xs.body
 
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label  {{$i18n.t('coupon.offCode')}}
 
                     div.col-xs.ta-ta-left
@@ -54,6 +54,7 @@
                         span.footer-icon.details(@click="visibleCouponDetails = true") {{$i18n.t('coupon.showDetails')}}
                     div.col-xs
                         span.footer-icon.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('coupon.delete')}}
+
 
         couponDetails(v-if="visibleCouponDetails" v-on:closeModal="closeModal()" v-bind:coupon="coupon")
         confirm(v-if="confirmVisible" v-on:confirmed="deleteCoupon()" v-on:closeModal="closeModal")
