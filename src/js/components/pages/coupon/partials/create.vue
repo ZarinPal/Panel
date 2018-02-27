@@ -44,7 +44,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.expirationDate') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                date-picker.persian-num(v-model="expired_at")
+                                date-picker.persian-num(v-model="expired_at" :min="today")
                                 div.ta-right(v-if="validation('expired_at')")
                                     span.text-danger {{ errors.first('expired_at') }}
 
@@ -104,16 +104,18 @@
         data() {
             return {
                 loading: false,
+                today: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
+                visibleLimit: false,
+
                 code: '',
                 max_amount: '',
                 min_amount: '',
                 webservice_id: '',
                 easypay_id: '',
-                expired_at: moment().format('jYYYY/jMM/jDD'),
+                expired_at: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
                 limit: '',
                 type: 'webservice',
                 percent: '',
-                visibleLimit: false,
             }
         },
         computed: {
