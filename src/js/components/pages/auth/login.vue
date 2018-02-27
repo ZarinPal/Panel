@@ -131,6 +131,7 @@
                 visibleOtpTimer: false,
                 visibleSendSms: true,
 
+
                 /**
                  * login failed date
                  */
@@ -174,7 +175,6 @@
                 });
         },
         methods: {
-
             validation(name) {
                 if (this.$store.state.alert.validationErrors[name]) {
                     let element = _.find(this.$validator.fields.items, function(field) {
