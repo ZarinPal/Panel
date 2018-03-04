@@ -77,6 +77,10 @@ a {
   color: #FF1744;
 }
 
+.color-link {
+  color: #3476f8 !important;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -350,9 +354,9 @@ a {
             margin-right: 10px;
             height: 22px;
             overflow: hidden;
-            width: 55%;
             position: relative;
             top: 5px;
+            width: 85px;
           }
           .zpid-box {
             font-size: 11px;
@@ -611,7 +615,6 @@ a {
   cursor: pointer;
   float: left;
   text-align: left !important;
-  display: inline-block;
   width: 70%;
   overflow: hidden;
   margin-left: 10px;
@@ -634,7 +637,8 @@ a {
 .label-group {
   border: 1px solid $labelGroupBorderColor;
   border-radius: 3px;
-  width: 220px;
+  width: 100%;
+  max-width: 280px;
   text-align: center;
 
   .icon {

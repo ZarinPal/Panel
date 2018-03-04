@@ -1,7 +1,7 @@
-import Vue from 'vue';
+import Vue from "vue";
 Vue.mixin({
     methods: {
-        clearNumber: function(number) {
+        clearNumber: function (number) {
             let exportableNumber = number;
             if (/,/g.test(number)) {
                 exportableNumber = number.replace(/,/g, "");

@@ -1,5 +1,5 @@
 <template lang="pug">
-    svg.progress(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="120" viewBox="0 0 90 92")
+    svg.progress(xmlns="http://www.w3.org/2000/svg"  width="100" height="120" viewBox="0 0 90 92")
         defs
             filter#group-3-c( width="137.8%" height="233.3%" x="-18.9%" y="-47.6%" filterUnits="objectBoundingBox")
                 feOffset( dy="4" in="SourceAlpha" result="shadowOffsetOuter1")

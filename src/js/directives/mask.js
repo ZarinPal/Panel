@@ -8,12 +8,12 @@ export default {
         //         event.preventDefault();
         //     }
         // });
-            /** ---------------
+        /** ---------------
          *      Keyup
          ----------------**/
         el.addEventListener('keyup', function (event) {
             /** ---------------
-                    Money
+             Money
              ----------------**/
             Vue.nextTick(function () {
                 if (binding.value.money && el.value) {

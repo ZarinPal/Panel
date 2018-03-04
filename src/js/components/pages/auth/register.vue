@@ -113,9 +113,9 @@
                 if (this.$route.query.referrer) {
                     auth2Data.referrer = atob(this.$route.query.referrer);
                     localStorage.setItem('zp_referrer', {
-                            referrer: auth2Data.referrer,
-                            expire_in: moment().add(3, 'day').unix()
-                        });
+                        referrer: auth2Data.referrer,
+                        expire_in: moment().add(3, 'day').unix()
+                    });
                 } else {
                     let referrerObj = JSON.parse(localStorage.getItem('zp_referrer'));
                     if (referrerObj && referrerObj.expire_in > moment().unix()) {
