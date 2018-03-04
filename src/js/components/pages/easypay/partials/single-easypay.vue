@@ -53,7 +53,7 @@
             span(slot="title") {{$i18n.t('easypay.deleteEasypay')}}
             div.ta-right(slot="message")
                 div.row.no-margin
-                    div.col-xs-12 آیا نسبت به حذف زرین‌لینک " {{easypay.title}} " اصمینان دارید؟
+                    div.col-xs-12 آیا نسبت به حذف زرین‌لینک " {{easypay.title}} " اطمینان دارید؟
                     div.col-xs-12 این عملیات غیر قابل بازگشت است.
 
             span(slot="messageDanger") {{$i18n.t('common.cancel')}}
