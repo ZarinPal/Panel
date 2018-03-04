@@ -8,7 +8,9 @@
                     div.user-image
                         userProgress.hand(v-if="!this.$store.state.app.smallSidebar")
                         img.hand(v-else :src="user.avatar")
-                        p.user-name {{user.name}}
+                        p.user-name(v-if="user.company_info") {{user.company_info.name}}
+                        p.user-name(v-else) {{user.name}}
+
                         p.user-name.user-level {{$i18n.t('user.level') + ': ' +$i18n.t('user.user_level_' + user.level)}}
 
                 div.ta-center.section-level-up(v-if="user.level < 2")
