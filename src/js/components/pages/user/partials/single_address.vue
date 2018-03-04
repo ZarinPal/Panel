@@ -99,7 +99,7 @@
                     this.address.landline = this.singleAddress.landline;
                     this.address.postal_code = this.singleAddress.postal_code;
                     this.address.geo_location = this.singleAddress.geo_location;
-                    this.address.title = this.singleAddress.title;
+                    (this.singleAddress.title ) ? this.address.title = this.singleAddress.title : this.address.title = null;
                     this.address.entity_id = this.singleAddress.entity_id;
                 }
             },

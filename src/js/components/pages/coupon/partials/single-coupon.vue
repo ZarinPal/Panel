@@ -96,6 +96,7 @@
             closeModal(){
                 this.confirmVisible = false;
                 this.showHtmlVisible = false;
+                this.visibleCouponDetails = false;
                 store.commit('clearValidationErrors');
             },
             deleteCoupon() {
