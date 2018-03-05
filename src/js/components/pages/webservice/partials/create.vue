@@ -142,7 +142,7 @@
 
                 this.loading = true;
                 let webserviceData = {
-                    domain: this.domain,
+                    domain: this.domain.toLowerCase(),
                     tel: this.tel,
                     purse: this.purse,
                     webservice_category_id: this.webservice_category_id,
