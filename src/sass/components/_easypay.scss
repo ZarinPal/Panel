@@ -188,3 +188,33 @@
 .overflow-visible {
   overflow: visible !important;
 }
+
+.btn-gradient-radius {
+  background-color: #fff;
+  border-radius: 60px;
+  margin-left: 10px;
+  height: 35.2px;
+  transition: $animateTime;
+  margin-top: 10px;
+
+  .btn-icon {
+    position: relative;
+    top: -2px;
+
+    &:before {
+      font-family: 'zarinpal';
+      font-style: normal;
+      font-size: 22px;
+      color: $labelColor !important;
+      position: relative;
+      top: 3px;
+    }
+  }
+  .btn-label {
+    font-size: 14px;
+    color: $labelColor;
+    margin-right: 7px;
+    position: relative;
+  }
+
+}

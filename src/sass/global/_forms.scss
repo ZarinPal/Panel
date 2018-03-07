@@ -273,6 +273,16 @@ a.btn {
     }
   }
 
+  &.simple {
+    background-color: #fff;
+    color: #000;
+
+
+    &:active, &:hover {
+      background-color: #fafafa;
+    }
+  }
+
   &.info {
     background-color: #2979ff;
     color: #ffffff;
