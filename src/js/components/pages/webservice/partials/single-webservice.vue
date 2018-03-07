@@ -43,7 +43,7 @@
                             span.purse-color(v-else v-bind:class="'color-' + webservice.purse")
                             span {{getPurseName(webservice.purse).name}}
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label {{ $i18n.t('webservice.ip') }}
 
                     div.col-xs.ta-left(v-if="webservice.ip")
