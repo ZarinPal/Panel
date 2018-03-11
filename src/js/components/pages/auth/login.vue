@@ -50,7 +50,8 @@
                     div.ta-center.no-margin.col-lg-12
                         img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri")
                         loading(v-else)
-                        a.link(href="http://www.zarinpal.mobi" target="blank") {{$i18n.t('user.downloadMobileApp')}}
+                        a.btn-gradient-radius(href="http://www.zarinpal.mobi" target="blank")
+                            span.btn-label {{$i18n.t('user.downloadMobileApp')}}
 
                 <!--Second step call ussd code-->
                 form(method="post" @submit.prevent="login" v-if="step == 2" onsubmit="event.preventDefault();")
