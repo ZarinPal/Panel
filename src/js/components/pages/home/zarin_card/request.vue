@@ -2,7 +2,15 @@
     modal.request-zarin-card(v-on:closeModal="closeModal()")
         span(slot="title") {{ $i18n.t('card.requestZarinCardTitle') }}
         div(slot="content")
-            form(autocomplete="on" onsubmit="event.preventDefault();")
+            div(v-if="user.cards.length == 0")
+                div.font-s-18
+                    span {{ $i18n.t('card.noActiveCard') }}
+
+                div.row.m-t-25.m-b-10
+                    div.col-xs.nav-buttons.ta-center
+                        router-link.btn.success(tag="button" v-bind:to="{ name: 'card.index'}") {{$i18n.t('card.addNewBankAccount')}}
+
+            form(v-else autocomplete="on" onsubmit="event.preventDefault();")
                 div.body
                     div.row.no-margin
                         purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse_number')" v-focus="" v-validate="{ rules: {required: true}}" name="purse_number" v-model="purse_number" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse_number')}" tabindex="5")
@@ -19,7 +27,7 @@
                     div.user-information-box.ta-right
                         div {{ $i18n.t('user.firstName') }} : {{ user.name }}
                         div {{ $i18n.t('user.userAddress') }} : {{ addressTitle }}
-                        div.persian-num(v-if="user.addresses[0].postal_code") {{ $i18n.t('user.postal') }} : {{ user.addresses[0].postal_code }}
+                        div.persian-num {{ $i18n.t('user.postal') }} : {{ addressPostalCode }}
                         div.text-danger(v-if="!user.addresses[0].address" @click="goAddAddress") {{ $i18n.t('user.userAddress') }} : {{ $i18n.t('user.addressEmpty') }}
                         div.text-danger(v-if="!user.addresses[0].postal_code" @click="goAddAddress") {{ $i18n.t('user.postal') }} : {{ $i18n.t('user.postalCodeEmpty') }}
 
@@ -60,10 +68,12 @@
                 acceptInformation: false,
 
                 purse_number: null,
+                fullAddresses: {},
                 addresses: {},
                 isLoadedAddress: false,
                 address_id: null,
                 addressTitle: null,
+                addressPostalCode: null,
                 coupon: {},
             }
         },
@@ -103,6 +113,7 @@
                 this.$store.state.http.requests['user.postAddress'].get().then(
                     (response) => {
                         if (response.data.data.length) {
+                            vm.fullAddresses = response.data.data;
                             vm.addresses = response.data.data.map(function (address) {
                                 return {
                                     'title': address.address,
@@ -131,11 +142,12 @@
                 let vm = this;
                 this.address_id = addressId;
 
-                let addressIndex = _.findIndex(vm.addresses, function (address) {
-                    return address.value === addressId;
+                let addressIndex = _.findIndex(vm.fullAddresses, function (address) {
+                    return address.entity_id === addressId;
                 });
 
-                vm.addressTitle = vm.addresses[addressIndex].title;
+                vm.addressTitle = vm.fullAddresses[addressIndex].title;
+                vm.addressPostalCode = vm.fullAddresses[addressIndex].postal_code;
             },
             getCouponData() {
                 this.$store.state.http.requests['zarincard.cost']
