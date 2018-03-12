@@ -234,7 +234,8 @@
     "accessLevelLimitTitle": "محدودیت سطح دسترسی",
     "male": "مرد",
     "female": "زن",
-    "request": "ایجاد لینک شخصی"
+    "request": "ایجاد لینک شخصی",
+    "transactionSession": "سشن های پرداخت "
   },
   "coupon": {
     "couponsDescription": "تمامی ‌کد تخفیف‌های شما در این صفحه قرار دارد",
@@ -774,7 +775,8 @@
   "transactionSession": {
     "description": "تمامی‌سشن‌های بانکی درگاه پرداخت شما در این صفحه لیست‌شده اند",
     "search": "جست‌و‌جو در سشن‌های بانکی",
-    "authority": "آتوریتی"
+    "authority": "آتوریتی",
+    "sessionList": "لیست سشن های پرداخت درگاه"
   },
   "user": {
     "updateInfo": "اطلاعات کاربر با موفقیت ویرایش‌شد.",
