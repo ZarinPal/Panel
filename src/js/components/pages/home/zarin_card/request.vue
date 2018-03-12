@@ -5,15 +5,20 @@
             form(autocomplete="on" onsubmit="event.preventDefault();")
                 div.body
                     div.row.no-margin
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus=""  v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
-                        div.ta-right(v-if="validation('purse')")
-                            span.text-danger {{ errors.first('purse') }}
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse_number')" v-focus="" v-validate="{ rules: {required: true}}" name="purse_number" v-model="purse_number" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse_number')}" tabindex="5")
+                        div.ta-right(v-if="validation('purse_number')")
+                            span.text-danger {{ errors.first('purse_number') }}
 
                     p.user-information-description.ta-right {{ $i18n.t('card.requestZarinCardDescriptionOfUserInformation') }}
 
+                    loading(v-if="!isLoadedAddress")
+                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else v-validate="{ rules: {required: true}}" name="address_id" v-model="address_id" v-bind:data-vv-as="$i18n.t('user.userAddress')" :class="{'input-danger': errors.has('address_id')}" v-on:select="selectAddress" v-bind:data="addresses" :placeholder="$i18n.t('user.userAddress')")
+                    div.ta-right(v-if="validation('address_id')")
+                        span.text-danger {{ errors.first('address_id') }}
+
                     div.user-information-box.ta-right
                         div {{ $i18n.t('user.firstName') }} : {{ user.name }}
-                        div(v-if="user.addresses[0].address") {{ $i18n.t('user.userAddress') }} : {{ user.addresses[0].address }}
+                        div {{ $i18n.t('user.userAddress') }} : {{ addressTitle }}
                         div.persian-num(v-if="user.addresses[0].postal_code") {{ $i18n.t('user.postal') }} : {{ user.addresses[0].postal_code }}
                         div.text-danger(v-if="!user.addresses[0].address" @click="goAddAddress") {{ $i18n.t('user.userAddress') }} : {{ $i18n.t('user.addressEmpty') }}
                         div.text-danger(v-if="!user.addresses[0].postal_code" @click="goAddAddress") {{ $i18n.t('user.postal') }} : {{ $i18n.t('user.postalCodeEmpty') }}
@@ -43,6 +48,8 @@
 <script>
     import modal from '../../partials/modal.vue';
     import purse from '../../partials/purses.vue';
+    import selectbox from '../../partials/selectbox.vue';
+    import loading from '../../../pages/partials/loading.vue';
 
     export default {
         name: "request-zarin-card",
@@ -53,6 +60,10 @@
                 acceptInformation: false,
 
                 purse_number: null,
+                addresses: {},
+                isLoadedAddress: false,
+                address_id: null,
+                addressTitle: null,
                 coupon: {},
             }
         },
@@ -62,6 +73,8 @@
             },
         },
         created() {
+            this.getAddresses();
+
             this.getCouponData();
         },
         methods: {
@@ -71,7 +84,8 @@
              */
             validateForm() {
                 this.$validator.validateAll({
-                    purse: this.purse_number,
+                    purse_number: this.purse_number,
+                    address_id: this.address_id,
                 }).then((result) => {
                     if (result) {
                         this.setRequestZarinCard();
@@ -84,11 +98,44 @@
             closeModal() {
                 this.$emit('closeModal')
             },
+            getAddresses() {
+                let vm = this;
+                this.$store.state.http.requests['user.postAddress'].get().then(
+                    (response) => {
+                        if (response.data.data.length) {
+                            vm.addresses = response.data.data.map(function (address) {
+                                return {
+                                    'title': address.address,
+                                    'value': address.entity_id
+                                }
+                            });
+                        }
+                        vm.isLoadedAddress = true;
+                    },
+                    (response) => {
+                        store.commit('flashMessage', {
+                            text: response.data.meta.error_type,
+                            important: false,
+                            type: 'danger'
+                        });
+                    }
+                );
+            },
             goAddAddress() {
                 this.$router.push({name: 'user.addAddress'})
             },
             selectedPurse(purseId) {
                 this.purse_number = purseId;
+            },
+            selectAddress(addressId) {
+                let vm = this;
+                this.address_id = addressId;
+
+                let addressIndex = _.findIndex(vm.addresses, function (address) {
+                    return address.value === addressId;
+                });
+
+                vm.addressTitle = vm.addresses[addressIndex].title;
             },
             getCouponData() {
                 this.$store.state.http.requests['zarincard.cost']
@@ -114,10 +161,11 @@
                     });
                     return false;
                 }
-                this.requesting = true;
 
+                this.requesting = true;
                 let zarinCardDate = {
                     purse_number: this.purse_number,
+                    address_id: this.address_id,
                     coupon: this.coupon.coupon,
                 };
 
@@ -129,7 +177,7 @@
 
                             store.commit('flashMessage', {
                                 text: 'ZarinCardRequestSuccessLocal',
-                                important: true,
+                                timeout: 10000,
                                 type: 'success'
                             });
                             this.$router.push({name: 'card.index'})
@@ -147,6 +195,8 @@
         components: {
             modal,
             purse,
+            selectbox,
+            loading
         }
     }
 </script>
