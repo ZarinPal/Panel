@@ -73,7 +73,7 @@
 
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
             span(v-if="transactionSessions.data.length")
-                singleSession(v-for="transaction in transactionSessions.data" v-bind:key="transactionSessions.public_id" v-bind:transaction="transactionSessions")
+                singleSession(v-for="transactionSessions in transactionSessions.data" v-bind:key="transactionSessions.public_id" v-bind:transaction="transactionSessions")
 
             div.row(v-if="!transactionSessions.status && !transactionSessions.data.length")
                 div.col-xs.ta-center
