@@ -73,7 +73,7 @@
 
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
             span(v-if="transactionSessions.data.length")
-                singleTransaction(v-for="transaction in transactionSessions.data" v-bind:key="transaction.public_id" v-bind:transaction="transaction")
+                singleSession(v-for="transaction in transactionSessions.data" v-bind:key="transactionSessions.public_id" v-bind:transaction="transactionSessions")
 
             div.row(v-if="!transactionSessions.status && !transactionSessions.data.length")
                 div.col-xs.ta-center
@@ -92,7 +92,7 @@
 <script>
     import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import transactionDetails from './partials/transaction-details.vue';
-    import singleTransaction from './partials/single-transaction.vue';
+    import singleSession from './partials/single-session.vue';
     import selectbox from '../partials/selectbox.vue';
     import loading from '../../pages/partials/loading.vue';
 
@@ -153,11 +153,14 @@
                     status: this.$store.state.paginator.paginator.TransactionSessionList.isLoading,
                 };
             },
+
             webservice(){
                 return _.find(this.$store.state.auth.user.webservices, {'entity_id': this.$route.params.id});
             }
         },
+
         created() {
+
             this.restart();
             this.search();
             let vm = this;
@@ -263,7 +266,7 @@
             }
         },
         components: {
-            singleTransaction,
+            singleSession,
             selectbox,
             loading,
             transactionDetails,
