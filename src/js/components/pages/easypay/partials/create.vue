@@ -41,7 +41,7 @@ f
 
                                         div.row.no-margin.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
-                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
+                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurse")
                                                 label(for="rdoPurseٌ")
                                                     span
                                                     | {{ $i18n.t('user.purse') }}
