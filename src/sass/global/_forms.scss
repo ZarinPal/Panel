@@ -481,6 +481,12 @@ ul.dropdown {
 }
 
 //Input group
+.input-group-box {
+  .input-icon {
+    top: 8px !important;
+  }
+}
+
 .input-group {
   background-color: #f8f9fa;
   border: 1px solid #CECECE;

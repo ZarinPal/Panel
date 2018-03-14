@@ -41,7 +41,7 @@ f
 
                                         div.row.no-margin.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
-                                                input(@change="changePayTo" name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
+                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
                                                 label(for="rdoPurseٌ")
                                                     span
                                                     | {{ $i18n.t('user.purse') }}
@@ -53,7 +53,7 @@ f
 
                                         div.row.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                input(@change="changePayTo" name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
+                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
                                                 label(for="rdoWebservice")
                                                     span
                                                     | {{ $i18n.t('coupon.webservice') }}
@@ -295,20 +295,9 @@ f
             selectedPurse(purseId) {
                 this.purse = purseId;
                 this.purse_name = this.getPurseName(purseId);
-                this.webservice_id = null;
             },
             selectedWebservice(entityId) {
                 this.webservice_id = entityId;
-                this.purse = null;
-                this.purse_name = null;
-            },
-            changePayTo() {
-                if (this.payTo === 'webservice') {
-                    this.purse = null;
-                    this.purse_name = null;
-                } else if (this.payTo === 'purse') {
-                    this.webservice_id = null;
-                }
             },
             stepTwo() {
                 if ((this.payTo === 'purse' && !this.purse) || (this.payTo === 'webservice' && !this.webservice_id)) {
