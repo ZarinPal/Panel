@@ -17,7 +17,7 @@
                                     div.ta-right(v-if="validation('site_name')")
                                         span.text-danger {{ errors.first('site_name') }}
 
-                                div.row.no-margin
+                                div.row.no-margin.input-group-box
                                     span.input-icon.earth-icon
                                     div.row.input-group.no-margin.full-width(:class="{'input-danger': errors.has('domain')}")
                                         div.col-xs.no-margin

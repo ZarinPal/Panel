@@ -46,7 +46,7 @@
                                             span.upload-icon
 
                                         div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                            p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
+                                            p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل پیوست را اینجا رها کنید
                                             div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
                                                 span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
 
