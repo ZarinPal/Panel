@@ -1,5 +1,5 @@
 <template lang="pug">
-    selectbox.cards.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedCard" v-bind:data="cards" placeholder="انتخاب کارت")
+    selectbox.cards.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedCard" v-bind:data="cards" placeholder="انتخاب حساب يا کارت")
 </template>
 
 <script>
