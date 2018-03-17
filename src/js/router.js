@@ -166,7 +166,7 @@ export default new VueRouter({
                         {
                             path: 'transactionsession/:id',
                             name: 'transactionsession.index',
-                            component: require('./components/pages/transactionsession/index.vue'),
+                            component: require('./components/pages/transaction_sessions/index.vue'),
                             meta: {
                                 accessLevel: ['basic', 'silver', 'gold']
                             }
