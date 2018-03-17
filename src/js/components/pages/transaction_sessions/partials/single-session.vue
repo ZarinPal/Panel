@@ -1,20 +1,24 @@
 <template lang="pug">
     div
-        div.row.transaction-row.hand
-            div.col-lg-2.col-md-3.col-sm-3
+        div.row.transaction-row
+            div.col-lg-1.col-xs.ta-center
                 span.text.persian-num {{transaction.authority}}
-            div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center
-                span.text.created.persian-num {{transaction.created_at }}
-            div.col-lg-1.col-md-2.col-sm-12.col-xs-12.ta-center
-                span.nav-amount
-                    span.text.color-success.persian-num {{transaction.amount }}
-                    small.hidden-lg.show-xs {{ $i18n.t('transaction.toman') }}
-            div.col-lg-1.col-md-2.col-sm-2.ta-center
-                span.text.persian-num {{transaction.cellnum }}
-            div.col-lg-3.col-md-2.col-sm-2.ta-center
-                span.text.persian-num {{transaction.email  }}
-            div.col-lg-1.col-md-2.col-sm-2.ta-center
-                span.text.persian-num {{transaction.transaction.public_id  }}
+            div.col-lg-2.col-xs.ta-center
+                span.text.persian-num {{transaction.amount | numberFormat}}
+
+            div.col-lg-2.col-xs.ta-center.hidden-xs
+                span.text.created.persian-num {{transaction.created_at| fromNow }}
+
+            div.col-lg-2.col-xs.ta-center.hidden-xs.hidden-title-md
+                span.text.persian-num(v-if="transaction.cellnum") {{transaction.cellnum }}
+                span.text.persian-num(v-else=) {{ $i18n.t('transactionSession.withoutPhone') }}
+            div.col-lg-3.ta-center.hidden-xs.hidden-title-md
+                span.text.persian-num(v-if="transaction.email") {{transaction.email  }}
+                span.text.persian-num(v-else=) {{ $i18n.t('transactionSession.withoutMail') }}
+            div.col-lg-2.col-xs.ta-center
+                span.text.persian-num(v-if="transaction.transaction.public_id") {{transaction.transaction.public_id  }}
+                <!-- router-link.text.persian-num.link.hand(v-if="transaction.transaction.public_id"  v-bind:to="{ name: 'transaction.index', params: {id: transaction.transaction.public_id, type: 'purse', transactionId: transaction.transaction.public_id}}") {{transaction.transaction.public_id  }} -->
+                span.text.persian-num(v-else=) {{ $i18n.t('transactionSession.unPay') }}
 
 </template>
 <script>

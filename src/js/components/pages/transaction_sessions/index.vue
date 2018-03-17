@@ -13,62 +13,59 @@
             div.col-xs
                 div.section
                     div.box
-                        div.body.search-box
-                            div.row
-                                span.icon-search
-                                span.search-title {{ $i18n.t('transaction.search') }}
-                                span.break
-                                <!--span.search-title {{ $i18n.t('transaction.advanceSearch') }}-->
+                        <!--div.body.search-box-->
+                        <!--div.row-->
+                        <!--span.icon-search-->
+                        <!--span.search-title {{ $i18n.t('transactionSession.search') }}-->
+                        <!--span.break-->
+                        <!--&lt;!&ndash;span.search-title {{ $i18n.t('transactionSession.advanceSearch') }}&ndash;&gt;-->
+                        <!---->
+                        <!--div.row-->
+                        <!--div.col-lg-4.col-md-4.col-sm-4.col-xs-12-->
+                        <!--input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")-->
+                        <!--div.break-->
+                        <!--div.col-lg-4.col-md-4.col-sm-4.col-xs-12-->
+                        <!--selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" placeholder="انتخاب کنید ...")-->
+                        <!--div.break-->
 
-                            div.row
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
-                                    div.break
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" placeholder="انتخاب کنید ...")
-                                    div.break
+                        <!--div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons-->
+                        <!--button.btn.info.pull-right(v-ripple="" @click="validateForm")-->
+                        <!--span {{ $i18n.t('common.search') }}-->
 
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                                    button.btn.info.pull-right(v-ripple="" @click="validateForm")
-                                        span {{ $i18n.t('common.search') }}
+                        <!--div-->
+                        <!--div.hand(@click="toggleDatePicker()") {{$i18n.t('transaction.advanceSearch')}}-->
+                        <!--transition(name="fade"-->
+                        <!--enter-active-class="fade-in"-->
+                        <!--leave-active-class="fade-out")-->
+                        <!--div.row(v-if="visibleAdvanceSearch")-->
+                        <!--div.col-lg-4.col-md-4.col-sm-4.col-xs-12-->
+                        <!--date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="fromDate" name="fromDate" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" type="datetime" :placeholder="$i18n.t('transaction.fromDate')")-->
+                        <!--div.ta-right(v-if="validation('fromDate')")-->
+                        <!--span.text-danger {{ errors.first('fromDate') }}-->
 
-                            div
-                                div.hand(@click="toggleDatePicker()") {{$i18n.t('transaction.advanceSearch')}}
-                                transition(name="fade"
-                                enter-active-class="fade-in"
-                                leave-active-class="fade-out")
-                                    div.row(v-if="visibleAdvanceSearch")
-                                        div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                            date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="fromDate" name="fromDate" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" type="datetime" :placeholder="$i18n.t('transaction.fromDate')")
-                                            div.ta-right(v-if="validation('fromDate')")
-                                                span.text-danger {{ errors.first('fromDate') }}
-
-                                        div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                            date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="toDate" name="toDate" v-bind:data-vv-as="$i18n.t('transaction.toDate')" type="datetime" :placeholder="$i18n.t('transaction.toDate')")
-                                            div.ta-right(v-if="validation('toDate')")
-                                                span.text-danger {{ errors.first('toDate') }}
+                        <!--div.col-lg-4.col-md-4.col-sm-4.col-xs-12-->
+                        <!--date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="toDate" name="toDate" v-bind:data-vv-as="$i18n.t('transaction.toDate')" type="datetime" :placeholder="$i18n.t('transaction.toDate')")-->
+                        <!--div.ta-right(v-if="validation('toDate')")-->
+                        <!--span.text-danger {{ errors.first('toDate') }}-->
 
         div.row.filter-row
-            div.col-lg-4.col-md-4.col-sm-6.col-xs-6
+            div.col-xs
                 span.text {{$i18n.t('transactionSession.sessionList')}}
                 span.purse-name {{webservice.name}}
         div.transaction-header-container
             div.row.transaction-fields-title#transactionsHeader(v-if="transactionSessions.data.length")
-                div.col-lg-2.col-md-2.hidden-sm.hidden-xs
-                    span {{ $i18n.t('transaction.id') }}
-                div.col-lg-3.col-md-3.hidden-sm.hidden-xs
-                    span {{ $i18n.t('transaction.source') }}
-                    span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
-                div.col-lg-3.col-md-3.hidden-sm.hidden-title-md.hidden-xs
-                    span {{ $i18n.t('transaction.destination') }}
-                div.col-lg-2.col-md-3.hidden-sm.hidden-xs
-                    span {{ $i18n.t('transaction.date') }}
-                div.col-lg-1.col-md-2.hidden-sm.hidden-xs
-                    span {{ $i18n.t('transaction.amount') }}
-                    small ({{ $i18n.t('transaction.toman') }})
-                div.col-lg-1.col-md-2.hidden-sm.hidden-xs
-                    span {{ $i18n.t('common.balance') }}
-                    small ({{ $i18n.t('transaction.toman') }})
+                div.col-lg-1.col-xs
+                    span {{ $i18n.t('transactionSession.id') }}
+                div.col-lg-2.col-xs
+                    span {{ $i18n.t('transactionSession.amount') }}
+                div.col-lg-2.col-xs.hidden-xs
+                    span {{ $i18n.t('transactionSession.created') }}
+                div.col-lg-2.col-xs.hidden-xs.hidden-title-md
+                    span {{ $i18n.t('transactionSession.cellNum') }}
+                div.col-lg-3.col-xs.hidden-xs.hidden-title-md
+                    span {{ $i18n.t('transactionSession.email') }}
+                div.col-lg-2.col-xs
+                    span {{ $i18n.t('transactionSession.public_id') }}
 
 
         div.col-lg-12.col-md-12.col-sm-12.col-xs-12
@@ -167,7 +164,7 @@
 
             window.onscroll = function (ev) {
                 if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                    && !vm.$store.state.paginator.paginator.TransactionList.isLoading) {
+                    && !vm.$store.state.paginator.paginator.TransactionSessionList.isLoading) {
                     vm.$store.dispatch(
                         'paginator/next',
                         {
