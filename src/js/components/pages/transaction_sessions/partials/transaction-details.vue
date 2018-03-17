@@ -4,7 +4,7 @@
         div.content(slot="content")
             div.body
                 div.deposit-background
-                    div.row.nav-deposit(v-bind:class="{'nav-deposit-in': transaction.effective_sign == 1 && transaction.confirmed =='confirmed', 'nav-deposit-internal': transaction.effective_sign == 0 && transaction.confirmed =='confirmed', 'nav-deposit-out': transaction.effective_sign == -1 && transaction.confirmed =='confirmed' ,'nav-deposit-toexit': transaction.confirmed =='pendingExit' }")
+                    div.row.nav-deposit(v-bind:class="{'nav-deposit-in': transaction.effective_sign == 1 && transaction.confirmed =='confirmed', 'nav-deposit-internal': transaction.effective_sign == 0 && transaction.confirmed =='confirmed', 'nav-deposit-out': transaction.effective_sign == -1 && transaction.confirmed =='confirmed' ,'nav-deposit-toexit': transaction.confirmed =='pendingExit' ,'nav-deposit-toexit': transaction.confirmed =='pendingReview' }")
                         div.col-lg-6.col-md-6.col-sm-6.col-xs-6.from
                             div.row
                                 div.user-image
@@ -43,7 +43,8 @@
                             span.title {{$i18n.t('transaction.status')}}
                         div.col-xs.ta-left
                             span.title.tick(v-if="transaction.confirmed == 'confirmed' ") {{ $i18n.t('transaction.confirmed') }}
-                            span.title.moving-out-icon(v-else-if="transaction.confirmed == 'pendingExit'") {{ $i18n.t('transaction.movingOut') }}
+                            span.title(v-else-if="transaction.confirmed == 'pendingExit' ") {{ $i18n.t('transaction.movingOut') }}
+                            span.title(v-else-if="transaction.confirmed == 'pendingReview' ") {{ $i18n.t('transaction.movingOut') }}
                             span.title.unverified(v-else) {{ $i18n.t('transaction.movingOut') }}
 
                     div.row
