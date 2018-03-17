@@ -388,7 +388,7 @@ $transactionInternalColor: #656565;
     }
 
     .ta-center {
-      text-align: right !important;
+      text-align: center !important;
     }
 
     .transaction-id {
@@ -453,6 +453,12 @@ $transactionInternalColor: #656565;
 
 @media (max-width: $smallWidth) {
   .hidden-sm {
+    display: none !important;
+  }
+}
+
+@media (max-width: $mediumWidth) {
+  .hidden-md {
     display: none !important;
   }
 }

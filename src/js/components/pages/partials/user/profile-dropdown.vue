@@ -22,7 +22,7 @@
                 confirm(v-if="confirmVisible" v-on:confirmed="logout()" v-on:closeModal="closeModal" :keepConfirmedOpen="true")
                     span(slot="title") {{$i18n.t('common.logout')}}
                     div.ta-right(slot="message")
-                        div(v-if="!showLoading") آیا برای خروج از زرین‌پال مطمان هستید ؟
+                        div(v-if="!showLoading") آیا برای خروج از زرین‌پال مطمئن هستید ؟
                         div(v-if="showLoading")
                             div.ta-center لطفا چند لحظه صبر کنید
                                 loading

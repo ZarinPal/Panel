@@ -43,7 +43,9 @@
     "acceptTopInformationOfRequestZarinCard": "صحت اطلاعات فوق را تأیید می‌نمایم.",
     "zarinCardPrice": "هزینه صدور زرین‌کارت",
     "requestZarinCardDescriptionOfUserInformation": "زرین‌کارت شما به آدرس زیر ارسال خواهد‌شد. از صحیح بودن آدرس مطمئن شوید.",
-    "ptopTo": "زرین‌پال مقصد،مثال: zp.123 یا شماره‌موبایل یا ایمیل"
+    "ptopTo": "زرین‌پال مقصد،مثال: zp.123 یا شماره‌موبایل یا ایمیل",
+    "noActiveCard": "برای درخواست زرین کارت، باید ابتدا یک حساب بانکی متعلق به خود را به زرین پال معرفی کنید",
+    "addNewBankAccount": "افزودن کارت بانکی جدید"
   },
   "common": {
     "send": "ارسال",
@@ -234,7 +236,8 @@
     "accessLevelLimitTitle": "محدودیت سطح دسترسی",
     "male": "مرد",
     "female": "زن",
-    "request": "ایجاد لینک شخصی"
+    "request": "ایجاد لینک شخصی",
+    "transactionSession": "سشن های پرداخت "
   },
   "coupon": {
     "couponsDescription": "تمامی ‌کد تخفیف‌های شما در این صفحه قرار دارد",
@@ -774,7 +777,17 @@
   "transactionSession": {
     "description": "تمامی‌سشن‌های بانکی درگاه پرداخت شما در این صفحه لیست‌شده اند",
     "search": "جست‌و‌جو در سشن‌های بانکی",
-    "authority": "آتوریتی"
+    "authority": "آتوریتی",
+    "id": "شناسه یکتا",
+    "amount": "مبلغ",
+    "created": "تاریخ ایجاد",
+    "cellNum": "شماره تماس کاربر",
+    "email": "ایمیل کاربر",
+    "public_id": "شماره تراکنش",
+    "unPay": "پرداخت ناتمام",
+    "withoutMail": "بدون ایمیل",
+    "withoutPhone": "بدون شماره",
+    "sessionList": "لیست سشن های پرداخت درگاه"
   },
   "user": {
     "updateInfo": "اطلاعات کاربر با موفقیت ویرایش‌شد.",

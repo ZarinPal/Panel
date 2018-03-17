@@ -14,7 +14,7 @@
                         p.user-name.user-level {{$i18n.t('user.level') + ': ' +$i18n.t('user.user_level_' + user.level)}}
 
                 div.ta-center.section-level-up(v-if="user.level < 2")
-                    router-link(v-if="!this.$store.state.app.smallSidebar").btn-to-level.hand(tag="div" :class="{'to-silver-level-link': user.level == 1, 'to-gold-level-link': user.level == 2}" v-bind:to="{ name: 'user.levelUp'}")
+                    router-link.btn-to-level.hand(v-if="!this.$store.state.app.smallSidebar" tag="div" :class="{'to-silver-level-link': user.level == 1, 'to-gold-level-link': user.level == 2}" v-bind:to="{ name: 'user.levelUp'}")
                         span {{ $i18n.t('common.UpgradeToSilverLevel') }}
 
                 ul

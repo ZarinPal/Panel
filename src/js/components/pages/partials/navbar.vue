@@ -1,6 +1,6 @@
 <template lang="pug">
     div.navbar.row
-        div.col-lg-5.col-sm-5.col-xs-5
+        div.col-lg-5.col-sm-5.col-xs-2
             span.normal-sidebar-collapse.hidden-xs(@click="toggleSidebar()" v-ripple="")
             span.mobile-sidebar-collapse(@click="toggleMobileSidebar()")
             h4.hidden-xs.navbar-title {{ $i18n.t('common.zarinPal')}}
