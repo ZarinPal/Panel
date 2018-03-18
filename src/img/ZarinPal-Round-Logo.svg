@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="52" viewBox="0 0 54 52">
+  <defs>
+    <linearGradient id="round-a" x1="100%" x2="0%" y1="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFE75A"/>
+      <stop offset="100%" stop-color="#F7CB3D"/>
+    </linearGradient>
+    <filter id="round-b" width="830%" height="830%" x="-365%" y="-325%" filterUnits="objectBoundingBox">
+      <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="11.5"/>
+      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 1   0 0 0 0 0.768924303   0 0 0 0 0  0 0 0 0.882331295 0"/>
+      <feMerge>
+        <feMergeNode in="shadowMatrixOuter1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(17 12)">
+    <rect width="20" height="20" fill="url(#round-a)" rx="10"/>
+    <g fill="#FFF" filter="url(#round-b)" transform="translate(5 5)">
+      <path d="M.268518001 0L3.06520124 0C3.30186118 0 3.42246672.284857258 3.25634965.452154378L.466493137 3.25325075C.298100492 3.42280864.0091023051 3.3052485.0091023051 3.06786746L0 .266771083C0 .11982091.118329966 0 .268518001 0M9.73573792 10L6.93497188 10C6.69815914 10 6.57747573 9.71514274 6.74370006 9.54784562L9.53308086 6.74674925C9.70158223 6.57719136 9.99074425 6.6947515 9.99074425 6.93213254L9.9998752 9.73322892C10.0044293 9.88017909 9.88374588 10 9.73573792 10M.41615965 7.57664676L7.57848625.416075883C8.13336578-.138691961 9.0313945-.138691961 9.58384035.416075883 10.1387199.970819396 10.1387199 1.86860365 9.58384035 2.4209384L2.42151375 9.58394237C1.8690679 10.1386859.9686055 10.1386859.41615965 9.58394237-.138719883 9.02917452-.138719883 8.13139027.41615965 7.57664676z"/>
+    </g>
+  </g>
+</svg>
