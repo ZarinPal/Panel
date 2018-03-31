@@ -39,7 +39,8 @@
                                     span
                                     | {{ $i18n.t('coupon.easypay') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedEasypay" v-bind:data="easypaySelection" v-if="easyPayId || type" v-bind:selected="easyPayId" v-bind:class="{'disable' : type == 'webservice' }"  placeholder="انتخاب زرین‌لینک"  tabindex="3")
+                                zarin-link(v-on:select="selectedEasypay" v-if="easyPayId || type" v-bind:class="{'disable' : type == 'webservice', 'input-danger': errors.has('easypay_id')}" v-bind:selected="easyPayId" placeholder="انتخاب زرین‌لینک")
+                                <!--selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedEasypay" v-bind:data="easypaySelection" v-if="easyPayId || type" v-bind:selected="easyPayId" v-bind:class="{'disable' : type == 'webservice' }"  placeholder="انتخاب زرین‌لینک"  tabindex="3")-->
                                 div.ta-right(v-if="validation('easypay_id')")
                                     span.text-danger {{ errors.first('easypay_id') }}
 
@@ -102,6 +103,7 @@
     import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import selectbox from '../../partials/selectbox.vue';
     import loading from '../../partials/loading.vue';
+    import zarinLink from '../../partials/zarinlinks';
     import VueNumeric from 'vue-numeric';
 
     export default {
@@ -116,6 +118,7 @@
                 min_amount: '',
                 webservice_id: null,
                 easypay_id: null,
+                easypay_name: null,
                 expired_at: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
                 limit: '',
                 type: '',
@@ -144,24 +147,6 @@
                     return webservices;
                 }
             },
-            easypaySelection() {
-                if (this.$store.state.auth.user.easypays) {
-                    let easypays = this.$store.state.auth.user.easypays.map(function (easypay) {
-                        return {
-                            'title': easypay.title,
-                            'value': easypay.entity_id
-                        }
-                    });
-
-                    let easypayAll = {
-                        'title': 'همه',
-                        'value': 'all'
-                    };
-                    easypays.unshift(easypayAll);
-
-                    return easypays;
-                }
-            },
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -173,9 +158,10 @@
             },
             easyPayId() {
                 if (!this.webservice_id && !this.easypay_id && this.type === 'easypay') {
-                    return 'all';
+                    return {entity_id: 'all', title: 'همه'};
                 }
-                return this.easypay_id;
+
+                return {entity_id: this.easypay_id, title: this.easypay_name};
             }
         },
         created(){
@@ -216,6 +202,7 @@
                         this.min_amount = response.data.data.min_amount;
                         this.webservice_id = response.data.data.webservice_id;
                         this.easypay_id = response.data.data.easypay_id;
+                        this.easypay_name = response.data.data.easypay_name;
                         this.expired_at = moment(response.data.data.expired_at).format('jYYYY-jMM-jDD');
                         this.limit = response.data.data.limit;
                         this.type = response.data.data.type;
@@ -241,7 +228,7 @@
                         percent: this.percent
                     },
                     webservice_id: this.webserviceId,
-                    easypay_id: this.easyPayId,
+                    easypay_id: this.easyPayId.entity_id,
                     expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
                     limit: this.limit,
                     min_amount: this.clearNumber(this.min_amount),
@@ -271,6 +258,7 @@
         components: {
             selectbox,
             loading,
+            zarinLink,
             datePicker: VuePersianDatetimePicker,
             VueNumeric
         }
