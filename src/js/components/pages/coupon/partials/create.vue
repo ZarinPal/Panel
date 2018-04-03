@@ -36,7 +36,7 @@
                                     span
                                     | {{ $i18n.t('coupon.easypay') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedEasypay" v-bind:data="easypaySelection" v-bind:class="{'disable' : type == 'webservice', 'input-danger': errors.has('easypay_id')}"  placeholder="انتخاب زرین‌لینک" tabindex="3")
+                                zarin-link(v-on:select="selectedEasypay" v-bind:class="{'disable' : type == 'webservice', 'input-danger': errors.has('easypay_id')}"  placeholder="انتخاب زرین‌لینک")
                                 div.ta-right(v-if="validation('easypay_id')")
                                     span.text-danger {{ errors.first('easypay_id') }}
 
@@ -97,6 +97,7 @@
 <script>
     import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import selectbox from '../../partials/selectbox.vue';
+    import zarinLink from '../../partials/zarinlinks';
     import VueNumeric from 'vue-numeric';
 
     export default {
@@ -137,24 +138,6 @@
 
                     webservices.unshift(webserviceAll);
                     return webservices;
-                }
-            },
-            easypaySelection() {
-                if (this.$store.state.auth.user.easypays) {
-                    let easypays = this.$store.state.auth.user.easypays.map(function (easypay) {
-                        return {
-                            'title': easypay.title,
-                            'value': easypay.entity_id
-                        }
-                    });
-
-                    let easypayAll = {
-                        'title': 'همه',
-                        'value': 'all'
-                    };
-                    easypays.unshift(easypayAll);
-
-                    return easypays;
                 }
             },
             validationErrors() {
@@ -225,6 +208,7 @@
         },
         components: {
             selectbox,
+            zarinLink,
             datePicker: VuePersianDatetimePicker,
             VueNumeric
         }
