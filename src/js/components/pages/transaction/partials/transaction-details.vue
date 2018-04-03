@@ -84,9 +84,9 @@
                     <!--span(v-if="transaction.to_merchant")-->
                     div.row(v-if="transaction.payer.name")
                         div.col-xs.ta-right
-                            span.title(v-if="transaction.payer.name")  {{$i18n.t('transaction.payerName')}}
+                            span.title(v-if="transaction.payer.name") {{$i18n.t('transaction.payerName')}}
                         div.col-xs.ta-left
-                            span.value.persian-num(v-if="transaction.payer.name")  {{ transaction.payer.name}}
+                            span.value.persian-num(v-if="transaction.payer.name") {{ transaction.payer.name}}
 
 
                     div.row(v-if="transaction.payer.mobile")
@@ -106,6 +106,12 @@
                             span.title {{$i18n.t('common.description')}}
                         div.col-xs.ta-left
                             span.value  {{ transaction.description}}
+
+                    div.row(v-if="transaction.easypay_info")
+                        div.col-xs.ta-right
+                            span.title {{$i18n.t('common.easypay')}}
+                        div.col-xs.ta-left
+                            span.value  {{ transaction.easypay_info.name}}
 
                     div.row(v-if="transaction.note && !isEditingNote")
                         div.col-xs.ta-right

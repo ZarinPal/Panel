@@ -17,10 +17,10 @@
                                 span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
                                 router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش‌ها
                                 router-link.drop-down-item.edit(v-ripple="" tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
-                                span.drop-down-item(v-ripple="" @click="showHtmlVisible = true" ) {{$i18n.t('easypay.showLinkLocal')}}
+                                span.drop-down-item.eye(v-ripple="" @click="showHtmlVisible = true" ) {{$i18n.t('easypay.showLinkLocal')}}
                                 span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
 
-                        span.header-link.overflow-visible.color-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id"  v-ripple="" @click="showHtmlVisible = true") {{$i18n.t('easypay.showLinkLocal')}}
+                        span.header-link.overflow-visible.color-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" @click="showHtmlVisible = true") {{$i18n.t('easypay.showLinkLocal')}}
 
             div.middle-xs.body
                 div.row.box-row

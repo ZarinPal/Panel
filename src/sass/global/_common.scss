@@ -474,6 +474,12 @@ a {
           }
         }
 
+        .eye {
+          &:before {
+            content: $icon-zp-visible;
+          }
+        }
+
       }
     }
 
