@@ -46,6 +46,16 @@
                                     div.row.bottom-xs.pull-left.persian-num.day-of-month
                                         div(:title="day.date.format('jD jMMMM jYY')") {{day.date.format('jD')}}
 
+                div.section(v-if="reports")
+                    div.box.row.persian-num
+                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+                            span {{$i18n.t('report.incomeAmount')}} : {{totalReports.income_amount | numberFormat}} {{$i18n.t('transaction.toman')}}
+                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+                            span {{$i18n.t('report.incomeCount')}} : {{totalReports.income_count | numberFormat}}
+                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+                            span {{$i18n.t('report.outcomeAmount')}} : {{totalReports.outgo_amount | numberFormat}} {{$i18n.t('transaction.toman')}}
+                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+                            span {{$i18n.t('report.outcomeCount')}} : {{totalReports.outgo_count | numberFormat}}
 </template>
 
 <script>
@@ -69,6 +79,12 @@
                  * Response
                  */
                 reports: null,
+                totalReports: {
+                    income_amount: 0,
+                    income_count: 0,
+                    outgo_amount: 0,
+                    outgo_count: 0,
+                },
 
                 /**
                  * Calendar
@@ -109,12 +125,8 @@
                 this.fetching = true;
                 let reportName = 'report.purseTransactions';
 
-                // let from_date = moment(this.durationDate, 'jYYYY/jM/jD').startOf('jMonth');
-                // let to_date = moment(this.durationDate, 'jYYYY/jM/jD').endOf('jMonth');
-
                 let from_date = this.durationDate.startOf('jMonth');
                 let to_date = this.durationDate.clone().endOf('jMonth');
-
 
                 let reportData = {
                     from_date: from_date.format('YYYY-MM-DD'),
@@ -159,11 +171,22 @@
                         day.turnovers = _.find(vm.reports, function (report) {
                             return report.date == day.date.format('YYYY-MM-DD');
                         });
+
+                        //Sum turnovers
+                        if (day.turnovers) {
+                            vm.turnoverSum('income_amount', day.turnovers.income_amount);
+                            vm.turnoverSum('income_count', day.turnovers.income_count);
+                            vm.turnoverSum('outgo_amount', day.turnovers.outgo_amount);
+                            vm.turnoverSum('outgo_count', day.turnovers.outgo_count);
+                        }
                     });
 
                     this.monthDays = _.chunk(finalMonthReport, 7);
                 }
 
+            },
+            turnoverSum(type, number) {
+                this.totalReports[type] += number;
             },
             nextMonth() {
                 this.durationDate.add(1, 'jMonth');
