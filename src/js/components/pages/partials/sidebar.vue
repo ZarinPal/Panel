@@ -154,10 +154,10 @@
 
                 });
             },
-            components: {
-                dropDown,
-                userProgress
-            }
+        },
+        components: {
+            dropDown,
+            userProgress
         }
     }
 
