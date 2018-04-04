@@ -53,7 +53,7 @@
                     div.col-xs
                         span.footer-icon.details(@click="visibleCouponDetails = true") {{$i18n.t('coupon.showDetails')}}
                     div.col-xs
-                        span.footer-icon.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('coupon.delete')}}
+                        span.footer-icon.delete(@click="confirmVisible = true") {{$i18n.t('coupon.delete')}}
 
 
         couponDetails(v-if="visibleCouponDetails" v-on:closeModal="closeModal()" v-bind:coupon="coupon")

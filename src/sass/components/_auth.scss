@@ -54,22 +54,12 @@
     }
 
     .top-xs {
-      .zp-icon {
-        margin-right: 5px;
-        display: inline-block;
-        margin-top: -6px;
-        &:after {
-          content: $iconZarinpal;
-          font-family: 'zarinpal';
-          color: #FFD600;
-          font-size: 37px;
-        }
-      }
-
-      .zp-title {
-        font-size: 18px;
+      .logo {
+        background: url("../../img/ZarinPal-Logo.svg") no-repeat;
+        width: 120px;
+        background-size: 100% 100%;
+        height: 33px;
         margin-right: 10px;
-        margin-top: -3px;
       }
     }
 
@@ -292,23 +282,22 @@
     }
   }
   .change-login-type {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     float: left;
     margin-left: -25px;
     margin-top: -25px;
-    background-image: url('../img/auth/qr-corner.svg');
-    background-repeat: no-repeat;
+    background: url('../img/auth/qr-corner.svg') no-repeat;
     background-size: 100% 100%;
   }
+
   .change-login-type-keybord {
     width: 50px;
     height: 50px;
     float: left;
     margin-left: -25px;
     margin-top: -25px;
-    background-image: url('../img/auth/keyboard-corner.svg');
-    background-repeat: no-repeat;
+    background: url('../img/auth/keyboard-corner.svg') no-repeat;
     background-size: 100% 100%;
   }
 }

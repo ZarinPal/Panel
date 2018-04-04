@@ -6,8 +6,7 @@
                 span.hand.change-login-type(@click="loginByMobileApplication()" v-if="step == 1 && !loginByMobileApp" title='ورود با موبایل')
                 span.hand.change-login-type-keybord(@click="loginByMobileApp = !loginByMobileApp"  v-if="loginByMobileApp")
                 div.row.top-xs
-                    span.zp-icon
-                    span.zp-title {{ $i18n.t('common.zarinPal') }}
+                    div.logo
 
                 <!--Body-->
                 <!--First step enter mobile-->
