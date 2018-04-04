@@ -4,8 +4,7 @@
             div.box
                 <!--Header-->
                 div.row.top-xs
-                    span.zp-icon
-                    span.zp-title {{ $i18n.t('common.zarinPal') }}
+                    div.logo
                 <!--Body-->
 
                 form(action="#" method="post" onsubmit="event.preventDefault();")
