@@ -23,6 +23,8 @@
                             div
                                 i(:class="tab.icon")
                                 span.item-label {{ $i18n.t(tab.titleTransKey) }}
+                                span.notification-lamp(v-if="tab.link =='ticket.index' && unreadTickets > 0") {{unreadTickets}}
+
 
                 div.clear-both
 </template>
@@ -37,6 +39,7 @@
         data() {
             return {
                 getPurseBalanceTimer: 10,
+                unreadTickets: 0,
                 tabs: {
                     home: {
                         link: 'home.index',
@@ -79,6 +82,7 @@
         },
         mounted(){
             this.detectWidth();
+            this.getTicketSummry();
             window.addEventListener("resize", this.detectWidth());
         },
         computed: {
@@ -138,13 +142,23 @@
                         requestName: dataListName
                     }
                 );
-            }
-        },
-        components: {
-            dropDown,
-            userProgress
-        }
+            },
+            getTicketSummry() {
+                this.$store.state.http.requests['ticket.getSummary'].get().then(
+                    (response) => {
 
+                        this.unreadTickets = response.data.data.unread;
+                        console.log(this.unreadTickets);
+                    }
+                ).catch((response) => {
+
+                });
+            },
+            components: {
+                dropDown,
+                userProgress
+            }
+        }
     }
 
 </script>

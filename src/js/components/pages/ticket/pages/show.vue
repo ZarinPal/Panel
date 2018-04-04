@@ -129,6 +129,7 @@
             //Change ticket list new ticket button
             this.$store.commit('app/changeTicketState');
             this.getReplies(this.$route.params.id);
+            this.getTicketSummry();
         },
         mounted() {
 
@@ -265,7 +266,18 @@
             },
             downloadAttachFile(url) {
                 window.open(url);
-            }
+            },
+            getTicketSummry() {
+                this.$store.state.http.requests['ticket.getSummary'].get().then(
+                    (response) => {
+
+                        this.unreadTickets = response.data.data.unread;
+                        console.log(this.unreadTickets);
+                    }
+                ).catch((response) => {
+
+                });
+            },
         },
         watch: {
             '$route' (to) {
