@@ -39,7 +39,7 @@
         data() {
             return {
                 getPurseBalanceTimer: 10,
-                unreadTickets: 0,
+                ticketSummeryInterval : null,
                 tabs: {
                     home: {
                         link: 'home.index',
@@ -87,9 +87,12 @@
 
             //update unread tickets count
             let vm = this;
-            setInterval(() => {
+            this.ticketSummeryInterval = setInterval(() => {
                 vm.getTicketSummry();
             }, 10000);
+        },
+        beforeDestroy(){
+            clearInterval(this.ticketSummeryInterval);
         },
         computed: {
             isSmallSidebar(){
