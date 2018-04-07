@@ -74,7 +74,7 @@
                     div.body
                         <!--2-->
                         div.row
-                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12
+                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                 div.row
                                     div.col-lg-1.col-md-1.col-sm-1.col-xs-1
                                         div.step-number ۲
@@ -85,88 +85,115 @@
                                         p.form-message.ta-right {{$i18n.t('easypay.orderFormMessage')}}
                                         <!--2-1-->
                                         div.row.f-row
-                                            div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields
                                                 div.ta-right
                                                     input(type="checkbox" name="email-optional" v-model="requiredFields.email.checkbox" id="chkEmail")
                                                     label(for="chkEmail")
                                                         span
                                                         | {{ $i18n.t('common.email')}}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.email.checkbox")
+                                            div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.email.checkbox")
                                                 div.row
-                                                    div.col-xs.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
                                                         input(name="email-optional" v-model="requiredFields.email.radio" value="0" type="radio" id="rdoEmailOptional")
                                                         label(for="rdoEmailOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-xs.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
                                                         input(name="email-optional" v-model="requiredFields.email.radio" value="1" type="radio" id="rdoEmailMandatory")
                                                         label(for="rdoEmailMandatory")
                                                             span
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
+                                                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
                                         <!--2-2-->
                                         div.row.f-row
-                                            div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields
                                                 div.ta-right
                                                     input(name="usernameOptional" v-model="requiredFields.name.checkbox" type="checkbox" id="chkUserName")
                                                     label(for="chkUserName")
                                                         span
                                                         | {{ $i18n.t('easypay.username')}}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.name.checkbox")
+                                            div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.name.checkbox")
                                                 div.row
-                                                    div.col-xs.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
                                                         input(name="usernameOptional" v-model="requiredFields.name.radio" value="0" type="radio" id="rdoUsernameOptional")
                                                         label(for="rdoUsernameOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-xs.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
                                                         input(name="usernameOptional" v-model="requiredFields.name.radio" value="1" type="radio" id="rdoUsernameMandatory")
                                                         label(for="rdoUsernameMandatory")
                                                             span
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
+                                                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                        input(name="name-placeholder" v-model="requiredFields.name.placeholder" type="text" placeholder='توضیحات در اینجا')
+
                                         <!--2-3-->
                                         div.row.f-row
-                                            div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields
                                                 div.ta-right
                                                     input(name="mobileOptional" v-model="requiredFields.mobile.checkbox"  type="checkbox"  id="chkMobile")
                                                     label(for="chkMobile")
                                                         span
                                                         | {{ $i18n.t('easypay.mobile') }}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.mobile.checkbox")
+                                            div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.mobile.checkbox")
                                                 div.row
-                                                    div.col-xs.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
                                                         input(name="mobileOptional" v-model="requiredFields.mobile.radio" value="0" type="radio" id="rdoMobileOptional")
                                                         label(for="rdoMobileOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-xs.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
                                                         input(name="mobileOptional" v-model="requiredFields.mobile.radio" value="1" type="radio" id="rdoMobileMandatory")
                                                         label(for="rdoMobileMandatory")
                                                             span
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
+                                                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                        input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" placeholder='توضیحات در اینجا')
+
+
+                                        <!--2-4-->
+                                        div.row.f-row
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields
+                                                div.ta-right
+                                                    input(name="mobileOptional" v-model="requiredFields.description.checkbox" type="checkbox" id="chkDescription")
+                                                    label(for="chkDescription")
+                                                        span
+                                                        | {{ $i18n.t('easypay.description') }}
+
+                                            div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.description.checkbox")
+                                                div.row
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                        input(name="descriptionOptional" v-model="requiredFields.description.radio" value="0" type="radio" id="rdoDescriptionOptional")
+                                                        label(for="rdoDescriptionOptional")
+                                                            span
+                                                            | {{ $i18n.t('easypay.optional')}}
+
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                        input(name="descriptionOptional" v-model="requiredFields.description.radio" value="1" type="radio" id="rdoDescriptionMandatory")
+                                                        label(for="rdoDescriptionMandatory")
+                                                            span
+                                                            | {{ $i18n.t('easypay.mandatory')}}
+
+                                                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                        input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" placeholder='توضیحات در اینجا')
 
                                         div.row
                                             div.col-xs.nav-buttons
-
 
                     div.body
                         <!--3-->
                         div.row
                             div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                                <!--div.nav-switch-->
-                                <!--label.switch-label(for="chkType") {{ $i18n.t('easypay.advance')}}-->
-                                <!--label.switch-->
-                                <!--input(type="checkbox" id="chkType" v-model="type")-->
-                                <!--span.slider.round-->
-
                                 transition(name="fade"
                                 enter-active-class="fade-in"
                                 leave-active-class="fade-out")
@@ -249,15 +276,23 @@
                     email: {
                         checkbox: false,
                         radio: 0,
+                        placeholder: null
                     },
                     name: {
                         checkbox: false,
                         radio: 0,
+                        placeholder: null
                     },
                     mobile: {
                         checkbox: false,
                         radio: 0,
-                    }
+                        placeholder: null
+                    },
+                    description: {
+                        checkbox: false,
+                        radio: 0,
+                        placeholder: null
+                    },
                 },
                 showReceipt: '',
                 successfulRedirectUrl: '',
@@ -333,7 +368,6 @@
                 this.$store.state.http.requests['easypay.getShow'].get({'easypay_id': this.$route.params.public_id}).then(
                     (response) => {
                         this.easypay = response.data.data;
-
                         this.title = response.data.data.title;
                         this.price = response.data.data.price;
                         this.description = response.data.data.description;
@@ -350,6 +384,7 @@
                         this.handleOrderOptions('email');
                         this.handleOrderOptions('mobile');
                         this.handleOrderOptions('name');
+                        this.handleOrderOptions('description');
                         this.handleShowReceipt();
 
                         this.failedRedirectUrl = response.data.data.failed_redirect_url;
@@ -373,20 +408,17 @@
                 this.loading = true;
                 this.handleShowReceiptSave();
 
-                let price = this.price;
-                if (/,/g.test(price)) {
-                    price = price.replace(/,/g, "");
-                }
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
-                    price: price,
+                    price: this.clearNumber(this.price),
                     purse: this.purse,
                     webservice_id: this.webservice_id,
                     required_fields: {
                         email: this.handleOrderOptionsSave('email'),
                         name: this.handleOrderOptionsSave('name'),
-                        mobile: this.handleOrderOptionsSave('mobile')
+                        mobile: this.handleOrderOptionsSave('mobile'),
+                        description: this.handleOrderOptionsSave('description')
                     },
                     show_receipt: this.showReceipt,
                     successful_redirect_url: this.successfulRedirectUrl,
@@ -428,15 +460,19 @@
                         radio: 1,
                     },
                 };
+
                 return this.requiredFields[requireFieldName] =
-                    orderStates[this.easypay.required_fields[requireFieldName]];
+                    orderStates[this.easypay.required_fields[requireFieldName].status];
             },
             handleOrderOptionsSave(requireFieldName) {
                 if (this.requiredFields[requireFieldName].checkbox) {
-                    return parseInt(this.requiredFields[requireFieldName].radio)
+                    return {
+                        status: this.requiredFields[requireFieldName].radio,
+                        placeholder: this.requiredFields[requireFieldName].placeholder,
+                    }
                 }
-                return -1;
 
+                return -1;
             },
             handleShowReceipt() {
                 if (this.easypay.show_receipt === 1 || this.easypay.show_receipt === true) {
@@ -473,7 +509,6 @@
                     return easypay.entity_id === vm.$route.params.public_id;
                 });
 
-                //this is error sometimes i dont know why :(
                 if (this.title) {
                     this.$store.state.auth.user.easypays[easypayIndex].title = this.title;
                 }
