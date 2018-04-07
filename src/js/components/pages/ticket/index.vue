@@ -5,15 +5,15 @@
                 span(v-for="ticket in tickets.data" v-bind:ticket="ticket")
                     router-link.row(@click.native="showTicketReplies = true" tag="li" v-bind:to="{ name: 'ticket.show', params: { id: ticket.public_id}}")
                         div.col-xs
-                            div.title(:class="{'close-ticket-title' : ticket.status == 'close'}") {{ticket.title | less(30)}}
-                            div.iransans-light.title.persian-num(:class="{'close-ticket-title' : ticket.status == 'close'}")  {{$i18n.t('ticket.ticketId')}} : {{ticket.public_id}}
+                            div.title(:class="{'close-ticket-title' : ticket.is_read == true}") {{ticket.title | less(30)}}
+                            div.iransans-light.title.persian-num(:class="{'close-ticket-title' : ticket.is_read == true}")  {{$i18n.t('ticket.ticketId')}} : {{ticket.public_id}}
                         div.nav-details
                             div
                                 span.status {{$i18n.t('ticket.' + ticket.status)}}
                                 span.priority {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
-                            span.date.iransans-light.persian-num {{ticket.created_at | fromNow}}
+                            span.date.iransans-light.persian-num {{ticket.updated_at | fromNow}}
 
-                div.ta-center.sticky-new-ticket(v-sticky="")
+                div.ta-center.sticky-new-ticket
                     router-link.btn.success.btn-add-ticket(v-if="this.$store.state.app.isTicketEmptyPage" tag="button" v-bind:to="{ name: 'ticket.create'}")  {{$i18n.t('ticket.addTicket')}}
                     router-link.btn.success.rounded(v-else tag="button" v-bind:to="{ name: 'ticket.create'}")
 

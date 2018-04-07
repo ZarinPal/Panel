@@ -270,9 +270,7 @@
             getTicketSummry() {
                 this.$store.state.http.requests['ticket.getSummary'].get().then(
                     (response) => {
-
-                        this.unreadTickets = response.data.data.unread;
-                        console.log(this.unreadTickets);
+                        this.$store.state.app.unreadTickets = response.data.data.unread;
                     }
                 ).catch((response) => {
 
