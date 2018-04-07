@@ -23,6 +23,8 @@
                             div
                                 i(:class="tab.icon")
                                 span.item-label {{ $i18n.t(tab.titleTransKey) }}
+                                span.notification-lamp(v-if="tab.link =='ticket.index' && unreadTicket > 0") {{unreadTicket}}
+
 
                 div.clear-both
 </template>
@@ -37,6 +39,7 @@
         data() {
             return {
                 getPurseBalanceTimer: 10,
+                unreadTickets: 0,
                 tabs: {
                     home: {
                         link: 'home.index',
@@ -79,7 +82,14 @@
         },
         mounted(){
             this.detectWidth();
+            this.getTicketSummry();
             window.addEventListener("resize", this.detectWidth());
+
+            //update unread tickets count
+            let vm = this;
+            setInterval(() => {
+                vm.getTicketSummry();
+            }, 10000);
         },
         computed: {
             isSmallSidebar(){
@@ -93,6 +103,9 @@
             },
             tabSelected() {
                 return this.$store.state.app.selectedTab;
+            },
+            unreadTicket(){
+                return this.$store.state.app.unreadTickets;
             }
         },
         methods: {
@@ -138,13 +151,21 @@
                         requestName: dataListName
                     }
                 );
-            }
+            },
+            getTicketSummry() {
+                this.$store.state.http.requests['ticket.getSummary'].get().then(
+                    (response) => {
+                        this.$store.state.app.unreadTickets = response.data.data.unread;
+                    }
+                ).catch((response) => {
+
+                });
+            },
         },
         components: {
             dropDown,
             userProgress
         }
-
     }
 
 </script>

@@ -15,6 +15,7 @@ export default {
         refererId: null,
         isOpenModal: false,
         logOuting: false,
+        unreadTickets: 0,
     },
     mutations: {
         loading(state) {

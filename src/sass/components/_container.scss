@@ -814,6 +814,18 @@ body {
         .item-label {
           margin-right: 15px;
         }
+        .notification-lamp {
+          display: inline-block;
+          width: 20px;
+          background-color: #ffd600;
+          border-radius: 100%;
+          position: relative;
+          margin-right: 5px;
+          text-align: center;
+          color: #5a4c01;
+          font-size: 10px;
+          padding-top: 2px;
+        }
 
         .item-arrow {
           display: inline-block !important;
@@ -1125,6 +1137,7 @@ body {
             display: inline-block !important;
             margin-right: 15px;
           }
+
 
           .item-arrow {
             display: inline-block !important;
