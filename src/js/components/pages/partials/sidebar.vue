@@ -69,7 +69,7 @@
                         link: 'coupon.index',
                         icon: 'icon-zp-copouns',
                         titleTransKey: 'panel.coupon',
-                        accessLevel: [2, 3]
+                        accessLevel: [0, 1, 2, 3]
                     },
                     ticket: {
                         link: 'ticket.index',
