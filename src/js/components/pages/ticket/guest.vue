@@ -38,8 +38,8 @@ div
                 /**
                  * Get Ticket
                  */
-                email: btoa('amin@gmail.com'),
-                publicId: btoa('139701200198'),
+                email: this.$route.params.email,
+                publicId: this.$route.params.publicId,
                 ticket: {},
 
                 /**
