@@ -130,7 +130,7 @@
                 loginLoading: false,
                 ussdType: 'Code',
                 username: "",
-                otp: null,
+                otp: "",
                 otpObject: {},
                 step: 1,
                 avatar: null,
@@ -195,13 +195,21 @@
                     vm.$router.push({name: 'home.index'});
                 })
                 .catch(() => {
-                    if (this.username || this.otp) {
+                    if (this.username && this.otp) {
                         this.login();
                     }
                 });
         },
         methods: {
             sendOtp(channel){
+                if (!this.username){
+                    store.commit('flashMessage', {
+                        text: 'MobileOrEmailNull',
+                        important: false,
+                        type: 'danger'
+                    });
+                    return false;
+                }
                 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 //if username is email
                 if (emailRegex.test(this.username)) {
@@ -277,7 +285,17 @@
                 });
             },
             login(){
+
                 this.loginLoading = true;
+                if (!this.otp || (this.otp && this.otp.length < 6)){
+                    store.commit('flashMessage', {
+                        text: 'InvalidOtp',
+                        important: false,
+                        type: 'danger'
+                    });
+                    this.loginLoading = false;
+                    return false;
+                }
                 let vm = this;
                 let auth2Data = {
                     grant_type: "password",

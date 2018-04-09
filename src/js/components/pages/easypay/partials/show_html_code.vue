@@ -9,7 +9,7 @@
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
-                                input.txt-webservice-id(:id="'htmlCodeLink'" onfocus="this.select();" :value="zarinLinkUrl" readonly="readonly")
+                                input.txt-webservice-id.dir-ltr(:id="'htmlCodeLink'" onfocus="this.select();" :value="zarinLinkUrl" readonly="readonly")
                             div.icon.copy(@click="clipboardMessage(zarinLinkUrl)" v-clipboard="zarinLinkUrl" v-bind:data-clipboard-text="zarinLinkUrl")
                 div.row.box-row.padding-row
                     div.col-xs.ta-right
@@ -17,7 +17,7 @@
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
-                                input.txt-webservice-id(:id="'htmlCode'" onfocus="this.select();" :value="zarinLinkHtml" readonly="readonly")
+                                input.txt-webservice-id.dir-ltr(:id="'htmlCode'" onfocus="this.select();" :value="zarinLinkHtml" readonly="readonly")
                             div.icon.copy(@click="clipboardMessage(zarinLinkHtml)" v-clipboard="zarinLinkHtml" v-bind:data-clipboard-text="zarinLinkHtml")
                 div.row.box-row.padding-row
                     div.col-xs.ta-right
@@ -25,7 +25,7 @@
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
-                                input.txt-webservice-id(:id="'htmlCodeButton'" onfocus="this.select();" :value="zarinLinkButton" readonly="readonly")
+                                input.txt-webservice-id.dir-ltr(:id="'htmlCodeButton'" onfocus="this.select();" :value="zarinLinkButton" readonly="readonly")
                             div.icon.copy(@click="clipboardMessage(zarinLinkButton)" v-clipboard="zarinLinkButton" v-bind:data-clipboard-text="zarinLinkButton")
                 div.row.box-row.padding-row
                     div.col-xs.ta-right
@@ -33,7 +33,7 @@
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
-                                input.txt-webservice-id(:id="'htmlCodeBb'" onfocus="this.select();" :value="zarinLinkBb" readonly="readonly")
+                                input.txt-webservice-id.dir-ltr(:id="'htmlCodeBb'" onfocus="this.select();" :value="zarinLinkBb" readonly="readonly")
                             div.icon.copy(@click="clipboardMessage(zarinLinkBb)" v-clipboard="zarinLinkBb" v-bind:data-clipboard-text="zarinLinkBb")
 
 
