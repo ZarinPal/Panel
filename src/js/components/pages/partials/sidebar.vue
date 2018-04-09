@@ -13,8 +13,8 @@
 
                         p.user-name.user-level {{$i18n.t('user.level') + ': ' +$i18n.t('user.user_level_' + user.level)}}
 
-                div.ta-center.section-level-up(v-if="user.level < 2")
-                    router-link.btn-to-level.hand(v-if="!this.$store.state.app.smallSidebar" tag="div" :class="{'to-silver-level-link': user.level == 1, 'to-gold-level-link': user.level == 2}" v-bind:to="{ name: 'user.levelUp'}")
+                div.ta-center.section-level-up(v-if="user.level == 1 || user.level == 0")
+                    router-link.btn-to-level.hand(v-if="!this.$store.state.app.smallSidebar" tag="div" :class="{'to-silver-level-link': user.level < 2, 'to-gold-level-link': user.level == 2}" v-bind:to="{ name: 'user.levelUp'}")
                         span {{ $i18n.t('common.UpgradeToSilverLevel') }}
 
                 ul
@@ -39,7 +39,7 @@
         data() {
             return {
                 getPurseBalanceTimer: 10,
-                ticketSummeryInterval : null,
+                ticketSummeryInterval: null,
                 tabs: {
                     home: {
                         link: 'home.index',
@@ -51,7 +51,7 @@
                         link: 'webservice.index',
                         icon: 'icon-zp-web-service',
                         titleTransKey: 'panel.webservice',
-                        accessLevel: [2, 3]
+                        accessLevel: [0, 1, 2, 3]
                     },
                     card: {
                         link: 'card.index',
@@ -69,7 +69,7 @@
                         link: 'coupon.index',
                         icon: 'icon-zp-copouns',
                         titleTransKey: 'panel.coupon',
-                        accessLevel: [2, 3]
+                        accessLevel: [0, 1, 2, 3]
                     },
                     ticket: {
                         link: 'ticket.index',
