@@ -64,7 +64,7 @@ export default new VueRouter({
                             name: 'webservice.index',
                             component: require('./components/pages/webservice/index.vue'),
                             meta: {
-                                accessLevel: ['basic','silver', 'gold']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
@@ -104,7 +104,7 @@ export default new VueRouter({
                             name: 'easypay.index',
                             component: require('./components/pages/easypay/index.vue'),
                             meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
