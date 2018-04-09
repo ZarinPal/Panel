@@ -89,7 +89,7 @@
             let vm = this;
             this.ticketSummeryInterval = setInterval(() => {
                 vm.getTicketSummry();
-            }, 10000);
+            }, 60000);
         },
         beforeDestroy(){
             clearInterval(this.ticketSummeryInterval);
