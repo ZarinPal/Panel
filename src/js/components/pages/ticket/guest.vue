@@ -3,9 +3,8 @@ div
     div(v-if="!requesting")
         div {{ticket}}
 
-
     div
-        form
+        form(onsubmit="event.preventDefault();")
             textarea(v-validate="{ rules: { min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
             div.ta-right(v-if="validation('content')")
                 span.text-danger {{ errors.first('content') }}
@@ -97,7 +96,6 @@ div
                 this.$store.state.http.requests['getReply'].get({
                     email: this.email,
                     publicId: this.publicId,
-
                 }).then((response) => {
                     vm.ticket = response.data.data;
                     vm.requesting = false;
@@ -116,7 +114,7 @@ div
                     attachment: this.attachment
                 };
 
-                this.$store.state.http.requests['ticket.Reply'].save(params, ticketData).then(
+                this.$store.state.http.requests['getReply'].save(params, ticketData).then(
                     () => {
                         this.content = '';
                         this.getGuestTicket(this.$route.params.id);
