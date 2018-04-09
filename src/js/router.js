@@ -64,7 +64,7 @@ export default new VueRouter({
                             name: 'webservice.index',
                             component: require('./components/pages/webservice/index.vue'),
                             meta: {
-                                accessLevel: ['silver', 'gold']
+                                accessLevel: ['basic','silver', 'gold']
                             }
                         },
                         {

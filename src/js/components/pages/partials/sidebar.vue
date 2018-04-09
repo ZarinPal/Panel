@@ -39,7 +39,7 @@
         data() {
             return {
                 getPurseBalanceTimer: 10,
-                ticketSummeryInterval : null,
+                ticketSummeryInterval: null,
                 tabs: {
                     home: {
                         link: 'home.index',
@@ -51,7 +51,7 @@
                         link: 'webservice.index',
                         icon: 'icon-zp-web-service',
                         titleTransKey: 'panel.webservice',
-                        accessLevel: [2, 3]
+                        accessLevel: [0, 1, 2, 3]
                     },
                     card: {
                         link: 'card.index',
