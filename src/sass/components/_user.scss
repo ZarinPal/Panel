@@ -192,6 +192,43 @@
     padding: 0 0 10px 0;
     border-bottom: 1px solid #eee;
   }
+  .label-red {
+    margin: 10px 0 25px 0;
+    padding: 0 0 10px 0;
+    color: #ff1744;
+  }
+  .attach {
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid #cecece;
+    border-radius: 4px;
+    padding: 4px 10px;
+    input[type="file"] {
+      display: none;
+    }
+    .select-text {
+      &:before {
+        content: $iconAttach;
+        font-family: 'zarinpal';
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 20px;
+        padding: 3px;
+        color: #505050;
+        outline: none;
+        white-space: nowrap;
+        -webkit-user-select: none;
+        cursor: pointer;
+      }
+
+      &.uploaded {
+        &:before {
+          color: #0abe57 !important;
+        }
+        color: #0abe57 !important;
+      }
+    }
+  }
 }
 
 /*** User Progress ***/
