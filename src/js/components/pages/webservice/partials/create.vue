@@ -35,11 +35,12 @@
                                         span.text-danger {{ errors.first('tel') }}
 
                                 div.row.no-margin
-                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'required'" :class="{'input-danger': errors.has('site_content')}" v-model="site_content" v-bind:data-vv-as="$i18n.t('webservice.info')" name="site_content" :placeholder= "$i18n.t('webservice.info')"  tabindex="4")
+                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12.p-b-10(v-validate="'required'" :class="{'input-danger': errors.has('site_content')}" v-model="site_content" v-bind:data-vv-as="$i18n.t('webservice.info')" name="site_content" :placeholder= "$i18n.t('webservice.info')"  tabindex="4")
                                 div.ta-right(v-if="validation('site_content')")
                                     span.text-danger {{ errors.first('site_content') }}
 
                                 div.row.no-margin
+                                    span.text-help {{ $i18n.t('webservice.selectPurseHelp') }}
                                     purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
