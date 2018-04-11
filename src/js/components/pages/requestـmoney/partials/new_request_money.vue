@@ -24,11 +24,11 @@
             div.ta-center(v-if="phoneBook.status")
                 loading
             div(v-if="!phoneBook.status && !phoneBook.data.length")
-                    div.col-xs.ta-center
-                        span.txt-help {{ $i18n.t('requestMoney.comingSoon') }}
-                    div.col-xs.ta-center
-                        a.btn.success(href="http://www.zarinpal.mobi" target="blank")
-                            span.btn-label {{$i18n.t('user.downloadMobileApp')}}
+                div.col-xs.ta-center
+                    span.txt-help {{ $i18n.t('requestMoney.comingSoon') }}
+                div.col-xs.ta-center
+                    a.btn.success(href="http://www.zarinpal.mobi" target="blank")
+                        span.btn-label {{$i18n.t('user.downloadMobileApp')}}
 
             <!--Step 2-->
             div.nav-request-type.ta-right(v-else-if="step == 2")

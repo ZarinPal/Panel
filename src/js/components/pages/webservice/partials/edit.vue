@@ -41,10 +41,10 @@
                                     div.ta-right(v-if="validation('webservice_category_id')")
                                         span.text-danger {{ errors.first('webservice_category_id') }}
                                 <!--div.row.no-margin-->
-                                    <!--input(type="checkbox"  id= "activeCoupon" v-model="active_coupon" )-->
-                                    <!--label(for="chkLimit")-->
-                                        <!--span-->
-                                        <!--| نمایش آیتم کد تخفیف در صفحه درگاه پرداخت-->
+                                <!--input(type="checkbox"  id= "activeCoupon" v-model="active_coupon" )-->
+                                <!--label(for="chkLimit")-->
+                                <!--span-->
+                                <!--| نمایش آیتم کد تخفیف در صفحه درگاه پرداخت-->
 
                                 div.row
                                     div.nav-picker

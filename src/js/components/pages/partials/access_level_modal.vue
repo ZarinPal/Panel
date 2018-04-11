@@ -22,10 +22,9 @@
                 return this.$store.state.auth.user;
             },
             errorContent(){
-                if (this.$store.state.auth.user.level == -1)
-                {
+                if (this.$store.state.auth.user.level == -1) {
                     return 'حساب کاربری شما مسدود شده و شما به این بخش دسترسی ندارید.';
-                }else{
+                } else {
                     return 'برای استفاده از خدمات کامل زرین‌پال لطفا سطح عضویت خود را به طور کاملا رایگان به نقره‌ای ارتقا دهید.';
                 }
 

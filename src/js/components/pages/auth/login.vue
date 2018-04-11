@@ -202,7 +202,7 @@
         },
         methods: {
             sendOtp(channel){
-                if (!this.username){
+                if (!this.username) {
                     store.commit('flashMessage', {
                         text: 'MobileOrEmailNull',
                         important: false,
@@ -287,7 +287,7 @@
             login(){
 
                 this.loginLoading = true;
-                if (!this.otp || (this.otp && this.otp.length < 6)){
+                if (!this.otp || (this.otp && this.otp.length < 6)) {
                     store.commit('flashMessage', {
                         text: 'InvalidOtp',
                         important: false,

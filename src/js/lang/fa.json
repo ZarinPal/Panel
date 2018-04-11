@@ -43,7 +43,7 @@
     "acceptTopInformationOfRequestZarinCard": "صحت اطلاعات فوق را تأیید می‌نمایم.",
     "zarinCardPrice": "هزینه صدور زرین‌کارت",
     "requestZarinCardDescriptionOfUserInformation": "زرین‌کارت شما به آدرس زیر ارسال خواهد‌شد. از صحیح بودن آدرس مطمئن شوید.",
-    "ptopTo": "زرین‌پال مقصد،مثال: zp.123 یا شماره‌موبایل یا ایمیل",
+    "ptopTo": "zp.123 یا شماره‌موبایل یا ایمیل",
     "noActiveCard": "برای درخواست زرین کارت، باید ابتدا یک حساب بانکی متعلق به خود را به زرین پال معرفی کنید",
     "addNewBankAccount": "افزودن کارت بانکی جدید"
   },
@@ -253,7 +253,9 @@
     "noLimit": "بدون محدودیت",
     "finished": "تمام شده",
     "minAmount": "حداقل مبلغ خرید",
-    "maxAmount": "حداکثر تخفیف",
+    "minAmountDescription": "محصولاتِ با قیمت کمتر از این مبلغ شامل این تخفیف نمی‌شوند.",
+    "maxAmount": "سقف مبلغ تخفیف",
+    "maxAmountDescription": "بالاترین مبلغی که از هر محصول بابت تخفیف کسر می‌شود.",
     "offPercent": "درصد تخفیف",
     "couponDetails": "جزییات کد تخفیف",
     "editCoupon": "ویرایش کد تخفیف",
@@ -568,7 +570,7 @@
     "transactionDescription": "توضیحات تراکنش",
     "zarinCardStatement": "مشاهده گردش زرین کارت",
     "moneyTransfer": "انتقال وجه",
-    "moneyTransferDescription": "با افزایش اعتبار کیف‌پول خود، با یک کلیک خرید آسانی را تجربه کنید!",
+    "moneyTransferDescription": "انتقال وجه داخلی بین کیف‌پول‌های شخصی و دیگر کاربران زرین‌پال",
     "confirmWithdrawTitle": "تأیید درخواست تسویه حساب",
     "doYouConfirmWithdrawDescription": "آیا درخواست تسویه حساب را تأیید می‌کنید؟"
   },
@@ -1273,6 +1275,7 @@
     "purse": "کیف‌پول متصل",
     "siteIp": "IP سرویس‌دهنده",
     "webserviceCategoryId": "دسته‌بندی وب‌سایت",
+    "selectPurseHelp": "جهت واریز درآمد حاصل از این درگاه پرداخت یک کیف پول انتخاب کنید",
     "siteLogo": "لوگوی وب‌سایت",
     "submitEdit": "ثبت ویرایش درگاه",
     "paymentGateway": "درگاه‌های پرداخت الکترونیک",
@@ -1383,7 +1386,7 @@
     "withoutIpLimit": "بدون محدودیت IP",
     "withIpLimit": "با محدودیت IP",
     "activation": "فعالسازی",
-    "depositTo": "متصل به",
+    "depositTo": "متصل به کیف‌پول",
     "uploadLogoNote": "* توجه:‌ لوگو باید حتما با فرمت PNG و در ابعاد 500*500 پیکسل باشد.",
     "inActive": "غیر‌فعال"
   }
