@@ -35,6 +35,14 @@ export default new VueRouter({
             }
         },
         {
+            path: '/panel/ticket/guest/:email?/:publicId?',
+            name: 'ticket.guest',
+            component: require('./components/pages/ticket/guest.vue'),
+            meta: {
+                standAlone: true
+            }
+        },
+        {
             path: '/panel',
             component: require('./components/pages/panel.vue'),
             children: [
