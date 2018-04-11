@@ -85,7 +85,7 @@
                                         p.form-message.ta-right {{$i18n.t('easypay.orderFormMessage')}}
                                         <!--2-1-->
                                         div.row.f-row
-                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
                                                 div.ta-right
                                                     input(type="checkbox" name="email-optional" v-model="requiredFields.email.checkbox" id="chkEmail")
                                                     label(for="chkEmail")
@@ -94,13 +94,13 @@
 
                                             div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.email.checkbox")
                                                 div.row
-                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                                                         input(name="email-optional" v-model="requiredFields.email.status" value="optional" type="radio" id="rdoEmailOptional")
                                                         label(for="rdoEmailOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                                                         input(name="email-optional" v-model="requiredFields.email.status" value="required" type="radio" id="rdoEmailMandatory")
                                                         label(for="rdoEmailMandatory")
                                                             span
@@ -110,7 +110,7 @@
                                                         input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
                                         <!--2-2-->
                                         div.row.f-row
-                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
                                                 div.ta-right
                                                     input(name="usernameOptional" v-model="requiredFields.name.checkbox" type="checkbox" id="chkUserName")
                                                     label(for="chkUserName")
@@ -119,13 +119,13 @@
 
                                             div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.name.checkbox")
                                                 div.row
-                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                                                         input(name="usernameOptional" v-model="requiredFields.name.status" value="optional" type="radio" id="rdoUsernameOptional")
                                                         label(for="rdoUsernameOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                                                         input(name="usernameOptional" v-model="requiredFields.name.status" value="required" type="radio" id="rdoUsernameMandatory")
                                                         label(for="rdoUsernameMandatory")
                                                             span
@@ -136,7 +136,7 @@
 
                                         <!--2-3-->
                                         div.row.f-row
-                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
                                                 div.ta-right
                                                     input(name="mobileOptional" v-model="requiredFields.mobile.checkbox"  type="checkbox"  id="chkMobile")
                                                     label(for="chkMobile")
@@ -145,13 +145,13 @@
 
                                             div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.mobile.checkbox")
                                                 div.row
-                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                                                         input(name="mobileOptional" v-model="requiredFields.mobile.status" value="optional" type="radio" id="rdoMobileOptional")
                                                         label(for="rdoMobileOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                                                         input(name="mobileOptional" v-model="requiredFields.mobile.status" value="required" type="radio" id="rdoMobileMandatory")
                                                         label(for="rdoMobileMandatory")
                                                             span
@@ -162,7 +162,7 @@
 
                                         <!--2-4-->
                                         div.row.f-row
-                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
                                                 div.ta-right
                                                     input(name="mobileOptional" v-model="requiredFields.description.checkbox" type="checkbox" id="chkDescription")
                                                     label(for="chkDescription")
@@ -171,13 +171,13 @@
 
                                             div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.description.checkbox")
                                                 div.row
-                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                                                         input(name="descriptionOptional" v-model="requiredFields.description.status" value="optional" type="radio" id="rdoDescriptionOptional")
                                                         label(for="rdoDescriptionOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                                                         input(name="descriptionOptional" v-model="requiredFields.description.status" value="required" type="radio" id="rdoDescriptionMandatory")
                                                         label(for="rdoDescriptionMandatory")
                                                             span
