@@ -253,7 +253,9 @@
     "noLimit": "بدون محدودیت",
     "finished": "تمام شده",
     "minAmount": "حداقل مبلغ خرید",
-    "maxAmount": "حداکثر تخفیف",
+    "minAmountDescription": "محصولاتِ با قیمت کمتر از این مبلغ شامل این تخفیف نمی‌شوند.",
+    "maxAmount": "سقف مبلغ تخفیف",
+    "maxAmountDescription": "بالاترین مبلغی که از هر محصول بابت تخفیف کسر می‌شود.",
     "offPercent": "درصد تخفیف",
     "couponDetails": "جزییات کد تخفیف",
     "editCoupon": "ویرایش کد تخفیف",
@@ -1383,7 +1385,7 @@
     "withoutIpLimit": "بدون محدودیت IP",
     "withIpLimit": "با محدودیت IP",
     "activation": "فعالسازی",
-    "depositTo": "متصل به",
+    "depositTo": "متصل به کیف‌پول",
     "uploadLogoNote": "* توجه:‌ لوگو باید حتما با فرمت PNG و در ابعاد 500*500 پیکسل باشد.",
     "inActive": "غیر‌فعال"
   }
