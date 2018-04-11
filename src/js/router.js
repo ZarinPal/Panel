@@ -108,19 +108,19 @@ export default new VueRouter({
                             }
                         },
                         {
-                            path: 'easypay/:visiblePersonalLink?',
-                            name: 'easypay.index',
-                            component: require('./components/pages/easypay/index.vue'),
-                            meta: {
-                                accessLevel: ['silver', 'gold']
-                            }
-                        },
-                        {
                             path: 'easypay/create',
                             name: 'easypay.create',
                             component: require('./components/pages/easypay/partials/create.vue'),
                             meta: {
                                 accessLevel: ['basic', 'silver', 'gold']
+                            }
+                        },
+                        {
+                            path: 'easypay',
+                            name: 'easypay.index',
+                            component: require('./components/pages/easypay/index.vue'),
+                            meta: {
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
