@@ -122,6 +122,8 @@
              *
              */
             fetchReports(callback) {
+                this.resetTurnoverSum();
+
                 this.fetching = true;
                 let reportName = 'report.purseTransactions';
 
@@ -184,6 +186,14 @@
                     this.monthDays = _.chunk(finalMonthReport, 7);
                 }
 
+            },
+            resetTurnoverSum() {
+                this.totalReports = {
+                    income_amount: 0,
+                    income_count: 0,
+                    outgo_amount: 0,
+                    outgo_count: 0,
+                };
             },
             turnoverSum(type, number) {
                 this.totalReports[type] += number;
