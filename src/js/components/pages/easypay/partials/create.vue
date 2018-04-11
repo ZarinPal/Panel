@@ -73,7 +73,7 @@ f
                     div.body
                         <!--2-->
                         div.row(v-bind:class="{'inactive-step' : step !== 2}")
-                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12
+                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                 div.row
                                     div.col-lg-1.col-md-1.col-sm-1.col-xs-1
                                         div.step-number(v-ripple=""  v-bind:class="{'active-step-number' : step == 2}") ۲
@@ -443,7 +443,6 @@ f
             editAfterCreate() {
                 this.editLoading = true;
 
-                this.handleOrderOptions();
                 this.handleShowReceipt();
                 if (this.limited === true) {
                     this.limited = 1;
@@ -459,10 +458,10 @@ f
                     price: this.price,
                     purse: this.purse,
                     required_fields: {
-                        email: this.requiredFields.email,
-                        name: this.requiredFields.name,
-                        mobile: this.requiredFields.mobile,
-                        description: this.requiredFields.description
+                        email: this.handleOrderOptionsSave('email'),
+                        name: this.handleOrderOptionsSave('name'),
+                        mobile: this.handleOrderOptionsSave('mobile'),
+                        description: this.handleOrderOptionsSave('description')
                     },
                     show_receipt: this.showReceipt,
                     successful_redirect_url: this.successfulRedirectUrl,
@@ -536,18 +535,18 @@ f
                 this.$store.state.auth.user.easypays[easypayIndex].limited = this.limited;
                 this.$store.state.auth.user.easypays[easypayIndex].limit = this.limit;
             },
-            handleOrderOptions() {
-                if (this.requiredFields.email === false) {
-                    this.requiredFields.email = '-1';
+            handleOrderOptionsSave(requireFieldName) {
+                if (this.requiredFields[requireFieldName].checkbox) {
+                    return {
+                        status: this.requiredFields[requireFieldName].status,
+                        placeholder: this.requiredFields[requireFieldName].placeholder,
+                    }
                 }
 
-                if (this.requiredFields.name === false) {
-                    this.requiredFields.name = '-1';
-                }
-
-                if (this.requiredFields.mobile === false) {
-                    this.requiredFields.mobile = '-1';
-                }
+                return {
+                    status: 'hidden',
+                    placeholder: null,
+                };
             },
             handleShowReceipt() {
                 if (this.showReceipt === false) {
