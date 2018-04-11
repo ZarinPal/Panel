@@ -129,7 +129,7 @@
             //Change ticket list new ticket button
             this.$store.commit('app/changeTicketState');
             this.getReplies(this.$route.params.id);
-            this.getTicketSummry();
+
         },
         mounted() {
 
@@ -171,6 +171,7 @@
                         replies.scrollTop = replies.scrollHeight;
                     }, 10);
                 });
+                this.getTicketSummry();
             },
             send() {
                 this.loading = true;
