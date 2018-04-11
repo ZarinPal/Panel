@@ -3,7 +3,7 @@
         span(slot="title") {{ $i18n.t('requestMoney.' + pageTitle) }}
         div(slot="content")
             <!--Step 1-->
-            div.nav-select-user(v-if="step == 1")
+            div.nav-select-user(v-if="step == 1 && phoneBook.data.length")
                 div.row.search-box
                     span.icon-search
                     input(type="text" v-model="searchString" placeholder="جستجو ..." )
@@ -21,11 +21,14 @@
                                 label.checkbox-label(:for="user.public_id")
                                     span.circle-checkbox
 
-                div.ta-center(v-if="phoneBook.status")
-                    loading
-                div.row(v-if="!phoneBook.status && !phoneBook.data.length")
+            div.ta-center(v-if="phoneBook.status")
+                loading
+            div(v-if="!phoneBook.status && !phoneBook.data.length")
                     div.col-xs.ta-center
-                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+                        span.txt-help {{ $i18n.t('requestMoney.comingSoon') }}
+                    div.col-xs.ta-center
+                        a.btn.success(href="http://www.zarinpal.mobi" target="blank")
+                            span.btn-label {{$i18n.t('user.downloadMobileApp')}}
 
             <!--Step 2-->
             div.nav-request-type.ta-right(v-else-if="step == 2")
