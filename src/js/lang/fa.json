@@ -43,7 +43,7 @@
     "acceptTopInformationOfRequestZarinCard": "صحت اطلاعات فوق را تأیید می‌نمایم.",
     "zarinCardPrice": "هزینه صدور زرین‌کارت",
     "requestZarinCardDescriptionOfUserInformation": "زرین‌کارت شما به آدرس زیر ارسال خواهد‌شد. از صحیح بودن آدرس مطمئن شوید.",
-    "ptopTo": "زرین‌پال مقصد،مثال: zp.123 یا شماره‌موبایل یا ایمیل",
+    "ptopTo": "zp.123 یا شماره‌موبایل یا ایمیل",
     "noActiveCard": "برای درخواست زرین کارت، باید ابتدا یک حساب بانکی متعلق به خود را به زرین پال معرفی کنید",
     "addNewBankAccount": "افزودن کارت بانکی جدید"
   },
@@ -568,7 +568,7 @@
     "transactionDescription": "توضیحات تراکنش",
     "zarinCardStatement": "مشاهده گردش زرین کارت",
     "moneyTransfer": "انتقال وجه",
-    "moneyTransferDescription": "با افزایش اعتبار کیف‌پول خود، با یک کلیک خرید آسانی را تجربه کنید!",
+    "moneyTransferDescription": "انتقال وجه داخلی بین کیف‌پول‌های شخصی و دیگر کاربران زرین‌پال",
     "confirmWithdrawTitle": "تأیید درخواست تسویه حساب",
     "doYouConfirmWithdrawDescription": "آیا درخواست تسویه حساب را تأیید می‌کنید؟"
   },
