@@ -26,7 +26,7 @@
                                 span.text-danger {{ errors.first('amount') }}
 
                         div.row
-                            cards.cards(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-model="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" tabindex="3" v-on:select="selectedCard")
+                            selectbox.cards.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('card_id')" v-validate="{ rules: {required: true}}" name="card_id" v-model="card_id" v-bind:data-vv-as="$i18n.t('card.card')" :class="{'input-danger': errors.has('card_id')}" v-if="cards" v-on:select="selectedCard" v-bind:data="cards" placeholder="انتخاب حساب يا کارت")
                             div.ta-right(v-if="validation('card_id')")
                                 span.text-danger {{ errors.first('card_id') }}
 
@@ -67,7 +67,6 @@
                     p.title {{ $i18n.t('common.zarinPal') }}
                     p.description {{ $i18n.t('purse.withdraw') }}
 
-
                 <!--Confirm withdraw-->
                 confirm(v-if="confirmVisible" v-on:confirmed="withdraw()" v-on:closeModal="closeModal")
                     span(slot="title") {{$i18n.t('purse.confirmWithdrawTitle')}}
@@ -80,7 +79,6 @@
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
-
 
 <script>
     import selectbox from '../../partials/selectbox.vue';
@@ -122,11 +120,28 @@
                 //check user cant withdraw or not
                 if (this.$store.state.auth.user.cards) {
                     let activeCards = [];
+
                     _.forEach(this.$store.state.auth.user.cards, function (card) {
-                        if (card.status === "Active") {
-                            activeCards.unshift(card);
+                        let cardPan = card.account_id;
+                        if (card.issuer.slug === 'ZarinCard') {
+                            cardPan = Vue.options.filters.cardNumber(card.pan);
+
+                            if (card.status === "Active" && card.iban) {
+                                activeCards.unshift({
+                                    'title': '<div class="col-xs ta-right"><span class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() + '"></span> <span class="nav-card-item-bank-name">' + card.issuer.name + '</span></div><div class="col-xs"><span class="nav-card-item-bank-card-id pull-left persian-num">' + cardPan + '</span></div>',
+                                    'value': card.entity_id
+                                });
+                            }
+                        } else {
+                            if (card.status === "Active" || card.status === 'Expired' && card.iban) {
+                                activeCards.unshift({
+                                    'title': '<div class="col-xs ta-right"><span class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() + '"></span> <span class="nav-card-item-bank-name">' + card.issuer.name + '</span></div><div class="col-xs"><span class="nav-card-item-bank-card-id pull-left persian-num">' + cardPan + '</span></div>',
+                                    'value': card.entity_id
+                                });
+                            }
                         }
                     });
+
                     return activeCards;
                 }
             }
