@@ -145,6 +145,10 @@
                     {
                         title: 'شماره‌موبایل',
                         value: 'mobile'
+                    },
+                    {
+                        title: 'RRN',
+                        value: 'rrn'
                     }
 
                 ],
@@ -280,6 +284,9 @@
                         break;
                     case 'mobile':
                         this.placeholder = '09xxxxxxxxx';
+                        break;
+                    case 'rrn':
+                        this.placeholder = 'RRN';
                         break;
                 }
             },
