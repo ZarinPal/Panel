@@ -1,7 +1,7 @@
 <template lang="pug">
     ul.dropdown#dropDown(v-click-outside="closeDropDown")
         li.title(@focus="isActive = true" @click="openDropDown")
-            div.row(v-html="selectBoxTitle")
+            div.row.no-margin(v-html="selectBoxTitle")
             span.arrow
         ul#itemSection(v-show="isOpen && data")
             span(v-for="item in data")
