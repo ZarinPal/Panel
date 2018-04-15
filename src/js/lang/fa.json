@@ -272,6 +272,7 @@
     "mobile": "شماره موبایل",
     "firstInfo": "اطلاعات اولیه",
     "firstInfoMessage": "تمامی‌فیلد‌های زیر ضروری می‌باشد",
+    "firstInfoHelp": "با انتخاب گزینه کیف‌پول نام و نام خانوادگی شما و با انتخاب گزینه درگاه پرداخت فقط نام و لوگو درگاه پرداخت شما در صفحه‌ی پرداخت نمایش داده می‌شود.",
     "orderForm": "فرم سفارش",
     "orderFormMessage": "نمایش و اجباری کردن فیلدها برای خریدار",
     "limits": "محدودیت‌ها",
@@ -296,7 +297,7 @@
     "selectPurseOrWebserviceId": "انتخاب کیف پول و یا درگاه پرداخت الزامی است",
     "selectWebservice": "انتخاب درگاه پرداخت",
     "showLinkLocal": "نمایش کد",
-    "description": "توضیحات"
+    "description": "توضیحات محصول"
   },
   "error": {
     "NotFound": "These credentials do not match our records.",
