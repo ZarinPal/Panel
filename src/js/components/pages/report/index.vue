@@ -17,8 +17,10 @@
                             div.row
                                 div.col-lg-8.col-md-8.col-sm-8.col-xs-12
                                     div.row
-                                        selectbox.col-lg-5.col-md-5.col-sm-5.col-xs-12.m-10.persian-num(v-validate="{ rules: {required: true}}" v-model="selectedYear" v-on:select="selectYear" v-bind:data="years" :placeholder="$i18n.t('report.year')")
-                                        selectbox.col-lg-6.col-md-6.col-sm-6.col-xs-12.m-10(v-validate="{ rules: {required: true}}" v-model="selectedMonth" v-on:select="selectMonth" v-bind:data="months" :placeholder="$i18n.t('report.month')")
+                                        selectbox.col-lg-5.col-md-5.col-sm-5.col-xs-12.m-l-10.persian-num(v-validate="{ rules: {required: true}}" v-model="selectedYear" v-on:select="selectYear" v-bind:data="years" :placeholder="$i18n.t('report.year')")
+                                        selectbox.col-lg-6.col-md-6.col-sm-6.col-xs-12(v-validate="{ rules: {required: true}}" v-model="selectedMonth" v-on:select="selectMonth" v-bind:data="months" :placeholder="$i18n.t('report.month')")
+                                        div.ta-right(v-if="validation('date')")
+                                            span.text-danger {{ errors.first('date') }}
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
                                     button.btn.info.pull-right.m-t-10(v-ripple="" @click="validateForm" :class="{'disable': fetching}") {{ $i18n.t('common.search') }}
@@ -59,6 +61,7 @@
 </template>
 
 <script>
+    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import selectbox from '../partials/selectbox.vue';
 
     export default {
@@ -96,7 +99,7 @@
                  */
                 selectedYear: moment().jYear(),
                 selectedMonth: moment().jMonth()+1,
-                years: {},
+                years: [],
                 months: [],
             }
         },
@@ -111,7 +114,7 @@
         created() {
             this.getYearSelection();
             this.calendarDayTitles = this.weekDayTitles();
-            this.fetchReports(this.getMonthDays);
+            // this.fetchReports(this.getMonthDays);
         },
         methods: {
             validateForm() {
@@ -132,14 +135,14 @@
                 });
 
                 let vm = this;
-                let startDate = moment('1390/01/01', 'jYYYY/jM/jD');
+                let startDate = moment('1389/01/01', 'jYYYY/jM/jD');
                 let endDate = moment();
 
                 for (let i = startDate.jYear(); i <= endDate.jYear(); i++) {
-                    vm.years[i] = {
+                    vm.years.unshift({
                         title: i,
                         value: i
-                    };
+                    });
                 }
 
                 _.each(moment()._locale._jMonths, function(month, monthIndex) {
@@ -298,6 +301,7 @@
             },
         },
         components: {
+            datePicker: VuePersianDatetimePicker,
             selectbox
         }
     }
