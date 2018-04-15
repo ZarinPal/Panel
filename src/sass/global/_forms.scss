@@ -369,7 +369,7 @@ ul.dropdown {
   font-weight: 200;
   font-size: 13px;
   height: 35px;
-  padding: 7px 16px 7px 16px;
+  //padding: 7px 16px 7px 16px;
   border-radius: 5px;
   outline: none;
   direction: rtl;
@@ -388,9 +388,12 @@ ul.dropdown {
 
   .title {
     white-space: nowrap;
-    position: relative;
-    top: -11px;
-    margin: 10px;
+    position: absolute;
+    padding: 5px 10px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
   }
 
   .wallet-color {
@@ -407,7 +410,9 @@ ul.dropdown {
   }
 
   .purse-selectbox-balance {
-    margin-left: 10px;
+    padding-left: 20px;
+    padding-right: 0;
+    margin-top: 2px;
   }
 
   .disable {
@@ -421,6 +426,7 @@ ul.dropdown {
 
   .dropdown-item-row {
     margin: 0 !important;
+    padding-left: 10px;
   }
 
   > span {
@@ -430,8 +436,8 @@ ul.dropdown {
   span.arrow {
     position: absolute;
     display: inline-block;
-    left: -11px;
-    top: 2px;
+    left: 5px;
+    top: 8px;
 
     &:before {
       content: $itemArrow;

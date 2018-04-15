@@ -24,22 +24,22 @@
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 input(name="coupon-type" v-model="type" value="webservice" type="radio" id="rdoWebservice")
-                                label(for="rdoWebservice")
+                                label.dis-ib.m-t-5(for="rdoWebservice")
                                     span
                                     | {{ $i18n.t('coupon.webservice') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-if="webserviceId || type" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay' }" placeholder="انتخاب وب‌سرویس"  tabindex="2")
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-on:select="selectedWebservice" v-if="webserviceId || type" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay' }" placeholder="انتخاب وب‌سرویس"  tabindex="2")
                                 div.ta-right(v-if="validation('webservice_id')")
                                     span.text-danger {{ errors.first('webservice_id') }}
 
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                input(name="coupon-type" v-model="type" value="easypay" type="radio" id="rdoEasypayٌ")
-                                label(for="rdoEasypayٌ")
+                                input(name="coupon-type" v-model="type" value="easypay" type="radio" id="rdoEasypay")
+                                label.dis-ib.m-t-5(for="rdoEasypay")
                                     span
                                     | {{ $i18n.t('coupon.easypay') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                zarin-link(v-on:select="selectedEasypay" v-if="easyPayId || type" v-bind:class="{'disable' : type == 'webservice', 'input-danger': errors.has('easypay_id')}" v-bind:selected="easyPayId" placeholder="انتخاب زرین‌لینک")
+                                zarin-link.no-margin(v-on:select="selectedEasypay" v-if="easyPayId || type" v-bind:class="{'disable' : type == 'webservice', 'input-danger': errors.has('easypay_id')}" v-bind:selected="easyPayId" placeholder="انتخاب زرین‌لینک")
                                 div.ta-right(v-if="validation('easypay_id')")
                                     span.text-danger {{ errors.first('easypay_id') }}
 
