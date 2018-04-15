@@ -147,7 +147,7 @@
                         value: 'mobile'
                     },
                     {
-                        title: 'RRN',
+                        title: 'کد پیگیری',
                         value: 'rrn'
                     }
 

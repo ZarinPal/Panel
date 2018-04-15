@@ -15,13 +15,13 @@
                                 span.break
 
                             div.row
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="selectDay" name="selectDay" type="date" view='year' min="1388/01/01"  :max="today"  :placeholder="$i18n.t('transaction.fromDate')")
-                                    div.ta-right(v-if="validation('date')")
-                                        span.text-danger {{ errors.first('date') }}
+                                div.col-lg-8.col-md-8.col-sm-8.col-xs-12
+                                    div.row
+                                        selectbox.col-lg-5.col-md-5.col-sm-5.col-xs-12.m-10.persian-num(v-validate="{ rules: {required: true}}" v-model="selectedYear" v-on:select="selectYear" v-bind:data="years" :placeholder="$i18n.t('report.year')")
+                                        selectbox.col-lg-6.col-md-6.col-sm-6.col-xs-12.m-10(v-validate="{ rules: {required: true}}" v-model="selectedMonth" v-on:select="selectMonth" v-bind:data="months" :placeholder="$i18n.t('report.month')")
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                                    button.btn.info.pull-right(v-ripple="" @click="validateForm" :class="{'disable': fetching}") {{ $i18n.t('common.search') }}
+                                    button.btn.info.pull-right.m-t-10(v-ripple="" @click="validateForm" :class="{'disable': fetching}") {{ $i18n.t('common.search') }}
                                         svg.material-spinner(v-if="fetching" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -59,13 +59,12 @@
 </template>
 
 <script>
-    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+    import selectbox from '../partials/selectbox.vue';
 
     export default {
         name: 'report-index',
         data() {
             return {
-                selectDay: moment().format('jYYYY-jMM-jDD'),
                 durationDate: moment(),
                 today: moment().format('jYYYY/jMM/jDD'),
 
@@ -91,6 +90,14 @@
                  */
                 calendarDayTitles: [],
                 monthDays: [],
+
+                /**
+                 * Date select
+                 */
+                selectedYear: moment().jYear(),
+                selectedMonth: moment().jMonth()+1,
+                years: {},
+                months: [],
             }
         },
         computed: {
@@ -102,6 +109,7 @@
             }
         },
         created() {
+            this.getYearSelection();
             this.calendarDayTitles = this.weekDayTitles();
             this.fetchReports(this.getMonthDays);
         },
@@ -111,15 +119,44 @@
                     durationDate: this.durationDate,
                 }).then((result) => {
                     if (result) {
-                        this.durationDate = moment(this.selectDay, 'jYYYY/jM/jD');
+                        this.durationDate = moment(this.selectedYear + '/' + this.selectedMonth + '/01', 'jYYYY/jM/jD');
                         this.fetchReports(this.getMonthDays);
                     }
                 });
             },
+            getYearSelection() {
+                moment.locale('fa');
+                moment.loadPersian({
+                    dialect: 'persian-modern',
+                    usePersianDigits: true
+                });
 
+                let vm = this;
+                let startDate = moment('1390/01/01', 'jYYYY/jM/jD');
+                let endDate = moment();
+
+                for (let i = startDate.jYear(); i <= endDate.jYear(); i++) {
+                    vm.years[i] = {
+                        title: i,
+                        value: i
+                    };
+                }
+
+                _.each(moment()._locale._jMonths, function(month, monthIndex) {
+                    vm.months.push({
+                        title: month,
+                        value: monthIndex + 1
+                    });
+                });
+            },
+            selectYear(year) {
+                this.selectedYear = year;
+            },
+            selectMonth(month) {
+                this.selectedMonth = month;
+            },
             /**
              * Api
-             *
              */
             fetchReports(callback) {
                 this.resetTurnoverSum();
@@ -261,7 +298,7 @@
             },
         },
         components: {
-            datePicker: VuePersianDatetimePicker
+            selectbox
         }
     }
 </script>
