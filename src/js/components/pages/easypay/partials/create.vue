@@ -35,10 +35,9 @@ f
                                                 span.text-danger {{ errors.first('price') }}
 
                                         div.row.no-margin
-                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'max:128'" :class="{'input-danger': errors.has('description')}" v-bind:data-vv-as="$i18n.t('common.description')" v-model="description" id="description" name="description" :placeholder= "$i18n.t('common.description')" tabindex="3")
+                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'max:128'" :class="{'input-danger': errors.has('description')}" v-bind:data-vv-as="$i18n.t('easypay.description')" v-model="description" id="description" name="description" :placeholder= "$i18n.t('easypay.description')" tabindex="3")
                                             div.ta-right(v-if="validation('description')")
                                                 span.text-danger {{ errors.first('description') }}
-
                                         div.row.no-margin.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
                                                 input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurse")
@@ -62,6 +61,8 @@ f
                                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" :placeholder="$i18n.t('easypay.selectWebservice')")
                                                 <!--div.ta-right(v-if="validation('webservice_id')")-->
                                                 <!--span.text-danger {{ errors.first('webservice_id') }}-->
+                                            div.col-lg-11.col-md-11.sm-11.col-xs-11
+                                                p.form-message.ta-right {{$i18n.t('easypay.firstInfoHelp')}}
 
                                         div.cb
                                         div.row.nav-buttons
