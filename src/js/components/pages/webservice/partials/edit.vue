@@ -28,6 +28,7 @@
                                 div.row.no-margin(v-if="visibleIp == 'yes'")
                                     span.input-icon.ip-icon
                                     input.ltr-input(v-validate="'ip'" :class="{'input-danger': errors.has('site_ip')}"  v-bind:data-vv-as="$i18n.t('webservice.ipServer')" type="text" v-model="site_ip" name="site_ip"  id="site_ip" placeholder= "IP" autofocus tabindex="1")
+                                    span.text-help {{ $i18n.t('webservice.ipServerHelp') }}
                                     div.ta-right(v-if="validation('site_ip')")
                                         span.text-danger {{ errors.first('site_ip') }}
 

@@ -31,6 +31,7 @@
                                 div.row.no-margin
                                     span.input-icon.mobile-icon
                                     input.ltr-input(v-validate="{rules: {required: true}}" :class="{'input-danger': errors.has('tel')}"  v-bind:data-vv-as="$i18n.t('webservice.tel')" type="text" v-model="tel" name="tel" :placeholder= "$i18n.t('webservice.tel')" tabindex="3" )
+                                    span.text-help {{ $i18n.t('webservice.telHelp') }}
                                     div.ta-right(v-if="validation('tel')")
                                         span.text-danger {{ errors.first('tel') }}
 
