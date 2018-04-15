@@ -580,7 +580,9 @@
     "incomeAmount": "مقدار ورودی",
     "incomeCount": "تعداد ورودی",
     "outcomeAmount": "مقدار خروجی",
-    "outcomeCount": "تعداد خروجی"
+    "outcomeCount": "تعداد خروجی",
+    "year": "سال",
+    "month": "ماه"
   },
   "requestMoney": {
     "status_-1": "reject",
