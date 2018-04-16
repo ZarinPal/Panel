@@ -261,7 +261,9 @@
     "editCoupon": "ویرایش کد تخفیف",
     "delete": "حذف",
     "deleteCoupon": "تایید حدف کد تخفیف",
-    "editCouponDescription": "در این صفحه می‌توانید کد تخفیف خودرا ویرایش کنید"
+    "editCouponDescription": "در این صفحه می‌توانید کد تخفیف خودرا ویرایش کنید",
+    "discountCode": "کد‌تخفیف",
+    "setDiscountCode": "ثبت کد‌تخفیف"
   },
   "easypay": {
     "createEasypay": "ایجاد زرین‌لینک",
@@ -413,6 +415,7 @@
     "CouponExistsCode": "کد تخفیف واردشده قبلاً در سیستم ثبت‌شده است.",
     "CouponNotFound": "کپن تخفیف موردنظر یافت نشد و یا شما اجازه دسترسی به آن را ندارید.",
     "CouponDeletedLocal": "کپن تخفیف موردنظر با موفقیت حذف شد.",
+    "CouponRegisteredLocal": "کد‌تخفیف ثبت شد.",
     "__Purse__": "<----------#Purse#---------->",
     "PurseLimit": "امکان ایجاد کیف پول بیشتر وجود ندارد.",
     "PurseCanNotTransfer": "امکان انتقال وجه به این کیف پول ندارد.",
