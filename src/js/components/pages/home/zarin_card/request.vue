@@ -37,7 +37,7 @@
 
                     div.user-information-box.ta-right
                         div {{ $i18n.t('user.firstName') }} : {{ user.name }}
-                        div {{ $i18n.t('user.userAddress') }} : {{ addressTitle  }}
+                        div {{ $i18n.t('user.userAddress') }} : {{ addressTitle }}
                         div.persian-num {{ $i18n.t('user.postal') }} : {{ addressPostalCode }}
                         div.text-danger(v-if="!user.addresses[0].address" @click="goAddAddress") {{ $i18n.t('user.userAddress') }} : {{ $i18n.t('user.addressEmpty') }}
                         div.text-danger(v-if="!user.addresses[0].postal_code" @click="goAddAddress") {{ $i18n.t('user.postal') }} : {{ $i18n.t('user.postalCodeEmpty') }}
@@ -127,11 +127,6 @@
             closeModal() {
                 this.$emit('closeModal')
             },
-            // getAddressTitle() {
-            //     let addressIndex = _.findIndex(this.addresses, function (address) {
-            //         return address.entity_id === vm.$route.params.public_id;
-            //     });
-            // },
             getAddresses() {
                 let vm = this;
                 this.$store.state.http.requests['user.postAddress'].get().then(
