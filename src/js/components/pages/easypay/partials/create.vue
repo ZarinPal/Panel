@@ -1,4 +1,3 @@
-f
 <template lang="pug">
     div.inner-content
         div.row.nav-page-header
