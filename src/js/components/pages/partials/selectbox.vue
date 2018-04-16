@@ -55,6 +55,7 @@
             }
 
             if (this.selected) {
+                console.log(this.selected);
                 let item = _.find(this.data, {'value': this.selected});
                 if (typeof item === 'undefined') {
                     item = {title: '', value: ''}
