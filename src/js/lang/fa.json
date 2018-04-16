@@ -733,7 +733,9 @@
     "InvalidFileImg": "تصویر دارای فرمت صحیح نیست.",
     "InvalidFileDimen": "طول و عرض لوگو باید 500*500 پیکسل باشد",
     "InternalError": "خطای داخلی در زمان آپلود فایل رخ داد.",
-    "ticketReplyContent": "متن پاسخ تیکت ..."
+    "ticketReplyContent": "متن پاسخ تیکت ...",
+    "guestTicketSearch": "پیگیری تیکت",
+    "guestTicketPublicId": "شناسه تیکت"
   },
   "transaction": {
     "title": "تراکنش‌ها",
