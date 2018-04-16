@@ -52,6 +52,9 @@ $tableBorderColor: #777;
   display: inline-block;
   font-size: 12px;
 }
+.day-of-month-disable {
+  opacity: 0.3;
+}
 
 .cell {
   padding: 10px 5px 20px 5px !important;
