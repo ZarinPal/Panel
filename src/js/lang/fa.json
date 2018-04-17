@@ -236,6 +236,7 @@
     "male": "مرد",
     "female": "زن",
     "request": "ایجاد لینک شخصی",
+    "authority": "شناسه یکتا پرداخت (Authority)",
     "transactionSession": "سشن های پرداخت "
   },
   "coupon": {

@@ -57,18 +57,16 @@
                 span(v-for="purse in user.purses")
                     span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
             div.col-lg-4.col-md-3.col-sm-6.col-xs-6
-                a.btn.excel.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
+                a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
                     span.icon-zp-excel
                     span {{$i18n.t('transaction.excelExport')}}
-
-                div.break
-
-            div.col-lg-4.col-md-6.col-sm-12.col-xs-12
+            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
                 ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
                     li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
                     li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
                     li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
                     li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
+
 
         div.transaction-header-container
             div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
@@ -150,6 +148,10 @@
                         title: 'شماره ارجاع شتابی',
                         value: 'rrn'
                     }
+//                    {
+//                        title: 'شناسه یکتا پرداخت',
+//                        value: 'authority'
+//                    }
 
                 ],
                 transaction: null,
@@ -288,7 +290,10 @@
                     case 'rrn':
                         this.placeholder = '00123456789';
                         break;
-                }
+//                    case 'authority':
+//                        this.placeholder = '71846244';
+//                        break;
+//                }
             },
             makeExcelQueryString() {
                 let urlQuery = Object.keys(this.searchOptions).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).join('&');
