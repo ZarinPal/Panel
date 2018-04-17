@@ -1,7 +1,32 @@
 <template lang="pug">
-    div.ticket-main-content
+div
+    div.inner-content
+        div.row.nav-page-header
+            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+                p.page-title {{ $i18n.t('ticket.guestTicketSearch') }}
+
+        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section
+            div.box.p-20
+                form(onsubmit="event.preventDefault();")
+                    div.row
+                        div.col-xs
+                            input(v-validate="{rules:{required: true}}" v-bind:data-vv-as="$i18n.t('user.email')" type="text" name="txtEmail" v-model="txtEmail" :placeholder="$i18n.t('user.email')")
+                            div.ta-right(v-if="validation('txtEmail')")
+                                span.text-danger {{ errors.first('txtEmail') }}
+
+                        div.col-xs
+                            input(v-validate="{rules:{required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('ticket.guestTicketPublicId')" type="text" name="txtPublicId" v-model="txtPublicId" :placeholder="$i18n.t('ticket.guestTicketPublicId')")
+                            div.ta-right(v-if="validation('txtPublicId')")
+                                span.text-danger {{ errors.first('txtPublicId') }}
+
+                        div
+                            button.btn.success.pull-left(v-ripple="" @click="validateSearchForm" :class="{'disable': requesting}") {{$i18n.t('common.search')}}
+                                svg.material-spinner(v-if="requesting" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
+    div.ticket-main-content(v-if="ticket")
         div.col-xs.nav-tickets.full-width
-            div.nav-ticket-title(v-if="!requesting")
+            div.nav-ticket-title
                 div.row.top-row
                     div.col-xs
                         span.ticket-title {{ticket.title}}
@@ -78,7 +103,7 @@
         name: 'ticket-guest',
         data() {
             return {
-                requesting: true,
+                requesting: false,
                 loading: false,
                 fileUploading: false,
                 uploadResult: false,
@@ -87,9 +112,12 @@
                 /**
                  * Get Ticket
                  */
+                txtEmail: null,
+                txtPublicId: null,
+
                 email: this.$route.params.email,
                 publicId: this.$route.params.publicId,
-                ticket: {},
+                ticket: null,
 
                 /**
                  * Post Ticket Reply
@@ -99,9 +127,21 @@
             }
         },
         created() {
-            this.getGuestTicket();
+            if (this.$route.params.email && this.$route.params.publicId) {
+                this.getGuestTicket();
+            }
         },
         methods: {
+            validateSearchForm() {
+                this.$validator.validateAll({
+                    txtEmail: this.txtEmail,
+                    txtPublicId: this.txtPublicId,
+                }).then((result) => {
+                    if (result) {
+                        this.getGuestTicket();
+                    }
+                });
+            },
             validateForm() {
                 this.$validator.validateAll({
                     content: this.content,
@@ -111,6 +151,11 @@
                     }
                 });
             },
+
+            /**
+             * File uploading
+             */
+
             onFileChange(e) {
                 let files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
@@ -140,8 +185,8 @@
                     this.fileUploading = 'Failed';
                 });
             },
-            kebabCase(value) {
-                return _.kebabCase(value);
+            downloadAttachFile(url) {
+                window.open(url);
             },
             clipboardMessage() {
                 store.commit('flashMessage', {
@@ -151,20 +196,40 @@
 
                 });
             },
-            downloadAttachFile(url) {
-                window.open(url);
+            kebabCase(value) {
+                return _.kebabCase(value);
             },
+
+            /**
+             * Api
+             */
             getGuestTicket() {
+                this.requesting = true;
                 let vm = this;
-                this.$store.state.http.requests['getReply'].get({
+                let ticketData = {
                     email: this.email,
                     publicId: this.publicId,
-                }).then((response) => {
-                    vm.ticket = response.data.data;
-                    vm.requesting = false;
-                }).catch(() => {
-                    vm.requesting = false;
-                });
+                };
+
+                if (!!this.txtEmail && !!this.txtPublicId) {
+                    ticketData = {
+                        email: btoa(this.txtEmail),
+                        publicId: btoa(this.txtPublicId)
+                    }
+                }
+
+                this.$store.state.http.requests['getReply'].get(ticketData)
+                    .then((response) => {
+                        vm.ticket = response.data.data;
+                        vm.requesting = false;
+                    }).catch((response) => {
+                        vm.requesting = false;
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
+                            text: response.data.meta.error_type,
+                            type: 'danger'
+                        });
+                    });
             },
             postTicketReply() {
                 let params = {
