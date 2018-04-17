@@ -52,12 +52,11 @@ $transactionInternalColor: #656565;
     opacity: 0.5;
   }
   .icon-zp-excel {
-    &::before {
-      content: $icon-zp-receipt;
-      padding-left: 5px;
+      background: url("../../img/transaction/excel.svg") no-repeat;
+      padding-left: 20px;
       top: 3px;
       position: relative;
-    }
+      margin-left: 5px;
   }
 
 }
