@@ -147,11 +147,11 @@
                     {
                         title: 'شماره ارجاع شتابی',
                         value: 'rrn'
-                    },
-                    {
-                        title: 'شناسه یکتا پرداخت',
-                        value: 'authority'
                     }
+//                    {
+//                        title: 'شناسه یکتا پرداخت',
+//                        value: 'authority'
+//                    }
 
                 ],
                 transaction: null,
@@ -290,10 +290,10 @@
                     case 'rrn':
                         this.placeholder = '00123456789';
                         break;
-                    case 'authority':
-                        this.placeholder = '71846244';
-                        break;
-                }
+//                    case 'authority':
+//                        this.placeholder = '71846244';
+//                        break;
+//                }
             },
             makeExcelQueryString() {
                 let urlQuery = Object.keys(this.searchOptions).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).join('&');
