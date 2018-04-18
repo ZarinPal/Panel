@@ -296,8 +296,8 @@
                 showReceipt: '',
                 successfulRedirectUrl: '',
                 failedRedirectUrl: '',
-                limited: 0,
-                limit: '',
+                limited: false,
+                limit: 0,
             }
         },
         computed: {
@@ -486,11 +486,11 @@
                     this.showReceipt = false;
                 }
 
-                if (this.easypay.limit) {
+                if (this.easypay.limit && this.easypay.limit > 0) {
                     this.limited = true;
                 } else {
                     this.limited = false;
-                    this.limit = null;
+                    this.limit = 0;
                 }
             },
             handleShowReceiptSave() {
@@ -500,12 +500,8 @@
                     this.showReceipt = 1;
                 }
 
-
-                if (this.limited === false || this.limited === 0) {
-                    this.limited = 0;
-                    this.limit = null;
-                } else {
-                    this.limited = 1;
+                if (!this.limited) {
+                    this.limit = 0;
                 }
             },
             changeEasypayState(){
