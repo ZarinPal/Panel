@@ -17,8 +17,8 @@
                             div.row
                                 div.col-lg-8.col-md-8.col-sm-8.col-xs-12
                                     div.row
-                                        selectbox.col-lg-5.col-md-5.col-sm-5.col-xs-12.m-l-10.persian-num(v-validate="{ rules: {required: true}}" v-model="selectedYear" v-on:select="selectYear" v-bind:data="years" :placeholder="$i18n.t('report.year')")
-                                        selectbox.col-lg-6.col-md-6.col-sm-6.col-xs-12(v-validate="{ rules: {required: true}}" v-model="selectedMonth" v-on:select="selectMonth" v-bind:data="months" :placeholder="$i18n.t('report.month')")
+                                        selectbox.col-lg-4.col-md-4.col-sm-4.col-xs-12(v-validate="{ rules: {required: true}}" v-model="selectedMonth" v-on:select="selectMonth" v-bind:data="months"  :placeholder="$i18n.t('report.month')")
+                                        selectbox.col-lg-4.col-md-4.col-sm-4.col-xs-12.m-l-10.persian-num( v-validate="{ rules: {required: true}}" v-model="selectedYear" v-on:select="selectYear"   v-bind:data="years" :id='selectYear' :placeholder="$i18n.t('report.year')")
                                         div.ta-right(v-if="validation('date')")
                                             span.text-danger {{ errors.first('date') }}
 
@@ -45,7 +45,7 @@
                                         div.col-xs-12(v-if="day.turnovers.outgo_count")
                                             span.show-outgo-count.persian-num.pull-left {{day.turnovers.outgo_count}}
                                             span.show-outgo-amount.persian-num.pull-right(title='تراکنش خروجی') {{day.turnovers.outgo_amount | numberFormat}}
-                                    div.row.bottom-xs.pull-left.persian-num.day-of-month
+                                    div.row.bottom-xs.pull-left.persian-num.day-of-month(:class="{'day-of-month-disable': day.inActived}")
                                         div(:title="day.date.format('jD jMMMM jYY')") {{day.date.format('jD')}}
 
                 div.section(v-if="reports")
@@ -98,7 +98,7 @@
                  * Date select
                  */
                 selectedYear: moment().jYear(),
-                selectedMonth: moment().jMonth()+1,
+                selectedMonth: moment().jMonth() + 1,
                 years: [],
                 months: [],
             }
@@ -109,11 +109,18 @@
              */
             momentNow() {
                 return moment();
+            },
+            thisMonth() {
+                return moment().format('jMMMM');
+            },
+            thisYear() {
+                return moment().format('jYYYY');
             }
         },
         created() {
             this.getYearSelection();
             this.calendarDayTitles = this.weekDayTitles();
+
             // this.fetchReports(this.getMonthDays);
         },
         methods: {
@@ -145,7 +152,7 @@
                     });
                 }
 
-                _.each(moment()._locale._jMonths, function(month, monthIndex) {
+                _.each(moment()._locale._jMonths, function (month, monthIndex) {
                     vm.months.push({
                         title: month,
                         value: monthIndex + 1

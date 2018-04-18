@@ -17,6 +17,17 @@
                         div.ta-right(v-if="validation('purse_number')")
                             span.text-danger {{ errors.first('purse_number') }}
 
+                    div.row
+                        div.col-xs
+                            input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.discountCode')" :class="{'input-danger': errors.has('discount_code')}" type="text" name="discount_code" v-model="discount_code" :placeholder="$i18n.t('coupon.discountCode')")
+                            div.ta-right(v-if="validation('discount_code')")
+                                span.text-danger {{ errors.first('discount_code') }}
+
+                        div.ta-left
+                            button.btn.success.pull-left(v-ripple="" @click="validateDiscountForm" :class="{'disable': isGettingCouponCost}") {{$i18n.t('coupon.setDiscountCode')}}
+                                svg.material-spinner(v-if="isGettingCouponCost" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+
                     p.user-information-description.ta-right {{ $i18n.t('card.requestZarinCardDescriptionOfUserInformation') }}
 
                     loading(v-if="!isLoadedAddress")
@@ -44,13 +55,11 @@
                             span
                             | {{ $i18n.t('card.acceptTopInformationOfRequestZarinCard') }}
 
-
                     div.row
                         div.col-xs.nav-buttons
                             button.btn.success.pull-left(v-ripple=""  @click="validateForm" tabindex="7") {{$i18n.t('card.requestZarinCardTitle')}}
                                 svg.material-spinner(v-if="requesting" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
 </template>
 
 <script>
@@ -64,7 +73,6 @@
         data() {
             return {
                 requesting: false,
-                isGettingCouponCost: true,
                 acceptInformation: false,
 
                 purse_number: null,
@@ -75,6 +83,9 @@
                 addressTitle: null,
                 addressPostalCode: null,
                 coupon: {},
+
+                isGettingCouponCost: true,
+                discount_code: null,
             }
         },
         computed: {
@@ -84,7 +95,6 @@
         },
         created() {
             this.getAddresses();
-
             this.getCouponData();
         },
         methods: {
@@ -92,6 +102,15 @@
              * Validation
              * @param name
              */
+            validateDiscountForm() {
+                this.$validator.validateAll({
+                    discount_code: this.discount_code
+                }).then((result) => {
+                    if (result) {
+                        this.getCouponData();
+                    }
+                });
+            },
             validateForm() {
                 this.$validator.validateAll({
                     purse_number: this.purse_number,
@@ -146,14 +165,27 @@
                     return address.entity_id === addressId;
                 });
 
-                vm.addressTitle = vm.fullAddresses[addressIndex].title;
+                vm.addressTitle = vm.fullAddresses[addressIndex].address;
                 vm.addressPostalCode = vm.fullAddresses[addressIndex].postal_code;
             },
             getCouponData() {
+                this.isGettingCouponCost = true;
+
+                let couponData = {};
+                if (this.discount_code) {
+                    couponData.coupon = this.discount_code.trim()
+                }
+
                 this.$store.state.http.requests['zarincard.cost']
-                    .get()
+                    .get(couponData)
                     .then((response) => {
                             this.coupon = response.data.data;
+                            if (response.data.data.coupon) {
+                                store.commit('flashMessage', {
+                                    text: 'CouponRegisteredLocal',
+                                    type: 'success'
+                                });
+                            }
 
                             this.isGettingCouponCost = false;
                         }, (response) => {

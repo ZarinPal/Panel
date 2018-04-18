@@ -52,39 +52,37 @@
                                                 span.text-danger {{ errors.first('toDate') }}
 
         div.row.filter-row
-            div.col-lg-4.col-md-4.col-sm-6.col-xs-6
+            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
                 span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
                 span(v-for="purse in user.purses")
                     span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
             div.col-lg-4.col-md-3.col-sm-6.col-xs-6
-                a.btn.excel.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
+                a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
                     span.icon-zp-excel
                     span {{$i18n.t('transaction.excelExport')}}
-
-                div.break
-
-            div.col-lg-4.col-md-5.col-sm-12.col-xs-12
+            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
                 ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
                     li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
                     li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
                     li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
                     li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
 
+
         div.transaction-header-container
             div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
-                div.col-lg-2.col-md-2.hidden-sm.hidden-xs
+                div.col-lg-2.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('transaction.id') }}
-                div.col-lg-3.col-md-3.hidden-sm.hidden-xs
+                div.col-lg-3.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('transaction.source') }}
                     span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
-                div.col-lg-3.col-md-3.hidden-sm.hidden-title-md.hidden-xs
+                div.col-lg-3.col-md.col-sm.hidden-title-md.hidden-xs
                     span {{ $i18n.t('transaction.destination') }}
-                div.col-lg-2.col-md-3.hidden-sm.hidden-xs
+                div.col-lg-2.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('transaction.date') }}
-                div.col-lg-1.col-md-2.hidden-sm.hidden-xs
+                div.col-lg-1.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('transaction.amount') }}
                     small ({{ $i18n.t('transaction.toman') }})
-                div.col-lg-1.col-md-2.hidden-sm.hidden-xs
+                div.col-lg-1.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('common.balance') }}
                     small ({{ $i18n.t('transaction.toman') }})
 
@@ -147,9 +145,13 @@
                         value: 'mobile'
                     },
                     {
-                        title: 'کد پیگیری',
+                        title: 'شماره ارجاع شتابی',
                         value: 'rrn'
                     }
+//                    {
+//                        title: 'شناسه یکتا پرداخت',
+//                        value: 'authority'
+//                    }
 
                 ],
                 transaction: null,
@@ -286,9 +288,12 @@
                         this.placeholder = '09xxxxxxxxx';
                         break;
                     case 'rrn':
-                        this.placeholder = 'RRN';
+                        this.placeholder = '00123456789';
                         break;
-                }
+//                    case 'authority':
+//                        this.placeholder = '71846244';
+//                        break;
+//                }
             },
             makeExcelQueryString() {
                 let urlQuery = Object.keys(this.searchOptions).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).join('&');
