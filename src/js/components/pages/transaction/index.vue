@@ -293,7 +293,7 @@
 //                    case 'authority':
 //                        this.placeholder = '71846244';
 //                        break;
-//                }
+               }
             },
             makeExcelQueryString() {
                 let urlQuery = Object.keys(this.searchOptions).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).join('&');
