@@ -301,7 +301,7 @@
                 successfulRedirectUrl: null,
                 failedRedirectUrl: null,
                 limited: false,
-                limit: null,
+                limit: 0,
             }
         },
         computed: {
@@ -444,11 +444,8 @@
                 this.editLoading = true;
 
                 this.handleShowReceipt();
-                if (this.limited === true) {
-                    this.limited = 1;
-                } else {
-                    this.limited = 0;
-                    this.limit = '';
+                if (!this.limited) {
+                    this.limit = 0;
                 }
 
                 let easyPayData = {
@@ -499,7 +496,7 @@
                     description: this.description,
                     entity_id: easypayData.entity_id,
                     failed_redirect_url: null,
-                    limit: null,
+                    limit: 0,
                     price: this.price,
                     public_id: easypayData.public_id,
                     purse: this.purse,
