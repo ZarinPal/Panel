@@ -272,6 +272,7 @@
     "optional": "اختیاری",
     "mandatory": "اجباری",
     "username": "نام کاربر",
+    "newUsername": "نام کاربر جدید",
     "mobile": "شماره موبایل",
     "firstInfo": "اطلاعات اولیه",
     "firstInfoMessage": "تمامی‌فیلد‌های زیر ضروری می‌باشد",
