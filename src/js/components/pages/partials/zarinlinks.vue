@@ -35,6 +35,8 @@
         created() {
             if (!this.$store.state.paginator.paginator.EasypayList) {
                 this.getZarinLinks();
+            } else {
+                this.$store.state.paginator.paginator.EasypayList.data.unshift({entity_id: 'all', title: 'همه'});
             }
         },
         methods: {
@@ -51,7 +53,7 @@
 
                 this.$store.state.paginator.paginator.EasypayList.data.push({entity_id: 'all', title: 'همه'});
 
-                if (this.selected.entity_id) {
+                if (this.selected) {
                     this.$store.state.paginator.paginator.EasypayList.data.push({
                         entity_id: this.selected.entity_id,
                         title: this.selected.title

@@ -101,11 +101,11 @@
                         div.col-xs.ta-left
                             span.value(v-if="transaction.payer.email")  {{ transaction.payer.email }}
 
-                    div.row
+                    div.row(v-if="transaction.authority_info.id")
                         div.col-xs.ta-right
                             span.title {{$i18n.t('common.authority')}}
                         div.col-xs.ta-left
-                            span.value  {{ transaction.authority_info.id}}
+                            span.value.persian-num  {{ transaction.authority_info.id}}
                     div.row
                         div.col-xs.ta-right
                             span.title {{$i18n.t('common.description')}}
