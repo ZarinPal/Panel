@@ -20,8 +20,8 @@ import VeeValidate from "vee-validate";
 import messagesFa from "./lang/validation/fa";
 import VueSentry from "vue2-sentry";
 
-import NumberFormat from './mixin/number_format';
-import Validation from './mixin/validation';
+// import NumberFormat from './mixin/number_format';
+// import Validation from './mixin/validation';
 
 Vue.use(VeeValidate, {
     locale: 'fa',
