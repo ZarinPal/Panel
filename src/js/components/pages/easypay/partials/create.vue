@@ -278,22 +278,22 @@
                 requiredFields: {
                     email: {
                         checkbox: false,
-                        status: 'hidden',
+                        status: 'optional',
                         placeholder: null
                     },
                     name: {
                         checkbox: false,
-                        status: 'hidden',
+                        status: 'optional',
                         placeholder: null
                     },
                     mobile: {
                         checkbox: false,
-                        status: 'hidden',
+                        status: 'optional',
                         placeholder: null
                     },
                     description: {
                         checkbox: false,
-                        status: 'hidden',
+                        status: 'optional',
                         placeholder: null
                     },
                 },
