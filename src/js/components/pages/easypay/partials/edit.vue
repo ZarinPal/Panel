@@ -32,7 +32,7 @@
 
                                         div.row.no-margin
                                             span.input-icon.amount-icon
-                                            vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('price')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="price" name="price" :placeholder="$i18n.t('card.transferAmountTitle')")
+                                            vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('price')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="price" v-bind:value="price" name="price" :placeholder="$i18n.t('card.transferAmountTitle')")
                                             div.ta-right(v-if="validation('price')")
                                                 span.text-danger {{ errors.first('price') }}
 
