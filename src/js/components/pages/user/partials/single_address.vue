@@ -8,9 +8,10 @@
                 transition(name="fade"
                 enter-active-class="fade-in"
                 leave-active-class="fade-out")
-                    span.close-address(@click="confirmVisible = true" v-if="singleAddress.id > 1 && visibleCloseIcon")
+                    span.close-address(@click="confirmVisible = true" v-if="singleAddress.id > 1  && visibleCloseIcon")
 
-                span.address-title.persian-num(v-if="singleAddress.id > 0" ) {{$i18n.t('user.addressTitle') + ' ' + singleAddress.id}}
+                span.address-title.persian-num(v-if="singleAddress.id > 0 && singleAddress.id < 1000" ) {{$i18n.t('user.addressTitle') + ' ' + singleAddress.id}}
+                span.address-title.persian-num(v-if="singleAddress.id > 1000" ) {{$i18n.t('user.addressTitle') + ' ' +$i18n.t('common.new')}}
             div.row.z-row
                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
                     select-box.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-validate="'required'" v-bind:data-vv-as="$i18n.t('user.addressTitlePlaceholder')" :class="{'input-danger': errors.has('addresses.'+ (singleAddress.id - 1) + '.title')}" :name="'addresses.'+ (singleAddress.id - 1) +'.title'" v-on:select="selectTitle" v-bind:selected="address.title" v-bind:data="addressTitles" :placeholder="$i18n.t('user.selectAddressTitle')")
@@ -121,6 +122,8 @@
                 this.updateAddress();
                 this.visibleMap = false;
                 this.confirmVisible = false;
+                let body = document.getElementById('body');
+                body.classList.remove("no-scroll");
             },
             selectTitle(title) {
                 this.address.title = title;
