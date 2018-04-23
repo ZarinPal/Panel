@@ -65,7 +65,6 @@
                                 address.id = addressCounter++;
                             });
                         }
-
                         if (!this.addresses.length) {
                             this.addNewAddress();
                         }
@@ -82,7 +81,7 @@
             },
             addNewAddress() {
                 this.addresses.push({
-                    id: this.addresses.length + 1,
+                    id: this.addresses.length + 1001,
                     data: {
                         address: null,
                         landline: null,
@@ -108,7 +107,6 @@
                         () => {
                             let elem = document.getElementById(address.id);
                             elem.parentNode.removeChild(elem);
-
                             _.remove(this.addresses, function (singleAddress) {
                                 return singleAddress.id == address.id;
                             });
