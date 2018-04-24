@@ -87,7 +87,7 @@
                             span.select-text(:class="{'uploaded' : fileUploaded}")
                             input(type="file" name="file" @change="onFileChange")
                             span.msg-danger(v-if="uploadResult.error_message") {{ $i18n.t('ticket.' + uploadResult.error_type)}}
-                            span.msg-success(v-if="uploadResult.file_id") {{ $i18n.t('ticket.uploadSuccess')}}
+                            span.msg-success(v-if="fileUploaded") {{ $i18n.t('ticket.uploadSuccess')}}
                         span.nav-upload-loading(v-if="fileUploading")
                             loading
 
@@ -194,6 +194,7 @@
                             text: 'TicketReplySuccessLocal',
                             type: 'success'
                         });
+                        this.fileUploaded = false;
                     },
                     (response) => {
                         this.loading = false;
@@ -226,7 +227,6 @@
                     vm.attachment = e.target.result;
                 };
                 reader.readAsDataURL(file);
-
                 let formData = new FormData();
                 formData.append('type', 'document');
                 formData.append('file', file);
@@ -237,7 +237,8 @@
                     this.fileUploaded = true;
                     this.uploadResult = response.data.meta;
                 }, (response) => {
-                    this.fileUploading = 'Failed';
+                    this.fileUploading = false;
+                    this.uploadResult = response.data.meta;
                 });
             },
             closeTicket() {
