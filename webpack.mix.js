@@ -1,5 +1,14 @@
 let mix = require('laravel-mix');
 let webpack = require('webpack');
+let httpProxy = require('http-proxy');
+let proxy = httpProxy.createProxyServer({
+    target: 'https://api.zarinpal.com/',
+    secure: false,
+    cookieDomainRewrite: "localhost"
+
+
+});
+let historyApiFallback = require('connect-history-api-fallback');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,13 +21,32 @@ let webpack = require('webpack');
  |
  */
 
+
 mix.js('src/js/app.js', 'assets/js')
     .sass('src/sass/app.scss', 'assets/css')
     .sass('src/sass/oauth/app.scss', 'assets/css/oauth.css')
     .setPublicPath('assets')
     .setResourceRoot('../')
     .version()
-    .sourceMaps();
+    .sourceMaps()
+    .browserSync(({
+        proxy: false,
+        port: '8000',
+        startPath: "/panel/home",
+        server: {
+            baseDir: './',
+            middleware: [
+                function (req, res, next) {
+                    if (req.url.indexOf('rest') !== -1) {
+                        proxy.web(req, res);
+                    } else {
+                        next();
+                    }
+                },
+                historyApiFallback()
+            ]
+        }
+    }));
 
 let plugins = [];
 
@@ -50,6 +78,19 @@ if ('production' === process.env.NODE_ENV) {
     }));
 
 }
+let siteConfigs = {
+    baseUrl: 'https://my.zarinpal.com',
+};
+if ('production' !== process.env.NODE_ENV) {
+    siteConfigs = {
+        baseUrl: 'http://localhost:8000',
+    };
+}
+plugins.push(
+    new webpack.DefinePlugin({
+        siteConfigs: JSON.stringify(siteConfigs)
+    })
+);
 
 mix.webpackConfig({
     plugins: plugins
