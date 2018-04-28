@@ -1,5 +1,14 @@
 let mix = require('laravel-mix');
 let webpack = require('webpack');
+let httpProxy = require('http-proxy');
+let proxy = httpProxy.createProxyServer({
+    target: 'https://api.zarinpal.com/',
+    secure:false,
+    cookieDomainRewrite: "localhost"
+
+
+});
+let historyApiFallback = require('connect-history-api-fallback');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,13 +21,32 @@ let webpack = require('webpack');
  |
  */
 
-mix.js('src/js/app.js', 'assets/js')
-    .sass('src/sass/app.scss', 'assets/css')
-    .sass('src/sass/oauth/app.scss', 'assets/css/oauth.css')
+
+
+mix//.js('src/js/app.js', 'assets/js')
+    //.sass('src/sass/app.scss', 'assets/css')
+    //.sass('src/sass/oauth/app.scss', 'assets/css/oauth.css')
     .setPublicPath('assets')
     .setResourceRoot('../')
     .version()
-    .sourceMaps();
+    .sourceMaps()
+    .browserSync(({
+        proxy: false,
+        port: '8000',
+        server: {
+            baseDir: './',
+            middleware: [
+                function(req, res, next) {
+                    if (req.url.indexOf('rest') !== -1) {
+                        proxy.web(req, res);
+                    } else {
+                        next();
+                    }
+                },
+                historyApiFallback()
+            ]
+        } // this is the only difference
+    }));
 
 let plugins = [];
 
@@ -41,7 +69,7 @@ if ('production' === process.env.NODE_ENV) {
         organization: 'sentry',
         project: 'panel',
         apiKey: '2f7d2e3c06a24d9c9642ff51c44269a13d3935075f194a91982386667b4cf730',
-        filenameTransform: function(filename) {
+        filenameTransform: function (filename) {
             return '~/panel/v1/assets' + filename
         },
         // Release version name/hash is required

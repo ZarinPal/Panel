@@ -28,12 +28,12 @@ new Vue({
     router: require('./router').default,
     data() {
         return {
-            // baseUrl: 'http://api.zarinpal.test', // local: panel base
+            // baseUrl: 'http://localhost:8000', // local: panel base
             baseUrl: 'https://my.zarinpal.com', // production: panel base
         }
     },
     http: {
-        // root: 'http://api.zarinpal.test/rest/v3',// local: panel base
+        // root: 'http://localhost:8000/rest/v3',// local: panel base
         root: 'https://my.zarinpal.com/rest/v3',// production: panel base
     },
     created() {
