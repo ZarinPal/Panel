@@ -4,8 +4,7 @@
             div.box
                 <!--Header-->
                 div.row.top-xs
-                    span.zp-icon
-                    span.zp-title {{ $i18n.t('common.zarinPal') }}
+                    div.logo
                 <!--Body-->
 
                 form(action="#" method="post" onsubmit="event.preventDefault();")
@@ -73,10 +72,10 @@
             if (this.$store.state.auth.check) {
                 this.$router.push({name: 'home.index'});
             }
-            if (this.$route.query.referrerId) {
+            if (this.$route.query.referrer) {
                 localStorage.setItem('zp_referrer',
                     JSON.stringify({
-                        referrer: this.$route.query.referrerId,
+                        referrer: this.$route.query.referrer,
                         expire_in: moment().add(3, 'day').unix()
                     }));
             }
@@ -113,9 +112,9 @@
                 if (this.$route.query.referrer) {
                     auth2Data.referrer = atob(this.$route.query.referrer);
                     localStorage.setItem('zp_referrer', {
-                            referrer: auth2Data.referrer,
-                            expire_in: moment().add(3, 'day').unix()
-                        });
+                        referrer: auth2Data.referrer,
+                        expire_in: moment().add(3, 'day').unix()
+                    });
                 } else {
                     let referrerObj = JSON.parse(localStorage.getItem('zp_referrer'));
                     if (referrerObj && referrerObj.expire_in > moment().unix()) {

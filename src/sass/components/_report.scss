@@ -1,49 +1,121 @@
 $tableBackgroundColor: #eee;
 $tableBorderColor: #777;
 
-.zp-calendar-body {
-  font-family: IRANSansLightPersian;
-  font-size: 13px;
-  .zp-weekday {
-    background-color: $tableBackgroundColor;
-    td {
-      padding: 10px;
-      text-align: center;
-    }
+.show-income-amount {
+  color: #52b983;
+  border-radius: 5px;
+  background-color: #ddfef3;
+  margin-left: 10px;
+  position: relative;
+  padding: 3px 12px 2px 10px;
+  margin-bottom: 5px;
+  font-weight: 300;
+  font-size: 11px;
+}
+
+.show-income-count {
+  color: #52b983;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.show-outgo-amount {
+  color: #e72256;
+  border-radius: 5px;
+  background-color: #fee6ef;
+  margin-left: 10px;
+  position: relative;
+  padding: 3px 12px 2px 10px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.show-outgo-count {
+  color: #e72256;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.day-of-month {
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #f2f3f5;
+  border-radius: 100%;
+  margin-left: 3px;
+  margin-bottom: 3px;
+  text-align: center;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.day-of-month-disable {
+  opacity: 0.3;
+}
+
+.cell {
+  padding: 10px 5px 20px 5px !important;
+  border-left: 1px solid #f2f3f5;
+  position: relative;
+  &:last-child {
+    border-left: none;
   }
 
-  .zp-week-days-row {
-    border-bottom: 1px solid $tableBorderColor;
-    .zp-cell {
-      .trans-count {
-        border-radius: 3px;
-        margin: 0 5px;
-      }
+  &.today {
+    border: 2px solid;
+    border-radius: 5px;
+    border-color: rgba(159, 202, 241, 0.50);
+    background-color: rgba(159, 202, 241, 0.15);
 
-      .zp-day-number {
-        color: #777;
-      }
-    }
+  }
+  &.zp-inActive {
+    background-color: rgba(204, 210, 160, 0.15);
+
   }
 }
 
-
-.zp-disabled-holiday {
-
+.min-height-box {
+  min-height: 100px;
 }
 
-.zp-holiday {
+.btn-gradient-radius {
+  background-color: #fff;
+  border-radius: 60px;
+  margin-left: 10px;
+  height: 35.2px;
+  transition: $animateTime;
+  margin-top: 10px;
 
-}
+  .btn-icon {
+    position: relative;
+    top: -2px;
 
-.zp-inActive {
+    &:before {
+      font-family: 'zarinpal';
+      font-style: normal;
+      font-size: 22px;
+      color: $labelColor !important;
+      position: relative;
+      top: 3px;
+    }
+  }
+  .btn-label {
+    font-size: 14px;
+    color: $labelColor;
+    margin-right: 7px;
+    position: relative;
+    top: -5px;
+  }
 
-}
-
-.zp-disabled-holiday {
-
-}
-
-.zp-today {
-
+  .icon-zp-calendar {
+    &::before {
+      content: $icon-zp-calendar;
+      position: relative;
+      top: 3px;
+    }
+  }
 }

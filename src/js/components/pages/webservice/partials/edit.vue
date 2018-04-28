@@ -28,6 +28,7 @@
                                 div.row.no-margin(v-if="visibleIp == 'yes'")
                                     span.input-icon.ip-icon
                                     input.ltr-input(v-validate="'ip'" :class="{'input-danger': errors.has('site_ip')}"  v-bind:data-vv-as="$i18n.t('webservice.ipServer')" type="text" v-model="site_ip" name="site_ip"  id="site_ip" placeholder= "IP" autofocus tabindex="1")
+                                    span.text-help {{ $i18n.t('webservice.ipServerHelp') }}
                                     div.ta-right(v-if="validation('site_ip')")
                                         span.text-danger {{ errors.first('site_ip') }}
 
@@ -40,6 +41,11 @@
                                     webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
                                     div.ta-right(v-if="validation('webservice_category_id')")
                                         span.text-danger {{ errors.first('webservice_category_id') }}
+                                <!--div.row.no-margin-->
+                                <!--input(type="checkbox"  id= "activeCoupon" v-model="active_coupon" )-->
+                                <!--label(for="chkLimit")-->
+                                <!--span-->
+                                <!--| نمایش آیتم کد تخفیف در صفحه درگاه پرداخت-->
 
                                 div.row
                                     div.nav-picker
@@ -119,6 +125,7 @@
             this.site_content = this.webservice.description;
             this.tel = this.webservice.tel;
             this.selectedLogo = this.webservice.logo;
+            //this.active_coupon = this.webservice.
 
             if (this.webservice.ip) {
                 this.visibleIp = 'yes';

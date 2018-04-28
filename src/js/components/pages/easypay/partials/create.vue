@@ -1,4 +1,3 @@
-f
 <template lang="pug">
     div.inner-content
         div.row.nav-page-header
@@ -35,14 +34,13 @@ f
                                                 span.text-danger {{ errors.first('price') }}
 
                                         div.row.no-margin
-                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'max:128'" :class="{'input-danger': errors.has('description')}" v-bind:data-vv-as="$i18n.t('common.description')" v-model="description" id="description" name="description" :placeholder= "$i18n.t('common.description')" tabindex="3")
+                                            textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'max:128'" :class="{'input-danger': errors.has('description')}" v-bind:data-vv-as="$i18n.t('easypay.description')" v-model="description" id="description" name="description" :placeholder= "$i18n.t('easypay.description')" tabindex="3")
                                             div.ta-right(v-if="validation('description')")
                                                 span.text-danger {{ errors.first('description') }}
-
                                         div.row.no-margin.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
-                                                input(@change="changePayTo" name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurseٌ")
-                                                label(for="rdoPurseٌ")
+                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurse")
+                                                label(for="rdoPurse")
                                                     span
                                                     | {{ $i18n.t('user.purse') }}
 
@@ -53,7 +51,7 @@ f
 
                                         div.row.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                input(@change="changePayTo" name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
+                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
                                                 label(for="rdoWebservice")
                                                     span
                                                     | {{ $i18n.t('coupon.webservice') }}
@@ -62,6 +60,8 @@ f
                                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-on:select="selectedWebservice" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" :placeholder="$i18n.t('easypay.selectWebservice')")
                                                 <!--div.ta-right(v-if="validation('webservice_id')")-->
                                                 <!--span.text-danger {{ errors.first('webservice_id') }}-->
+                                            div.col-lg-11.col-md-11.sm-11.col-xs-11
+                                                p.form-message.ta-right {{$i18n.t('easypay.firstInfoHelp')}}
 
                                         div.cb
                                         div.row.nav-buttons
@@ -73,7 +73,7 @@ f
                     div.body
                         <!--2-->
                         div.row(v-bind:class="{'inactive-step' : step !== 2}")
-                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12
+                            div.col-lg-12.col-md-12.col-sm-12.col-xs-12
                                 div.row
                                     div.col-lg-1.col-md-1.col-sm-1.col-xs-1
                                         div.step-number(v-ripple=""  v-bind:class="{'active-step-number' : step == 2}") ۲
@@ -84,73 +84,107 @@ f
                                         p.form-message.ta-right {{$i18n.t('easypay.orderFormMessage')}}
                                         <!--2-1-->
                                         div.row.f-row
-                                            div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
                                                 div.ta-right
-                                                    input(name="email-optional" v-model="requiredFields.email" type="checkbox" id="chkEmail")
+                                                    input(name="email-optional" v-model="requiredFields.email.checkbox" type="checkbox" id="chkEmail")
                                                     label(for="chkEmail")
                                                         span
                                                         | {{ $i18n.t('common.email')}}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.email")
+                                            div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.email.checkbox")
                                                 div.row
-                                                    div.col-xs.ta-right
-                                                        input(name="email-optional" v-model="requiredFields.email" value="0" type="radio" id="rdoEmailOptional")
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
+                                                        input(name="email-optional" v-model="requiredFields.email.status" value="optional" type="radio" id="rdoEmailOptional")
                                                         label(for="rdoEmailOptional")
                                                             span
-                                                            | {{ $i18n.t('easypay.optional')}}
+                                                            | {{ $i18n.t('easypay.optional') }}
 
-                                                    div.col-xs.ta-right
-                                                        input(name="email-optional" v-model="requiredFields.email" value="1" type="radio" id="rdoEmailMandatory")
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
+                                                        input(name="email-optional" v-model="requiredFields.email.status" value="required" type="radio" id="rdoEmailMandatory")
                                                         label(for="rdoEmailMandatory")
                                                             span
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
+                                                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
+
                                         <!--2-2-->
                                         div.row.f-row(v-bind:class="{'inactive-step' : step > 3}")
-                                            div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
                                                 div.ta-right
-                                                    input(name="usernameOptional" v-model="requiredFields.name" type="checkbox" id="chkUserName")
+                                                    input(name="usernameOptional" v-model="requiredFields.name.checkbox" type="checkbox" id="chkUserName")
                                                     label(for="chkUserName")
                                                         span
                                                         | {{ $i18n.t('easypay.username')}}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.name")
+                                            div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.name.checkbox")
                                                 div.row
-                                                    div.col-xs.ta-right
-                                                        input(name="usernameOptional" v-model="requiredFields.name" value="0" type="radio" id="rdoUsernameOptional")
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
+                                                        input(name="usernameOptional" v-model="requiredFields.name.status" value="optional" type="radio" id="rdoUsernameOptional")
                                                         label(for="rdoUsernameOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-xs.ta-right
-                                                        input(name="usernameOptional" v-model="requiredFields.name" value="1" type="radio" id="rdoUsernameMandatory")
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
+                                                        input(name="usernameOptional" v-model="requiredFields.name.status" value="required" type="radio" id="rdoUsernameMandatory")
                                                         label(for="rdoUsernameMandatory")
                                                             span
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
+                                                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
+
                                         <!--2-3-->
                                         div.row.f-row
-                                            div.col-lg-5.col-md-5.col-sm-5.col-xs-12.nav-required-fields
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
                                                 div.ta-right
-                                                    input(name="mobileOptional" v-model="requiredFields.mobile"  type="checkbox"  id="chkMobile")
+                                                    input(name="mobileOptional" v-model="requiredFields.mobile.checkbox" type="checkbox" id="chkMobile")
                                                     label(for="chkMobile")
                                                         span
                                                         | {{ $i18n.t('easypay.mobile') }}
 
-                                            div.nav-optional-radios.col-lg-7.col-md-7.col-sm-7.col-xs-12(v-show="requiredFields.mobile")
+                                            div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.mobile.checkbox")
                                                 div.row
-                                                    div.col-xs.ta-right
-                                                        input(name="mobileOptional" v-model="requiredFields.mobile" value="0" type="radio" id="rdoMobileOptional")
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
+                                                        input(name="mobileOptional" v-model="requiredFields.mobile.status" value="optional" type="radio" id="rdoMobileOptional")
                                                         label(for="rdoMobileOptional")
                                                             span
                                                             | {{ $i18n.t('easypay.optional')}}
 
-                                                    div.col-xs.ta-right
-                                                        input(name="mobileOptional" v-model="requiredFields.mobile" value="1" type="radio" id="rdoMobileMandatory")
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
+                                                        input(name="mobileOptional" v-model="requiredFields.mobile.status" value="required" type="radio" id="rdoMobileMandatory")
                                                         label(for="rdoMobileMandatory")
                                                             span
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
+                                                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                        input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" placeholder='توضیحات در اینجا')
+
+                                        <!--2-4-->
+                                        div.row.f-row
+                                            div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
+                                                div.ta-right
+                                                    input(name="mobileOptional" v-model="requiredFields.description.checkbox" type="checkbox" id="chkDescription")
+                                                    label(for="chkDescription")
+                                                        span
+                                                        | {{ $i18n.t('easypay.description') }}
+
+                                            div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.description.checkbox")
+                                                div.row
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
+                                                        input(name="descriptionOptional" v-model="requiredFields.description.status" value="optional" type="radio" id="rdoDescriptionOptional")
+                                                        label(for="rdoDescriptionOptional")
+                                                            span
+                                                            | {{ $i18n.t('easypay.optional')}}
+
+                                                    div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
+                                                        input(name="descriptionOptional" v-model="requiredFields.description.status" value="required" type="radio" id="rdoDescriptionMandatory")
+                                                        label(for="rdoDescriptionMandatory")
+                                                            span
+                                                            | {{ $i18n.t('easypay.mandatory')}}
+
+                                                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12
+                                                        input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" placeholder='توضیحات در اینجا')
 
                                         div.row
                                             div.col-xs.nav-buttons
@@ -242,15 +276,32 @@ f
                 webservice_id: null,
                 purse_name: null,
                 requiredFields: {
-                    email: false,
-                    name: false,
-                    mobile: false
+                    email: {
+                        checkbox: false,
+                        status: 'optional',
+                        placeholder: null
+                    },
+                    name: {
+                        checkbox: false,
+                        status: 'optional',
+                        placeholder: null
+                    },
+                    mobile: {
+                        checkbox: false,
+                        status: 'optional',
+                        placeholder: null
+                    },
+                    description: {
+                        checkbox: false,
+                        status: 'optional',
+                        placeholder: null
+                    },
                 },
                 showReceipt: false,
                 successfulRedirectUrl: null,
                 failedRedirectUrl: null,
                 limited: false,
-                limit: null,
+                limit: 0,
             }
         },
         computed: {
@@ -295,20 +346,9 @@ f
             selectedPurse(purseId) {
                 this.purse = purseId;
                 this.purse_name = this.getPurseName(purseId);
-                this.webservice_id = null;
             },
             selectedWebservice(entityId) {
                 this.webservice_id = entityId;
-                this.purse = null;
-                this.purse_name = null;
-            },
-            changePayTo() {
-                if (this.payTo === 'webservice') {
-                    this.purse = null;
-                    this.purse_name = null;
-                } else if (this.payTo === 'purse') {
-                    this.webservice_id = null;
-                }
             },
             stepTwo() {
                 if ((this.payTo === 'purse' && !this.purse) || (this.payTo === 'webservice' && !this.webservice_id)) {
@@ -362,10 +402,23 @@ f
                     purse: this.purse,
                     webservice_id: this.webservice_id,
                     purse_name: purseName,
-                    required_fields: {
-                        email: '-1',
-                        name: '-1',
-                        mobile: '-1'
+                    requiredFields: {
+                        email: {
+                            status: 'hidden',
+                            placeholder: null
+                        },
+                        name: {
+                            status: 'hidden',
+                            placeholder: null
+                        },
+                        mobile: {
+                            status: 'hidden',
+                            placeholder: null
+                        },
+                        description: {
+                            status: 'hidden',
+                            placeholder: null
+                        },
                     },
                 };
 
@@ -390,13 +443,9 @@ f
             editAfterCreate() {
                 this.editLoading = true;
 
-                this.handleOrderOptions();
                 this.handleShowReceipt();
-                if (this.limited === true) {
-                    this.limited = 1;
-                } else {
-                    this.limited = 0;
-                    this.limit = '';
+                if (!this.limited) {
+                    this.limit = 0;
                 }
 
                 let easyPayData = {
@@ -406,9 +455,10 @@ f
                     price: this.price,
                     purse: this.purse,
                     required_fields: {
-                        email: this.requiredFields.email,
-                        name: this.requiredFields.name,
-                        mobile: this.requiredFields.mobile
+                        email: this.handleOrderOptionsSave('email'),
+                        name: this.handleOrderOptionsSave('name'),
+                        mobile: this.handleOrderOptionsSave('mobile'),
+                        description: this.handleOrderOptionsSave('description')
                     },
                     show_receipt: this.showReceipt,
                     successful_redirect_url: this.successfulRedirectUrl,
@@ -446,7 +496,7 @@ f
                     description: this.description,
                     entity_id: easypayData.entity_id,
                     failed_redirect_url: null,
-                    limit: null,
+                    limit: 0,
                     price: this.price,
                     public_id: easypayData.public_id,
                     purse: this.purse,
@@ -474,6 +524,7 @@ f
                 this.$store.state.auth.user.easypays[easypayIndex].required_fields.email = this.requiredFields.email;
                 this.$store.state.auth.user.easypays[easypayIndex].required_fields.name = this.requiredFields.name;
                 this.$store.state.auth.user.easypays[easypayIndex].required_fields.mobile = this.requiredFields.mobile;
+                this.$store.state.auth.user.easypays[easypayIndex].required_fields.description = this.requiredFields.description;
                 this.$store.state.auth.user.easypays[easypayIndex].show_receipt = this.showReceipt;
                 this.$store.state.auth.user.easypays[easypayIndex].successful_redirect_url = this.successfulRedirectUrl;
                 this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
@@ -481,18 +532,18 @@ f
                 this.$store.state.auth.user.easypays[easypayIndex].limited = this.limited;
                 this.$store.state.auth.user.easypays[easypayIndex].limit = this.limit;
             },
-            handleOrderOptions() {
-                if (this.requiredFields.email === false) {
-                    this.requiredFields.email = '-1';
+            handleOrderOptionsSave(requireFieldName) {
+                if (this.requiredFields[requireFieldName].checkbox) {
+                    return {
+                        status: this.requiredFields[requireFieldName].status,
+                        placeholder: this.requiredFields[requireFieldName].placeholder,
+                    }
                 }
 
-                if (this.requiredFields.name === false) {
-                    this.requiredFields.name = '-1';
-                }
-
-                if (this.requiredFields.mobile === false) {
-                    this.requiredFields.mobile = '-1';
-                }
+                return {
+                    status: 'hidden',
+                    placeholder: null,
+                };
             },
             handleShowReceipt() {
                 if (this.showReceipt === false) {

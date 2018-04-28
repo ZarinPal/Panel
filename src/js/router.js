@@ -35,6 +35,14 @@ export default new VueRouter({
             }
         },
         {
+            path: '/panel/ticket/guest/:email?/:publicId?',
+            name: 'ticket.guest',
+            component: require('./components/pages/ticket/guest.vue'),
+            meta: {
+                standAlone: true
+            }
+        },
+        {
             path: '/panel',
             component: require('./components/pages/panel.vue'),
             children: [
@@ -100,19 +108,19 @@ export default new VueRouter({
                             }
                         },
                         {
-                            path: 'easypay/:visiblePersonalLink?',
-                            name: 'easypay.index',
-                            component: require('./components/pages/easypay/index.vue'),
-                            meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
-                            }
-                        },
-                        {
                             path: 'easypay/create',
                             name: 'easypay.create',
                             component: require('./components/pages/easypay/partials/create.vue'),
                             meta: {
                                 accessLevel: ['basic', 'silver', 'gold']
+                            }
+                        },
+                        {
+                            path: 'easypay',
+                            name: 'easypay.index',
+                            component: require('./components/pages/easypay/index.vue'),
+                            meta: {
+                                accessLevel: ['silver', 'gold']
                             }
                         },
                         {
@@ -166,7 +174,7 @@ export default new VueRouter({
                         {
                             path: 'transactionsession/:id',
                             name: 'transactionsession.index',
-                            component: require('./components/pages/transactionsession/index.vue'),
+                            component: require('./components/pages/transaction_sessions/index.vue'),
                             meta: {
                                 accessLevel: ['basic', 'silver', 'gold']
                             }

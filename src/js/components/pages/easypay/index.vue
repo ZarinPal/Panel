@@ -1,18 +1,25 @@
 <template lang="pug">
     div.inner-content
         div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+            div.col-lg-4.col-md-6.col-sm-12.col-xs-12
                 p.page-title {{ $i18n.t('common.easypay') }}
                 p.page-description {{ $i18n.t('common.easypayDescription') }}
 
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                router-link.btn.success(tag="button" v-bind:to="{ name: 'easypay.create'}")
+            div.col-lg-8.col-md-6.col-sm-12.col-xs-12
+                router-link.btn.success.pull-left(tag="button" v-bind:to="{ name: 'easypay.create'}")
                     span.icon-add-circle
                     span.text {{ $i18n.t('easypay.createEasypay') }}
-
-                button.btn.success(@click="visibleRequestPersonalLink = true")
+                button.btn.success(@click="visibleRequestPersonalLink = true" v-if="!user.username")
                     span.icon-add-circle
                     span.text {{ $i18n.t('user.requestPersonalLinkTitle') }}
+                a.btn.simple(:href="preLink + user.username" target='_blank' v-if="user.username")
+                    span.btn-label لینک شخصی شما:
+                    span.btn-label.color-link   {{shortPreLink + user.username}}
+
+
+
+
+
         div.row
             div.col-xs
                 div.section
@@ -52,7 +59,7 @@
 <script>
     import singleEasypay from './partials/single-easypay.vue';
     import loading from '../../pages/partials/loading.vue';
-    import personalLink from '../../pages/easypay/partials/personal_link';
+    import personalLink from '../../pages/easypay/partials/personal_link.vue';
 
     export default {
         name: 'easypay-index',
@@ -61,6 +68,8 @@
                 searchOptions: {
                     title: ''
                 },
+                preLink: 'https://Zarinp.al/@',
+                shortPreLink: 'Zarinp.al/@',
                 visibleRequestPersonalLink: false,
             }
         },

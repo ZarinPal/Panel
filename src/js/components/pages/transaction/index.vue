@@ -8,7 +8,9 @@
                 p.page-description {{ $i18n.t('transaction.description') }}
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
-                <!--router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'report.index', params: {reportFor: 'purse', reportId: this.$route.params.id}} ") گزارش-->
+                router-link.btn.btn-gradient-radius.pull-left(tag="button" v-bind:to="{ name: 'report.index', params: {reportFor: 'purse', reportId: this.$route.params.id}} ")
+                    i.btn-icon.icon-zp-calendar
+                    span.btn-label روزشمار ماهانه
 
         div.row
             div.col-xs
@@ -26,7 +28,7 @@
                                     input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
                                     div.break
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" placeholder="انتخاب کنید ...")
+                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" placeholder="انتخاب کنید ...")
                                     div.break
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
@@ -50,37 +52,37 @@
                                                 span.text-danger {{ errors.first('toDate') }}
 
         div.row.filter-row
-            div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
                 span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
                 span(v-for="purse in user.purses")
                     span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
-            div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                a.icon-excel.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl") {{$i18n.t('transaction.excelExport')}}
-
-                div.break
-
-            div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
+                a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
+                    span.icon-zp-excel
+                    span {{$i18n.t('transaction.excelExport')}}
+            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
                 ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
                     li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
                     li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
                     li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
                     li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
 
+
         div.transaction-header-container
             div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
-                div.col-lg-2.col-md-2.col-sm-3.hidden-xs
+                div.col-lg-2.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('transaction.id') }}
-                div.col-lg-3.col-md-3.col-sm-3.hidden-xs
+                div.col-lg-3.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('transaction.source') }}
                     span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
-                div.col-lg-3.col-md-3.col-sm-3.col-xs-12.hidden-title-md.hidden-xs
+                div.col-lg-3.col-md.col-sm.hidden-title-md.hidden-xs
                     span {{ $i18n.t('transaction.destination') }}
-                div.col-lg-2.col-md-3.col-sm-1.col-xs-12.hidden-xs
+                div.col-lg-2.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('transaction.date') }}
-                div.col-lg-1.col-md-2.col-sm-1.hidden-xs
+                div.col-lg-1.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('transaction.amount') }}
                     small ({{ $i18n.t('transaction.toman') }})
-                div.col-lg-1.col-md-2.col-sm-1.hidden-xs
+                div.col-lg-1.col-md.col-sm.hidden-xs
                     span {{ $i18n.t('common.balance') }}
                     small ({{ $i18n.t('transaction.toman') }})
 
@@ -141,6 +143,14 @@
                     {
                         title: 'شماره‌موبایل',
                         value: 'mobile'
+                    },
+                    {
+                        title: 'شماره ارجاع شتابی(RRN)',
+                        value: 'rrn'
+                    },
+                    {
+                        title: 'شناسه یکتا پرداخت',
+                        value: 'authority'
                     }
 
                 ],
@@ -276,6 +286,12 @@
                         break;
                     case 'mobile':
                         this.placeholder = '09xxxxxxxxx';
+                        break;
+                    case 'rrn':
+                        this.placeholder = '00123456789';
+                        break;
+                    case 'authority':
+                        this.placeholder = '71846244';
                         break;
                 }
             },

@@ -30,6 +30,11 @@
       content: $iconEdit;
     }
   }
+  .report-icon {
+    &::before {
+      content: $iconReport;
+    }
+  }
 
   .header {
     .ta-left-box {
@@ -62,19 +67,24 @@
     }
 
     span.merchant-code {
-      width: 90%;
+      width: 95%;
       overflow: hidden;
       height: 10px;
     }
     .txt-webservice-id {
       border: 0px;
       margin-top: -3px;
+      width: 95%;
+
     }
     .box-row {
       .tag {
         margin-top: -3px;
         margin-bottom: -3px;
       }
+    }
+    .webservice-code-label {
+      padding-top: 8px;
     }
   }
 }

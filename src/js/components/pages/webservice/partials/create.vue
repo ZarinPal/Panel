@@ -17,7 +17,7 @@
                                     div.ta-right(v-if="validation('site_name')")
                                         span.text-danger {{ errors.first('site_name') }}
 
-                                div.row.no-margin
+                                div.row.no-margin.input-group-box
                                     span.input-icon.earth-icon
                                     div.row.input-group.no-margin.full-width(:class="{'input-danger': errors.has('domain')}")
                                         div.col-xs.no-margin
@@ -31,15 +31,17 @@
                                 div.row.no-margin
                                     span.input-icon.mobile-icon
                                     input.ltr-input(v-validate="{rules: {required: true}}" :class="{'input-danger': errors.has('tel')}"  v-bind:data-vv-as="$i18n.t('webservice.tel')" type="text" v-model="tel" name="tel" :placeholder= "$i18n.t('webservice.tel')" tabindex="3" )
+                                    span.text-help {{ $i18n.t('webservice.telHelp') }}
                                     div.ta-right(v-if="validation('tel')")
                                         span.text-danger {{ errors.first('tel') }}
 
                                 div.row.no-margin
-                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-validate="'required'" :class="{'input-danger': errors.has('site_content')}" v-model="site_content" v-bind:data-vv-as="$i18n.t('webservice.info')" name="site_content" :placeholder= "$i18n.t('webservice.info')"  tabindex="4")
+                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12.p-b-10(v-validate="'required'" :class="{'input-danger': errors.has('site_content')}" v-model="site_content" v-bind:data-vv-as="$i18n.t('webservice.info')" name="site_content" :placeholder= "$i18n.t('webservice.info')"  tabindex="4")
                                 div.ta-right(v-if="validation('site_content')")
                                     span.text-danger {{ errors.first('site_content') }}
 
                                 div.row.no-margin
+                                    span.text-help {{ $i18n.t('webservice.selectPurseHelp') }}
                                     purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
@@ -51,10 +53,9 @@
 
                     div.row
                         div.col-xs.nav-buttons
-                            button.btn.success.pull-left(v-ripple=""  @click="validateForm" tabindex="7") {{$i18n.t('webservice.create')}}
+                            button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="7" :class="{'disable': loading}") {{$i18n.t('webservice.create')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
 </template>
 
 <script>
@@ -117,6 +118,10 @@
                 this.webservice_category_id = webserviceCatId;
             },
             createWebservice() {
+                if (this.loading) {
+                    return;
+                }
+
                 if (this.errors.length) {
                     store.commit('flashMessage', {
                         text: 'WebserviceFixValidationErrorsLocal',
@@ -139,7 +144,7 @@
 
                 this.loading = true;
                 let webserviceData = {
-                    domain: this.domain,
+                    domain: this.domain.toLowerCase(),
                     tel: this.tel,
                     purse: this.purse,
                     webservice_category_id: this.webservice_category_id,
@@ -148,12 +153,14 @@
                 };
 
                 this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
-                    () => {
+                    (response) => {
                         store.commit('flashMessage', {
                             text: 'WebserviceTicketNewLocal',
                             type: 'success',
                         });
-                        this.$router.push({name: 'webservice.index'})
+                        this.loading = false;
+
+                        this.$router.push({name: 'ticket.show', params: {id: response.data.data.ticket_id}})
                     },
                     (response) => {
                         this.loading = false;

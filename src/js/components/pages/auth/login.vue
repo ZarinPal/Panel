@@ -1,13 +1,12 @@
 <template lang="pug">
     div.row.center-xs.no-margin(v-if="$store.state.app.isLoaded")
-        div.col-xs-12.col-sm-5.col-md-5.col-lg-3.section.auth-box
+        div.col-xs-12.col-sm-5.col-md-5.col-lg-4.section.auth-box
             div.box
                 <!--Header-->
                 span.hand.change-login-type(@click="loginByMobileApplication()" v-if="step == 1 && !loginByMobileApp" title='ورود با موبایل')
                 span.hand.change-login-type-keybord(@click="loginByMobileApp = !loginByMobileApp"  v-if="loginByMobileApp")
                 div.row.top-xs
-                    span.zp-icon
-                    span.zp-title {{ $i18n.t('common.zarinPal') }}
+                    div.logo
 
                 <!--Body-->
                 <!--First step enter mobile-->
@@ -47,10 +46,11 @@
                         div.col-lg-12.ta-right
                             p {{ $i18n.t('user.loginToUserAccountMobile') }}
                             span {{ $i18n.t('user.loginByMobileApp') }}
-                    div.ta-center.no-margin.col-lg-12
-                        img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri"  alt='Qr Code')
+                    div.ta-center.no-margin.col-xs
+                        img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri")
                         loading(v-else)
-                        a.link(href="http://www.zarinpal.mobi" target="blank") {{$i18n.t('user.downloadMobileApp')}}
+                        a.btn-gradient-radius(href="http://www.zarinpal.mobi" target="blank")
+                            span.btn-label {{$i18n.t('user.downloadMobileApp')}}
 
                 <!--Second step call ussd code-->
                 form(method="post" @submit.prevent="login" v-if="step == 2" onsubmit="event.preventDefault();")
@@ -87,12 +87,12 @@
                                 div.col-xs
                                     div.ussd-text.vazir(v-if="ussdType =='Code'" @click="clipboardMessage(ussdCode)" v-clipboard="" v-bind:data-clipboard-text="ussdCode") {{ussdCode | persianNumbers}}
                                     img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
-                            span.hidden-lg.hidden-md {{ $i18n.t('user.copyUssd') }}
+                            span.hidden-lg.hidden-md(v-if="ussdType =='Qr'") {{ $i18n.t('user.copyUssd') }}
 
                         div.col-xs-12.no-margin.dir-ltr
                             div.otp-container
                                 div.input-cover
-                                    input(@change="otpMaxLength()" @keyup="otpMaxLength()" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
+                                    input(@input="otpMaxLength" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
                                 div.dashed-line
 
                     div.row.bottom-xs
@@ -101,17 +101,13 @@
                             timer(v-if="visibleOtpTimer" v-bind:seconds="$store.state.auth.otpTime" v-on:onFinished="finishTimer")
 
                         div.col-xs.no-margin
-                            button.gold.pull-left(id="btnSubmitLogin") {{$i18n.t('user.enter')}}
+                            button.gold.pull-left(id="btnSubmitLogin" :class="{'disable': loginLoading}") {{$i18n.t('user.enter')}}
                                 svg.material-spinner(v-if="loginLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
             <!--Privacy Policy-->
             div.row.auth-privacy-footer
                 div.col-xs.ta-right
-                    span.icon-prev
-                    a.link(href="https://www.zarinpal.com/auth/login" target="_blank") {{$i18n.t('user.loginToOldPanel')}}
-                    <!--router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{$i18n.t('user.register')}}-->
-                div.col-xs.ta-left
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
 
 
@@ -134,7 +130,7 @@
                 loginLoading: false,
                 ussdType: 'Code',
                 username: "",
-                otp: null,
+                otp: "",
                 otpObject: {},
                 step: 1,
                 avatar: null,
@@ -176,26 +172,44 @@
             }
         },
         created() {
+            let vm = this;
+
             /**
              * Automatic login
              */
             this.username = this.$route.params.email;
             this.otp = this.$route.params.otp;
-            if (this.username || this.otp) {
-                this.login();
+
+
+            let oauthCheckParams = {};
+            if (this.$route.params.otp && this.$route.params.email) {
+                oauthCheckParams = {
+                    token: this.$route.params.otp,
+                    email: this.$route.params.email
+                };
             }
 
-            let vm = this;
             this.$store.state.http.requests['oauth.check']
-                .get()
+                .get(oauthCheckParams)
                 .then(() => {
                     vm.$router.push({name: 'home.index'});
                 })
                 .catch(() => {
+                    if (this.username && this.otp) {
+                        this.login();
+                    }
                 });
         },
         methods: {
             sendOtp(channel){
+                if (!this.username) {
+                    store.commit('flashMessage', {
+                        text: 'MobileOrEmailNull',
+                        important: false,
+                        type: 'danger'
+                    });
+                    return false;
+                }
                 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 //if username is email
                 if (emailRegex.test(this.username)) {
@@ -271,8 +285,18 @@
                 });
             },
             login(){
-                this.loginLoading = true;
 
+                this.loginLoading = true;
+                if (!this.otp || (this.otp && this.otp.length < 6)) {
+                    store.commit('flashMessage', {
+                        text: 'InvalidOtp',
+                        important: false,
+                        type: 'danger'
+                    });
+                    this.loginLoading = false;
+                    return false;
+                }
+                let vm = this;
                 let auth2Data = {
                     grant_type: "password",
                     client_id: "panel-client",
@@ -285,8 +309,12 @@
 
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
-                        this.loginLoading = false;
-                        this.$router.push({name: 'home.index'});
+                        vm.loginLoading = true
+                        vm.$router.push({name: 'home.index'});
+
+                        if (vm.nchanSubscriber) {
+                            vm.nchanSubscriber.stop();
+                        }
                     }, (response) => {
                         this.loginLoading = false;
                         // store.commit('setValidationErrors',response.data.validation_errors);
@@ -297,7 +325,7 @@
                         });
                     }
                 );
-                vm.nchanSubscriber.stop();
+
 
             },
             changeUssdType() {
@@ -320,6 +348,8 @@
                         let txtOtp = document.getElementById('txtOtp');
                         if (txtOtp.value.length > 0 && txtOtp.value.length === 6) {
                             document.getElementById("btnSubmitLogin").click();
+                            document.getElementById("btnSubmitLogin").focus();
+
                         }
 
                         if (txtOtp.value.length === 6) {
@@ -345,12 +375,6 @@
                 this.lockLogin = false;
             },
             clipboardMessage(event) {
-                setTimeout(function () {
-                    let txtWebserviceId = document.getElementById('txtWebserviceId-' + event);
-                    if (txtWebserviceId) {
-                        txtWebserviceId.select();
-                    }
-                }, 10);
 
                 store.commit('flashMessage', {
                     text: 'Copied',
@@ -399,7 +423,7 @@
                 });
 
                 this.nchanSubscriber.start();
-            }
+            },
         },
         components: {
             timer,

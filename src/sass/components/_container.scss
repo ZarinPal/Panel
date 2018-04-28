@@ -201,11 +201,10 @@ body {
     text-align: center;
 
     .logo {
-      background-image: url("../../img/ZarinPal-Logo.svg");
-      width: 31px;
-      height: 31px;
-      margin: 10px auto;
-      background-repeat: no-repeat;
+      background: url("../../img/ZarinPal-Logo.svg") no-repeat;
+      width: 99px;
+      height: 23px;
+      margin: 11px auto 10px auto;
     }
   }
 
@@ -396,6 +395,9 @@ body {
         background-color: #ececec;
         height: 1px;
       }
+      .nav-loading {
+        padding-top: 15px;
+      }
     }
   }
 
@@ -556,13 +558,6 @@ body {
   zoom: 0.15 !important;
   margin-right: -55px !important;
   animation: userInfoFade 0.8s ease-in-out;
-}
-
-/*Small sidebar*/
-.sticky-sidebar {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 50px;
 }
 
 .dot-hidden {
@@ -747,11 +742,15 @@ body {
       position: relative;
       top: -73px;
       width: 140%;
-      height: 175px;
+      height: 205px;
       margin-right: -20%;
       margin-bottom: -50px;
       padding-top: 65px;
       border-radius: 700px / 251px;
+
+      .progress {
+        margin-top: 20px;
+      }
     }
 
     .user-name {
@@ -814,6 +813,18 @@ body {
 
         .item-label {
           margin-right: 15px;
+        }
+        .notification-lamp {
+          display: inline-block;
+          width: 20px;
+          background-color: #ffd600;
+          border-radius: 100%;
+          position: relative;
+          margin-right: 5px;
+          text-align: center;
+          color: #5a4c01;
+          font-size: 10px;
+          padding-top: 2px;
         }
 
         .item-arrow {
@@ -1026,7 +1037,7 @@ body {
   /*-----Mobile Sidebar-----*/
   .mobile-sidebar {
     display: block !important;
-    width: 85% !important;
+    width: 250px !important;
     height: 100%;
     position: fixed;
     z-index: 999;

@@ -6,16 +6,16 @@
             form(v-if="!user.username" autocomplete="off" onsubmit="event.preventDefault();")
 
                 div.row.no-margin.end-xs
-                    div.col-xs-12.col-md-6.col-lg-6.col-sm-12.no-margin.ta-right(v-if="checking")
+                    div.col-xs-12.no-margin.ta-right(v-if="checking")
                         span.dis-ib.checking-loading
                             loading(v-bind:width="15" v-bind:height="15")
                         span.checking-text {{$i18n.t('user.checkingUsername')}}
                     div.col-xs-12.no-margin.ta-right(v-if="!checking")
                         span.free-username(v-if="usable") {{$i18n.t('user.youCanUserThisUsername')}}
-                    div.col-xs-12.col-md-6.col-lg-6.col-sm-12.no-margin
+                    div.col-xs-12.no-margin
                         div.row.input-group.no-margin.full-width(:class="{'input-danger': errors.has('username')}")
                             div.col-xs.no-margin
-                                input.input.ltr-input(@keyup="validateForm" v-validate="{ rules: {required: true, min: 5, max: 20, alpha_num: true}}"  v-bind:data-vv-as="$i18n.t('user.username')"   type="text" v-model="username"  name="username"  :placeholder="$i18n.t('user.username')")
+                                input.input.ltr-input(@keyup="validateForm" v-validate="{ rules: {required: true, min: 5, max: 20, alpha_num: true,regex: /^[A-Za-z][A-Za-z0-9]*$/}}"  v-bind:data-vv-as="$i18n.t('user.username')"   type="text" v-model="username"  name="username"  :placeholder="$i18n.t('easypay.newUsername')")
                             div.no-margin.first-label
                                 span {{preLink}}
                         span.text-danger {{ errors.first('username') }}

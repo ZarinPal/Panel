@@ -1,5 +1,5 @@
 <template lang="pug">
-    selectbox.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.auth.isLoaded" v-on:select="selectedPurse" v-bind:selected="selected" v-bind:data="purses" placeholder="انتخاب کیف‌پول")
+    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.auth.isLoaded" v-on:select="selectedPurse" v-bind:selected="selected" v-bind:data="purses" placeholder="انتخاب کیف‌پول")
 </template>
 
 <script>

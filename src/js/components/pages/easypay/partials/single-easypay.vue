@@ -1,12 +1,12 @@
 <template lang="pug">
-    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.section
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-4.section
         div.box
             div.top-xs.header
                 div.row
-                    div.col-xs.right-box.overflow-hidden
+                    div.right-box.overflow-hidden
                         p(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id")
                             span.green-small-circle(@click="confirmVisible = true")
-                            span.header-title(:title="easypay.title") {{easypay.title}}
+                            a.header-title(:href="'https://Zarinp.al/' +  easypay.public_id" target='_blank') {{easypay.title}}
 
                     div.col-xs.ta-left-box.left-box
                         span.icon-more(@click="changeMoreTriggerOn()" id="btnMoreIcon")
@@ -17,9 +17,10 @@
                                 span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
                                 router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش‌ها
                                 router-link.drop-down-item.edit(v-ripple="" tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
+                                span.drop-down-item.eye(v-ripple="" @click="showHtmlVisible = true" ) {{$i18n.t('easypay.showLinkLocal')}}
                                 span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
 
-                        a.header-link.overflow-visible(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" v-bind:href="'https://zarinp.al/' + easypay.public_id" target="blank") https://zarinp.al/{{easypay.public_id}}
+                        span.header-link.overflow-visible.color-link(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id" @click="showHtmlVisible = true") {{$i18n.t('easypay.showLinkLocal')}}
 
             div.middle-xs.body
                 div.row.box-row
@@ -30,7 +31,7 @@
                         span.text-value.persian-num {{easypay.price | numberFormat }} تومان
 
                 div.row.box-row
-                    div.col-xs.ta-right
+                    div.ta-right
                         span.label {{$i18n.t('easypay.depositTo')}}
 
                     div.col-xs.ta-left.no-margin
@@ -52,21 +53,27 @@
             span(slot="title") {{$i18n.t('easypay.deleteEasypay')}}
             div.ta-right(slot="message")
                 div.row.no-margin
-                    div.col-xs-12 آیا نسبت به حذف زرین‌لینک " {{easypay.title}} " اصمینان دارید؟
+                    div.col-xs-12 آیا نسبت به حذف زرین‌لینک " {{easypay.title}} " اطمینان دارید؟
                     div.col-xs-12 این عملیات غیر قابل بازگشت است.
 
             span(slot="messageDanger") {{$i18n.t('common.cancel')}}
             span(slot="messageSuccess") {{$i18n.t('easypay.yesDeleteIt')}}
+
+        <!--Show Html Code  -->
+        show-html(v-if="showHtmlVisible" v-on:closeModal="closeModal" v-bind:entity="easypay.public_id")
+
 </template>
 
 <script>
     import confirm from '../../partials/confirm.vue';
+    import showHtml from './show_html_code.vue';
 
     export default {
         name: 'pages-easypay-partials-singleEasypay',
         data(){
             return {
                 confirmVisible: false,
+                showHtmlVisible: false,
                 confirm: false,
             }
         },
@@ -97,6 +104,7 @@
             },
             closeModal(){
                 this.confirmVisible = false;
+                this.showHtmlVisible = false;
                 store.commit('clearValidationErrors');
             },
             deleteEasypay() {
@@ -130,7 +138,8 @@
             }
         },
         components: {
-            confirm
+            confirm,
+            'show-html': showHtml
         }
     }
 </script>

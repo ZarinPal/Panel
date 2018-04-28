@@ -58,7 +58,14 @@
                             pre(v-html="$options.filters.code(reply.content)")
                             a.ticket-attachment-download(v-if="reply.attachment" v-bind:href="reply.attachment") {{ $i18n.t('ticket.downloadFile') }}
 
-
+        div.nav-send
+            div.row
+                div.col-xs
+                    div
+                        b.title لطفا به نکات زیر توجه فرمایید:
+                        div * پس از ارسال تیکت حداکثر تا ۱۲ ساعت آینده پاسخ برای شما ارسال خواهد شد.
+                        div * برخی از تيکت ها ممکن است، نياز به زمان بيشتری برای بررسی داشته باشند.
+                        div * پس از ارسال تيکت، نيازی به تماس تلفنی نيست. تيکت ارسالی شما قطعا توسط همکاران ما بررسی و پاسخ داده خواهد شد.
         div.nav-send
             div.row
                 div
@@ -80,7 +87,7 @@
                             span.select-text(:class="{'uploaded' : fileUploaded}")
                             input(type="file" name="file" @change="onFileChange")
                             span.msg-danger(v-if="uploadResult.error_message") {{ $i18n.t('ticket.' + uploadResult.error_type)}}
-                            span.msg-success(v-if="uploadResult.file_id") {{ $i18n.t('ticket.uploadSuccess')}}
+                            span.msg-success(v-if="fileUploaded") {{ $i18n.t('ticket.uploadSuccess')}}
                         span.nav-upload-loading(v-if="fileUploading")
                             loading
 
@@ -122,6 +129,7 @@
             //Change ticket list new ticket button
             this.$store.commit('app/changeTicketState');
             this.getReplies(this.$route.params.id);
+
         },
         mounted() {
 
@@ -163,6 +171,7 @@
                         replies.scrollTop = replies.scrollHeight;
                     }, 10);
                 });
+                this.getTicketSummry();
             },
             send() {
                 this.loading = true;
@@ -185,6 +194,7 @@
                             text: 'TicketReplySuccessLocal',
                             type: 'success'
                         });
+                        this.fileUploaded = false;
                     },
                     (response) => {
                         this.loading = false;
@@ -217,7 +227,6 @@
                     vm.attachment = e.target.result;
                 };
                 reader.readAsDataURL(file);
-
                 let formData = new FormData();
                 formData.append('type', 'document');
                 formData.append('file', file);
@@ -228,7 +237,8 @@
                     this.fileUploaded = true;
                     this.uploadResult = response.data.meta;
                 }, (response) => {
-                    this.fileUploading = 'Failed';
+                    this.fileUploading = false;
+                    this.uploadResult = response.data.meta;
                 });
             },
             closeTicket() {
@@ -258,7 +268,16 @@
             },
             downloadAttachFile(url) {
                 window.open(url);
-            }
+            },
+            getTicketSummry() {
+                this.$store.state.http.requests['ticket.getSummary'].get().then(
+                    (response) => {
+                        this.$store.state.app.unreadTickets = response.data.data.unread;
+                    }
+                ).catch((response) => {
+
+                });
+            },
         },
         watch: {
             '$route' (to) {

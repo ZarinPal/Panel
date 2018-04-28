@@ -24,22 +24,22 @@
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 input(name="coupon-type" v-model="type" value="webservice" type="radio" id="rdoWebservice")
-                                label(for="rdoWebservice")
+                                label.dis-ib.m-t-5(for="rdoWebservice")
                                     span
                                     | {{ $i18n.t('coupon.webservice') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedWebservice" v-if="webserviceId || type" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay' }" placeholder="انتخاب وب‌سرویس"  tabindex="2")
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-on:select="selectedWebservice" v-if="webserviceId || type" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay' }" placeholder="انتخاب وب‌سرویس"  tabindex="2")
                                 div.ta-right(v-if="validation('webservice_id')")
                                     span.text-danger {{ errors.first('webservice_id') }}
 
                         div.row
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                input(name="coupon-type" v-model="type" value="easypay" type="radio" id="rdoEasypayٌ")
-                                label(for="rdoEasypayٌ")
+                                input(name="coupon-type" v-model="type" value="easypay" type="radio" id="rdoEasypay")
+                                label.dis-ib.m-t-5(for="rdoEasypay")
                                     span
                                     | {{ $i18n.t('coupon.easypay') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedEasypay" v-bind:data="easypaySelection" v-if="easyPayId || type" v-bind:selected="easyPayId" v-bind:class="{'disable' : type == 'webservice' }"  placeholder="انتخاب زرین‌لینک"  tabindex="3")
+                                zarin-link.no-margin(v-on:select="selectedEasypay" v-if="easyPayId || type" v-bind:class="{'disable' : type == 'webservice', 'input-danger': errors.has('easypay_id')}" v-bind:selected="easyPayId" placeholder="انتخاب زرین‌لینک")
                                 div.ta-right(v-if="validation('easypay_id')")
                                     span.text-danger {{ errors.first('easypay_id') }}
 
@@ -47,7 +47,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.expirationDate') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                date-picker.persian-num(v-model="expired_at")
+                                date-picker.persian-num(v-model="expired_at" :min="today")
                                 div.ta-right(v-if="validation('expired_at')")
                                     span.text-danger {{ errors.first('expired_at') }}
 
@@ -69,7 +69,8 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.minAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" :class="{'input-danger': errors.has('min_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="min_amount" name="min_amount" id="min_amount" placeholder="(حداقل مبلغ تخفیف (تومان" tabindex="6")
+                                span.text-help {{ $i18n.t('coupon.minAmountDescription') }}
+                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" :class="{'input-danger': errors.has('min_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="min_amount" name="min_amount" id="min_amount" v-bind:value="min_amount" placeholder="(حداقل مبلغ تخفیف (تومان" tabindex="6")
                                 div.ta-right(v-if="validation('min_amount')")
                                     span.text-danger {{ errors.first('min_amount') }}
 
@@ -85,7 +86,8 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.maxAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" :class="{'input-danger': errors.has('max_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="max_amount" name="max_amount" id="max_amount"  placeholder="(حداکثر تخفیف (تومان" tabindex="7")
+                                span.text-help {{ $i18n.t('coupon.maxAmountDescription') }}
+                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" :class="{'input-danger': errors.has('max_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="max_amount" name="max_amount" id="max_amount" v-bind:value="max_amount"  placeholder="(حداکثر تخفیف (تومان" tabindex="7")
                                 div.ta-right(v-if="validation('max_amount')")
                                     span.text-danger {{ errors.first('max_amount') }}
 
@@ -102,12 +104,14 @@
     import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import selectbox from '../../partials/selectbox.vue';
     import loading from '../../partials/loading.vue';
+    import zarinLink from '../../partials/zarinlinks';
     import VueNumeric from 'vue-numeric';
 
     export default {
         name: 'pages-coupon-partials-edit',
         data() {
             return {
+                today: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
                 loadingContent: true,
                 loading: false,
                 code: '',
@@ -115,7 +119,8 @@
                 min_amount: '',
                 webservice_id: null,
                 easypay_id: null,
-                expired_at: moment().format('jYYYY/jMM/jDD'),
+                easypay_name: null,
+                expired_at: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
                 limit: '',
                 type: '',
                 percent: '',
@@ -143,24 +148,6 @@
                     return webservices;
                 }
             },
-            easypaySelection() {
-                if (this.$store.state.auth.user.easypays) {
-                    let easypays = this.$store.state.auth.user.easypays.map(function (easypay) {
-                        return {
-                            'title': easypay.title,
-                            'value': easypay.entity_id
-                        }
-                    });
-
-                    let easypayAll = {
-                        'title': 'همه',
-                        'value': 'all'
-                    };
-                    easypays.unshift(easypayAll);
-
-                    return easypays;
-                }
-            },
             validationErrors() {
                 return this.$store.state.alert.validationErrors;
             },
@@ -172,9 +159,10 @@
             },
             easyPayId() {
                 if (!this.webservice_id && !this.easypay_id && this.type === 'easypay') {
-                    return 'all';
+                    return {entity_id: 'all', title: 'همه'};
                 }
-                return this.easypay_id;
+
+                return {entity_id: this.easypay_id, title: this.easypay_name};
             }
         },
         created(){
@@ -215,6 +203,7 @@
                         this.min_amount = response.data.data.min_amount;
                         this.webservice_id = response.data.data.webservice_id;
                         this.easypay_id = response.data.data.easypay_id;
+                        this.easypay_name = response.data.data.easypay_name;
                         this.expired_at = moment(response.data.data.expired_at).format('jYYYY-jMM-jDD');
                         this.limit = response.data.data.limit;
                         this.type = response.data.data.type;
@@ -233,20 +222,17 @@
             editCoupon() {
                 this.loading = true;
 
-                let minAmount = this.min_amount.replace(/,/g, "");
-                let maxAmount = this.max_amount.replace(/,/g, "");
-
                 let couponData = {
                     code: this.code,
                     discount: {
-                        max_amount: maxAmount,
+                        max_amount: this.clearNumber(this.max_amount),
                         percent: this.percent
                     },
                     webservice_id: this.webserviceId,
-                    easypay_id: this.easyPayId,
+                    easypay_id: this.easyPayId.entity_id,
                     expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
                     limit: this.limit,
-                    min_amount: minAmount,
+                    min_amount: this.clearNumber(this.min_amount),
                     type: this.type,
                 };
 
@@ -273,6 +259,7 @@
         components: {
             selectbox,
             loading,
+            zarinLink,
             datePicker: VuePersianDatetimePicker,
             VueNumeric
         }

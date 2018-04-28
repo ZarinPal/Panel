@@ -51,6 +51,14 @@ $transactionInternalColor: #656565;
     pointer-events: none;
     opacity: 0.5;
   }
+  .icon-zp-excel {
+    background: url("../../img/transaction/excel.svg") no-repeat;
+    background-size: contain;
+    padding-left: 20px;
+    top: 3px;
+    position: relative;
+    margin-left: 5px;
+  }
 
 }
 
@@ -380,7 +388,7 @@ $transactionInternalColor: #656565;
     }
 
     .ta-center {
-      text-align: right !important;
+      text-align: center !important;
     }
 
     .transaction-id {
@@ -429,7 +437,7 @@ $transactionInternalColor: #656565;
 }
 
 //Delete forward icon
-@media (max-width: 1200px) {
+@media (max-width: $mediumWidth) {
   .hidden-title-md {
     display: none !important;
   }
@@ -439,6 +447,18 @@ $transactionInternalColor: #656565;
   }
 
   .icon-forward {
+    display: none !important;
+  }
+}
+
+@media (max-width: $smallWidth) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+
+@media (max-width: $mediumWidth) {
+  .hidden-md {
     display: none !important;
   }
 }

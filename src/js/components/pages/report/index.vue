@@ -15,45 +15,62 @@
                                 span.break
 
                             div.row
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    date-picker.persian-num(v-validate="'required'" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" v-model="date" name="date" type="date" view='year' min="1300/01/01" :placeholder="$i18n.t('transaction.fromDate')")
-                                    div.ta-right(v-if="validation('date')")
-                                        span.text-danger {{ errors.first('date') }}
+                                div.col-lg-8.col-md-8.col-sm-8.col-xs-12
+                                    div.row
+                                        selectbox.col-lg-4.col-md-4.col-sm-4.col-xs-12(v-validate="{ rules: {required: true}}" v-model="selectedMonth" v-on:select="selectMonth" v-bind:data="months"  :placeholder="$i18n.t('report.month')")
+                                        selectbox.col-lg-4.col-md-4.col-sm-4.col-xs-12.m-l-10.persian-num( v-validate="{ rules: {required: true}}" v-model="selectedYear" v-on:select="selectYear"   v-bind:data="years" :id='selectYear' :placeholder="$i18n.t('report.year')")
+                                        div.ta-right(v-if="validation('date')")
+                                            span.text-danger {{ errors.first('date') }}
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                                    button.btn.info.pull-right(v-ripple="" @click="validateForm") {{ $i18n.t('common.search') }}
+                                    button.btn.info.pull-right.m-t-10(v-ripple="" @click="validateForm" :class="{'disable': fetching}") {{ $i18n.t('common.search') }}
                                         svg.material-spinner(v-if="fetching" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 
         div.row.no-margin
-            div.section.full-width
-                div.box
-                    table.zp-calendar-body.full-width(v-if="reports")
-                        tr.zp-weekday
-                            td(v-for='titles in calendarDayTitles')
+            div.full-width
+                div.box.xs-hidden
+                    div.full-width(v-if="reports")
+                        div.row
+                            div.col-xs.ta-center(v-for='titles in calendarDayTitles')
                                 span {{titles}}
-                        tr.zp-week-days-row(v-for='week in reports')
-                            td.zp-cell(v-for='day in week' :class="{'zp-holiday': day.holiday, 'zp-inActive': day.inActived, 'zp-disabled-holiday': day.holiday && day.inActived, 'zp-today': day.date.format('YYYYMMDD') === momentNow.format('YYYYMMDD')}")
-                                div {{'ورودی:'}}
-                                    span {{day.income_amount | numberFormat}} |
-                                    span.trans-count {{day.income_count}}
+                        div.section(v-for='week in this.monthDays')
+                            div.box.row.min-height-box
+                                div.col-xs.cell(v-for='day in week' :class="{'today': today == day.date.format('jYYYY/jMM/jDD'),'zp-inActive': day.inActived, 'zp-disabled': day.holiday && day.inActived}")
+                                    div.row(v-if="day.turnovers")
+                                        div.col-xs-12(v-if="day.turnovers.income_count")
+                                            span.show-income-count.pull-left.persian-num {{day.turnovers.income_count}}
+                                            span.show-income-amount.pull-right.persian-num(title='تراکنش ورودی') {{day.turnovers.income_amount | numberFormat}}
+                                        div.col-xs-12(v-if="day.turnovers.outgo_count")
+                                            span.show-outgo-count.persian-num.pull-left {{day.turnovers.outgo_count}}
+                                            span.show-outgo-amount.persian-num.pull-right(title='تراکنش خروجی') {{day.turnovers.outgo_amount | numberFormat}}
+                                    div.row.bottom-xs.pull-left.persian-num.day-of-month(:class="{'day-of-month-disable': day.inActived}")
+                                        div(:title="day.date.format('jD jMMMM jYY')") {{day.date.format('jD')}}
 
-                                div {{'خروجی: '}}
-                                    span {{day.outgo_amount | numberFormat}} |
-                                    span.trans-count {{day.outgo_count}}
-
-                                div.ta-left.zp-day-number {{ day.date.format('jDD')}}
+                div.section(v-if="reports")
+                    div.box.row.persian-num
+                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+                            span {{$i18n.t('report.incomeAmount')}} : {{totalReports.income_amount | numberFormat}} {{$i18n.t('transaction.toman')}}
+                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+                            span {{$i18n.t('report.incomeCount')}} : {{totalReports.income_count | numberFormat}}
+                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+                            span {{$i18n.t('report.outcomeAmount')}} : {{totalReports.outgo_amount | numberFormat}} {{$i18n.t('transaction.toman')}}
+                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+                            span {{$i18n.t('report.outcomeCount')}} : {{totalReports.outgo_count | numberFormat}}
 </template>
 
 <script>
     import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+    import selectbox from '../partials/selectbox.vue';
 
     export default {
         name: 'report-index',
         data() {
             return {
-                date: '',
+                durationDate: moment(),
+                today: moment().format('jYYYY/jMM/jDD'),
+
                 fetching: false,
                 /**
                  * Request
@@ -64,13 +81,26 @@
                  * Response
                  */
                 reports: null,
+                totalReports: {
+                    income_amount: 0,
+                    income_count: 0,
+                    outgo_amount: 0,
+                    outgo_count: 0,
+                },
 
                 /**
                  * Calendar
                  */
                 calendarDayTitles: [],
                 monthDays: [],
-                currentDate: moment(),
+
+                /**
+                 * Date select
+                 */
+                selectedYear: moment().jYear(),
+                selectedMonth: moment().jMonth() + 1,
+                years: [],
+                months: [],
             }
         },
         computed: {
@@ -79,31 +109,77 @@
              */
             momentNow() {
                 return moment();
+            },
+            thisMonth() {
+                return moment().format('jMMMM');
+            },
+            thisYear() {
+                return moment().format('jYYYY');
             }
         },
         created() {
+            this.getYearSelection();
             this.calendarDayTitles = this.weekDayTitles();
+
+            // this.fetchReports(this.getMonthDays);
         },
         methods: {
             validateForm() {
                 this.$validator.validateAll({
-                    date: this.date,
+                    durationDate: this.durationDate,
                 }).then((result) => {
                     if (result) {
+                        this.durationDate = moment(this.selectedYear + '/' + this.selectedMonth + '/01', 'jYYYY/jM/jD');
                         this.fetchReports(this.getMonthDays);
                     }
                 });
             },
+            getYearSelection() {
+                moment.locale('fa');
+                moment.loadPersian({
+                    dialect: 'persian-modern',
+                    usePersianDigits: true
+                });
+
+                let vm = this;
+                let startDate = moment('1389/01/01', 'jYYYY/jM/jD');
+                let endDate = moment();
+
+                for (let i = startDate.jYear(); i <= endDate.jYear(); i++) {
+                    vm.years.unshift({
+                        title: i,
+                        value: i
+                    });
+                }
+
+                _.each(moment()._locale._jMonths, function (month, monthIndex) {
+                    vm.months.push({
+                        title: month,
+                        value: monthIndex + 1
+                    });
+                });
+            },
+            selectYear(year) {
+                this.selectedYear = year;
+            },
+            selectMonth(month) {
+                this.selectedMonth = month;
+            },
+            /**
+             * Api
+             */
             fetchReports(callback) {
+                this.resetTurnoverSum();
+
                 this.fetching = true;
                 let reportName = 'report.purseTransactions';
 
-                let from_date = moment(this.date, 'jYYYY/jM/jD').endOf('jMonth').subtract(1, 'jMonth');
-                let to_date = moment(this.date, 'jYYYY/jM/jD').endOf('jMonth');
+                let from_date = this.durationDate.startOf('jMonth');
+                let to_date = this.durationDate.clone().endOf('jMonth');
 
                 let reportData = {
-                    from_date: from_date.endOf('jMonth').startOf('jWeek').format(),
-                    to_date: to_date.endOf('jMonth').endOf("jWeek").format(),
+                    from_date: from_date.format('YYYY-MM-DD'),
+                    to_date: to_date.format('YYYY-MM-DD'),
                     purse_number: this.$route.params.reportId,
                 };
 
@@ -115,7 +191,8 @@
 
                 this.$store.state.http.requests[reportName].save(reportData).then((response) => {
                     this.reports = response.data.data;
-                    callback(); //get calendar days
+
+                    callback();
                     this.fetching = false;
                 }).catch((error) => {
                     this.fetching = false;
@@ -133,38 +210,106 @@
              */
             getMonthDays() {
                 this.getCurrentMonth();
-                this.reports = _.chunk(this.reports, 7);
+                this.getPrevMonth();
+                this.getNextMonthDays();
+
+                if (this.monthDays) {
+                    let vm = this;
+
+                    let finalMonthReport = _.forEach(this.monthDays, function (day) {
+                        day.turnovers = _.find(vm.reports, function (report) {
+                            return report.date == day.date.format('YYYY-MM-DD');
+                        });
+
+                        //Sum turnovers
+                        if (day.turnovers) {
+                            vm.turnoverSum('income_amount', day.turnovers.income_amount);
+                            vm.turnoverSum('income_count', day.turnovers.income_count);
+                            vm.turnoverSum('outgo_amount', day.turnovers.outgo_amount);
+                            vm.turnoverSum('outgo_count', day.turnovers.outgo_count);
+                        }
+                    });
+
+                    this.monthDays = _.chunk(finalMonthReport, 7);
+                }
+
+            },
+            resetTurnoverSum() {
+                this.totalReports = {
+                    income_amount: 0,
+                    income_count: 0,
+                    outgo_amount: 0,
+                    outgo_count: 0,
+                };
+            },
+            turnoverSum(type, number) {
+                this.totalReports[type] += number;
+            },
+            nextMonth() {
+                this.durationDate.add(1, 'jMonth');
+                this.getMonthDays();
+            },
+            prevMonth() {
+                this.durationDate.subtract('jMonth');
+                this.getMonthDays();
             },
             getCurrentMonth() {
-                let vm = this;
-                this.reports = this.reports.map(function (report) {
-                    report.date = moment(report.date);
-                    report.inActived = false;
-                    report.holiday = vm.checkForHoliday(report.date);
-                    return report;
-                });
+                this.monthDays = [];
+                let monthDays = this.durationDate.clone().startOf('jMonth').subtract(1, 'd');
+
+                while (this.durationDate.clone().endOf('jMonth').format('jYYYYjMMjDD') !== monthDays.format('jYYYYjMMjDD')) {
+                    monthDays.add(1, 'd');
+                    this.monthDays.push({
+                        inActived: false,
+                        holiday: this.checkForHoliday(monthDays),
+                        date: monthDays.clone()
+                    });
+                }
+            },
+            getPrevMonth() {
+                let startOfPrevMonth = this.durationDate.clone().startOf('jMonth');
+                this.getPrevMonthDays(startOfPrevMonth);
+            },
+            getPrevMonthDays(startOfPrevMonth) {
+                let startOfPrevMonthDays = startOfPrevMonth.days() + 1;
+
+                let prevMonthStart = startOfPrevMonth.clone().subtract(startOfPrevMonthDays, 'd');
+                let prevMonthDay = prevMonthStart.clone().endOf('jMonth').add(1, 'd');
+                while (prevMonthStart.format('jYYYYjMMjDD') !== prevMonthDay.format('jYYYYjMMjDD')) {
+                    prevMonthDay.subtract(1, 'd');
+                    this.monthDays.unshift({
+                        inActived: true,
+                        holiday: this.checkForHoliday(prevMonthDay),
+                        date: prevMonthDay.clone()
+                    });
+                }
+            },
+            getNextMonthDays() {
+                let nextMonthStart = this.durationDate.clone().endOf('jMonth').add(1, 'd');
+                while (this.monthDays.length % 7 !== 0) {
+                    this.monthDays.push({
+                        inActived: true,
+                        holiday: this.checkForHoliday(nextMonthStart),
+                        date: nextMonthStart.clone()
+                    });
+                    nextMonthStart.add(1, 'd');
+                }
             },
             weekDayTitles() {
                 let weekDays = moment()._locale._weekdays;
-
                 weekDays = _.initial(weekDays);
                 weekDays.unshift(moment().day(6).format('dddd'))
                 return weekDays
             },
             checkForHoliday(singleDate) {
-                if (moment.locale() === 'fa') {
-                    if (singleDate.days() === 5)
-                        return true;
-                    return false
-                }
-
-                if (singleDate.days() === 0)
+                if (singleDate.days() === 5)
                     return true;
                 return false;
             },
         },
         components: {
-            datePicker: VuePersianDatetimePicker
+            datePicker: VuePersianDatetimePicker,
+            selectbox
         }
     }
 </script>

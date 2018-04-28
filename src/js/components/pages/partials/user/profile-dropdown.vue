@@ -22,15 +22,19 @@
                 confirm(v-if="confirmVisible" v-on:confirmed="logout()" v-on:closeModal="closeModal" :keepConfirmedOpen="true")
                     span(slot="title") {{$i18n.t('common.logout')}}
                     div.ta-right(slot="message")
-                        div آیا خارج می‌شوید؟
+                        div(v-if="!showLoading") آیا برای خروج از زرین‌پال مطمئن هستید ؟
+                        div(v-if="showLoading")
+                            div.ta-center لطفا چند لحظه صبر کنید
+                                loading
 
-                    span(slot="messageDanger") {{$i18n.t('common.cancel')}}
+                    span(slot="messageDanger" ) {{$i18n.t('common.cancel')}}
                     span(slot="messageSuccess") بله، خارج می‌شوم
 </template>
 
 
 <script>
     import confirm from '../confirm.vue';
+    import loading from '../../../pages/partials/loading.vue';
 
     export default {
         name: 'profile-drop-down',
@@ -38,6 +42,7 @@
             return {
                 confirmVisible: false,
                 confirm: false,
+                showLoading: false,
             }
         },
         computed: {
@@ -52,12 +57,14 @@
             logout(){
                 this.confirm = true;
                 if (this.confirm) {
+                    this.showLoading = true;
                     this.$store.dispatch('auth/logout', this);
                 }
             },
         },
         components: {
             confirm,
+            loading
         }
     };
 </script>
