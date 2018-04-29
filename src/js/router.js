@@ -24,7 +24,10 @@ export default new VueRouter({
             path: '/panel/error/404',
             name: 'error.404',
             component: require('./components/pages/error/404.vue'),
-            meta: {standAlone: true}
+            meta: {
+                standAlone: true,
+                notLoading: true,
+            }
         },
         {
             path: '/panel/error/connection',
