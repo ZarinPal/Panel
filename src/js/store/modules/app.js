@@ -30,6 +30,7 @@ export default {
         toggleMobileSidebar(state, condition) {
             if (condition) {
                 state.showMobileSidebar = condition;
+
                 return;
             }
             state.showMobileSidebar = !state.showMobileSidebar;
@@ -46,6 +47,7 @@ export default {
         setRefererId(state, refId) {
             if (refId) {
                 state.refererId = refId;
+
                 return
             }
         },
