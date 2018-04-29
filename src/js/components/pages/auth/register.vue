@@ -65,6 +65,7 @@
             },
         },
         created() {
+            let vm = this;
             if (this.$route.params.mobile) {
                 this.mobile = this.$route.params.mobile;
             }
@@ -79,6 +80,16 @@
                         expire_in: moment().add(3, 'day').unix()
                     }));
             }
+
+
+            this.$store.state.http.requests['oauth.check']
+                .get()
+                .then(() => {
+                    vm.$router.push({name: 'home.index'});
+                })
+                .catch(() => {
+                    vm.$store.commit('app/ready');
+                });
         },
         mounted(){
             let vm = this;
