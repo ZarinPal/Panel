@@ -1,5 +1,4 @@
 <template lang="pug">
-div
     div.full-height
         navbar
 
