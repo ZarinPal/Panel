@@ -185,8 +185,7 @@
                 .get(oauthCheckParams)
                 .then(() => {
                     vm.$router.push({name: 'home.index'});
-                })
-                .catch(() => {
+                }).catch(() => {
                     vm.$store.commit('app/ready');
 
                     if (this.username && this.otp) {
