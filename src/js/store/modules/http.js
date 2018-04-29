@@ -17,7 +17,7 @@ export default {
             },
             {
                 name: "getReply",
-                url: "ticket/guest/{email}/{publicId}.json"
+                url: "ticket/guest/{phone}/{publicId}.json"
             },
             {
                 name: "oauth.postInitializeLogin",

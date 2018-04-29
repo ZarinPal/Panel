@@ -237,6 +237,13 @@
                     publicId: this.publicId,
                 };
 
+                if (!!this.txtPhone && !!this.txtPublicId) {
+                    params = {
+                        phone: btoa(this.txtPhone),
+                        publicId: btoa(this.txtPublicId)
+                    }
+                }
+
                 let ticketData = {
                     content: this.content,
                     attachment: this.attachment
