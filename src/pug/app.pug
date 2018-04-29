@@ -25,7 +25,8 @@ html(lang="fa-IR" dir="rtl")
         link(rel="stylesheet", href="{{asset('assets/css/app.css')}}")
     body
         section#app
-            router-view
+            main-loading
+            router-view(v-show="$store.state.app.isLoaded")
             flash-message
 
         script(src="{{asset('assets/js/app.js')}}")

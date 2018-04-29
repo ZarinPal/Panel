@@ -28,12 +28,12 @@ new Vue({
     router: require('./router').default,
     data() {
         return {
-            // baseUrl: 'http://api.zarinpal.test', // local: panel base
+            // baseUrl: 'http://api.zarinpal.localhost', // local: panel base
             baseUrl: 'https://my.zarinpal.com', // production: panel base
         }
     },
     http: {
-        // root: 'http://api.zarinpal.test/rest/v3',// local: panel base
+        // root: 'http://api.zarinpal.localhost/rest/v3',// local: panel base
         root: 'https://my.zarinpal.com/rest/v3',// production: panel base
     },
     created() {
@@ -41,9 +41,9 @@ new Vue({
         this.$store.commit('app/loading');
         this.$store.commit('http/boot', this);
         require('./i18n').default(this, function (vm) {
-            if (vm.$route.meta.standAlone) {
-                vm.$store.commit('app/ready');
-            }
+            // if (vm.$route.meta.standAlone) {
+            //     // vm.$store.commit('app/ready');
+            // }
         });
 
         //Try to fix app ready after 10 seconds
@@ -55,6 +55,7 @@ new Vue({
         }, 5000);
     },
     components: {
-        "flash-message": require('./components/pages/partials/flash-message.vue')
+        "flash-message": require('./components/pages/partials/flash-message.vue'),
+        "mainLoading": require('./components/pages/partials/main-loading.vue'),
     },
 }).$mount('#app');
