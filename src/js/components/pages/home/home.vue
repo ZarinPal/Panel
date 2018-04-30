@@ -21,7 +21,7 @@
                     i.btn-icon.request-money
                     span.btn-label {{ $i18n.t('common.dangiDongi') }}
 
-                button.btn-gradient-radius(v-if="userHasAccess([1, 2, 3]) >= 0" v-ripple="" @click="visibleAddFund = !visibleAddFund")
+                button.btn-gradient-radius(v-if="userHasAccess([-1, 1, 2, 3]) >= 0" v-ripple="" @click="visibleAddFund = !visibleAddFund")
                     i.btn-icon.add-fund
                     span.btn-label {{ $i18n.t('purse.addFund') }}
 
