@@ -10,9 +10,9 @@
                     form(onsubmit="event.preventDefault();")
                         div.row
                             div.col-xs
-                                input(v-validate="{rules:{required: true}}" v-bind:data-vv-as="$i18n.t('user.email')" type="text" name="txtEmail" v-model="txtEmail" :placeholder="$i18n.t('user.email')")
-                                div.ta-right(v-if="validation('txtEmail')")
-                                    span.text-danger {{ errors.first('txtEmail') }}
+                                input(v-validate="{rules:{required: true}}" v-bind:data-vv-as="$i18n.t('user.mobile')" type="text" name="txtPhone" v-model="txtPhone" :placeholder="$i18n.t('user.mobile')")
+                                div.ta-right(v-if="validation('txtPhone')")
+                                    span.text-danger {{ errors.first('txtPhone') }}
 
                             div.col-xs
                                 input(v-validate="{rules:{required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('ticket.guestTicketPublicId')" type="text" name="txtPublicId" v-model="txtPublicId" :placeholder="$i18n.t('ticket.guestTicketPublicId')")
@@ -75,7 +75,7 @@
                     div.row
                         div.col-xs
                             div
-                                b.title پاسخ به تیکت:
+                                b.title {{ $i18n.t('user.ticketReply') }} :
                                 span.value {{ ticket.title }}
                             div
                                 textarea(v-validate="{ rules: { min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
@@ -112,10 +112,10 @@
                 /**
                  * Get Ticket
                  */
-                txtEmail: null,
+                txtPhone: null,
                 txtPublicId: null,
 
-                email: this.$route.params.email,
+                phone: this.$route.params.phone,
                 publicId: this.$route.params.publicId,
                 ticket: null,
 
@@ -127,14 +127,14 @@
             }
         },
         created() {
-            if (this.$route.params.email && this.$route.params.publicId) {
+            if (this.$route.params.phone && this.$route.params.publicId) {
                 this.getGuestTicket();
             }
         },
         methods: {
             validateSearchForm() {
                 this.$validator.validateAll({
-                    txtEmail: this.txtEmail,
+                    txtPhone: this.txtPhone,
                     txtPublicId: this.txtPublicId,
                 }).then((result) => {
                     if (result) {
@@ -207,13 +207,13 @@
                 this.requesting = true;
                 let vm = this;
                 let ticketData = {
-                    email: this.email,
+                    phone: this.phone,
                     publicId: this.publicId,
                 };
 
-                if (!!this.txtEmail && !!this.txtPublicId) {
+                if (!!this.txtPhone && !!this.txtPublicId) {
                     ticketData = {
-                        email: btoa(this.txtEmail),
+                        phone: btoa(this.txtPhone),
                         publicId: btoa(this.txtPublicId)
                     }
                 }
@@ -233,9 +233,16 @@
             },
             postTicketReply() {
                 let params = {
-                    email: this.email,
+                    phone: this.phone,
                     publicId: this.publicId,
                 };
+
+                if (!!this.txtPhone && !!this.txtPublicId) {
+                    params = {
+                        phone: btoa(this.txtPhone),
+                        publicId: btoa(this.txtPublicId)
+                    }
+                }
 
                 let ticketData = {
                     content: this.content,

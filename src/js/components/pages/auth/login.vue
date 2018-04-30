@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.row.center-xs.no-margin(v-if="$store.state.app.isLoaded")
+    div.row.center-xs.no-margin
         div.col-xs-12.col-sm-5.col-md-5.col-lg-4.section.auth-box
             div.box
                 <!--Header-->
@@ -109,13 +109,6 @@
             div.row.auth-privacy-footer
                 div.col-xs.ta-right
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
-
-
-    div(v-else)
-        div.loading.ta-center
-            div.spinner
-
-
 </template>
 
 <script>
@@ -180,7 +173,6 @@
             this.username = this.$route.params.email;
             this.otp = this.$route.params.otp;
 
-
             let oauthCheckParams = {};
             if (this.$route.params.otp && this.$route.params.email) {
                 oauthCheckParams = {
@@ -193,8 +185,9 @@
                 .get(oauthCheckParams)
                 .then(() => {
                     vm.$router.push({name: 'home.index'});
-                })
-                .catch(() => {
+                }).catch(() => {
+                    vm.$store.commit('app/ready');
+
                     if (this.username && this.otp) {
                         this.login();
                     }

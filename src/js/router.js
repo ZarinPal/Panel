@@ -24,7 +24,10 @@ export default new VueRouter({
             path: '/panel/error/404',
             name: 'error.404',
             component: require('./components/pages/error/404.vue'),
-            meta: {standAlone: true}
+            meta: {
+                standAlone: true,
+                notLoading: true,
+            }
         },
         {
             path: '/panel/error/connection',
@@ -35,11 +38,12 @@ export default new VueRouter({
             }
         },
         {
-            path: '/panel/ticket/guest/:email?/:publicId?',
+            path: '/panel/ticket/guest/:phone?/:publicId?',
             name: 'ticket.guest',
             component: require('./components/pages/ticket/guest.vue'),
             meta: {
-                standAlone: true
+                standAlone: true,
+                notLoading: true,
             }
         },
         {
@@ -72,7 +76,7 @@ export default new VueRouter({
                             name: 'webservice.index',
                             component: require('./components/pages/webservice/index.vue'),
                             meta: {
-                                accessLevel: ['silver', 'gold']
+                                accessLevel: ['suspend', 'silver', 'gold']
                             }
                         },
                         {
@@ -96,7 +100,7 @@ export default new VueRouter({
                             name: 'card.index',
                             component: require('./components/pages/card/index.vue'),
                             meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
+                                accessLevel: ['suspend', 'basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -120,7 +124,7 @@ export default new VueRouter({
                             name: 'easypay.index',
                             component: require('./components/pages/easypay/index.vue'),
                             meta: {
-                                accessLevel: ['silver', 'gold']
+                                accessLevel: ['suspend', 'silver', 'gold']
                             }
                         },
                         {
@@ -144,7 +148,7 @@ export default new VueRouter({
                             name: 'coupon.index',
                             component: require('./components/pages/coupon/index.vue'),
                             meta: {
-                                accessLevel: ['silver', 'gold']
+                                accessLevel: ['suspend', 'silver', 'gold']
                             }
                         },
                         {
@@ -176,7 +180,7 @@ export default new VueRouter({
                             name: 'transactionsession.index',
                             component: require('./components/pages/transaction_sessions/index.vue'),
                             meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
+                                accessLevel: ['suspend', 'basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -184,7 +188,7 @@ export default new VueRouter({
                             name: 'transaction.index',
                             component: require('./components/pages/transaction/index.vue'),
                             meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
+                                accessLevel: ['suspend', 'basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -192,7 +196,7 @@ export default new VueRouter({
                             name: 'report.index',
                             component: require('./components/pages/report/index.vue'),
                             meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
+                                accessLevel: ['suspend', 'basic', 'silver', 'gold']
                             }
                         },
                         {
@@ -224,7 +228,7 @@ export default new VueRouter({
                             name: 'user.notificationSetting',
                             component: require('./components/pages/user/partials/notification_setting.vue'),
                             meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
+                                accessLevel: ['suspend', 'basic', 'silver', 'gold']
                             }
                         },
                         {
