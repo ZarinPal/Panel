@@ -1,42 +1,24 @@
 <template lang="pug">
     modal(v-on:closeModal="closeModal()")
-        span(slot="title") {{$i18n.t('easypay.showLinkLocal')}}
+        span(slot="title") {{$i18n.t('webservice.showTrustLogo')}}
         div(slot="content")
-            div.middle-xs.body
-                div.row.box-row
-                    div.col-xs.ta-right
-                        span.label زرین‌لینک
-                    div.col-xs.ta-left.no-margin
-                        div.row.label-group.pull-left
-                            div.col-xs.text.merchant-code
-                                input.txt-webservice-id.dir-ltr(:id="'htmlCodeLink'" onfocus="this.select();" :value="zarinLinkUrl" readonly="readonly")
-                            div.icon.copy(@click="clipboardMessage(zarinLinkUrl)" v-clipboard="zarinLinkUrl" v-bind:data-clipboard-text="zarinLinkUrl")
-                div.row.box-row.padding-row
-                    div.col-xs.ta-right
-                        span.label کد HTML
-                    div.col-xs.ta-left.no-margin
-                        div.row.label-group.pull-left
-                            div.col-xs.text.merchant-code
-                                input.txt-webservice-id.dir-ltr(:id="'htmlCode'" onfocus="this.select();" :value="zarinLinkHtml" readonly="readonly")
-                            div.icon.copy(@click="clipboardMessage(zarinLinkHtml)" v-clipboard="zarinLinkHtml" v-bind:data-clipboard-text="zarinLinkHtml")
-                div.row.box-row.padding-row
-                    div.col-xs.ta-right
-                        span.label کد دکمه ی پرداخت
-                    div.col-xs.ta-left.no-margin
-                        div.row.label-group.pull-left
-                            div.col-xs.text.merchant-code
-                                input.txt-webservice-id.dir-ltr(:id="'htmlCodeButton'" onfocus="this.select();" :value="zarinLinkButton" readonly="readonly")
-                            div.icon.copy(@click="clipboardMessage(zarinLinkButton)" v-clipboard="zarinLinkButton" v-bind:data-clipboard-text="zarinLinkButton")
-                div.row.box-row.padding-row
-                    div.col-xs.ta-right
-                        span.label BBCode ویژه ی انجمن ها
-                    div.col-xs.ta-left.no-margin
-                        div.row.label-group.pull-left
-                            div.col-xs.text.merchant-code
-                                input.txt-webservice-id.dir-ltr(:id="'htmlCodeBb'" onfocus="this.select();" :value="zarinLinkBb" readonly="readonly")
-                            div.icon.copy(@click="clipboardMessage(zarinLinkBb)" v-clipboard="zarinLinkBb" v-bind:data-clipboard-text="zarinLinkBb")
+          
+            div.col-xs.nav-page-header
+              div.row                        
+                    p.page-description {{ $i18n.t('webservice.trustLogoDescription') }}
 
+            div.col-xs
+              div.row.no-margin
+                            textarea(id="TrustCodeLogo" v-model="message" @focus="this.select();" readonly)
+                            div.ta-right(v-if="validation('content')")
+                                span.text-danger {{ errors.first('content') }}
 
+                
+            div.col-xs.xs-ta-center
+                button.btn.btn-gradient-radius(tag="button"    @click="clipboardMessage()" v-clipboard='boogh2' v-bind:data-clipboard-text="message")
+                    span.btn-label.top-0 {{ $i18n.t('webservice.codeCopy') }}
+
+               
 </template>
 
 
@@ -45,21 +27,11 @@
     import loading from '../../partials/loading.vue';
 
     export default {
-        name: 'show-html',
-        props: ['entity'],
-        computed: {
-            zarinLinkUrl(){
-                return 'https://Zarinp.al/' + this.entity;
-            },
-            zarinLinkHtml(){
-                return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl + '\'>پرداخت آنلاین</a>';
-            },
-            zarinLinkButton(){
-                return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl + '\'><img src=\'https://cdn.zarinpal.com/badges/easypay/logo1.png\'></a>';
-            },
-            zarinLinkBb(){
-                return '[url=' + this.zarinLinkUrl + ']پرداخت آنلاین[/url]';
-            }
+        name: 'show-trust-logo',
+        data() {
+            return { 
+            message :'<script src="' + 'https://cdn.zarinpal.com/trustlogo/v1/trustlogo.js" '  + 'type="' + 'text/javascript">' + '</' + 'script>',
+        }
         },
         methods: {
             closeModal() {
@@ -67,10 +39,8 @@
             },
             clipboardMessage(event) {
                 setTimeout(function () {
-                    let htmlCodeField = document.getElementById(event);
-                    if (htmlCodeField) {
-                        htmlCodeField.select();
-                    }
+                    let TrustCode = document.getElementById('TrustCodeLogo');
+                        TrustCode.select();                
                 }, 10);
                 store.commit('flashMessage', {
                     text: 'Copied',
