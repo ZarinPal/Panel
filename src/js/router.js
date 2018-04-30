@@ -24,7 +24,10 @@ export default new VueRouter({
             path: '/panel/error/404',
             name: 'error.404',
             component: require('./components/pages/error/404.vue'),
-            meta: {standAlone: true}
+            meta: {
+                standAlone: true,
+                notLoading: true,
+            }
         },
         {
             path: '/panel/error/connection',
@@ -35,11 +38,12 @@ export default new VueRouter({
             }
         },
         {
-            path: '/panel/ticket/guest/:email?/:publicId?',
+            path: '/panel/ticket/guest/:phone?/:publicId?',
             name: 'ticket.guest',
             component: require('./components/pages/ticket/guest.vue'),
             meta: {
-                standAlone: true
+                standAlone: true,
+                notLoading: true,
             }
         },
         {

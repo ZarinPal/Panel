@@ -39,9 +39,9 @@ new Vue({
         this.$store.commit('app/loading');
         this.$store.commit('http/boot', this);
         require('./i18n').default(this, function (vm) {
-            if (vm.$route.meta.standAlone) {
-                vm.$store.commit('app/ready');
-            }
+            // if (vm.$route.meta.standAlone) {
+            //     // vm.$store.commit('app/ready');
+            // }
         });
 
         //Try to fix app ready after 10 seconds
@@ -51,8 +51,31 @@ new Vue({
                 vm.$store.commit('app/ready');
             }
         }, 5000);
+
+        //Redirect to panel/home if user logged in(its for don`t see login/register page if logged in)
+        if (this.$route.meta.standAlone) {
+            if (this.$route.meta.notLoading) {
+                vm.$store.commit('app/ready');
+
+                return;
+            }
+
+            let standAlonePages = [
+                'auth.register'
+            ];
+
+            if (standAlonePages.indexOf(this.$route.name) !== -1) {
+                this.$store.state.http.requests['oauth.check'].get()
+                    .then(() => {
+                        vm.$router.push({name: 'home.index'});
+                    }).catch(() => {
+                        vm.$store.commit('app/ready');
+                    });
+            }
+        }
     },
     components: {
-        "flash-message": require('./components/pages/partials/flash-message.vue')
+        "flash-message": require('./components/pages/partials/flash-message.vue'),
+        "mainLoading": require('./components/pages/partials/main-loading.vue'),
     },
 }).$mount('#app');

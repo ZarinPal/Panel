@@ -65,6 +65,7 @@
             },
         },
         created() {
+            let vm = this;
             if (this.$route.params.mobile) {
                 this.mobile = this.$route.params.mobile;
             }
