@@ -6,7 +6,7 @@
                 p.page-description {{$i18n.t('card.cardsDescription')}}
 
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                button.btn.success(v-if="userHasAccess([0,1, 2, 3]) >= 0" @click="visibleCreateCard = true")
+                button.btn.success(v-if="userHasAccess([0, 1, 2, 3]) >= 0" @click="visibleCreateCard = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('card.createCard') }}
 
