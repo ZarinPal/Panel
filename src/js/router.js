@@ -42,7 +42,8 @@ export default new VueRouter({
             name: 'ticket.guest',
             component: require('./components/pages/ticket/guest.vue'),
             meta: {
-                standAlone: true
+                standAlone: true,
+                notLoading: true,
             }
         },
         {
