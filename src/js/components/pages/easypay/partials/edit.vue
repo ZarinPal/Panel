@@ -66,12 +66,12 @@
                                                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-on:select="selectedWebservice" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" placeholder="انتخاب وب‌سرویس")
                                                 div.ta-right(v-if="validation('webservice_id')")
                                                     span.text-danger {{ errors.first('webservice_id') }}
-
-                                            div.row.no-margin
-                                                input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
-                                                label(for="activeCoupon")
-                                                    span
-                                                    | نمایش آیتم کد تخفیف در صفحه درگاه پرداخت
+                                        div.break
+                                        div.row.no-margin
+                                            input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
+                                            label(for="activeCoupon")
+                                                span
+                                                | نمایش آیتم کد تخفیف در صفحه درگاه پرداخت
 
                                         div.cb
                                         div.row.nav-buttons
