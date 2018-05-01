@@ -41,12 +41,12 @@
                                     webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
                                     div.ta-right(v-if="validation('webservice_category_id')")
                                         span.text-danger {{ errors.first('webservice_category_id') }}
-                                <!--div.row.no-margin-->
-                                <!--input(type="checkbox"  id= "activeCoupon" v-model="active_coupon" )-->
-                                <!--label(for="chkLimit")-->
-                                <!--span-->
-                                <!--| نمایش آیتم کد تخفیف در صفحه درگاه پرداخت-->
-
+                                div.row.no-margin
+                                    input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
+                                    label(for="activeCoupon")
+                                        span
+                                        | نمایش آیتم کد تخفیف در صفحه درگاه پرداخت
+                                div.break
                                 div.row
                                     div.nav-picker
                                         span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
@@ -103,6 +103,7 @@
                 fileHover: false,
                 purse: null,
                 webservice_category_id: null,
+                is_coupon_active: null,
                 site_ip: '',
                 site_name: '',
                 domain: '',
@@ -120,6 +121,7 @@
             this.purse = this.webservice.purse;
             this.webservice_category_id = this.webservice.category_id;
             this.site_ip = this.webservice.ip;
+            this.is_coupon_active  = this.webservice.is_coupon_active;
             this.site_name = this.webservice.name;
             this.domain = this.webservice.domain;
             this.site_content = this.webservice.description;
@@ -192,6 +194,7 @@
 
                 let webserviceData = {
                     purse: this.purse,
+                    is_coupon_active : this.is_coupon_active,
                     webservice_category_id: this.webservice_category_id,
                     site_ip: this.site_ip,
                     site_logo: this.site_logo,
