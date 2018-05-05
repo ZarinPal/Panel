@@ -17,7 +17,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.offCode') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input(v-focus="" v-validate="'required'" :class="{'input-danger': errors.has('code')}" v-bind:data-vv-as="$i18n.t('coupon.offCode')" type="text"  id="code" v-model="code" name="code"  placeholder="مثال:zarinfriends" autofocus tabindex="1"  )
+                                input(v-focus="" v-validate="'required'" :class="{'input-danger': errors.has('code')}" v-bind:data-vv-as="$i18n.t('coupon.offCode')" type="text"  id="code" v-model="code" name="code"  :placeholder="$i18n.t('coupon.sampleCode')" autofocus tabindex="1"  )
                                 div.ta-right(v-if="validation('code')")
                                     span.text-danger {{ errors.first('code') }}
 
@@ -28,7 +28,7 @@
                                     span
                                     | {{ $i18n.t('coupon.webservice') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-on:select="selectedWebservice" v-if="webserviceId || type" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay' }" placeholder="انتخاب وب‌سرویس"  tabindex="2")
+                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-on:select="selectedWebservice" v-if="webserviceId || type" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay' }" :placeholder="$i18n.t('webservice.selectWebservice')"  tabindex="2")
                                 div.ta-right(v-if="validation('webservice_id')")
                                     span.text-danger {{ errors.first('webservice_id') }}
 
@@ -39,7 +39,7 @@
                                     span
                                     | {{ $i18n.t('coupon.easypay') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                zarin-link.no-margin(v-on:select="selectedEasypay" v-if="easyPayId || type" v-bind:class="{'disable' : type == 'webservice', 'input-danger': errors.has('easypay_id')}" v-bind:selected="easyPayId" placeholder="انتخاب زرین‌لینک")
+                                zarin-link.no-margin(v-on:select="selectedEasypay" v-if="easyPayId || type" v-bind:class="{'disable' : type == 'webservice', 'input-danger': errors.has('easypay_id')}" v-bind:selected="easyPayId" :placeholder="$i18n.t('easypay.selectEasypay')")
                                 div.ta-right(v-if="validation('easypay_id')")
                                     span.text-danger {{ errors.first('easypay_id') }}
 
@@ -61,7 +61,7 @@
                                     | {{ $i18n.t('coupon.limit') }}
 
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12(v-bind:class="{'disable' : !visibleLimit}")
-                                input.ltr-input(v-validate="'required'"  v-bind:data-vv-as="$i18n.t('coupon.limit')" :class="{'input-danger':errors.has('limit')}" type="text" v-model="limit" placeholder="محدودیت در تعداد استفاده")
+                                input.ltr-input(v-validate="'required'"  v-bind:data-vv-as="$i18n.t('coupon.limit')" :class="{'input-danger':errors.has('limit')}" type="text" v-model="limit" :placeholder="$i18n.t('coupon.limitPlaceHolder')")
                                 div.ta-right(v-if="validation('limit')")
                                     span.text-danger {{ errors.first('limit') }}
 
@@ -70,7 +70,7 @@
                                 span.label {{ $i18n.t('coupon.minAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
                                 span.text-help {{ $i18n.t('coupon.minAmountDescription') }}
-                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" :class="{'input-danger': errors.has('min_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="min_amount" name="min_amount" id="min_amount" v-bind:value="min_amount" placeholder="(حداقل مبلغ تخفیف (تومان" tabindex="6")
+                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.minAmount')" :class="{'input-danger': errors.has('min_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="min_amount" name="min_amount" id="min_amount" v-bind:value="min_amount" :placeholder="$i18n.t('coupon.minAmountPlaceHolder')"  tabindex="6")
                                 div.ta-right(v-if="validation('min_amount')")
                                     span.text-danger {{ errors.first('min_amount') }}
 
@@ -78,7 +78,7 @@
                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                                 span.label {{ $i18n.t('coupon.offPercent') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                input.ltr-input(v-validate="'required|numeric|min_value:1|max_value:99'" maxlength="3"  v-bind:data-vv-as="$i18n.t('coupon.offPercent')" :class="{'input-danger': errors.has('percent')}" type="text" v-model="percent" name="percent" id="percent" placeholder="مثال: ۲۵" tabindex="8")
+                                input.ltr-input(v-validate="'required|numeric|min_value:1|max_value:99'" maxlength="3"  v-bind:data-vv-as="$i18n.t('coupon.offPercent')" :class="{'input-danger': errors.has('percent')}" type="text" v-model="percent" name="percent" id="percent" :placeholder="$i18n.t('coupon.offPercentPlaceHolder')"  tabindex="8")
                                 div.ta-right(v-if="validation('percent')")
                                     span.text-danger {{ errors.first('percent') }}
 
@@ -87,7 +87,7 @@
                                 span.label {{ $i18n.t('coupon.maxAmount') }}
                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
                                 span.text-help {{ $i18n.t('coupon.maxAmountDescription') }}
-                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" :class="{'input-danger': errors.has('max_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="max_amount" name="max_amount" id="max_amount" v-bind:value="max_amount"  placeholder="(حداکثر تخفیف (تومان" tabindex="7")
+                                vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('coupon.maxAmount')" :class="{'input-danger': errors.has('max_amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="max_amount" name="max_amount" id="max_amount" v-bind:value="max_amount"  :placeholder="$i18n.t('coupon.maxAmountPlaceHolder')"  tabindex="7")
                                 div.ta-right(v-if="validation('max_amount')")
                                     span.text-danger {{ errors.first('max_amount') }}
 
