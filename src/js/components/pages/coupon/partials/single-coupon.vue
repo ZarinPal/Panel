@@ -61,9 +61,8 @@
             span(slot="title") {{$i18n.t('coupon.deleteCoupon')}}
             div.ta-right(slot="message")
                 div.row.no-margin
-                    div.col-xs-12 آیا نسبت به حذف کد تخفیف " {{coupon.code}} " اطمینان دارید؟
-                    div.col-xs-12 این عملیات غیر قابل بازگشت است.
-
+                    div.col-xs-12 {{$i18n.t('coupon.deleteSure')}} {{$i18n.t('coupon.offCode')}} "{{coupon.code}}"  {{$i18n.t('coupon.areYouSure')}}
+                    div.col-xs-12 {{$i18n.t('coupon.irreversible')}}
             span(slot="messageDanger") {{$i18n.t('common.cancel')}}
             span(slot="messageSuccess") {{$i18n.t('easypay.yesDeleteIt')}}
 

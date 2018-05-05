@@ -3,7 +3,7 @@
         div.col-xs-12.col-sm-5.col-md-5.col-lg-4.section.auth-box
             div.box
                 <!--Header-->
-                span.hand.change-login-type(@click="loginByMobileApplication()" v-if="step == 1 && !loginByMobileApp" title='ورود با موبایل')
+                span.hand.change-login-type(@click="loginByMobileApplication()" v-if="step == 1 && !loginByMobileApp" :title="$i18n.t('user.loginByMobile')")
                 span.hand.change-login-type-keybord(@click="loginByMobileApp = !loginByMobileApp"  v-if="loginByMobileApp")
                 div.row.top-xs
                     div.logo
@@ -22,9 +22,9 @@
                                 span.text-danger {{ errors.first('username') }}
                             div.ta-right(v-if="lockout_time_min || lockout_time_sec")
                                 span.text-danger(v-if="lockout_time_min || lockout_time_sec‌")
-                                    span شما به تازگی درخواست ارسال کد را ارسال کرده اید لطفا تا
-                                    span(v-if="lockout_time_min > 0") {{lockout_time_min }} دقیقه و
-                                    span {{lockout_time_sec }} ثانیه دیگر منتظر بمانید و مجددا درخواست دهید.
+                                    span {{ $i18n.t('user.loginLockErrorPart1') }}
+                                    span(v-if="lockout_time_min > 0") {{lockout_time_min }} {{ $i18n.t('user.loginLockErrorPart2') }}
+                                    span {{lockout_time_sec }} {{ $i18n.t('user.loginLockErrorPart3') }}
 
                         div.row.nav-user-not-registered(v-if="userNotRegister")
                             router-link.col-xs( tag="div" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
@@ -63,16 +63,16 @@
                                 div.col-xs
                                     p {{ $i18n.t('user.yourWelcome') }}
                                     span.inline-block(v-if="channel == 'ussd'")
-                                        | کد دستوری زیر را توسط شماره‌موبایل
+                                        | {{ $i18n.t('user.putUssd') }}
                                         span.mobile-number.persian-num {{ username }}
-                                        | شماره گیری کنید.
-                                        span.change-mobile(@click="step--") (تغییر شماره تلفن)
+                                        | {{ $i18n.t('user.call') }}
+                                        span.change-mobile(@click="step--") ({{ $i18n.t('user.changeMobile') }})
                                     span(v-else-if="channel == 'email'")
-                                        span رمز یکبار مصرف ارسال‌شده به ایمیل خود را وارد کنید
-                                        span.change-mobile(@click="step--") (تغییر ایمیل)
+                                        span {{ $i18n.t('user.enterOtpEmail') }}
+                                        span.change-mobile(@click="step--") ({{ $i18n.t('user.changeEmail') }})
 
                                     span(v-else-if="channel == 'sms'")
-                                        span رمز یکبار مصرف ارسال‌شده به  خود را وارد کنید
+                                        span {{ $i18n.t('user.enterOtpSms') }}
 
 
                             <!--Ussd Box-->

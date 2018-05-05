@@ -45,7 +45,7 @@
                                                     | {{ $i18n.t('user.purse') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
-                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" :class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" tabindex="4")
+                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" :class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" tabindex="4")
                                                 div.ta-right(v-if="validation('purse')")
                                                     span.text-danger {{ errors.first('purse') }}
 
@@ -106,7 +106,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         <!--2-2-->
                                         div.row.f-row(v-bind:class="{'inactive-step' : step > 3}")
@@ -132,7 +132,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         <!--2-3-->
                                         div.row.f-row
@@ -158,7 +158,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         <!--2-4-->
                                         div.row.f-row
@@ -184,7 +184,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         div.row
                                             div.col-xs.nav-buttons
@@ -225,7 +225,7 @@
 
 
                                                 div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                    input(v-validate="'numeric'" v-show="limited" type="text" v-model="limit" placeholder="تعداد")
+                                                    input(v-validate="'numeric'" v-show="limited" type="text" v-model="limit" :placeholder="$i18n.t('common.count')")
 
                                                 div.col-lg-12.col-md-12.col-xs-12.nav-urls
                                                     <!--Success redirect url-->
