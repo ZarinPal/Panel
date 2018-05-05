@@ -67,11 +67,11 @@
                                                 div.ta-right(v-if="validation('webservice_id')")
                                                     span.text-danger {{ errors.first('webservice_id') }}
 
-                                            div.row.no-margin
-                                                input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
-                                                label(for="activeCoupon")
-                                                    span
-                                                    | {{ $i18n.t('webservice.activeCouponInPg') }}
+                                          div.row.no-margin
+                                              input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
+                                              label(for="activeCoupon")
+                                                  span
+                                                  | {{ $i18n.t('webservice.activeCouponInPg') }}
 
                                         div.cb
                                         div.row.nav-buttons
