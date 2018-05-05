@@ -528,6 +528,7 @@
     "ZarinCardHasNoCard": "برای ارسال این درخواست شما باید زرین‌کارت داشته باشید.",
     "ZarinCardPleaseAcceptTopInformationLocal": "لطفا صحت اطلاعات بالا را تأیید کنید.",
     "ZarinCardRequestSuccessLocal": "درخواست زرین‌کارت شما با موفقیت ثبت شد. کارت شما حداکثر تا دو هفته آینده از طریق پست به آدرس پستی انتخاب شده ارسال خواهد شد.",
+    "ZarinCardInsufficientBalance": "موجودی زرین‌کارت شما کمتر از حد مجاز است.",
     "__Newsletter__": "<----------#Newsletter#---------->",
     "NewsletterOnSubscribing": "خطا در زمان عضویت در خبرنامه ایمیلی.",
     "__RequestMoney__": "<----------#RequestMoney#---------->",
@@ -1109,6 +1110,12 @@
     "privacy": "حریم خصوصی",
     "enter": "وارد شوید",
     "yourWelcome": "خوش آمدید",
+    "putUssd": "کد دستوری زیر را توسط شماره‌موبایل",
+    "call": "شماره گیری کنید.",
+    "changeMobile": "تغییر شماره تلفن",
+    "changeEmail": "تغییر ایمیل",
+    "enterOtpEmail": "رمز یکبار مصرف ارسال‌شده به ایمیل خود را وارد کنید",
+    "enterOtpSms": "رمز یکبار مصرف ارسال‌شده به موبایل خود را وارد کنید",
     "callBelowUssdCode": "کد دستوری زیر را توسط موبایل خود شماره‌گیری نمایید",
     "sendCodeBySms": "ارسال کد به صورت پیامک",
     "connectZarinToTelegramBot": "اتصال زرین‌پال به ربات تلگرام",
@@ -1173,6 +1180,10 @@
     "loginToOldPanel": "ورود به پنل قدیمی",
     "copyUssd": "برای کپی کردن کد را لمس کنید",
     "loginByMobileApp": "برای ورود کافی است رمزینه زیر را با اپلیکیشن زرین‌پال من اسکن کنید",
+    "loginByMobile": "ورود با موبایل",
+    "loginLockErrorPart1": "شما به تازگی درخواست ارسال کد را ارسال کرده اید لطفا تا",
+    "loginLockErrorPart2": " دقیقه و",
+    "loginLockErrorPart3": " ثانیه دیگر منتظر بمانید و مجددا درخواست دهید.",
     "downloadMobileApp": "دانلود اپلیکیشن زرین‌پال من",
     "selectAddressTitle": "انتخاب‌ عنوان آدرس"
   },
@@ -1400,6 +1411,8 @@
     "activation": "فعالسازی",
     "depositTo": "متصل به کیف‌پول",
     "uploadLogoNote": "* توجه:‌ لوگو باید حتما با فرمت PNG و در ابعاد 500*500 پیکسل باشد.",
-    "inActive": "غیر‌فعال"
+    "inActive": "غیر‌فعال",
+    "showTrustLogo": "مشاهده کد نماد اعتماد"
+
   }
 }
