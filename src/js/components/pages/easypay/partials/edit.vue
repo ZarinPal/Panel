@@ -50,7 +50,7 @@
                                                     | {{ $i18n.t('user.purse') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
-                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" :class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" placeholder="انتخاب کیف‌پول" tabindex="4")
+                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" :class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" v-bind:selected="purse" :placeholder="$i18n.t('easypay.selectPurse')" tabindex="4")
                                                 div.ta-right(v-if="validation('purse')")
                                                     span.text-danger {{ errors.first('purse') }}
 
@@ -63,7 +63,7 @@
                                                     | {{ $i18n.t('coupon.webservice') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12
-                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-on:select="selectedWebservice" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" placeholder="انتخاب وب‌سرویس")
+                                                selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-on:select="selectedWebservice" v-bind:selected="webserviceId" v-bind:data="webserviceSelection" :class="{'disable' : payTo == 'purse', 'input-danger': errors.has('webservice_id')}" :placeholder="$i18n.t('webservice.selectWebservice')")
                                                 div.ta-right(v-if="validation('webservice_id')")
                                                     span.text-danger {{ errors.first('webservice_id') }}
 
@@ -71,7 +71,7 @@
                                                 input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
                                                 label(for="activeCoupon")
                                                     span
-                                                    | نمایش آیتم کد تخفیف در صفحه درگاه پرداخت
+                                                    | {{ $i18n.t('webservice.activeCouponInPg') }}
 
                                         div.cb
                                         div.row.nav-buttons
@@ -113,7 +113,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
                                         <!--2-2-->
                                         div.row.f-row
                                             div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
@@ -138,7 +138,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="name-placeholder" v-model="requiredFields.name.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="name-placeholder" v-model="requiredFields.name.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         <!--2-3-->
                                         div.row.f-row
@@ -164,7 +164,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         <!--2-4-->
                                         div.row.f-row
@@ -190,7 +190,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         div.row
                                             div.col-xs.nav-buttons
@@ -228,7 +228,7 @@
                                                                     | {{ $i18n.t('easypay.showEasypayReceipt')}}
 
                                                         div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                            input(:class="{'input-danger': errors.has('limit')}" v-validate="'numeric'" v-show="limited" type="number" v-model="limit" placeholder="تعداد")
+                                                            input(:class="{'input-danger': errors.has('limit')}" v-validate="'numeric'" v-show="limited" type="number" v-model="limit" :placeholder="$i18n.t('common.count')")
                                                             div.ta-right(v-if="validation('limit')")
                                                                 span.text-danger {{  errors.first('limit') }}
 

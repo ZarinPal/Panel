@@ -266,17 +266,19 @@
     "editCoupon": "ویرایش کد تخفیف",
     "delete": "حذف",
     "deleteCoupon": "تایید حذف کد تخفیف",
-    "deleteCouponPhar1": "آیا نسبت به حذف کد تخفیف",
+    "deleteSure": "آیا نسبت به حذف ",
     "irreversible": "این عملیات غیر قابل بازگشت است.",
-    "deleteCouponPhar2": "اطمینان دارید؟",
+    "areYouSure": "اطمینان دارید؟",
     "editCouponDescription": "در این صفحه می‌توانید کد تخفیف خودرا ویرایش کنید",
     "discountCode": "کد‌تخفیف",
     "setDiscountCode": "ثبت کد‌تخفیف",
     "sampleCode": "مثال:zarinfriends"
   },
   "easypay": {
+    "easypay": "زرین‌لینک",
     "createEasypay": "ایجاد زرین‌لینک",
     "selectEasypay": "انتخاب زرین‌لینک",
+    "selectPurse": "انتخاب کیف‌پول",
     "createEasypayDescription": "در این صفحه میتوانید زرین‌لینک ایجاد کنید",
     "optional": "اختیاری",
     "mandatory": "اجباری",
@@ -310,6 +312,10 @@
     "selectPurseOrWebserviceId": "انتخاب کیف پول و یا درگاه پرداخت الزامی است",
     "selectWebservice": "انتخاب درگاه پرداخت",
     "showLinkLocal": "نمایش کد",
+    "descriptionInHere": "توضیحات در اینجا",
+    "htmlCode": "کد HTML",
+    "buttonCode": "کد دکمه ی پرداخت",
+    "BbCode": "BBCode ویژه ی انجمن ها",
     "description": "توضیحات محصول"
   },
   "error": {
@@ -1180,7 +1186,7 @@
     },
     "referredUsers": "کاربران معرفی‌شده",
     "ssn": "تأیید کد ملی",
-    "username": "ایجاد لینک شخصی",
+    "username": "لینک شخصی",
     "requestPersonalLinkTitle": "ایجاد لینک شخصی",
     "checkingUsername": "در حال جستجوی نام‌کاربری",
     "youCanUserThisUsername": "این نام کاربری آزاد است",
@@ -1422,7 +1428,7 @@
     "depositTo": "متصل به کیف‌پول",
     "uploadLogoNote": "* توجه:‌ لوگو باید حتما با فرمت PNG و در ابعاد 500*500 پیکسل باشد.",
     "inActive": "غیر‌فعال",
-    "showTrustLogo": "مشاهده کد نماد اعتماد"
-
+    "showTrustLogo": "مشاهده کد نماد اعتماد",
+    "activeCouponInPg": "نمایش آیتم کد تخفیف در صفحه درگاه پرداخت"
   }
 }
