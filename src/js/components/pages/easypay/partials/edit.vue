@@ -67,6 +67,12 @@
                                                 div.ta-right(v-if="validation('webservice_id')")
                                                     span.text-danger {{ errors.first('webservice_id') }}
 
+                                            div.row.no-margin
+                                                input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
+                                                label(for="activeCoupon")
+                                                    span
+                                                    | نمایش آیتم کد تخفیف در صفحه درگاه پرداخت
+
                                         div.cb
                                         div.row.nav-buttons
                             div.col-lg-5.col-md-5.col-sm-12.col-xs-12
@@ -261,6 +267,7 @@
             return {
                 loading: false,
                 isLoadedEasypay: false,
+                is_coupon_active: false,
                 easypay: {},
                 fileHover: '',
                 visibleEmail: '',   //  visible email options
@@ -370,6 +377,7 @@
                         this.title = response.data.data.title;
                         this.price = response.data.data.price;
                         this.description = response.data.data.description;
+                        this.is_coupon_active = response.data.data.is_coupon_active;
 
                         if (response.data.data.purse && !response.data.data.webservice_id) {
                             this.payTo = 'purse';
@@ -410,6 +418,7 @@
                 let easyPayData = {
                     title: this.title,
                     description: this.description,
+                    is_coupon_active: this.is_coupon_active,
                     price: this.clearNumber(this.price),
                     purse: this.purse,
                     webservice_id: this.webservice_id,
@@ -516,6 +525,7 @@
 
                 this.$store.state.auth.user.easypays[easypayIndex].description = this.description;
                 this.$store.state.auth.user.easypays[easypayIndex].price = this.price;
+                this.$store.state.auth.user.easypays[easypayIndex].is_coupon_active = this.is_coupon_active;
                 this.$store.state.auth.user.easypays[easypayIndex].purse = this.purse;
                 this.$store.state.auth.user.easypays[easypayIndex].required_fields.email = this.requiredFields.email;
                 this.$store.state.auth.user.easypays[easypayIndex].required_fields.name = this.requiredFields.name;

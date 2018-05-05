@@ -106,6 +106,8 @@
                 return n + " باید شامل حروف و اعداد باشد "
             }, uniquedomain: function (n) {
                 return " این دامنه قبلا در سیستم ثبت شده است "
+            }, requiredwithout: function (n) {
+                return " این فیلد در صورت نبود لازم است. "
             }
         }, attributes: {}
     };
