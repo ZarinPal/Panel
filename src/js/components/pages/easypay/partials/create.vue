@@ -39,19 +39,19 @@
                                                 span.text-danger {{ errors.first('description') }}
                                         div.row.no-margin.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
-                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" id="rdoPurse")
+                                                input(name="easypay-type" v-model="payTo" value="purse" type="radio" @click="selectPayType" id="rdoPurse")
                                                 label(for="rdoPurse")
                                                     span
                                                     | {{ $i18n.t('user.purse') }}
 
                                             div.col-lg-8.col-md-8.col-sm-12.col-xs-12.no-margin
-                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" :class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" tabindex="4")
+                                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" :class="{'disable' : payTo == 'webservice', 'input-danger': errors.has('purse')}" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" tabindex="4")
                                                 div.ta-right(v-if="validation('purse')")
                                                     span.text-danger {{ errors.first('purse') }}
 
                                         div.row.nav-pay-to
                                             div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" id="rdoWebservice")
+                                                input(name="easypay-type" v-model="payTo" value="webservice" type="radio" @click="selectPayType" id="rdoWebservice")
                                                 label(for="rdoWebservice")
                                                     span
                                                     | {{ $i18n.t('coupon.webservice') }}
@@ -106,7 +106,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         <!--2-2-->
                                         div.row.f-row(v-bind:class="{'inactive-step' : step > 3}")
@@ -132,7 +132,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         <!--2-3-->
                                         div.row.f-row
@@ -158,7 +158,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         <!--2-4-->
                                         div.row.f-row
@@ -184,7 +184,7 @@
                                                             | {{ $i18n.t('easypay.mandatory')}}
 
                                                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                                                        input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" placeholder='توضیحات در اینجا')
+                                                        input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
 
                                         div.row
                                             div.col-xs.nav-buttons
@@ -225,7 +225,7 @@
 
 
                                                 div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                                                    input(v-validate="'numeric'" v-show="limited" type="text" v-model="limit" placeholder="تعداد")
+                                                    input(v-validate="'numeric'" v-show="limited" type="text" v-model="limit" :placeholder="$i18n.t('common.count')")
 
                                                 div.col-lg-12.col-md-12.col-xs-12.nav-urls
                                                     <!--Success redirect url-->
@@ -343,12 +343,19 @@
             removeErrors(field) {
                 !!this[field] && this.errors.remove(field);
             },
+            selectPayType() {
+                this.webservice_id = null;
+                this.purse= null;
+                this.purse_name= null;
+            },
             selectedPurse(purseId) {
                 this.purse = purseId;
                 this.purse_name = this.getPurseName(purseId);
+                this.webservice_id = null;
             },
             selectedWebservice(entityId) {
                 this.webservice_id = entityId;
+                this.purse = null;
             },
             stepTwo() {
                 if ((this.payTo === 'purse' && !this.purse) || (this.payTo === 'webservice' && !this.webservice_id)) {
@@ -454,6 +461,7 @@
                     description: this.description,
                     price: this.price,
                     purse: this.purse,
+                    webservice_id: this.webservice_id,
                     required_fields: {
                         email: this.handleOrderOptionsSave('email'),
                         name: this.handleOrderOptionsSave('name'),

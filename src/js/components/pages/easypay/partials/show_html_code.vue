@@ -5,7 +5,7 @@
             div.middle-xs.body
                 div.row.box-row
                     div.col-xs.ta-right
-                        span.label زرین‌لینک
+                        span.label {{$i18n.t('easypay.easypay')}}
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
@@ -13,7 +13,7 @@
                             div.icon.copy(@click="clipboardMessage(zarinLinkUrl)" v-clipboard="zarinLinkUrl" v-bind:data-clipboard-text="zarinLinkUrl")
                 div.row.box-row.padding-row
                     div.col-xs.ta-right
-                        span.label کد HTML
+                        span.label {{$i18n.t('easypay.htmlCode')}}
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
@@ -21,7 +21,7 @@
                             div.icon.copy(@click="clipboardMessage(zarinLinkHtml)" v-clipboard="zarinLinkHtml" v-bind:data-clipboard-text="zarinLinkHtml")
                 div.row.box-row.padding-row
                     div.col-xs.ta-right
-                        span.label کد دکمه ی پرداخت
+                        span.label {{$i18n.t('easypay.buttonCode')}}
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
@@ -29,7 +29,7 @@
                             div.icon.copy(@click="clipboardMessage(zarinLinkButton)" v-clipboard="zarinLinkButton" v-bind:data-clipboard-text="zarinLinkButton")
                 div.row.box-row.padding-row
                     div.col-xs.ta-right
-                        span.label BBCode ویژه ی انجمن ها
+                        span.label {{$i18n.t('easypay.BbCode')}}
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code
