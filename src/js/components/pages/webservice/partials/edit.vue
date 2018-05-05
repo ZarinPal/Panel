@@ -121,7 +121,7 @@
             this.purse = this.webservice.purse;
             this.webservice_category_id = this.webservice.category_id;
             this.site_ip = this.webservice.ip;
-            this.is_coupon_active  = this.webservice.is_coupon_active;
+            this.is_coupon_active = this.webservice.is_coupon_active;
             this.site_name = this.webservice.name;
             this.domain = this.webservice.domain;
             this.site_content = this.webservice.description;
@@ -194,7 +194,7 @@
 
                 let webserviceData = {
                     purse: this.purse,
-                    is_coupon_active : this.is_coupon_active,
+                    is_coupon_active: this.is_coupon_active,
                     webservice_category_id: this.webservice_category_id,
                     site_ip: this.site_ip,
                     site_logo: this.site_logo,

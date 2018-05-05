@@ -186,12 +186,12 @@
                 .then(() => {
                     vm.$router.push({name: 'home.index'});
                 }).catch(() => {
-                    vm.$store.commit('app/ready');
+                vm.$store.commit('app/ready');
 
-                    if (this.username && this.otp) {
-                        this.login();
-                    }
-                });
+                if (this.username && this.otp) {
+                    this.login();
+                }
+            });
         },
         methods: {
             sendOtp(channel){

@@ -47,7 +47,7 @@ new Vue({
         //Try to fix app ready after 10 seconds
         let vm = this;
         setTimeout(function () {
-            if(vm.$store.state.auth.check && vm.$store.state.auth.isLoaded && !vm.$store.state.app.isLoaded) {
+            if (vm.$store.state.auth.check && vm.$store.state.auth.isLoaded && !vm.$store.state.app.isLoaded) {
                 vm.$store.commit('app/ready');
             }
         }, 5000);
@@ -69,8 +69,8 @@ new Vue({
                     .then(() => {
                         vm.$router.push({name: 'home.index'});
                     }).catch(() => {
-                        vm.$store.commit('app/ready');
-                    });
+                    vm.$store.commit('app/ready');
+                });
             }
         }
     },
