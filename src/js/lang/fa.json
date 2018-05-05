@@ -139,7 +139,6 @@
     "amount": "مبلغ",
     "requestAmount": "مقدار درخواستی (تومان)",
     "transactionId": "شماره‌تراکنش",
-    "iabn": "شماره شبا",
     "pan": "شماره‌کارت",
     "expireAt": "تاریخ انقضا",
     "type": "نوع",
@@ -237,6 +236,12 @@
     "female": "زن",
     "request": "ایجاد لینک شخصی",
     "authority": "شناسه یکتا پرداخت (Authority)",
+    "copyRightYear": "©۱۳۹۷",
+    "application": "اپلیکیشن",
+    "contactUs": "تماس با ما",
+    "lab": "آزمایشگاه",
+    "faq": "سوالات متداول",
+    "aboutUs": "درباره ما",
     "transactionSession": "سشن های پرداخت "
   },
   "coupon": {
@@ -319,8 +324,10 @@
     "description": "توضیحات محصول"
   },
   "error": {
-    "NotFound": "These credentials do not match our records.",
-    "InternalError": "Internal error occurred."
+    "notFound": "صفحه مورد‌نظر یافت نشد !",
+    "notFoundDetail": "متاسفیم، صفحه‌ای که می‌خواستید پیدا نشد. به نظر آدرس را اشتباه وارد کرده‌اید. آدرس صفحه را بررسی و مجددا تلاش کنید.",
+    "internalError": "خطای داخلی رخ داد!",
+    "404": "۴۰۴"
   },
   "flash": {
     "the-input-parameters-are-not-sufficient": "پارامترهای ارسالی کامل نیستند",
