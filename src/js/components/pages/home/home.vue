@@ -8,14 +8,14 @@
             div.col-lg-6.col-md-6.col-sm-12.col-xs-12
                 <!--button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")-->
                 <!--span.icon-add-circle-->
-                <!--span.text {{ $i18n.t('common.createPurse') }}-->
+                <!--span.text {{ $i18n.t('common.withdraw') }}-->
 
 
         div.nav-top-buttons.row
             div.col-lg-9.col-md-9.col-sm-12.col-xs-12.xs-ta-center.sm-ta-center
                 button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
                     i.btn-icon.withdraw
-                    span.btn-label تسویه حساب
+                    span.btn-label {{ $i18n.t('common.withdraw') }}
 
                 router-link.btn-gradient-radius(v-if="userHasAccess([1, 2, 3]) >= 0" v-ripple="" tag="button" v-bind:to="{ name: 'requestMoney.index'}")
                     i.btn-icon.request-money
@@ -34,7 +34,7 @@
                     span.btn-label {{ $i18n.t('card.requestZarinCardTitle') }}
 
             div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
-                button.btn.success(v-if="userHasAccess([1, 2, 3]) >= 0" @click="visibleCreatePurse = true")
+                button.btn.success(v-if="userHasAccess([1, 2, 3]) >= 0 && purses.data.length < purseLimit" @click="visibleCreatePurse = true")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createPurse') }}
 

@@ -13,7 +13,7 @@
             form(v-else autocomplete="on" onsubmit="event.preventDefault();")
                 div.body
                     div.row.no-margin
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse_number')" v-focus="" v-validate="{ rules: {required: true}}" name="purse_number" v-model="purse_number" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse_number')}" tabindex="5")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse_number')" v-focus="" v-validate="{ rules: {required: true}}" name="purse_number" v-model="purse_number" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" :class="{'input-danger': errors.has('purse_number')}" tabindex="5")
                         div.ta-right(v-if="validation('purse_number')")
                             span.text-danger {{ errors.first('purse_number') }}
 

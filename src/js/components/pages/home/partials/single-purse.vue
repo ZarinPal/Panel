@@ -55,18 +55,18 @@
             router-link.bottom-xs.footer.single-purse-footer(tag="div" v-bind:to="{ name: 'transaction.index', params: {type: 'purse', id: purse.purse} }")
                 div.row
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
-                        span.txt-daily-balance.iransans-light ورودی
+                        span.txt-daily-balance.iransans-light {{ $i18n.t('common.incoming')}}
                         span.amount.persian-num(v-if="purse.balance") {{balance.today_income  | numberFormat }}
                         span.amount(v-else) -
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment.no-right-margin
-                        span.txt-daily-balance.iransans-light خروجی
+                        span.txt-daily-balance.iransans-light {{ $i18n.t('common.outgoing')}}
                         span.amount.persian-num(v-if="purse.balance") {{balance.today_outcome  | numberFormat }}
                         span.amount(v-else) -
 
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment.no-right-margin
-                        span.txt-daily-balance.iransans-light درحال خروج
+                        span.txt-daily-balance.iransans-light {{ $i18n.t('transaction.confirmedState.pendingExit')}}
                         span.amount.persian-num(v-if="purse.balance") {{balance.total_to_exit  | numberFormat }}
                         span.amount(v-else) -
 
