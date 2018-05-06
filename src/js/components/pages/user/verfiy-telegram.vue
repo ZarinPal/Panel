@@ -21,7 +21,7 @@
         },
         methods: {
             closeModal(){
-                this.$router.push({name: 'home.index'})
+                this.$router.push({name: 'home.index'});
                 this.confirmVisible = false;
             },
             verify(){

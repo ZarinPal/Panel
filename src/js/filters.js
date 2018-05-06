@@ -32,7 +32,7 @@ Vue.filter('less', function (value, length = 20) {
         return value;
     }
     let trimmedString = value.substr(0, length);
-    trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
+    trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")));
     return trimmedString + '...';
 });
 

@@ -298,7 +298,7 @@
             weekDayTitles() {
                 let weekDays = moment()._locale._weekdays;
                 weekDays = _.initial(weekDays);
-                weekDays.unshift(moment().day(6).format('dddd'))
+                weekDays.unshift(moment().day(6).format('dddd'));
                 return weekDays
             },
             checkForHoliday(singleDate) {

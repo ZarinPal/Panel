@@ -302,7 +302,7 @@
 
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
-                        vm.loginLoading = true
+                        vm.loginLoading = true;
                         vm.$router.push({name: 'home.index'});
 
                         if (vm.nchanSubscriber) {
