@@ -198,6 +198,8 @@
     "confirmAutomatic": "تأیید کردن سیستمی",
     "allTomans": "* کلیه واحدهای پولی به تومان است.",
     "transaction": "تراکنش",
+    "incomeTransaction": "تراکنش ورودی",
+    "outgoTransaction": "تراکنش خروجی",
     "docNo": "شماره سند",
     "checkAll": "انتخاب همه",
     "advancedSearch": "جستجوی پیشرفته",
