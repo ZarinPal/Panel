@@ -12,11 +12,11 @@
                 span.persian-num {{ debt.created_at | fromNow}}
             div.col-lg-3.col-md-2.col-sm-2.ta-center
                 span(v-if="debt.status == 'pending'")
-                    span.req-btn.btn-decline(@click="confirmVisible = true" v-bind:class="{'clicked': rejectLoading}") رد کردن
+                    span.req-btn.btn-decline(@click="confirmVisible = true" v-bind:class="{'clicked': rejectLoading}") {{ $i18n.t('requestMoney.deny') }}
                         svg.material-spinner(v-if="rejectLoading" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                    span.req-btn.btn-accept(@click="visiblePayRequest = true" v-bind:class="{'clicked-paid': payLoading}") پرداخت
+                    span.req-btn.btn-accept(@click="visiblePayRequest = true" v-bind:class="{'clicked-paid': payLoading}") {{ $i18n.t('requestMoney.pay') }}
                         svg.material-spinner(v-if="payLoading" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 

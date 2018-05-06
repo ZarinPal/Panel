@@ -6,7 +6,7 @@
             div.nav-select-user(v-if="step == 1 && phoneBook.data.length")
                 div.row.search-box
                     span.icon-search
-                    input(type="text" v-model="searchString" placeholder="جستجو ..." )
+                    input(type="text" v-model="searchString" :placeholder="$i18n.t('user.searchBtn')" )
 
                 div.users(v-if="!phoneBook.status")
                     div.row.user-row(v-for="user in phoneBook.data")
@@ -75,7 +75,7 @@
                     span.amount-text {{ $i18n.t('transaction.toman') }}
 
                 div.row
-                    input.amount-input(v-validate="'numeric'" maxlength="8" type="text" v-model="requestAmount" placeholder="مبلغ" @keyup="calcAutoRequestAmount" autofocus)
+                    input.amount-input(v-validate="'numeric'" maxlength="8" type="text" v-model="requestAmount" :placeholder="$i18n.t('user.amount')" @keyup="calcAutoRequestAmount" autofocus)
 
                 div.row.share-in-request-text
                     input(type="checkbox" id="shareRequestChk" v-model="shareRequestWithMe" @change="calcAutoRequestAmount")
@@ -91,8 +91,8 @@
                             div(v-for="(user, index) in selectedUsers")
                                 img.avatar(:src="user.avatar")
 
-                        span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" title="قبلی")
-                        span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" title="بعدی")
+                        span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" :title="$i18n.t('user.back')")
+                        span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" :title="$i18n.t('user.next')")
 
 
 
