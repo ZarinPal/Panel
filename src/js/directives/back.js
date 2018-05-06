@@ -3,5 +3,5 @@ export default {
         el.addEventListener('click', function (event) {
             window.history.back();
         });
-    },
+    }
 };

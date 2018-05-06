@@ -48,15 +48,15 @@ export default {
             if (refId) {
                 state.refererId = refId;
 
-
+                return
             }
         },
         changeModalStatus(state, status) {
-            state.isOpenModal = status;
+            state.isOpenModal = status
         },
         changeLogOutStatus(state) {
             state.logOuting = false;
-        },
+        }
     },
     actions: {
         getWebserviceCategories({commit, rootState, state}) {
@@ -66,7 +66,7 @@ export default {
             rootState.http.requests['webservice.getWebserviceCategory'].get().then(
                 (response) => {
                     commit('setWebserviceCategories', response.data.data);
-                },
+                }
             );
         },
         getTicketDepartments({commit, rootState, state}) {
@@ -76,8 +76,8 @@ export default {
             rootState.http.requests['ticket.getTicketDepartment'].get().then(
                 (response) => {
                     commit('setTicketDepartments', response.data.data);
-                },
+                }
             );
         },
-    },
+    }
 };

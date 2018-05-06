@@ -38,10 +38,12 @@
         },
         created() {
 
+
         },
         mounted() {
             //Close modal
             this.closeModalContent = false;
+
 
             let vm = this;
             //Load google map script tag
@@ -99,9 +101,9 @@
             },
             handleLocationError(browserHasGeolocation, infoWindow, pos) {
                 infoWindow.setPosition(pos);
-                infoWindow.setContent(browserHasGeolocation
-                    ? 'Error: The Geolocation service failed.'
-                    : 'Error: Your browser doesn\'t support geolocation.');
+                infoWindow.setContent(browserHasGeolocation ?
+                    'Error: The Geolocation service failed.' :
+                    'Error: Your browser doesn\'t support geolocation.');
                 infoWindow.open(map);
             },
             /*** Get location Address by geoLocation***/

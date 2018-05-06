@@ -3,5 +3,5 @@ export default {
         Vue.nextTick(function () {
             el.focus();
         });
-    },
+    }
 };

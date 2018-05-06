@@ -435,8 +435,7 @@
                     limit: this.limit,
                 };
 
-                this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id},
-                    easyPayData).then(
+                this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
                     () => {
                         this.loading = false;
                         this.changeEasypayState();

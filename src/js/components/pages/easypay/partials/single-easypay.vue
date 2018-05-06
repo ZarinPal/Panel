@@ -116,8 +116,7 @@
 
                     this.$store.state.http.requests['easypay.getShow'].remove(params).then(
                         () => {
-                            let easypayIndex = _.findIndex(this.$store.state.paginator.paginator.EasypayList.data,
-                                {'entity_id': this.easypay.entity_id});
+                            let easypayIndex = _.findIndex(this.$store.state.paginator.paginator.EasypayList.data, {'entity_id': this.easypay.entity_id});
                             this.$store.state.paginator.paginator.EasypayList.data.splice(easypayIndex, 1);
                             this.$store.state.paginator.update++;
 

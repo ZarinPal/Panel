@@ -49,17 +49,19 @@
         methods: {
             getReferredUsers() {
                 if (!this.referredUsers.length) {
-                    this.$store.state.http.requests['user.referred'].get().then((response) => {
-                            this.referredUsers = response.data.data;
-                            this.loadingData = false;
-                        }, (response) => {
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                type: 'danger'
-                            });
-                        }
-                    );
+                    this.$store.state.http.requests['user.referred']
+                        .get()
+                        .then((response) => {
+                                this.referredUsers = response.data.data;
+                                this.loadingData = false;
+                            }, (response) => {
+                                store.commit('setValidationErrors', response.data.validation_errors);
+                                store.commit('flashMessage', {
+                                    text: response.data.meta.error_type,
+                                    type: 'danger'
+                                });
+                            }
+                        );
                 }
             },
             clipboardMessage() {

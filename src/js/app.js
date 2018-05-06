@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 /**
  * First we will load all of this project's JavaScript dependencies which
  * include Vue and Vue Resource. This gives a great starting point for
@@ -10,6 +10,7 @@ require('./filters');
 
 require('./store');
 
+
 // Vue.transition('list-item', {
 //     enterClass: 'lightSpeedIn',
 //     leaveClass: 'lightSpeedOut'
@@ -19,6 +20,7 @@ require('./store');
 //     leaveClass: 'flipOutX'
 // });
 
+
 new Vue({
     name: 'application',
     store,
@@ -27,7 +29,7 @@ new Vue({
     data() {
         return {
             baseUrl: siteConfigs.baseUrl,
-        };
+        }
     },
     http: {
         root: siteConfigs.baseUrl + '/rest/v3',
@@ -45,8 +47,7 @@ new Vue({
         //Try to fix app ready after 10 seconds
         let vm = this;
         setTimeout(function () {
-            if (vm.$store.state.auth.check && vm.$store.state.auth.isLoaded &&
-                !vm.$store.state.app.isLoaded) {
+            if (vm.$store.state.auth.check && vm.$store.state.auth.isLoaded && !vm.$store.state.app.isLoaded) {
                 vm.$store.commit('app/ready');
             }
         }, 5000);
@@ -60,20 +61,21 @@ new Vue({
             }
 
             let standAlonePages = [
-                'auth.register',
+                'auth.register'
             ];
 
             if (standAlonePages.indexOf(this.$route.name) !== -1) {
-                this.$store.state.http.requests['oauth.check'].get().then(() => {
-                    vm.$router.push({name: 'home.index'});
-                }).catch(() => {
+                this.$store.state.http.requests['oauth.check'].get()
+                    .then(() => {
+                        vm.$router.push({name: 'home.index'});
+                    }).catch(() => {
                     vm.$store.commit('app/ready');
                 });
             }
         }
     },
     components: {
-        'flash-message': require('./components/pages/partials/flash-message.vue'),
-        'mainLoading': require('./components/pages/partials/main-loading.vue'),
+        "flash-message": require('./components/pages/partials/flash-message.vue'),
+        "mainLoading": require('./components/pages/partials/main-loading.vue'),
     },
 }).$mount('#app');

@@ -218,10 +218,11 @@
                     }
                 }
 
-                this.$store.state.http.requests['getReply'].get(ticketData).then((response) => {
-                    vm.ticket = response.data.data;
-                    vm.requesting = false;
-                }).catch((response) => {
+                this.$store.state.http.requests['getReply'].get(ticketData)
+                    .then((response) => {
+                        vm.ticket = response.data.data;
+                        vm.requesting = false;
+                    }).catch((response) => {
                     vm.requesting = false;
                     store.commit('setValidationErrors', response.data.validation_errors);
                     store.commit('flashMessage', {

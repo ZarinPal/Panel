@@ -21,15 +21,12 @@
                                 balance = purse.balance.balance;
                             }
                             return {
-                                'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' +
-                                purse.name + '</div><div class="col-xs ta-left persian-num purse-selectbox-balance">' + balance +
-                                ' تومان</div>',
+                                'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '</div><div class="col-xs ta-left persian-num purse-selectbox-balance">' + balance + ' تومان</div>',
                                 'value': purse.purse
                             }
                         } else {
                             return {
-                                'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' +
-                                purse.name + '</div>',
+                                'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' + purse.name + '</div>',
                                 'value': purse.purse
                             };
                         }

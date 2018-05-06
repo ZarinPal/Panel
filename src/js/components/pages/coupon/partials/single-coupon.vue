@@ -107,8 +107,7 @@
 
                     this.$store.state.http.requests['coupon.getShow'].remove(params).then(
                         () => {
-                            let couponIndex = _.findIndex(this.$store.state.paginator.paginator.CouponList.data,
-                                {'entity_id': this.coupon.entity_id});
+                            let couponIndex = _.findIndex(this.$store.state.paginator.paginator.CouponList.data, {'entity_id': this.coupon.entity_id});
                             this.$store.state.paginator.paginator.CouponList.data.splice(couponIndex, 1);
                             this.$store.state.paginator.update++;
 

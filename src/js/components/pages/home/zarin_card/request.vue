@@ -176,24 +176,26 @@
                     couponData.coupon = this.discount_code.trim()
                 }
 
-                this.$store.state.http.requests['zarincard.cost'].get(couponData).then((response) => {
-                        this.coupon = response.data.data;
-                        if (response.data.data.coupon) {
+                this.$store.state.http.requests['zarincard.cost']
+                    .get(couponData)
+                    .then((response) => {
+                            this.coupon = response.data.data;
+                            if (response.data.data.coupon) {
+                                store.commit('flashMessage', {
+                                    text: 'CouponRegisteredLocal',
+                                    type: 'success'
+                                });
+                            }
+
+                            this.isGettingCouponCost = false;
+                        }, (response) => {
+                            store.commit('setValidationErrors', response.data.validation_errors);
                             store.commit('flashMessage', {
-                                text: 'CouponRegisteredLocal',
-                                type: 'success'
+                                text: response.data.meta.error_type,
+                                type: 'danger'
                             });
                         }
-
-                        this.isGettingCouponCost = false;
-                    }, (response) => {
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                );
+                    );
             },
             setRequestZarinCard() {
                 if (!this.acceptInformation) {
@@ -211,25 +213,27 @@
                     coupon: this.coupon.coupon,
                 };
 
-                this.$store.state.http.requests['zarincard.postRequestIssue'].save(zarinCardDate).then(
-                    () => {
-                        this.requesting = false;
+                this.$store.state.http.requests['zarincard.postRequestIssue']
+                    .save(zarinCardDate)
+                    .then(
+                        () => {
+                            this.requesting = false;
 
-                        store.commit('flashMessage', {
-                            text: 'ZarinCardRequestSuccessLocal',
-                            timeout: 10000,
-                            type: 'success'
-                        });
-                        this.$router.push({name: 'card.index'})
-                    }, (response) => {
-                        this.requesting = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
+                            store.commit('flashMessage', {
+                                text: 'ZarinCardRequestSuccessLocal',
+                                timeout: 10000,
+                                type: 'success'
+                            });
+                            this.$router.push({name: 'card.index'})
+                        }, (response) => {
+                            this.requesting = false;
+                            store.commit('setValidationErrors', response.data.validation_errors);
+                            store.commit('flashMessage', {
+                                text: response.data.meta.error_type,
+                                type: 'danger'
+                            });
+                        }
+                    )
             }
         },
         components: {

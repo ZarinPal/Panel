@@ -17,10 +17,10 @@ export default {
 
         function ripple(e) {
             let currentElement = el;
-            currentElement.style.position = 'relative';
-            currentElement.style.overflow = 'hidden';
+            currentElement.style.position = "relative";
+            currentElement.style.overflow = "hidden";
 
-            let elementRipple = document.createElement('div');
+            let elementRipple = document.createElement("div");
             elementRipple.classList.add('ripple-effect');
 
             let elementSize;
@@ -37,14 +37,14 @@ export default {
 
             elementRipple.style.width = elementSize + 'px';
             elementRipple.style.height = elementSize + 'px';
-            elementRipple.style.top = y + 'px';
-            elementRipple.style.left = x + 'px';
+            elementRipple.style.top = y + "px";
+            elementRipple.style.left = x + "px";
 
             currentElement.appendChild(elementRipple);
 
-            elementRipple.addEventListener('animationend', function () {
+            elementRipple.addEventListener("animationend", function () {
                 currentElement.removeChild(elementRipple);
             });
         }
-    },
+    }
 };

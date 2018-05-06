@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 export default {
     namespaced: true,
     state: {
@@ -9,10 +9,10 @@ export default {
                 data: [],
                 resource: {
                     resource: {},
-                    params: {},
+                    params: {}
                 },
                 isLoading: false,
-            },
+            }
         },
 
     },
@@ -29,7 +29,7 @@ export default {
                 data: [],
                 resource: {
                     resource: resource,
-                    params: params,
+                    params: params
                 },
                 isLoading: false,
             };
@@ -40,18 +40,17 @@ export default {
                 state.update++;
             });
             state.paginator[requestName].resource = {
-                resource: resource,
+                resource: resource
             };
         },
         changeLoading(state, {requestName, type}) {
             state.paginator[requestName].isLoading = type;
             state.update++;
-        },
+        }
     },
     actions: {
         make({commit, dispatch, state}, {vm, resource, params, requestName}) {
-            if (state.paginator[requestName] &&
-                state.paginator[requestName].isLoading) {
+            if (state.paginator[requestName] && state.paginator[requestName].isLoading) {
                 return;
             }
             commit('setVm', vm);
@@ -66,25 +65,22 @@ export default {
                     requestName = 'default';
                 }
 
-                state.paginator[requestName].resource.resource.get(
-                    state.paginator[requestName].resource.params).then(
+                state.paginator[requestName].resource.resource.get(state.paginator[requestName].resource.params).then(
                     (response) => {
                         let resource = null;
                         if (response.data.meta.pagination) {
                             if (response.data.meta.pagination.links.next) {
-                                resource = state.vm.$resource(
-                                    response.data.meta.pagination.links.next);
+                                resource = state.vm.$resource(response.data.meta.pagination.links.next);
                             }
                         }
 
-                        commit('nextData',
-                            {resource, data: response.data.data, requestName});
+                        commit('nextData', {resource, data: response.data.data, requestName});
                         commit('changeLoading', {requestName, type: false});
-                    },
+                    }
                 ).catch((error) => {
                     commit('changeLoading', {requestName, type: false});
                 });
             }
-        },
-    },
+        }
+    }
 };

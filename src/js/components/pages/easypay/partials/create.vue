@@ -372,22 +372,20 @@
                     this.createEasypay();
                 } else {
                     if (this.payTo == 'purse') {
-                        let purseValidationError = [
-                            {
-                                input: 'purse',
-                                message: 'The purse field is required.',
-                                translation_key: 'validation.required',
-                            }];
+                        let purseValidationError = [{
+                            input: 'purse',
+                            message: 'The purse field is required.',
+                            translation_key: 'validation.required',
+                        }];
 
                         store.commit('setValidationErrors', purseValidationError);
 
                     } else if (this.payTo == 'webservice') {
-                        let webserviceValidationError = [
-                            {
-                                input: 'webservice_id',
-                                message: 'The webservice is required.',
-                                translation_key: 'validation.required',
-                            }];
+                        let webserviceValidationError = [{
+                            input: 'webservice_id',
+                            message: 'The webservice is required.',
+                            translation_key: 'validation.required',
+                        }];
 
                         store.commit('setValidationErrors', webserviceValidationError);
                     }

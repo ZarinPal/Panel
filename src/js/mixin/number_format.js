@@ -1,10 +1,10 @@
-import Vue from 'vue';
+import Vue from "vue";
 Vue.mixin({
     methods: {
         clearNumber: function (number) {
             let exportableNumber = number;
             if (/,/g.test(number)) {
-                exportableNumber = number.replace(/,/g, '');
+                exportableNumber = number.replace(/,/g, "");
             }
 
             return exportableNumber;
@@ -15,5 +15,5 @@ Vue.mixin({
             //     return c.charCodeAt(0) - 0x06f0;
             // });
         },
-    },
+    }
 });
