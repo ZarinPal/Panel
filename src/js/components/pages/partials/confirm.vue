@@ -13,44 +13,44 @@
 
 
 <script>
-    import modal from './modal.vue';
+  import modal from './modal.vue';
 
-    export default {
-        name: 'pages-partials-confirm',
-        data() {
-            return {
-                closeModalContent: false,
-            }
-        },
-        props: [
-            'keepConfirmedOpen'
-        ],
-        computed: {
-            hasMessageDanger() {
-                return this.$slots.messageDanger;
-            },
-            hasMessageSuccess() {
-                return this.$slots.messageSuccess;
-            },
-        },
-        mounted() {
-            this.closeModalContent = false
-        },
-        methods: {
-            closeModal() {
-                this.$emit('closeModal');
-            },
-            confirmed() {
-                this.$emit('confirmed');
-                if (!this.keepConfirmedOpen) {
-                    this.closeModal();
-                }
-
-            }
-        },
-        components: {
-            modal
+  export default {
+    name: 'pages-partials-confirm',
+    data() {
+      return {
+        closeModalContent: false,
+      }
+    },
+    props: [
+      'keepConfirmedOpen'
+    ],
+    computed: {
+      hasMessageDanger() {
+        return this.$slots.messageDanger;
+      },
+      hasMessageSuccess() {
+        return this.$slots.messageSuccess;
+      },
+    },
+    mounted() {
+      this.closeModalContent = false
+    },
+    methods: {
+      closeModal() {
+        this.$emit('closeModal');
+      },
+      confirmed() {
+        this.$emit('confirmed');
+        if (!this.keepConfirmedOpen) {
+          this.closeModal();
         }
+
+      }
+    },
+    components: {
+      modal
     }
+  }
 
 </script>

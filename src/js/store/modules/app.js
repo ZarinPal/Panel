@@ -1,83 +1,83 @@
 export default {
-    namespaced: true,
-    state: {
-        isLoaded: false,
-        smallSidebar: false,
-        showMobileSidebar: false,
-        isTicketEmptyPage: false,
-        webserviceCategories: [],
-        ticketDepartments: [],
-        visibleNotification: false,
-        singlePurseMoreTrigger: null,
-        singleWebserviceMoreTrigger: null,
-        singleEasypayMoreTrigger: null,
-        ticketSummary: {},
-        refererId: null,
-        isOpenModal: false,
-        logOuting: false,
-        unreadTickets: 0,
+  namespaced: true,
+  state: {
+    isLoaded: false,
+    smallSidebar: false,
+    showMobileSidebar: false,
+    isTicketEmptyPage: false,
+    webserviceCategories: [],
+    ticketDepartments: [],
+    visibleNotification: false,
+    singlePurseMoreTrigger: null,
+    singleWebserviceMoreTrigger: null,
+    singleEasypayMoreTrigger: null,
+    ticketSummary: {},
+    refererId: null,
+    isOpenModal: false,
+    logOuting: false,
+    unreadTickets: 0,
+  },
+  mutations: {
+    loading(state) {
+      state.isLoaded = false;
     },
-    mutations: {
-        loading(state) {
-            state.isLoaded = false;
-        },
-        ready(state) {
-            state.isLoaded = true;
-        },
-        toggleSidebar(state) {
-            state.smallSidebar = !state.smallSidebar;
-        },
-        toggleMobileSidebar(state, condition) {
-            if (condition) {
-                state.showMobileSidebar = condition;
-
-                return;
-            }
-            state.showMobileSidebar = !state.showMobileSidebar;
-        },
-        changeTicketState(state) {
-            state.isTicketEmptyPage = !state.isTicketEmptyPage;
-        },
-        setWebserviceCategories(state, categories) {
-            state.webserviceCategories = categories;
-        },
-        setTicketDepartments(state, categories){
-            state.ticketDepartments = categories;
-        },
-        setRefererId(state, refId) {
-            if (refId) {
-                state.refererId = refId;
-
-                return
-            }
-        },
-        changeModalStatus(state, status) {
-            state.isOpenModal = status
-        },
-        changeLogOutStatus(state) {
-            state.logOuting = false;
-        }
+    ready(state) {
+      state.isLoaded = true;
     },
-    actions: {
-        getWebserviceCategories({commit, rootState, state}) {
-            if (state.webserviceCategories.length) {
-                return;
-            }
-            rootState.http.requests['webservice.getWebserviceCategory'].get().then(
-                (response) => {
-                    commit('setWebserviceCategories', response.data.data);
-                }
-            );
-        },
-        getTicketDepartments({commit, rootState, state}) {
-            if (state.ticketDepartments.length) {
-                return;
-            }
-            rootState.http.requests['ticket.getTicketDepartment'].get().then(
-                (response) => {
-                    commit('setTicketDepartments', response.data.data);
-                }
-            );
-        },
-    }
+    toggleSidebar(state) {
+      state.smallSidebar = !state.smallSidebar;
+    },
+    toggleMobileSidebar(state, condition) {
+      if (condition) {
+        state.showMobileSidebar = condition;
+
+        return;
+      }
+      state.showMobileSidebar = !state.showMobileSidebar;
+    },
+    changeTicketState(state) {
+      state.isTicketEmptyPage = !state.isTicketEmptyPage;
+    },
+    setWebserviceCategories(state, categories) {
+      state.webserviceCategories = categories;
+    },
+    setTicketDepartments(state, categories){
+      state.ticketDepartments = categories;
+    },
+    setRefererId(state, refId) {
+      if (refId) {
+        state.refererId = refId;
+
+        return;
+      }
+    },
+    changeModalStatus(state, status) {
+      state.isOpenModal = status;
+    },
+    changeLogOutStatus(state) {
+      state.logOuting = false;
+    },
+  },
+  actions: {
+    getWebserviceCategories({commit, rootState, state}) {
+      if (state.webserviceCategories.length) {
+        return;
+      }
+      rootState.http.requests['webservice.getWebserviceCategory'].get().then(
+          (response) => {
+            commit('setWebserviceCategories', response.data.data);
+          },
+      );
+    },
+    getTicketDepartments({commit, rootState, state}) {
+      if (state.ticketDepartments.length) {
+        return;
+      }
+      rootState.http.requests['ticket.getTicketDepartment'].get().then(
+          (response) => {
+            commit('setTicketDepartments', response.data.data);
+          },
+      );
+    },
+  },
 };

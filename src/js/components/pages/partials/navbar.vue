@@ -51,66 +51,66 @@
 </template>
 
 <script>
-    import profileDropdown from '../../pages/partials/user/profile-dropdown.vue';
+  import profileDropdown from '../../pages/partials/user/profile-dropdown.vue';
 
-    export default {
-        name: 'navBar',
-        data() {
-            return {
-                visibleProfileDropdown: false,
-                notificationCount: 0,
-            }
-        },
-        computed: {
-            notifications() {
-                return {
-                    count: this.$store.state.alert.notifications.length,
-                    data: this.$store.state.alert.notifications,
-                    counter: this.$store.state.alert.counter
-                };
-            }
-        },
-        methods: {
-            closeModal(){
-                this.confirmVisible = false;
-            },
-            toggleSidebar() {
-                this.$store.commit('app/toggleSidebar');
-            },
-            toggleMobileSidebar(){
-                this.$store.commit('app/toggleMobileSidebar');
-            },
-            toggleNotification(notificationId) {
-                if (!notificationId) {
-                    notificationId = null;
-                }
-                //remove ticket OR transaction OR request_money notifications
-                _.remove(this.$store.state.alert.notifications, function (notification) {
-                    return notification.uuid === notificationId;
-                });
-                this.$store.state.alert.counter++;
+  export default {
+    name: 'navBar',
+    data() {
+      return {
+        visibleProfileDropdown: false,
+        notificationCount: 0,
+      }
+    },
+    computed: {
+      notifications() {
+        return {
+          count: this.$store.state.alert.notifications.length,
+          data: this.$store.state.alert.notifications,
+          counter: this.$store.state.alert.counter
+        };
+      }
+    },
+    methods: {
+      closeModal(){
+        this.confirmVisible = false;
+      },
+      toggleSidebar() {
+        this.$store.commit('app/toggleSidebar');
+      },
+      toggleMobileSidebar(){
+        this.$store.commit('app/toggleMobileSidebar');
+      },
+      toggleNotification(notificationId) {
+        if (!notificationId) {
+          notificationId = null;
+        }
+        //remove ticket OR transaction OR request_money notifications
+        _.remove(this.$store.state.alert.notifications, function(notification) {
+          return notification.uuid === notificationId;
+        });
+        this.$store.state.alert.counter++;
 
-                this.$store.state.app.visibleNotification = !this.$store.state.app.visibleNotification;
-            },
-            reload() {
-                location.reload();
-            },
-            closeFromOutside() {
-                let vm = this;
-                document.addEventListener('click', function (e) {
-                    if (e.target.id !== 'btnNotification' && e.target.id !== 'navNotification') {
-                        vm.$store.state.app.visibleNotification = false;
-                    }
+        this.$store.state.app.visibleNotification = !this.$store.state.app.visibleNotification;
+      },
+      reload() {
+        location.reload();
+      },
+      closeFromOutside() {
+        let vm = this;
+        document.addEventListener('click', function(e) {
+          if (e.target.id !== 'btnNotification' && e.target.id !== 'navNotification') {
+            vm.$store.state.app.visibleNotification = false;
+          }
 
 //                  && e.target.parentNode.parentNode.id !== 'navProfileDropdown'
-                    if (e.target.id !== 'btnProfileDropdown' && e.target.id !== 'btnLogout') {
-                        vm.visibleProfileDropdown = false;
-                    }
-                });
-            },
-        },
-        components: {
-            'profile-dropdown': profileDropdown
-        }
+          if (e.target.id !== 'btnProfileDropdown' && e.target.id !== 'btnLogout') {
+            vm.visibleProfileDropdown = false;
+          }
+        });
+      },
+    },
+    components: {
+      'profile-dropdown': profileDropdown
     }
+  }
 </script>

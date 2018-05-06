@@ -87,187 +87,189 @@
 </template>
 
 <script>
-    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
-    import transactionDetails from './partials/transaction-details.vue';
-    import singleSession from './partials/single-session.vue';
-    import selectbox from '../partials/selectbox.vue';
-    import loading from '../../pages/partials/loading.vue';
+  import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+  import transactionDetails from './partials/transaction-details.vue';
+  import singleSession from './partials/single-session.vue';
+  import selectbox from '../partials/selectbox.vue';
+  import loading from '../../pages/partials/loading.vue';
 
-    export default {
-        name: 'transaction-index',
-        data () {
-            return {
-                placeholder: '123456******6273',
-                fromDate: '',
-                toDate: '',
-                searchOptions: {},
-                filterType: null,
-                filterValue: [],
-                generalFilter: 'all',
-                filterTypeData: [
-                    {
-                        title: 'شماره‌تراکنش',
-                        value: 'transaction_id'
-                    },
-                    {
-                        title: 'شماره‌کارت',
-                        value: 'pan'
-                    },
-                    {
-                        title: 'توضیحات',
-                        value: 'description'
-                    },
-                    {
-                        title: 'ایمیل',
-                        value: 'email'
-                    },
-                    {
-                        title: 'شماره‌موبایل',
-                        value: 'mobile'
-                    }
+  export default {
+    name: 'transaction-index',
+    data () {
+      return {
+        placeholder: '123456******6273',
+        fromDate: '',
+        toDate: '',
+        searchOptions: {},
+        filterType: null,
+        filterValue: [],
+        generalFilter: 'all',
+        filterTypeData: [
+          {
+            title: 'شماره‌تراکنش',
+            value: 'transaction_id'
+          },
+          {
+            title: 'شماره‌کارت',
+            value: 'pan'
+          },
+          {
+            title: 'توضیحات',
+            value: 'description'
+          },
+          {
+            title: 'ایمیل',
+            value: 'email'
+          },
+          {
+            title: 'شماره‌موبایل',
+            value: 'mobile'
+          }
 
-                ],
-                transaction: null,
-                showTransactionDetail: false,
-                visibleAdvanceSearch: false,
-                visibleDownloadExcel: false,
-                excelUrl: null
-            }
-        },
-        watch: {
-            filterType(){
-                this.restart();
-            }
-        },
-        computed: {
-            user() {
-                return this.$store.state.auth.user;
-            },
-            transactionSessions() {
-                return {
-                    data: this.$store.state.paginator.paginator.TransactionSessionList.data,
-                    update: this.$store.state.paginator.update,
-                    status: this.$store.state.paginator.paginator.TransactionSessionList.isLoading,
-                };
-            },
+        ],
+        transaction: null,
+        showTransactionDetail: false,
+        visibleAdvanceSearch: false,
+        visibleDownloadExcel: false,
+        excelUrl: null
+      }
+    },
+    watch: {
+      filterType(){
+        this.restart();
+      }
+    },
+    computed: {
+      user() {
+        return this.$store.state.auth.user;
+      },
+      transactionSessions() {
+        return {
+          data: this.$store.state.paginator.paginator.TransactionSessionList.data,
+          update: this.$store.state.paginator.update,
+          status: this.$store.state.paginator.paginator.TransactionSessionList.isLoading,
+        };
+      },
 
-            webservice(){
-                return _.find(this.$store.state.auth.user.webservices, {'entity_id': this.$route.params.id});
-            }
-        },
+      webservice(){
+        return _.find(this.$store.state.auth.user.webservices, {'entity_id': this.$route.params.id});
+      }
+    },
 
-        created() {
+    created() {
 
-            this.restart();
-            this.search();
-            let vm = this;
+      this.restart();
+      this.search();
+      let vm = this;
 
-            window.onscroll = function (ev) {
-                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                    && !vm.$store.state.paginator.paginator.TransactionSessionList.isLoading) {
-                    vm.$store.dispatch(
-                        'paginator/next',
-                        {
-                            requestName: "TransactionSessionList"
-                        }
-                    );
-                }
-            };
-        },
-        methods: {
-            toggleDatePicker() {
-                this.visibleAdvanceSearch = !this.visibleAdvanceSearch;
-                if (!this.visibleAdvanceSearch) {
-                    this.fromDate = '';
-                    this.toDate = '';
-                }
-            },
-            validateForm() {
-                this.$validator.validateAll({
-                    fromDate: this.fromDate,
-                    toDate: this.toDate
-                }).then((result) => {
-                    if (result) {
-                        this.search();
-                    }
-                });
-            },
-            restart() {
-                this.filterValue = null;
-                this.searchOptions = {};
-                this.addFilter('webserviceId', this.$route.params.id);
-                this.addFilter('status', this.generalFilter);
-            },
-            addFilter(filter, value) {
-                this.searchOptions[filter] = value;
-            },
-            applyGeneralFilter(filter) {
-                if (!this.transactionSessions.status) {
-                    this.generalFilter = filter;
-                    this.addFilter('status', this.generalFilter);
-                    this.search();
-                }
-            },
-            search(){
-                if (this.fromDate && this.toDate) {
-                    this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-                    this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-                } else if (this.fromDate && !this.toDate) {
-                    this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-                    this.searchOptions.toDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').add(1, 'months').format();
-                } else if (!this.fromDate && this.toDate) {
-                    this.searchOptions.fromDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').subtract(1, 'months').format();
-                    this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-                }
-
-                let vm = this;
-                this.$store.dispatch(
-                    'paginator/make',
-                    {
-                        vm,
-                        resource: vm.$store.state.http.requests['transaction.getSessions'],
-                        params: vm.searchOptions,
-                        requestName: "TransactionSessionList"
-                    }
-                );
-
-                this.makeExcelQueryString();
-            },
-            selectFilter(value){
-                this.filterType = value;
-                switch (value) {
-                    case 'transaction_id':
-                        this.placeholder = '۳۹۲۳۳۸۷۱۵۱۴';
-                        break;
-                    case 'pan':
-                        this.placeholder = '۱۲۳۴۵۶******۶۲۷۳';
-                        break;
-                    case 'description':
-                        this.placeholder = 'بازگشت کارمزد تراکنش  ';
-                        break;
-                    case 'email':
-                        this.placeholder = 'example@gmail.com';
-                        break;
-                    case 'mobile':
-                        this.placeholder = '09xxxxxxxxx';
-                        break;
-                }
-            },
-            makeExcelQueryString() {
-                let urlQuery = Object.keys(this.searchOptions).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).join('&');
-                this.excelUrl = urlQuery; //this.$root.baseUrl + '?' + urlQuery;
-            },
-            closeModal(){
-                this.showTransactionDetail = false;
-                store.commit('clearValidationErrors');
-            }
-        },
-        components: {
-            singleSession,
-            selectbox,
-            loading,
-            transactionDetails,
-            datePicker: VuePersianDatetimePicker
+      window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+            && !vm.$store.state.paginator.paginator.TransactionSessionList.isLoading) {
+          vm.$store.dispatch(
+              'paginator/next',
+              {
+                requestName: "TransactionSessionList"
+              }
+          );
         }
+      };
+    },
+    methods: {
+      toggleDatePicker() {
+        this.visibleAdvanceSearch = !this.visibleAdvanceSearch;
+        if (!this.visibleAdvanceSearch) {
+          this.fromDate = '';
+          this.toDate = '';
+        }
+      },
+      validateForm() {
+        this.$validator.validateAll({
+          fromDate: this.fromDate,
+          toDate: this.toDate
+        }).then((result) => {
+          if (result) {
+            this.search();
+          }
+        });
+      },
+      restart() {
+        this.filterValue = null;
+        this.searchOptions = {};
+        this.addFilter('webserviceId', this.$route.params.id);
+        this.addFilter('status', this.generalFilter);
+      },
+      addFilter(filter, value) {
+        this.searchOptions[filter] = value;
+      },
+      applyGeneralFilter(filter) {
+        if (!this.transactionSessions.status) {
+          this.generalFilter = filter;
+          this.addFilter('status', this.generalFilter);
+          this.search();
+        }
+      },
+      search(){
+        if (this.fromDate && this.toDate) {
+          this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+          this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+        } else if (this.fromDate && !this.toDate) {
+          this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+          this.searchOptions.toDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').add(1, 'months').format();
+        } else if (!this.fromDate && this.toDate) {
+          this.searchOptions.fromDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').subtract(1, 'months').format();
+          this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+        }
+
+        let vm = this;
+        this.$store.dispatch(
+            'paginator/make',
+            {
+              vm,
+              resource: vm.$store.state.http.requests['transaction.getSessions'],
+              params: vm.searchOptions,
+              requestName: "TransactionSessionList"
+            }
+        );
+
+        this.makeExcelQueryString();
+      },
+      selectFilter(value){
+        this.filterType = value;
+        switch (value) {
+          case 'transaction_id':
+            this.placeholder = '۳۹۲۳۳۸۷۱۵۱۴';
+            break;
+          case 'pan':
+            this.placeholder = '۱۲۳۴۵۶******۶۲۷۳';
+            break;
+          case 'description':
+            this.placeholder = 'بازگشت کارمزد تراکنش  ';
+            break;
+          case 'email':
+            this.placeholder = 'example@gmail.com';
+            break;
+          case 'mobile':
+            this.placeholder = '09xxxxxxxxx';
+            break;
+        }
+      },
+      makeExcelQueryString() {
+        let urlQuery = Object.keys(this.searchOptions).
+            map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).
+            join('&');
+        this.excelUrl = urlQuery; //this.$root.baseUrl + '?' + urlQuery;
+      },
+      closeModal(){
+        this.showTransactionDetail = false;
+        store.commit('clearValidationErrors');
+      }
+    },
+    components: {
+      singleSession,
+      selectbox,
+      loading,
+      transactionDetails,
+      datePicker: VuePersianDatetimePicker
     }
+  }
 </script>

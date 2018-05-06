@@ -97,123 +97,123 @@
 
 
 <script>
-    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
-    import selectbox from '../../partials/selectbox.vue';
-    import zarinLink from '../../partials/zarinlinks';
-    import VueNumeric from 'vue-numeric';
+  import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+  import selectbox from '../../partials/selectbox.vue';
+  import zarinLink from '../../partials/zarinlinks';
+  import VueNumeric from 'vue-numeric';
 
-    export default {
-        name: 'pages-coupon-partials-create',
-        data() {
+  export default {
+    name: 'pages-coupon-partials-create',
+    data() {
+      return {
+        loading: false,
+        today: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
+        visibleLimit: false,
+
+        code: '',
+        max_amount: '',
+        min_amount: '',
+        webservice_id: '',
+        easypay_id: '',
+        expired_at: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
+        limit: '',
+        type: 'webservice',
+        percent: '',
+      }
+    },
+    computed: {
+      webserviceSelection() {
+        if (this.$store.state.auth.user.webservices) {
+          let webservices = this.$store.state.auth.user.webservices.filter(function(webservice) {
+            return webservice.status;
+          }).map(function(webservice) {
             return {
-                loading: false,
-                today: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
-                visibleLimit: false,
-
-                code: '',
-                max_amount: '',
-                min_amount: '',
-                webservice_id: '',
-                easypay_id: '',
-                expired_at: moment().add(1, 'd').format('jYYYY/jMM/jDD'),
-                limit: '',
-                type: 'webservice',
-                percent: '',
+              'title': webservice.name,
+              'value': webservice.entity_id
             }
-        },
-        computed: {
-            webserviceSelection() {
-                if (this.$store.state.auth.user.webservices) {
-                    let webservices = this.$store.state.auth.user.webservices.filter(function (webservice) {
-                        return webservice.status;
-                    }).map(function (webservice) {
-                        return {
-                            'title': webservice.name,
-                            'value': webservice.entity_id
-                        }
-                    });
+          });
 
-                    let webserviceAll = {
-                        'title': 'همه',
-                        'value': 'all'
-                    };
+          let webserviceAll = {
+            'title': 'همه',
+            'value': 'all'
+          };
 
-                    webservices.unshift(webserviceAll);
-                    return webservices;
-                }
-            },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
-        created() {
-            store.commit('clearValidationErrors');
-        },
-        methods: {
-            selectExpiredDate(day) {
-                this.expired_at = day;
-            },
-            validateForm() {
-                this.$validator.validateAll({
-                    code: this.code,
-                    min_amount: this.min_amount,
-                    limit: this.limit,
-                    max_amount: this.max_amount,
-                    percent: this.percent
-
-                }).then((result) => {
-                    if (result) {
-                        this.createCoupon();
-                    }
-                });
-            },
-            selectedWebservice(entityId) {
-                this.webservice_id = entityId;
-                this.easypay_id = '';
-            },
-            selectedEasypay(entityId) {
-                this.easypay_id = entityId;
-                this.webservice_id = '';
-            },
-            createCoupon() {
-                this.loading = true;
-
-                let couponData = {
-                    code: this.code,
-                    discount: {
-                        max_amount: this.max_amount,
-                        percent: this.percent
-                    },
-                    webservice_id: this.webservice_id,
-                    easypay_id: this.easypay_id,
-                    expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-                    limit: this.limit,
-                    min_amount: this.min_amount,
-                    type: this.type,
-                };
-
-                this.$store.state.http.requests['coupon.getIndex'].save(couponData).then(
-                    () => {
-                        this.loading = false;
-                        this.$router.push({name: 'coupon.index'})
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            }
-        },
-        components: {
-            selectbox,
-            zarinLink,
-            datePicker: VuePersianDatetimePicker,
-            VueNumeric
+          webservices.unshift(webserviceAll);
+          return webservices;
         }
+      },
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+    },
+    created() {
+      store.commit('clearValidationErrors');
+    },
+    methods: {
+      selectExpiredDate(day) {
+        this.expired_at = day;
+      },
+      validateForm() {
+        this.$validator.validateAll({
+          code: this.code,
+          min_amount: this.min_amount,
+          limit: this.limit,
+          max_amount: this.max_amount,
+          percent: this.percent
+
+        }).then((result) => {
+          if (result) {
+            this.createCoupon();
+          }
+        });
+      },
+      selectedWebservice(entityId) {
+        this.webservice_id = entityId;
+        this.easypay_id = '';
+      },
+      selectedEasypay(entityId) {
+        this.easypay_id = entityId;
+        this.webservice_id = '';
+      },
+      createCoupon() {
+        this.loading = true;
+
+        let couponData = {
+          code: this.code,
+          discount: {
+            max_amount: this.max_amount,
+            percent: this.percent
+          },
+          webservice_id: this.webservice_id,
+          easypay_id: this.easypay_id,
+          expired_at: moment(this.expired_at, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+          limit: this.limit,
+          min_amount: this.min_amount,
+          type: this.type,
+        };
+
+        this.$store.state.http.requests['coupon.getIndex'].save(couponData).then(
+            () => {
+              this.loading = false;
+              this.$router.push({name: 'coupon.index'})
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
+            }
+        )
+      }
+    },
+    components: {
+      selectbox,
+      zarinLink,
+      datePicker: VuePersianDatetimePicker,
+      VueNumeric
     }
+  }
 
 </script>

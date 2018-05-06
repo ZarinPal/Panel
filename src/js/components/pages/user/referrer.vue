@@ -30,61 +30,59 @@
 
 
 <script>
-    import modal from "../partials/modal";
-    import loading from "../partials/loading";
-    export default {
-        name: 'user-referrer',
-        data() {
-            return {
-                loadingData: true,
-                referredUsers: {},
-                referrer: {
-                    link: btoa(this.$store.state.auth.user.public_id)
-                }
-            }
-        },
-        created() {
-            this.getReferredUsers();
-        },
-        methods: {
-            getReferredUsers() {
-                if (!this.referredUsers.length) {
-                    this.$store.state.http.requests['user.referred']
-                        .get()
-                        .then((response) => {
-                                this.referredUsers = response.data.data;
-                                this.loadingData = false;
-                            }, (response) => {
-                                store.commit('setValidationErrors', response.data.validation_errors);
-                                store.commit('flashMessage', {
-                                    text: response.data.meta.error_type,
-                                    type: 'danger'
-                                });
-                            }
-                        );
-                }
-            },
-            clipboardMessage() {
-                setTimeout(function () {
-                    let txtReferrerId = document.getElementById('txtReferrerId');
-                    if (txtReferrerId) {
-                        txtReferrerId.select();
-                    }
-                }, 10);
-
-                store.commit('flashMessage', {
-                    text: 'Copied',
-                    type: 'success',
-                    timeout: '1500'
-                });
-            },
-            closeModal() {
-                this.$emit('closeModal');
-            }
-        },
-        components: {
-            modal,
-            loading
+  import modal from "../partials/modal";
+  import loading from "../partials/loading";
+  export default {
+    name: 'user-referrer',
+    data() {
+      return {
+        loadingData: true,
+        referredUsers: {},
+        referrer: {
+          link: btoa(this.$store.state.auth.user.public_id)
         }
+      }
+    },
+    created() {
+      this.getReferredUsers();
+    },
+    methods: {
+      getReferredUsers() {
+        if (!this.referredUsers.length) {
+          this.$store.state.http.requests['user.referred'].get().then((response) => {
+                this.referredUsers = response.data.data;
+                this.loadingData = false;
+              }, (response) => {
+                store.commit('setValidationErrors', response.data.validation_errors);
+                store.commit('flashMessage', {
+                  text: response.data.meta.error_type,
+                  type: 'danger'
+                });
+              }
+          );
+        }
+      },
+      clipboardMessage() {
+        setTimeout(function() {
+          let txtReferrerId = document.getElementById('txtReferrerId');
+          if (txtReferrerId) {
+            txtReferrerId.select();
+          }
+        }, 10);
+
+        store.commit('flashMessage', {
+          text: 'Copied',
+          type: 'success',
+          timeout: '1500'
+        });
+      },
+      closeModal() {
+        this.$emit('closeModal');
+      }
+    },
+    components: {
+      modal,
+      loading
     }
+  }
 </script>

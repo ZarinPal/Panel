@@ -4,7 +4,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'connection-error',
-    }
+  export default {
+    name: 'connection-error',
+  }
 </script>

@@ -64,23 +64,23 @@
         transactionDetails(v-if="showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal()")
 </template>
 <script>
-    import transactionDetails from './transaction-details.vue';
+  import transactionDetails from './transaction-details.vue';
 
-    export default {
-        name: 'pages-transaction-partials-singleTransaction',
-        data(){
-            return {
-                showTransactionDetail: false,
-            }
-        },
-        props: ['transaction'],
-        methods: {
-            closeModal(){
-                this.showTransactionDetail = false;
-            }
-        },
-        components: {
-            transactionDetails
-        }
+  export default {
+    name: 'pages-transaction-partials-singleTransaction',
+    data(){
+      return {
+        showTransactionDetail: false,
+      }
+    },
+    props: ['transaction'],
+    methods: {
+      closeModal(){
+        this.showTransactionDetail = false;
+      }
+    },
+    components: {
+      transactionDetails
     }
+  }
 </script>

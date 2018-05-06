@@ -33,38 +33,38 @@
 
 
 <script>
-    import confirm from '../confirm.vue';
-    import loading from '../../../pages/partials/loading.vue';
+  import confirm from '../confirm.vue';
+  import loading from '../../../pages/partials/loading.vue';
 
-    export default {
-        name: 'profile-drop-down',
-        data() {
-            return {
-                confirmVisible: false,
-                confirm: false,
-                showLoading: false,
-            }
-        },
-        computed: {
-            user() {
-                return this.$store.state.auth.user;
-            }
-        },
-        methods: {
-            closeModal(){
-                this.confirmVisible = false;
-            },
-            logout(){
-                this.confirm = true;
-                if (this.confirm) {
-                    this.showLoading = true;
-                    this.$store.dispatch('auth/logout', this);
-                }
-            },
-        },
-        components: {
-            confirm,
-            loading
+  export default {
+    name: 'profile-drop-down',
+    data() {
+      return {
+        confirmVisible: false,
+        confirm: false,
+        showLoading: false,
+      }
+    },
+    computed: {
+      user() {
+        return this.$store.state.auth.user;
+      }
+    },
+    methods: {
+      closeModal(){
+        this.confirmVisible = false;
+      },
+      logout(){
+        this.confirm = true;
+        if (this.confirm) {
+          this.showLoading = true;
+          this.$store.dispatch('auth/logout', this);
         }
-    };
+      },
+    },
+    components: {
+      confirm,
+      loading
+    }
+  };
 </script>

@@ -105,138 +105,138 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
-    import loading from '../../partials/loading.vue';
-    import VueNumeric from 'vue-numeric';
+  import modal from '../../partials/modal.vue';
+  import loading from '../../partials/loading.vue';
+  import VueNumeric from 'vue-numeric';
 
-    export default {
-        name: 'pages-card-partials-transferShetab',
-        data() {
-            return {
-                loading: false,
-                closeModalContent: true,
-                destinationUser: null,
-                transferResponse: null,
-                requesting: false,
-                transferCompelled: false,
-                step: 1,
-                cardId: null,
-                password: null,
-                cvv2: null,
-                dst_pan: null,
-                amount: '',
-            }
-        },
-        props: ['card'],
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            }
-        },
-        created(){
-            store.commit('clearValidationErrors');
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    password: this.password,
-                    cvv2: this.cvv2,
-                    dst_pan: this.dst_pan,
-                    amount: this.amount
-                }).then((result) => {
-                    if (result) {
-                        this.confirmTransfer();
-                    }
-                });
-            },
-            cardNumberFormat(inputId) {
-                let text = document.getElementById(inputId).value;
-                let result = [];
-                if (text) {
-                    text = this[inputId].replace(/[^\d]/g, "");
-                    while (text.length > 4) {
-                        result.push(text.substring(0, 4));
-                        text = text.substring(4);
-                    }
-                    if (this[inputId].length > 0) result.push(text);
-                    this[inputId] = result.join("-");
-                }
-
-            },
-            closeModal() {
-                this.$emit('closeModal')
-            },
-            confirmTransfer() {
-                this.requesting = true;
-                let destPan = this.dst_pan.split('-').join('');
-
-                this.$store.state.http.requests['zarincard.getHolderName'].get({destPan: destPan}).then(
-                    (response) => {
-                        this.step = 2;
-                        this.requesting = false;
-                        this.destinationUser = response.data.data;
-                    },
-                    (response) => {
-                        this.requesting = false;
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                    }
-                );
-            },
-            acceptTransfer() {
-                this.transferCompelled = true;
-                let destPan = this.dst_pan.split('-').join('');
-
-                let transferData = {
-                    card_id: this.card.entity_id,
-                    password: this.password,
-                    cvv2: this.cvv2,
-                    dst_pan: destPan,
-                    amount: this.amount
-                };
-
-                this.$store.state.http.requests['zarincard.postTransferShetab'].save(transferData).then(
-                    (response) => {
-                        this.step = 2;
-                        this.requesting = false;
-                        this.transferCompelled = false;
-                        this.transferResponse = response.data.data;
-                        this.validationErrors = null;
-                    },
-                    (response) => {
-                        this.step = 1;
-                        this.transferCompelled = false;
-                        this.requesting = false;
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                    }
-                );
-            },
-            declineTransfer() {
-                this.step = 1;
-                this.loading = false;
-                this.destinationUser = null;
-                this.cardId = null;
-                this.password = null;
-                this.cvv2 = null;
-                this.dst_pan = null;
-                this.amount = null;
-                this.closeModal();
-            }
-        },
-        components: {
-            modal,
-            loading,
-            VueNumeric
+  export default {
+    name: 'pages-card-partials-transferShetab',
+    data() {
+      return {
+        loading: false,
+        closeModalContent: true,
+        destinationUser: null,
+        transferResponse: null,
+        requesting: false,
+        transferCompelled: false,
+        step: 1,
+        cardId: null,
+        password: null,
+        cvv2: null,
+        dst_pan: null,
+        amount: '',
+      }
+    },
+    props: ['card'],
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      }
+    },
+    created(){
+      store.commit('clearValidationErrors');
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          password: this.password,
+          cvv2: this.cvv2,
+          dst_pan: this.dst_pan,
+          amount: this.amount
+        }).then((result) => {
+          if (result) {
+            this.confirmTransfer();
+          }
+        });
+      },
+      cardNumberFormat(inputId) {
+        let text = document.getElementById(inputId).value;
+        let result = [];
+        if (text) {
+          text = this[inputId].replace(/[^\d]/g, "");
+          while (text.length > 4) {
+            result.push(text.substring(0, 4));
+            text = text.substring(4);
+          }
+          if (this[inputId].length > 0) result.push(text);
+          this[inputId] = result.join("-");
         }
+
+      },
+      closeModal() {
+        this.$emit('closeModal')
+      },
+      confirmTransfer() {
+        this.requesting = true;
+        let destPan = this.dst_pan.split('-').join('');
+
+        this.$store.state.http.requests['zarincard.getHolderName'].get({destPan: destPan}).then(
+            (response) => {
+              this.step = 2;
+              this.requesting = false;
+              this.destinationUser = response.data.data;
+            },
+            (response) => {
+              this.requesting = false;
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
+              store.commit('setValidationErrors', response.data.validation_errors);
+            }
+        );
+      },
+      acceptTransfer() {
+        this.transferCompelled = true;
+        let destPan = this.dst_pan.split('-').join('');
+
+        let transferData = {
+          card_id: this.card.entity_id,
+          password: this.password,
+          cvv2: this.cvv2,
+          dst_pan: destPan,
+          amount: this.amount
+        };
+
+        this.$store.state.http.requests['zarincard.postTransferShetab'].save(transferData).then(
+            (response) => {
+              this.step = 2;
+              this.requesting = false;
+              this.transferCompelled = false;
+              this.transferResponse = response.data.data;
+              this.validationErrors = null;
+            },
+            (response) => {
+              this.step = 1;
+              this.transferCompelled = false;
+              this.requesting = false;
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
+              store.commit('setValidationErrors', response.data.validation_errors);
+            }
+        );
+      },
+      declineTransfer() {
+        this.step = 1;
+        this.loading = false;
+        this.destinationUser = null;
+        this.cardId = null;
+        this.password = null;
+        this.cvv2 = null;
+        this.dst_pan = null;
+        this.amount = null;
+        this.closeModal();
+      }
+    },
+    components: {
+      modal,
+      loading,
+      VueNumeric
     }
+  }
 
 </script>

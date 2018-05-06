@@ -143,212 +143,208 @@
 
 
 <script>
-    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
-    import loading from '../../partials/loading';
-    import address from './add_address';
+  import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+  import loading from '../../partials/loading';
+  import address from './add_address';
 
-    export default {
-        name: 'uploadDocument',
-        data() {
-            return {
-                pageTitle: 'editInformationTitle',
-                step: 1, // [1=> user information, 2=> add address, 3=>user documents]
-                isSavingInformation: false,
-                visible_introduction: false,
+  export default {
+    name: 'uploadDocument',
+    data() {
+      return {
+        pageTitle: 'editInformationTitle',
+        step: 1, // [1=> user information, 2=> add address, 3=>user documents]
+        isSavingInformation: false,
+        visible_introduction: false,
 
-                /**
-                 * User information
-                 */
-                gender: 'male',
-                first_name: this.$store.state.auth.user.first_name,
-                last_name: this.$store.state.auth.user.last_name,
-                birthday: '',
-                ssn: this.$store.state.auth.user.ssn,
+        /**
+         * User information
+         */
+        gender: 'male',
+        first_name: this.$store.state.auth.user.first_name,
+        last_name: this.$store.state.auth.user.last_name,
+        birthday: '',
+        ssn: this.$store.state.auth.user.ssn,
 
-                /**
-                 * upload documents variables
-                 */
-                documentFiles: {
-                    id_card_file: null,
-                    national_card_file: null,
-                    introduction_file: null,
-                },
-
-                sendRequest: false,
-                isUploading: false,
-                isSaving: false,
-                maxFileUpload: 3,
-                howManyFileUploaded: 0,
-            }
+        /**
+         * upload documents variables
+         */
+        documentFiles: {
+          id_card_file: null,
+          national_card_file: null,
+          introduction_file: null,
         },
-        created() {
-            if (this.$store.state.auth.user.birthday) {
-                this.birthday = moment(this.$store.state.auth.user.birthday).format('jYYYY-jMM-jDD')
-            } else {
-                this.birthday = '';
-            }
-        },
-        methods: {
-            /**
-             * Validation
-             */
-            validateForm() {
-                this.$validator.validateAll({
-                    gender: this.gender,
-                    first_name: this.first_name,
-                    last_name: this.last_name,
-                    birthday: this.birthday,
-                    ssn: this.ssn,
-                }).then((result) => {
-                    if (result) {
-                        this.postLevelUp();
-                    }
-                });
+
+        sendRequest: false,
+        isUploading: false,
+        isSaving: false,
+        maxFileUpload: 3,
+        howManyFileUploaded: 0,
+      }
+    },
+    created() {
+      if (this.$store.state.auth.user.birthday) {
+        this.birthday = moment(this.$store.state.auth.user.birthday).format('jYYYY-jMM-jDD')
+      } else {
+        this.birthday = '';
+      }
+    },
+    methods: {
+      /**
+       * Validation
+       */
+      validateForm() {
+        this.$validator.validateAll({
+          gender: this.gender,
+          first_name: this.first_name,
+          last_name: this.last_name,
+          birthday: this.birthday,
+          ssn: this.ssn,
+        }).then((result) => {
+          if (result) {
+            this.postLevelUp();
+          }
+        });
+      },
+      incrementStep() {
+        this.step++;
+      },
+
+      /**
+       * Update user information
+       */
+      postLevelUp() {
+        this.isSavingInformation = true;
+        let userData = {
+          gender: this.gender,
+          first_name: this.first_name,
+          last_name: this.last_name,
+          birthday: moment(this.birthday, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+          ssn: this.ssn,
+        };
+
+        this.$store.state.http.requests['user.postInformation'].save(userData).then(
+            () => {
+              this.isSavingInformation = false;
+              //increase step to show upload documents
+              this.pageTitle = 'uploadDocumentTitle';
+              this.step = 2;
             },
-            incrementStep() {
+            (response) => {
+              this.isSavingInformation = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+
+              if (response.data.meta.error_type == 'UserYouCanNotEditInfo') {
                 this.step++;
-            },
-
-            /**
-             * Update user information
-             */
-            postLevelUp() {
-                this.isSavingInformation = true;
-                let userData = {
-                    gender: this.gender,
-                    first_name: this.first_name,
-                    last_name: this.last_name,
-                    birthday: moment(this.birthday, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-                    ssn: this.ssn,
-                };
-
-                this.$store.state.http.requests['user.postInformation'].save(userData).then(
-                    () => {
-                        this.isSavingInformation = false;
-                        //increase step to show upload documents
-                        this.pageTitle = 'uploadDocumentTitle';
-                        this.step = 2;
-                    },
-                    (response) => {
-                        this.isSavingInformation = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-
-                        if (response.data.meta.error_type == 'UserYouCanNotEditInfo') {
-                            this.step++;
-                        } else {
-                            this.$store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                type: 'danger'
-                            });
-                        }
-                    }
-                )
-            },
-            /**
-             * Upload user documents
-             */
-            createFile(e, whichFile) {
-                let files = e.target.files || e.dataTransfer.files;
-                let file = files[0];
-                if (!files.length)
-                    return;
-
-                //check valid files
-                let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png)$/i;
-                if (!fileExtension.exec(file.name)) {
-                    store.commit('flashMessage', {
-                        text: 'UserFileNotImageLocal',
-                        type: 'danger'
-                    });
-                    return;
-                }
-
-                let reader = new FileReader();
-                let vm = this;
-
-                reader.onload = (e) => {
-                    vm.documentFiles[whichFile] = file;
-                };
-
-                //set file data to reader
-                reader.readAsDataURL(file);
-            },
-            /**
-             * Upload files and save
-             * file name after upload
-             * that give by api
-             */
-            postUploadDocuments() {
-                this.sendRequest = true;
-                this.isUploading = true;
-
-                let vm = this;
-                let formData = new FormData();
-                formData.append('type', 'document');
-
-                this.documentFiles = _.pickBy(this.documentFiles, _.isObject);
-
-                let uploadedFileNames = {};
-                _.forEach(this.documentFiles, function (file, fileKey) {
-                    if (file) {
-                        formData.append('file', file);
-
-                        vm.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true})
-                            .then((response) => {
-                                vm.howManyFileUploaded++;
-
-                                //add file name to uploaded file object
-                                uploadedFileNames[fileKey] = response.data.meta.file_id;
-
-                                //save user uploaded file in db
-                                if (vm.howManyFileUploaded === _.size(vm.documentFiles)) {
-                                    //change file uploading stauts
-                                    vm.isUploading = false;
-
-                                    //change status of saving
-                                    vm.isSaving = true;
-
-                                    //save user uploaded file name
-                                    vm.$store.state.http.requests['user.postUploadDocument']
-                                        .save(uploadedFileNames)
-                                        .then(
-                                            (response) => {
-                                                vm.sendRequest = false;
-                                                vm.isSaving = false;
-
-                                                store.commit('flashMessage', {
-                                                    text: 'UserFileUploadedLocal',
-                                                    type: 'success'
-                                                });
-
-                                                vm.$router.push({name: 'ticket.index'});
-                                            }, (response) => {
-                                                vm.isSaving = 'Failed';
-                                                vm.sendRequest = false;
-
-                                                store.commit('setValidationErrors', response.data.validation_errors);
-                                                store.commit('flashMessage', {
-                                                    text: response.data.meta.error_type,
-                                                    type: 'danger'
-                                                });
-                                            }
-                                        );
-                                }
-                            }, (response) => {
-                                vm.sendRequest = false;
-                                vm.isUploading = 'Failed';
-                                store.commit('setValidationErrors', response.data.validation_errors);
-                            });
-                    }
-
-
+              } else {
+                this.$store.commit('flashMessage', {
+                  text: response.data.meta.error_type,
+                  type: 'danger'
                 });
-            },
-        },
-        components: {
-            'user-address': address,
-            loading,
-            datePicker: VuePersianDatetimePicker
+              }
+            }
+        )
+      },
+      /**
+       * Upload user documents
+       */
+      createFile(e, whichFile) {
+        let files = e.target.files || e.dataTransfer.files;
+        let file = files[0];
+        if (!files.length)
+          return;
+
+        //check valid files
+        let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png)$/i;
+        if (!fileExtension.exec(file.name)) {
+          store.commit('flashMessage', {
+            text: 'UserFileNotImageLocal',
+            type: 'danger'
+          });
+          return;
         }
+
+        let reader = new FileReader();
+        let vm = this;
+
+        reader.onload = (e) => {
+          vm.documentFiles[whichFile] = file;
+        };
+
+        //set file data to reader
+        reader.readAsDataURL(file);
+      },
+      /**
+       * Upload files and save
+       * file name after upload
+       * that give by api
+       */
+      postUploadDocuments() {
+        this.sendRequest = true;
+        this.isUploading = true;
+
+        let vm = this;
+        let formData = new FormData();
+        formData.append('type', 'document');
+
+        this.documentFiles = _.pickBy(this.documentFiles, _.isObject);
+
+        let uploadedFileNames = {};
+        _.forEach(this.documentFiles, function(file, fileKey) {
+          if (file) {
+            formData.append('file', file);
+
+            vm.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+              vm.howManyFileUploaded++;
+
+              //add file name to uploaded file object
+              uploadedFileNames[fileKey] = response.data.meta.file_id;
+
+              //save user uploaded file in db
+              if (vm.howManyFileUploaded === _.size(vm.documentFiles)) {
+                //change file uploading stauts
+                vm.isUploading = false;
+
+                //change status of saving
+                vm.isSaving = true;
+
+                //save user uploaded file name
+                vm.$store.state.http.requests['user.postUploadDocument'].save(uploadedFileNames).then(
+                    (response) => {
+                      vm.sendRequest = false;
+                      vm.isSaving = false;
+
+                      store.commit('flashMessage', {
+                        text: 'UserFileUploadedLocal',
+                        type: 'success'
+                      });
+
+                      vm.$router.push({name: 'ticket.index'});
+                    }, (response) => {
+                      vm.isSaving = 'Failed';
+                      vm.sendRequest = false;
+
+                      store.commit('setValidationErrors', response.data.validation_errors);
+                      store.commit('flashMessage', {
+                        text: response.data.meta.error_type,
+                        type: 'danger'
+                      });
+                    }
+                );
+              }
+            }, (response) => {
+              vm.sendRequest = false;
+              vm.isUploading = 'Failed';
+              store.commit('setValidationErrors', response.data.validation_errors);
+            });
+          }
+
+        });
+      },
+    },
+    components: {
+      'user-address': address,
+      loading,
+      datePicker: VuePersianDatetimePicker
     }
+  }
 </script>

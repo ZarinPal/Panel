@@ -41,47 +41,48 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
-    import loading from '../../partials/loading.vue';
+  import modal from '../../partials/modal.vue';
+  import loading from '../../partials/loading.vue';
 
-    export default {
-        name: 'show-html',
-        props: ['entity'],
-        computed: {
-            zarinLinkUrl(){
-                return 'https://Zarinp.al/' + this.entity;
-            },
-            zarinLinkHtml(){
-                return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl + '\'>پرداخت آنلاین</a>';
-            },
-            zarinLinkButton(){
-                return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl + '\'><img src=\'https://cdn.zarinpal.com/badges/easypay/logo1.png\'></a>';
-            },
-            zarinLinkBb(){
-                return '[url=' + this.zarinLinkUrl + ']پرداخت آنلاین[/url]';
-            }
-        },
-        methods: {
-            closeModal() {
-                this.$emit('closeModal');
-            },
-            clipboardMessage(event) {
-                setTimeout(function () {
-                    let htmlCodeField = document.getElementById(event);
-                    if (htmlCodeField) {
-                        htmlCodeField.select();
-                    }
-                }, 10);
-                store.commit('flashMessage', {
-                    text: 'Copied',
-                    type: 'success',
-                    timeout: '1500'
-                });
-            }
-        },
-        components: {
-            modal,
-            loading
-        }
-    };
+  export default {
+    name: 'show-html',
+    props: ['entity'],
+    computed: {
+      zarinLinkUrl(){
+        return 'https://Zarinp.al/' + this.entity;
+      },
+      zarinLinkHtml(){
+        return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl + '\'>پرداخت آنلاین</a>';
+      },
+      zarinLinkButton(){
+        return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl +
+            '\'><img src=\'https://cdn.zarinpal.com/badges/easypay/logo1.png\'></a>';
+      },
+      zarinLinkBb(){
+        return '[url=' + this.zarinLinkUrl + ']پرداخت آنلاین[/url]';
+      }
+    },
+    methods: {
+      closeModal() {
+        this.$emit('closeModal');
+      },
+      clipboardMessage(event) {
+        setTimeout(function() {
+          let htmlCodeField = document.getElementById(event);
+          if (htmlCodeField) {
+            htmlCodeField.select();
+          }
+        }, 10);
+        store.commit('flashMessage', {
+          text: 'Copied',
+          type: 'success',
+          timeout: '1500'
+        });
+      }
+    },
+    components: {
+      modal,
+      loading
+    }
+  };
 </script>

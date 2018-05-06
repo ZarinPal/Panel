@@ -31,71 +31,71 @@
 </template>
 
 <script>
-    import singleCard from './partials/single-card.vue';
-    import createCard from './partials/create.vue';
-    import loading from '../../pages/partials/loading.vue';
+  import singleCard from './partials/single-card.vue';
+  import createCard from './partials/create.vue';
+  import loading from '../../pages/partials/loading.vue';
 
-    export default {
-        name: 'card-index',
-        data(){
-            return {
-                visibleCreateCard: false,
-            }
-        },
-        computed: {
-            cards(){
-                let activeCards = [];
-                let inActiveCards = [];
-                let reorderedCards = [];
+  export default {
+    name: 'card-index',
+    data(){
+      return {
+        visibleCreateCard: false,
+      }
+    },
+    computed: {
+      cards(){
+        let activeCards = [];
+        let inActiveCards = [];
+        let reorderedCards = [];
 
-                let cards = {
-                    data: this.$store.state.paginator.paginator.CardList.data,
-                    status: this.$store.state.paginator.paginator.CardList.isLoading,
-                    update: this.$store.state.paginator.update,
-                };
+        let cards = {
+          data: this.$store.state.paginator.paginator.CardList.data,
+          status: this.$store.state.paginator.paginator.CardList.isLoading,
+          update: this.$store.state.paginator.update,
+        };
 
-                cards.data.forEach(function (card) {
-                    if (card.status === 'Active') {
-                        activeCards.push(card);
-                    } else {
-                        inActiveCards.push(card);
-                    }
-                });
-                reorderedCards = activeCards.concat(inActiveCards);
-                return {
-                    data: reorderedCards,
-                    status: this.$store.state.paginator.paginator.CardList.isLoading,
-                };
+        cards.data.forEach(function(card) {
+          if (card.status === 'Active') {
+            activeCards.push(card);
+          } else {
+            inActiveCards.push(card);
+          }
+        });
+        reorderedCards = activeCards.concat(inActiveCards);
+        return {
+          data: reorderedCards,
+          status: this.$store.state.paginator.paginator.CardList.isLoading,
+        };
+      }
+    },
+    created() {
+      this.getCards();
+    },
+    methods: {
+      closeModal(){
+        this.visibleCreateCard = false;
+        store.commit('clearValidationErrors');
+      },
+      userHasAccess(validLevels) {
+        return _.indexOf(validLevels, this.$store.state.auth.user.level);
+      },
+      getCards() {
+        let vm = this;
+        this.$store.dispatch(
+            'paginator/make',
+            {
+              vm,
+              resource: vm.$store.state.http.requests['card.getList'],
+              params: vm.searchOptions,
+              requestName: 'CardList'
             }
-        },
-        created() {
-            this.getCards();
-        },
-        methods: {
-            closeModal(){
-                this.visibleCreateCard = false;
-                store.commit('clearValidationErrors');
-            },
-            userHasAccess(validLevels) {
-                return _.indexOf(validLevels, this.$store.state.auth.user.level);
-            },
-            getCards() {
-                let vm = this;
-                this.$store.dispatch(
-                    'paginator/make',
-                    {
-                        vm,
-                        resource: vm.$store.state.http.requests['card.getList'],
-                        params: vm.searchOptions,
-                        requestName: 'CardList'
-                    }
-                );
-            }
-        },
-        components: {
-            singleCard,
-            createCard,
-            loading
-        }
+        );
+      }
+    },
+    components: {
+      singleCard,
+      createCard,
+      loading
     }
+  }
 </script>

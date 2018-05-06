@@ -256,295 +256,296 @@
 
 
 <script>
-    import selectbox from '../../partials/selectbox.vue';
-    import purse from '../../partials/purses.vue';
-    import loading from '../../partials/loading.vue';
-    import VueNumeric from 'vue-numeric';
+  import selectbox from '../../partials/selectbox.vue';
+  import purse from '../../partials/purses.vue';
+  import loading from '../../partials/loading.vue';
+  import VueNumeric from 'vue-numeric';
 
-    export default {
-        name: 'pages-easypay-partials-edit',
-        data() {
+  export default {
+    name: 'pages-easypay-partials-edit',
+    data() {
+      return {
+        loading: false,
+        isLoadedEasypay: false,
+        is_coupon_active: false,
+        easypay: {},
+        fileHover: '',
+        visibleEmail: '',   //  visible email options
+        messages: {},
+        title: null,
+        description: null,
+        price: '',
+        payTo: null,
+        webservice_id: null,
+        purse: null,
+        requiredFields: {
+          email: {
+            checkbox: false,
+            status: 'hidden',
+            placeholder: null
+          },
+          name: {
+            checkbox: false,
+            status: 'hidden',
+            placeholder: null
+          },
+          mobile: {
+            checkbox: false,
+            status: 'hidden',
+            placeholder: null
+          },
+          description: {
+            checkbox: false,
+            status: 'hidden',
+            placeholder: null
+          },
+        },
+        showReceipt: '',
+        successfulRedirectUrl: '',
+        failedRedirectUrl: '',
+        limited: false,
+        limit: 0,
+      }
+    },
+    computed: {
+      webserviceSelection() {
+        if (this.$store.state.auth.user.webservices) {
+          return this.$store.state.auth.user.webservices.filter(function(webservice) {
+            return webservice.status;
+          }).map(function(webservice) {
             return {
-                loading: false,
-                isLoadedEasypay: false,
-                is_coupon_active: false,
-                easypay: {},
-                fileHover: '',
-                visibleEmail: '',   //  visible email options
-                messages: {},
-                title: null,
-                description: null,
-                price: '',
-                payTo: null,
-                webservice_id: null,
-                purse: null,
-                requiredFields: {
-                    email: {
-                        checkbox: false,
-                        status: 'hidden',
-                        placeholder: null
-                    },
-                    name: {
-                        checkbox: false,
-                        status: 'hidden',
-                        placeholder: null
-                    },
-                    mobile: {
-                        checkbox: false,
-                        status: 'hidden',
-                        placeholder: null
-                    },
-                    description: {
-                        checkbox: false,
-                        status: 'hidden',
-                        placeholder: null
-                    },
-                },
-                showReceipt: '',
-                successfulRedirectUrl: '',
-                failedRedirectUrl: '',
-                limited: false,
-                limit: 0,
+              'title': webservice.name,
+              'value': webservice.entity_id
             }
-        },
-        computed: {
-            webserviceSelection() {
-                if (this.$store.state.auth.user.webservices) {
-                    return this.$store.state.auth.user.webservices.filter(function (webservice) {
-                        return webservice.status;
-                    }).map(function (webservice) {
-                        return {
-                            'title': webservice.name,
-                            'value': webservice.entity_id
-                        }
-                    });
-                }
-            },
-            pursesSelection() {
-                if (this.$store.state.auth.user.purses) {
-                    return this.$store.state.auth.user.purses.map(function (purse) {
-                        return {
-                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
-                            'value': purse.purse
-                        }
-                    });
-                }
-            },
-            purseId() {
-                return this.purse;
-            },
-            webserviceId() {
-                return this.webservice_id;
-            },
-        },
-        created() {
-            this.getEasypay();
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    title: this.title,
-                    price: this.price
-                }).then((result) => {
-                    if (result) {
-                        this.editEasypay();
-                    }
-                });
-            },
-            removeErrors (field) {
-                !!this[field] && this.errors.remove(field);
-            },
-            selectedPurse(purseId) {
-                this.purse = purseId;
-                this.webservice_id = null;
-            },
-            selectedWebservice(entityId) {
-                this.webservice_id = entityId;
-                this.purse = null;
-            },
-            changePayTo() {
-                if (this.payTo === 'webservice') {
-                    this.purse = null;
-                    this.purse_name = null;
-                } else if (this.payTo === 'purse') {
-                    this.webservice_id = null;
-                }
-            },
-            getEasypay() {
-                this.$store.state.http.requests['easypay.getShow'].get({'easypay_id': this.$route.params.public_id}).then(
-                    (response) => {
-                        this.easypay = response.data.data;
-                        this.title = response.data.data.title;
-                        this.price = response.data.data.price;
-                        this.description = response.data.data.description;
-                        this.is_coupon_active = response.data.data.is_coupon_active;
-
-                        if (response.data.data.purse && !response.data.data.webservice_id) {
-                            this.payTo = 'purse';
-                            this.purse = response.data.data.purse;
-                        } else {
-                            this.payTo = 'webservice';
-                            this.webservice_id = response.data.data.webservice_id;
-                        }
-                        this.limit = response.data.data.limit;
-
-                        this.handleOrderOptions('email');
-                        this.handleOrderOptions('mobile');
-                        this.handleOrderOptions('name');
-                        this.handleOrderOptions('description');
-                        this.handleShowReceipt();
-
-                        this.failedRedirectUrl = response.data.data.failed_redirect_url;
-                        this.successfulRedirectUrl = response.data.data.successful_redirect_url;
-                        this.isLoadedEasypay = true;
-                    }, () => {
-                        this.isLoadedEasypay = true;
-                    }
-                );
-            },
-            editEasypay() {
-                if ((this.payTo === 'purse' && !this.purse) || (this.payTo === 'webservice' && !this.webservice_id)) {
-                    this.errors.add(
-                        'purse',
-                        this.$i18n.t('easypay.selectPurseOrWebserviceId'),
-                        'api'
-                    );
-                    return;
-                }
-
-                this.loading = true;
-                this.handleShowReceiptSave();
-
-                let easyPayData = {
-                    title: this.title,
-                    description: this.description,
-                    is_coupon_active: this.is_coupon_active,
-                    price: this.clearNumber(this.price),
-                    purse: this.purse,
-                    webservice_id: this.webservice_id,
-                    required_fields: {
-                        email: this.handleOrderOptionsSave('email'),
-                        name: this.handleOrderOptionsSave('name'),
-                        mobile: this.handleOrderOptionsSave('mobile'),
-                        description: this.handleOrderOptionsSave('description')
-                    },
-                    show_receipt: this.showReceipt,
-                    successful_redirect_url: this.successfulRedirectUrl,
-                    failed_redirect_url: this.failedRedirectUrl,
-                    limited: this.limited,
-                    limit: this.limit,
-                };
-
-                this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id}, easyPayData).then(
-                    () => {
-                        this.loading = false;
-                        this.changeEasypayState();
-                        store.commit('clearValidationErrors');
-                        this.$router.push({name: 'easypay.index'});
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                    }
-                );
-            },
-            handleOrderOptions(requireFieldName) {
-                let orderStates = {
-                    hidden: {
-                        checkbox: false,
-                        status: 'hidden',
-                        placeholder: this.easypay.required_fields[requireFieldName].placeholder
-                    },
-                    optional: {
-                        checkbox: true,
-                        status: 'optional',
-                        placeholder: this.easypay.required_fields[requireFieldName].placeholder
-                    },
-                    required: {
-                        checkbox: true,
-                        status: 'required',
-                        placeholder: this.easypay.required_fields[requireFieldName].placeholder
-                    },
-                };
-
-                return this.requiredFields[requireFieldName] =
-                    orderStates[this.easypay.required_fields[requireFieldName].status];
-            },
-            handleOrderOptionsSave(requireFieldName) {
-                if (this.requiredFields[requireFieldName].checkbox) {
-                    return {
-                        status: this.requiredFields[requireFieldName].status,
-                        placeholder: this.requiredFields[requireFieldName].placeholder,
-                    }
-                }
-
-                return {
-                    status: 'hidden',
-                    placeholder: null,
-                };
-            },
-            handleShowReceipt() {
-                if (this.easypay.show_receipt === 1 || this.easypay.show_receipt === true) {
-                    this.showReceipt = true;
-                } else {
-                    this.showReceipt = false;
-                }
-
-                if (this.easypay.limit && this.easypay.limit > 0) {
-                    this.limited = true;
-                } else {
-                    this.limited = false;
-                    this.limit = 0;
-                }
-            },
-            handleShowReceiptSave() {
-                if (this.showReceipt === false || this.showReceipt === 0) {
-                    this.showReceipt = 0;
-                } else {
-                    this.showReceipt = 1;
-                }
-
-                if (!this.limited) {
-                    this.limit = 0;
-                }
-            },
-            changeEasypayState(){
-                let vm = this;
-                let easypayIndex = _.findIndex(this.$store.state.auth.user.easypays, function (easypay) {
-                    return easypay.entity_id === vm.$route.params.public_id;
-                });
-
-                if (this.title) {
-                    this.$store.state.auth.user.easypays[easypayIndex].title = this.title;
-                }
-
-                this.$store.state.auth.user.easypays[easypayIndex].description = this.description;
-                this.$store.state.auth.user.easypays[easypayIndex].price = this.price;
-                this.$store.state.auth.user.easypays[easypayIndex].is_coupon_active = this.is_coupon_active;
-                this.$store.state.auth.user.easypays[easypayIndex].purse = this.purse;
-                this.$store.state.auth.user.easypays[easypayIndex].required_fields.email = this.requiredFields.email;
-                this.$store.state.auth.user.easypays[easypayIndex].required_fields.name = this.requiredFields.name;
-                this.$store.state.auth.user.easypays[easypayIndex].required_fields.mobile = this.requiredFields.mobile;
-                this.$store.state.auth.user.easypays[easypayIndex].required_fields.description = this.requiredFields.description;
-                this.$store.state.auth.user.easypays[easypayIndex].show_receipt = this.showReceipt;
-                this.$store.state.auth.user.easypays[easypayIndex].successful_redirect_url = this.successfulRedirectUrl;
-                this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
-                this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
-                this.$store.state.auth.user.easypays[easypayIndex].limited = this.limited;
-                this.$store.state.auth.user.easypays[easypayIndex].limit = this.limit;
-            },
-        },
-        components: {
-            selectbox,
-            purse,
-            loading,
-            VueNumeric
+          });
         }
+      },
+      pursesSelection() {
+        if (this.$store.state.auth.user.purses) {
+          return this.$store.state.auth.user.purses.map(function(purse) {
+            return {
+              'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
+              'value': purse.purse
+            }
+          });
+        }
+      },
+      purseId() {
+        return this.purse;
+      },
+      webserviceId() {
+        return this.webservice_id;
+      },
+    },
+    created() {
+      this.getEasypay();
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          title: this.title,
+          price: this.price
+        }).then((result) => {
+          if (result) {
+            this.editEasypay();
+          }
+        });
+      },
+      removeErrors (field) {
+        !!this[field] && this.errors.remove(field);
+      },
+      selectedPurse(purseId) {
+        this.purse = purseId;
+        this.webservice_id = null;
+      },
+      selectedWebservice(entityId) {
+        this.webservice_id = entityId;
+        this.purse = null;
+      },
+      changePayTo() {
+        if (this.payTo === 'webservice') {
+          this.purse = null;
+          this.purse_name = null;
+        } else if (this.payTo === 'purse') {
+          this.webservice_id = null;
+        }
+      },
+      getEasypay() {
+        this.$store.state.http.requests['easypay.getShow'].get({'easypay_id': this.$route.params.public_id}).then(
+            (response) => {
+              this.easypay = response.data.data;
+              this.title = response.data.data.title;
+              this.price = response.data.data.price;
+              this.description = response.data.data.description;
+              this.is_coupon_active = response.data.data.is_coupon_active;
+
+              if (response.data.data.purse && !response.data.data.webservice_id) {
+                this.payTo = 'purse';
+                this.purse = response.data.data.purse;
+              } else {
+                this.payTo = 'webservice';
+                this.webservice_id = response.data.data.webservice_id;
+              }
+              this.limit = response.data.data.limit;
+
+              this.handleOrderOptions('email');
+              this.handleOrderOptions('mobile');
+              this.handleOrderOptions('name');
+              this.handleOrderOptions('description');
+              this.handleShowReceipt();
+
+              this.failedRedirectUrl = response.data.data.failed_redirect_url;
+              this.successfulRedirectUrl = response.data.data.successful_redirect_url;
+              this.isLoadedEasypay = true;
+            }, () => {
+              this.isLoadedEasypay = true;
+            }
+        );
+      },
+      editEasypay() {
+        if ((this.payTo === 'purse' && !this.purse) || (this.payTo === 'webservice' && !this.webservice_id)) {
+          this.errors.add(
+              'purse',
+              this.$i18n.t('easypay.selectPurseOrWebserviceId'),
+              'api'
+          );
+          return;
+        }
+
+        this.loading = true;
+        this.handleShowReceiptSave();
+
+        let easyPayData = {
+          title: this.title,
+          description: this.description,
+          is_coupon_active: this.is_coupon_active,
+          price: this.clearNumber(this.price),
+          purse: this.purse,
+          webservice_id: this.webservice_id,
+          required_fields: {
+            email: this.handleOrderOptionsSave('email'),
+            name: this.handleOrderOptionsSave('name'),
+            mobile: this.handleOrderOptionsSave('mobile'),
+            description: this.handleOrderOptionsSave('description')
+          },
+          show_receipt: this.showReceipt,
+          successful_redirect_url: this.successfulRedirectUrl,
+          failed_redirect_url: this.failedRedirectUrl,
+          limited: this.limited,
+          limit: this.limit,
+        };
+
+        this.$store.state.http.requests['easypay.getShow'].update({easypay_id: this.$route.params.public_id},
+            easyPayData).then(
+            () => {
+              this.loading = false;
+              this.changeEasypayState();
+              store.commit('clearValidationErrors');
+              this.$router.push({name: 'easypay.index'});
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
+            }
+        );
+      },
+      handleOrderOptions(requireFieldName) {
+        let orderStates = {
+          hidden: {
+            checkbox: false,
+            status: 'hidden',
+            placeholder: this.easypay.required_fields[requireFieldName].placeholder
+          },
+          optional: {
+            checkbox: true,
+            status: 'optional',
+            placeholder: this.easypay.required_fields[requireFieldName].placeholder
+          },
+          required: {
+            checkbox: true,
+            status: 'required',
+            placeholder: this.easypay.required_fields[requireFieldName].placeholder
+          },
+        };
+
+        return this.requiredFields[requireFieldName] =
+            orderStates[this.easypay.required_fields[requireFieldName].status];
+      },
+      handleOrderOptionsSave(requireFieldName) {
+        if (this.requiredFields[requireFieldName].checkbox) {
+          return {
+            status: this.requiredFields[requireFieldName].status,
+            placeholder: this.requiredFields[requireFieldName].placeholder,
+          }
+        }
+
+        return {
+          status: 'hidden',
+          placeholder: null,
+        };
+      },
+      handleShowReceipt() {
+        if (this.easypay.show_receipt === 1 || this.easypay.show_receipt === true) {
+          this.showReceipt = true;
+        } else {
+          this.showReceipt = false;
+        }
+
+        if (this.easypay.limit && this.easypay.limit > 0) {
+          this.limited = true;
+        } else {
+          this.limited = false;
+          this.limit = 0;
+        }
+      },
+      handleShowReceiptSave() {
+        if (this.showReceipt === false || this.showReceipt === 0) {
+          this.showReceipt = 0;
+        } else {
+          this.showReceipt = 1;
+        }
+
+        if (!this.limited) {
+          this.limit = 0;
+        }
+      },
+      changeEasypayState(){
+        let vm = this;
+        let easypayIndex = _.findIndex(this.$store.state.auth.user.easypays, function(easypay) {
+          return easypay.entity_id === vm.$route.params.public_id;
+        });
+
+        if (this.title) {
+          this.$store.state.auth.user.easypays[easypayIndex].title = this.title;
+        }
+
+        this.$store.state.auth.user.easypays[easypayIndex].description = this.description;
+        this.$store.state.auth.user.easypays[easypayIndex].price = this.price;
+        this.$store.state.auth.user.easypays[easypayIndex].is_coupon_active = this.is_coupon_active;
+        this.$store.state.auth.user.easypays[easypayIndex].purse = this.purse;
+        this.$store.state.auth.user.easypays[easypayIndex].required_fields.email = this.requiredFields.email;
+        this.$store.state.auth.user.easypays[easypayIndex].required_fields.name = this.requiredFields.name;
+        this.$store.state.auth.user.easypays[easypayIndex].required_fields.mobile = this.requiredFields.mobile;
+        this.$store.state.auth.user.easypays[easypayIndex].required_fields.description = this.requiredFields.description;
+        this.$store.state.auth.user.easypays[easypayIndex].show_receipt = this.showReceipt;
+        this.$store.state.auth.user.easypays[easypayIndex].successful_redirect_url = this.successfulRedirectUrl;
+        this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
+        this.$store.state.auth.user.easypays[easypayIndex].failed_redirect_url = this.failedRedirectUrl;
+        this.$store.state.auth.user.easypays[easypayIndex].limited = this.limited;
+        this.$store.state.auth.user.easypays[easypayIndex].limit = this.limit;
+      },
+    },
+    components: {
+      selectbox,
+      purse,
+      loading,
+      VueNumeric
     }
+  }
 
 </script>
