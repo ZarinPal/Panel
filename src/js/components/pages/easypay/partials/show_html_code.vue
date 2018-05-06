@@ -55,7 +55,8 @@
                 return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl + '\'>پرداخت آنلاین</a>';
             },
             zarinLinkButton(){
-                return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl + '\'><img src=\'https://cdn.zarinpal.com/badges/easypay/logo1.png\'></a>';
+                return '<a target=\'_blank\' title=\'پرداخت آنلاین\' href=\'' + this.zarinLinkUrl +
+                    '\'><img src=\'https://cdn.zarinpal.com/badges/easypay/logo1.png\'></a>';
             },
             zarinLinkBb(){
                 return '[url=' + this.zarinLinkUrl + ']پرداخت آنلاین[/url]';

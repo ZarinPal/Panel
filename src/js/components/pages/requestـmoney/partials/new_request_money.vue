@@ -164,7 +164,6 @@
     import modal from '../../partials/modal.vue';
     import loading from '../../../pages/partials/loading.vue';
 
-
     import {tns} from "tiny-slider/src/tiny-slider.module";
 
     export default {

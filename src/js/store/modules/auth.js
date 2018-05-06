@@ -12,24 +12,24 @@ export default {
                         balance: 0,
                         today_income: 0,
                         today_outcome: 0,
-                        total_to_exit: 0
+                        total_to_exit: 0,
                     },
                     name: 'اصلی زرین‌پال',
                     purse: 1,
-                    visible: true
+                    visible: true,
                 },
                 {
                     balance: {
                         balance: 0,
                         today_income: 0,
                         today_outcome: 0,
-                        total_to_exit: 0
+                        total_to_exit: 0,
                     },
                     name: 'پیامک',
                     purse: 99,
-                    visible: true
+                    visible: true,
                 },
-            ]
+            ],
         },
         check: false,
         isRequested: false,
@@ -60,7 +60,7 @@ export default {
         },
         updatePurseListener(state) {
             state.updatePurseListener++;
-        }
+        },
     },
     actions: {
         fetch({commit, rootState, state, dispatch}, callback) {
@@ -80,12 +80,12 @@ export default {
                     if (!!this.$raven) {
                         this.$raven.setUserContext({
                             email: this.$store.state.auth.auth.email,
-                            id: this.$store.state.auth.auth.public_id
+                            id: this.$store.state.auth.auth.public_id,
                         });
                     }
 
                     callback(true);
-                }
+                },
             ).catch((response) => {
                 callback(false);
             });
@@ -94,7 +94,8 @@ export default {
             state.user.purses.forEach(function (purse) {
                 rootState.http.requests['purse.getBalance'].get({purseId: purse.purse}).then(response => {
                     state.purseLoadedCount++;
-                    dispatch('addBalanceToPurse', {purseId: purse.purse, purseBalance: response.data.data});
+                    dispatch('addBalanceToPurse',
+                        {purseId: purse.purse, purseBalance: response.data.data});
                 }).catch((response) => {
                     dispatch('purseBalanceFailed', purse.purse);
                 });
@@ -103,12 +104,13 @@ export default {
         purseBalanceFailed({rootState, state, dispatch}, purseId) {
             rootState.http.requests['purse.getBalance'].get({purseId: purseId}).then(response => {
                 state.purseLoadedCount++;
-                dispatch('addBalanceToPurse', {purseId: purseId, purseBalance: response.data.data});
+                dispatch('addBalanceToPurse',
+                    {purseId: purseId, purseBalance: response.data.data});
             });
         },
         addBalanceToPurse({state, dispatch, commit}, {purseId, purseBalance}) {
             let purseIndex = _.findIndex(state.user.purses, function (filterPurse) {
-                return filterPurse.purse === purseId
+                return filterPurse.purse === purseId;
             });
             state.user.purses[purseIndex].balance = purseBalance;
             state.user.purses[purseIndex].visible = true;
@@ -126,7 +128,7 @@ export default {
             rootState.http.requests['profile'].update({
                 mobile: state.user.mobile,
             }).catch((response) => {
-                }
+                },
             );
         },
         logout({dispatch, commit, rootState}, vm) {
@@ -137,7 +139,7 @@ export default {
                     commit('empty');
                     dispatch('stopWebPushSocket', {}, {root: true});
                     vm.$router.push({name: 'auth.login'});
-                }
+                },
             );
         },
     },

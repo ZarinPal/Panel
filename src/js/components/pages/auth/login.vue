@@ -181,11 +181,9 @@
                 };
             }
 
-            this.$store.state.http.requests['oauth.check']
-                .get(oauthCheckParams)
-                .then(() => {
-                    vm.$router.push({name: 'home.index'});
-                }).catch(() => {
+            this.$store.state.http.requests['oauth.check'].get(oauthCheckParams).then(() => {
+                vm.$router.push({name: 'home.index'});
+            }).catch(() => {
                 vm.$store.commit('app/ready');
 
                 if (this.username && this.otp) {
@@ -219,31 +217,29 @@
                     this.otpObject = {};
                 }
 
-                this.$store.state.http.requests['oauth.postInitializeLogin']
-                    .save(postData)
-                    .then((response) => {
-                        this.getOtpLoading = false;
-                        this.step = 2;
-                        this.avatar = 'https:' + response.data.data.avatar;
-                        this.channel = response.data.data.channel;
-                        if (response.data.data.ussd_code) {
-                            this.ussdCode = response.data.data.ussd_code;
-                        }
+                this.$store.state.http.requests['oauth.postInitializeLogin'].save(postData).then((response) => {
+                    this.getOtpLoading = false;
+                    this.step = 2;
+                    this.avatar = 'https:' + response.data.data.avatar;
+                    this.channel = response.data.data.channel;
+                    if (response.data.data.ussd_code) {
+                        this.ussdCode = response.data.data.ussd_code;
+                    }
 
-                        if (channel && channel === 'sms') {
-                            store.commit('flashMessage', {
-                                text: 'OauthOtpSentSmsLocal',
-                                type: 'success',
-                                timeout: 10000,
-                            });
-                        } else if (channel === 'email') {
-                            store.commit('flashMessage', {
-                                text: 'OauthOtpSentEmailLocal',
-                                type: 'success',
-                                timeout: 10000,
-                            });
-                        }
-                    }).catch((response) => {
+                    if (channel && channel === 'sms') {
+                        store.commit('flashMessage', {
+                            text: 'OauthOtpSentSmsLocal',
+                            type: 'success',
+                            timeout: 10000,
+                        });
+                    } else if (channel === 'email') {
+                        store.commit('flashMessage', {
+                            text: 'OauthOtpSentEmailLocal',
+                            type: 'success',
+                            timeout: 10000,
+                        });
+                    }
+                }).catch((response) => {
                     this.loginLoading = false;
                     this.getOtpLoading = false;
 
@@ -319,13 +315,13 @@
                     }
                 );
 
-
             },
             changeUssdType() {
                 if (this.ussdType === 'Code') {
                     this.ussdType = 'Qr';
                     let ussdCode = this.ussdCode.substring(0, this.ussdCode.length - 1);
-                    this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:' + ussdCode + '%2523';
+                    this.qrCodeSrc = 'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=tel:' +
+                        ussdCode + '%2523';
                 } else {
                     this.ussdType = 'Code';
                 }
@@ -376,17 +372,16 @@
                 });
             },
             getOtpAuthorization(callback) {
-                this.$store.state.http.requests['oauth.otpAuthorization'].get({client_id: "panel-client"})
-                    .then((response) => {
-                            this.mobile_expire_in = response.data.data.expire_in;
-                            this.mobile_socket_uri = response.data.data.uri;
-                            let sessionId = this.mobile_socket_uri.match('session_id=([^&#]+)')[1];
+                this.$store.state.http.requests['oauth.otpAuthorization'].get({client_id: "panel-client"}).then((response) => {
+                        this.mobile_expire_in = response.data.data.expire_in;
+                        this.mobile_socket_uri = response.data.data.uri;
+                        let sessionId = this.mobile_socket_uri.match('session_id=([^&#]+)')[1];
 
-                            callback(sessionId);
-                        }, (response) => {
+                        callback(sessionId);
+                    }, (response) => {
 
-                        }
-                    );
+                    }
+                );
             },
             loginByMobileApplication() {
                 if (!this.mobile_socket_uri) {

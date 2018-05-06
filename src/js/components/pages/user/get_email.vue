@@ -58,7 +58,8 @@
                 this.$store.state.http.requests['user.changeEmail'].save({email: this.email}).then(
                     () => {
                         this.$store.state.auth.user.user_progress.email.check = false;
-                        this.$store.state.auth.user.user_progress.points = parseInt(this.$store.state.auth.user.user_progress.points) - 15;
+                        this.$store.state.auth.user.user_progress.points = parseInt(
+                                this.$store.state.auth.user.user_progress.points) - 15;
 
                         this.$store.commit('flashMessage', {
                             text: 'UserEmailSetSuccessCheckYourEmailLocal',

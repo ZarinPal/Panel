@@ -191,26 +191,24 @@
                 let sendContent = {
                     note: this.txtTransactionNote
                 };
-                this.$store.state.http.requests['transaction.getInfo']
-                    .update({'transactionId': this.transaction.public_id}, sendContent)
-                    .then(() => {
-                            this.transaction.note = this.txtTransactionNote;
-                            this.isEditingNote = false;
-                            store.commit('flashMessage', {
-                                text: 'TransactionEditNoteDoneLocal',
-                                type: 'success'
-                            });
-                        },
-                        (response) => {
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                type: 'danger'
-                            });
+                this.$store.state.http.requests['transaction.getInfo'].update({'transactionId': this.transaction.public_id},
+                    sendContent).then(() => {
+                        this.transaction.note = this.txtTransactionNote;
+                        this.isEditingNote = false;
+                        store.commit('flashMessage', {
+                            text: 'TransactionEditNoteDoneLocal',
+                            type: 'success'
+                        });
+                    },
+                    (response) => {
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
+                            text: response.data.meta.error_type,
+                            type: 'danger'
+                        });
 
-                        }
-                    );
-
+                    }
+                );
 
             }
 

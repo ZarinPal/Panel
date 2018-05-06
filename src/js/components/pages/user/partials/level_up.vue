@@ -293,54 +293,50 @@
                     if (file) {
                         formData.append('file', file);
 
-                        vm.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true})
-                            .then((response) => {
-                                vm.howManyFileUploaded++;
+                        vm.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+                            vm.howManyFileUploaded++;
 
-                                //add file name to uploaded file object
-                                uploadedFileNames[fileKey] = response.data.meta.file_id;
+                            //add file name to uploaded file object
+                            uploadedFileNames[fileKey] = response.data.meta.file_id;
 
-                                //save user uploaded file in db
-                                if (vm.howManyFileUploaded === _.size(vm.documentFiles)) {
-                                    //change file uploading stauts
-                                    vm.isUploading = false;
+                            //save user uploaded file in db
+                            if (vm.howManyFileUploaded === _.size(vm.documentFiles)) {
+                                //change file uploading stauts
+                                vm.isUploading = false;
 
-                                    //change status of saving
-                                    vm.isSaving = true;
+                                //change status of saving
+                                vm.isSaving = true;
 
-                                    //save user uploaded file name
-                                    vm.$store.state.http.requests['user.postUploadDocument']
-                                        .save(uploadedFileNames)
-                                        .then(
-                                            (response) => {
-                                                vm.sendRequest = false;
-                                                vm.isSaving = false;
+                                //save user uploaded file name
+                                vm.$store.state.http.requests['user.postUploadDocument'].save(uploadedFileNames).then(
+                                    (response) => {
+                                        vm.sendRequest = false;
+                                        vm.isSaving = false;
 
-                                                store.commit('flashMessage', {
-                                                    text: 'UserFileUploadedLocal',
-                                                    type: 'success'
-                                                });
+                                        store.commit('flashMessage', {
+                                            text: 'UserFileUploadedLocal',
+                                            type: 'success'
+                                        });
 
-                                                vm.$router.push({name: 'ticket.index'});
-                                            }, (response) => {
-                                                vm.isSaving = 'Failed';
-                                                vm.sendRequest = false;
+                                        vm.$router.push({name: 'ticket.index'});
+                                    }, (response) => {
+                                        vm.isSaving = 'Failed';
+                                        vm.sendRequest = false;
 
-                                                store.commit('setValidationErrors', response.data.validation_errors);
-                                                store.commit('flashMessage', {
-                                                    text: response.data.meta.error_type,
-                                                    type: 'danger'
-                                                });
-                                            }
-                                        );
-                                }
-                            }, (response) => {
-                                vm.sendRequest = false;
-                                vm.isUploading = 'Failed';
-                                store.commit('setValidationErrors', response.data.validation_errors);
-                            });
+                                        store.commit('setValidationErrors', response.data.validation_errors);
+                                        store.commit('flashMessage', {
+                                            text: response.data.meta.error_type,
+                                            type: 'danger'
+                                        });
+                                    }
+                                );
+                            }
+                        }, (response) => {
+                            vm.sendRequest = false;
+                            vm.isUploading = 'Failed';
+                            store.commit('setValidationErrors', response.data.validation_errors);
+                        });
                     }
-
 
                 });
             },

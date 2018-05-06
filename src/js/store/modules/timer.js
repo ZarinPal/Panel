@@ -9,6 +9,6 @@ export default {
         updateTimer(state, {minutes, seconds}) {
             state.minutes = minutes;
             state.seconds = seconds;
-        }
-    }
+        },
+    },
 };

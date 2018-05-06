@@ -13,7 +13,7 @@ export default {
                 validationErrors.forEach(function (error) {
                     errors[error.input] = {
                         rule: error.rule,
-                        params: error.params
+                        params: error.params,
                     };
                     state.validationErrors = errors;
                 });
@@ -27,8 +27,12 @@ export default {
                 text: message.text,
                 type: (typeof message.type === 'undefined') ? 'info' : message.type,
                 show: (typeof message.show === 'undefined') ? true : message.show,
-                timeout: (typeof message.timeout === 'undefined') ? 3000 : message.timeout,
-                important: (typeof message.important === 'undefined') ? false : message.important,
+                timeout: (typeof message.timeout === 'undefined')
+                    ? 3000
+                    : message.timeout,
+                important: (typeof message.important === 'undefined')
+                    ? false
+                    : message.important,
                 remove() {
                     this.show = false;
                     state.messages = state.messages.filter(function (item) {
@@ -40,11 +44,11 @@ export default {
                         if (!this.important) {
                             setTimeout(
                                 () => this.remove(),
-                                this.timeout
-                            )
+                                this.timeout,
+                            );
                         }
                     }
-                }
+                },
             });
 
             if (state.messages.length > 3) {
@@ -61,12 +65,12 @@ export default {
         },
         initNchanSubscriber(state, subscriber) {
             state.nchanSubscriber = subscriber;
-        }
+        },
     },
     actions: {
         startWebPushSocket({dispatch, commit, state}) {
             commit('setNotifications');
-            let NchanSubscriber = require("nchan");
+            let NchanSubscriber = require('nchan');
 
             commit(
                 'initNchanSubscriber',
@@ -75,9 +79,9 @@ export default {
                     {
                         subscriber: 'websocket',
                         reconnect: 'persist',
-                        shared: true
-                    }
-                )
+                        shared: true,
+                    },
+                ),
             );
             state.nchanSubscriber.reconnectTimeout = 10000;
             state.nchanSubscriber.on('message', function (message) {
@@ -85,7 +89,8 @@ export default {
                 commit('addNotification', message);
                 if (state.notifications) {
                     let notificationCount = state.notifications.length;
-                    let lastMessageTitle = state.notifications[notificationCount - 1].title;
+                    let lastMessageTitle = state.notifications[notificationCount -
+                    1].title;
                     let options = {
                         title: lastMessageTitle,
                         body: 'شما ' + notificationCount + ' پیام جدید دارید.',
@@ -106,7 +111,7 @@ export default {
             let notifier = (options) => {
                 let notification = new Notification(
                     options.title,
-                    options
+                    options,
                 );
 
                 notification.onclick = function (event) {
@@ -118,17 +123,17 @@ export default {
                 };
             };
 
-            if (!("Notification" in window)) {
+            if (!('Notification' in window)) {
                 return null;
-            } else if (Notification.permission === "granted") {
+            } else if (Notification.permission === 'granted') {
                 notifier(options);
-            } else if (Notification.permission !== "denied") {
+            } else if (Notification.permission !== 'denied') {
                 Notification.requestPermission(function (permission) {
-                    if (permission === "granted") {
+                    if (permission === 'granted') {
                         notifier(options);
                     }
                 });
             }
         },
-    }
+    },
 };

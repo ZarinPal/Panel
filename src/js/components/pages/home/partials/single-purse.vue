@@ -147,21 +147,19 @@
                     name: this.newPurseName
                 };
 
-                this.$store.state.http.requests['purse.postEdit']
-                    .update({'purse_number': this.purse.purse}, sendContent)
-                    .then(() => {
-                            this.changePurseName();
-                            this.toggleEditPurse();
-                        },
-                        (response) => {
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                type: 'danger'
-                            });
-                            this.toggleEditPurse();
-                        }
-                    );
+                this.$store.state.http.requests['purse.postEdit'].update({'purse_number': this.purse.purse}, sendContent).then(() => {
+                        this.changePurseName();
+                        this.toggleEditPurse();
+                    },
+                    (response) => {
+                        store.commit('setValidationErrors', response.data.validation_errors);
+                        store.commit('flashMessage', {
+                            text: response.data.meta.error_type,
+                            type: 'danger'
+                        });
+                        this.toggleEditPurse();
+                    }
+                );
             },
             closeDropDownFromOutside() {
                 let vm = this;

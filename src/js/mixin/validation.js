@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue';
 Vue.mixin({
     methods: {
         validation(name) {
@@ -10,9 +10,9 @@ Vue.mixin({
                     name,
                     this.$validator.dictionary.container.fa.messages[this.$store.state.alert.validationErrors[name].rule](
                         element.el.dataset.vvAs,
-                        this.$store.state.alert.validationErrors[name].params
+                        this.$store.state.alert.validationErrors[name].params,
                     ),
-                    'api'
+                    'api',
                 );
                 this.$store.state.alert.validationErrors[name] = false;
             }
@@ -21,5 +21,5 @@ Vue.mixin({
         removeErrors(field) {
             !!this[field] && this.errors.remove(field);
         },
-    }
+    },
 });
