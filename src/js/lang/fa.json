@@ -826,8 +826,11 @@
     "payerIssuer": "بانک صادر‌کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید.",
     "selectCard": "انتخاب حساب يا کارت",
+    "dailyReport": "روزشمار ماهانه",
     "note": "یادداشت",
-    "addNote": "افزودن یادداشت"
+    "addNote": "افزودن یادداشت",
+    "editNote": "ویرایش یادداشت",
+    "saveNote": "ذخیره یادداشت"
   },
   "transactionSession": {
     "description": "تمامی‌سشن‌های بانکی درگاه پرداخت شما در این صفحه لیست‌شده اند",
