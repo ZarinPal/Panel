@@ -10,7 +10,7 @@
 
 
 <script>
-    export default {
-        name: 'alert-box',
-    };
+  export default {
+    name: 'alert-box',
+  };
 </script>

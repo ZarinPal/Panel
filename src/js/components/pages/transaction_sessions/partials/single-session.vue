@@ -22,13 +22,13 @@
 
 </template>
 <script>
-    export default {
-        name: 'pages-transaction-partials-singleTransaction',
-        data(){
-            return {
-                showTransactionDetail: false,
-            }
-        },
-        props: ['transaction'],
-    }
+  export default {
+    name: 'pages-transaction-partials-singleTransaction',
+    data(){
+      return {
+        showTransactionDetail: false,
+      }
+    },
+    props: ['transaction'],
+  }
 </script>

@@ -54,35 +54,35 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
-    export default {
-        name: 'pages-coupon-partials-details',
-        data() {
-            return {
-                closeModalContent: true,
-            }
-        },
-        props: ['coupon'],
-        mounted(){
-            this.closeModalContent = false
-        },
-        computed: {},
-        methods: {
-            closeModal() {
-                this.$emit('closeModal');
-                store.commit('clearValidationErrors');
-            },
-            clipboardMessage() {
-                store.commit('flashMessage', {
-                    text: 'Copied',
-                    type: 'success',
-                    timeout: '500'
-                });
-            }
-        },
-        components: {
-            modal
-        }
+  import modal from '../../partials/modal.vue';
+  export default {
+    name: 'pages-coupon-partials-details',
+    data() {
+      return {
+        closeModalContent: true,
+      }
+    },
+    props: ['coupon'],
+    mounted(){
+      this.closeModalContent = false
+    },
+    computed: {},
+    methods: {
+      closeModal() {
+        this.$emit('closeModal');
+        store.commit('clearValidationErrors');
+      },
+      clipboardMessage() {
+        store.commit('flashMessage', {
+          text: 'Copied',
+          type: 'success',
+          timeout: '500'
+        });
+      }
+    },
+    components: {
+      modal
     }
+  }
 
 </script>

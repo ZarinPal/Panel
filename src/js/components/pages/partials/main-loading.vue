@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'main-loading',
-    }
+  export default {
+    name: 'main-loading',
+  }
 </script>

@@ -154,86 +154,85 @@
 
 
 <script>
-    import alertBox from '../../partials/alert-box.vue';
+  import alertBox from '../../partials/alert-box.vue';
 
-    export default {
-        name: 'notificationSetting',
-        data() {
-            return {
-                loading: false,
-                setting: {
-                    income_transaction: {
-                        email: this.$store.state.auth.user.setting.income_transaction.email,
-                        sms: this.$store.state.auth.user.setting.income_transaction.sms,
-                        telegram: this.$store.state.auth.user.setting.income_transaction.telegram,
-                        pusher: this.$store.state.auth.user.setting.income_transaction.pusher
-                    },
-                    outgo_transaction: {
-                        email: this.$store.state.auth.user.setting.new_login.email,
-                        sms: this.$store.state.auth.user.setting.new_login.sms,
-                        telegram: this.$store.state.auth.user.setting.new_login.telegram,
-                        pusher: this.$store.state.auth.user.setting.new_login.pusher
-                    },
-                    new_ticket: {
-                        email: this.$store.state.auth.user.setting.new_ticket.email,
-                        sms: this.$store.state.auth.user.setting.new_ticket.sms,
-                        telegram: this.$store.state.auth.user.setting.new_ticket.telegram,
-                        pusher: this.$store.state.auth.user.setting.new_ticket.pusher
-                    },
-                    reply_ticket: {
-                        email: this.$store.state.auth.user.setting.reply_ticket.email,
-                        sms: this.$store.state.auth.user.setting.reply_ticket.sms,
-                        telegram: this.$store.state.auth.user.setting.reply_ticket.telegram,
-                        pusher: this.$store.state.auth.user.setting.reply_ticket.pusher
-                    },
-                    new_login: {
-                        email: this.$store.state.auth.user.setting.new_login.email,
-                        sms: this.$store.state.auth.user.setting.new_login.sms,
-                        telegram: this.$store.state.auth.user.setting.new_login.telegram,
-                        pusher: this.$store.state.auth.user.setting.new_login.pusher
-                    }
-                }
-
-
-            }
-        },
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
-        methods: {
-            postUserNotificationSetting() {
-                this.loading = true;
-
-                this.$store.state.http.requests['user.putNotificationPreferences'].update(this.setting).then(
-                    () => {
-                        /*** update user setting state ***/
-                        delete this.$store.state.auth.user.setting;
-                        this.$store.state.auth.user.setting = this.setting;
-
-                        store.commit('flashMessage', {
-                            text: 'UserNotificationSettingSetSuccessLocal',
-                            important: false,
-                            type: 'success'
-                        });
-
-                        this.loading = false;
-//                        this.$router.push({name: 'user.index'})
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            }
-        },
-        components: {
-            'alert-box': alertBox
+  export default {
+    name: 'notificationSetting',
+    data() {
+      return {
+        loading: false,
+        setting: {
+          income_transaction: {
+            email: this.$store.state.auth.user.setting.income_transaction.email,
+            sms: this.$store.state.auth.user.setting.income_transaction.sms,
+            telegram: this.$store.state.auth.user.setting.income_transaction.telegram,
+            pusher: this.$store.state.auth.user.setting.income_transaction.pusher
+          },
+          outgo_transaction: {
+            email: this.$store.state.auth.user.setting.new_login.email,
+            sms: this.$store.state.auth.user.setting.new_login.sms,
+            telegram: this.$store.state.auth.user.setting.new_login.telegram,
+            pusher: this.$store.state.auth.user.setting.new_login.pusher
+          },
+          new_ticket: {
+            email: this.$store.state.auth.user.setting.new_ticket.email,
+            sms: this.$store.state.auth.user.setting.new_ticket.sms,
+            telegram: this.$store.state.auth.user.setting.new_ticket.telegram,
+            pusher: this.$store.state.auth.user.setting.new_ticket.pusher
+          },
+          reply_ticket: {
+            email: this.$store.state.auth.user.setting.reply_ticket.email,
+            sms: this.$store.state.auth.user.setting.reply_ticket.sms,
+            telegram: this.$store.state.auth.user.setting.reply_ticket.telegram,
+            pusher: this.$store.state.auth.user.setting.reply_ticket.pusher
+          },
+          new_login: {
+            email: this.$store.state.auth.user.setting.new_login.email,
+            sms: this.$store.state.auth.user.setting.new_login.sms,
+            telegram: this.$store.state.auth.user.setting.new_login.telegram,
+            pusher: this.$store.state.auth.user.setting.new_login.pusher
+          }
         }
+
+      }
+    },
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+    },
+    methods: {
+      postUserNotificationSetting() {
+        this.loading = true;
+
+        this.$store.state.http.requests['user.putNotificationPreferences'].update(this.setting).then(
+            () => {
+              /*** update user setting state ***/
+              delete this.$store.state.auth.user.setting;
+              this.$store.state.auth.user.setting = this.setting;
+
+              store.commit('flashMessage', {
+                text: 'UserNotificationSettingSetSuccessLocal',
+                important: false,
+                type: 'success'
+              });
+
+              this.loading = false;
+//                        this.$router.push({name: 'user.index'})
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
+            }
+        )
+      }
+    },
+    components: {
+      'alert-box': alertBox
     }
+  }
 </script>

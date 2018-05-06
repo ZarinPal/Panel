@@ -63,24 +63,24 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
+  import modal from '../../partials/modal.vue';
 
-    export default {
-        name: 'pages-requestMoney-partials-details',
-        data() {
-            return {}
-        },
-        props: ['debt', 'demand'],
-        mounted() {
-            this.closeModalContent = false;
-        },
-        methods: {
-            closeModal() {
-                this.$emit('closeModal');
-            },
-        },
-        components: {
-            modal
-        }
+  export default {
+    name: 'pages-requestMoney-partials-details',
+    data() {
+      return {}
+    },
+    props: ['debt', 'demand'],
+    mounted() {
+      this.closeModalContent = false;
+    },
+    methods: {
+      closeModal() {
+        this.$emit('closeModal');
+      },
+    },
+    components: {
+      modal
     }
+  }
 </script>

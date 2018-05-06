@@ -47,93 +47,93 @@
 
 
 <script>
-    import map from './map.vue';
-    import confirm from '../../partials/confirm.vue';
-    import selectbox from '../../partials/selectbox.vue';
+  import map from './map.vue';
+  import confirm from '../../partials/confirm.vue';
+  import selectbox from '../../partials/selectbox.vue';
 
-    export default {
-        name: 'single-address',
-        data() {
-            return {
-                addressTitles: {
-                    0: {
-                        title: 'محل‌کار',
-                        value: 'workplace',
-                    },
-                    1: {
-                        title: 'محل‌سکونت',
-                        value: 'home',
-                    },
-                    2: {
-                        title: 'سایر',
-                        value: 'other',
-                    },
-                },
+  export default {
+    name: 'single-address',
+    data() {
+      return {
+        addressTitles: {
+          0: {
+            title: 'محل‌کار',
+            value: 'workplace',
+          },
+          1: {
+            title: 'محل‌سکونت',
+            value: 'home',
+          },
+          2: {
+            title: 'سایر',
+            value: 'other',
+          },
+        },
 
-                visibleCloseIcon: false,
-                visibleMap: false,
-                closeModalContent: true,
-                address: {
-                    address: null,
-                    landline: null,
-                    postal_code: null,
-                    geo_location: null,
-                    title: null
-                },
-                confirmVisible: false,
-                confirm: false,
-            }
+        visibleCloseIcon: false,
+        visibleMap: false,
+        closeModalContent: true,
+        address: {
+          address: null,
+          landline: null,
+          postal_code: null,
+          geo_location: null,
+          title: null
         },
-        props: ['singleAddress'],
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
-        created() {
-            this.initAddress();
-        },
-        methods: {
-            initAddress() {
-                if (this.singleAddress) {
-                    this.address.address = this.singleAddress.address;
-                    this.address.landline = this.singleAddress.landline;
-                    this.address.postal_code = this.singleAddress.postal_code;
-                    this.address.geo_location = this.singleAddress.geo_location;
-                    (this.singleAddress.title ) ? this.address.title = this.singleAddress.title : this.address.title = null;
-                    this.address.entity_id = this.singleAddress.entity_id;
-                }
-            },
-            /*** get location data from map component ***/
-            locationData(location) {
-                this.address.geo_location = location.geoLocation;
-//                this.address.address = location.address;
-            },
-            /*** Send data to parent ***/
-            updateAddress() {
-                this.address.id = this.singleAddress.id;
-                this.$emit('updateAddress', this.address);
-            },
-            deleteAddress() {
-                this.address.id = this.singleAddress.id;
-                this.$emit('deleteAddress', this.address);
-            },
-            closeModal() {
-                this.updateAddress();
-                this.visibleMap = false;
-                this.confirmVisible = false;
-                let body = document.getElementById('body');
-                body.classList.remove("no-scroll");
-            },
-            selectTitle(title) {
-                this.address.title = title;
-                this.updateAddress();
-            },
-        },
-        components: {
-            'google-map': map,
-            confirm,
-            'select-box': selectbox
+        confirmVisible: false,
+        confirm: false,
+      }
+    },
+    props: ['singleAddress'],
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+    },
+    created() {
+      this.initAddress();
+    },
+    methods: {
+      initAddress() {
+        if (this.singleAddress) {
+          this.address.address = this.singleAddress.address;
+          this.address.landline = this.singleAddress.landline;
+          this.address.postal_code = this.singleAddress.postal_code;
+          this.address.geo_location = this.singleAddress.geo_location;
+          (this.singleAddress.title ) ? this.address.title = this.singleAddress.title : this.address.title = null;
+          this.address.entity_id = this.singleAddress.entity_id;
         }
+      },
+      /*** get location data from map component ***/
+      locationData(location) {
+        this.address.geo_location = location.geoLocation;
+//                this.address.address = location.address;
+      },
+      /*** Send data to parent ***/
+      updateAddress() {
+        this.address.id = this.singleAddress.id;
+        this.$emit('updateAddress', this.address);
+      },
+      deleteAddress() {
+        this.address.id = this.singleAddress.id;
+        this.$emit('deleteAddress', this.address);
+      },
+      closeModal() {
+        this.updateAddress();
+        this.visibleMap = false;
+        this.confirmVisible = false;
+        let body = document.getElementById('body');
+        body.classList.remove("no-scroll");
+      },
+      selectTitle(title) {
+        this.address.title = title;
+        this.updateAddress();
+      },
+    },
+    components: {
+      'google-map': map,
+      confirm,
+      'select-box': selectbox
     }
+  }
 </script>

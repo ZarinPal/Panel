@@ -65,81 +65,82 @@
 </template>
 
 <script>
-    import confirm from '../../partials/confirm.vue';
-    import showHtml from './show_html_code.vue';
+  import confirm from '../../partials/confirm.vue';
+  import showHtml from './show_html_code.vue';
 
-    export default {
-        name: 'pages-easypay-partials-singleEasypay',
-        data(){
-            return {
-                confirmVisible: false,
-                showHtmlVisible: false,
-                confirm: false,
-            }
-        },
-        props: ['easypay'],
-        methods: {
-            clipboardMessage() {
+  export default {
+    name: 'pages-easypay-partials-singleEasypay',
+    data(){
+      return {
+        confirmVisible: false,
+        showHtmlVisible: false,
+        confirm: false,
+      }
+    },
+    props: ['easypay'],
+    methods: {
+      clipboardMessage() {
+        store.commit('flashMessage', {
+          text: 'Copied',
+          type: 'success',
+          timeout: '1500'
+        });
+      },
+      changeMoreTriggerOn() {
+        this.$store.state.app.singleEasypayMoreTrigger = this.easypay.entity_id;
+      },
+      changeMoreTriggerOff() {
+        this.$store.state.app.singleEasypayMoreTrigger = null;
+
+        this.visibleMoreOptions = false;
+      },
+      closeDropDownFromOutside() {
+        let vm = this;
+        document.addEventListener('click', function(e) {
+          if (e.target.id !== 'btnMoreIcon') {
+            vm.$store.state.app.singleEasypayMoreTrigger = null;
+          }
+        }, false);
+      },
+      closeModal(){
+        this.confirmVisible = false;
+        this.showHtmlVisible = false;
+        store.commit('clearValidationErrors');
+      },
+      deleteEasypay() {
+        this.confirm = true;
+        if (this.confirm) {
+          let params = {
+            easypay_id: this.easypay.entity_id
+          };
+
+          this.$store.state.http.requests['easypay.getShow'].remove(params).then(
+              () => {
+                let easypayIndex = _.findIndex(this.$store.state.paginator.paginator.EasypayList.data,
+                    {'entity_id': this.easypay.entity_id});
+                this.$store.state.paginator.paginator.EasypayList.data.splice(easypayIndex, 1);
+                this.$store.state.paginator.update++;
+
                 store.commit('flashMessage', {
-                    text: 'Copied',
-                    type: 'success',
-                    timeout: '1500'
+                  text: 'EasypayDeletedLocal',
+                  important: false,
+                  type: 'success'
                 });
-            },
-            changeMoreTriggerOn() {
-                this.$store.state.app.singleEasypayMoreTrigger = this.easypay.entity_id;
-            },
-            changeMoreTriggerOff() {
-                this.$store.state.app.singleEasypayMoreTrigger = null;
-
-                this.visibleMoreOptions = false;
-            },
-            closeDropDownFromOutside() {
-                let vm = this;
-                document.addEventListener('click', function (e) {
-                    if (e.target.id !== 'btnMoreIcon') {
-                        vm.$store.state.app.singleEasypayMoreTrigger = null;
-                    }
-                }, false);
-            },
-            closeModal(){
-                this.confirmVisible = false;
-                this.showHtmlVisible = false;
-                store.commit('clearValidationErrors');
-            },
-            deleteEasypay() {
-                this.confirm = true;
-                if (this.confirm) {
-                    let params = {
-                        easypay_id: this.easypay.entity_id
-                    };
-
-                    this.$store.state.http.requests['easypay.getShow'].remove(params).then(
-                        () => {
-                            let easypayIndex = _.findIndex(this.$store.state.paginator.paginator.EasypayList.data, {'entity_id': this.easypay.entity_id});
-                            this.$store.state.paginator.paginator.EasypayList.data.splice(easypayIndex, 1);
-                            this.$store.state.paginator.update++;
-
-                            store.commit('flashMessage', {
-                                text: 'EasypayDeletedLocal',
-                                important: false,
-                                type: 'success'
-                            });
-                        },
-                        (response) => {
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                important: false,
-                                type: 'danger'
-                            });
-                        }
-                    )
-                }
-            }
-        },
-        components: {
-            confirm,
-            'show-html': showHtml
+              },
+              (response) => {
+                store.commit('flashMessage', {
+                  text: response.data.meta.error_type,
+                  important: false,
+                  type: 'danger'
+                });
+              }
+          )
         }
+      }
+    },
+    components: {
+      confirm,
+      'show-html': showHtml
     }
+  }
 </script>

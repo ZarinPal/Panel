@@ -13,17 +13,17 @@
 
 
 <script>
-    export default {
-        name: 'sidebarDropDown',
-        props: [
-            'label',
-            'icon'
-        ],
-        data(){
-            return {
-                isOpen: false,
-            }
-        }
+  export default {
+    name: 'sidebarDropDown',
+    props: [
+      'label',
+      'icon'
+    ],
+    data(){
+      return {
+        isOpen: false,
+      }
     }
+  }
 
 </script>

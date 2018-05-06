@@ -4,7 +4,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'standard-container'
-    }
+  export default {
+    name: 'standard-container'
+  }
 </script>
