@@ -1,5 +1,5 @@
 <template lang="pug">
-    selectbox.zarinlinks.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.auth.isLoaded" v-on:select="selectedZarinLink" v-bind:selected="defaultZarinLink" v-bind:data="zarinLinks" v-bind:loadMore="'EasypayList'" placeholder="انتخاب زرین‌لینک")
+    selectbox.zarinlinks.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.auth.isLoaded" v-on:select="selectedZarinLink" v-bind:selected="defaultZarinLink" v-bind:data="zarinLinks" v-bind:loadMore="'EasypayList'" :placeholder="$i18n.t('easypay.selectEasypay')")
 </template>
 
 <script>

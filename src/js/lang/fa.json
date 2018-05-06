@@ -80,6 +80,7 @@
     "websiteOperator": "اپراتور وب‌سایت",
     "saleAndFinance": "فروش و مالی",
     "support": "پشتیبانی",
+    "supportTel": "پشتیبانی: ۴۱۲۳۹-۰۲۱",
     "generalDirector": "مدیرکل",
     "active": "فعال",
     "suspend": "معلق",
@@ -242,6 +243,7 @@
     "lab": "آزمایشگاه",
     "faq": "سوالات متداول",
     "aboutUs": "درباره ما",
+    "withdraw": "تسویه حساب",
     "transactionSession": "سشن های پرداخت "
   },
   "coupon": {
@@ -806,11 +808,10 @@
     "excelExport": "خروجی اکسل",
     "fromDate": "از تاریخ",
     "toDate": "تا تاریخ",
-    "note": "یادداشت",
-    "addNote": "افزودن یادداشت",
     "payerMask": "شماره‌کارت پرداخت کننده",
     "payerIssuer": "بانک صادر‌کننده کارت",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید.",
+    "selectCard": "انتخاب حساب يا کارت",
     "note": "یادداشت",
     "addNote": "افزودن یادداشت"
   },
@@ -1349,6 +1350,7 @@
     "changeCategory": "با سلام\nدرخواست جنابعالی مبنی بر تغییر دسته‌بندی درگاه پرداخت فوق به دسته  :attribute ثبت گردید.\n پس از بررسی این موضوع توسط کارشناسان زرین‌پال تأییدیه ی این درخواست در داخل این تیکت اعلام می‌گردد.",
     "edit": "ویرایش",
     "webserviceCatLists": "دسته‌بندی درگاه پرداخت",
+    "selectWebserviceCatLists": "انتخاب دسته‌بندی وب‌سایت",
     "ussd": "کد دستوری (USSD)",
     "content": "توضیحات  وب‌سایت",
     "info": "توضیحات درگاه پرداخت",

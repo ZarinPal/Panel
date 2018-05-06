@@ -1,5 +1,5 @@
 <template lang="pug">
-    selectbox.categories.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="categories" v-on:select="selectedCategory" v-bind:selected="selected" v-bind:data="categories" placeholder="انتخاب دسته‌بندی وب‌سایت")
+    selectbox.categories.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="categories" v-on:select="selectedCategory" v-bind:selected="selected" v-bind:data="categories" :placeholder="$i18n.t('webservice.selectWebserviceCatLists')")
 </template>
 
 <script>
