@@ -64,14 +64,6 @@ export default new VueRouter({
                             }
                         },
                         {
-                            path: 'home/finishAddFund',
-                            name: 'home.finishAddFund',
-                            component: require('./components/pages/home/partials/finish-add-fund.vue'),
-                            meta: {
-                                accessLevel: ['basic', 'silver', 'gold']
-                            }
-                        },
-                        {
                             path: 'webservice',
                             name: 'webservice.index',
                             component: require('./components/pages/webservice/index.vue'),

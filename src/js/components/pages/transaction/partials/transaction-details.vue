@@ -135,9 +135,9 @@
 
                     div.row
                         div.col-xs
-                            button.btn.success(@click="saveNote" v-if="isEditingNote" ) ذخیره یادداشت
-                            button.btn(@click="addNote" v-else-if="transaction.note" ) ویرایش یادداشت
-                            button.btn(@click="addNote" v-else="!transaction.note" ) افزودن یادداشت
+                            button.btn.success(@click="saveNote" v-if="isEditingNote" )  {{$i18n.t('transaction.saveNote')}}
+                            button.btn(@click="addNote" v-else-if="transaction.note" )  {{$i18n.t('transaction.editNote')}}
+                            button.btn(@click="addNote" v-else="!transaction.note" )  {{$i18n.t('transaction.addNote')}}
                         div.col-xs
                             a(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'")
                                 button.btn {{$i18n.t('transaction.print')}}

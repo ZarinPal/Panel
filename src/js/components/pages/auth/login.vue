@@ -186,12 +186,12 @@
                 .then(() => {
                     vm.$router.push({name: 'home.index'});
                 }).catch(() => {
-                    vm.$store.commit('app/ready');
+                vm.$store.commit('app/ready');
 
-                    if (this.username && this.otp) {
-                        this.login();
-                    }
-                });
+                if (this.username && this.otp) {
+                    this.login();
+                }
+            });
         },
         methods: {
             sendOtp(channel){
@@ -302,7 +302,7 @@
 
                 this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
                     () => {
-                        vm.loginLoading = true
+                        vm.loginLoading = true;
                         vm.$router.push({name: 'home.index'});
 
                         if (vm.nchanSubscriber) {

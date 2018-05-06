@@ -15,7 +15,7 @@
                     span.text-danger {{ errors.first('name') }}
                 div.ta-right.m-t-10
                     span.text-help {{$i18n.t('purse.purseSelectDescription') }}
-                purse.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" tabindex="2")
+                purse.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" tabindex="2")
                 div.ta-right(v-if="validation('purse')")
                     span.text-danger {{ errors.first('purse') }}
                         svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")

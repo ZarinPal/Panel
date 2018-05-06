@@ -46,12 +46,12 @@
                                             span.upload-icon
 
                                         div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                            p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل پیوست را اینجا رها کنید
+                                            p(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{$i18n.t('ticket.putAttachFile')}}
                                             div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
-                                                span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
+                                                span(@dragenter="fileHover = true" @dragleave="fileHover = false") {{$i18n.t('ticket.orFromPc')}}
 
                                                 label.attach
-                                                    span.select-text انتخاب کنید
+                                                    span.select-text {{$i18n.t('common.select')}}
                                                     input(type="file" name="file" @change="onFileChange")
 
                                                 div.file-name(v-if="fileUploaded" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}

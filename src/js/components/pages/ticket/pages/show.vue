@@ -20,7 +20,7 @@
                 div.col-lg-3.col-md-4.col-sm-4.col-xs-12
                     span.status.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
                     span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
-                    button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
+                    button.btn.success.hidden-lg(v-on:click="closeReplies()") {{ $i18n.t('common.return')}}
 
         div.replies
             div.col-xs.ta-center
@@ -62,17 +62,17 @@
             div.row
                 div.col-xs
                     div
-                        b.title لطفا به نکات زیر توجه فرمایید:
-                        div * پس از ارسال تیکت حداکثر تا ۱۲ ساعت آینده پاسخ برای شما ارسال خواهد شد.
-                        div * برخی از تيکت ها ممکن است، نياز به زمان بيشتری برای بررسی داشته باشند.
-                        div * پس از ارسال تيکت، نيازی به تماس تلفنی نيست. تيکت ارسالی شما قطعا توسط همکاران ما بررسی و پاسخ داده خواهد شد.
+                        b.title {{ $i18n.t('ticket.ticketNoteSentence')}}
+                        div {{ $i18n.t('ticket.ticketNoteSentence2')}}
+                        div {{ $i18n.t('ticket.ticketNoteSentence3')}}
+                        div {{ $i18n.t('ticket.ticketNoteSentence4')}}
         div.nav-send
             div.row
                 div
                     img.pull-right(v-avatar="" v-bind:src="'https://www.gravatar.com/avatar/'+user.email_hash+'?s=45&d=https://cdn.zarinpal.com/emails/img/zarinpal-email-profile-default.png'")
                 div.col-xs
                     div
-                        b.title پاسخ به تیکت:
+                        b.title {{ $i18n.t('user.ticketReply')}}:
                         span.value {{ ticket.title }}
                     div
                         textarea(v-validate="{ rules: { min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")

@@ -41,10 +41,10 @@
                                     div.row(v-if="day.turnovers")
                                         div.col-xs-12(v-if="day.turnovers.income_count")
                                             span.show-income-count.pull-left.persian-num {{day.turnovers.income_count}}
-                                            span.show-income-amount.pull-right.persian-num(title='تراکنش ورودی') {{day.turnovers.income_amount | numberFormat}}
+                                            span.show-income-amount.pull-right.persian-num(:title="$i18n.t('common.incomeTransaction')") {{day.turnovers.income_amount | numberFormat}}
                                         div.col-xs-12(v-if="day.turnovers.outgo_count")
                                             span.show-outgo-count.persian-num.pull-left {{day.turnovers.outgo_count}}
-                                            span.show-outgo-amount.persian-num.pull-right(title='تراکنش خروجی') {{day.turnovers.outgo_amount | numberFormat}}
+                                            span.show-outgo-amount.persian-num.pull-right(:title="$i18n.t('common.outgoTransaction')") {{day.turnovers.outgo_amount | numberFormat}}
                                     div.row.bottom-xs.pull-left.persian-num.day-of-month(:class="{'day-of-month-disable': day.inActived}")
                                         div(:title="day.date.format('jD jMMMM jYY')") {{day.date.format('jD')}}
 
@@ -298,7 +298,7 @@
             weekDayTitles() {
                 let weekDays = moment()._locale._weekdays;
                 weekDays = _.initial(weekDays);
-                weekDays.unshift(moment().day(6).format('dddd'))
+                weekDays.unshift(moment().day(6).format('dddd'));
                 return weekDays
             },
             checkForHoliday(singleDate) {

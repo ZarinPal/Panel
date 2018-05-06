@@ -2,7 +2,7 @@
     div.inner-content
         div.nav-ticket-empty
             div.no-ticket-image
-            span.emptyText یک تیکت را برای نمایش انتخاب کنید
+            span.emptyText {{ $i18n.t('ticket.selectOne') }}
 
 </template>
 

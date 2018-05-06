@@ -24,7 +24,7 @@
                     div.col-lg-6.col-md-6.col-sm-12.col-xs-12.nav-left
                         div.nav-buttons
                             <!--span.request-button.zarin-friends دوستان زرین‌پالی-->
-                            span.request-button(@click="visibleNewRequestMoney = true") دنگی دُنگی جدید
+                            span.request-button(@click="visibleNewRequestMoney = true") {{$i18n.t('requestMoney.newRequestMoney')}}
 
 
                 div.blur-container
@@ -33,8 +33,8 @@
 
             div.col-lg-12.col-md-12.col-sm-12.col-xs-12.nav-menu
                 ul.no-margin
-                    li(:class="{'active': whichTab == 'requests'}" @click="changeTab('requests')") درخواست‌ها
-                    li(:class="{'active': whichTab == 'debt'}" @click="changeTab('debt')") بدهی
+                    li(:class="{'active': whichTab == 'requests'}" @click="changeTab('requests')") {{$i18n.t('requestMoney.requests')}}
+                    li(:class="{'active': whichTab == 'debt'}" @click="changeTab('debt')") {{$i18n.t('requestMoney.debt')}}
 
 
             <!--Requests and debts-->

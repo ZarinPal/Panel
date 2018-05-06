@@ -345,8 +345,8 @@
             },
             selectPayType() {
                 this.webservice_id = null;
-                this.purse= null;
-                this.purse_name= null;
+                this.purse = null;
+                this.purse_name = null;
             },
             selectedPurse(purseId) {
                 this.purse = purseId;
