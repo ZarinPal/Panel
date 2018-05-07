@@ -1,5 +1,5 @@
 <template lang="pug">
-    selectbox.cards.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedCard" v-bind:data="cards" :placeholder="$i18n.t('easypay.selectCard')")
+    selectbox.cards.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedCard" v-bind:data="cards" :placeholder="$i18n.t('transaction.selectCard')")
 </template>
 
 <script>
