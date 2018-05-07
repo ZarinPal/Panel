@@ -28,91 +28,91 @@
 
 
 <script>
-    import selectbox from '../../partials/selectbox.vue';
-    import purse from '../../partials/purses.vue';
-    import modal from '../../partials/modal.vue';
+  import selectbox from '../../partials/selectbox.vue';
+  import purse from '../../partials/purses.vue';
+  import modal from '../../partials/modal.vue';
 
-    export default {
-        name: 'home-purse-create',
-        data() {
-            return {
-                closeModalContent: true,
-                purse: null,
-                name: '',
-                pursesBalance: {},
-                loading: false,
-            }
-        },
-        mounted(){
-            this.closeModalContent = false;
-        },
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-            purseId() {
-                return this.purse;
-            }
-        },
-        created(){
-            store.commit('clearValidationErrors');
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    purse: this.purse,
-                    name: this.name,
-                }).then((result) => {
-                    if (result) {
-                        this.createPurse();
-                    }
-                });
-            },
-            removeErrors: function (field) {
-                !!this[field] && this.errors.remove(field);
-            },
-            closeModal() {
-                this.$emit('closeModal')
-            },
-            selectedPurse(purseId, fieldName = null) {
-                this.purse = purseId;
-            },
-            createPurse() {
-                this.loading = true;
-                let purseData = {
-                    purse: this.purse,
-                    name: this.name,
-                };
-                this.$store.state.http.requests['purse.getList'].save(purseData).then(
-                    () => {
-                        this.loading = false;
-                        let lastPurseId = this.$store.state.auth.user.purses.length;
-                        let newPurse = {
-                            balance: 0,
-                            name: this.name,
-                            purse: lastPurseId
-                        };
+  export default {
+    name: 'home-purse-create',
+    data() {
+      return {
+        closeModalContent: true,
+        purse: null,
+        name: '',
+        pursesBalance: {},
+        loading: false,
+      }
+    },
+    mounted(){
+      this.closeModalContent = false;
+    },
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+      purseId() {
+        return this.purse;
+      }
+    },
+    created(){
+      store.commit('clearValidationErrors');
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          purse: this.purse,
+          name: this.name,
+        }).then((result) => {
+          if (result) {
+            this.createPurse();
+          }
+        });
+      },
+      removeErrors: function(field) {
+        !!this[field] && this.errors.remove(field);
+      },
+      closeModal() {
+        this.$emit('closeModal')
+      },
+      selectedPurse(purseId, fieldName = null) {
+        this.purse = purseId;
+      },
+      createPurse() {
+        this.loading = true;
+        let purseData = {
+          purse: this.purse,
+          name: this.name,
+        };
+        this.$store.state.http.requests['purse.getList'].save(purseData).then(
+            () => {
+              this.loading = false;
+              let lastPurseId = this.$store.state.auth.user.purses.length;
+              let newPurse = {
+                balance: 0,
+                name: this.name,
+                purse: lastPurseId
+              };
 
-                        this.$store.state.auth.user.purses.push(newPurse);
-                        this.closeModal();
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                    }
-                )
+              this.$store.state.auth.user.purses.push(newPurse);
+              this.closeModal();
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              this.$store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
             }
-        },
-        components: {
-            selectbox,
-            purse,
-            modal
-        }
+        )
+      }
+    },
+    components: {
+      selectbox,
+      purse,
+      modal
     }
+  }
 
 </script>

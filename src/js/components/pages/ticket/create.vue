@@ -69,160 +69,160 @@
 </template>
 
 <script>
-    import selectbox from '../partials/selectbox.vue';
-    import loading from '../../pages/partials/loading.vue';
+  import selectbox from '../partials/selectbox.vue';
+  import loading from '../../pages/partials/loading.vue';
 
-    export default {
-        name: 'ticket-create',
-        data() {
+  export default {
+    name: 'ticket-create',
+    data() {
+      return {
+        fileUploading: false,
+        fileUploaded: false,
+        loading: false,
+        status: 0,
+        priority: 0,
+        title: '',
+        content: '',
+        errorMessage: '',
+        ticket_department_id: '',
+        fileHover: false,
+        file: '',
+        fileName: '',
+        attachment: '',
+      }
+    },
+    created(){
+      store.commit('clearValidationErrors');
+      this.$store.dispatch('app/getTicketDepartments');
+    },
+    computed: {
+      departmentSelection() {
+        if (this.$store.state.app.ticketDepartments) {
+          return this.$store.state.app.ticketDepartments.map(function(department) {
             return {
-                fileUploading: false,
-                fileUploaded: false,
-                loading: false,
-                status: 0,
-                priority: 0,
-                title: '',
-                content: '',
-                errorMessage: '',
-                ticket_department_id: '',
-                fileHover: false,
-                file: '',
-                fileName: '',
-                attachment: '',
+              'title': department.name,
+              'value': department.entity_id
             }
-        },
-        created(){
-            store.commit('clearValidationErrors');
-            this.$store.dispatch('app/getTicketDepartments');
-        },
-        computed: {
-            departmentSelection() {
-                if (this.$store.state.app.ticketDepartments) {
-                    return this.$store.state.app.ticketDepartments.map(function (department) {
-                        return {
-                            'title': department.name,
-                            'value': department.entity_id
-                        }
-                    });
-                }
-            },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    title: this.title,
-                    content: this.content,
-                    ticket_department_id: this.ticket_department_id
-                }).then((result) => {
-                    if (result) {
-                        this.send();
-                    }
-                });
-            },
-            removeErrors: function (field) {
-                !!this[field] && this.errors.remove(field);
-            },
-            dragOver() {
-                window.addEventListener("dragover", function (e) {
-                    e.preventDefault();
-                }, false);
-                this.fileHover = true;
-            },
-            onDrop(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createFile(files[0]);
-                this.fileName = files[0].name;
-                this.fileHover = false;
-            },
-            onFileChange(e) {
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createFile(files[0]);
-                this.fileName = files[0].name;
-            },
-            createFile(file) {
-                //check valid files
-                let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png|\.zip)$/i;
-                if (!fileExtension.exec(file.name)) {
-                    store.commit('flashMessage', {
-                        text: 'TicketFileNotImageLocal',
-                        type: 'danger'
-                    });
-                    return;
-                }
-
-                this.fileUploading = true;
-                let reader = new FileReader();
-                let vm = this;
-
-                reader.onload = (e) => {
-                    vm.attachment = e.target.result;
-                };
-                reader.readAsDataURL(file);
-
-                let formData = new FormData();
-                formData.append('type', 'document');
-                formData.append('file', file);
-
-                this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
-                    this.attachment = response.data.meta.file_id;
-                    this.fileUploading = false;
-                    this.fileUploaded = true;
-                }, (response) => {
-                    this.fileUploading = 'Failed';
-                    store.commit('flashMessage', {
-                        text: response.data.meta.error_type,
-                        type: 'danger'
-                    });
-                });
-            },
-            send() {
-                if (this.loading) {
-                    return;
-                }
-
-                this.loading = true;
-                let ticketData = {
-                    title: this.title,
-                    content: this.content,
-                    ticket_department_id: this.ticket_department_id,
-                    priority: this.priority,
-                    status: this.status,
-                    attachment: this.attachment,
-                };
-                this.$store.state.http.requests['ticket.postAdd'].save(ticketData).then(
-                    (response) => {
-                        this.loading = false;
-                        this.fileUploaded = false;
-
-                        this.$router.push({name: 'ticket.show', params: {id: response.data.data.public_id}})
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            },
-            selectDepartment(departmentId) {
-                this.ticket_department_id = departmentId;
-            },
-        },
-        components: {
-            selectbox,
-            loading
+          });
+        }
+      },
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          title: this.title,
+          content: this.content,
+          ticket_department_id: this.ticket_department_id
+        }).then((result) => {
+          if (result) {
+            this.send();
+          }
+        });
+      },
+      removeErrors: function(field) {
+        !!this[field] && this.errors.remove(field);
+      },
+      dragOver() {
+        window.addEventListener("dragover", function(e) {
+          e.preventDefault();
+        }, false);
+        this.fileHover = true;
+      },
+      onDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createFile(files[0]);
+        this.fileName = files[0].name;
+        this.fileHover = false;
+      },
+      onFileChange(e) {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createFile(files[0]);
+        this.fileName = files[0].name;
+      },
+      createFile(file) {
+        //check valid files
+        let fileExtension = /(\.jpg|\.jpeg|\.gif|\.png|\.zip)$/i;
+        if (!fileExtension.exec(file.name)) {
+          store.commit('flashMessage', {
+            text: 'TicketFileNotImageLocal',
+            type: 'danger'
+          });
+          return;
         }
 
+        this.fileUploading = true;
+        let reader = new FileReader();
+        let vm = this;
+
+        reader.onload = (e) => {
+          vm.attachment = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        let formData = new FormData();
+        formData.append('type', 'document');
+        formData.append('file', file);
+
+        this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+          this.attachment = response.data.meta.file_id;
+          this.fileUploading = false;
+          this.fileUploaded = true;
+        }, (response) => {
+          this.fileUploading = 'Failed';
+          store.commit('flashMessage', {
+            text: response.data.meta.error_type,
+            type: 'danger'
+          });
+        });
+      },
+      send() {
+        if (this.loading) {
+          return;
+        }
+
+        this.loading = true;
+        let ticketData = {
+          title: this.title,
+          content: this.content,
+          ticket_department_id: this.ticket_department_id,
+          priority: this.priority,
+          status: this.status,
+          attachment: this.attachment,
+        };
+        this.$store.state.http.requests['ticket.postAdd'].save(ticketData).then(
+            (response) => {
+              this.loading = false;
+              this.fileUploaded = false;
+
+              this.$router.push({name: 'ticket.show', params: {id: response.data.data.public_id}})
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
+            }
+        )
+      },
+      selectDepartment(departmentId) {
+        this.ticket_department_id = departmentId;
+      },
+    },
+    components: {
+      selectbox,
+      loading
     }
+
+  }
 </script>

@@ -48,104 +48,104 @@
                     a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
 </template>
 <script>
-    export default {
-        name: 'auth-register',
-        data () {
-            return {
-                first_name: "",
-                last_name: "",
-                mobile: "",
-                g_recaptcha: "1",
-                requesting: false,
-            }
-        },
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
-        created() {
-            let vm = this;
-            if (this.$route.params.mobile) {
-                this.mobile = this.$route.params.mobile;
-            }
+  export default {
+    name: 'auth-register',
+    data () {
+      return {
+        first_name: "",
+        last_name: "",
+        mobile: "",
+        g_recaptcha: "1",
+        requesting: false,
+      }
+    },
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+    },
+    created() {
+      let vm = this;
+      if (this.$route.params.mobile) {
+        this.mobile = this.$route.params.mobile;
+      }
 
-            if (this.$store.state.auth.check) {
-                this.$router.push({name: 'home.index'});
-            }
-            if (this.$route.query.referrer) {
-                localStorage.setItem('zp_referrer',
-                    JSON.stringify({
-                        referrer: this.$route.query.referrer,
-                        expire_in: moment().add(3, 'day').unix()
-                    }));
-            }
-        },
-        mounted(){
-            let vm = this;
-            //Load google map script tag
-            let tag = document.createElement("script");
-            tag.src = "https://www.google.com/recaptcha/api.js";
-            document.getElementsByTagName("head")[0].appendChild(tag);
-        },
-        methods: {
-            validateForm() {
-                grecaptcha.execute();
-                this.g_recaptcha = grecaptcha.getResponse();
-                this.$validator.validateAll({
-                    first_name: this.first_name,
-                    last_name: this.last_name,
-                    mobile: this.mobile
-                }).then((result) => {
-                    if (result) {
-                        this.register();
-                    }
-                });
-            },
-            register(){
-                this.requesting = true;
-                let auth2Data = {
-                    first_name: this.first_name,
-                    last_name: this.last_name,
-                    mobile: this.mobile,
-                    g_recaptcha: this.g_recaptcha,
-                };
-                if (this.$route.query.referrer) {
-                    auth2Data.referrer = atob(this.$route.query.referrer);
-                    localStorage.setItem('zp_referrer', {
-                        referrer: auth2Data.referrer,
-                        expire_in: moment().add(3, 'day').unix()
-                    });
-                } else {
-                    let referrerObj = JSON.parse(localStorage.getItem('zp_referrer'));
-                    if (referrerObj && referrerObj.expire_in > moment().unix()) {
-                        auth2Data.referrer = atob(referrerObj.referrer);
-                    }
+      if (this.$store.state.auth.check) {
+        this.$router.push({name: 'home.index'});
+      }
+      if (this.$route.query.referrer) {
+        localStorage.setItem('zp_referrer',
+            JSON.stringify({
+              referrer: this.$route.query.referrer,
+              expire_in: moment().add(3, 'day').unix()
+            }));
+      }
+    },
+    mounted(){
+      let vm = this;
+      //Load google map script tag
+      let tag = document.createElement("script");
+      tag.src = "https://www.google.com/recaptcha/api.js";
+      document.getElementsByTagName("head")[0].appendChild(tag);
+    },
+    methods: {
+      validateForm() {
+        grecaptcha.execute();
+        this.g_recaptcha = grecaptcha.getResponse();
+        this.$validator.validateAll({
+          first_name: this.first_name,
+          last_name: this.last_name,
+          mobile: this.mobile
+        }).then((result) => {
+          if (result) {
+            this.register();
+          }
+        });
+      },
+      register(){
+        this.requesting = true;
+        let auth2Data = {
+          first_name: this.first_name,
+          last_name: this.last_name,
+          mobile: this.mobile,
+          g_recaptcha: this.g_recaptcha,
+        };
+        if (this.$route.query.referrer) {
+          auth2Data.referrer = atob(this.$route.query.referrer);
+          localStorage.setItem('zp_referrer', {
+            referrer: auth2Data.referrer,
+            expire_in: moment().add(3, 'day').unix()
+          });
+        } else {
+          let referrerObj = JSON.parse(localStorage.getItem('zp_referrer'));
+          if (referrerObj && referrerObj.expire_in > moment().unix()) {
+            auth2Data.referrer = atob(referrerObj.referrer);
+          }
+        }
+
+        this.$store.state.http.requests['oauth.PostRegisterUser'].save(auth2Data).then(
+            response => {
+              store.commit('flashMessage', {
+                text: 'OauthSuccessRegisterLocal',
+                type: 'success',//optional
+              });
+              this.$router.push({
+                name: 'auth.login',
+                query: {
+                  mobile: this.mobile
                 }
-
-                this.$store.state.http.requests['oauth.PostRegisterUser'].save(auth2Data).then(
-                    response => {
-                        store.commit('flashMessage', {
-                            text: 'OauthSuccessRegisterLocal',
-                            type: 'success',//optional
-                        });
-                        this.$router.push({
-                            name: 'auth.login',
-                            query: {
-                                mobile: this.mobile
-                            }
-                        });
-                        this.requesting = false;
-                    }, (response) => {
-                        this.requesting = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger',
-                        });
-                    }
-                );
+              });
+              this.requesting = false;
+            }, (response) => {
+              this.requesting = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger',
+              });
             }
-        },
-    }
+        );
+      }
+    },
+  }
 </script>

@@ -42,86 +42,86 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
-    import loading from '../../partials/loading.vue';
+  import modal from '../../partials/modal.vue';
+  import loading from '../../partials/loading.vue';
 
-    export default {
-        name: 'personal-link',
-        data() {
-            return {
-                preLink: 'https://Zarinp.al/@',
-                requesting: false,
-                checking: false,
-                usable: false,
-                username: null,
-                error_message: null,
-            }
-        },
-        computed: {
-            user() {
-                return this.$store.state.auth.user;
-            }
-        },
-        methods: {
-            validateForm(request) {
-                this.$validator.validateAll({
-                    username: this.username,
-                }).then((result) => {
-                    if (result) {
-                        this.checkUsername(request);
-                    }
-                });
-            },
-            closeModal() {
-                this.$emit('closeModal');
-            },
-            checkUsername(request) {
-                if (this.username.length >= 5 && this.errors.items.length == 0) {
-                    this.checking = true;
-                    let usernameData = {
-                        username: this.username,
-                        check: true
-                    };
-                    if (this.usable && request && request === 'Save') {
-                        usernameData.check = false;
-                    }
+  export default {
+    name: 'personal-link',
+    data() {
+      return {
+        preLink: 'https://Zarinp.al/@',
+        requesting: false,
+        checking: false,
+        usable: false,
+        username: null,
+        error_message: null,
+      }
+    },
+    computed: {
+      user() {
+        return this.$store.state.auth.user;
+      }
+    },
+    methods: {
+      validateForm(request) {
+        this.$validator.validateAll({
+          username: this.username,
+        }).then((result) => {
+          if (result) {
+            this.checkUsername(request);
+          }
+        });
+      },
+      closeModal() {
+        this.$emit('closeModal');
+      },
+      checkUsername(request) {
+        if (this.username.length >= 5 && this.errors.items.length == 0) {
+          this.checking = true;
+          let usernameData = {
+            username: this.username,
+            check: true
+          };
+          if (this.usable && request && request === 'Save') {
+            usernameData.check = false;
+          }
 
-                    this.requestUsername(usernameData);
-                } else {
-                    this.usable = false;
-                    store.commit('clearValidationErrors');
-                }
-            },
-            requestUsername(usernameData) {
-                this.$store.state.http.requests['user.postUsername'].save(usernameData).then(
-                    () => {
-                        this.usable = true;
-                        this.checking = false;
-                        if (!usernameData.check) {
-                            this.requesting = true;
-
-                            //update user store
-                            this.$store.state.auth.user.username = this.username;
-                            this.$store.commit('flashMessage', {
-                                text: 'EasypayUsernameCreated',
-                                type: 'success'
-                            });
-                        }
-                    },
-                    (response) => {
-                        this.usable = false;
-                        this.checking = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        if (response.data.meta.error_type == 'UserUserNameFixLate') {
-                            this.error_message = _.kebabCase(response.data.meta.error_message)
-                        }
-                    }
-                );
-            }
-        },
-        components: {
-            modal,
-            loading
+          this.requestUsername(usernameData);
+        } else {
+          this.usable = false;
+          store.commit('clearValidationErrors');
         }
-    };
+      },
+      requestUsername(usernameData) {
+        this.$store.state.http.requests['user.postUsername'].save(usernameData).then(
+            () => {
+              this.usable = true;
+              this.checking = false;
+              if (!usernameData.check) {
+                this.requesting = true;
+
+                //update user store
+                this.$store.state.auth.user.username = this.username;
+                this.$store.commit('flashMessage', {
+                  text: 'EasypayUsernameCreated',
+                  type: 'success'
+                });
+              }
+            },
+            (response) => {
+              this.usable = false;
+              this.checking = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              if (response.data.meta.error_type == 'UserUserNameFixLate') {
+                this.error_message = _.kebabCase(response.data.meta.error_message)
+              }
+            }
+        );
+      }
+    },
+    components: {
+      modal,
+      loading
+    }
+  };
 </script>

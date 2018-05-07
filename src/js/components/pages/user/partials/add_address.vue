@@ -31,140 +31,140 @@
 
 
 <script>
-    import addressBook from './single_address.vue';
-    import loading from '../../partials/loading.vue';
+  import addressBook from './single_address.vue';
+  import loading from '../../partials/loading.vue';
 
-    export default {
-        name: 'addAddress',
-        data() {
-            return {
-                loading: false,
-                getAddressesData: null,
-                addressCount: 1,
-                addresses: [],
-                isLoadedAddress: false,
-            }
-        },
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
-        created() {
-            store.commit('clearValidationErrors');
-            this.getAddresses();
-        },
-        methods: {
-            getAddresses() {
-                this.$store.state.http.requests['user.postAddress'].get().then(
-                    (response) => {
-                        if (response.data.data.length) {
-                            this.addresses = response.data.data;
-                            let addressCounter = 1;
-                            _.forEach(this.addresses, function (address) {
-                                address.id = addressCounter++;
-                            });
-                        }
-                        if (!this.addresses.length) {
-                            this.addNewAddress();
-                        }
-                        this.isLoadedAddress = true;
-                    },
-                    (response) => {
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                    }
-                );
-            },
-            addNewAddress() {
-                this.addresses.push({
-                    id: this.addresses.length + 1001,
-                    data: {
-                        address: null,
-                        landline: null,
-                        postal_code: null,
-                        geo_location: null,
-                        title: null
-                    }
+  export default {
+    name: 'addAddress',
+    data() {
+      return {
+        loading: false,
+        getAddressesData: null,
+        addressCount: 1,
+        addresses: [],
+        isLoadedAddress: false,
+      }
+    },
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+    },
+    created() {
+      store.commit('clearValidationErrors');
+      this.getAddresses();
+    },
+    methods: {
+      getAddresses() {
+        this.$store.state.http.requests['user.postAddress'].get().then(
+            (response) => {
+              if (response.data.data.length) {
+                this.addresses = response.data.data;
+                let addressCounter = 1;
+                _.forEach(this.addresses, function(address) {
+                  address.id = addressCounter++;
                 });
+              }
+              if (!this.addresses.length) {
+                this.addNewAddress();
+              }
+              this.isLoadedAddress = true;
             },
-            //update from address child on input change not request to api
-            updateAddress(address) {
-                let addressIndex = _.findIndex(
-                    this.addresses,
-                    function (originalsAddress) {
-                        return originalsAddress.id === address.id;
-                    }
-                );
-                this.addresses[addressIndex] = address;
-            },
-            deleteAddress(address) {
-                if (address.entity_id) {
-                    this.$store.state.http.requests['user.getAddress'].delete({id: address.entity_id}).then(
-                        () => {
-                            let elem = document.getElementById(address.id);
-                            elem.parentNode.removeChild(elem);
-                            _.remove(this.addresses, function (singleAddress) {
-                                return singleAddress.id == address.id;
-                            });
-                        },
-                        (response) => {
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                important: false,
-                                type: 'danger'
-                            });
-                        }
-                    );
-                } else {
-                    let elem = document.getElementById(address.id);
-                    elem.parentNode.removeChild(elem);
+            (response) => {
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
+            }
+        );
+      },
+      addNewAddress() {
+        this.addresses.push({
+          id: this.addresses.length + 1001,
+          data: {
+            address: null,
+            landline: null,
+            postal_code: null,
+            geo_location: null,
+            title: null
+          }
+        });
+      },
+      //update from address child on input change not request to api
+      updateAddress(address) {
+        let addressIndex = _.findIndex(
+            this.addresses,
+            function(originalsAddress) {
+              return originalsAddress.id === address.id;
+            }
+        );
+        this.addresses[addressIndex] = address;
+      },
+      deleteAddress(address) {
+        if (address.entity_id) {
+          this.$store.state.http.requests['user.getAddress'].delete({id: address.entity_id}).then(
+              () => {
+                let elem = document.getElementById(address.id);
+                elem.parentNode.removeChild(elem);
+                _.remove(this.addresses, function(singleAddress) {
+                  return singleAddress.id == address.id;
+                });
+              },
+              (response) => {
+                store.commit('flashMessage', {
+                  text: response.data.meta.error_type,
+                  important: false,
+                  type: 'danger'
+                });
+              }
+          );
+        } else {
+          let elem = document.getElementById(address.id);
+          elem.parentNode.removeChild(elem);
 
-                    _.remove(this.addresses, function (singleAddress) {
-                        return singleAddress.id == address.id;
-                    });
-                }
-            },
-            postUserAddress() {
-                this.loading = true;
-                let addresses = this.addresses;
-                // _.forEach(addresses, function(address) {
-                //     delete address.id;
-                // });
-
-                this.$store.state.http.requests['user.postAddress'].save({'addresses': addresses}).then(
-                    () => {
-                        store.commit('flashMessage', {
-                            text: 'UserAddressAddedSuccessLocal',
-                            important: false,
-                            type: 'success'
-                        });
-                        this.loading = false;
-
-                        //this run in user level up
-                        this.$emit('incrementUserLevelUpStep');
-
-                        // this.$router.push({name: 'home.index'})
-                    },
-                    (response) => {
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                        this.loading = false;
-                    }
-                );
-            },
-        },
-        components: {
-            'address-book': addressBook,
-            confirm,
-            loading
+          _.remove(this.addresses, function(singleAddress) {
+            return singleAddress.id == address.id;
+          });
         }
+      },
+      postUserAddress() {
+        this.loading = true;
+        let addresses = this.addresses;
+        // _.forEach(addresses, function(address) {
+        //     delete address.id;
+        // });
+
+        this.$store.state.http.requests['user.postAddress'].save({'addresses': addresses}).then(
+            () => {
+              store.commit('flashMessage', {
+                text: 'UserAddressAddedSuccessLocal',
+                important: false,
+                type: 'success'
+              });
+              this.loading = false;
+
+              //this run in user level up
+              this.$emit('incrementUserLevelUpStep');
+
+              // this.$router.push({name: 'home.index'})
+            },
+            (response) => {
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
+              this.loading = false;
+            }
+        );
+      },
+    },
+    components: {
+      'address-book': addressBook,
+      confirm,
+      loading
     }
+  }
 </script>

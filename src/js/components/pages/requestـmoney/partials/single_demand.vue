@@ -23,49 +23,49 @@
 </template>
 
 <script>
-    import requestDetails from '../partials/request_details.vue';
+  import requestDetails from '../partials/request_details.vue';
 
-    export default {
-        name: 'request-money-single-demand',
-        data() {
-            return {
-                usersCount: 0,
-                requestStatus: null,
-                visibleDetails: false
-            }
-        },
-        props: ['demand'],
-        created(){
-            this.getDemandStatus();
-        },
-        methods: {
-            closeModal() {
-                this.visibleDetails = false;
-            },
-            getDemandStatus() {
-                let paidCount = 0;
-                let rejectCount = 0;
-                this.usersCount = this.demand.user.length;
+  export default {
+    name: 'request-money-single-demand',
+    data() {
+      return {
+        usersCount: 0,
+        requestStatus: null,
+        visibleDetails: false
+      }
+    },
+    props: ['demand'],
+    created(){
+      this.getDemandStatus();
+    },
+    methods: {
+      closeModal() {
+        this.visibleDetails = false;
+      },
+      getDemandStatus() {
+        let paidCount = 0;
+        let rejectCount = 0;
+        this.usersCount = this.demand.user.length;
 
-                this.demand.user.forEach(function (user) {
-                    if (user.status === 'paid') {
-                        paidCount++;
-                    } else if (user.status === 'reject') {
-                        rejectCount++;
-                    }
-                });
+        this.demand.user.forEach(function(user) {
+          if (user.status === 'paid') {
+            paidCount++;
+          } else if (user.status === 'reject') {
+            rejectCount++;
+          }
+        });
 
-                if (paidCount === this.usersCount) {
-                    this.requestStatus = 'paid';
-                } else if (rejectCount === this.usersCount) {
-                    this.requestStatus = 'reject';
-                } else {
-                    this.requestStatus = 'pending'
-                }
-            }
-        },
-        components: {
-            requestDetails
+        if (paidCount === this.usersCount) {
+          this.requestStatus = 'paid';
+        } else if (rejectCount === this.usersCount) {
+          this.requestStatus = 'reject';
+        } else {
+          this.requestStatus = 'pending'
         }
+      }
+    },
+    components: {
+      requestDetails
     }
+  }
 </script>

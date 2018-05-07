@@ -24,36 +24,36 @@
 
 
 <script>
-    export default {
-        name: 'pages-partials-modal',
-        data() {
-            return {
-                closeModalContent: true
-            }
-        },
-        mounted() {
-            //say store modal is opened
-            this.$store.commit('app/changeModalStatus', true);
-            let body = document.getElementById('body');
+  export default {
+    name: 'pages-partials-modal',
+    data() {
+      return {
+        closeModalContent: true
+      }
+    },
+    mounted() {
+      //say store modal is opened
+      this.$store.commit('app/changeModalStatus', true);
+      let body = document.getElementById('body');
 
-            body.classList.remove("no-scroll");
-            if (this.$store.state.app.isOpenModal) {
-                body.className += " no-scroll";
-            } else {
-                body.classList.remove("no-scroll");
-            }
+      body.classList.remove("no-scroll");
+      if (this.$store.state.app.isOpenModal) {
+        body.className += " no-scroll";
+      } else {
+        body.classList.remove("no-scroll");
+      }
 
-            this.closeModalContent = false
-        },
-        methods: {
-            closeModal() {
-                //remove body no-scroll class
-                this.$store.commit('app/changeModalStatus', false);
-                let body = document.getElementById('body');
-                body.classList.remove("no-scroll");
+      this.closeModalContent = false
+    },
+    methods: {
+      closeModal() {
+        //remove body no-scroll class
+        this.$store.commit('app/changeModalStatus', false);
+        let body = document.getElementById('body');
+        body.classList.remove("no-scroll");
 
-                this.$emit('closeModal');
-            }
-        }
+        this.$emit('closeModal');
+      }
     }
+  }
 </script>
