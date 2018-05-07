@@ -22,18 +22,18 @@
                         i.icon-zp-progressKey.text-style
                         span.text-style {{ $i18n.t('user.progress.' + progressKey) }}
                         span.done-prog(v-if="progress.check")
-                            span.pull-left.text-style انجام شده
+                            span.pull-left.text-style {{ $i18n.t('user.done') }}
                         span.pending-prog(v-else)
-                            span.pull-left.text-style در انتظار
+                            span.pull-left.text-style {{ $i18n.t('user.pending') }}
                         span.priority.persian-num %{{progress.point}}+
 
                 div.box.box-style.hand(v-else @click="redirect(progressKey)")
                     i.icon-zp-progressKey.text-style
                     span.text-style.persian-num {{ $i18n.t('user.progress.' + progressKey) }}
                     span.done-prog(v-if="progress.check")
-                        span.pull-left.text-style انجام‌شده
+                        span.pull-left.text-style {{ $i18n.t('user.done') }}
                     span.pending-prog(v-else)
-                        span.pull-left.text-style در انتظار
+                        span.pull-left.text-style {{ $i18n.t('user.pending') }}
                     span.priority.persian-num %{{progress.point}}+
 
             referrer(v-if="visibleReferrer" v-on:closeModal="closeModal()")
