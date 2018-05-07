@@ -32,67 +32,66 @@
 </template>
 
 <script>
-    import singleWebservice from './partials/single-webservice.vue';
-    import showTrustCode from './partials/show-trust-code.vue';
-    import loading from '../../pages/partials/loading.vue';
+  import singleWebservice from './partials/single-webservice.vue';
+  import showTrustCode from './partials/show-trust-code.vue';
+  import loading from '../../pages/partials/loading.vue';
 
-
-    export default {
-        name: 'webservice-index',
-        data(){
-            return {
-                visibleTrustCode: false,
+  export default {
+    name: 'webservice-index',
+    data(){
+      return {
+        visibleTrustCode: false,
+      }
+    },
+    computed: {
+      user(){
+        return this.$store.state.auth.user;
+      },
+      webservices() {
+        return {
+          data: this.$store.state.paginator.paginator.WebserviceList.data,
+          status: this.$store.state.paginator.paginator.WebserviceList.isLoading,
+          update: this.$store.state.paginator.update,
+        };
+      }
+    },
+    created() {
+      this.getWebservices();
+      let vm = this;
+      window.onscroll = function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+            && !vm.$store.state.paginator.paginator.WebserviceList.isLoading) {
+          vm.$store.dispatch(
+              'paginator/next',
+              {
+                requestName: "WebserviceList"
+              }
+          );
+        }
+      };
+    },
+    methods: {
+      getWebservices() {
+        let vm = this;
+        this.$store.dispatch(
+            'paginator/make',
+            {
+              vm,
+              resource: vm.$store.state.http.requests['webservice.getIndex'],
+              requestName: "WebserviceList"
             }
-        },
-        computed: {
-            user(){
-                return this.$store.state.auth.user;
-            },
-            webservices() {
-                return {
-                    data: this.$store.state.paginator.paginator.WebserviceList.data,
-                    status: this.$store.state.paginator.paginator.WebserviceList.isLoading,
-                    update: this.$store.state.paginator.update,
-                };
-            }
-        },
-        created() {
-            this.getWebservices();
-            let vm = this;
-            window.onscroll = function () {
-                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                    && !vm.$store.state.paginator.paginator.WebserviceList.isLoading) {
-                    vm.$store.dispatch(
-                        'paginator/next',
-                        {
-                            requestName: "WebserviceList"
-                        }
-                    );
-                }
-            };
-        },
-        methods: {
-            getWebservices() {
-                let vm = this;
-                this.$store.dispatch(
-                    'paginator/make',
-                    {
-                        vm,
-                        resource: vm.$store.state.http.requests['webservice.getIndex'],
-                        requestName: "WebserviceList"
-                    }
-                );
-            },
-            closeModal(){
-                this.visibleTrustCode = false;
-                store.commit('clearValidationErrors');
-            },
-        },
+        );
+      },
+      closeModal(){
+        this.visibleTrustCode = false;
+        store.commit('clearValidationErrors');
+      },
+    },
 
-        components: {
-            singleWebservice,
-            showTrustCode,
-            loading
-        },
+    components: {
+      singleWebservice,
+      showTrustCode,
+      loading
+    },
   }
 </script>
