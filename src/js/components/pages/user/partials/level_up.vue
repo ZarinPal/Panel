@@ -117,13 +117,13 @@
                                                         span(v-else) {{ $i18n.t('user.clickToSelectFile') }}
                                                     input(type="file" name="file" @change="createFile($event, 'introduction_file')")
                                     div(v-if="!isSaving")
-                                        span(v-if="isUploading && isUploading != 'Failed'") در حال آپلود مدارک
-                                        span.text-danger(v-if="isUploading == 'Failed' ") مشکل آپلود فایل
+                                        span(v-if="isUploading && isUploading != 'Failed'") {{ $i18n.t('user.uploading') }}
+                                        span.text-danger(v-if="isUploading == 'Failed' ") {{ $i18n.t('user.uploadingProblem') }}
                                         loading.dis-ib.upload-loading(v-if="isUploading && isUploading != 'Failed'" v-bind:width="15" v-bind:height="15")
 
                                     div(v-if="!isUploading")
-                                        span.text-danger(v-if="isSaving && isSaving != 'Failed'") در حال ذخیره سازی
-                                        span(v-if="isSaving == 'Failed' ") مشکل در ذخیره سازی
+                                        span.text-danger(v-if="isSaving && isSaving != 'Failed'") {{ $i18n.t('user.saving') }}
+                                        span(v-if="isSaving == 'Failed' ") {{ $i18n.t('user.savingProblem') }}
                                         loading.dis-ib.upload-loading(v-if="isSaving && isSaving != 'Failed'" v-bind:width="15" v-bind:height="15")
                             div.full-width.nav-button
                                 <!--Add information button-->

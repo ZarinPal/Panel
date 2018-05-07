@@ -1228,6 +1228,11 @@
     "loginLockErrorPart2": " دقیقه و",
     "loginLockErrorPart3": " ثانیه دیگر منتظر بمانید و مجددا درخواست دهید.",
     "downloadMobileApp": "دانلود اپلیکیشن زرین‌پال من",
+    "uploading": "در حال آپلود مدارک",
+    "uploadingProblem": "مشکل آپلود فایل",
+    "saving": "در حال ذخیره سازی",
+    "savingProblem": "مشکل در ذخیره سازی",
+    "done": "انجام شده",
     "selectAddressTitle": "انتخاب‌ عنوان آدرس"
   },
   "validation": {
