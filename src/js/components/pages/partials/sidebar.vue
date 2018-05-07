@@ -15,7 +15,7 @@
 
                 div.ta-center.section-level-up(v-if="user.level == 1 || user.level == 0")
                     router-link.btn-to-level.hand(v-if="!this.$store.state.app.smallSidebar" tag="div" :class="{'to-silver-level-link': user.level < 2, 'to-gold-level-link': user.level == 2}" v-bind:to="{ name: 'user.levelUp'}")
-                        span {{ $i18n.t('common.UpgradeToSilverLevel') }}
+                        span {{ $i18n.t('common.upgradeToSilverLevel') }}
 
                 ul
                     span(v-for="(tab, index) in tabs")

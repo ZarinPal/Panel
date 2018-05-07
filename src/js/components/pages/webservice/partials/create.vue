@@ -21,7 +21,7 @@
                                     span.input-icon.earth-icon
                                     div.row.input-group.no-margin.full-width(:class="{'input-danger': errors.has('domain')}")
                                         div.col-xs.no-margin
-                                            input.input.ltr-input(v-validate="'required|url'"  v-bind:data-vv-as="$i18n.t('webservice.domain')"   type="text" v-model="domain"  name="domain"  placeholder= "آدرس وب‌سایت: domain.ir" tabindex="2" )
+                                            input.input.ltr-input(v-validate="'required|url'"  v-bind:data-vv-as="$i18n.t('webservice.domain')"   type="text" v-model="domain"  name="domain"  :placeholder= "$i18n.t('webservice.domainPlaceholder')" tabindex="2" )
                                         div.no-margin.first-label
                                             span http://www.
 
@@ -42,7 +42,7 @@
 
                                 div.row.no-margin
                                     span.text-help {{ $i18n.t('webservice.selectPurseHelp') }}
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
 
@@ -59,165 +59,165 @@
 </template>
 
 <script>
-    import selectbox from '../../partials/selectbox.vue';
-    import purse from '../../partials/purses.vue';
-    import webserviceCategories from '../../partials/webservice-categories.vue';
+  import selectbox from '../../partials/selectbox.vue';
+  import purse from '../../partials/purses.vue';
+  import webserviceCategories from '../../partials/webservice-categories.vue';
 
-    export default {
-        name: 'pages-webservice-partials-create',
-        validator: null,
-        data() {
+  export default {
+    name: 'pages-webservice-partials-create',
+    validator: null,
+    data() {
+      return {
+        loading: false,
+        fileHover: false,
+        domain: null,
+        tel: null,
+        purse: null,
+        webservice_category_id: null,
+        site_name: '',
+        site_content: null,
+        image: null,
+        fileUploadFormData: new FormData(),
+      }
+    },
+    computed: {
+      webserviceCatSelection() {
+        if (this.$store.state.app.webserviceCategories) {
+          return this.$store.state.app.webserviceCategories.map(function(value) {
             return {
-                loading: false,
-                fileHover: false,
-                domain: null,
-                tel: null,
-                purse: null,
-                webservice_category_id: null,
-                site_name: '',
-                site_content: null,
-                image: null,
-                fileUploadFormData: new FormData(),
+              'title': value.title,
+              'value': value.public_id
             }
-        },
-        computed: {
-            webserviceCatSelection() {
-                if (this.$store.state.app.webserviceCategories) {
-                    return this.$store.state.app.webserviceCategories.map(function (value) {
-                        return {
-                            'title': value.title,
-                            'value': value.public_id
-                        }
-                    });
-                }
-            },
-        },
-        created(){
-            store.commit('clearValidationErrors');
-            this.$store.dispatch('app/getWebserviceCategories');
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    site_name: this.site_name,
-                    domain: this.domain,
-                    tel: this.tel,
-                    site_content: this.site_content,
-                    purse: this.purse,
-                    webservice_category_id: this.webservice_category_id
-                }).then((result) => {
-                    if (result) {
-                        this.createWebservice();
-                    }
-                });
-            },
-            selectedPurse(purseId) {
-                this.purse = purseId;
-            },
-            selectedWebserviceCat(webserviceCatId) {
-                this.webservice_category_id = webserviceCatId;
-            },
-            createWebservice() {
-                if (this.loading) {
-                    return;
-                }
-
-                if (this.errors.length) {
-                    store.commit('flashMessage', {
-                        text: 'WebserviceFixValidationErrorsLocal',
-                        type: 'danger',
-                    });
-                    return false;
-                }
-
-                //check tel is mobile and validate it
-                if (/^09/g.test(this.tel)) {
-                    if (!(/^09[0-9]{9}$/g.test(this.tel))) {
-                        store.commit('flashMessage', {
-                            text: 'WebserviceMobileNumberNotValidLocal',
-                            type: 'danger',
-                        });
-                        this.loading = false;
-                        return;
-                    }
-                }
-
-                this.loading = true;
-                let webserviceData = {
-                    domain: this.domain.toLowerCase(),
-                    tel: this.tel,
-                    purse: this.purse,
-                    webservice_category_id: this.webservice_category_id,
-                    site_name: this.site_name,
-                    site_content: this.site_content,
-                };
-
-                this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
-                    (response) => {
-                        store.commit('flashMessage', {
-                            text: 'WebserviceTicketNewLocal',
-                            type: 'success',
-                        });
-                        this.loading = false;
-
-                        this.$router.push({name: 'ticket.show', params: {id: response.data.data.ticket_id}})
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            },
-            dragOver() {
-                window.addEventListener("dragover", function (e) {
-                    e.preventDefault();
-                }, false);
-                this.fileHover = true;
-            },
-            onDrop(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createImage(files[0]);
-                this.fileHover = false;
-            },
-            onLogoChange(e) {
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createImage(files[0]);
-            },
-            createImage(file) {
-                if (!file.type.match('image.*')) {
-                    store.commit('flashMessage', {
-                        text: 'WebserviceFileNotImageLocal',
-                        type: 'danger'
-                    });
-                    return;
-                }
-
-                let image = new Image();
-                let reader = new FileReader();
-                let vm = this;
-                this.fileName = file.name;
-
-                reader.onload = (e) => {
-                    vm.image = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            },
-        },
-        components: {
-            selectbox,
-            purse,
-            webserviceCategories,
+          });
         }
+      },
+    },
+    created(){
+      store.commit('clearValidationErrors');
+      this.$store.dispatch('app/getWebserviceCategories');
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          site_name: this.site_name,
+          domain: this.domain,
+          tel: this.tel,
+          site_content: this.site_content,
+          purse: this.purse,
+          webservice_category_id: this.webservice_category_id
+        }).then((result) => {
+          if (result) {
+            this.createWebservice();
+          }
+        });
+      },
+      selectedPurse(purseId) {
+        this.purse = purseId;
+      },
+      selectedWebserviceCat(webserviceCatId) {
+        this.webservice_category_id = webserviceCatId;
+      },
+      createWebservice() {
+        if (this.loading) {
+          return;
+        }
+
+        if (this.errors.length) {
+          store.commit('flashMessage', {
+            text: 'WebserviceFixValidationErrorsLocal',
+            type: 'danger',
+          });
+          return false;
+        }
+
+        //check tel is mobile and validate it
+        if (/^09/g.test(this.tel)) {
+          if (!(/^09[0-9]{9}$/g.test(this.tel))) {
+            store.commit('flashMessage', {
+              text: 'WebserviceMobileNumberNotValidLocal',
+              type: 'danger',
+            });
+            this.loading = false;
+            return;
+          }
+        }
+
+        this.loading = true;
+        let webserviceData = {
+          domain: this.domain.toLowerCase(),
+          tel: this.tel,
+          purse: this.purse,
+          webservice_category_id: this.webservice_category_id,
+          site_name: this.site_name,
+          site_content: this.site_content,
+        };
+
+        this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
+            (response) => {
+              store.commit('flashMessage', {
+                text: 'WebserviceTicketNewLocal',
+                type: 'success',
+              });
+              this.loading = false;
+
+              this.$router.push({name: 'ticket.show', params: {id: response.data.data.ticket_id}})
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
+            }
+        )
+      },
+      dragOver() {
+        window.addEventListener("dragover", function(e) {
+          e.preventDefault();
+        }, false);
+        this.fileHover = true;
+      },
+      onDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createImage(files[0]);
+        this.fileHover = false;
+      },
+      onLogoChange(e) {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createImage(files[0]);
+      },
+      createImage(file) {
+        if (!file.type.match('image.*')) {
+          store.commit('flashMessage', {
+            text: 'WebserviceFileNotImageLocal',
+            type: 'danger'
+          });
+          return;
+        }
+
+        let image = new Image();
+        let reader = new FileReader();
+        let vm = this;
+        this.fileName = file.name;
+
+        reader.onload = (e) => {
+          vm.image = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      },
+    },
+    components: {
+      selectbox,
+      purse,
+      webserviceCategories,
     }
+  }
 
 </script>

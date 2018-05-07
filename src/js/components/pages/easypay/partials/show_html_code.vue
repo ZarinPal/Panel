@@ -29,7 +29,7 @@
                             div.icon.copy(@click="clipboardMessage(zarinLinkButton)" v-clipboard="zarinLinkButton" v-bind:data-clipboard-text="zarinLinkButton")
                 div.row.box-row.padding-row
                     div.col-xs.ta-right
-                        span.label {{$i18n.t('easypay.BbCode')}}
+                        span.label {{$i18n.t('easypay.bbCode')}}
                     div.col-xs.ta-left.no-margin
                         div.row.label-group.pull-left
                             div.col-xs.text.merchant-code

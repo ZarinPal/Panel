@@ -4,7 +4,7 @@
         div(slot="content")
             div.row
                 <!--p.create-description {{ $i18n.t('webservice.ussdNotice') }}-->
-                span.create-description هزینه فعالسازی سرویس همپا(USSD) براساس تعداد تراکنش‌های موجود بر روی درگاه عادی زرین‌پال متغیر  است.
+                span.create-description {{ $i18n.t('webservice.ussdActiveNotice') }}
                     span.read-description(@click="visibleDescription=!visibleDescription") {{ $i18n.t('webservice.description') }}
 
             transition(name="fade"
@@ -25,14 +25,14 @@
                         span.text-danger {{ errors.first('ussd_id') }}
 
                 div.row
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" placeholder="انتخاب کیف‌پول" tabindex="2")
+                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" tabindex="2")
                     div.ta-right(v-if="validation('purse')")
                         span.text-danger {{ errors.first('purse') }}
 
                 div.row.body-bottom
                     div.col-lg-9.col-md-12.col-sm-12.col-xs-12.ta-right
                         loading(v-if="getPriceLoading" v-bind:width="20" v-bind:height="20")
-                        span.persian-num.activation-price(v-else-if="!getPriceLoading && priceUssd")  هزینه ی درخواست همپا {{priceUssd.amount | numberFormat}} تومان می‌باشد.
+                        span.persian-num.activation-price(v-else-if="!getPriceLoading && priceUssd")  {{ $i18n.t('webservice.ussdActivePrice') }}  {{priceUssd.amount | numberFormat}} {{ $i18n.t('webservice.isToman') }}
 
                     div.no-margin.col-lg-3.col-md-12.col-sm-12.col-xs-12.ta-left
                         button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('webservice.activation')}}
@@ -42,99 +42,99 @@
 
 
 <script>
-    import selectbox from '../../partials/selectbox.vue';
-    import purse from '../../partials/purses.vue';
-    import modal from '../../partials/modal.vue';
-    import loading from '../../partials/loading.vue';
+  import selectbox from '../../partials/selectbox.vue';
+  import purse from '../../partials/purses.vue';
+  import modal from '../../partials/modal.vue';
+  import loading from '../../partials/loading.vue';
 
-    export default {
-        name: 'home-webservice-partials-ussdActivation',
-        data() {
-            return {
-                loading: false,
-                getPriceLoading: true,
-                visibleDescription: false,
-                closeModalContent: true,
-                purse: null,
-                ussd_id: null,
-                priceUssd: ''
+  export default {
+    name: 'home-webservice-partials-ussdActivation',
+    data() {
+      return {
+        loading: false,
+        getPriceLoading: true,
+        visibleDescription: false,
+        closeModalContent: true,
+        purse: null,
+        ussd_id: null,
+        priceUssd: ''
+      }
+    },
+    props: ['webservice'],
+    mounted(){
+      this.closeModalContent = false
+    },
+    created() {
+      store.commit('clearValidationErrors');
+      this.getPriceUssd();
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          purse: this.purse,
+          ussd_id: this.ussd_id,
+        }).then((result) => {
+          if (result) {
+            this.activeUssd();
+          }
+        });
+      },
+      removeErrors: function(field) {
+        !!this[field] && this.errors.remove(field);
+      },
+      closeModal() {
+        this.$emit('closeModal')
+      },
+      selectedPurse(purseId) {
+        this.purse = purseId;
+      },
+      getPriceUssd() {
+        this.$store.state.http.requests['webservice.getPriceUssd'].get().then(response => {
+          this.priceUssd = response.data.data[0];
+          this.getPriceLoading = false;
+        });
+      },
+      activeUssd() {
+        this.loading = true;
+        let ussdData = {
+          webservice: this.webservice.entity_id,
+          purse: this.purse,
+          ussd_id: this.ussd_id,
+        };
+
+        this.$store.state.http.requests['webservice.postRequestUssd'].save(ussdData).then(
+            () => {
+              let vm = this;
+              let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
+                return webservice.entity_id === vm.webservice.entity_id;
+              });
+              this.$store.state.auth.user.webservices[webserviceIndex].ussd_id = this.ussd_id;
+              this.validationErrors = null;
+              store.commit('flashMessage', {
+                text: 'WebserviceUssdCodeActivatedLocal',
+                type: 'success'
+              });
+              this.closeModal();
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+
+              this.$store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
             }
-        },
-        props: ['webservice'],
-        mounted(){
-            this.closeModalContent = false
-        },
-        created() {
-            store.commit('clearValidationErrors');
-            this.getPriceUssd();
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    purse: this.purse,
-                    ussd_id: this.ussd_id,
-                }).then((result) => {
-                    if (result) {
-                        this.activeUssd();
-                    }
-                });
-            },
-            removeErrors: function (field) {
-                !!this[field] && this.errors.remove(field);
-            },
-            closeModal() {
-                this.$emit('closeModal')
-            },
-            selectedPurse(purseId) {
-                this.purse = purseId;
-            },
-            getPriceUssd() {
-                this.$store.state.http.requests['webservice.getPriceUssd'].get().then(response => {
-                    this.priceUssd = response.data.data[0];
-                    this.getPriceLoading = false;
-                });
-            },
-            activeUssd() {
-                this.loading = true;
-                let ussdData = {
-                    webservice: this.webservice.entity_id,
-                    purse: this.purse,
-                    ussd_id: this.ussd_id,
-                };
-
-                this.$store.state.http.requests['webservice.postRequestUssd'].save(ussdData).then(
-                    () => {
-                        let vm = this;
-                        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function (webservice) {
-                            return webservice.entity_id === vm.webservice.entity_id;
-                        });
-                        this.$store.state.auth.user.webservices[webserviceIndex].ussd_id = this.ussd_id;
-                        this.validationErrors = null;
-                        store.commit('flashMessage', {
-                            text: 'WebserviceUssdCodeActivatedLocal',
-                            type: 'success'
-                        });
-                        this.closeModal();
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-
-                        this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                    }
-                )
-            },
-        },
-        components: {
-            selectbox,
-            purse,
-            modal,
-            loading
-        }
+        )
+      },
+    },
+    components: {
+      selectbox,
+      purse,
+      modal,
+      loading
     }
+  }
 
 </script>
