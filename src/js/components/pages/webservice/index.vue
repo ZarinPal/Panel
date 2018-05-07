@@ -9,6 +9,8 @@
                 router-link.btn.success.pull-left(tag="button" v-bind:to="{ name: 'webservice.create'}")
                     span.icon-add-circle
                     span.text {{ $i18n.t('common.createWebservice') }}
+                button.btn.btn-gradient-radius(tag="button"  @click="visibleTrustCode = true")
+                    span.btn-label.top-0 {{ $i18n.t('webservice.showTrustLogo') }}
 
         div.row
             singleWebservice(v-for="webservice in webservices.data" v-bind:key="webservice.public_id" v-bind:webservice="webservice")
@@ -24,15 +26,23 @@
 
                 div.ta-center(v-if="!this.$store.state.paginator.paginator.WebserviceList.resource.resource && webservices.data.length")
                     span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
+        <!--Show Trust Code  -->
+        showTrustCode(v-if="visibleTrustCode" v-on:closeModal="closeModal" )
 
 </template>
 
 <script>
   import singleWebservice from './partials/single-webservice.vue';
+  import showTrustCode from './partials/show-trust-code.vue';
   import loading from '../../pages/partials/loading.vue';
 
   export default {
     name: 'webservice-index',
+    data(){
+      return {
+        visibleTrustCode: false,
+      }
+    },
     computed: {
       user(){
         return this.$store.state.auth.user;
@@ -71,11 +81,17 @@
               requestName: "WebserviceList"
             }
         );
-      }
+      },
+      closeModal(){
+        this.visibleTrustCode = false;
+        store.commit('clearValidationErrors');
+      },
     },
+
     components: {
       singleWebservice,
+      showTrustCode,
       loading
-    }
+    },
   }
 </script>
