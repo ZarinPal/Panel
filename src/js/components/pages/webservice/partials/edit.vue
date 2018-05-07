@@ -33,7 +33,7 @@
                                         span.text-danger {{ errors.first('site_ip') }}
 
                                 div.row.no-margin
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" v-if="purse" v-bind:selected="purse" placeholder="انتخاب کیف‌پول" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" v-if="purse" v-bind:selected="purse" :placeholder="$i18n.t('easypay.selectPurse')" :class="{'input-danger': errors.has('purse')}" tabindex="5")
                                     div.ta-right(v-if="validation('purse')")
                                         span.text-danger {{ errors.first('purse') }}
 
@@ -46,7 +46,7 @@
                                     input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
                                     label(for="activeCoupon")
                                         span
-                                        | نمایش آیتم کد تخفیف در صفحه درگاه پرداخت
+                                        | {{$i18n.t('webservice.activeCouponInPg')}}
                                 div.break
                                 div.row
                                     div.nav-picker
@@ -65,12 +65,12 @@
                                                 loading.upload-loading(v-if="uploading")
 
                                             div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                                p.attachment-text(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) فایل لوگو را اینجا رها کنید
+                                                p.attachment-text(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{$i18n.t('ticket.putLogoFile')}}
                                                 div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
-                                                    span(@dragenter="fileHover = true" @dragleave="fileHover = false") یا از کامپیوتر
+                                                    span(@dragenter="fileHover = true" @dragleave="fileHover = false") {{$i18n.t('ticket.orFromPc')}}
 
                                                     label.attach
-                                                        span.select-text انتخاب کنید
+                                                        span.select-text {{$i18n.t('common.select')}}
                                                         input(type="file" name="file" @change="onLogoChange" tabindex="4")
 
                                                     div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
@@ -86,218 +86,218 @@
 </template>
 
 <script>
-    import loading from '../../partials/loading.vue';
-    import selectbox from '../../partials/selectbox.vue';
-    import purse from '../../partials/purses.vue';
-    import webserviceCategories from '../../partials/webservice-categories.vue';
+  import loading from '../../partials/loading.vue';
+  import selectbox from '../../partials/selectbox.vue';
+  import purse from '../../partials/purses.vue';
+  import webserviceCategories from '../../partials/webservice-categories.vue';
 
-    export default {
-        name: 'pages-webservice-partials-edit',
-        data(){
+  export default {
+    name: 'pages-webservice-partials-edit',
+    data(){
+      return {
+        uploading: false,
+        fileUploadFormData: new FormData(),
+        loading: false,
+        isLoadedData: false,
+        visibleIp: 'yes',
+        messages: {},
+        fileHover: false,
+        purse: null,
+        webservice_category_id: null,
+        is_coupon_active: null,
+        site_ip: '',
+        site_name: '',
+        domain: '',
+        site_content: '',
+        fileName: '',
+        tel: '',
+        selectedLogo: '',//logoland.zarinpal.com/14937992435909914ba5e2d/125x125.png',
+        site_logo: '',//logoland.zarinpal.com/' + md5(this.webservice.entity_id) + '/125x125.png',
+      }
+    },
+    created() {
+      store.commit('clearValidationErrors');
+      this.$store.dispatch('app/getWebserviceCategories');
+
+      this.purse = this.webservice.purse;
+      this.webservice_category_id = this.webservice.category_id;
+      this.site_ip = this.webservice.ip;
+      this.is_coupon_active = this.webservice.is_coupon_active;
+      this.site_name = this.webservice.name;
+      this.domain = this.webservice.domain;
+      this.site_content = this.webservice.description;
+      this.tel = this.webservice.tel;
+      this.selectedLogo = this.webservice.logo;
+      //this.active_coupon = this.webservice.
+
+      if (this.webservice.ip) {
+        this.visibleIp = 'yes';
+      } else {
+        this.visibleIp = 'no';
+      }
+      this.isLoadedData = true;
+    },
+    computed: {
+      webservice(){
+        return _.find(this.$store.state.auth.user.webservices, {'entity_id': this.$route.params.merchantCode});
+      },
+      pursesSelection() {
+        if (this.$store.state.auth.user.purses) {
+          return this.$store.state.auth.user.purses.map(function(purse) {
             return {
-                uploading: false,
-                fileUploadFormData: new FormData(),
-                loading: false,
-                isLoadedData: false,
-                visibleIp: 'yes',
-                messages: {},
-                fileHover: false,
-                purse: null,
-                webservice_category_id: null,
-                is_coupon_active: null,
-                site_ip: '',
-                site_name: '',
-                domain: '',
-                site_content: '',
-                fileName: '',
-                tel: '',
-                selectedLogo: '',//logoland.zarinpal.com/14937992435909914ba5e2d/125x125.png',
-                site_logo: '',//logoland.zarinpal.com/' + md5(this.webservice.entity_id) + '/125x125.png',
+              'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
+              'value': purse.purse
             }
-        },
-        created() {
-            store.commit('clearValidationErrors');
-            this.$store.dispatch('app/getWebserviceCategories');
-
-            this.purse = this.webservice.purse;
-            this.webservice_category_id = this.webservice.category_id;
-            this.site_ip = this.webservice.ip;
-            this.is_coupon_active = this.webservice.is_coupon_active;
-            this.site_name = this.webservice.name;
-            this.domain = this.webservice.domain;
-            this.site_content = this.webservice.description;
-            this.tel = this.webservice.tel;
-            this.selectedLogo = this.webservice.logo;
-            //this.active_coupon = this.webservice.
-
-            if (this.webservice.ip) {
-                this.visibleIp = 'yes';
-            } else {
-                this.visibleIp = 'no';
-            }
-            this.isLoadedData = true;
-        },
-        computed: {
-            webservice(){
-                return _.find(this.$store.state.auth.user.webservices, {'entity_id': this.$route.params.merchantCode});
-            },
-            pursesSelection() {
-                if (this.$store.state.auth.user.purses) {
-                    return this.$store.state.auth.user.purses.map(function (purse) {
-                        return {
-                            'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
-                            'value': purse.purse
-                        }
-                    });
-                }
-            },
-            webserviceCatSelection() {
-                if (this.$store.state.app.webserviceCategories) {
-                    return this.$store.state.app.webserviceCategories.map(function (value) {
-                        return {
-                            'title': value.title,
-                            'value': value.public_id
-                        }
-                    });
-                }
-            },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    site_ip: this.site_ip,
-                    purse: this.purse,
-                    webservice_category_id: this.webservice_category_id
-                }).then((result) => {
-                    if (result) {
-                        this.editWebservice();
-                    }
-                });
-            },
-            removeErrors: function (field) {
-                !!this[field] && this.errors.remove(field);
-            },
-            selectedPurse(purseId) {
-                this.purse = purseId;
-            },
-            selectedWebserviceCat(webserviceCatId) {
-                this.webservice_category_id = webserviceCatId;
-            },
-            editWebservice() {
-                this.loading = true;
-
-                if (this.visibleIp === 'no') {
-                    this.site_ip = null;
-                }
-
-                let webserviceData = {
-                    purse: this.purse,
-                    is_coupon_active: this.is_coupon_active,
-                    webservice_category_id: this.webservice_category_id,
-                    site_ip: this.site_ip,
-                    site_logo: this.site_logo,
-                };
-
-                let params = {
-                    webservice_id: this.$route.params.merchantCode
-                };
-
-                this.$store.state.http.requests['webservice.postEdit'].update(params, webserviceData).then(
-                    () => {
-                        this.changeWebserviceState();
-                        store.commit('flashMessage', {
-                            text: 'WebserviceEditedSuccessLocal',
-                            type: 'success'
-                        });
-                        this.$router.push({name: 'webservice.index'})
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            },
-            changeWebserviceState(){
-                let vm = this;
-                let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function (webservice) {
-                    return webservice.entity_id === vm.$route.params.merchantCode;
-                });
-
-                this.$store.state.auth.user.webservices[webserviceIndex].ip = this.site_ip;
-                this.$store.state.auth.user.webservices[webserviceIndex].purse = this.purse;
-                this.$store.state.auth.user.webservices[webserviceIndex].category_id = this.webservice_category_id;
-            },
-            dragOver() {
-                window.addEventListener("dragover", function (e) {
-                    e.preventDefault();
-                }, false);
-                this.fileHover = true;
-            },
-            onDrop(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createFile(files[0]);
-                this.fileName = files[0].name;
-                this.fileHover = false;
-            },
-            onLogoChange(e) {
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createFile(files[0]);
-            },
-            createFile(file) {
-                if (!file.type.match('image.*')) {
-                    store.commit('flashMessage', {
-                        text: 'WebserviceFileNotImageLocal',
-                        type: 'danger'
-                    });
-                    return;
-                }
-
-                this.uploading = true;
-
-                //set image on image element
-                let image = new Image();
-                let reader = new FileReader();
-                let vm = this;
-
-                reader.onload = (e) => {
-                    vm.selectedLogo = e.target.result;
-                };
-                reader.readAsDataURL(file);
-
-                let formData = new FormData();
-                formData.append('type', 'logo');
-                formData.append('file', file);
-
-                this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
-                    this.site_logo = response.data.meta.file_id;
-                    this.uploading = false;
-                }, (response) => {
-                    this.uploading = false;
-                    store.commit('flashMessage', {
-                        text: response.data.meta.error_type,
-                        type: 'danger'
-                    });
-                });
-            }
-        },
-        components: {
-            loading,
-            selectbox,
-            purse,
-            webserviceCategories
+          });
         }
+      },
+      webserviceCatSelection() {
+        if (this.$store.state.app.webserviceCategories) {
+          return this.$store.state.app.webserviceCategories.map(function(value) {
+            return {
+              'title': value.title,
+              'value': value.public_id
+            }
+          });
+        }
+      },
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          site_ip: this.site_ip,
+          purse: this.purse,
+          webservice_category_id: this.webservice_category_id
+        }).then((result) => {
+          if (result) {
+            this.editWebservice();
+          }
+        });
+      },
+      removeErrors: function(field) {
+        !!this[field] && this.errors.remove(field);
+      },
+      selectedPurse(purseId) {
+        this.purse = purseId;
+      },
+      selectedWebserviceCat(webserviceCatId) {
+        this.webservice_category_id = webserviceCatId;
+      },
+      editWebservice() {
+        this.loading = true;
+
+        if (this.visibleIp === 'no') {
+          this.site_ip = null;
+        }
+
+        let webserviceData = {
+          purse: this.purse,
+          is_coupon_active: this.is_coupon_active,
+          webservice_category_id: this.webservice_category_id,
+          site_ip: this.site_ip,
+          site_logo: this.site_logo,
+        };
+
+        let params = {
+          webservice_id: this.$route.params.merchantCode
+        };
+
+        this.$store.state.http.requests['webservice.postEdit'].update(params, webserviceData).then(
+            () => {
+              this.changeWebserviceState();
+              store.commit('flashMessage', {
+                text: 'WebserviceEditedSuccessLocal',
+                type: 'success'
+              });
+              this.$router.push({name: 'webservice.index'})
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
+            }
+        )
+      },
+      changeWebserviceState(){
+        let vm = this;
+        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
+          return webservice.entity_id === vm.$route.params.merchantCode;
+        });
+
+        this.$store.state.auth.user.webservices[webserviceIndex].ip = this.site_ip;
+        this.$store.state.auth.user.webservices[webserviceIndex].purse = this.purse;
+        this.$store.state.auth.user.webservices[webserviceIndex].category_id = this.webservice_category_id;
+      },
+      dragOver() {
+        window.addEventListener("dragover", function(e) {
+          e.preventDefault();
+        }, false);
+        this.fileHover = true;
+      },
+      onDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createFile(files[0]);
+        this.fileName = files[0].name;
+        this.fileHover = false;
+      },
+      onLogoChange(e) {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createFile(files[0]);
+      },
+      createFile(file) {
+        if (!file.type.match('image.*')) {
+          store.commit('flashMessage', {
+            text: 'WebserviceFileNotImageLocal',
+            type: 'danger'
+          });
+          return;
+        }
+
+        this.uploading = true;
+
+        //set image on image element
+        let image = new Image();
+        let reader = new FileReader();
+        let vm = this;
+
+        reader.onload = (e) => {
+          vm.selectedLogo = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        let formData = new FormData();
+        formData.append('type', 'logo');
+        formData.append('file', file);
+
+        this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+          this.site_logo = response.data.meta.file_id;
+          this.uploading = false;
+        }, (response) => {
+          this.uploading = false;
+          store.commit('flashMessage', {
+            text: response.data.meta.error_type,
+            type: 'danger'
+          });
+        });
+      }
+    },
+    components: {
+      loading,
+      selectbox,
+      purse,
+      webserviceCategories
     }
+  }
 </script>
