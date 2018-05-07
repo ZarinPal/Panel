@@ -88,29 +88,11 @@
                 store.commit('clearValidationErrors');
             },
         },
+
         components: {
             singleWebservice,
             showTrustCode,
             loading
-        }
-      };
-    },
-    methods: {
-      getWebservices() {
-        let vm = this;
-        this.$store.dispatch(
-            'paginator/make',
-            {
-              vm,
-              resource: vm.$store.state.http.requests['webservice.getIndex'],
-              requestName: "WebserviceList"
-            }
-        );
-      }
-    },
-    components: {
-      singleWebservice,
-      loading
-    }
+        },
   }
 </script>

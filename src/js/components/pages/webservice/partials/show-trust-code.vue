@@ -9,13 +9,13 @@
 
             div.col-xs
               div.row.no-margin
-                            textarea(id="TrustCodeLogo" v-model="message" @focus="this.select();" readonly)
+                            textarea(id="TrustCodeLogo" v-model="message" @focus="selectCode" readonly)
                             div.ta-right(v-if="validation('content')")
                                 span.text-danger {{ errors.first('content') }}
 
                 
             div.col-xs.xs-ta-center
-                button.btn.btn-gradient-radius(tag="button"    @click="clipboardMessage()" v-clipboard='boogh2' v-bind:data-clipboard-text="message")
+                button.btn.btn-gradient-radius(tag="button"    @click="clipboardMessage" v-clipboard='message' v-bind:data-clipboard-text="message")
                     span.btn-label.top-0 {{ $i18n.t('webservice.codeCopy') }}
 
                
@@ -38,15 +38,14 @@
                 this.$emit('closeModal');
             },
             clipboardMessage(event) {
-                setTimeout(function () {
-                    let TrustCode = document.getElementById('TrustCodeLogo');
-                        TrustCode.select();                
-                }, 10);
                 store.commit('flashMessage', {
                     text: 'Copied',
                     type: 'success',
                     timeout: '1500'
                 });
+            },
+            selectCode() {
+                document.getElementById('TrustCodeLogo').select();                
             }
         },
         components: {
