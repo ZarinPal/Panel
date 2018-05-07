@@ -16,7 +16,7 @@
             span(v-else)
                 div(v-if="this.$store.state.auth.user.cards")
                     form(autocomplete="on" onsubmit="event.preventDefault();")
-                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" placeholder="انتخاب کیف‌پول")
+                        purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" id="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" tabindex="2" v-bind:selected="purse" :placeholder="$i18n.t('easypay.selectPurse')")
                         div.ta-right(v-if="validation('purse')")
                             span.text-danger {{ errors.first('purse') }}
 
@@ -83,242 +83,242 @@
 
 
 <script>
-    import selectbox from '../../partials/selectbox.vue';
-    import loading from '../../partials/loading.vue';
-    import modal from '../../partials/modal.vue';
-    import cards from '../../partials/cards.vue';
-    import purse from '../../partials/purses.vue';
-    import confirm from '../../partials/confirm.vue';
-    import VueNumeric from 'vue-numeric';
+  import selectbox from '../../partials/selectbox.vue';
+  import loading from '../../partials/loading.vue';
+  import modal from '../../partials/modal.vue';
+  import cards from '../../partials/cards.vue';
+  import purse from '../../partials/purses.vue';
+  import confirm from '../../partials/confirm.vue';
+  import VueNumeric from 'vue-numeric';
 
-    export default {
-        name: 'home-purse-withdraw',
-        data() {
-            return {
-                loading: false,
-                closeModalContent: false,
-                confirmVisible: false,
-                amount: '',
-                purse: null,
-                redirectUrl: encodeURI(
-                    'https://' + window.location.hostname + '/'
-                    + this.$router.resolve({name: 'home.finishAddFund'}).href),
-                card: {},
-                card_id: null,
-                isLoadedFees: false,
-                withdrawAmount: 0,
-                feeDetails: {
-                    id: 'default',
-                    details: null,
-                },
-                validFees: [],
-                selectedFee: {},
-                reconcileIn: null,
-                fees: [],
+  export default {
+    name: 'home-purse-withdraw',
+    data() {
+      return {
+        loading: false,
+        closeModalContent: false,
+        confirmVisible: false,
+        amount: '',
+        purse: null,
+        redirectUrl: encodeURI(
+            'https://' + window.location.hostname + '/'
+            + this.$router.resolve({name: 'home.finishAddFund'}).href),
+        card: {},
+        card_id: null,
+        isLoadedFees: false,
+        withdrawAmount: 0,
+        feeDetails: {
+          id: 'default',
+          details: null,
+        },
+        validFees: [],
+        selectedFee: {},
+        reconcileIn: null,
+        fees: [],
+      }
+    },
+    computed: {
+      cards() {
+        //check user cant withdraw or not
+        if (this.$store.state.auth.user.cards) {
+          let activeCards = [];
+          _.forEach(this.$store.state.auth.user.cards, function(card) {
+            if (card.status === "Active") {
+              activeCards.unshift(card);
             }
-        },
-        computed: {
-            cards() {
-                //check user cant withdraw or not
-                if (this.$store.state.auth.user.cards) {
-                    let activeCards = [];
-                    _.forEach(this.$store.state.auth.user.cards, function (card) {
-                        if (card.status === "Active") {
-                            activeCards.unshift(card);
-                        }
-                    });
-                    return activeCards;
-                }
-            }
-        },
-        watch: {
-            amount: function () {
-                this.withdrawAmount = (this.amount * (this.feeDetails.details.percent / 100)).toFixed(0);
-            },
-        },
-        created() {
-            store.commit('clearValidationErrors');
-            this.getFees();
-        },
-        mounted() {
-            this.closeModalContent = false;
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    amount: this.amount,
-                    card_id: this.card_id,
-                    purse: this.purse
-                }).then((result) => {
-                    if (result) {
-                        this.confirmVisible = !this.confirmVisible;
-                    }
-                });
-            },
-            removeErrors: function (field) {
-                this.errors.remove(field);
-            },
-            closeModal() {
-                if (this.confirmVisible) {
-                    this.confirmVisible = false;
-                } else {
-                    this.$emit('closeModal');
-                }
-            },
-            calcPercentAmount() {
-                this.withdrawAmount = (this.clearNumber(this.amount) * (this.feeDetails.details.percent / 100)).toFixed(0);
-            },
-            calcFeeDate(seconds) {
-                let numDays = Math.floor(seconds / 86400);
-                let numHours = Math.floor((seconds % 86400) / 3600);
-                if (numDays > 0) {
-                    return numDays + ' روز و ' + numHours + ' ساعت ';
-                } else {
-                    return numHours + ' ساعت ';
-                }
-            },
-            selectedPurse(purseId) {
-                this.purse = purseId;
-                //get purse amount
-                this.getPurseAmount(purseId);
-                this.calcPercentAmount();
-            },
-            selectedCard(cardId) {
-                this.card.id = cardId;
-                this.card_id = cardId;
-
-                let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function (card) {
-                    return card.entity_id === cardId;
-                });
-
-                this.card.slug = this.$store.state.auth.user.cards[cardIndex].issuer.slug;
-                this.getFeeWithdrawMethod();
-                this.selectFee();
-            },
-            selectFee(feeId) {
-                if (!feeId) {
-                    feeId = 'default';
-                }
-
-                let feeIndex = _.findIndex(this.fees, function (fee) {
-                    return fee.id === feeId;
-                });
-
-                this.validFees = [];
-
-                this.validFees.push(this.fees[0]);
-                let vm = this;
-                this.fees.forEach(function (fee, feeIndex) {
-                    if (feeIndex > 0) {
-                        fee.withdraw_method.forEach(function (feeMethod) {
-                            if (vm.card.slug) {
-                                if (vm.card.slug.toLowerCase() === feeMethod.slug.toLowerCase()) {
-                                    vm.validFees.push(fee);
-                                }
-                            }
-                        });
-                    }
-                });
-
-                this.selectedFee = this.fees[feeIndex];
-                this.getFeeWithdrawMethod();
-                this.calcPercentAmount();
-            },
-            getPurseAmount(purseId) {
-                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function (purse) {
-                    return purse.purse === purseId;
-                });
-                this.withdrawAmount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
-            },
-            getPursesBalances() {
-                this.$store.state.auth.updatePurseListener++;
-                this.$store.dispatch('auth/fetchPurseBalance');
-                this.$store.state.timer.getPurseBalanceTime = Date.now();
-            },
-            getFeeWithdrawMethod() {
-                let cardType = 'default';
-                if (this.card.slug === 'ZarinCard') {
-                    cardType = 'zarincard';
-                }
-
-                let feeSlugIndex = _.findIndex(this.selectedFee.withdraw_method, function (fee) {
-                    return fee.slug === cardType;
-                });
-                this.feeDetails.details = this.selectedFee.withdraw_method[feeSlugIndex];
-            },
-            getFees() {
-                this.isLoadedFees = true;
-
-                this.$store.state.http.requests['app.fees'].get().then(
-                    (response) => {
-                        this.fees = response.data.data;
-
-                        //fee init
-                        let feeIndex = _.findIndex(this.fees, function (fee) {
-                            return fee.id === 'default';
-                        });
-                        this.selectedFee = this.fees[feeIndex];
-                        this.selectFee();
-                        this.getFeeWithdrawMethod();
-
-                        this.isLoadedFees = false;
-                    }, () => {
-                        this.isLoadedFees = false;
-                    }
-                );
-            },
-            withdraw() {
-                this.loading = true;
-                let withdrawData = {
-                    amount: this.clearNumber(this.amount),
-                    card_id: this.card_id,
-                    purse: this.purse,
-                    fee_id: this.feeDetails.id
-                };
-
-                this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
-                    (response) => {
-                        //update purse balance after withdraw
-                        this.getPursesBalances();
-                        this.loading = false;
-                        this.$store.commit('flashMessage', {
-                            text: response.data.meta.message,
-                            type: 'success'
-                        });
-
-                        //Close modal after operation success
-                        this.confirmVisible = false;
-                        this.$emit('closeModal');
-
-                        this.$router.push({
-                            name: 'transaction.index',
-                            params: {
-                                id: this.purse,
-                                type: 'purse',
-                                transactionId: response.data.data.transaction_public_id
-                            }
-                        });
-                    },
-                    (response) => {
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        this.$store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                        this.loading = false;
-                    }
-                )
-            },
-        },
-        components: {
-            selectbox,
-            modal,
-            cards,
-            purse,
-            loading,
-            confirm,
-            VueNumeric
+          });
+          return activeCards;
         }
+      }
+    },
+    watch: {
+      amount: function() {
+        this.withdrawAmount = (this.amount * (this.feeDetails.details.percent / 100)).toFixed(0);
+      },
+    },
+    created() {
+      store.commit('clearValidationErrors');
+      this.getFees();
+    },
+    mounted() {
+      this.closeModalContent = false;
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          amount: this.amount,
+          card_id: this.card_id,
+          purse: this.purse
+        }).then((result) => {
+          if (result) {
+            this.confirmVisible = !this.confirmVisible;
+          }
+        });
+      },
+      removeErrors: function(field) {
+        this.errors.remove(field);
+      },
+      closeModal() {
+        if (this.confirmVisible) {
+          this.confirmVisible = false;
+        } else {
+          this.$emit('closeModal');
+        }
+      },
+      calcPercentAmount() {
+        this.withdrawAmount = (this.clearNumber(this.amount) * (this.feeDetails.details.percent / 100)).toFixed(0);
+      },
+      calcFeeDate(seconds) {
+        let numDays = Math.floor(seconds / 86400);
+        let numHours = Math.floor((seconds % 86400) / 3600);
+        if (numDays > 0) {
+          return numDays + ' روز و ' + numHours + ' ساعت ';
+        } else {
+          return numHours + ' ساعت ';
+        }
+      },
+      selectedPurse(purseId) {
+        this.purse = purseId;
+        //get purse amount
+        this.getPurseAmount(purseId);
+        this.calcPercentAmount();
+      },
+      selectedCard(cardId) {
+        this.card.id = cardId;
+        this.card_id = cardId;
+
+        let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function(card) {
+          return card.entity_id === cardId;
+        });
+
+        this.card.slug = this.$store.state.auth.user.cards[cardIndex].issuer.slug;
+        this.getFeeWithdrawMethod();
+        this.selectFee();
+      },
+      selectFee(feeId) {
+        if (!feeId) {
+          feeId = 'default';
+        }
+
+        let feeIndex = _.findIndex(this.fees, function(fee) {
+          return fee.id === feeId;
+        });
+
+        this.validFees = [];
+
+        this.validFees.push(this.fees[0]);
+        let vm = this;
+        this.fees.forEach(function(fee, feeIndex) {
+          if (feeIndex > 0) {
+            fee.withdraw_method.forEach(function(feeMethod) {
+              if (vm.card.slug) {
+                if (vm.card.slug.toLowerCase() === feeMethod.slug.toLowerCase()) {
+                  vm.validFees.push(fee);
+                }
+              }
+            });
+          }
+        });
+
+        this.selectedFee = this.fees[feeIndex];
+        this.getFeeWithdrawMethod();
+        this.calcPercentAmount();
+      },
+      getPurseAmount(purseId) {
+        let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+          return purse.purse === purseId;
+        });
+        this.withdrawAmount = this.$store.state.auth.user.purses[purseIndex].balance.balance;
+      },
+      getPursesBalances() {
+        this.$store.state.auth.updatePurseListener++;
+        this.$store.dispatch('auth/fetchPurseBalance');
+        this.$store.state.timer.getPurseBalanceTime = Date.now();
+      },
+      getFeeWithdrawMethod() {
+        let cardType = 'default';
+        if (this.card.slug === 'ZarinCard') {
+          cardType = 'zarincard';
+        }
+
+        let feeSlugIndex = _.findIndex(this.selectedFee.withdraw_method, function(fee) {
+          return fee.slug === cardType;
+        });
+        this.feeDetails.details = this.selectedFee.withdraw_method[feeSlugIndex];
+      },
+      getFees() {
+        this.isLoadedFees = true;
+
+        this.$store.state.http.requests['app.fees'].get().then(
+            (response) => {
+              this.fees = response.data.data;
+
+              //fee init
+              let feeIndex = _.findIndex(this.fees, function(fee) {
+                return fee.id === 'default';
+              });
+              this.selectedFee = this.fees[feeIndex];
+              this.selectFee();
+              this.getFeeWithdrawMethod();
+
+              this.isLoadedFees = false;
+            }, () => {
+              this.isLoadedFees = false;
+            }
+        );
+      },
+      withdraw() {
+        this.loading = true;
+        let withdrawData = {
+          amount: this.clearNumber(this.amount),
+          card_id: this.card_id,
+          purse: this.purse,
+          fee_id: this.feeDetails.id
+        };
+
+        this.$store.state.http.requests['transaction.postWithdraw'].save(withdrawData).then(
+            (response) => {
+              //update purse balance after withdraw
+              this.getPursesBalances();
+              this.loading = false;
+              this.$store.commit('flashMessage', {
+                text: response.data.meta.message,
+                type: 'success'
+              });
+
+              //Close modal after operation success
+              this.confirmVisible = false;
+              this.$emit('closeModal');
+
+              this.$router.push({
+                name: 'transaction.index',
+                params: {
+                  id: this.purse,
+                  type: 'purse',
+                  transactionId: response.data.data.transaction_public_id
+                }
+              });
+            },
+            (response) => {
+              store.commit('setValidationErrors', response.data.validation_errors);
+              this.$store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
+              this.loading = false;
+            }
+        )
+      },
+    },
+    components: {
+      selectbox,
+      modal,
+      cards,
+      purse,
+      loading,
+      confirm,
+      VueNumeric
     }
+  }
 </script>

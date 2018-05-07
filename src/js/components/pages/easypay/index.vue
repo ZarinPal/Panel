@@ -57,82 +57,82 @@
 </template>
 
 <script>
-    import singleEasypay from './partials/single-easypay.vue';
-    import loading from '../../pages/partials/loading.vue';
-    import personalLink from '../../pages/easypay/partials/personal_link.vue';
+  import singleEasypay from './partials/single-easypay.vue';
+  import loading from '../../pages/partials/loading.vue';
+  import personalLink from '../../pages/easypay/partials/personal_link.vue';
 
-    export default {
-        name: 'easypay-index',
-        data() {
-            return {
-                searchOptions: {
-                    title: ''
-                },
-                preLink: 'https://Zarinp.al/@',
-                shortPreLink: 'Zarinp.al/@',
-                visibleRequestPersonalLink: false,
-            }
+  export default {
+    name: 'easypay-index',
+    data() {
+      return {
+        searchOptions: {
+          title: ''
         },
-        computed: {
-            user(){
-                return this.$store.state.auth.user;
-            },
-            easypays() {
-                return {
-                    data: this.$store.state.paginator.paginator.EasypayList.data,
-                    status: this.$store.state.paginator.paginator.EasypayList.isLoading,
-                    update: this.$store.state.paginator.update,
-                };
-            }
-        },
-        created() {
-            this.showPersonalLink();
+        preLink: 'https://Zarinp.al/@',
+        shortPreLink: 'Zarinp.al/@',
+        visibleRequestPersonalLink: false,
+      }
+    },
+    computed: {
+      user(){
+        return this.$store.state.auth.user;
+      },
+      easypays() {
+        return {
+          data: this.$store.state.paginator.paginator.EasypayList.data,
+          status: this.$store.state.paginator.paginator.EasypayList.isLoading,
+          update: this.$store.state.paginator.update,
+        };
+      }
+    },
+    created() {
+      this.showPersonalLink();
 
-            this.search();
+      this.search();
 
-            let vm = this;
-            window.onscroll = function () {
-                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                    && !vm.$store.state.paginator.paginator.EasypayList.isLoading) {
-                    vm.$store.dispatch(
-                        'paginator/next',
-                        {
-                            params: vm.searchOptions,
-                            requestName: "EasypayList",
-                        }
-                    );
-                }
-            };
-        },
-        methods: {
-            closeModal(){
-                this.visibleRequestPersonalLink = false;
-            },
-            search() {
-                this.getEasypays();
-            },
-            getEasypays() {
-                let vm = this;
-                this.$store.dispatch(
-                    'paginator/make',
-                    {
-                        vm,
-                        resource: vm.$store.state.http.requests['easypay.getList'],
-                        requestName: "EasypayList",
-                        params: vm.searchOptions,
-                    }
-                );
-            },
-            showPersonalLink() {
-                if (this.$route.params.visiblePersonalLink == 'Yes') {
-                    this.visibleRequestPersonalLink = true;
-                }
-            },
-        },
-        components: {
-            singleEasypay,
-            loading,
-            'personal-link': personalLink
+      let vm = this;
+      window.onscroll = function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+            && !vm.$store.state.paginator.paginator.EasypayList.isLoading) {
+          vm.$store.dispatch(
+              'paginator/next',
+              {
+                params: vm.searchOptions,
+                requestName: "EasypayList",
+              }
+          );
         }
+      };
+    },
+    methods: {
+      closeModal(){
+        this.visibleRequestPersonalLink = false;
+      },
+      search() {
+        this.getEasypays();
+      },
+      getEasypays() {
+        let vm = this;
+        this.$store.dispatch(
+            'paginator/make',
+            {
+              vm,
+              resource: vm.$store.state.http.requests['easypay.getList'],
+              requestName: "EasypayList",
+              params: vm.searchOptions,
+            }
+        );
+      },
+      showPersonalLink() {
+        if (this.$route.params.visiblePersonalLink == 'Yes') {
+          this.visibleRequestPersonalLink = true;
+        }
+      },
+    },
+    components: {
+      singleEasypay,
+      loading,
+      'personal-link': personalLink
     }
+  }
 </script>

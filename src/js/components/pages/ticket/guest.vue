@@ -44,7 +44,7 @@
                         div.col-lg-3.col-md-4.col-sm-4.col-xs-12
                             span.status.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
                             span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
-                            button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
+                            button.btn.success.hidden-lg(v-on:click="closeReplies()") {{ $i18n.t('common.return') }}
 
                 div.replies
                     span(v-for="reply in ticket.replies")
@@ -67,10 +67,10 @@
                     div.row
                         div.col-xs
                             div
-                                b.title لطفا به نکات زیر توجه فرمایید:
-                                div * پس از ارسال تیکت حداکثر تا ۱۲ ساعت آینده پاسخ برای شما ارسال خواهد شد.
-                                div * برخی از تيکت ها ممکن است، نياز به زمان بيشتری برای بررسی داشته باشند.
-                                div * پس از ارسال تيکت، نيازی به تماس تلفنی نيست. تيکت ارسالی شما قطعا توسط همکاران ما بررسی و پاسخ داده خواهد شد.
+                                b.title {{ $i18n.t('ticket.ticketNoteSentence')}}
+                                div {{ $i18n.t('ticket.ticketNoteSentence2')}}
+                                div {{ $i18n.t('ticket.ticketNoteSentence3')}}
+                                div {{ $i18n.t('ticket.ticketNoteSentence4')}}
                 div.nav-send
                     div.row
                         div.col-xs
@@ -97,182 +97,181 @@
 </template>
 
 <script>
-    import loading from '../partials/loading.vue';
+  import loading from '../partials/loading.vue';
 
-    export default {
-        name: 'ticket-guest',
-        data() {
-            return {
-                requesting: false,
-                loading: false,
-                fileUploading: false,
-                uploadResult: false,
-                fileUploaded: false,
+  export default {
+    name: 'ticket-guest',
+    data() {
+      return {
+        requesting: false,
+        loading: false,
+        fileUploading: false,
+        uploadResult: false,
+        fileUploaded: false,
 
-                /**
-                 * Get Ticket
-                 */
-                txtPhone: null,
-                txtPublicId: null,
+        /**
+         * Get Ticket
+         */
+        txtPhone: null,
+        txtPublicId: null,
 
-                phone: this.$route.params.phone,
-                publicId: this.$route.params.publicId,
-                ticket: null,
+        phone: this.$route.params.phone,
+        publicId: this.$route.params.publicId,
+        ticket: null,
 
-                /**
-                 * Post Ticket Reply
-                 */
-                content: null,
-                attachment: null,
+        /**
+         * Post Ticket Reply
+         */
+        content: null,
+        attachment: null,
+      }
+    },
+    created() {
+      if (this.$route.params.phone && this.$route.params.publicId) {
+        this.getGuestTicket();
+      }
+    },
+    methods: {
+      validateSearchForm() {
+        this.$validator.validateAll({
+          txtPhone: this.txtPhone,
+          txtPublicId: this.txtPublicId,
+        }).then((result) => {
+          if (result) {
+            this.getGuestTicket();
+          }
+        });
+      },
+      validateForm() {
+        this.$validator.validateAll({
+          content: this.content,
+        }).then((result) => {
+          if (result) {
+            this.postTicketReply();
+          }
+        });
+      },
+
+      /**
+       * File uploading
+       */
+
+      onFileChange(e) {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createFile(files[0]);
+      },
+      createFile(file) {
+        this.fileUploading = true;
+        let reader = new FileReader();
+        let vm = this;
+
+        reader.onload = (e) => {
+          vm.attachment = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        let formData = new FormData();
+        formData.append('type', 'document');
+        formData.append('file', file);
+
+        this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+          this.attachment = response.data.meta.file_id;
+          this.fileUploading = false;
+          this.fileUploaded = true;
+          this.uploadResult = response.data.meta;
+        }, (response) => {
+          this.fileUploading = 'Failed';
+        });
+      },
+      downloadAttachFile(url) {
+        window.open(url);
+      },
+      clipboardMessage() {
+        store.commit('flashMessage', {
+          text: 'Copied',
+          type: 'success',
+          timeout: '500'
+
+        });
+      },
+      kebabCase(value) {
+        return _.kebabCase(value);
+      },
+
+      /**
+       * Api
+       */
+      getGuestTicket() {
+        this.requesting = true;
+        let vm = this;
+        let ticketData = {
+          phone: this.phone,
+          publicId: this.publicId,
+        };
+
+        if (!!this.txtPhone && !!this.txtPublicId) {
+          ticketData = {
+            phone: btoa(this.txtPhone),
+            publicId: btoa(this.txtPublicId)
+          }
+        }
+
+        this.$store.state.http.requests['getReply'].get(ticketData).then((response) => {
+          vm.ticket = response.data.data;
+          vm.requesting = false;
+        }).catch((response) => {
+          vm.requesting = false;
+          store.commit('setValidationErrors', response.data.validation_errors);
+          store.commit('flashMessage', {
+            text: response.data.meta.error_type,
+            type: 'danger'
+          });
+        });
+      },
+      postTicketReply() {
+        let params = {
+          phone: this.phone,
+          publicId: this.publicId,
+        };
+
+        if (!!this.txtPhone && !!this.txtPublicId) {
+          params = {
+            phone: btoa(this.txtPhone),
+            publicId: btoa(this.txtPublicId)
+          }
+        }
+
+        let ticketData = {
+          content: this.content,
+          attachment: this.attachment
+        };
+
+        this.$store.state.http.requests['getReply'].save(params, ticketData).then(
+            () => {
+              this.content = '';
+              this.getGuestTicket(this.$route.params.id);
+              this.loading = false;
+              store.commit('flashMessage', {
+                text: 'TicketReplySuccessLocal',
+                type: 'success'
+              });
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
             }
-        },
-        created() {
-            if (this.$route.params.phone && this.$route.params.publicId) {
-                this.getGuestTicket();
-            }
-        },
-        methods: {
-            validateSearchForm() {
-                this.$validator.validateAll({
-                    txtPhone: this.txtPhone,
-                    txtPublicId: this.txtPublicId,
-                }).then((result) => {
-                    if (result) {
-                        this.getGuestTicket();
-                    }
-                });
-            },
-            validateForm() {
-                this.$validator.validateAll({
-                    content: this.content,
-                }).then((result) => {
-                    if (result) {
-                        this.postTicketReply();
-                    }
-                });
-            },
+        )
 
-            /**
-             * File uploading
-             */
-
-            onFileChange(e) {
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createFile(files[0]);
-            },
-            createFile(file) {
-                this.fileUploading = true;
-                let reader = new FileReader();
-                let vm = this;
-
-                reader.onload = (e) => {
-                    vm.attachment = e.target.result;
-                };
-                reader.readAsDataURL(file);
-
-                let formData = new FormData();
-                formData.append('type', 'document');
-                formData.append('file', file);
-
-                this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
-                    this.attachment = response.data.meta.file_id;
-                    this.fileUploading = false;
-                    this.fileUploaded = true;
-                    this.uploadResult = response.data.meta;
-                }, (response) => {
-                    this.fileUploading = 'Failed';
-                });
-            },
-            downloadAttachFile(url) {
-                window.open(url);
-            },
-            clipboardMessage() {
-                store.commit('flashMessage', {
-                    text: 'Copied',
-                    type: 'success',
-                    timeout: '500'
-
-                });
-            },
-            kebabCase(value) {
-                return _.kebabCase(value);
-            },
-
-            /**
-             * Api
-             */
-            getGuestTicket() {
-                this.requesting = true;
-                let vm = this;
-                let ticketData = {
-                    phone: this.phone,
-                    publicId: this.publicId,
-                };
-
-                if (!!this.txtPhone && !!this.txtPublicId) {
-                    ticketData = {
-                        phone: btoa(this.txtPhone),
-                        publicId: btoa(this.txtPublicId)
-                    }
-                }
-
-                this.$store.state.http.requests['getReply'].get(ticketData)
-                    .then((response) => {
-                        vm.ticket = response.data.data;
-                        vm.requesting = false;
-                    }).catch((response) => {
-                    vm.requesting = false;
-                    store.commit('setValidationErrors', response.data.validation_errors);
-                    store.commit('flashMessage', {
-                        text: response.data.meta.error_type,
-                        type: 'danger'
-                    });
-                });
-            },
-            postTicketReply() {
-                let params = {
-                    phone: this.phone,
-                    publicId: this.publicId,
-                };
-
-                if (!!this.txtPhone && !!this.txtPublicId) {
-                    params = {
-                        phone: btoa(this.txtPhone),
-                        publicId: btoa(this.txtPublicId)
-                    }
-                }
-
-                let ticketData = {
-                    content: this.content,
-                    attachment: this.attachment
-                };
-
-                this.$store.state.http.requests['getReply'].save(params, ticketData).then(
-                    () => {
-                        this.content = '';
-                        this.getGuestTicket(this.$route.params.id);
-                        this.loading = false;
-                        store.commit('flashMessage', {
-                            text: 'TicketReplySuccessLocal',
-                            type: 'success'
-                        });
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-
-            }
-        },
-        components: {
-            loading
-        },
-    }
+      }
+    },
+    components: {
+      loading
+    },
+  }
 </script>

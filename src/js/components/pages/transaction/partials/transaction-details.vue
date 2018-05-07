@@ -135,9 +135,9 @@
 
                     div.row
                         div.col-xs
-                            button.btn.success(@click="saveNote" v-if="isEditingNote" ) ذخیره یادداشت
-                            button.btn(@click="addNote" v-else-if="transaction.note" ) ویرایش یادداشت
-                            button.btn(@click="addNote" v-else="!transaction.note" ) افزودن یادداشت
+                            button.btn.success(@click="saveNote" v-if="isEditingNote" )  {{$i18n.t('transaction.saveNote')}}
+                            button.btn(@click="addNote" v-else-if="transaction.note" )  {{$i18n.t('transaction.editNote')}}
+                            button.btn(@click="addNote" v-else="!transaction.note" )  {{$i18n.t('transaction.addNote')}}
                         div.col-xs
                             a(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'")
                                 button.btn {{$i18n.t('transaction.print')}}
@@ -147,77 +147,75 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
+  import modal from '../../partials/modal.vue';
 
-    export default {
-        name: 'transaction-details',
-        data() {
-            return {
-                closeModalContent: true,
-                purseName: null,
-                txtTransactionNote: this.transaction.note,
-                isEditingNote: false,
-            }
-        },
-        props: ['transaction'],
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            }
-        },
-        created() {
-            store.commit('clearValidationErrors');
-            if (this.transaction.to_user) {
-                this.purseName = this.getPurseName(this.transaction.to_user.purse);
-            }
-        },
-        mounted() {
-            this.closeModalContent = false
-        },
-        methods: {
-            closeModal() {
-                this.$emit('closeModal')
+  export default {
+    name: 'transaction-details',
+    data() {
+      return {
+        closeModalContent: true,
+        purseName: null,
+        txtTransactionNote: this.transaction.note,
+        isEditingNote: false,
+      }
+    },
+    props: ['transaction'],
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      }
+    },
+    created() {
+      store.commit('clearValidationErrors');
+      if (this.transaction.to_user) {
+        this.purseName = this.getPurseName(this.transaction.to_user.purse);
+      }
+    },
+    mounted() {
+      this.closeModalContent = false
+    },
+    methods: {
+      closeModal() {
+        this.$emit('closeModal')
+      },
+      getPurseName(purseId) {
+        return _.find(this.$store.state.auth.user.purses, function(purse) {
+          return purse.purse === purseId;
+        });
+
+      },
+      addNote() {
+        this.isEditingNote = true;
+      },
+      saveNote() {
+        let sendContent = {
+          note: this.txtTransactionNote
+        };
+        this.$store.state.http.requests['transaction.getInfo'].update({'transactionId': this.transaction.public_id},
+            sendContent).then(() => {
+              this.transaction.note = this.txtTransactionNote;
+              this.isEditingNote = false;
+              store.commit('flashMessage', {
+                text: 'TransactionEditNoteDoneLocal',
+                type: 'success'
+              });
             },
-            getPurseName(purseId) {
-                return _.find(this.$store.state.auth.user.purses, function (purse) {
-                    return purse.purse === purseId;
-                });
-
-            },
-            addNote() {
-                this.isEditingNote = true;
-            },
-            saveNote() {
-                let sendContent = {
-                    note: this.txtTransactionNote
-                };
-                this.$store.state.http.requests['transaction.getInfo']
-                    .update({'transactionId': this.transaction.public_id}, sendContent)
-                    .then(() => {
-                            this.transaction.note = this.txtTransactionNote;
-                            this.isEditingNote = false;
-                            store.commit('flashMessage', {
-                                text: 'TransactionEditNoteDoneLocal',
-                                type: 'success'
-                            });
-                        },
-                        (response) => {
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                type: 'danger'
-                            });
-
-                        }
-                    );
-
+            (response) => {
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
 
             }
+        );
 
-        },
-        components: {
-            modal
-        }
+      }
+
+    },
+    components: {
+      modal
     }
+  }
 
 </script>

@@ -111,33 +111,33 @@
 
 </template>
 <script>
-    import editCard from './edit.vue';
-    import transferShetab from './transferShetab.vue';
-    import zarinCardStatement from './zarinCardStatement.vue';
+  import editCard from './edit.vue';
+  import transferShetab from './transferShetab.vue';
+  import zarinCardStatement from './zarinCardStatement.vue';
 
-    export default {
-        name: 'pages-card-partials-singleCard',
-        data(){
-            return {
-                showEditCard: false,
-                showTransferShetab: false,
-                showZarinCardStatement: false,
-                zarin: 'zarin-logo'
-            }
-        },
-        props: ['card'],
-        methods: {
-            closeModal() {
-                this.showEditCard = false;
-                this.showTransferShetab = false;
-                this.showZarinCardStatement = false;
-                store.commit('clearValidationErrors');
-            }
-        },
-        components: {
-            editCard,
-            transferShetab,
-            zarinCardStatement
-        }
+  export default {
+    name: 'pages-card-partials-singleCard',
+    data(){
+      return {
+        showEditCard: false,
+        showTransferShetab: false,
+        showZarinCardStatement: false,
+        zarin: 'zarin-logo'
+      }
+    },
+    props: ['card'],
+    methods: {
+      closeModal() {
+        this.showEditCard = false;
+        this.showTransferShetab = false;
+        this.showZarinCardStatement = false;
+        store.commit('clearValidationErrors');
+      }
+    },
+    components: {
+      editCard,
+      transferShetab,
+      zarinCardStatement
     }
+  }
 </script>

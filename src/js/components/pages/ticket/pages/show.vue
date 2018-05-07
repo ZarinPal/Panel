@@ -20,7 +20,7 @@
                 div.col-lg-3.col-md-4.col-sm-4.col-xs-12
                     span.status.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
                     span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
-                    button.btn.success.hidden-lg(v-on:click="closeReplies()") بازگشت
+                    button.btn.success.hidden-lg(v-on:click="closeReplies()") {{ $i18n.t('common.return')}}
 
         div.replies
             div.col-xs.ta-center
@@ -62,17 +62,17 @@
             div.row
                 div.col-xs
                     div
-                        b.title لطفا به نکات زیر توجه فرمایید:
-                        div * پس از ارسال تیکت حداکثر تا ۱۲ ساعت آینده پاسخ برای شما ارسال خواهد شد.
-                        div * برخی از تيکت ها ممکن است، نياز به زمان بيشتری برای بررسی داشته باشند.
-                        div * پس از ارسال تيکت، نيازی به تماس تلفنی نيست. تيکت ارسالی شما قطعا توسط همکاران ما بررسی و پاسخ داده خواهد شد.
+                        b.title {{ $i18n.t('ticket.ticketNoteSentence')}}
+                        div {{ $i18n.t('ticket.ticketNoteSentence2')}}
+                        div {{ $i18n.t('ticket.ticketNoteSentence3')}}
+                        div {{ $i18n.t('ticket.ticketNoteSentence4')}}
         div.nav-send
             div.row
                 div
                     img.pull-right(v-avatar="" v-bind:src="'https://www.gravatar.com/avatar/'+user.email_hash+'?s=45&d=https://cdn.zarinpal.com/emails/img/zarinpal-email-profile-default.png'")
                 div.col-xs
                     div
-                        b.title پاسخ به تیکت:
+                        b.title {{ $i18n.t('user.ticketReply')}}:
                         span.value {{ ticket.title }}
                     div
                         textarea(v-validate="{ rules: { min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('ticket.ticketReplyContent')" :class="{'input-danger': errors.has('content')}" :placeholder="$i18n.t('ticket.ticketReplyContent')" v-model="content" name="content")
@@ -94,198 +94,198 @@
 </template>
 
 <script>
-    import loading from '../../partials/loading.vue';
-    export default {
-        name: 'ticket-show',
-        data() {
-            return {
-                fileUploading: false,
-                uploadResult: false,
-                fileUploaded: false,
-                loading: false,
-                isLoadReplies: false,
-                ticket: {},
-                content: '',
-                errorMessage: '',
-                attachment: null,
-            }
-        },
-        computed: {
-            user(){
-                return this.$store.state.auth.user;
-            },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-            loadingTicketState() {
-                return {
-                    status: this.$store.state.paginator.paginator.TicketList.isLoading,
-                    update: this.$store.state.paginator.update,
-                }
-            },
-        },
-        created() {
-            store.commit('clearValidationErrors');
-            //Change ticket list new ticket button
-            this.$store.commit('app/changeTicketState');
-            this.getReplies(this.$route.params.id);
-
-        },
-        mounted() {
-
-            let vm = this;
-            let ticketContent = document.getElementById('ticketContent');
-
-            ticketContent.addEventListener("scroll", function (e) {
-                if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
-                    && !vm.loadingTicketState.status) {
-                    vm.$store.dispatch(
-                        'paginator/next',
-                        {
-                            requestName: 'TicketList'
-                        }
-                    );
-                }
-            });
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    content: this.content,
-                }).then((result) => {
-                    if (result) {
-                        this.send();
-                    }
-                });
-            },
-            getReplies(id){
-                this.isLoadReplies = true;
-                let ticket = {};
-                this.$store.state.http.requests['ticket.Reply'].get({ticket_id: id}).then(data => {
-                    this.isLoadReplies = false;
-                    ticket = data.data;
-                    this.ticket = ticket.data;
-
-                    setTimeout(function () {
-                        let replies = document.getElementById("navTickets");
-                        replies.scrollTop = replies.scrollHeight;
-                    }, 10);
-                });
-                this.getTicketSummry();
-            },
-            send() {
-                this.loading = true;
-                let ticketData = {
-                    content: this.content,
-                    attachment: this.attachment,
-                };
-
-                let params = {
-                    ticket_id: this.$route.params.id
-                };
-
-                this.$store.state.http.requests['ticket.Reply'].save(params, ticketData).then(
-                    () => {
-                        this.content = '';
-                        this.getReplies(this.$route.params.id);
-                        this.loading = false;
-                        this.validationErrors.content = '';
-                        store.commit('flashMessage', {
-                            text: 'TicketReplySuccessLocal',
-                            type: 'success'
-                        });
-                        this.fileUploaded = false;
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            },
-            closeReplies() {
-                this.$emit('closeReplies')
-            },
-            kebabCase(value) {
-                return _.kebabCase(value);
-            },
-            onFileChange(e) {
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createFile(files[0]);
-            },
-            createFile(file) {
-                this.fileUploading = true;
-                let reader = new FileReader();
-                let vm = this;
-
-                reader.onload = (e) => {
-                    vm.attachment = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                let formData = new FormData();
-                formData.append('type', 'document');
-                formData.append('file', file);
-
-                this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
-                    this.attachment = response.data.meta.file_id;
-                    this.fileUploading = false;
-                    this.fileUploaded = true;
-                    this.uploadResult = response.data.meta;
-                }, (response) => {
-                    this.fileUploading = false;
-                    this.uploadResult = response.data.meta;
-                });
-            },
-            closeTicket() {
-                let params = {
-                    ticketId: this.$route.params.id
-                };
-
-                this.$store.state.http.requests['ticket.postClose'].update(params, {}).then(
-                    () => {
-                        this.$router.push({name: 'ticket.index'})
-                    },
-                    (response) => {
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            },
-            clipboardMessage() {
-                store.commit('flashMessage', {
-                    text: 'Copied',
-                    type: 'success',
-                    timeout: '500'
-
-                });
-            },
-            downloadAttachFile(url) {
-                window.open(url);
-            },
-            getTicketSummry() {
-                this.$store.state.http.requests['ticket.getSummary'].get().then(
-                    (response) => {
-                        this.$store.state.app.unreadTickets = response.data.data.unread;
-                    }
-                ).catch((response) => {
-
-                });
-            },
-        },
-        watch: {
-            '$route' (to) {
-                this.getReplies(to.params.id)
-            }
-        },
-        components: {
-            loading,
+  import loading from '../../partials/loading.vue';
+  export default {
+    name: 'ticket-show',
+    data() {
+      return {
+        fileUploading: false,
+        uploadResult: false,
+        fileUploaded: false,
+        loading: false,
+        isLoadReplies: false,
+        ticket: {},
+        content: '',
+        errorMessage: '',
+        attachment: null,
+      }
+    },
+    computed: {
+      user(){
+        return this.$store.state.auth.user;
+      },
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+      loadingTicketState() {
+        return {
+          status: this.$store.state.paginator.paginator.TicketList.isLoading,
+          update: this.$store.state.paginator.update,
         }
+      },
+    },
+    created() {
+      store.commit('clearValidationErrors');
+      //Change ticket list new ticket button
+      this.$store.commit('app/changeTicketState');
+      this.getReplies(this.$route.params.id);
+
+    },
+    mounted() {
+
+      let vm = this;
+      let ticketContent = document.getElementById('ticketContent');
+
+      ticketContent.addEventListener("scroll", function(e) {
+        if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
+            && !vm.loadingTicketState.status) {
+          vm.$store.dispatch(
+              'paginator/next',
+              {
+                requestName: 'TicketList'
+              }
+          );
+        }
+      });
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          content: this.content,
+        }).then((result) => {
+          if (result) {
+            this.send();
+          }
+        });
+      },
+      getReplies(id){
+        this.isLoadReplies = true;
+        let ticket = {};
+        this.$store.state.http.requests['ticket.Reply'].get({ticket_id: id}).then(data => {
+          this.isLoadReplies = false;
+          ticket = data.data;
+          this.ticket = ticket.data;
+
+          setTimeout(function() {
+            let replies = document.getElementById("navTickets");
+            replies.scrollTop = replies.scrollHeight;
+          }, 10);
+        });
+        this.getTicketSummry();
+      },
+      send() {
+        this.loading = true;
+        let ticketData = {
+          content: this.content,
+          attachment: this.attachment,
+        };
+
+        let params = {
+          ticket_id: this.$route.params.id
+        };
+
+        this.$store.state.http.requests['ticket.Reply'].save(params, ticketData).then(
+            () => {
+              this.content = '';
+              this.getReplies(this.$route.params.id);
+              this.loading = false;
+              this.validationErrors.content = '';
+              store.commit('flashMessage', {
+                text: 'TicketReplySuccessLocal',
+                type: 'success'
+              });
+              this.fileUploaded = false;
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
+            }
+        )
+      },
+      closeReplies() {
+        this.$emit('closeReplies')
+      },
+      kebabCase(value) {
+        return _.kebabCase(value);
+      },
+      onFileChange(e) {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createFile(files[0]);
+      },
+      createFile(file) {
+        this.fileUploading = true;
+        let reader = new FileReader();
+        let vm = this;
+
+        reader.onload = (e) => {
+          vm.attachment = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        let formData = new FormData();
+        formData.append('type', 'document');
+        formData.append('file', file);
+
+        this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+          this.attachment = response.data.meta.file_id;
+          this.fileUploading = false;
+          this.fileUploaded = true;
+          this.uploadResult = response.data.meta;
+        }, (response) => {
+          this.fileUploading = false;
+          this.uploadResult = response.data.meta;
+        });
+      },
+      closeTicket() {
+        let params = {
+          ticketId: this.$route.params.id
+        };
+
+        this.$store.state.http.requests['ticket.postClose'].update(params, {}).then(
+            () => {
+              this.$router.push({name: 'ticket.index'})
+            },
+            (response) => {
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
+            }
+        )
+      },
+      clipboardMessage() {
+        store.commit('flashMessage', {
+          text: 'Copied',
+          type: 'success',
+          timeout: '500'
+
+        });
+      },
+      downloadAttachFile(url) {
+        window.open(url);
+      },
+      getTicketSummry() {
+        this.$store.state.http.requests['ticket.getSummary'].get().then(
+            (response) => {
+              this.$store.state.app.unreadTickets = response.data.data.unread;
+            }
+        ).catch((response) => {
+
+        });
+      },
+    },
+    watch: {
+      '$route' (to) {
+        this.getReplies(to.params.id)
+      }
+    },
+    components: {
+      loading,
     }
+  }
 </script>

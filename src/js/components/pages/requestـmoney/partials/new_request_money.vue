@@ -6,7 +6,7 @@
             div.nav-select-user(v-if="step == 1 && phoneBook.data.length")
                 div.row.search-box
                     span.icon-search
-                    input(type="text" v-model="searchString" placeholder="جستجو ..." )
+                    input(type="text" v-model="searchString" :placeholder="$i18n.t('user.searchBtn')" )
 
                 div.users(v-if="!phoneBook.status")
                     div.row.user-row(v-for="user in phoneBook.data")
@@ -75,7 +75,7 @@
                     span.amount-text {{ $i18n.t('transaction.toman') }}
 
                 div.row
-                    input.amount-input(v-validate="'numeric'" maxlength="8" type="text" v-model="requestAmount" placeholder="مبلغ" @keyup="calcAutoRequestAmount" autofocus)
+                    input.amount-input(v-validate="'numeric'" maxlength="8" type="text" v-model="requestAmount" :placeholder="$i18n.t('user.amount')" @keyup="calcAutoRequestAmount" autofocus)
 
                 div.row.share-in-request-text
                     input(type="checkbox" id="shareRequestChk" v-model="shareRequestWithMe" @change="calcAutoRequestAmount")
@@ -91,8 +91,8 @@
                             div(v-for="(user, index) in selectedUsers")
                                 img.avatar(:src="user.avatar")
 
-                        span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" title="قبلی")
-                        span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" title="بعدی")
+                        span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" :title="$i18n.t('user.back')")
+                        span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" :title="$i18n.t('user.next')")
 
 
 
@@ -161,298 +161,297 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
-    import loading from '../../../pages/partials/loading.vue';
+  import modal from '../../partials/modal.vue';
+  import loading from '../../../pages/partials/loading.vue';
 
+  import {tns} from "tiny-slider/src/tiny-slider.module";
 
-    import {tns} from "tiny-slider/src/tiny-slider.module";
+  export default {
+    name: 'pages-requestMoney-partials-new',
+    data() {
+      return {
+        maxAmountLimit: 10000000,
+        searchString: '',
+        requesting: false,
+        loading: false,
+        isShowSlider: false,
+        step: 1, //Select user, select pay method(auto, manually)
+        pageTitle: 'selectUsers',
+        closeModalContent: false,
+        checkUsers: [],
+        selectedUsers: [], //filter users by checkUsers NOTE:final object for users
+        requestType: 'Auto', //Auto, Manually
+        requestAmount: null, //Auto total amount
+        shareRequestWithMe: false,
+        autoPersonAmount: 0,
+        manuallyUserCounter: 0,
+        manuallyTotalAmount: 0,
+        description: null,
+        purse: 1,
+        slider: null,
+      }
+    },
+    computed: {
+      phoneBook() {
+        let vm = this;
+        let findedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
+          let userRegex = new RegExp('\\.*' + vm.searchString + '.*\\i');
+          return userRegex.test(JSON.stringify(user));
+        });
 
-    export default {
-        name: 'pages-requestMoney-partials-new',
-        data() {
-            return {
-                maxAmountLimit: 10000000,
-                searchString: '',
-                requesting: false,
-                loading: false,
-                isShowSlider: false,
-                step: 1, //Select user, select pay method(auto, manually)
-                pageTitle: 'selectUsers',
-                closeModalContent: false,
-                checkUsers: [],
-                selectedUsers: [], //filter users by checkUsers NOTE:final object for users
-                requestType: 'Auto', //Auto, Manually
-                requestAmount: null, //Auto total amount
-                shareRequestWithMe: false,
-                autoPersonAmount: 0,
-                manuallyUserCounter: 0,
-                manuallyTotalAmount: 0,
-                description: null,
-                purse: 1,
-                slider: null,
-            }
-        },
-        computed: {
-            phoneBook() {
-                let vm = this;
-                let findedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function (user) {
-                    let userRegex = new RegExp('\\.*' + vm.searchString + '.*\\i');
-                    return userRegex.test(JSON.stringify(user));
-                });
-
-                return {
-                    data: findedUsers,
-                    update: this.$store.state.paginator.update,
-                    status: this.$store.state.paginator.paginator.PhoneBook.isLoading
-                };
-            },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-        },
-        mounted() {
-            this.closeModalContent = false;
-        },
-        created() {
-            store.commit('clearValidationErrors');
-            if (!this.$store.state.paginator.paginator.PhoneBook) {
-                this.getPhoneBook();
-            }
-        },
-        methods: {
-            nextStep() {
-                if (this.step === 1) {
-                    if (this.checkUsers.length <= 0) {
-                        store.commit('flashMessage', {
-                            text: 'RequestMoneyCheckUsersYouWantLocal',
-                            type: 'danger'
-                        });
-                        return;
-                    }
-                }
-
-                if (this.step === 2 && this.requestType === 'Manually') {
-                    let vm = this;
-                    //Tiny slider
-                    setTimeout(function () {
-                        vm.isShowSlider = true;
-                        vm.slider = tns({
-                            container: document.querySelector('.slider'),
-                            items: 1,
-                            slideBy: "page",
-                            slideByPage: false,
-                            hasNav: true,
-                            hasDots: true,
-                            keyboard: true,
-                            loop: false,
-                            speed: 250,
-                            controls: false,
-                            autoplay: false,
-                            autoplayDirection: 'forward',
-                            responsive: {
-                                500: 1,
-                                800: 1,
-                            }
-                        });
-                        vm.isShowSlider = true;
-                    }, 100);
-                }
-
-                if (this.step === 3 && this.requestType === 'Auto') {
-                    if (!this.requestAmount) {
-                        store.commit('flashMessage', {
-                            text: 'RequestMoneyEnterRequestAmountLocal',
-                            type: 'danger'
-                        });
-                        return
-                    }
-                }
-
-                if (this.step === 3 && this.requestType === 'Manually') {
-                    document.getElementById('txtManuallyAmount').focus();
-
-                    let users = _.filter(this.selectedUsers, function (user) {
-                        return user.amount;
-                    });
-
-                    if (users) {
-                        if (users.length !== this.selectedUsers.length) {
-                            store.commit('flashMessage', {
-                                text: 'RequestMoneyEnterAllUserAmountLocal',
-                                type: 'danger'
-                            });
-                            return;
-                        }
-                    }
-                }
-
-                //ignore selection method if selected users is one person
-                if (this.step === 1 && this.checkUsers.length === 1) {
-                    this.step += 2;
-                } else {
-                    this.step++;
-                }
-
-                this.changeTitle();
-                this.getSelectedUsers()
-            },
-            prevStep() {
-                if (this.step === 3 && this.checkUsers.length === 1) {
-                    this.step -= 2;
-                    this.requestType = 'Auto';
-                } else {
-                    this.step--;
-                }
-
-                this.changeTitle();
-                if (this.step === 2) {
-                    this.requestAmount = null;
-                    this.autoPersonAmount = 0;
-                }
-            },
-            changeTitle() {
-                if (this.step === 1) {
-                    this.pageTitle = 'selectUsers';
-                } else if (this.step === 2) {
-                    this.pageTitle = 'requestType';
-                } else if (this.step === 3) {
-                    this.pageTitle = 'requestType';
-                }
-            },
-            /*** Get selected users data ***/
-            getSelectedUsers() {
-                let vm = this;
-                this.selectedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function (user) {
-                    return vm.checkUsers.indexOf(user.public_id) !== -1;
-                });
-            },
-            /*** Calculate total amount and dealing between users auto ***/
-            calcAutoRequestAmount() {
-                let usersCount = this.selectedUsers.length;
-                if (this.shareRequestWithMe) {
-                    this.autoPersonAmount = (this.requestAmount / (usersCount + 1)).toFixed(0);
-                } else {
-                    this.autoPersonAmount = (this.requestAmount / usersCount).toFixed(0);
-                }
-            },
-            /*** Sum every user manually amount ***/
-            calcManuallyTotalAmount() {
-                let vm = this;
-                this.manuallyTotalAmount = 0;
-                this.selectedUsers.forEach(function (user) {
-                    if (user.amount) {
-                        vm.manuallyTotalAmount = parseInt(vm.manuallyTotalAmount) + parseInt(user.amount);
-                    }
-                });
-            },
-            incManuallyUserCounter() {
-                this.manuallyUserCounter++;
-                this.slider.goTo('next');
-                document.getElementById('txtManuallyAmount').focus();
-            },
-            descManuallyUserCounter() {
-                this.manuallyUserCounter--;
-                this.slider.goTo('prev');
-                document.getElementById('txtManuallyAmount').focus();
-            },
-            /*** Send request money***/
-            postRequestMoney() {
-                if (!this.description) {
-                    store.commit('flashMessage', {
-                        text: 'RequestMoneyFillDescriptionInputLocal',
-                        type: 'danger'
-                    });
-                    return;
-                }
-
-                /*** Check Amount***/
-                if (this.requestType === 'Auto') {
-                    if (this.requestAmount <= 100 || this.requestAmount > this.maxAmountLimit) {
-                        store.commit('flashMessage', {
-                            text: 'RequestMoneyAmountLimitLocal',
-                            type: 'danger'
-                        });
-                        return;
-                    }
-                } else if (this.requestType === 'Manually') {
-                    if (this.manuallyTotalAmount <= 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
-                        store.commit('flashMessage', {
-                            text: 'RequestMoneyAmountLimitLocal',
-                            type: 'danger'
-                        });
-                        return;
-                    }
-                }
-
-                this.requesting = true;
-                let requestMoneyData = [];
-
-                let vm = this;
-                let requestedUsers = this.selectedUsers;
-                //make array of requested users to post to api
-                this.selectedUsers.forEach(function (user, index) {
-                    if (vm.requestType === 'Auto') {
-                        requestedUsers[index] = {
-                            amount: vm.autoPersonAmount,
-                            zp: user.public_id
-                        }
-                    } else {
-                        requestedUsers[index] = {
-                            amount: user.amount,
-                            zp: user.public_id
-                        };
-                    }
-                });
-
-                requestMoneyData = {
-                    'debtor': requestedUsers,
-                    'purse_number': this.purse,
-                    'description': this.description
-                };
-
-                this.$store.state.http.requests['requestMoney.postRequestMoney'].save(requestMoneyData).then(
-                    () => {
-                        this.$router.push({name: 'requestMoney.index'});
-                        this.closeModal();
-                        this.getDemand();
-                        this.requestSuccessMessage();
-                        this.requesting = false;
-                    },
-                    (response) => {
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            important: false,
-                            type: 'danger'
-                        });
-                        this.requesting = false;
-                    }
-                );
-            },
-            closeModal() {
-                this.$emit('closeModal');
-            },
-            getDemand() {
-                this.$emit('getDemand');
-            },
-            requestSuccessMessage() {
-                this.$emit('requestSuccessMessage');
-            },
-            getPhoneBook() {
-                let vm = this;
-                vm.$store.dispatch(
-                    'paginator/make',
-                    {
-                        vm,
-                        resource: vm.$store.state.http.requests['requestMoney.phonebook'],
-                        requestName: 'PhoneBook'
-                    },
-                );
-            }
-        },
-        components: {
-            modal,
-            loading
+        return {
+          data: findedUsers,
+          update: this.$store.state.paginator.update,
+          status: this.$store.state.paginator.paginator.PhoneBook.isLoading
+        };
+      },
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+    },
+    mounted() {
+      this.closeModalContent = false;
+    },
+    created() {
+      store.commit('clearValidationErrors');
+      if (!this.$store.state.paginator.paginator.PhoneBook) {
+        this.getPhoneBook();
+      }
+    },
+    methods: {
+      nextStep() {
+        if (this.step === 1) {
+          if (this.checkUsers.length <= 0) {
+            store.commit('flashMessage', {
+              text: 'RequestMoneyCheckUsersYouWantLocal',
+              type: 'danger'
+            });
+            return;
+          }
         }
+
+        if (this.step === 2 && this.requestType === 'Manually') {
+          let vm = this;
+          //Tiny slider
+          setTimeout(function() {
+            vm.isShowSlider = true;
+            vm.slider = tns({
+              container: document.querySelector('.slider'),
+              items: 1,
+              slideBy: "page",
+              slideByPage: false,
+              hasNav: true,
+              hasDots: true,
+              keyboard: true,
+              loop: false,
+              speed: 250,
+              controls: false,
+              autoplay: false,
+              autoplayDirection: 'forward',
+              responsive: {
+                500: 1,
+                800: 1,
+              }
+            });
+            vm.isShowSlider = true;
+          }, 100);
+        }
+
+        if (this.step === 3 && this.requestType === 'Auto') {
+          if (!this.requestAmount) {
+            store.commit('flashMessage', {
+              text: 'RequestMoneyEnterRequestAmountLocal',
+              type: 'danger'
+            });
+            return
+          }
+        }
+
+        if (this.step === 3 && this.requestType === 'Manually') {
+          document.getElementById('txtManuallyAmount').focus();
+
+          let users = _.filter(this.selectedUsers, function(user) {
+            return user.amount;
+          });
+
+          if (users) {
+            if (users.length !== this.selectedUsers.length) {
+              store.commit('flashMessage', {
+                text: 'RequestMoneyEnterAllUserAmountLocal',
+                type: 'danger'
+              });
+              return;
+            }
+          }
+        }
+
+        //ignore selection method if selected users is one person
+        if (this.step === 1 && this.checkUsers.length === 1) {
+          this.step += 2;
+        } else {
+          this.step++;
+        }
+
+        this.changeTitle();
+        this.getSelectedUsers()
+      },
+      prevStep() {
+        if (this.step === 3 && this.checkUsers.length === 1) {
+          this.step -= 2;
+          this.requestType = 'Auto';
+        } else {
+          this.step--;
+        }
+
+        this.changeTitle();
+        if (this.step === 2) {
+          this.requestAmount = null;
+          this.autoPersonAmount = 0;
+        }
+      },
+      changeTitle() {
+        if (this.step === 1) {
+          this.pageTitle = 'selectUsers';
+        } else if (this.step === 2) {
+          this.pageTitle = 'requestType';
+        } else if (this.step === 3) {
+          this.pageTitle = 'requestType';
+        }
+      },
+      /*** Get selected users data ***/
+      getSelectedUsers() {
+        let vm = this;
+        this.selectedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
+          return vm.checkUsers.indexOf(user.public_id) !== -1;
+        });
+      },
+      /*** Calculate total amount and dealing between users auto ***/
+      calcAutoRequestAmount() {
+        let usersCount = this.selectedUsers.length;
+        if (this.shareRequestWithMe) {
+          this.autoPersonAmount = (this.requestAmount / (usersCount + 1)).toFixed(0);
+        } else {
+          this.autoPersonAmount = (this.requestAmount / usersCount).toFixed(0);
+        }
+      },
+      /*** Sum every user manually amount ***/
+      calcManuallyTotalAmount() {
+        let vm = this;
+        this.manuallyTotalAmount = 0;
+        this.selectedUsers.forEach(function(user) {
+          if (user.amount) {
+            vm.manuallyTotalAmount = parseInt(vm.manuallyTotalAmount) + parseInt(user.amount);
+          }
+        });
+      },
+      incManuallyUserCounter() {
+        this.manuallyUserCounter++;
+        this.slider.goTo('next');
+        document.getElementById('txtManuallyAmount').focus();
+      },
+      descManuallyUserCounter() {
+        this.manuallyUserCounter--;
+        this.slider.goTo('prev');
+        document.getElementById('txtManuallyAmount').focus();
+      },
+      /*** Send request money***/
+      postRequestMoney() {
+        if (!this.description) {
+          store.commit('flashMessage', {
+            text: 'RequestMoneyFillDescriptionInputLocal',
+            type: 'danger'
+          });
+          return;
+        }
+
+        /*** Check Amount***/
+        if (this.requestType === 'Auto') {
+          if (this.requestAmount <= 100 || this.requestAmount > this.maxAmountLimit) {
+            store.commit('flashMessage', {
+              text: 'RequestMoneyAmountLimitLocal',
+              type: 'danger'
+            });
+            return;
+          }
+        } else if (this.requestType === 'Manually') {
+          if (this.manuallyTotalAmount <= 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
+            store.commit('flashMessage', {
+              text: 'RequestMoneyAmountLimitLocal',
+              type: 'danger'
+            });
+            return;
+          }
+        }
+
+        this.requesting = true;
+        let requestMoneyData = [];
+
+        let vm = this;
+        let requestedUsers = this.selectedUsers;
+        //make array of requested users to post to api
+        this.selectedUsers.forEach(function(user, index) {
+          if (vm.requestType === 'Auto') {
+            requestedUsers[index] = {
+              amount: vm.autoPersonAmount,
+              zp: user.public_id
+            }
+          } else {
+            requestedUsers[index] = {
+              amount: user.amount,
+              zp: user.public_id
+            };
+          }
+        });
+
+        requestMoneyData = {
+          'debtor': requestedUsers,
+          'purse_number': this.purse,
+          'description': this.description
+        };
+
+        this.$store.state.http.requests['requestMoney.postRequestMoney'].save(requestMoneyData).then(
+            () => {
+              this.$router.push({name: 'requestMoney.index'});
+              this.closeModal();
+              this.getDemand();
+              this.requestSuccessMessage();
+              this.requesting = false;
+            },
+            (response) => {
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                important: false,
+                type: 'danger'
+              });
+              this.requesting = false;
+            }
+        );
+      },
+      closeModal() {
+        this.$emit('closeModal');
+      },
+      getDemand() {
+        this.$emit('getDemand');
+      },
+      requestSuccessMessage() {
+        this.$emit('requestSuccessMessage');
+      },
+      getPhoneBook() {
+        let vm = this;
+        vm.$store.dispatch(
+            'paginator/make',
+            {
+              vm,
+              resource: vm.$store.state.http.requests['requestMoney.phonebook'],
+              requestName: 'PhoneBook'
+            },
+        );
+      }
+    },
+    components: {
+      modal,
+      loading
     }
+  }
 </script>

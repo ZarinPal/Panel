@@ -28,56 +28,56 @@
 </template>
 
 <script>
-    import navbar from '../partials/navbar.vue';
-    import sidebar from '../partials/sidebar.vue';
+  import navbar from '../partials/navbar.vue';
+  import sidebar from '../partials/sidebar.vue';
 
-    export default {
-        name: 'ticket-index',
-        data() {
-            return {
-                showTicketReplies: false,
-            }
-        },
-        computed: {
-            user(){
-                return this.$store.state.auth.user;
-            },
-            tickets(){
-                return {
-                    data: this.$store.state.paginator.paginator.TicketList.data,
-                    update: this.$store.state.paginator.update
-                }
-            },
-            loadingTicketState() {
-                return {
-                    status: this.$store.state.paginator.paginator.TicketList.isLoading,
-                    update: this.$store.state.paginator.update,
-                }
-            },
-        },
-        created() {
-            let vm = this;
-            this.$store.dispatch(
-                'paginator/make',
-                {
-                    vm,
-                    resource: vm.$store.state.http.requests['ticket.index'],
-                    params: vm.searchOptions,
-                    requestName: 'TicketList'
-                }
-            );
-        },
-        methods: {
-            closeReplies() {
-                this.showTicketReplies = false
-            },
-            kebabCase(value) {
-                return _.kebabCase(value);
-            }
-        },
-        components: {
-            navbar,
-            sidebar,
-        },
-    }
+  export default {
+    name: 'ticket-index',
+    data() {
+      return {
+        showTicketReplies: false,
+      }
+    },
+    computed: {
+      user(){
+        return this.$store.state.auth.user;
+      },
+      tickets(){
+        return {
+          data: this.$store.state.paginator.paginator.TicketList.data,
+          update: this.$store.state.paginator.update
+        }
+      },
+      loadingTicketState() {
+        return {
+          status: this.$store.state.paginator.paginator.TicketList.isLoading,
+          update: this.$store.state.paginator.update,
+        }
+      },
+    },
+    created() {
+      let vm = this;
+      this.$store.dispatch(
+          'paginator/make',
+          {
+            vm,
+            resource: vm.$store.state.http.requests['ticket.index'],
+            params: vm.searchOptions,
+            requestName: 'TicketList'
+          }
+      );
+    },
+    methods: {
+      closeReplies() {
+        this.showTicketReplies = false
+      },
+      kebabCase(value) {
+        return _.kebabCase(value);
+      }
+    },
+    components: {
+      navbar,
+      sidebar,
+    },
+  }
 </script>

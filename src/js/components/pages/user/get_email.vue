@@ -24,59 +24,60 @@
 
 
 <script>
-    import modal from "../partials/modal";
-    import loading from "../partials/loading";
+  import modal from "../partials/modal";
+  import loading from "../partials/loading";
 
-    export default {
-        name: 'user-get-email',
-        data() {
-            return {
-                email: this.$store.state.auth.user.email,
-                loading: false,
-            }
-        },
-        computed: {
-            user() {
-                return this.$store.state.auth.user;
-            },
-        },
-        methods: {
-            closeModal() {
-                this.$emit('closeModal');
-            },
-            validateForm() {
-                this.$validator.validateAll({
-                    email: this.email,
-                }).then((result) => {
-                    if (result) {
-                        this.postChangeEmail();
-                    }
-                });
-            },
-            postChangeEmail() {
-                this.loading = true;
-                this.$store.state.http.requests['user.changeEmail'].save({email: this.email}).then(
-                    () => {
-                        this.$store.state.auth.user.user_progress.email.check = false;
-                        this.$store.state.auth.user.user_progress.points = parseInt(this.$store.state.auth.user.user_progress.points) - 15;
+  export default {
+    name: 'user-get-email',
+    data() {
+      return {
+        email: this.$store.state.auth.user.email,
+        loading: false,
+      }
+    },
+    computed: {
+      user() {
+        return this.$store.state.auth.user;
+      },
+    },
+    methods: {
+      closeModal() {
+        this.$emit('closeModal');
+      },
+      validateForm() {
+        this.$validator.validateAll({
+          email: this.email,
+        }).then((result) => {
+          if (result) {
+            this.postChangeEmail();
+          }
+        });
+      },
+      postChangeEmail() {
+        this.loading = true;
+        this.$store.state.http.requests['user.changeEmail'].save({email: this.email}).then(
+            () => {
+              this.$store.state.auth.user.user_progress.email.check = false;
+              this.$store.state.auth.user.user_progress.points = parseInt(
+                      this.$store.state.auth.user.user_progress.points) - 15;
 
-                        this.$store.commit('flashMessage', {
-                            text: 'UserEmailSetSuccessCheckYourEmailLocal',
-                            important: false,
-                            type: 'success'
-                        });
-                        this.closeModal();
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                    }
-                )
+              this.$store.commit('flashMessage', {
+                text: 'UserEmailSetSuccessCheckYourEmailLocal',
+                important: false,
+                type: 'success'
+              });
+              this.closeModal();
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
             }
-        },
-        components: {
-            modal,
-            loading
-        }
+        )
+      }
+    },
+    components: {
+      modal,
+      loading
     }
+  }
 </script>

@@ -17,7 +17,7 @@
 
                     div.row.no-margin
                         div.col-xs.nav-buttons.no-left-margin
-                            button.btn.success.pull-left(v-ripple="" @click="validateForm") مشاهده گردش حساب
+                            button.btn.success.pull-left(v-ripple="" @click="validateForm") {{ $i18n.t('common.getBalance')}}
                                 svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                                     circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -58,72 +58,72 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
-    import cards from '../../partials/cards.vue';
-    export default {
-        name: 'pages-card-partials-statement',
-        data() {
-            return {
-                loading: false,
-                cardId: null,
-                password: null,
-                cvv2: null,
-                zarinCardStatements: null
+  import modal from '../../partials/modal.vue';
+  import cards from '../../partials/cards.vue';
+  export default {
+    name: 'pages-card-partials-statement',
+    data() {
+      return {
+        loading: false,
+        cardId: null,
+        password: null,
+        cvv2: null,
+        zarinCardStatements: null
+      }
+    },
+    props: ['card'],
+    computed: {
+      user(){
+        return this.$store.state.auth.user;
+      },
+    },
+    created(){
+      store.commit('clearValidationErrors');
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          password: this.password,
+          cvv2: this.cvv2,
+        }).then((result) => {
+          if (result) {
+            this.getZarinCardStatment();
+          }
+        });
+      },
+      closeModal() {
+        this.$emit('closeModal');
+      },
+      selectedCard(cardId) {
+        this.cardId = cardId;
+      },
+      getZarinCardStatment() {
+        this.loading = true;
+        let zarincardData = {
+          card_id: this.card.entity_id,
+          password: this.password,
+          cvv2: this.cvv2
+        };
+        this.$store.state.http.requests['zarincard.postStatement'].save(zarincardData).then(
+            (response) => {
+              this.loading = false;
+              this.validationErrors = null;
+              this.zarinCardStatements = response.data.data;
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
             }
-        },
-        props: ['card'],
-        computed: {
-            user(){
-                return this.$store.state.auth.user;
-            },
-        },
-        created(){
-            store.commit('clearValidationErrors');
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    password: this.password,
-                    cvv2: this.cvv2,
-                }).then((result) => {
-                    if (result) {
-                        this.getZarinCardStatment();
-                    }
-                });
-            },
-            closeModal() {
-                this.$emit('closeModal');
-            },
-            selectedCard(cardId) {
-                this.cardId = cardId;
-            },
-            getZarinCardStatment() {
-                this.loading = true;
-                let zarincardData = {
-                    card_id: this.card.entity_id,
-                    password: this.password,
-                    cvv2: this.cvv2
-                };
-                this.$store.state.http.requests['zarincard.postStatement'].save(zarincardData).then(
-                    (response) => {
-                        this.loading = false;
-                        this.validationErrors = null;
-                        this.zarinCardStatements = response.data.data;
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            }
-        },
-        components: {
-            cards,
-            modal
-        }
+        )
+      }
+    },
+    components: {
+      cards,
+      modal
     }
+  }
 </script>
