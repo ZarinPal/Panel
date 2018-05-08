@@ -57,8 +57,8 @@
 </script>
 
 <style>
-    #TrustLogoCode {
+    textarea#TrustLogoCode {
         direction: ltr;
-        text-align: right;
+        text-align: left;
     }
 </style>
