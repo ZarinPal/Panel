@@ -9,13 +9,13 @@
 
             div.col-xs
                 div.row.no-margin
-                    textarea(id="TrustCodeLogo" v-model="message" @focus="selectCode" readonly)
+                    textarea(id="TrustLogoCode" v-model="message" @focus="selectCode" readonly)
                     div.ta-right(v-if="validation('content')")
                         span.text-danger {{ errors.first('content') }}
 
 
             div.col-xs.xs-ta-center
-                button.btn.btn-gradient-radius(tag="button"    @click="clipboardMessage" v-clipboard='message' v-bind:data-clipboard-text="message")
+                button.btn.btn-gradient-radius(tag="button" @click="clipboardMessage" v-clipboard='message' v-bind:data-clipboard-text="message")
                     span.btn-label.top-0 {{ $i18n.t('webservice.codeCopy') }}
 
 
@@ -46,7 +46,7 @@
         });
       },
       selectCode() {
-        document.getElementById('TrustCodeLogo').select();
+        document.getElementById('TrustLogoCode').select();
       }
     },
     components: {
@@ -55,3 +55,10 @@
     }
   };
 </script>
+
+<style>
+    #TrustLogoCode {
+        direction: ltr;
+        text-align: right;
+    }
+</style>
