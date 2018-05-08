@@ -52,13 +52,12 @@
                         div.col-xs.ta-left
                             span.value.persian-num {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD')}}
 
-
-
                     div.row
                         div.col-xs.ta-right
                             span.title {{$i18n.t('common.ip')}}
                         div.col-xs.ta-left
-                            span.value  {{ transaction.from_ip}}
+                            img.value.p-l-5.flag-icon(:src="flagUrl" :title="flagCountryName")
+                            span.pull-left.value  {{ transaction.from_ip}}
 
                     div.row(v-if="transaction.card_info")
                         div.col-xs.ta-right
@@ -157,6 +156,8 @@
         purseName: null,
         txtTransactionNote: this.transaction.note,
         isEditingNote: false,
+        flagUrl: null,
+        flagCountryName: null,
       }
     },
     props: ['transaction'],
@@ -170,6 +171,7 @@
       if (this.transaction.to_user) {
         this.purseName = this.getPurseName(this.transaction.to_user.purse);
       }
+      this.findFlag(this.transaction.from_ip);
     },
     mounted() {
       this.closeModalContent = false
@@ -186,6 +188,23 @@
       },
       addNote() {
         this.isEditingNote = true;
+      },
+      findFlag(ip){
+        let request = new XMLHttpRequest();
+        let vm = this;
+        request.open('GET', 'https://api.ipdata.co/' + ip);
+        request.setRequestHeader('Accept', 'application/json');
+        request.onreadystatechange = function() {
+          if (this.readyState === 4) {
+            console.log('Status:', this.status);
+            vm.flagUrl = JSON.parse(this.responseText).flag;
+            vm.flagCountryName = JSON.parse(this.responseText).country_name + ' ' + JSON.parse(this.responseText).city;
+
+          }
+        };
+
+        request.send();
+
       },
       saveNote() {
         let sendContent = {
