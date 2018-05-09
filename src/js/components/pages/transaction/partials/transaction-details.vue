@@ -196,7 +196,6 @@
         request.setRequestHeader('Accept', 'application/json');
         request.onreadystatechange = function() {
           if (this.readyState === 4) {
-            console.log('Status:', this.status);
             vm.flagUrl = JSON.parse(this.responseText).flag;
             vm.flagCountryName = JSON.parse(this.responseText).country_name + ' ' + JSON.parse(this.responseText).city;
 
