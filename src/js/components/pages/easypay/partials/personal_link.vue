@@ -33,8 +33,8 @@
       <!--if username set-->
       div(v-else)
         div.col-xs-12.no-margin
-          span {{ preLink + user.username}} :
-          a(:href="preLink + user.username") {{ preLink + user.requestPersonalLinkTitle}}
+          span {{$i18n.t('user.username')}} :
+          a(:href="preLink + user.username") {{ preLink + user.username}}
 
 </template>
 
