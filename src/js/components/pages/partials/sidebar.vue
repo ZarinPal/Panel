@@ -1,34 +1,32 @@
 <template lang="pug">
-    div(v-bind:class="{'small-sidebar hidden-sidebar': isSmallSidebar, 'normal-sidebar hidden-sidebar': !isSmallSidebar, 'mobile-sidebar': isMobileSidebar}")
-        span.close-mobile-sidebar(@click="toggleMobileSidebar()")
-        div.side-content.sticky-sidebar
+  div(v-bind:class="{'small-sidebar hidden-sidebar': isSmallSidebar, 'normal-sidebar hidden-sidebar': !isSmallSidebar, 'mobile-sidebar': isMobileSidebar}")
+    span.close-mobile-sidebar(@click="toggleMobileSidebar()")
+    div.side-content.sticky-sidebar
 
-            div.user-info
-                router-link(tag="span" v-bind:to="{ name: 'user.showProgress'}" title="پروفایل")
-                    div.user-image
-                        userProgress.hand(v-if="!this.$store.state.app.smallSidebar")
-                        img.hand(v-else :src="user.avatar")
-                        p.user-name(v-if="user.company_info") {{user.company_info.name}}
-                        p.user-name(v-else) {{user.name}}
+      div.user-info
+        router-link(tag="span" v-bind:to="{ name: 'user.showProgress'}" title="پروفایل")
+          div.user-image
+            userProgress.hand(v-if="!this.$store.state.app.smallSidebar")
+            img.hand(v-else :src="user.avatar")
+            p.user-name(v-if="user.company_info") {{user.company_info.name}}
+            p.user-name(v-else) {{user.name}}
 
-                        p.user-name.user-level {{$i18n.t('user.level') + ': ' +$i18n.t('user.user_level_' + user.level)}}
+            p.user-name.user-level {{$i18n.t('user.level') + ': ' +$i18n.t('user.user_level_' + user.level)}}
 
-                div.ta-center.section-level-up(v-if="user.level == 1 || user.level == 0")
-                    router-link.btn-to-level.hand(v-if="!this.$store.state.app.smallSidebar" tag="div" :class="{'to-silver-level-link': user.level < 2, 'to-gold-level-link': user.level == 2}" v-bind:to="{ name: 'user.levelUp'}")
-                        span {{ $i18n.t('common.upgradeToSilverLevel') }}
+        div.ta-center.section-level-up(v-if="user.level == 1 || user.level == 0")
+          router-link.btn-to-level.hand(v-if="!this.$store.state.app.smallSidebar" tag="div" :class="{'to-silver-level-link': user.level < 2, 'to-gold-level-link': user.level == 2}" v-bind:to="{ name: 'user.levelUp'}")
+            span {{ $i18n.t('common.upgradeToSilverLevel') }}
 
-                ul
-                    span(v-for="(tab, index) in tabs")
-                        router-link(v-if="userHasAccess(tab.accessLevel) >= 0" @click.native="toggleMobileSidebar(false, index)" v-ripple="" tag="li" v-bind:to="{ name: tab.link}")
-                            div
-                                i(:class="tab.icon")
-                                span.item-label {{ $i18n.t(tab.titleTransKey) }}
-                                span.notification-lamp(v-if="tab.link =='ticket.index' && unreadTicket > 0") {{unreadTicket}}
+        ul
+          span(v-for="(tab, index) in tabs")
+            router-link(v-if="userHasAccess(tab.accessLevel) >= 0" @click.native="toggleMobileSidebar(false, index)" v-ripple="" tag="li" v-bind:to="{ name: tab.link}")
+              div
+                i(:class="tab.icon")
+                span.item-label {{ $i18n.t(tab.titleTransKey) }}
+                span.notification-lamp(v-if="tab.link =='ticket.index' && unreadTicket > 0") {{unreadTicket}}
 
-
-                div.clear-both
+        div.clear-both
 </template>
-
 
 <script>
   import dropDown from './sidebar-dropdown.vue';
@@ -120,7 +118,9 @@
 
         //reload purse balance
         if (this.$route.name === 'home.index') {
-          let requestTimeDiff = Math.abs(Date.now() - this.$store.state.timer.getPurseBalanceTime) / 100;
+          let requestTimeDiff = Math.abs(
+                  Date.now() - this.$store.state.timer.getPurseBalanceTime) /
+              100;
           if (requestTimeDiff > this.getPurseBalanceTimer) {
             this.$store.state.auth.updatePurseListener++;
             this.$store.dispatch('auth/fetchPurseBalance');

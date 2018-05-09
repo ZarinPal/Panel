@@ -1,114 +1,113 @@
 <template lang="pug">
-    div.row.center-xs.no-margin
-        div.col-xs-12.col-sm-5.col-md-5.col-lg-4.section.auth-box
-            div.box
-                <!--Header-->
-                span.hand.change-login-type(@click="loginByMobileApplication()" v-if="step == 1 && !loginByMobileApp" :title="$i18n.t('user.loginByMobile')")
-                span.hand.change-login-type-keybord(@click="loginByMobileApp = !loginByMobileApp"  v-if="loginByMobileApp")
-                div.row.top-xs
-                    div.logo
+  div.row.center-xs.no-margin
+    div.col-xs-12.col-sm-5.col-md-5.col-lg-4.section.auth-box
+      div.box
+        <!--Header-->
+        span.hand.change-login-type(@click="loginByMobileApplication()" v-if="step == 1 && !loginByMobileApp" :title="$i18n.t('user.loginByMobile')")
+        span.hand.change-login-type-keybord(@click="loginByMobileApp = !loginByMobileApp"  v-if="loginByMobileApp")
+        div.row.top-xs
+          div.logo
 
-                <!--Body-->
-                <!--First step enter mobile-->
-                form(method="post" @submit.prevent="sendOtp('ussd')" v-if="step == 1 && !loginByMobileApp" action="#" onsubmit="event.preventDefault();" autocomplete)
-                    div.row.middle-xs
-                        div.col-xs-12.no-margin.body-messages
-                            div.col-lg-12.ta-right
-                                p {{ $i18n.t('user.loginToUserAccount') }}
-                                span {{ $i18n.t('user.forUseHaveToLogin') }}
-                        div.col-xs-12.no-margin
-                            input.ta-left.dir-ltr(v-focus="" :class="{'input-danger': errors.has('username')}" v-bind:data-vv-as="$i18n.t('user.mobMail')" type="text"  v-model="username" name="username" id="username" :placeholder= "$i18n.t('user.mobMail')" autofocus autocomplete="username" tabindex="1")
-                            div.ta-right(v-if="validation('username')")
-                                span.text-danger {{ errors.first('username') }}
-                            div.ta-right(v-if="lockout_time_min || lockout_time_sec")
-                                span.text-danger(v-if="lockout_time_min || lockout_time_sec‌")
-                                    span {{ $i18n.t('user.loginLockErrorPart1') }}
-                                    span(v-if="lockout_time_min > 0") {{lockout_time_min }} {{ $i18n.t('user.loginLockErrorPart2') }}
-                                    span {{lockout_time_sec }} {{ $i18n.t('user.loginLockErrorPart3') }}
+        <!--Body-->
+        <!--First step enter mobile-->
+        form(method="post" @submit.prevent="sendOtp('ussd')" v-if="step == 1 && !loginByMobileApp" action="#" onsubmit="event.preventDefault();" autocomplete)
+          div.row.middle-xs
+            div.col-xs-12.no-margin.body-messages
+              div.col-lg-12.ta-right
+                p {{ $i18n.t('user.loginToUserAccount') }}
+                span {{ $i18n.t('user.forUseHaveToLogin') }}
+            div.col-xs-12.no-margin
+              input.ta-left.dir-ltr(v-focus="" :class="{'input-danger': errors.has('username')}" v-bind:data-vv-as="$i18n.t('user.mobMail')" type="text"  v-model="username" name="username" id="username" :placeholder= "$i18n.t('user.mobMail')" autofocus autocomplete="username" tabindex="1")
+              div.ta-right(v-if="validation('username')")
+                span.text-danger {{ errors.first('username') }}
+              div.ta-right(v-if="lockout_time_min || lockout_time_sec")
+                span.text-danger(v-if="lockout_time_min || lockout_time_sec‌")
+                  span {{ $i18n.t('user.loginLockErrorPart1') }}
+                  span(v-if="lockout_time_min > 0") {{lockout_time_min }} {{ $i18n.t('user.loginLockErrorPart2') }}
+                  span {{lockout_time_sec }} {{ $i18n.t('user.loginLockErrorPart3') }}
 
-                        div.row.nav-user-not-registered(v-if="userNotRegister")
-                            router-link.col-xs( tag="div" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
-                            span.close(@click="userNotRegister = false")
+            div.row.nav-user-not-registered(v-if="userNotRegister")
+              router-link.col-xs( tag="div" v-bind:to="{ name: 'auth.register', params:{mobile: username}}") {{ $i18n.t('flash.you-are-not-register-yet') }}
+              span.close(@click="userNotRegister = false")
 
-                    div.row.bottom-xs
-                        div.col-xs.no-margin.ta-right
-                            span {{ $i18n.t('user.notRegistered') }}
-                            router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.register') }}
-                        div.col-xs.no-margin
-                            button.gold.pull-left(id="btnSubmitEnter" :class="{'inactive-step' : lockLogin}") {{$i18n.t('user.enter')}}
-                                svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+          div.row.bottom-xs
+            div.col-xs.no-margin.ta-right
+              span {{ $i18n.t('user.notRegistered') }}
+              router-link.link(v-bind:to="{ name: 'auth.register',params:{refererId:this.$route.params.refererId}}") {{ $i18n.t('user.register') }}
+            div.col-xs.no-margin
+              button.gold.pull-left(id="btnSubmitEnter" :class="{'inactive-step' : lockLogin}") {{$i18n.t('user.enter')}}
+                svg.material-spinner(v-if="getOtpLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                  circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                    div.row.no-margin.ta-right
-                <!--Login by mobile app-->
-                div.login-by-mobile-app.row.middle-xs(v-if="loginByMobileApp")
-                    div.col-xs-12
-                        div.col-lg-12.ta-right
-                            p {{ $i18n.t('user.loginToUserAccountMobile') }}
-                            span {{ $i18n.t('user.loginByMobileApp') }}
-                    div.ta-center.no-margin.col-xs
-                        img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri")
-                        loading(v-else)
-                        a.btn-gradient-radius(href="http://www.zarinpal.mobi" target="blank")
-                            span.btn-label {{$i18n.t('user.downloadMobileApp')}}
+          div.row.no-margin.ta-right
+        <!--Login by mobile app-->
+        div.login-by-mobile-app.row.middle-xs(v-if="loginByMobileApp")
+          div.col-xs-12
+            div.col-lg-12.ta-right
+              p {{ $i18n.t('user.loginToUserAccountMobile') }}
+              span {{ $i18n.t('user.loginByMobileApp') }}
+          div.ta-center.no-margin.col-xs
+            img.qr-image(v-if="mobile_socket_uri" :src="'https://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L&choe=UTF-8&chl=' + mobile_socket_uri")
+            loading(v-else)
+            a.btn-gradient-radius(href="http://www.zarinpal.mobi" target="blank")
+              span.btn-label {{$i18n.t('user.downloadMobileApp')}}
 
-                <!--Second step call ussd code-->
-                form(method="post" @submit.prevent="login" v-if="step == 2" onsubmit="event.preventDefault();")
-                    div.row.middle-xs
-                        div.col-xs-12.no-margin.body-messages
-                            <!--Ussd Call header-->
-                            div.row.ta-right
-                                div
-                                    img.user-avatar(v-bind:src="avatar")
-                                div.col-xs
-                                    p {{ $i18n.t('user.yourWelcome') }}
-                                    span.inline-block(v-if="channel == 'ussd'")
-                                        | {{ $i18n.t('user.putUssd') }}
-                                        span.mobile-number.persian-num {{ username }}
-                                        | {{ $i18n.t('user.call') }}
-                                        span.change-mobile(@click="step--") ({{ $i18n.t('user.changeMobile') }})
-                                    span(v-else-if="channel == 'email'")
-                                        span {{ $i18n.t('user.enterOtpEmail') }}
-                                        span.change-mobile(@click="step--") ({{ $i18n.t('user.changeEmail') }})
+        <!--Second step call ussd code-->
+        form(method="post" @submit.prevent="login" v-if="step == 2" onsubmit="event.preventDefault();")
+          div.row.middle-xs
+            div.col-xs-12.no-margin.body-messages
+              <!--Ussd Call header-->
+              div.row.ta-right
+                div
+                  img.user-avatar(v-bind:src="avatar")
+                div.col-xs
+                  p {{ $i18n.t('user.yourWelcome') }}
+                  span.inline-block(v-if="channel == 'ussd'")
+                    | {{ $i18n.t('user.putUssd') }}
+                    span.mobile-number.persian-num {{ username }}
+                    | {{ $i18n.t('user.call') }}
+                    span.change-mobile(@click="step--") ({{ $i18n.t('user.changeMobile') }})
+                  span(v-else-if="channel == 'email'")
+                    span {{ $i18n.t('user.enterOtpEmail') }}
+                    span.change-mobile(@click="step--") ({{ $i18n.t('user.changeEmail') }})
 
-                                    span(v-else-if="channel == 'sms'")
-                                        span {{ $i18n.t('user.enterOtpSms') }}
+                  span(v-else-if="channel == 'sms'")
+                    span {{ $i18n.t('user.enterOtpSms') }}
 
+              <!--Ussd Box-->
+              div.row.ussd-box.no-margin(v-if="channel == 'ussd'")
+                div
+                  span.icon-qr(v-if="ussdType =='Code'" @click="changeUssdType()")
+                  span.icon-ussd-text(v-if="ussdType =='Qr'" @click="changeUssdType()")
+                    span *
+                    span.laugh :)
+                    span #
 
-                            <!--Ussd Box-->
-                            div.row.ussd-box.no-margin(v-if="channel == 'ussd'")
-                                div
-                                    span.icon-qr(v-if="ussdType =='Code'" @click="changeUssdType()")
-                                    span.icon-ussd-text(v-if="ussdType =='Qr'" @click="changeUssdType()")
-                                        span *
-                                        span.laugh :)
-                                        span #
+                div.col-xs
+                  div.ussd-text.vazir(v-if="ussdType =='Code'" @click="clipboardMessage(ussdCode)" v-clipboard="" v-bind:data-clipboard-text="ussdCode") {{ussdCode | persianNumbers}}
+                  img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
+              span.hidden-lg.hidden-md(v-if="ussdType =='Qr'") {{ $i18n.t('user.copyUssd') }}
 
-                                div.col-xs
-                                    div.ussd-text.vazir(v-if="ussdType =='Code'" @click="clipboardMessage(ussdCode)" v-clipboard="" v-bind:data-clipboard-text="ussdCode") {{ussdCode | persianNumbers}}
-                                    img.qr-image(v-if="ussdType =='Qr'" v-bind:src="qrCodeSrc")
-                            span.hidden-lg.hidden-md(v-if="ussdType =='Qr'") {{ $i18n.t('user.copyUssd') }}
+            div.col-xs-12.no-margin.dir-ltr
+              div.otp-container
+                div.input-cover
+                  input(@input="otpMaxLength" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
+                div.dashed-line
 
-                        div.col-xs-12.no-margin.dir-ltr
-                            div.otp-container
-                                div.input-cover
-                                    input(@input="otpMaxLength" @keypress="preventMaxSize" type="number" min="0" v-model="otp" id="txtOtp")
-                                div.dashed-line
+          div.row.bottom-xs
+            div.col-xs.no-margin.ta-right
+              span.link(v-if="!visibleOtpTimer && visibleSendSms && channel !== 'email'" v-on:click.prevent="sendOtp('sms')") {{ $i18n.t('user.sendCodeBySms') }}
+              timer(v-if="visibleOtpTimer" v-bind:seconds="$store.state.auth.otpTime" v-on:onFinished="finishTimer")
 
-                    div.row.bottom-xs
-                        div.col-xs.no-margin.ta-right
-                            span.link(v-if="!visibleOtpTimer && visibleSendSms && channel !== 'email'" v-on:click.prevent="sendOtp('sms')") {{ $i18n.t('user.sendCodeBySms') }}
-                            timer(v-if="visibleOtpTimer" v-bind:seconds="$store.state.auth.otpTime" v-on:onFinished="finishTimer")
+            div.col-xs.no-margin
+              button.gold.pull-left(id="btnSubmitLogin" :class="{'disable': loginLoading}") {{$i18n.t('user.enter')}}
+                svg.material-spinner(v-if="loginLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                  circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                        div.col-xs.no-margin
-                            button.gold.pull-left(id="btnSubmitLogin" :class="{'disable': loginLoading}") {{$i18n.t('user.enter')}}
-                                svg.material-spinner(v-if="loginLoading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
-            <!--Privacy Policy-->
-            div.row.auth-privacy-footer
-                div.col-xs.ta-right
-                    a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
+      <!--Privacy Policy-->
+      div.row.auth-privacy-footer
+        div.col-xs.ta-right
+          a.link(href="https://www.zarinpal.com/terms.html" target="blank") {{$i18n.t('user.rulesAndRegulations')}}
 </template>
 
 <script>
@@ -181,15 +180,17 @@
         };
       }
 
-      this.$store.state.http.requests['oauth.check'].get(oauthCheckParams).then(() => {
-        vm.$router.push({name: 'home.index'});
-      }).catch(() => {
-        vm.$store.commit('app/ready');
+      this.$store.state.http.requests['oauth.check'].get(oauthCheckParams).
+          then(() => {
+            vm.$router.push({name: 'home.index'});
+          }).
+          catch(() => {
+            vm.$store.commit('app/ready');
 
-        if (this.username && this.otp) {
-          this.login();
-        }
-      });
+            if (this.username && this.otp) {
+              this.login();
+            }
+          });
     },
     methods: {
       sendOtp(channel){
@@ -217,7 +218,8 @@
           this.otpObject = {};
         }
 
-        this.$store.state.http.requests['oauth.postInitializeLogin'].save(postData).then((response) => {
+        this.$store.state.http.requests['oauth.postInitializeLogin'].save(
+            postData).then((response) => {
           this.getOtpLoading = false;
           this.step = 2;
           this.avatar = 'https:' + response.data.data.avatar;
@@ -266,7 +268,8 @@
             }, 1000);
 
           } else {
-            store.commit('setValidationErrors', response.data.validation_errors);
+            store.commit('setValidationErrors',
+                response.data.validation_errors);
             if (!this.validationErrors.username) {
               this.userNotRegister = true;
             }
@@ -296,7 +299,8 @@
           is_web_app: true
         };
 
-        this.$store.state.http.requests['oauth.postIssueAccessToken'].save(auth2Data).then(
+        this.$store.state.http.requests['oauth.postIssueAccessToken'].save(
+            auth2Data).then(
             () => {
               vm.loginLoading = true;
               vm.$router.push({name: 'home.index'});
@@ -372,10 +376,12 @@
         });
       },
       getOtpAuthorization(callback) {
-        this.$store.state.http.requests['oauth.otpAuthorization'].get({client_id: "panel-client"}).then((response) => {
+        this.$store.state.http.requests['oauth.otpAuthorization'].get(
+            {client_id: "panel-client"}).then((response) => {
               this.mobile_expire_in = response.data.data.expire_in;
               this.mobile_socket_uri = response.data.data.uri;
-              let sessionId = this.mobile_socket_uri.match('session_id=([^&#]+)')[1];
+              let sessionId = this.mobile_socket_uri.match(
+                  'session_id=([^&#]+)')[1];
 
               callback(sessionId);
             }, (response) => {

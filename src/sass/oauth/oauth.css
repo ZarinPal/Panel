@@ -1,294 +1,294 @@
 @font-face {
-    font-family: 'iransans';
-    font-style: normal;
-    font-weight: normal;
-    src: url('../../fonts/woff2/IRANSansWeb.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../../fonts/woff/IRANSansWeb.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-family: 'iransans';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../../fonts/woff2/IRANSansWeb.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../../fonts/woff/IRANSansWeb.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 }
 
 a, a:visited {
-    color: #3792ff;
-    text-decoration: none;
+  color: #3792ff;
+  text-decoration: none;
 }
 
 a:hover, a:active {
-    color: #000;
+  color: #000;
 }
 
 body {
-    background: #e1e8ed;
-    font-size: 14px;
+  background: #e1e8ed;
+  font-size: 14px;
 }
 
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
 }
 
 .page {
-    font-family: 'iransans', Lato, sans-serif;
-    direction: rtl;
+  font-family: 'iransans', Lato, sans-serif;
+  direction: rtl;
 }
 
 header {
-    background: #fff;
-    text-align: center;
-    height: 200px;
-    display: block;
+  background: #fff;
+  text-align: center;
+  height: 200px;
+  display: block;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 17px;
-    font-weight: normal;
-    position: relative;
-    right: 50%;
-    transform: translateX(50%);
-    color: #5a5a5a;
+  margin: 0;
+  font-size: 17px;
+  font-weight: normal;
+  position: relative;
+  right: 50%;
+  transform: translateX(50%);
+  color: #5a5a5a;
 }
 
 strong {
-    color: #000;
+  color: #000;
 }
 
 header h1 img {
-    vertical-align: top;
-    width: 18px;
+  vertical-align: top;
+  width: 18px;
 }
 
 header .logos {
-    text-align: center;
-    display: inline-block;
-    width: 400px;
-    height: 150px;
+  text-align: center;
+  display: inline-block;
+  width: 400px;
+  height: 150px;
 }
 
 header .logos .img {
-    width: 80px;
-    height: 80px;
-    border-radius: 100%;
-    overflow: hidden;
-    text-align: center;
-    border: 5px solid #fff;
-    position: relative;
-    top: 40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  overflow: hidden;
+  text-align: center;
+  border: 5px solid #fff;
+  position: relative;
+  top: 40px;
 }
 
 header .logos .img img {
-    width: 100%;
-    position: relative;
-    top: 50%;
-    -webkit-transform: translate(0, -50%);
-    transform: translate(0, -50%);
+  width: 100%;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
 }
 
 header .logos .img.img-zarinpal {
-    right: 28%;
-    float: right;
+  right: 28%;
+  float: right;
 }
 
 header .logos .img.img-application {
-    right: 24%;
-    float: right;
+  right: 24%;
+  float: right;
 }
 
 header .logos .img-zarinpal {
-    background: #ffd600;
-    background-image: url("../../img/oauth/zarinpal.png");
-    background-repeat: no-repeat;
-    background-size: 75%;
-    background-position: 10px;
+  background: #ffd600;
+  background-image: url("../../img/oauth/zarinpal.png");
+  background-repeat: no-repeat;
+  background-size: 75%;
+  background-position: 10px;
 }
 
 header .logos .img-application {
-    background: #ececec;
+  background: #ececec;
 }
 
 header .ic-info {
-    background-image: url("../../img/oauth/ic_info_outline_black_24px.svg");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    position: relative;
-    top: 5px;
-    width: 18px;
-    height: 18px;
-    display: inline-block;
+  background-image: url("../../img/oauth/ic_info_outline_black_24px.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  position: relative;
+  top: 5px;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
 }
 
 .img-application .client-logo {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 main {
-    background: #fff;
-    margin: 15px auto;
-    border-radius: 5px;
-    width: 400px;
-    padding: 20px;
-    color: #5a5a5a;
+  background: #fff;
+  margin: 15px auto;
+  border-radius: 5px;
+  width: 400px;
+  padding: 20px;
+  color: #5a5a5a;
 }
 
 main.permissions {
-    background: transparent;
-    padding: 5px;
+  background: transparent;
+  padding: 5px;
 }
 
 label {
-    color: #5a5a5a;
+  color: #5a5a5a;
 }
 
 main .input {
-    width: 100%;
-    clear: both;
+  width: 100%;
+  clear: both;
 }
 
 main .input input {
-    font-family: 'iransans', Lato, sans-serif;
-    height: 50px;
-    width: 100%;
-    border: 1px solid #d0d0d0;
-    border-radius: 3px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-    background-size: 25px !important;
-    padding: 15px 50px 15px 20px;
+  font-family: 'iransans', Lato, sans-serif;
+  height: 50px;
+  width: 100%;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  background-size: 25px !important;
+  padding: 15px 50px 15px 20px;
 }
 
 main .input input.username {
-    background: url(../../img/oauth/ic_perm_identity_gray_48px.svg) no-repeat 97%;
+  background: url(../../img/oauth/ic_perm_identity_gray_48px.svg) no-repeat 97%;
 }
 
 main .input input.password {
-    background: url(../../img/oauth/ic_lock_outline_gray_48px.svg) no-repeat 97%;
+  background: url(../../img/oauth/ic_lock_outline_gray_48px.svg) no-repeat 97%;
 }
 
 main .forgot-password {
-    float: left;
+  float: left;
 }
 
 .btn {
-    font-family: 'iransans', Lato, sans-serif;
-    display: inline-block;
-    text-align: center;
-    padding: 15px;
-    border: 0;
-    background: #ececec;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 3px;
-    box-sizing: border-box;
+  font-family: 'iransans', Lato, sans-serif;
+  display: inline-block;
+  text-align: center;
+  padding: 15px;
+  border: 0;
+  background: #ececec;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 
 main .remember-me {
-    margin-top: 10px;
-    margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 main .remember-me-text {
-    padding-right: 5px;
-    cursor: pointer;
+  padding-right: 5px;
+  cursor: pointer;
 }
 
 main .myCheckbox input {
-    display: none;
-    position: relative;
-    z-index: -9999;
+  display: none;
+  position: relative;
+  z-index: -9999;
 }
 
 main .myCheckbox span {
-    float: right;
-    width: 22px;
-    height: 22px;
-    display: inline-block;
-    background: url(../../img/oauth/ic_check_box_outline_gray_24px.svg) no-repeat;
-    background-size: 20px;
-    cursor: pointer;
+  float: right;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  background: url(../../img/oauth/ic_check_box_outline_gray_24px.svg) no-repeat;
+  background-size: 20px;
+  cursor: pointer;
 }
 
 main .myCheckbox input:checked + span {
-    background: url(../../img/oauth/ic_check_box_gray_24px.svg) no-repeat;
-    background-size: 20px;
+  background: url(../../img/oauth/ic_check_box_gray_24px.svg) no-repeat;
+  background-size: 20px;
 }
 
 .btn:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .bg-zarinpal {
-    background: #ffd600;
+  background: #ffd600;
 }
 
 .bg-white {
-    background: #ffffff;
+  background: #ffffff;
 }
 
 .bg-primary {
-    background: #2979ff;
-    color: #fff !important;
+  background: #2979ff;
+  color: #fff !important;
 }
 
 a.btn {
-    color: #5a5a5a;
+  color: #5a5a5a;
 }
 
 main .btn {
-    width: 100%;
-    margin-right: 0;
-    margin-left: 0;
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 main.permissions ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 main.permissions .btn {
-    width: inherit;
-    padding: 10px;
-    margin-right: 10px;
+  width: inherit;
+  padding: 10px;
+  margin-right: 10px;
 }
 
 main.permissions ul li {
-    padding: 15px 50px 15px 10px;
-    margin: 10px auto;
-    border-radius: 3px;
-    list-style: none;
-    background: #ffffff url("../../img/oauth/ic_account_circle_black_24px.svg") no-repeat;
-    background-position-x: 95%;
-    background-position-y: center;
+  padding: 15px 50px 15px 10px;
+  margin: 10px auto;
+  border-radius: 3px;
+  list-style: none;
+  background: #ffffff url("../../img/oauth/ic_account_circle_black_24px.svg") no-repeat;
+  background-position-x: 95%;
+  background-position-y: center;
 }
 
 .alert-info {
-    text-align: center;
-    color: #4183D7;
-    line-height: 1.6em;
+  text-align: center;
+  color: #4183D7;
+  line-height: 1.6em;
 }
 
 .alert-info ul {
-    padding-right: 0;
+  padding-right: 0;
 }
 
 .alert-info ul li {
-    list-style: none
+  list-style: none
 }
 
 .alert-danger {
-    color: #F22613;
+  color: #F22613;
 }
 
 .alert-danger ul li {
-    margin: 8px 0;
+  margin: 8px 0;
 }
 
 .note {
-    margin: 20px auto;
-    font-size: 13px;
+  margin: 20px auto;
+  font-size: 13px;
 }
 
 .footer {
-    text-align: left;
-    margin: 10px auto;
+  text-align: left;
+  margin: 10px auto;
 }

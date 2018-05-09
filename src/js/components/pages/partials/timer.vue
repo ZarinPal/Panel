@@ -1,12 +1,12 @@
 <template lang="pug">
-    div.time
-        div.timer
-        div.alive
-            div.minutes
-                span.persian-num {{ $store.state.timer.minutes }}
-            div.sprator :
-            div.seconds
-                span.persian-num {{ $store.state.timer.seconds }}
+  div.time
+    div.timer
+    div.alive
+      div.minutes
+        span.persian-num {{ $store.state.timer.minutes }}
+      div.sprator :
+      div.seconds
+        span.persian-num {{ $store.state.timer.seconds }}
 </template>
 
 <script>
@@ -37,7 +37,8 @@
             vm.onFinished();
           }
 
-          vm.$store.commit('timer/updateTimer', {minutes: minutes.toString(), seconds: seconds.toString()})
+          vm.$store.commit('timer/updateTimer',
+              {minutes: minutes.toString(), seconds: seconds.toString()})
         }, 1000);
       },
       onFinished() {

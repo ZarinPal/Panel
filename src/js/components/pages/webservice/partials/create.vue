@@ -1,61 +1,61 @@
 <template lang="pug">
-    div.inner-content
-        div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title {{ $i18n.t('webservice.create') }}
-                p.page-description {{ $i18n.t('webservice.createDescription') }}
+  div.inner-content
+    div.row.nav-page-header
+      div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+        p.page-title {{ $i18n.t('webservice.create') }}
+        p.page-description {{ $i18n.t('webservice.createDescription') }}
 
-        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
-            div.box
-                form(autocomplete="on" onsubmit="event.preventDefault();")
-                    div.body
-                        div.row
-                            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                                div.row.no-margin
-                                    span.input-icon.home-icon
-                                    input(v-focus="" v-validate="'required'" v-bind:data-vv-as="$i18n.t('webservice.siteName')"  :class="{'input-danger': errors.has('site_name')}" type="text" name="site_name"  id="siteName" v-model="site_name" :placeholder= "$i18n.t('webservice.siteName')" autofocus tabindex="1" )
-                                    div.ta-right(v-if="validation('site_name')")
-                                        span.text-danger {{ errors.first('site_name') }}
+    div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice
+      div.box
+        form(autocomplete="on" onsubmit="event.preventDefault();")
+          div.body
+            div.row
+              div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+                div.row.no-margin
+                  span.input-icon.home-icon
+                  input(v-focus="" v-validate="'required'" v-bind:data-vv-as="$i18n.t('webservice.siteName')"  :class="{'input-danger': errors.has('site_name')}" type="text" name="site_name"  id="siteName" v-model="site_name" :placeholder= "$i18n.t('webservice.siteName')" autofocus tabindex="1" )
+                  div.ta-right(v-if="validation('site_name')")
+                    span.text-danger {{ errors.first('site_name') }}
 
-                                div.row.no-margin.input-group-box
-                                    span.input-icon.earth-icon
-                                    div.row.input-group.no-margin.full-width(:class="{'input-danger': errors.has('domain')}")
-                                        div.col-xs.no-margin
-                                            input.input.ltr-input(v-validate="'required|url'"  v-bind:data-vv-as="$i18n.t('webservice.domain')"   type="text" v-model="domain"  name="domain"  :placeholder= "$i18n.t('webservice.domainPlaceholder')" tabindex="2" )
-                                        div.no-margin.first-label
-                                            span http://www.
+                div.row.no-margin.input-group-box
+                  span.input-icon.earth-icon
+                  div.row.input-group.no-margin.full-width(:class="{'input-danger': errors.has('domain')}")
+                    div.col-xs.no-margin
+                      input.input.ltr-input(v-validate="'required|url'"  v-bind:data-vv-as="$i18n.t('webservice.domain')"   type="text" v-model="domain"  name="domain"  :placeholder= "$i18n.t('webservice.domainPlaceholder')" tabindex="2" )
+                    div.no-margin.first-label
+                      span http://www.
 
-                                    div.ta-right(v-if="validation('domain')")
-                                        span.text-danger {{ errors.first('domain') }}
+                  div.ta-right(v-if="validation('domain')")
+                    span.text-danger {{ errors.first('domain') }}
 
-                                div.row.no-margin
-                                    span.input-icon.mobile-icon
-                                    input.ltr-input(v-validate="{rules: {required: true}}" :class="{'input-danger': errors.has('tel')}"  v-bind:data-vv-as="$i18n.t('webservice.tel')" type="text" v-model="tel" name="tel" :placeholder= "$i18n.t('webservice.tel')" tabindex="3" )
-                                    span.text-help {{ $i18n.t('webservice.telHelp') }}
-                                    div.ta-right(v-if="validation('tel')")
-                                        span.text-danger {{ errors.first('tel') }}
+                div.row.no-margin
+                  span.input-icon.mobile-icon
+                  input.ltr-input(v-validate="{rules: {required: true}}" :class="{'input-danger': errors.has('tel')}"  v-bind:data-vv-as="$i18n.t('webservice.tel')" type="text" v-model="tel" name="tel" :placeholder= "$i18n.t('webservice.tel')" tabindex="3" )
+                  span.text-help {{ $i18n.t('webservice.telHelp') }}
+                  div.ta-right(v-if="validation('tel')")
+                    span.text-danger {{ errors.first('tel') }}
 
-                                div.row.no-margin
-                                    textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12.p-b-10(v-validate="'required'" :class="{'input-danger': errors.has('site_content')}" v-model="site_content" v-bind:data-vv-as="$i18n.t('webservice.info')" name="site_content" :placeholder= "$i18n.t('webservice.info')"  tabindex="4")
-                                div.ta-right(v-if="validation('site_content')")
-                                    span.text-danger {{ errors.first('site_content') }}
+                div.row.no-margin
+                  textarea.col-lg-12.col-md-12.col-sm-12.col-xs-12.p-b-10(v-validate="'required'" :class="{'input-danger': errors.has('site_content')}" v-model="site_content" v-bind:data-vv-as="$i18n.t('webservice.info')" name="site_content" :placeholder= "$i18n.t('webservice.info')"  tabindex="4")
+                div.ta-right(v-if="validation('site_content')")
+                  span.text-danger {{ errors.first('site_content') }}
 
-                                div.row.no-margin
-                                    span.text-help {{ $i18n.t('webservice.selectPurseHelp') }}
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" :class="{'input-danger': errors.has('purse')}" tabindex="5")
-                                    div.ta-right(v-if="validation('purse')")
-                                        span.text-danger {{ errors.first('purse') }}
+                div.row.no-margin
+                  span.text-help {{ $i18n.t('webservice.selectPurseHelp') }}
+                  purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                  div.ta-right(v-if="validation('purse')")
+                    span.text-danger {{ errors.first('purse') }}
 
-                                div.row.no-margin
-                                    webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" v-model="webservice_category_id" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" @select="selectedWebserviceCat" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
-                                    div.ta-right(v-if="validation('webservice_category_id')")
-                                        span.text-danger {{ errors.first('webservice_category_id') }}
+                div.row.no-margin
+                  webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" v-model="webservice_category_id" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" @select="selectedWebserviceCat" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
+                  div.ta-right(v-if="validation('webservice_category_id')")
+                    span.text-danger {{ errors.first('webservice_category_id') }}
 
-                    div.row
-                        div.col-xs.nav-buttons
-                            button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="7" :class="{'disable': loading}") {{$i18n.t('webservice.create')}}
-                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+          div.row
+            div.col-xs.nav-buttons
+              button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="7" :class="{'disable': loading}") {{$i18n.t('webservice.create')}}
+                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                  circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
 
 <script>
@@ -83,12 +83,13 @@
     computed: {
       webserviceCatSelection() {
         if (this.$store.state.app.webserviceCategories) {
-          return this.$store.state.app.webserviceCategories.map(function(value) {
-            return {
-              'title': value.title,
-              'value': value.public_id
-            }
-          });
+          return this.$store.state.app.webserviceCategories.map(
+              function(value) {
+                return {
+                  'title': value.title,
+                  'value': value.public_id
+                }
+              });
         }
       },
     },
@@ -152,7 +153,8 @@
           site_content: this.site_content,
         };
 
-        this.$store.state.http.requests['webservice.getIndex'].save(webserviceData).then(
+        this.$store.state.http.requests['webservice.getIndex'].save(
+            webserviceData).then(
             (response) => {
               store.commit('flashMessage', {
                 text: 'WebserviceTicketNewLocal',
@@ -160,11 +162,15 @@
               });
               this.loading = false;
 
-              this.$router.push({name: 'ticket.show', params: {id: response.data.data.ticket_id}})
+              this.$router.push({
+                name: 'ticket.show',
+                params: {id: response.data.data.ticket_id}
+              })
             },
             (response) => {
               this.loading = false;
-              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
               store.commit('flashMessage', {
                 text: response.data.meta.error_type,
                 type: 'danger'

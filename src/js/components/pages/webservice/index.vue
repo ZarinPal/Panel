@@ -1,33 +1,33 @@
 <template lang="pug">
-    div.inner-content
-        div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                p.page-title {{ $i18n.t('common.webservices') }}
-                p.page-description {{ $i18n.t('webservice.webserviceDescription') }}
+  div.inner-content
+    div.row.nav-page-header
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('common.webservices') }}
+        p.page-description {{ $i18n.t('webservice.webserviceDescription') }}
 
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12.xs-ta-center
-                router-link.btn.success.pull-left(tag="button" v-bind:to="{ name: 'webservice.create'}")
-                    span.icon-add-circle
-                    span.text {{ $i18n.t('common.createWebservice') }}
-                button.btn.btn-gradient-radius(tag="button"  @click="visibleTrustCode = true")
-                    span.btn-label.top-0 {{ $i18n.t('webservice.showTrustLogo') }}
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12.xs-ta-center
+        router-link.btn.success.pull-left(tag="button" v-bind:to="{ name: 'webservice.create'}")
+          span.icon-add-circle
+          span.text {{ $i18n.t('common.createWebservice') }}
+        button.btn.btn-gradient-radius(tag="button"  @click="visibleTrustCode = true")
+          span.btn-label.top-0 {{ $i18n.t('webservice.showTrustLogo') }}
 
-        div.row
-            singleWebservice(v-for="webservice in webservices.data" v-bind:key="webservice.public_id" v-bind:webservice="webservice")
+    div.row
+      singleWebservice(v-for="webservice in webservices.data" v-bind:key="webservice.public_id" v-bind:webservice="webservice")
 
-        div.row
-            div.col-xs
-                div.ta-center(v-if="webservices.status")
-                    loading
+    div.row
+      div.col-xs
+        div.ta-center(v-if="webservices.status")
+          loading
 
-                div.row(v-if="!webservices.status && !webservices.data.length")
-                    div.col-xs.ta-center
-                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+        div.row(v-if="!webservices.status && !webservices.data.length")
+          div.col-xs.ta-center
+            span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
-                div.ta-center(v-if="!this.$store.state.paginator.paginator.WebserviceList.resource.resource && webservices.data.length")
-                    span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
-        <!--Show Trust Code  -->
-        showTrustCode(v-if="visibleTrustCode" v-on:closeModal="closeModal" )
+        div.ta-center(v-if="!this.$store.state.paginator.paginator.WebserviceList.resource.resource && webservices.data.length")
+          span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
+    <!--Show Trust Code  -->
+    showTrustCode(v-if="visibleTrustCode" v-on:closeModal="closeModal" )
 
 </template>
 

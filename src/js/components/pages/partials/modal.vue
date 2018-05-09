@@ -1,27 +1,26 @@
 <template lang="pug">
-    div
-        transition(name="fade"
-        enter-active-class="fade-in"
-        leave-active-class="fade-out")
-            div.modal(v-on:click.self="closeModal()")
+  div
+    transition(name="fade"
+    enter-active-class="fade-in"
+    leave-active-class="fade-out")
+      div.modal(v-on:click.self="closeModal()")
 
-        div.modal-content-father(v-on:click.self="closeModal()")
-            transition(name="zoom"
-            enter-active-class="zoom-in"
-            leave-active-class="zoom-out")
-                div.row.center-xs.modal-content(v-if="!closeModalContent" v-on:click.self="closeModal()")
-                    div.col-lg-4.col-md-5.col-sm-12.col-xs-12.modal-inner-content
-                        div.header
-                            span.icon-close(@click="closeModal()")
-                            span.title
-                                slot(name="title")
+    div.modal-content-father(v-on:click.self="closeModal()")
+      transition(name="zoom"
+      enter-active-class="zoom-in"
+      leave-active-class="zoom-out")
+        div.row.center-xs.modal-content(v-if="!closeModalContent" v-on:click.self="closeModal()")
+          div.col-lg-4.col-md-5.col-sm-12.col-xs-12.modal-inner-content
+            div.header
+              span.icon-close(@click="closeModal()")
+              span.title
+                slot(name="title")
 
-                        div.body
-                            div.contains
-                                slot(name="content")
+            div.body
+              div.contains
+                slot(name="content")
 
 </template>
-
 
 <script>
   export default {

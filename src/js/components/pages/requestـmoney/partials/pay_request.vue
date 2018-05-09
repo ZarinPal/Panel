@@ -1,19 +1,19 @@
 <template lang="pug">
-    modal.pay-request(v-on:closeModal="closeModal()")
-        span(slot="title") {{ $i18n.t('requestMoney.pay') }}
-        div(slot="content")
-            div.row
-                div.col-xs.ta-center.nav-amount
-                    span.persian-num {{debt.amount | numberFormat}}
-                    small {{ $i18n.t('transaction.toman') }}
+  modal.pay-request(v-on:closeModal="closeModal()")
+    span(slot="title") {{ $i18n.t('requestMoney.pay') }}
+    div(slot="content")
+      div.row
+        div.col-xs.ta-center.nav-amount
+          span.persian-num {{debt.amount | numberFormat}}
+          small {{ $i18n.t('transaction.toman') }}
 
-            div.row.no-margin.nav-description
-                span {{ $i18n.t('common.description') }} :
-                span {{debt.description}}
+      div.row.no-margin.nav-description
+        span {{ $i18n.t('common.description') }} :
+        span {{debt.description}}
 
-            div.row
-                div.col-xs.no-margin
-                    button.btn.success.pull-left(v-ripple="" @click="payRequest") {{$i18n.t('requestMoney.pay')}}
+      div.row
+        div.col-xs.no-margin
+          button.btn.success.pull-left(v-ripple="" @click="payRequest") {{$i18n.t('requestMoney.pay')}}
 </template>
 
 <script>
@@ -31,7 +31,8 @@
     props: ['debt'],
     mounted() {
       this.closeModalContent = false;
-      this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'requestMoney.index'}).href + '/debt?';
+      this.redirect_url = this.$root.baseUrl +
+          this.$router.resolve({name: 'requestMoney.index'}).href + '/debt?';
     },
     methods: {
       closeModal() {
@@ -46,10 +47,12 @@
           redirect_url: this.redirect_url,
         };
 
-        this.$store.state.http.requests['requestMoney.payRequestMoney'].save(params, requestData).then(
+        this.$store.state.http.requests['requestMoney.payRequestMoney'].save(
+            params, requestData).then(
             (response) => {
               let authority = response.data.data.authority;
-              window.location.replace(this.$store.state.http.services.pg + authority);
+              window.location.replace(
+                  this.$store.state.http.services.pg + authority);
             },
             (response) => {
               this.loading = false;

@@ -1,6 +1,6 @@
 <template lang="pug">
-    div.col-xs
-        router-view
+  div.col-xs
+    router-view
 </template>
 
 <script>

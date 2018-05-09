@@ -1,15 +1,15 @@
 <template lang="pug">
-    div.full-height
-        navbar
+  div.full-height
+    navbar
 
-        div.zp-container.row
-            sidebar
+    div.zp-container.row
+      sidebar
 
-            div.col-xs.main-content
-                <!--button.success.pull-left(v-back="") back-->
-                router-view(v-if="$store.state.auth.check")
+      div.col-xs.main-content
+        <!--button.success.pull-left(v-back="") back-->
+        router-view(v-if="$store.state.auth.check")
 
-        div.clear-both
+    div.clear-both
 </template>
 
 <script>
@@ -22,7 +22,8 @@
     beforeRouteUpdate (to, from, next) {
       if (this.$store.state.auth.check
           && !this.checkUserLevel(to.meta.accessLevel, this)) {
-        this.$router.push({name: 'home.index', query: {error: 'suspend', path: from.name}});
+        this.$router.push(
+            {name: 'home.index', query: {error: 'suspend', path: from.name}});
       }
       next();
     },
@@ -39,7 +40,10 @@
       let vm = this;
       this.$store.dispatch('auth/fetch', (isOk) => {
         if (isOk && !vm.checkUserLevel(vm.$route.meta.accessLevel, vm)) {
-          vm.$router.push({name: 'home.index', query: {error: 'suspend', path: vm.$route.name}});
+          vm.$router.push({
+            name: 'home.index',
+            query: {error: 'suspend', path: vm.$route.name}
+          });
         }
       });
 
@@ -62,7 +66,8 @@
         };
 
         let userLevel = (vm.$store.state.auth.user.level + 1).toString();
-        if (!acceptedLevels || !acceptedLevels.length || userLevel === 1) return true;
+        if (!acceptedLevels || !acceptedLevels.length ||
+            userLevel === 1) return true;
         return _.indexOf(acceptedLevels, levels[userLevel]) !== -1;
       },
     },

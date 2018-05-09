@@ -1,29 +1,28 @@
 <template lang="pug">
-    div.row
-        div.nav-ticket-list.scrollbar#ticketContent(v-bind:class="{'hidden-sm': showTicketReplies, 'show-sm': !showTicketReplies, 'ticket-empty-list-width': this.$store.state.app.isTicketEmptyPage}")
-            div.content
-                span(v-for="ticket in tickets.data" v-bind:ticket="ticket")
-                    router-link.row(@click.native="showTicketReplies = true" tag="li" v-bind:to="{ name: 'ticket.show', params: { id: ticket.public_id}}")
-                        div.col-xs
-                            div.title(:class="{'close-ticket-title' : ticket.is_read == true}") {{ticket.title | less(30)}}
-                            div.iransans-light.title.persian-num(:class="{'close-ticket-title' : ticket.is_read == true}")  {{$i18n.t('ticket.ticketId')}} : {{ticket.public_id}}
-                        div.nav-details
-                            div
-                                span.status {{$i18n.t('ticket.' + ticket.status)}}
-                                span.priority {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
-                            span.date.iransans-light.persian-num {{ticket.updated_at | fromNow}}
+  div.row
+    div.nav-ticket-list.scrollbar#ticketContent(v-bind:class="{'hidden-sm': showTicketReplies, 'show-sm': !showTicketReplies, 'ticket-empty-list-width': this.$store.state.app.isTicketEmptyPage}")
+      div.content
+        span(v-for="ticket in tickets.data" v-bind:ticket="ticket")
+          router-link.row(@click.native="showTicketReplies = true" tag="li" v-bind:to="{ name: 'ticket.show', params: { id: ticket.public_id}}")
+            div.col-xs
+              div.title(:class="{'close-ticket-title' : ticket.is_read == true}") {{ticket.title | less(30)}}
+              div.iransans-light.title.persian-num(:class="{'close-ticket-title' : ticket.is_read == true}")  {{$i18n.t('ticket.ticketId')}} : {{ticket.public_id}}
+            div.nav-details
+              div
+                span.status {{$i18n.t('ticket.' + ticket.status)}}
+                span.priority {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
+              span.date.iransans-light.persian-num {{ticket.updated_at | fromNow}}
 
-                div.ta-center.sticky-new-ticket
-                    router-link.btn.success.btn-add-ticket(v-if="this.$store.state.app.isTicketEmptyPage" tag="button" v-bind:to="{ name: 'ticket.create'}")  {{$i18n.t('ticket.addTicket')}}
-                    router-link.btn.success.rounded(v-else tag="button" v-bind:to="{ name: 'ticket.create'}")
+        div.ta-center.sticky-new-ticket
+          router-link.btn.success.btn-add-ticket(v-if="this.$store.state.app.isTicketEmptyPage" tag="button" v-bind:to="{ name: 'ticket.create'}")  {{$i18n.t('ticket.addTicket')}}
+          router-link.btn.success.rounded(v-else tag="button" v-bind:to="{ name: 'ticket.create'}")
 
+          div.ta-center(v-if="loadingTicketState.status")
+            svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+              circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                    div.ta-center(v-if="loadingTicketState.status")
-                        svg.material-spinner(width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                            circle.path-colors(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
-        div.col-xs.nav-tickets.scrollbar(id="navTickets")
-            router-view(v-on:closeReplies="closeReplies()" v-bind:class="{'show-sm': showTicketReplies, 'hidden-sm': !showTicketReplies}")
+    div.col-xs.nav-tickets.scrollbar(id="navTickets")
+      router-view(v-on:closeReplies="closeReplies()" v-bind:class="{'show-sm': showTicketReplies, 'hidden-sm': !showTicketReplies}")
 
 </template>
 

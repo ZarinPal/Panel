@@ -48,7 +48,6 @@ export default {
       if (refId) {
         state.refererId = refId;
 
-        return;
       }
     },
     changeModalStatus(state, status) {

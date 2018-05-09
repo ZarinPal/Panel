@@ -1,26 +1,25 @@
 <template lang="pug">
-    modal.add-fund(v-on:closeModal="closeModal()")
-        span(slot="title") {{ $i18n.t('purse.addFund') }}
-        div(slot="content")
-            div
-                form(autocomplete="on" onsubmit="event.preventDefault();")
-                    div.row
-                        vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
-                        div.ta-right(v-if="validation('amount')")
-                            span.text-danger {{ errors.first('amount') }}
+  modal.add-fund(v-on:closeModal="closeModal()")
+    span(slot="title") {{ $i18n.t('purse.addFund') }}
+    div(slot="content")
+      div
+        form(autocomplete="on" onsubmit="event.preventDefault();")
+          div.row
+            vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
+            div.ta-right(v-if="validation('amount')")
+              span.text-danger {{ errors.first('amount') }}
 
-                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" tabindex="2")
-                    div.ta-right(v-if="validation('purse')")
-                        span.text-danger {{ errors.first('purse') }}
+          purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse" :placeholder="$i18n.t('easypay.selectPurse')" tabindex="2")
+          div.ta-right(v-if="validation('purse')")
+            span.text-danger {{ errors.first('purse') }}
 
-                    div.row
-                        div.col-xs.no-margin
-                            button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="3") {{$i18n.t('purse.addFund')}}
-                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+          div.row
+            div.col-xs.no-margin
+              button.btn.success.pull-left(v-ripple="" @click="validateForm" tabindex="3") {{$i18n.t('purse.addFund')}}
+                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                  circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
-
 
 <script>
   import selectbox from '../../partials/selectbox.vue';
@@ -43,7 +42,8 @@
       }
     },
     mounted() {
-      this.redirect_url = this.$root.baseUrl + this.$router.resolve({name: 'home.finishAddFund'}).href;
+      this.redirect_url = this.$root.baseUrl +
+          this.$router.resolve({name: 'home.finishAddFund'}).href;
       this.closeModalContent = false;
     },
     computed: {
@@ -52,8 +52,10 @@
         _.forEach(this.$store.state.auth.user.cards, function(card) {
           if (card.status == "Active" && card.pan !== null) {
             activeCards.unshift({
-              'title': '<div class="card-logo bank-logo logo-' + card.issuer.slug.toLowerCase() +
-              '"></div> <span class="bank-name">' + card.issuer.name + '</span>' + '<span class="pull-left">' +
+              'title': '<div class="card-logo bank-logo logo-' +
+              card.issuer.slug.toLowerCase() +
+              '"></div> <span class="bank-name">' + card.issuer.name +
+              '</span>' + '<span class="pull-left">' +
               card.pan + '</span>',
               'value': card.entity_id,
             });
@@ -101,7 +103,8 @@
           redirect_url: this.redirect_url
         };
 
-        this.$store.state.http.requests['checkout.postAddFund'].save(addFundData).then(
+        this.$store.state.http.requests['checkout.postAddFund'].save(
+            addFundData).then(
             (response) => {
               let openZarinak = () => {
                 Zarinak.setAuthority(response.data.data.authority);
@@ -122,7 +125,8 @@
             },
             (response) => {
               this.loading = false;
-              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
               this.$store.commit('flashMessage', {
                 text: response.data.meta.error_type,
                 type: 'danger'

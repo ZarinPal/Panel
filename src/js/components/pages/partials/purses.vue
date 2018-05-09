@@ -1,5 +1,5 @@
 <template lang="pug">
-    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.auth.isLoaded" v-on:select="selectedPurse" v-bind:selected="selected" v-bind:data="purses" :placeholder="$i18n.t('easypay.selectPurse')")
+  selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.auth.isLoaded" v-on:select="selectedPurse" v-bind:selected="selected" v-bind:data="purses" :placeholder="$i18n.t('easypay.selectPurse')")
 </template>
 
 <script>
@@ -16,19 +16,24 @@
             let balance = null;
             if (purse.balance) {
               if (purse.balance.balance) {
-                balance = purse.balance.balance.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + ',');
+                balance = purse.balance.balance.toString().
+                    replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + ',');
               } else {
                 balance = purse.balance.balance;
               }
               return {
-                'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' +
-                purse.name + '</div><div class="col-xs ta-left persian-num purse-selectbox-balance">' + balance +
+                'title': '<div class="col-xs>"><span class="wallet-color color-' +
+                purse.purse + '"></span>' +
+                purse.name +
+                '</div><div class="col-xs ta-left persian-num purse-selectbox-balance">' +
+                balance +
                 ' تومان</div>',
                 'value': purse.purse
               }
             } else {
               return {
-                'title': '<div class="col-xs>"><span class="wallet-color color-' + purse.purse + '"></span>' +
+                'title': '<div class="col-xs>"><span class="wallet-color color-' +
+                purse.purse + '"></span>' +
                 purse.name + '</div>',
                 'value': purse.purse
               };
@@ -48,5 +53,4 @@
   };
 
 </script>
-
 

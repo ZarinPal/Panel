@@ -1,5 +1,5 @@
 <template lang="pug">
-    selectbox.zarinlinks.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.auth.isLoaded" v-on:select="selectedZarinLink" v-bind:selected="defaultZarinLink" v-bind:data="zarinLinks" v-bind:loadMore="'EasypayList'" :placeholder="$i18n.t('easypay.selectEasypay')")
+  selectbox.zarinlinks.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-if="this.$store.state.auth.isLoaded" v-on:select="selectedZarinLink" v-bind:selected="defaultZarinLink" v-bind:data="zarinLinks" v-bind:loadMore="'EasypayList'" :placeholder="$i18n.t('easypay.selectEasypay')")
 </template>
 
 <script>
@@ -36,7 +36,8 @@
       if (!this.$store.state.paginator.paginator.EasypayList) {
         this.getZarinLinks();
       } else {
-        this.$store.state.paginator.paginator.EasypayList.data.unshift({entity_id: 'all', title: 'همه'});
+        this.$store.state.paginator.paginator.EasypayList.data.unshift(
+            {entity_id: 'all', title: 'همه'});
       }
     },
     methods: {
@@ -51,7 +52,8 @@
             }
         );
 
-        this.$store.state.paginator.paginator.EasypayList.data.push({entity_id: 'all', title: 'همه'});
+        this.$store.state.paginator.paginator.EasypayList.data.push(
+            {entity_id: 'all', title: 'همه'});
 
         if (this.selected) {
           this.$store.state.paginator.paginator.EasypayList.data.push({
