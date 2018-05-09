@@ -77,8 +77,6 @@
           <!--span.statement-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard' && card.status != 'Expired'")  {{ $i18n.t('common.getBalance')}}-->
           <!--span.shetab-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard' && card.status != 'Expired'") {{ $i18n.t('purse.shetabMoneyTransfer')}}-->
 
-
-
           div.col-xs
             <!--Active-->
             span(v-if="card.status == 'Active'")
