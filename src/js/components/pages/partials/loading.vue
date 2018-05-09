@@ -10,8 +10,8 @@
 
 
 <script>
-    export default {
-        name: 'loading',
-        props: ['width', 'height']
-    }
+  export default {
+    name: 'loading',
+    props: ['width', 'height']
+  }
 </script>

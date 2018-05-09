@@ -15,7 +15,7 @@
                         leave-active-class="drop-down-hide")
                             span.drop-down.pull-left(v-click-outside="closeDropDownFromOutside" v-if="this.$store.state.app.singleEasypayMoreTrigger == easypay.entity_id")
                                 span.close-drop-down.drop-down-item(v-ripple="" @click="changeMoreTriggerOff()")
-                                router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") تراکنش‌ها
+                                router-link.drop-down-item.transaction-icon(v-ripple="" tag="span" v-bind:to="{ name: 'transaction.index', params: { type:'easypay', id: easypay.entity_id}}") {{$i18n.t('common.transactions')}}
                                 router-link.drop-down-item.edit(v-ripple="" tag="span" v-bind:to="{ name: 'easypay.edit', params: { public_id: easypay.entity_id} }") {{$i18n.t('common.edit')}}
                                 span.drop-down-item.eye(v-ripple="" @click="showHtmlVisible = true" ) {{$i18n.t('easypay.showLinkLocal')}}
                                 span.drop-down-item.delete(v-ripple="" @click="confirmVisible = true") {{$i18n.t('common.delete')}}
@@ -28,7 +28,7 @@
                         span.label {{$i18n.t('easypay.amount')}}
 
                     div.col-xs.ta-left
-                        span.text-value.persian-num {{easypay.price | numberFormat }} تومان
+                        span.text-value.persian-num {{easypay.price | numberFormat }} {{$i18n.t('transaction.toman')}}
 
                 div.row.box-row
                     div.ta-right
@@ -53,8 +53,8 @@
             span(slot="title") {{$i18n.t('easypay.deleteEasypay')}}
             div.ta-right(slot="message")
                 div.row.no-margin
-                    div.col-xs-12 آیا نسبت به حذف زرین‌لینک " {{easypay.title}} " اطمینان دارید؟
-                    div.col-xs-12 این عملیات غیر قابل بازگشت است.
+                    div.col-xs-12 {{$i18n.t('coupon.deleteSure')}}  {{$i18n.t('easypay.easypay')}} " {{easypay.title}} " {{$i18n.t('coupon.areYouSure')}}
+                    div.col-xs-12 {{$i18n.t('coupon.irreversible')}}
 
             span(slot="messageDanger") {{$i18n.t('common.cancel')}}
             span(slot="messageSuccess") {{$i18n.t('easypay.yesDeleteIt')}}
@@ -65,81 +65,82 @@
 </template>
 
 <script>
-    import confirm from '../../partials/confirm.vue';
-    import showHtml from './show_html_code.vue';
+  import confirm from '../../partials/confirm.vue';
+  import showHtml from './show_html_code.vue';
 
-    export default {
-        name: 'pages-easypay-partials-singleEasypay',
-        data(){
-            return {
-                confirmVisible: false,
-                showHtmlVisible: false,
-                confirm: false,
-            }
-        },
-        props: ['easypay'],
-        methods: {
-            clipboardMessage() {
+  export default {
+    name: 'pages-easypay-partials-singleEasypay',
+    data(){
+      return {
+        confirmVisible: false,
+        showHtmlVisible: false,
+        confirm: false,
+      }
+    },
+    props: ['easypay'],
+    methods: {
+      clipboardMessage() {
+        store.commit('flashMessage', {
+          text: 'Copied',
+          type: 'success',
+          timeout: '1500'
+        });
+      },
+      changeMoreTriggerOn() {
+        this.$store.state.app.singleEasypayMoreTrigger = this.easypay.entity_id;
+      },
+      changeMoreTriggerOff() {
+        this.$store.state.app.singleEasypayMoreTrigger = null;
+
+        this.visibleMoreOptions = false;
+      },
+      closeDropDownFromOutside() {
+        let vm = this;
+        document.addEventListener('click', function(e) {
+          if (e.target.id !== 'btnMoreIcon') {
+            vm.$store.state.app.singleEasypayMoreTrigger = null;
+          }
+        }, false);
+      },
+      closeModal(){
+        this.confirmVisible = false;
+        this.showHtmlVisible = false;
+        store.commit('clearValidationErrors');
+      },
+      deleteEasypay() {
+        this.confirm = true;
+        if (this.confirm) {
+          let params = {
+            easypay_id: this.easypay.entity_id
+          };
+
+          this.$store.state.http.requests['easypay.getShow'].remove(params).then(
+              () => {
+                let easypayIndex = _.findIndex(this.$store.state.paginator.paginator.EasypayList.data,
+                    {'entity_id': this.easypay.entity_id});
+                this.$store.state.paginator.paginator.EasypayList.data.splice(easypayIndex, 1);
+                this.$store.state.paginator.update++;
+
                 store.commit('flashMessage', {
-                    text: 'Copied',
-                    type: 'success',
-                    timeout: '1500'
+                  text: 'EasypayDeletedLocal',
+                  important: false,
+                  type: 'success'
                 });
-            },
-            changeMoreTriggerOn() {
-                this.$store.state.app.singleEasypayMoreTrigger = this.easypay.entity_id;
-            },
-            changeMoreTriggerOff() {
-                this.$store.state.app.singleEasypayMoreTrigger = null;
-
-                this.visibleMoreOptions = false;
-            },
-            closeDropDownFromOutside() {
-                let vm = this;
-                document.addEventListener('click', function (e) {
-                    if (e.target.id !== 'btnMoreIcon') {
-                        vm.$store.state.app.singleEasypayMoreTrigger = null;
-                    }
-                }, false);
-            },
-            closeModal(){
-                this.confirmVisible = false;
-                this.showHtmlVisible = false;
-                store.commit('clearValidationErrors');
-            },
-            deleteEasypay() {
-                this.confirm = true;
-                if (this.confirm) {
-                    let params = {
-                        easypay_id: this.easypay.entity_id
-                    };
-
-                    this.$store.state.http.requests['easypay.getShow'].remove(params).then(
-                        () => {
-                            let easypayIndex = _.findIndex(this.$store.state.paginator.paginator.EasypayList.data, {'entity_id': this.easypay.entity_id});
-                            this.$store.state.paginator.paginator.EasypayList.data.splice(easypayIndex, 1);
-                            this.$store.state.paginator.update++;
-
-                            store.commit('flashMessage', {
-                                text: 'EasypayDeletedLocal',
-                                important: false,
-                                type: 'success'
-                            });
-                        },
-                        (response) => {
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                important: false,
-                                type: 'danger'
-                            });
-                        }
-                    )
-                }
-            }
-        },
-        components: {
-            confirm,
-            'show-html': showHtml
+              },
+              (response) => {
+                store.commit('flashMessage', {
+                  text: response.data.meta.error_type,
+                  important: false,
+                  type: 'danger'
+                });
+              }
+          )
         }
+      }
+    },
+    components: {
+      confirm,
+      'show-html': showHtml
     }
+  }
 </script>

@@ -9,24 +9,24 @@ window.moment.loadPersian();
  * and simple, leaving you to focus on building your next great project.
  */
 
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Vuex from "vuex";
-import VueI18n from "vue-i18n";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Vuex from 'vuex';
+import VueI18n from 'vue-i18n';
 /**
  * Vee validate
  */
-import VeeValidate from "vee-validate";
-import messagesFa from "./lang/validation/fa";
-import VueSentry from "vue2-sentry";
-import NumberFormat from "./mixin/number_format";
-import Validation from "./mixin/validation";
+import VeeValidate from 'vee-validate';
+import messagesFa from './lang/validation/fa';
+import VueSentry from 'vue2-sentry';
+import NumberFormat from './mixin/number_format';
+import Validation from './mixin/validation';
 
 Vue.use(VeeValidate, {
-    locale: 'fa',
-    dictionary: {
-        fa: messagesFa,
-    }
+  locale: 'fa',
+  dictionary: {
+    fa: messagesFa,
+  },
 });
 
 window.Vue = Vue;
@@ -41,25 +41,25 @@ Vue.use(Vuex);
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
-    locale: 'fa',
-    fallbackLocale: 'en',
+  locale: 'fa',
+  fallbackLocale: 'en',
 });
 window.i18n = i18n;
 
 Vue.use(VueSentry, {
-    protocol: 'https', // default is https
-    key: '0e52e25ebe614c0892b9a057b52a8d21',
-    server: 'sentry.zarinpal.com',
-    project: '5',
-    config: {
-        release: process.env.GIT_SHA
-    },
-    enable: process.env.NODE_ENV === 'production',
+  protocol: 'https', // default is https
+  key: '0e52e25ebe614c0892b9a057b52a8d21',
+  server: 'sentry.zarinpal.com',
+  project: '5',
+  config: {
+    release: process.env.GIT_SHA,
+  },
+  enable: process.env.NODE_ENV === 'production',
 });
 
 Vue.directive(
     'clipboard',
-    require('./directives/clipboard')
+    require('./directives/clipboard'),
 );
 
 // Vue.directive(
@@ -69,38 +69,37 @@ Vue.directive(
 
 Vue.directive(
     'ripple',
-    require('./directives/ripple').default
+    require('./directives/ripple').default,
 );
 
 Vue.directive(
     'click-outside',
-    require('./directives/close').default
+    require('./directives/close').default,
 );
 
 Vue.directive(
     'back',
-    require('./directives/back').default
+    require('./directives/back').default,
 );
 
 Vue.directive(
     'english-number',
-    require('./directives/back').default
+    require('./directives/back').default,
 );
 
 Vue.directive(
     'mask',
-    require('./directives/mask').default
+    require('./directives/mask').default,
 );
 
 Vue.directive(
     'avatar',
-    require('./directives/avatar').default
+    require('./directives/avatar').default,
 );
 Vue.directive(
     'focus',
-    require('./directives/focus').default
+    require('./directives/focus').default,
 );
-
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of

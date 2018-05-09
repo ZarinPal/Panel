@@ -27,78 +27,78 @@
 
 
 <script>
-    export default {
-        name: 'partial-sidebar-userProgress',
-        mounted() {
-            this.renderProgress();
-        },
-        computed: {
-            isSmallSidebar() {
-                return this.$store.state.app.smallSidebar;
-            },
-            appIsLoaded() {
-                return this.$store.state.app.isLoaded;
-            },
-            user() {
-                if (!this.$store.state.auth.check)
-                    return {user_progress: {points: 0}, public_id: 1};
-                return this.$store.state.auth.user;
-            },
-        },
-        watch: {
-            appIsLoaded() {
-                this.renderProgress();
-            },
-            user() {
-                this.renderProgress();
-            },
-        },
-        methods: {
-            levelColor() {
-                switch (this.user.level) {
-                    case 1:
-                        return '#FFFFFF';
-                        break;
-                    case 2:
-                        return '#D5D9DB';
-                        break;
-                    case 3:
-                        return '#FFDA47';
-                        break;
-                    default:
-                        return '#FFFFFF';
-                }
-            },
-            numberToPersian(value) {
-                if (typeof value == 'undefined') {
-                    return value;
-                }
-                value = typeof value === "number" ? value.toString() : value;
-                return value.toString().replace(/\d/g, function (match) {
-                    return ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'][parseInt(match)];
-                });
-            },
-            renderProgress() {
-                let circle = document.getElementById("userProgress");
-                let dashoffset = 257.6106;
-                if (this.$store.state.app.isLoaded) {
-                    if (isNaN(this.user.user_progress.points)) {
-                        this.user.user_progress.points = 100;
-                    } else {
-                        if (this.user.user_progress.points < 0) {
-                            this.user.user_progress.points = 0;
-                        }
-                        if (this.user.user_progress.points > 100) {
-                            this.user.user_progress.points = 100;
-                        }
-                    }
-                    let RADIUS = circle.getAttribute("r");
-                    let CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-                    let progress = this.user.user_progress.points / 100;
-                    dashoffset = CIRCUMFERENCE * (1 - progress);
-                }
-                circle.setAttribute('stroke-dashoffset', dashoffset);
-            },
-        },
-    }
+  export default {
+    name: 'partial-sidebar-userProgress',
+    mounted() {
+      this.renderProgress();
+    },
+    computed: {
+      isSmallSidebar() {
+        return this.$store.state.app.smallSidebar;
+      },
+      appIsLoaded() {
+        return this.$store.state.app.isLoaded;
+      },
+      user() {
+        if (!this.$store.state.auth.check)
+          return {user_progress: {points: 0}, public_id: 1};
+        return this.$store.state.auth.user;
+      },
+    },
+    watch: {
+      appIsLoaded() {
+        this.renderProgress();
+      },
+      user() {
+        this.renderProgress();
+      },
+    },
+    methods: {
+      levelColor() {
+        switch (this.user.level) {
+          case 1:
+            return '#FFFFFF';
+            break;
+          case 2:
+            return '#D5D9DB';
+            break;
+          case 3:
+            return '#FFDA47';
+            break;
+          default:
+            return '#FFFFFF';
+        }
+      },
+      numberToPersian(value) {
+        if (typeof value == 'undefined') {
+          return value;
+        }
+        value = typeof value === "number" ? value.toString() : value;
+        return value.toString().replace(/\d/g, function(match) {
+          return ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'][parseInt(match)];
+        });
+      },
+      renderProgress() {
+        let circle = document.getElementById("userProgress");
+        let dashoffset = 257.6106;
+        if (this.$store.state.app.isLoaded) {
+          if (isNaN(this.user.user_progress.points)) {
+            this.user.user_progress.points = 100;
+          } else {
+            if (this.user.user_progress.points < 0) {
+              this.user.user_progress.points = 0;
+            }
+            if (this.user.user_progress.points > 100) {
+              this.user.user_progress.points = 100;
+            }
+          }
+          let RADIUS = circle.getAttribute("r");
+          let CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+          let progress = this.user.user_progress.points / 100;
+          dashoffset = CIRCUMFERENCE * (1 - progress);
+        }
+        circle.setAttribute('stroke-dashoffset', dashoffset);
+      },
+    },
+  }
 </script>

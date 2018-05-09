@@ -52,13 +52,12 @@
                         div.col-xs.ta-left
                             span.value.persian-num {{transaction.created | jalali('HH:mm:ss jYYYY-jMM-jDD')}}
 
-
-
                     div.row
                         div.col-xs.ta-right
                             span.title {{$i18n.t('common.ip')}}
                         div.col-xs.ta-left
-                            span.value  {{ transaction.from_ip}}
+                            img.value.p-l-5.flag-icon(:src="flagUrl" :title="flagCountryName")
+                            span.pull-left.value  {{ transaction.from_ip}}
 
                     div.row(v-if="transaction.card_info")
                         div.col-xs.ta-right
@@ -135,9 +134,9 @@
 
                     div.row
                         div.col-xs
-                            button.btn.success(@click="saveNote" v-if="isEditingNote" ) ذخیره یادداشت
-                            button.btn(@click="addNote" v-else-if="transaction.note" ) ویرایش یادداشت
-                            button.btn(@click="addNote" v-else="!transaction.note" ) افزودن یادداشت
+                            button.btn.success(@click="saveNote" v-if="isEditingNote" )  {{$i18n.t('transaction.saveNote')}}
+                            button.btn(@click="addNote" v-else-if="transaction.note" )  {{$i18n.t('transaction.editNote')}}
+                            button.btn(@click="addNote" v-else="!transaction.note" )  {{$i18n.t('transaction.addNote')}}
                         div.col-xs
                             a(:href="'/rest/v3/transaction/' + transaction.public_id + '.pdf'")
                                 button.btn {{$i18n.t('transaction.print')}}
@@ -147,77 +146,95 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
+  import modal from '../../partials/modal.vue';
 
-    export default {
-        name: 'transaction-details',
-        data() {
-            return {
-                closeModalContent: true,
-                purseName: null,
-                txtTransactionNote: this.transaction.note,
-                isEditingNote: false,
-            }
-        },
-        props: ['transaction'],
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            }
-        },
-        created() {
-            store.commit('clearValidationErrors');
-            if (this.transaction.to_user) {
-                this.purseName = this.getPurseName(this.transaction.to_user.purse);
-            }
-        },
-        mounted() {
-            this.closeModalContent = false
-        },
-        methods: {
-            closeModal() {
-                this.$emit('closeModal')
+  export default {
+    name: 'transaction-details',
+    data() {
+      return {
+        closeModalContent: true,
+        purseName: null,
+        txtTransactionNote: this.transaction.note,
+        isEditingNote: false,
+        flagUrl: null,
+        flagCountryName: null,
+      }
+    },
+    props: ['transaction'],
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      }
+    },
+    created() {
+      store.commit('clearValidationErrors');
+      if (this.transaction.to_user) {
+        this.purseName = this.getPurseName(this.transaction.to_user.purse);
+      }
+      this.findFlag(this.transaction.from_ip);
+    },
+    mounted() {
+      this.closeModalContent = false
+    },
+    methods: {
+      closeModal() {
+        this.$emit('closeModal')
+      },
+      getPurseName(purseId) {
+        return _.find(this.$store.state.auth.user.purses, function(purse) {
+          return purse.purse === purseId;
+        });
+
+      },
+      addNote() {
+        this.isEditingNote = true;
+      },
+      findFlag(ip){
+        let request = new XMLHttpRequest();
+        let vm = this;
+        request.open('GET', 'https://api.ipdata.co/' + ip);
+        request.setRequestHeader('Accept', 'application/json');
+        request.onreadystatechange = function() {
+          if (this.readyState === 4) {
+            console.log('Status:', this.status);
+            vm.flagUrl = JSON.parse(this.responseText).flag;
+            vm.flagCountryName = JSON.parse(this.responseText).country_name + ' ' + JSON.parse(this.responseText).city;
+
+          }
+        };
+
+        request.send();
+
+      },
+      saveNote() {
+        let sendContent = {
+          note: this.txtTransactionNote
+        };
+        this.$store.state.http.requests['transaction.getInfo'].update({'transactionId': this.transaction.public_id},
+            sendContent).then(() => {
+              this.transaction.note = this.txtTransactionNote;
+              this.isEditingNote = false;
+              store.commit('flashMessage', {
+                text: 'TransactionEditNoteDoneLocal',
+                type: 'success'
+              });
             },
-            getPurseName(purseId) {
-                return _.find(this.$store.state.auth.user.purses, function (purse) {
-                    return purse.purse === purseId;
-                });
-
-            },
-            addNote() {
-                this.isEditingNote = true;
-            },
-            saveNote() {
-                let sendContent = {
-                    note: this.txtTransactionNote
-                };
-                this.$store.state.http.requests['transaction.getInfo']
-                    .update({'transactionId': this.transaction.public_id}, sendContent)
-                    .then(() => {
-                            this.transaction.note = this.txtTransactionNote;
-                            this.isEditingNote = false;
-                            store.commit('flashMessage', {
-                                text: 'TransactionEditNoteDoneLocal',
-                                type: 'success'
-                            });
-                        },
-                        (response) => {
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                type: 'danger'
-                            });
-
-                        }
-                    );
-
+            (response) => {
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
 
             }
+        );
 
-        },
-        components: {
-            modal
-        }
+      }
+
+    },
+    components: {
+      modal
     }
+  }
 
 </script>

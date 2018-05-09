@@ -12,7 +12,7 @@
                     form(autocomplete="on" onsubmit="event.preventDefault();")
                         div.row
                             div.col-xs-12.no-margin
-                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse"  tabindex="3" placeholder="انتخاب کیف‌پول")
+                                purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-focus="" v-validate="{ rules: {required: true}}" name="purse" v-model="purse" v-bind:data-vv-as="$i18n.t('user.purse')" :class="{'input-danger': errors.has('purse')}" v-on:select="selectedPurse"  tabindex="3" :placeholder="$i18n.t('user.userAddress')")
                                 div.ta-right(v-if="validation('purse')")
                                     span.text-danger {{ errors.first('purse') }}
 
@@ -89,154 +89,154 @@
 </template>
 
 <script>
-    import selectbox from '../../partials/selectbox.vue';
-    import purse from '../../partials/purses.vue';
-    import modal from '../../partials/modal.vue';
-    import loading from '../../partials/loading.vue';
-    import alert from "../../../../store/modules/alert";
-    import VueNumeric from 'vue-numeric';
+  import selectbox from '../../partials/selectbox.vue';
+  import purse from '../../partials/purses.vue';
+  import modal from '../../partials/modal.vue';
+  import loading from '../../partials/loading.vue';
+  import alert from "../../../../store/modules/alert";
+  import VueNumeric from 'vue-numeric';
 
-    export default {
-        name: 'home-purse-ptop',
-        data() {
-            return {
-                requesting: false,
-                closeModalContent: true,
-                step: 1,
-                purse: null,
-                zpId: null,
-                amount: '',
-                description: null,
-                destinationUser: null,
-                purse_name: null,
-            }
-        },
-        mounted(){
-            this.closeModalContent = false
-        },
-        created() {
-            store.commit('clearValidationErrors');
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    purse: this.purse,
-                    zpId: this.zpId,
-                    amount: this.amount,
-                    description: this.description
-                }).then((result) => {
-                    if (result) {
-                        this.confirmPtopData();
-                    }
+  export default {
+    name: 'home-purse-ptop',
+    data() {
+      return {
+        requesting: false,
+        closeModalContent: true,
+        step: 1,
+        purse: null,
+        zpId: null,
+        amount: '',
+        description: null,
+        destinationUser: null,
+        purse_name: null,
+      }
+    },
+    mounted(){
+      this.closeModalContent = false
+    },
+    created() {
+      store.commit('clearValidationErrors');
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          purse: this.purse,
+          zpId: this.zpId,
+          amount: this.amount,
+          description: this.description
+        }).then((result) => {
+          if (result) {
+            this.confirmPtopData();
+          }
+        });
+      },
+      removeErrors: function(field) {
+        !!this[field] && this.errors.remove(field);
+      },
+      closeModal() {
+        this.$emit('closeModal')
+      },
+      selectedPurse(purse) {
+        this.purse = purse;
+        this.purse_name = this.getPurseName(purse);
+      },
+      getPurseName(purseId) {
+        return _.find(this.$store.state.auth.user.purses, function(purse) {
+          return purse.purse === purseId;
+        });
+      },
+      confirmPtopData() {
+        if (this.purse && this.amount && this.description && this.zpId) {
+          this.requesting = true;
+
+          let zarinId;
+          if (this.zpId) {
+            zarinId = this.zpId.toLowerCase();
+          }
+
+          this.$store.state.http.requests['purse.getInfoByZp'].get({purseId: zarinId}).then(
+              (response) => {
+                this.requesting = false;
+                this.step = 2;
+                this.destinationUser = response.data.data;
+              },
+              (response) => {
+                this.requesting = false;
+                store.commit('flashMessage', {
+                  text: response.data.meta.error_type,
+                  important: false,
+                  type: 'danger'
                 });
-            },
-            removeErrors: function (field) {
-                !!this[field] && this.errors.remove(field);
-            },
-            closeModal() {
-                this.$emit('closeModal')
-            },
-            selectedPurse(purse) {
-                this.purse = purse;
-                this.purse_name = this.getPurseName(purse);
-            },
-            getPurseName(purseId) {
-                return _.find(this.$store.state.auth.user.purses, function (purse) {
-                    return purse.purse === purseId;
-                });
-            },
-            confirmPtopData() {
-                if (this.purse && this.amount && this.description && this.zpId) {
-                    this.requesting = true;
-
-                    let zarinId;
-                    if (this.zpId) {
-                        zarinId = this.zpId.toLowerCase();
-                    }
-
-                    this.$store.state.http.requests['purse.getInfoByZp'].get({purseId: zarinId}).then(
-                        (response) => {
-                            this.requesting = false;
-                            this.step = 2;
-                            this.destinationUser = response.data.data;
-                        },
-                        (response) => {
-                            this.requesting = false;
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                important: false,
-                                type: 'danger'
-                            });
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                        }
-                    );
-                } else {
-                    store.commit('flashMessage', {
-                        text: 'UserPleaseFillAllFieldsLocal',
-                        important: false,
-                        type: 'danger'
-                    });
-                }
-            },
-            acceptTransfer() {
-                this.requesting = true;
-                let zarinId = null;
-                if (this.destinationUser) {
-                    zarinId = this.destinationUser.zp_id.toLowerCase();
-                }
-
-                let ptopData = {
-                    purse: this.purse,
-                    zpId: zarinId,
-                    amount: this.clearNumber(this.amount),
-                    description: this.description
-                };
-
-                this.$store.state.http.requests['transaction.postPurseToPurseTransfer'].save(ptopData).then(
-                    (response) => {
-                        this.requesting = false;
-                        this.$router.push({
-                            name: 'transaction.index',
-                            params: {
-                                id: this.purse,
-                                type: 'purse',
-                                page: 1,
-                                transactionId: response.data.data.transaction_public_id
-                            }
-                        });
-                        store.commit('flashMessage', {
-                            text: 'UserTransferSuccessLocal',
-                            type: 'success'
-                        });
-                    },
-                    (response) => {
-                        this.requesting = false;
-                        this.step = 1;
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                    }
-                )
-            },
-            declineTransfer() {
-                this.step = 1;
-                this.purse = null;
-                this.zpId = null;
-                this.amount = null;
-                this.description = null;
-                this.destinationUser = null;
-                this.closeModal();
-            }
-        },
-        components: {
-            selectbox,
-            purse,
-            modal,
-            loading,
-            VueNumeric
+                store.commit('setValidationErrors', response.data.validation_errors);
+              }
+          );
+        } else {
+          store.commit('flashMessage', {
+            text: 'UserPleaseFillAllFieldsLocal',
+            important: false,
+            type: 'danger'
+          });
         }
+      },
+      acceptTransfer() {
+        this.requesting = true;
+        let zarinId = null;
+        if (this.destinationUser) {
+          zarinId = this.destinationUser.zp_id.toLowerCase();
+        }
+
+        let ptopData = {
+          purse: this.purse,
+          zpId: zarinId,
+          amount: this.clearNumber(this.amount),
+          description: this.description
+        };
+
+        this.$store.state.http.requests['transaction.postPurseToPurseTransfer'].save(ptopData).then(
+            (response) => {
+              this.requesting = false;
+              this.$router.push({
+                name: 'transaction.index',
+                params: {
+                  id: this.purse,
+                  type: 'purse',
+                  page: 1,
+                  transactionId: response.data.data.transaction_public_id
+                }
+              });
+              store.commit('flashMessage', {
+                text: 'UserTransferSuccessLocal',
+                type: 'success'
+              });
+            },
+            (response) => {
+              this.requesting = false;
+              this.step = 1;
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
+              store.commit('setValidationErrors', response.data.validation_errors);
+            }
+        )
+      },
+      declineTransfer() {
+        this.step = 1;
+        this.purse = null;
+        this.zpId = null;
+        this.amount = null;
+        this.description = null;
+        this.destinationUser = null;
+        this.closeModal();
+      }
+    },
+    components: {
+      selectbox,
+      purse,
+      modal,
+      loading,
+      VueNumeric
     }
+  }
 
 </script>

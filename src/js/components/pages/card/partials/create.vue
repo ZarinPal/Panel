@@ -66,128 +66,127 @@
 
 
 <script>
-    import modal from '../../partials/modal.vue';
+  import modal from '../../partials/modal.vue';
 
-    export default {
-        name: 'pages-card-partials-create',
-        validator: null,
-        data() {
-            return {
-                loading: false,
-                closeModalContent: false,
-                iban: null,
-                pan: null,
-                year: null,
-                month: null,
-                isLegal: 0,
-                yearFocus: false,
+  export default {
+    name: 'pages-card-partials-create',
+    validator: null,
+    data() {
+      return {
+        loading: false,
+        closeModalContent: false,
+        iban: null,
+        pan: null,
+        year: null,
+        month: null,
+        isLegal: 0,
+        yearFocus: false,
+      }
+    },
+    props: ['card'],
+    computed: {
+      user(){
+        return this.$store.state.auth.user;
+      },
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+      expiredAt() {
+        let expiredAt = this.jalaliToGregorian(this.year, this.month);
+        return expiredAt;
+      }
+    },
+    created(){
+      store.commit('clearValidationErrors');
+    },
+    mounted() {
+      this.closeModalContent = false
+    },
+    methods: {
+      validateForm() {
+        this.$validator.validateAll({
+          iban: this.iban,
+          pan: this.pan,
+          year: this.year,
+          month: this.month
+        }).then((result) => {
+          if (result) {
+            this.createCard();
+          }
+        });
+      },
+      cardNumberFormat(inputId) {
+        let text = document.getElementById(inputId).value;
+        let result = [];
+        if (text) {
+          text = this[inputId].replace(/[^\d]/g, "");
+          while (text.length > 4) {
+            result.push(text.substring(0, 4));
+            text = text.substring(4);
+          }
+          if (this[inputId].length > 0) result.push(text);
+          this[inputId] = result.join("-");
+        }
+      },
+      closeModal() {
+        this.$emit('closeModal');
+      },
+      createCard() {
+        this.loading = true;
+
+        if (this.year > 3150 || this.month > 12) {
+          store.commit('flashMessage', {
+            text: 'CardInvalidDateLocal',
+            type: 'danger'
+          });
+          this.loading = false;
+          return;
+        }
+
+        let formatedPan = this.pan;
+        if (/-/g.test(formatedPan)) {
+          formatedPan = this.pan.split('-').join('');
+        }
+
+        let expiredAt = this.jalaliToGregorian(this.year, this.month);
+
+        let cardData = {
+          iban: 'IR' + this.iban,
+          pan: formatedPan,
+          isLegal: this.isLegal,
+          expired_at: expiredAt,
+        };
+
+        if (this.isLegal === "1") {
+          delete cardData.pan;
+          delete cardData.expired_at;
+        }
+
+        this.$store.state.http.requests['card.getList'].save(cardData).then(
+            () => {
+              this.loading = false;
+              store.commit('flashMessage', {
+                text: 'CardAddedSuccessLocal',
+                type: 'success'
+              });
+              this.closeModal();
+            },
+            (response) => {
+              this.loading = false;
+              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
             }
-        },
-        props: ['card'],
-        computed: {
-            user(){
-                return this.$store.state.auth.user;
-            },
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-            expiredAt() {
-                let expiredAt = this.jalaliToGregorian(this.year, this.month);
-                return expiredAt;
-            }
-        },
-        created(){
-            store.commit('clearValidationErrors');
-        },
-        mounted() {
-            this.closeModalContent = false
-        },
-        methods: {
-            validateForm() {
-                this.$validator.validateAll({
-                    iban: this.iban,
-                    pan: this.pan,
-                    year: this.year,
-                    month: this.month
-                }).then((result) => {
-                    if (result) {
-                        this.createCard();
-                    }
-                });
-            },
-            cardNumberFormat(inputId) {
-                let text = document.getElementById(inputId).value;
-                let result = [];
-                if (text) {
-                    text = this[inputId].replace(/[^\d]/g, "");
-                    while (text.length > 4) {
-                        result.push(text.substring(0, 4));
-                        text = text.substring(4);
-                    }
-                    if (this[inputId].length > 0) result.push(text);
-                    this[inputId] = result.join("-");
-                }
-            },
-            closeModal() {
-                this.$emit('closeModal');
-            },
-            createCard() {
-                this.loading = true;
-
-                if (this.year > 3150 || this.month > 12) {
-                    store.commit('flashMessage', {
-                        text: 'CardInvalidDateLocal',
-                        type: 'danger'
-                    });
-                    this.loading = false;
-                    return;
-                }
-
-                let formatedPan = this.pan;
-                if (/-/g.test(formatedPan)) {
-                    formatedPan = this.pan.split('-').join('');
-                }
-
-                let expiredAt = this.jalaliToGregorian(this.year, this.month);
-
-
-                let cardData = {
-                    iban: 'IR' + this.iban,
-                    pan: formatedPan,
-                    isLegal: this.isLegal,
-                    expired_at: expiredAt,
-                };
-
-                if (this.isLegal === "1") {
-                    delete cardData.pan;
-                    delete cardData.expired_at;
-                }
-
-                this.$store.state.http.requests['card.getList'].save(cardData).then(
-                    () => {
-                        this.loading = false;
-                        store.commit('flashMessage', {
-                            text: 'CardAddedSuccessLocal',
-                            type: 'success'
-                        });
-                        this.closeModal();
-                    },
-                    (response) => {
-                        this.loading = false;
-                        store.commit('setValidationErrors', response.data.validation_errors);
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            },
-            jalaliToGregorian(year, month, day = null) {
-                let jalali = year + '/' + month + '/' + day;
-                let gregorian = moment(jalali, 'jYYYY/jM/jD');
-                gregorian = gregorian._i;
-                return gregorian.substr(0, gregorian.length - 3);
-            },
+        )
+      },
+      jalaliToGregorian(year, month, day = null) {
+        let jalali = year + '/' + month + '/' + day;
+        let gregorian = moment(jalali, 'jYYYY/jM/jD');
+        gregorian = gregorian._i;
+        return gregorian.substr(0, gregorian.length - 3);
+      },
 //            changeMonthFocus(event) {
 //                let target = event.srcElement;
 //                let maxLength = parseInt(target.attributes["maxlength"].value);
@@ -207,9 +206,9 @@
 //                }
 //
 //            },
-        },
-        components: {
-            modal
-        }
+    },
+    components: {
+      modal
     }
+  }
 </script>

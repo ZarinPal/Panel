@@ -55,18 +55,18 @@
             router-link.bottom-xs.footer.single-purse-footer(tag="div" v-bind:to="{ name: 'transaction.index', params: {type: 'purse', id: purse.purse} }")
                 div.row
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment
-                        span.txt-daily-balance.iransans-light ورودی
+                        span.txt-daily-balance.iransans-light {{ $i18n.t('common.incoming')}}
                         span.amount.persian-num(v-if="purse.balance") {{balance.today_income  | numberFormat }}
                         span.amount(v-else) -
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment.no-right-margin
-                        span.txt-daily-balance.iransans-light خروجی
+                        span.txt-daily-balance.iransans-light {{ $i18n.t('common.outgoing')}}
                         span.amount.persian-num(v-if="purse.balance") {{balance.today_outcome  | numberFormat }}
                         span.amount(v-else) -
 
 
                     div.col-lg-4.col-md-4.col-sm-4.col-xs-4.segment.no-right-margin
-                        span.txt-daily-balance.iransans-light درحال خروج
+                        span.txt-daily-balance.iransans-light {{ $i18n.t('transaction.confirmedState.pendingExit')}}
                         span.amount.persian-num(v-if="purse.balance") {{balance.total_to_exit  | numberFormat }}
                         span.amount(v-else) -
 
@@ -77,106 +77,105 @@
 </template>
 
 <script>
-    import addFund from '../partials/add-fund.vue';
-    import pTop from '../partials/ptop.vue';
-    import withdraw from '../partials/withdraw.vue';
+  import addFund from '../partials/add-fund.vue';
+  import pTop from '../partials/ptop.vue';
+  import withdraw from '../partials/withdraw.vue';
 
-    export default {
-        name: 'pages-home-partials-singlePurse',
-        data() {
-            return {
-                isLoaded: false,
-                isEditingPurseName: false,
-                newPurseName: this.purse.name,
-                visibleAddFund: false,
-                visiblePtop: false,
-                visibleWithdraw: false,
-            }
-        },
-        props: ['purse', 'update', 'balance'],
-        computed: {
-            validationErrors() {
-                return this.$store.state.alert.validationErrors;
-            },
-            user(){
-                return this.$store.state.auth.user;
-            }
-        },
-        created(){
-            store.commit('clearValidationErrors');
-            this.newPurseName = this.purse.name;
-        },
-        methods: {
-            changeMoreTriggerOn() {
-                this.$store.state.app.singlePurseMoreTrigger = this.purse.purse;
-                this.isEditingPurseName = false;
-            },
-            changeMoreTriggerOff() {
-                this.$store.state.app.singlePurseMoreTrigger = null;
-            },
-            closeModal(){
-                this.visibleAddFund = false;
-                this.visiblePtop = false;
-                this.visibleWithdraw = false;
-                store.commit('clearValidationErrors');
-            },
-            changePurseName(){
-                let vm = this;
-                let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function (purse) {
-                    return purse.purse === vm.purse.purse
-                });
-                this.$store.state.auth.user.purses[purseIndex].name
-                    = this.purse.name
-                    = this.newPurseName;
-            },
-            toggleEditPurse(){
-                this.isEditingPurseName = !this.isEditingPurseName;
-                this.$store.state.app.singlePurseMoreTrigger = null;
+  export default {
+    name: 'pages-home-partials-singlePurse',
+    data() {
+      return {
+        isLoaded: false,
+        isEditingPurseName: false,
+        newPurseName: this.purse.name,
+        visibleAddFund: false,
+        visiblePtop: false,
+        visibleWithdraw: false,
+      }
+    },
+    props: ['purse', 'update', 'balance'],
+    computed: {
+      validationErrors() {
+        return this.$store.state.alert.validationErrors;
+      },
+      user(){
+        return this.$store.state.auth.user;
+      }
+    },
+    created(){
+      store.commit('clearValidationErrors');
+      this.newPurseName = this.purse.name;
+    },
+    methods: {
+      changeMoreTriggerOn() {
+        this.$store.state.app.singlePurseMoreTrigger = this.purse.purse;
+        this.isEditingPurseName = false;
+      },
+      changeMoreTriggerOff() {
+        this.$store.state.app.singlePurseMoreTrigger = null;
+      },
+      closeModal(){
+        this.visibleAddFund = false;
+        this.visiblePtop = false;
+        this.visibleWithdraw = false;
+        store.commit('clearValidationErrors');
+      },
+      changePurseName(){
+        let vm = this;
+        let purseIndex = _.findIndex(this.$store.state.auth.user.purses, function(purse) {
+          return purse.purse === vm.purse.purse
+        });
+        this.$store.state.auth.user.purses[purseIndex].name
+            = this.purse.name
+            = this.newPurseName;
+      },
+      toggleEditPurse(){
+        this.isEditingPurseName = !this.isEditingPurseName;
+        this.$store.state.app.singlePurseMoreTrigger = null;
 
-                let vm = this;
-                setTimeout(function () {
-                    let txtPurseName = document.getElementById('txtPurseName-' + vm.purse.purse);
-                    if (txtPurseName) {
-                        txtPurseName.select();
-                    }
-                }, 50);
-                store.commit('clearValidationErrors');
-            },
-            send() {
-                let sendContent = {
-                    name: this.newPurseName
-                };
+        let vm = this;
+        setTimeout(function() {
+          let txtPurseName = document.getElementById('txtPurseName-' + vm.purse.purse);
+          if (txtPurseName) {
+            txtPurseName.select();
+          }
+        }, 50);
+        store.commit('clearValidationErrors');
+      },
+      send() {
+        let sendContent = {
+          name: this.newPurseName
+        };
 
-                this.$store.state.http.requests['purse.postEdit']
-                    .update({'purse_number': this.purse.purse}, sendContent)
-                    .then(() => {
-                            this.changePurseName();
-                            this.toggleEditPurse();
-                        },
-                        (response) => {
-                            store.commit('setValidationErrors', response.data.validation_errors);
-                            store.commit('flashMessage', {
-                                text: response.data.meta.error_type,
-                                type: 'danger'
-                            });
-                            this.toggleEditPurse();
-                        }
-                    );
-            },
-            closeDropDownFromOutside() {
-                let vm = this;
-                document.addEventListener('click', function (e) {
-                    if (e.target.id !== 'btnMoreIcon') {
-                        vm.$store.state.app.singlePurseMoreTrigger = null;
-                    }
-                }, false);
-            }
-        },
-        components: {
-            addFund,
-            pTop,
-            withdraw
+        this.$store.state.http.requests['purse.postEdit'].update({'purse_number': this.purse.purse}, sendContent).
+            then(() => {
+                  this.changePurseName();
+                  this.toggleEditPurse();
+                },
+                (response) => {
+                  store.commit('setValidationErrors', response.data.validation_errors);
+                  store.commit('flashMessage', {
+                    text: response.data.meta.error_type,
+                    type: 'danger'
+                  });
+                  this.toggleEditPurse();
+                }
+            );
+      },
+      closeDropDownFromOutside() {
+        let vm = this;
+        document.addEventListener('click', function(e) {
+          if (e.target.id !== 'btnMoreIcon') {
+            vm.$store.state.app.singlePurseMoreTrigger = null;
+          }
+        }, false);
+      }
+    },
+    components: {
+      addFund,
+      pTop,
+      withdraw
 
-        }
     }
+  }
 </script>

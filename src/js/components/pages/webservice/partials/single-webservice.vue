@@ -19,7 +19,7 @@
                                 router-link.drop-down-item.transaction-session-icon(tag="span" v-bind:to="{ name: 'transactionsession.index', params: { id:webservice.entity_id}}") {{ $i18n.t('common.transactionSession') }}
                                 <!--router-link.drop-down-item.withdraw-icon(tag="span" v-bind:to="{ name: 'report.index', params: { type:'webservice', id:webservice.entity_id}}") {{$i18n.t('common.calendar')}}-->
                                 router-link.drop-down-item.edit-icon(tag="span" v-bind:to="{ name: 'webservice.edit', params: { merchantCode:webservice.entity_id}}") {{$i18n.t('webservice.edit')}}
-                                router-link.drop-down-item.report-icon(tag="span" v-bind:to="{ name: 'report.index', params: { reportFor: 'webservice', reportId: webservice.entity_id }}") روزشمار
+                                router-link.drop-down-item.report-icon(tag="span" v-bind:to="{ name: 'report.index', params: { reportFor: 'webservice', reportId: webservice.entity_id }}") {{$i18n.t('report.title')}}
 
                         a.header-link.link.color-link(v-if="this.$store.state.app.singleWebserviceMoreTrigger != webservice.entity_id" v-bind:href="'http://' + webservice.domain" target="blank") {{webservice.domain}}
 
@@ -82,61 +82,61 @@
 
 <script>
 
-    import ussdActivation from './ussd-activation.vue';
-    import zarinGateActivation from './zarin-gate-activation.vue';
+  import ussdActivation from './ussd-activation.vue';
+  import zarinGateActivation from './zarin-gate-activation.vue';
 
-    export default {
-        name: 'pages-webservice-partials-singleWebservice',
-        data(){
-            return {
-                visibleUssdActivation: false,
-                visibleZarinGateActivation: false
-            }
-        },
-        props: ['webservice'],
-        methods: {
-            changeMoreTriggerOn() {
-                this.$store.state.app.singleWebserviceMoreTrigger = this.webservice.entity_id;
-            },
-            changeMoreTriggerOff() {
-                this.$store.state.app.singleWebserviceMoreTrigger = null;
-            },
-            closeDropDownFromOutside() {
-                let vm = this;
-                document.addEventListener('click', function (e) {
-                    if (e.target.id !== 'btnMoreIcon') {
-                        vm.$store.state.app.singleWebserviceMoreTrigger = null;
-                    }
-                }, false);
-            },
-            closeModal(){
-                this.visibleUssdActivation = false;
-                this.visibleZarinGateActivation = false;
-                store.commit('clearValidationErrors');
-            },
-            clipboardMessage(event) {
-                setTimeout(function () {
-                    let txtWebserviceId = document.getElementById('txtWebserviceId-' + event);
-                    if (txtWebserviceId) {
-                        txtWebserviceId.select();
-                    }
-                }, 10);
+  export default {
+    name: 'pages-webservice-partials-singleWebservice',
+    data(){
+      return {
+        visibleUssdActivation: false,
+        visibleZarinGateActivation: false
+      }
+    },
+    props: ['webservice'],
+    methods: {
+      changeMoreTriggerOn() {
+        this.$store.state.app.singleWebserviceMoreTrigger = this.webservice.entity_id;
+      },
+      changeMoreTriggerOff() {
+        this.$store.state.app.singleWebserviceMoreTrigger = null;
+      },
+      closeDropDownFromOutside() {
+        let vm = this;
+        document.addEventListener('click', function(e) {
+          if (e.target.id !== 'btnMoreIcon') {
+            vm.$store.state.app.singleWebserviceMoreTrigger = null;
+          }
+        }, false);
+      },
+      closeModal(){
+        this.visibleUssdActivation = false;
+        this.visibleZarinGateActivation = false;
+        store.commit('clearValidationErrors');
+      },
+      clipboardMessage(event) {
+        setTimeout(function() {
+          let txtWebserviceId = document.getElementById('txtWebserviceId-' + event);
+          if (txtWebserviceId) {
+            txtWebserviceId.select();
+          }
+        }, 10);
 
-                store.commit('flashMessage', {
-                    text: 'Copied',
-                    type: 'success',
-                    timeout: '1500'
-                });
-            },
-            getPurseName(purseId) {
-                return _.find(this.$store.state.auth.user.purses, function (purse) {
-                    return purse.purse === purseId;
-                });
-            }
-        },
-        components: {
-            ussdActivation,
-            zarinGateActivation
-        }
+        store.commit('flashMessage', {
+          text: 'Copied',
+          type: 'success',
+          timeout: '1500'
+        });
+      },
+      getPurseName(purseId) {
+        return _.find(this.$store.state.auth.user.purses, function(purse) {
+          return purse.purse === purseId;
+        });
+      }
+    },
+    components: {
+      ussdActivation,
+      zarinGateActivation
     }
+  }
 </script>

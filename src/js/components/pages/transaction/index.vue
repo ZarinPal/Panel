@@ -10,7 +10,7 @@
                 router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
                 router-link.btn.btn-gradient-radius.pull-left(tag="button" v-bind:to="{ name: 'report.index', params: {reportFor: 'purse', reportId: this.$route.params.id}} ")
                     i.btn-icon.icon-zp-calendar
-                    span.btn-label روزشمار ماهانه
+                    span.btn-label  {{ $i18n.t('transaction.dailyReport') }}
 
         div.row
             div.col-xs
@@ -28,7 +28,7 @@
                                     input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
                                     div.break
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" placeholder="انتخاب کنید ...")
+                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" :placeholder="$i18n.t('common.select')")
                                     div.break
 
                                 div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
@@ -106,222 +106,225 @@
 </template>
 
 <script>
-    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
-    import transactionDetails from './partials/transaction-details.vue';
-    import singleTransaction from './partials/single-transaction.vue';
-    import selectbox from '../partials/selectbox.vue';
-    import loading from '../../pages/partials/loading.vue';
+  import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+  import transactionDetails from './partials/transaction-details.vue';
+  import singleTransaction from './partials/single-transaction.vue';
+  import selectbox from '../partials/selectbox.vue';
+  import loading from '../../pages/partials/loading.vue';
 
-    export default {
-        name: 'transaction-index',
-        data () {
-            return {
-                placeholder: '123456******6273',
-                fromDate: '',
-                toDate: '',
-                searchOptions: {},
-                filterType: null,
-                filterValue: [],
-                generalFilter: 'all',
-                filterTypeData: [
-                    {
-                        title: 'شماره‌تراکنش',
-                        value: 'transaction_id'
-                    },
-                    {
-                        title: 'شماره‌کارت',
-                        value: 'pan'
-                    },
-                    {
-                        title: 'توضیحات',
-                        value: 'description'
-                    },
-                    {
-                        title: 'ایمیل',
-                        value: 'email'
-                    },
-                    {
-                        title: 'شماره‌موبایل',
-                        value: 'mobile'
-                    },
-                    {
-                        title: 'شماره ارجاع شتابی(RRN)',
-                        value: 'rrn'
-                    },
-                    {
-                        title: 'شناسه یکتا پرداخت',
-                        value: 'authority'
-                    }
+  export default {
+    name: 'transaction-index',
+    data () {
+      return {
+        placeholder: '123456******6273',
+        fromDate: '',
+        toDate: '',
+        searchOptions: {},
+        filterType: null,
+        filterValue: [],
+        generalFilter: 'all',
+        filterTypeData: [
+          {
+            title: 'شماره‌تراکنش',
+            value: 'transaction_id'
+          },
+          {
+            title: 'شماره‌کارت',
+            value: 'pan'
+          },
+          {
+            title: 'توضیحات',
+            value: 'description'
+          },
+          {
+            title: 'ایمیل',
+            value: 'email'
+          },
+          {
+            title: 'شماره‌موبایل',
+            value: 'mobile'
+          },
+          {
+            title: 'شماره ارجاع شتابی(RRN)',
+            value: 'rrn'
+          },
+          {
+            title: 'شناسه یکتا پرداخت',
+            value: 'authority'
+          }
 
-                ],
-                transaction: null,
-                showTransactionDetail: false,
-                visibleAdvanceSearch: false,
-                visibleDownloadExcel: false,
-                excelUrl: null
-            }
-        },
-        watch: {
-            filterType(){
-                this.restart();
-            },
-            '$route' () {
-                this.showStandAloneTransaction();
-            }
-        },
-        computed: {
-            user() {
-                return this.$store.state.auth.user;
-            },
-            transactions() {
-                return {
-                    data: this.$store.state.paginator.paginator.TransactionList.data,
-                    update: this.$store.state.paginator.update,
-                };
-            },
-            loadingState() {
-                return {
-                    status: this.$store.state.paginator.paginator.TransactionList.isLoading,
-                    update: this.$store.state.paginator.update,
-                }
-            }
-        },
-        created() {
-            this.restart();
-            this.search();
-            let vm = this;
-
-            window.onscroll = function (ev) {
-                if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
-                    && !vm.$store.state.paginator.paginator.TransactionList.isLoading) {
-                    vm.$store.dispatch(
-                        'paginator/next',
-                        {
-                            requestName: "TransactionList"
-                        }
-                    );
-                }
-            };
-            this.showStandAloneTransaction();
-        },
-        methods: {
-            toggleDatePicker() {
-                this.visibleAdvanceSearch = !this.visibleAdvanceSearch;
-                if (!this.visibleAdvanceSearch) {
-                    this.fromDate = '';
-                    this.toDate = '';
-                }
-            },
-            validateForm() {
-                this.$validator.validateAll({
-                    fromDate: this.fromDate,
-                    toDate: this.toDate
-                }).then((result) => {
-                    if (result) {
-                        this.search();
-                    }
-                });
-            },
-            restart() {
-                this.filterValue = null;
-                this.searchOptions = {};
-                if (this.$route.params.type === 'purse') {
-                    this.addFilter('purseId', this.$route.params.id);
-                } else if (this.$route.params.type === 'webservice') {
-                    this.addFilter('webserviceId', this.$route.params.id);
-                } else if (this.$route.params.type === 'easypay') {
-                    this.addFilter('easypayId', this.$route.params.id);
-                }
-                this.addFilter('status', this.generalFilter);
-            },
-            addFilter(filter, value) {
-                this.searchOptions[filter] = value;
-            },
-            applyGeneralFilter(filter) {
-                if (!this.loadingState.status) {
-                    this.generalFilter = filter;
-                    this.addFilter('status', this.generalFilter);
-                    this.search();
-                }
-            },
-            search(){
-                if (this.fromDate && this.toDate) {
-                    this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-                    this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-                } else if (this.fromDate && !this.toDate) {
-                    this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-                    this.searchOptions.toDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').add(1, 'months').format();
-                } else if (!this.fromDate && this.toDate) {
-                    this.searchOptions.fromDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').subtract(1, 'months').format();
-                    this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-                }
-
-                let vm = this;
-                this.$store.dispatch(
-                    'paginator/make',
-                    {
-                        vm,
-                        resource: vm.$store.state.http.requests['transaction.getRecents'],
-                        params: vm.searchOptions,
-                        requestName: "TransactionList"
-                    }
-                );
-
-                this.makeExcelQueryString();
-            },
-            selectFilter(value){
-                this.filterType = value;
-                switch (value) {
-                    case 'transaction_id':
-                        this.placeholder = '۳۹۲۳۳۸۷۱۵۱۴';
-                        break;
-                    case 'pan':
-                        this.placeholder = '۱۲۳۴۵۶******۶۲۷۳';
-                        break;
-                    case 'description':
-                        this.placeholder = 'بازگشت کارمزد تراکنش  ';
-                        break;
-                    case 'email':
-                        this.placeholder = 'example@gmail.com';
-                        break;
-                    case 'mobile':
-                        this.placeholder = '09xxxxxxxxx';
-                        break;
-                    case 'rrn':
-                        this.placeholder = '00123456789';
-                        break;
-                    case 'authority':
-                        this.placeholder = '71846244';
-                        break;
-                }
-            },
-            makeExcelQueryString() {
-                let urlQuery = Object.keys(this.searchOptions).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).join('&');
-                this.excelUrl = urlQuery; //this.$root.baseUrl + '?' + urlQuery;
-            },
-            showStandAloneTransaction() {
-                if (this.$route.params.transactionId) {
-                    this.$store.state.http.requests['transaction.getInfo'].get({transactionId: this.$route.params.transactionId}).then(
-                        (response) => {
-                            this.showTransactionDetail = true;
-                            this.transaction = response.data.data;
-                        }, () => {
-
-                        }
-                    );
-                }
-            },
-            closeModal(){
-                this.showTransactionDetail = false;
-                store.commit('clearValidationErrors');
-            }
-        },
-        components: {
-            singleTransaction,
-            selectbox,
-            loading,
-            transactionDetails,
-            datePicker: VuePersianDatetimePicker
+        ],
+        transaction: null,
+        showTransactionDetail: false,
+        visibleAdvanceSearch: false,
+        visibleDownloadExcel: false,
+        excelUrl: null
+      }
+    },
+    watch: {
+      filterType(){
+        this.restart();
+      },
+      '$route' () {
+        this.showStandAloneTransaction();
+      }
+    },
+    computed: {
+      user() {
+        return this.$store.state.auth.user;
+      },
+      transactions() {
+        return {
+          data: this.$store.state.paginator.paginator.TransactionList.data,
+          update: this.$store.state.paginator.update,
+        };
+      },
+      loadingState() {
+        return {
+          status: this.$store.state.paginator.paginator.TransactionList.isLoading,
+          update: this.$store.state.paginator.update,
         }
+      }
+    },
+    created() {
+      this.restart();
+      this.search();
+      let vm = this;
+
+      window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+            && !vm.$store.state.paginator.paginator.TransactionList.isLoading) {
+          vm.$store.dispatch(
+              'paginator/next',
+              {
+                requestName: "TransactionList"
+              }
+          );
+        }
+      };
+      this.showStandAloneTransaction();
+    },
+    methods: {
+      toggleDatePicker() {
+        this.visibleAdvanceSearch = !this.visibleAdvanceSearch;
+        if (!this.visibleAdvanceSearch) {
+          this.fromDate = '';
+          this.toDate = '';
+        }
+      },
+      validateForm() {
+        this.$validator.validateAll({
+          fromDate: this.fromDate,
+          toDate: this.toDate
+        }).then((result) => {
+          if (result) {
+            this.search();
+          }
+        });
+      },
+      restart() {
+        this.filterValue = null;
+        this.searchOptions = {};
+        if (this.$route.params.type === 'purse') {
+          this.addFilter('purseId', this.$route.params.id);
+        } else if (this.$route.params.type === 'webservice') {
+          this.addFilter('webserviceId', this.$route.params.id);
+        } else if (this.$route.params.type === 'easypay') {
+          this.addFilter('easypayId', this.$route.params.id);
+        }
+        this.addFilter('status', this.generalFilter);
+      },
+      addFilter(filter, value) {
+        this.searchOptions[filter] = value;
+      },
+      applyGeneralFilter(filter) {
+        if (!this.loadingState.status) {
+          this.generalFilter = filter;
+          this.addFilter('status', this.generalFilter);
+          this.search();
+        }
+      },
+      search(){
+        if (this.fromDate && this.toDate) {
+          this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+          this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+        } else if (this.fromDate && !this.toDate) {
+          this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+          this.searchOptions.toDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').add(1, 'months').format();
+        } else if (!this.fromDate && this.toDate) {
+          this.searchOptions.fromDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').subtract(1, 'months').format();
+          this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+        }
+
+        let vm = this;
+        this.$store.dispatch(
+            'paginator/make',
+            {
+              vm,
+              resource: vm.$store.state.http.requests['transaction.getRecents'],
+              params: vm.searchOptions,
+              requestName: "TransactionList"
+            }
+        );
+
+        this.makeExcelQueryString();
+      },
+      selectFilter(value){
+        this.filterType = value;
+        switch (value) {
+          case 'transaction_id':
+            this.placeholder = '۳۹۲۳۳۸۷۱۵۱۴';
+            break;
+          case 'pan':
+            this.placeholder = '۱۲۳۴۵۶******۶۲۷۳';
+            break;
+          case 'description':
+            this.placeholder = 'بازگشت کارمزد تراکنش  ';
+            break;
+          case 'email':
+            this.placeholder = 'example@gmail.com';
+            break;
+          case 'mobile':
+            this.placeholder = '09xxxxxxxxx';
+            break;
+          case 'rrn':
+            this.placeholder = '00123456789';
+            break;
+          case 'authority':
+            this.placeholder = '71846244';
+            break;
+        }
+      },
+      makeExcelQueryString() {
+        let urlQuery = Object.keys(this.searchOptions).
+            map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).
+            join('&');
+        this.excelUrl = urlQuery; //this.$root.baseUrl + '?' + urlQuery;
+      },
+      showStandAloneTransaction() {
+        if (this.$route.params.transactionId) {
+          this.$store.state.http.requests['transaction.getInfo'].get({transactionId: this.$route.params.transactionId}).
+              then(
+                  (response) => {
+                    this.showTransactionDetail = true;
+                    this.transaction = response.data.data;
+                  }, () => {
+
+                  }
+              );
+        }
+      },
+      closeModal(){
+        this.showTransactionDetail = false;
+        store.commit('clearValidationErrors');
+      }
+    },
+    components: {
+      singleTransaction,
+      selectbox,
+      loading,
+      transactionDetails,
+      datePicker: VuePersianDatetimePicker
     }
+  }
 </script>

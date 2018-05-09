@@ -12,11 +12,11 @@
                 span.persian-num {{ debt.created_at | fromNow}}
             div.col-lg-3.col-md-2.col-sm-2.ta-center
                 span(v-if="debt.status == 'pending'")
-                    span.req-btn.btn-decline(@click="confirmVisible = true" v-bind:class="{'clicked': rejectLoading}") رد کردن
+                    span.req-btn.btn-decline(@click="confirmVisible = true" v-bind:class="{'clicked': rejectLoading}") {{ $i18n.t('requestMoney.deny') }}
                         svg.material-spinner(v-if="rejectLoading" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                    span.req-btn.btn-accept(@click="visiblePayRequest = true" v-bind:class="{'clicked-paid': payLoading}") پرداخت
+                    span.req-btn.btn-accept(@click="visiblePayRequest = true" v-bind:class="{'clicked-paid': payLoading}") {{ $i18n.t('requestMoney.pay') }}
                         svg.material-spinner(v-if="payLoading" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                             circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
@@ -44,74 +44,74 @@
 </template>
 
 <script>
-    import confirm from '../../partials/confirm.vue';
-    import payRequest from '../partials/pay_request.vue';
-    import requestDetails from '../partials/request_details.vue';
+  import confirm from '../../partials/confirm.vue';
+  import payRequest from '../partials/pay_request.vue';
+  import requestDetails from '../partials/request_details.vue';
 
-    export default {
-        name: 'request-money-single-debt',
-        data() {
-            return {
-                rejectLoading: false,
-                payLoading: false,
-                confirmVisible: false,
-                visiblePayRequest: false,
-                visibleDetails: false
+  export default {
+    name: 'request-money-single-debt',
+    data() {
+      return {
+        rejectLoading: false,
+        payLoading: false,
+        confirmVisible: false,
+        visiblePayRequest: false,
+        visibleDetails: false
+      }
+    },
+    props: ['debt'],
+    methods: {
+      closeModal() {
+        this.confirmVisible = false;
+        this.visiblePayRequest = false;
+        this.visibleDetails = false;
+      },
+      showDetails() {
+        this.visibleDetails = this.debt.status !== 'pending';
+      },
+      reject() {
+        this.changeRequestMode();
+        this.rejectLoading = true;
+
+        let requestData = {
+          entity_id: this.debt.entity_id,
+        };
+
+        this.$store.state.http.requests['requestMoney.postRequestMoney'].update(requestData).then(
+            (response) => {
+              this.changeDebtState();
+              this.rejectLoading = false;
+              this.changeRequestMode();
+              store.commit('flashMessage', {
+                text: 'RequestMoneyRejectSuccessful',
+                type: 'success'
+              });
+            },
+            (response) => {
+              this.rejectLoading = false;
+              this.changeRequestMode();
+              store.commit('flashMessage', {
+                text: response.data.meta.error_type,
+                type: 'danger'
+              });
             }
-        },
-        props: ['debt'],
-        methods: {
-            closeModal() {
-                this.confirmVisible = false;
-                this.visiblePayRequest = false;
-                this.visibleDetails = false;
-            },
-            showDetails() {
-                this.visibleDetails = this.debt.status !== 'pending';
-            },
-            reject() {
-                this.changeRequestMode();
-                this.rejectLoading = true;
-
-                let requestData = {
-                    entity_id: this.debt.entity_id,
-                };
-
-                this.$store.state.http.requests['requestMoney.postRequestMoney'].update(requestData).then(
-                    (response) => {
-                        this.changeDebtState();
-                        this.rejectLoading = false;
-                        this.changeRequestMode();
-                        store.commit('flashMessage', {
-                            text: 'RequestMoneyRejectSuccessful',
-                            type: 'success'
-                        });
-                    },
-                    (response) => {
-                        this.rejectLoading = false;
-                        this.changeRequestMode();
-                        store.commit('flashMessage', {
-                            text: response.data.meta.error_type,
-                            type: 'danger'
-                        });
-                    }
-                )
-            },
-            changeDebtState() {
-                let vm = this;
-                let debtIndex = _.findIndex(this.$store.state.paginator.paginator.DebtList.data, function (debt) {
-                    return debt.entity_id === vm.debt.entity_id;
-                });
-                this.$store.state.paginator.paginator.DebtList.data[debtIndex].status = 'reject';
-            },
-            changeRequestMode(){
-                this.$emit('changeRequestMode', 1);
-            }
-        },
-        components: {
-            confirm,
-            payRequest,
-            requestDetails
-        }
+        )
+      },
+      changeDebtState() {
+        let vm = this;
+        let debtIndex = _.findIndex(this.$store.state.paginator.paginator.DebtList.data, function(debt) {
+          return debt.entity_id === vm.debt.entity_id;
+        });
+        this.$store.state.paginator.paginator.DebtList.data[debtIndex].status = 'reject';
+      },
+      changeRequestMode(){
+        this.$emit('changeRequestMode', 1);
+      }
+    },
+    components: {
+      confirm,
+      payRequest,
+      requestDetails
     }
+  }
 </script>

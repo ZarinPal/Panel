@@ -13,14 +13,14 @@
 </template>
 
 <script>
-    export default{
-        name: 'flash-message',
-        computed: {
-            messagesToShow () {
-                return store.state.alert.messages.filter(function (message) {
-                    return message.show;
-                })
-            }
-        }
+  export default{
+    name: 'flash-message',
+    computed: {
+      messagesToShow () {
+        return store.state.alert.messages.filter(function(message) {
+          return message.show;
+        })
+      }
     }
+  }
 </script>
