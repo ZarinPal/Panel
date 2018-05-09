@@ -1,108 +1,106 @@
 <template lang="pug">
-    modal.transfer-shetab(v-on:closeModal="closeModal()")
-        div(slot="title") {{ $i18n.t('purse.shetabMoneyTransfer') }}
-        div(slot="content")
-            loading(v-if="requesting")
+  modal.transfer-shetab(v-on:closeModal="closeModal()")
+    div(slot="title") {{ $i18n.t('purse.shetabMoneyTransfer') }}
+    div(slot="content")
+      loading(v-if="requesting")
 
-            div(v-else)
-                div(v-if="step == 1")
-                    form(autocomplete="on" onsubmit="event.preventDefault();")
-                        div.row.no-margin
-                            div.col-xs.no-right-margin
-                                input(v-focus="" v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('common.secondaryPass')" :class="{'input-danger': errors.has('password')}" type="password" v-model="password" name="password" :placeholder="$i18n.t('common.secondaryPass')")
-                                div.ta-right(v-if="validation('password')")
-                                    span.text-danger {{ errors.first('password') }}
+      div(v-else)
+        div(v-if="step == 1")
+          form(autocomplete="on" onsubmit="event.preventDefault();")
+            div.row.no-margin
+              div.col-xs.no-right-margin
+                input(v-focus="" v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('common.secondaryPass')" :class="{'input-danger': errors.has('password')}" type="password" v-model="password" name="password" :placeholder="$i18n.t('common.secondaryPass')")
+                div.ta-right(v-if="validation('password')")
+                  span.text-danger {{ errors.first('password') }}
 
-                            div.col-xs.no-left-margin
-                                input(v-validate="{ rules: {required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('common.cvv2')" :class="{'input-danger': errors.has('cvv2')}" type="password" v-model="cvv2" name="cvv2" :placeholder="$i18n.t('common.cvv2')")
-                                div.ta-right(v-if="validation('cvv2')")
-                                    span.text-danger {{ errors.first('cvv2') }}
+              div.col-xs.no-left-margin
+                input(v-validate="{ rules: {required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('common.cvv2')" :class="{'input-danger': errors.has('cvv2')}" type="password" v-model="cvv2" name="cvv2" :placeholder="$i18n.t('common.cvv2')")
+                div.ta-right(v-if="validation('cvv2')")
+                  span.text-danger {{ errors.first('cvv2') }}
 
-                        div.row.no-margin
-                            input.ltr-input(v-validate="{ rules: {required: true, max:19}}" v-bind:data-vv-as="$i18n.t('card.distCardNumber')" maxlength="19" :class="{'input-danger': errors.has('dst_pan')}" type="text" v-model="dst_pan" name="dst_pan" id="dst_pan" @keyup="cardNumberFormat('dst_pan')" :placeholder="$i18n.t('card.distCardNumber')")
-                            div.ta-right(v-if="validation('dst_pan')")
-                                span.text-danger {{ errors.first('dst_pan') }}
+            div.row.no-margin
+              input.ltr-input(v-validate="{ rules: {required: true, max:19}}" v-bind:data-vv-as="$i18n.t('card.distCardNumber')" maxlength="19" :class="{'input-danger': errors.has('dst_pan')}" type="text" v-model="dst_pan" name="dst_pan" id="dst_pan" @keyup="cardNumberFormat('dst_pan')" :placeholder="$i18n.t('card.distCardNumber')")
+              div.ta-right(v-if="validation('dst_pan')")
+                span.text-danger {{ errors.first('dst_pan') }}
 
-                        div.row.no-margin
-                            vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
-                            div.ta-right(v-if="validation('amount')")
-                                span.text-danger {{ errors.first('amount') }}
+            div.row.no-margin
+              vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
+              div.ta-right(v-if="validation('amount')")
+                span.text-danger {{ errors.first('amount') }}
 
-                        div.row.no-margin
-                            div.col-xs.no-left-margin.nav-buttons
-                                button.btn.success.pull-left(v-ripple="" @click="validateForm") {{ $i18n.t('purse.nextStep') }}
+            div.row.no-margin
+              div.col-xs.no-left-margin.nav-buttons
+                button.btn.success.pull-left(v-ripple="" @click="validateForm") {{ $i18n.t('purse.nextStep') }}
 
-                div.list(v-else)
-                    span(v-if="destinationUser && !transferResponse")
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{ $i18n.t('card.srcAccountNumber')}}
-                            div.col-xs.ta-left
-                                span.value.persian-num {{card.pan}}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{ $i18n.t('card.distCardNumber')}}
-                            div.col-xs.ta-left
-                                span.value.persian-num {{this.dst_pan}}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{ $i18n.t('card.exporterBank')}}
-                            div.col-xs.ta-left
-                                span.value {{destinationUser.bank_info.name}}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label  {{ $i18n.t('card.accountOwnerName')}}
-                            div.col-xs.ta-left
-                                span.value {{destinationUser.holder_name}}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{$i18n.t('common.amount') + '(' + $i18n.t('transaction.toman') + ')' }}
-                            div.col-xs.ta-left
-                                span.value.persian-num {{this.amount | numberFormat }}
+        div.list(v-else)
+          span(v-if="destinationUser && !transferResponse")
+            div.row
+              div.col-xs.ta-right
+                span.label {{ $i18n.t('card.srcAccountNumber')}}
+              div.col-xs.ta-left
+                span.value.persian-num {{card.pan}}
+            div.row
+              div.col-xs.ta-right
+                span.label {{ $i18n.t('card.distCardNumber')}}
+              div.col-xs.ta-left
+                span.value.persian-num {{this.dst_pan}}
+            div.row
+              div.col-xs.ta-right
+                span.label {{ $i18n.t('card.exporterBank')}}
+              div.col-xs.ta-left
+                span.value {{destinationUser.bank_info.name}}
+            div.row
+              div.col-xs.ta-right
+                span.label  {{ $i18n.t('card.accountOwnerName')}}
+              div.col-xs.ta-left
+                span.value {{destinationUser.holder_name}}
+            div.row
+              div.col-xs.ta-right
+                span.label {{$i18n.t('common.amount') + '(' + $i18n.t('transaction.toman') + ')' }}
+              div.col-xs.ta-left
+                span.value.persian-num {{this.amount | numberFormat }}
 
-                        div.row.nav-buttons.no-left-margin.nav-buttons
-                            div.col-xs.no-margin
-                                button.btn.success.pull-left(v-ripple="" @click="acceptTransfer") {{ $i18n.t('purse.acceptTransfer') }}
-                                    svg.material-spinner(v-if="transferCompelled" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                        circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+            div.row.nav-buttons.no-left-margin.nav-buttons
+              div.col-xs.no-margin
+                button.btn.success.pull-left(v-ripple="" @click="acceptTransfer") {{ $i18n.t('purse.acceptTransfer') }}
+                  svg.material-spinner(v-if="transferCompelled" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
-                                button.btn.default.pull-left(v-ripple="" @click="declineTransfer")  {{ $i18n.t('purse.declineTransfer') }}
+                button.btn.default.pull-left(v-ripple="" @click="declineTransfer")  {{ $i18n.t('purse.declineTransfer') }}
 
-
-                    <!--Show transfer response-->
-                    span(v-else)
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{ $i18n.t('card.cardBalance')}}
-                            div.col-xs.ta-left
-                                span.value.persian-num {{ transferResponse.card_balance| numberFormat }}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{ $i18n.t('common.date')}}
-                            div.col-xs.ta-left
-                                span.value.persian-num {{transferResponse.date}}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label  {{ $i18n.t('card.distAccountOwnerName')}}
-                            div.col-xs.ta-left
-                                span.value {{transferResponse.dst_card_holder_name}}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{ $i18n.t('card.distAccountNumber')}}
-                            div.col-xs.ta-left
-                                span.value.persian-num {{transferResponse.dst_card_pan}}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{ $i18n.t('card.refrenceNumber')}}
-                            div.col-xs.ta-left
-                                span.value.persian-num {{transferResponse.ref_id }}
-                        div.row
-                            div.col-xs.ta-right
-                                span.label {{ $i18n.t('card.amount')}}
-                            div.col-xs.ta-left
-                                span.value.persian-num {{transferResponse.transfer_amount | numberFormat}}
+          <!--Show transfer response-->
+          span(v-else)
+            div.row
+              div.col-xs.ta-right
+                span.label {{ $i18n.t('card.cardBalance')}}
+              div.col-xs.ta-left
+                span.value.persian-num {{ transferResponse.card_balance| numberFormat }}
+            div.row
+              div.col-xs.ta-right
+                span.label {{ $i18n.t('common.date')}}
+              div.col-xs.ta-left
+                span.value.persian-num {{transferResponse.date}}
+            div.row
+              div.col-xs.ta-right
+                span.label  {{ $i18n.t('card.distAccountOwnerName')}}
+              div.col-xs.ta-left
+                span.value {{transferResponse.dst_card_holder_name}}
+            div.row
+              div.col-xs.ta-right
+                span.label {{ $i18n.t('card.distAccountNumber')}}
+              div.col-xs.ta-left
+                span.value.persian-num {{transferResponse.dst_card_pan}}
+            div.row
+              div.col-xs.ta-right
+                span.label {{ $i18n.t('card.refrenceNumber')}}
+              div.col-xs.ta-left
+                span.value.persian-num {{transferResponse.ref_id }}
+            div.row
+              div.col-xs.ta-right
+                span.label {{ $i18n.t('card.amount')}}
+              div.col-xs.ta-left
+                span.value.persian-num {{transferResponse.transfer_amount | numberFormat}}
 </template>
-
 
 <script>
   import modal from '../../partials/modal.vue';
@@ -170,7 +168,8 @@
         this.requesting = true;
         let destPan = this.dst_pan.split('-').join('');
 
-        this.$store.state.http.requests['zarincard.getHolderName'].get({destPan: destPan}).then(
+        this.$store.state.http.requests['zarincard.getHolderName'].get(
+            {destPan: destPan}).then(
             (response) => {
               this.step = 2;
               this.requesting = false;
@@ -183,7 +182,8 @@
                 important: false,
                 type: 'danger'
               });
-              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
             }
         );
       },
@@ -199,7 +199,8 @@
           amount: this.amount
         };
 
-        this.$store.state.http.requests['zarincard.postTransferShetab'].save(transferData).then(
+        this.$store.state.http.requests['zarincard.postTransferShetab'].save(
+            transferData).then(
             (response) => {
               this.step = 2;
               this.requesting = false;
@@ -216,7 +217,8 @@
                 important: false,
                 type: 'danger'
               });
-              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
             }
         );
       },

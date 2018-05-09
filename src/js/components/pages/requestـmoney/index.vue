@@ -1,74 +1,71 @@
 <template lang="pug">
-    div.inner-content
-        div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title {{ $i18n.t('common.dangiDongi') }}
-                p.page-description {{ $i18n.t('common.dangiDongiDescription') }}
+  div.inner-content
+    div.row.nav-page-header
+      div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+        p.page-title {{ $i18n.t('common.dangiDongi') }}
+        p.page-description {{ $i18n.t('common.dangiDongiDescription') }}
 
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
+      div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+        router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
 
-        div.ta-center(v-if="isRequest")
-            loading
+    div.ta-center(v-if="isRequest")
+      loading
 
-        div.request-money-index(v-bind:class="{'inactive-index': isRequest}")
-            <!--Blur background-->
-            div.nav-blur-container
-                div.row.blur-content.no-margin
-                    div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                        div.nav-user-info
-                            img.user-avatar(:src="user.avatar")
-                            span.user-name {{user.name}}
-                            br
-                            span.user-zp-id.persian-num zp.{{user.public_id}}
-                    div.col-lg-6.col-md-6.col-sm-12.col-xs-12.nav-left
-                        div.nav-buttons
-                            <!--span.request-button.zarin-friends دوستان زرین‌پالی-->
-                            span.request-button(@click="visibleNewRequestMoney = true") {{$i18n.t('requestMoney.newRequestMoney')}}
+    div.request-money-index(v-bind:class="{'inactive-index': isRequest}")
+      <!--Blur background-->
+      div.nav-blur-container
+        div.row.blur-content.no-margin
+          div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+            div.nav-user-info
+              img.user-avatar(:src="user.avatar")
+              span.user-name {{user.name}}
+              br
+              span.user-zp-id.persian-num zp.{{user.public_id}}
+          div.col-lg-6.col-md-6.col-sm-12.col-xs-12.nav-left
+            div.nav-buttons
+              <!--span.request-button.zarin-friends دوستان زرین‌پالی-->
+              span.request-button(@click="visibleNewRequestMoney = true") {{$i18n.t('requestMoney.newRequestMoney')}}
 
+        div.blur-container
+          img.user-profile-background(:src="user.avatar")
 
-                div.blur-container
-                    img.user-profile-background(:src="user.avatar")
+      div.col-lg-12.col-md-12.col-sm-12.col-xs-12.nav-menu
+        ul.no-margin
+          li(:class="{'active': whichTab == 'requests'}" @click="changeTab('requests')") {{$i18n.t('requestMoney.requests')}}
+          li(:class="{'active': whichTab == 'debt'}" @click="changeTab('debt')") {{$i18n.t('requestMoney.debt')}}
 
+      <!--Requests and debts-->
+      div.nav-request-money
+        div.nav-requests(v-if="whichTab == 'requests' && demands.data.length")
+          singleDemand.hand(v-for="demand in demands.data" v-bind:key="demand.entity_id" v-bind:demand="demand")
 
-            div.col-lg-12.col-md-12.col-sm-12.col-xs-12.nav-menu
-                ul.no-margin
-                    li(:class="{'active': whichTab == 'requests'}" @click="changeTab('requests')") {{$i18n.t('requestMoney.requests')}}
-                    li(:class="{'active': whichTab == 'debt'}" @click="changeTab('debt')") {{$i18n.t('requestMoney.debt')}}
+        div.row(v-if="!demands.status && !demands.data.length && whichTab == 'requests'")
+          div.col-xs.ta-center
+            span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
+        div.ta-center(v-if="whichTab == 'requests' && demands.status")
+          loading
 
-            <!--Requests and debts-->
-            div.nav-request-money
-                div.nav-requests(v-if="whichTab == 'requests' && demands.data.length")
-                    singleDemand.hand(v-for="demand in demands.data" v-bind:key="demand.entity_id" v-bind:demand="demand")
+        div.nav-debts(v-if="whichTab == 'debt' && debts.data.length")
+          singleDebt.hand(v-for="debt in debts.data" v-bind:key="debt.entity_id" v-bind:debt="debt" v-on:changeRequestMode="changeRequestMode")
 
-                div.row(v-if="!demands.status && !demands.data.length && whichTab == 'requests'")
-                    div.col-xs.ta-center
-                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+        div.row(v-if="!debts.status && !debts.data.length && whichTab == 'debt'")
+          div.col-xs.ta-center
+            span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
-                div.ta-center(v-if="whichTab == 'requests' && demands.status")
-                    loading
+        div.ta-center(v-if="whichTab == 'debt' && debts.status")
+          loading
 
-                div.nav-debts(v-if="whichTab == 'debt' && debts.data.length")
-                    singleDebt.hand(v-for="debt in debts.data" v-bind:key="debt.entity_id" v-bind:debt="debt" v-on:changeRequestMode="changeRequestMode")
+    <!--New request money modal-->
+    newRequestMoney(v-if="visibleNewRequestMoney" v-on:closeModal="closeModal()" v-on:requestSuccessMessage="requestSuccessMessage()" v-on:getDemand="getDemand()")
 
-                div.row(v-if="!debts.status && !debts.data.length && whichTab == 'debt'")
-                    div.col-xs.ta-center
-                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+    <!--Confirmation of request success-->
+    confirm(v-if="visibleRequestSuccess" v-on:closeModal="closeModal")
+      span(slot="title") {{$i18n.t('requestMoney.newRequestMoney')}}
+      div.ta-right(slot="message")
+        div {{$i18n.t('requestMoney.requestSuccessMessage')}}
 
-                div.ta-center(v-if="whichTab == 'debt' && debts.status")
-                    loading
-
-        <!--New request money modal-->
-        newRequestMoney(v-if="visibleNewRequestMoney" v-on:closeModal="closeModal()" v-on:requestSuccessMessage="requestSuccessMessage()" v-on:getDemand="getDemand()")
-
-        <!--Confirmation of request success-->
-        confirm(v-if="visibleRequestSuccess" v-on:closeModal="closeModal")
-            span(slot="title") {{$i18n.t('requestMoney.newRequestMoney')}}
-            div.ta-right(slot="message")
-                div {{$i18n.t('requestMoney.requestSuccessMessage')}}
-
-            span(slot="messageDanger") {{$i18n.t('requestMoney.ok')}}
+      span(slot="messageDanger") {{$i18n.t('requestMoney.ok')}}
 
 </template>
 
@@ -181,7 +178,8 @@
         let vm = this;
         window.onscroll = function(ev) {
           if (vm.whichTab === 'requests') {
-            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+            if ((window.innerHeight + window.scrollY) >=
+                document.body.scrollHeight
                 && !vm.demands.status) {
               vm.$store.dispatch(
                   'paginator/next',
@@ -191,7 +189,8 @@
               );
             }
           } else {
-            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight
+            if ((window.innerHeight + window.scrollY) >=
+                document.body.scrollHeight
                 && !vm.debts.status) {
               vm.$store.dispatch(
                   'paginator/next',

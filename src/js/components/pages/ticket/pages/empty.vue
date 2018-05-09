@@ -1,8 +1,8 @@
 <template lang="pug">
-    div.inner-content
-        div.nav-ticket-empty
-            div.no-ticket-image
-            span.emptyText {{ $i18n.t('ticket.selectOne') }}
+  div.inner-content
+    div.nav-ticket-empty
+      div.no-ticket-image
+      span.emptyText {{ $i18n.t('ticket.selectOne') }}
 
 </template>
 
@@ -31,7 +31,8 @@
       let ticketContent = document.getElementById('ticketContent');
 
       ticketContent.addEventListener("scroll", function(e) {
-        if (ticketContent.scrollHeight - ticketContent.scrollTop === ticketContent.clientHeight
+        if (ticketContent.scrollHeight - ticketContent.scrollTop ===
+            ticketContent.clientHeight
             && !vm.$store.state.paginator.isLoading) {
           vm.$store.dispatch(
               'paginator/next',
@@ -45,10 +46,11 @@
     methods: {
       getReplies(id){
         let ticket = {};
-        this.$store.state.http.requests['ticket.Reply'].get({ticket_id: id}).then(data => {
-          ticket = data.data;
-          this.ticket = ticket.data;
-        });
+        this.$store.state.http.requests['ticket.Reply'].get({ticket_id: id}).
+            then(data => {
+              ticket = data.data;
+              this.ticket = ticket.data;
+            });
       },
     }
   }

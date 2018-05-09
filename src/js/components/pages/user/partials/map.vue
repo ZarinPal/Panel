@@ -1,30 +1,28 @@
 <style>
-    #map {
-        height: 400px;
-        width: 100%;
-    }
+  #map {
+    height: 400px;
+    width: 100%;
+  }
 </style>
 <template lang="pug">
-    div.nav-map
-        transition(name="fade"
-        enter-active-class="fade-in"
-        leave-active-class="fade-out")
-            div.modal(v-on:click.self="closeModal()")
+  div.nav-map
+    transition(name="fade"
+    enter-active-class="fade-in"
+    leave-active-class="fade-out")
+      div.modal(v-on:click.self="closeModal()")
 
-        div.modal-content-father
-            transition(name="zoom"
-            enter-active-class="zoom-in"
-            leave-active-class="zoom-out")
-                div.row.center-xs.modal-content(v-if="!closeModalContent")
-                    div.col-lg-11.col-md-11.col-sm-12.col-xs-12
-                        span.icon-big-close(@click="closeModal()")
-                        div.body
-                            div.contains
-                                div#map
-
+    div.modal-content-father
+      transition(name="zoom"
+      enter-active-class="zoom-in"
+      leave-active-class="zoom-out")
+        div.row.center-xs.modal-content(v-if="!closeModalContent")
+          div.col-lg-11.col-md-11.col-sm-12.col-xs-12
+            span.icon-big-close(@click="closeModal()")
+            div.body
+              div.contains
+                div#map
 
 </template>
-
 
 <script>
   export default {
@@ -70,7 +68,8 @@
             };
 
             //set current location to variable
-            vm.geoLocation = position.coords.latitude + ',' + position.coords.longitude;
+            vm.geoLocation = position.coords.latitude + ',' +
+                position.coords.longitude;
 
             let geocoder = new google.maps.Geocoder;
 
@@ -83,10 +82,12 @@
             /*** Change marker position ***/
             google.maps.event.addListener(map, "click", function(position) {
               //get selected location address
-              vm.geocodeLatLng(geocoder, map, infoWindow, position.latLng.lat() + ',' + position.latLng.lng());
+              vm.geocodeLatLng(geocoder, map, infoWindow,
+                  position.latLng.lat() + ',' + position.latLng.lng());
 
               //update current location
-              vm.geoLocation = position.latLng.lat() + ',' + position.latLng.lng();
+              vm.geoLocation = position.latLng.lat() + ',' +
+                  position.latLng.lng();
             });
 
           }, () => {
@@ -108,7 +109,10 @@
       geocodeLatLng(geocoder, map, infowindow, geoLocation) {
         let vm = this;
         let latlngStr = geoLocation.split(',', 2);
-        let latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+        let latlng = {
+          lat: parseFloat(latlngStr[0]),
+          lng: parseFloat(latlngStr[1])
+        };
 
         let marker = new google.maps.Marker({
           position: latlng,

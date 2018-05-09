@@ -1,63 +1,62 @@
 <template lang="pug">
-    div.inner-content
-        div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                p.page-title {{ $i18n.t('report.title') }}
-                p.page-description {{ $i18n.t('report.description') }}
-        div.row
-            div.col-xs
-                div.section
-                    div.box
-                        div.body.search-box
-                            div.row
-                                span.icon-search
-                                span.search-title {{ $i18n.t('ticket.search') }}
-                                span.break
+  div.inner-content
+    div.row.nav-page-header
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('report.title') }}
+        p.page-description {{ $i18n.t('report.description') }}
+    div.row
+      div.col-xs
+        div.section
+          div.box
+            div.body.search-box
+              div.row
+                span.icon-search
+                span.search-title {{ $i18n.t('ticket.search') }}
+                span.break
 
-                            div.row
-                                div.col-lg-8.col-md-8.col-sm-8.col-xs-12
-                                    div.row
-                                        selectbox.col-lg-4.col-md-4.col-sm-4.col-xs-12(v-validate="{ rules: {required: true}}" v-model="selectedMonth" v-on:select="selectMonth" v-bind:data="months"  :placeholder="$i18n.t('report.month')")
-                                        selectbox.col-lg-4.col-md-4.col-sm-4.col-xs-12.m-l-10.persian-num( v-validate="{ rules: {required: true}}" v-model="selectedYear" v-on:select="selectYear"   v-bind:data="years" :id='selectYear' :placeholder="$i18n.t('report.year')")
-                                        div.ta-right(v-if="validation('date')")
-                                            span.text-danger {{ errors.first('date') }}
+              div.row
+                div.col-lg-8.col-md-8.col-sm-8.col-xs-12
+                  div.row
+                    selectbox.col-lg-4.col-md-4.col-sm-4.col-xs-12(v-validate="{ rules: {required: true}}" v-model="selectedMonth" v-on:select="selectMonth" v-bind:data="months"  :placeholder="$i18n.t('report.month')")
+                    selectbox.col-lg-4.col-md-4.col-sm-4.col-xs-12.m-l-10.persian-num( v-validate="{ rules: {required: true}}" v-model="selectedYear" v-on:select="selectYear"   v-bind:data="years" :id='selectYear' :placeholder="$i18n.t('report.year')")
+                    div.ta-right(v-if="validation('date')")
+                      span.text-danger {{ errors.first('date') }}
 
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                                    button.btn.info.pull-right.m-t-10(v-ripple="" @click="validateForm" :class="{'disable': fetching}") {{ $i18n.t('common.search') }}
-                                        svg.material-spinner(v-if="fetching" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                            circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
+                  button.btn.info.pull-right.m-t-10(v-ripple="" @click="validateForm" :class="{'disable': fetching}") {{ $i18n.t('common.search') }}
+                    svg.material-spinner(v-if="fetching" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                      circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
+    div.row.no-margin
+      div.full-width
+        div.box.xs-hidden
+          div.full-width(v-if="reports")
+            div.row
+              div.col-xs.ta-center(v-for='titles in calendarDayTitles')
+                span {{titles}}
+            div.section(v-for='week in this.monthDays')
+              div.box.row.min-height-box
+                div.col-xs.cell(v-for='day in week' :class="{'today': today == day.date.format('jYYYY/jMM/jDD'),'zp-inActive': day.inActived, 'zp-disabled': day.holiday && day.inActived}")
+                  div.row(v-if="day.turnovers")
+                    div.col-xs-12(v-if="day.turnovers.income_count")
+                      span.show-income-count.pull-left.persian-num {{day.turnovers.income_count}}
+                      span.show-income-amount.pull-right.persian-num(:title="$i18n.t('common.incomeTransaction')") {{day.turnovers.income_amount | numberFormat}}
+                    div.col-xs-12(v-if="day.turnovers.outgo_count")
+                      span.show-outgo-count.persian-num.pull-left {{day.turnovers.outgo_count}}
+                      span.show-outgo-amount.persian-num.pull-right(:title="$i18n.t('common.outgoTransaction')") {{day.turnovers.outgo_amount | numberFormat}}
+                  div.row.bottom-xs.pull-left.persian-num.day-of-month(:class="{'day-of-month-disable': day.inActived}")
+                    div(:title="day.date.format('jD jMMMM jYY')") {{day.date.format('jD')}}
 
-        div.row.no-margin
-            div.full-width
-                div.box.xs-hidden
-                    div.full-width(v-if="reports")
-                        div.row
-                            div.col-xs.ta-center(v-for='titles in calendarDayTitles')
-                                span {{titles}}
-                        div.section(v-for='week in this.monthDays')
-                            div.box.row.min-height-box
-                                div.col-xs.cell(v-for='day in week' :class="{'today': today == day.date.format('jYYYY/jMM/jDD'),'zp-inActive': day.inActived, 'zp-disabled': day.holiday && day.inActived}")
-                                    div.row(v-if="day.turnovers")
-                                        div.col-xs-12(v-if="day.turnovers.income_count")
-                                            span.show-income-count.pull-left.persian-num {{day.turnovers.income_count}}
-                                            span.show-income-amount.pull-right.persian-num(:title="$i18n.t('common.incomeTransaction')") {{day.turnovers.income_amount | numberFormat}}
-                                        div.col-xs-12(v-if="day.turnovers.outgo_count")
-                                            span.show-outgo-count.persian-num.pull-left {{day.turnovers.outgo_count}}
-                                            span.show-outgo-amount.persian-num.pull-right(:title="$i18n.t('common.outgoTransaction')") {{day.turnovers.outgo_amount | numberFormat}}
-                                    div.row.bottom-xs.pull-left.persian-num.day-of-month(:class="{'day-of-month-disable': day.inActived}")
-                                        div(:title="day.date.format('jD jMMMM jYY')") {{day.date.format('jD')}}
-
-                div.section(v-if="reports")
-                    div.box.row.persian-num
-                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
-                            span {{$i18n.t('report.incomeAmount')}} : {{totalReports.income_amount | numberFormat}} {{$i18n.t('transaction.toman')}}
-                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
-                            span {{$i18n.t('report.incomeCount')}} : {{totalReports.income_count | numberFormat}}
-                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
-                            span {{$i18n.t('report.outcomeAmount')}} : {{totalReports.outgo_amount | numberFormat}} {{$i18n.t('transaction.toman')}}
-                        div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
-                            span {{$i18n.t('report.outcomeCount')}} : {{totalReports.outgo_count | numberFormat}}
+        div.section(v-if="reports")
+          div.box.row.persian-num
+            div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+              span {{$i18n.t('report.incomeAmount')}} : {{totalReports.income_amount | numberFormat}} {{$i18n.t('transaction.toman')}}
+            div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+              span {{$i18n.t('report.incomeCount')}} : {{totalReports.income_count | numberFormat}}
+            div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+              span {{$i18n.t('report.outcomeAmount')}} : {{totalReports.outgo_amount | numberFormat}} {{$i18n.t('transaction.toman')}}
+            div.col-lg-3.col-md-3.col-sm-6.col-xs-12.ta-center.p-10
+              span {{$i18n.t('report.outcomeCount')}} : {{totalReports.outgo_count | numberFormat}}
 </template>
 
 <script>
@@ -129,7 +128,9 @@
           durationDate: this.durationDate,
         }).then((result) => {
           if (result) {
-            this.durationDate = moment(this.selectedYear + '/' + this.selectedMonth + '/01', 'jYYYY/jM/jD');
+            this.durationDate = moment(
+                this.selectedYear + '/' + this.selectedMonth + '/01',
+                'jYYYY/jM/jD');
             this.fetchReports(this.getMonthDays);
           }
         });
@@ -189,20 +190,23 @@
           delete reportData.purse_number;
         }
 
-        this.$store.state.http.requests[reportName].save(reportData).then((response) => {
-          this.reports = response.data.data;
+        this.$store.state.http.requests[reportName].save(reportData).
+            then((response) => {
+              this.reports = response.data.data;
 
-          callback();
-          this.fetching = false;
-        }).catch((error) => {
-          this.fetching = false;
-          store.commit('setValidationErrors', response.data.validation_errors);
-          store.commit('flashMessage', {
-            text: response.data.meta.error_message,
-            important: false,
-            type: 'danger'
-          });
-        });
+              callback();
+              this.fetching = false;
+            }).
+            catch((error) => {
+              this.fetching = false;
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
+              store.commit('flashMessage', {
+                text: response.data.meta.error_message,
+                important: false,
+                type: 'danger'
+              });
+            });
       },
 
       /**
@@ -255,9 +259,13 @@
       },
       getCurrentMonth() {
         this.monthDays = [];
-        let monthDays = this.durationDate.clone().startOf('jMonth').subtract(1, 'd');
+        let monthDays = this.durationDate.clone().
+            startOf('jMonth').
+            subtract(1, 'd');
 
-        while (this.durationDate.clone().endOf('jMonth').format('jYYYYjMMjDD') !== monthDays.format('jYYYYjMMjDD')) {
+        while (this.durationDate.clone().
+            endOf('jMonth').
+            format('jYYYYjMMjDD') !== monthDays.format('jYYYYjMMjDD')) {
           monthDays.add(1, 'd');
           this.monthDays.push({
             inActived: false,
@@ -273,9 +281,11 @@
       getPrevMonthDays(startOfPrevMonth) {
         let startOfPrevMonthDays = startOfPrevMonth.days() + 1;
 
-        let prevMonthStart = startOfPrevMonth.clone().subtract(startOfPrevMonthDays, 'd');
+        let prevMonthStart = startOfPrevMonth.clone().
+            subtract(startOfPrevMonthDays, 'd');
         let prevMonthDay = prevMonthStart.clone().endOf('jMonth').add(1, 'd');
-        while (prevMonthStart.format('jYYYYjMMjDD') !== prevMonthDay.format('jYYYYjMMjDD')) {
+        while (prevMonthStart.format('jYYYYjMMjDD') !==
+        prevMonthDay.format('jYYYYjMMjDD')) {
           prevMonthDay.subtract(1, 'd');
           this.monthDays.unshift({
             inActived: true,
@@ -285,7 +295,9 @@
         }
       },
       getNextMonthDays() {
-        let nextMonthStart = this.durationDate.clone().endOf('jMonth').add(1, 'd');
+        let nextMonthStart = this.durationDate.clone().
+            endOf('jMonth').
+            add(1, 'd');
         while (this.monthDays.length % 7 !== 0) {
           this.monthDays.push({
             inActived: true,

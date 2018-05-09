@@ -1,11 +1,10 @@
 <template lang="pug">
-    modal.confirm(v-on:closeModal="closeModal()")
-        span(slot="title")
-            span {{ $i18n.t('common.accessLevelLimitTitle') }}
-        div.content(slot="content")
-            span {{errorContent}}
+  modal.confirm(v-on:closeModal="closeModal()")
+    span(slot="title")
+      span {{ $i18n.t('common.accessLevelLimitTitle') }}
+    div.content(slot="content")
+      span {{errorContent}}
 </template>
-
 
 <script>
   import modal from './modal.vue';

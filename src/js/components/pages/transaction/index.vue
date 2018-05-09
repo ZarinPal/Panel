@@ -1,107 +1,105 @@
 <template lang="pug">
-    div.inner-content
+  div.inner-content
 
-        div.row.nav-page-header
+    div.row.nav-page-header
 
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                p.page-title {{ $i18n.t('common.transactions') }}
-                p.page-description {{ $i18n.t('transaction.description') }}
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
-                router-link.btn.btn-gradient-radius.pull-left(tag="button" v-bind:to="{ name: 'report.index', params: {reportFor: 'purse', reportId: this.$route.params.id}} ")
-                    i.btn-icon.icon-zp-calendar
-                    span.btn-label  {{ $i18n.t('transaction.dailyReport') }}
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('common.transactions') }}
+        p.page-description {{ $i18n.t('transaction.description') }}
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}
+        router-link.btn.btn-gradient-radius.pull-left(tag="button" v-bind:to="{ name: 'report.index', params: {reportFor: 'purse', reportId: this.$route.params.id}} ")
+          i.btn-icon.icon-zp-calendar
+          span.btn-label  {{ $i18n.t('transaction.dailyReport') }}
 
-        div.row
-            div.col-xs
-                div.section
-                    div.box
-                        div.body.search-box
-                            div.row
-                                span.icon-search
-                                span.search-title {{ $i18n.t('transaction.search') }}
-                                span.break
-                                <!--span.search-title {{ $i18n.t('transaction.advanceSearch') }}-->
+    div.row
+      div.col-xs
+        div.section
+          div.box
+            div.body.search-box
+              div.row
+                span.icon-search
+                span.search-title {{ $i18n.t('transaction.search') }}
+                span.break
+                <!--span.search-title {{ $i18n.t('transaction.advanceSearch') }}-->
 
-                            div.row
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
-                                    div.break
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                    selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" :placeholder="$i18n.t('common.select')")
-                                    div.break
+              div.row
+                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+                  input(v-model="filterValue" @change="addFilter(filterType, filterValue)" type="text" v-bind:placeholder="placeholder")
+                  div.break
+                div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+                  selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-bind:data="filterTypeData" v-on:select="selectFilter" v-bind:selected="'transaction_id'" :placeholder="$i18n.t('common.select')")
+                  div.break
 
-                                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
-                                    button.btn.info.pull-right(v-ripple="" @click="validateForm")
-                                        span {{ $i18n.t('common.search') }}
+                div.col-lg-4.col-md-4.col-sm-4.col-xs-12.search-box-buttons
+                  button.btn.info.pull-right(v-ripple="" @click="validateForm")
+                    span {{ $i18n.t('common.search') }}
 
-                            div
-                                div.hand(@click="toggleDatePicker()") {{$i18n.t('transaction.advanceSearch')}}
-                                transition(name="fade"
-                                enter-active-class="fade-in"
-                                leave-active-class="fade-out")
-                                    div.row(v-if="visibleAdvanceSearch")
-                                        div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                            date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="fromDate" name="fromDate" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" type="datetime" :placeholder="$i18n.t('transaction.fromDate')")
-                                            div.ta-right(v-if="validation('fromDate')")
-                                                span.text-danger {{ errors.first('fromDate') }}
+              div
+                div.hand(@click="toggleDatePicker()") {{$i18n.t('transaction.advanceSearch')}}
+                transition(name="fade"
+                enter-active-class="fade-in"
+                leave-active-class="fade-out")
+                  div.row(v-if="visibleAdvanceSearch")
+                    div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+                      date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="fromDate" name="fromDate" v-bind:data-vv-as="$i18n.t('transaction.fromDate')" type="datetime" :placeholder="$i18n.t('transaction.fromDate')")
+                      div.ta-right(v-if="validation('fromDate')")
+                        span.text-danger {{ errors.first('fromDate') }}
 
-                                        div.col-lg-4.col-md-4.col-sm-4.col-xs-12
-                                            date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="toDate" name="toDate" v-bind:data-vv-as="$i18n.t('transaction.toDate')" type="datetime" :placeholder="$i18n.t('transaction.toDate')")
-                                            div.ta-right(v-if="validation('toDate')")
-                                                span.text-danger {{ errors.first('toDate') }}
+                    div.col-lg-4.col-md-4.col-sm-4.col-xs-12
+                      date-picker.persian-num(v-validate="{ rules: {required: true}}" v-model="toDate" name="toDate" v-bind:data-vv-as="$i18n.t('transaction.toDate')" type="datetime" :placeholder="$i18n.t('transaction.toDate')")
+                      div.ta-right(v-if="validation('toDate')")
+                        span.text-danger {{ errors.first('toDate') }}
 
-        div.row.filter-row
-            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
-                span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
-                span(v-for="purse in user.purses")
-                    span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
-            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
-                a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
-                    span.icon-zp-excel
-                    span {{$i18n.t('transaction.excelExport')}}
-            div.col-lg-4.col-md-3.col-sm-6.col-xs-6
-                ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
-                    li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
-                    li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
-                    li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
-                    li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
+    div.row.filter-row
+      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
+        span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
+        span(v-for="purse in user.purses")
+          span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
+      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
+        a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
+          span.icon-zp-excel
+          span {{$i18n.t('transaction.excelExport')}}
+      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
+        ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
+          li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
+          li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
+          li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
+          li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
 
+    div.transaction-header-container
+      div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
+        div.col-lg-2.col-md.col-sm.hidden-xs
+          span {{ $i18n.t('transaction.id') }}
+        div.col-lg-3.col-md.col-sm.hidden-xs
+          span {{ $i18n.t('transaction.source') }}
+          span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
+        div.col-lg-3.col-md.col-sm.hidden-title-md.hidden-xs
+          span {{ $i18n.t('transaction.destination') }}
+        div.col-lg-2.col-md.col-sm.hidden-xs
+          span {{ $i18n.t('transaction.date') }}
+        div.col-lg-1.col-md.col-sm.hidden-xs
+          span {{ $i18n.t('transaction.amount') }}
+          small ({{ $i18n.t('transaction.toman') }})
+        div.col-lg-1.col-md.col-sm.hidden-xs
+          span {{ $i18n.t('common.balance') }}
+          small ({{ $i18n.t('transaction.toman') }})
 
-        div.transaction-header-container
-            div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
-                div.col-lg-2.col-md.col-sm.hidden-xs
-                    span {{ $i18n.t('transaction.id') }}
-                div.col-lg-3.col-md.col-sm.hidden-xs
-                    span {{ $i18n.t('transaction.source') }}
-                    span.trans-float-destination-title ، {{ $i18n.t('transaction.destination') }}
-                div.col-lg-3.col-md.col-sm.hidden-title-md.hidden-xs
-                    span {{ $i18n.t('transaction.destination') }}
-                div.col-lg-2.col-md.col-sm.hidden-xs
-                    span {{ $i18n.t('transaction.date') }}
-                div.col-lg-1.col-md.col-sm.hidden-xs
-                    span {{ $i18n.t('transaction.amount') }}
-                    small ({{ $i18n.t('transaction.toman') }})
-                div.col-lg-1.col-md.col-sm.hidden-xs
-                    span {{ $i18n.t('common.balance') }}
-                    small ({{ $i18n.t('transaction.toman') }})
+    div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+      span(v-if="transactions.data.length")
+        singleTransaction(v-for="transaction in transactions.data" v-bind:key="transaction.public_id" v-bind:transaction="transaction")
 
+      div.row(v-if="!loadingState.status && !transactions.data.length")
+        div.col-xs.ta-center
+          span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
-        div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-            span(v-if="transactions.data.length")
-                singleTransaction(v-for="transaction in transactions.data" v-bind:key="transaction.public_id" v-bind:transaction="transaction")
+    div.ta-center(v-if="loadingState.status")
+      loading
 
-            div.row(v-if="!loadingState.status && !transactions.data.length")
-                div.col-xs.ta-center
-                    span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+    div.ta-center(v-if="!this.$store.state.paginator.paginator.TransactionList.resource.resource && transactions.data.length")
+      span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
 
-        div.ta-center(v-if="loadingState.status")
-            loading
-
-        div.ta-center(v-if="!this.$store.state.paginator.paginator.TransactionList.resource.resource && transactions.data.length")
-            span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
-
-        transactionDetails(v-if="transaction && showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal")
+    transactionDetails(v-if="transaction && showTransactionDetail" v-bind:transaction="transaction" v-on:closeModal="closeModal")
 
 </template>
 
@@ -246,14 +244,20 @@
       },
       search(){
         if (this.fromDate && this.toDate) {
-          this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-          this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+          this.searchOptions.fromDate = moment(this.fromDate,
+              'jYYYY/jMM/jDD HH:mm:ss').format();
+          this.searchOptions.toDate = moment(this.toDate,
+              'jYYYY/jMM/jDD HH:mm:ss').format();
         } else if (this.fromDate && !this.toDate) {
-          this.searchOptions.fromDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
-          this.searchOptions.toDate = moment(this.fromDate, 'jYYYY/jMM/jDD HH:mm:ss').add(1, 'months').format();
+          this.searchOptions.fromDate = moment(this.fromDate,
+              'jYYYY/jMM/jDD HH:mm:ss').format();
+          this.searchOptions.toDate = moment(this.fromDate,
+              'jYYYY/jMM/jDD HH:mm:ss').add(1, 'months').format();
         } else if (!this.fromDate && this.toDate) {
-          this.searchOptions.fromDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').subtract(1, 'months').format();
-          this.searchOptions.toDate = moment(this.toDate, 'jYYYY/jMM/jDD HH:mm:ss').format();
+          this.searchOptions.fromDate = moment(this.toDate,
+              'jYYYY/jMM/jDD HH:mm:ss').subtract(1, 'months').format();
+          this.searchOptions.toDate = moment(this.toDate,
+              'jYYYY/jMM/jDD HH:mm:ss').format();
         }
 
         let vm = this;
@@ -297,13 +301,15 @@
       },
       makeExcelQueryString() {
         let urlQuery = Object.keys(this.searchOptions).
-            map(k => `${encodeURIComponent(k)}=${encodeURIComponent(this.searchOptions[k])}`).
+            map(k => `${encodeURIComponent(k)}=${encodeURIComponent(
+                this.searchOptions[k])}`).
             join('&');
         this.excelUrl = urlQuery; //this.$root.baseUrl + '?' + urlQuery;
       },
       showStandAloneTransaction() {
         if (this.$route.params.transactionId) {
-          this.$store.state.http.requests['transaction.getInfo'].get({transactionId: this.$route.params.transactionId}).
+          this.$store.state.http.requests['transaction.getInfo'].get(
+              {transactionId: this.$route.params.transactionId}).
               then(
                   (response) => {
                     this.showTransactionDetail = true;

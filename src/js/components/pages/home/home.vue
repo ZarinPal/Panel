@@ -1,54 +1,53 @@
 <template lang="pug">
-    div.inner-content
-        div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                p.page-title {{ $i18n.t('common.purses') }}
-                p.page-description {{ $i18n.t('common.pursesDescription') }}
+  div.inner-content
+    div.row.nav-page-header
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('common.purses') }}
+        p.page-description {{ $i18n.t('common.pursesDescription') }}
 
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                <!--button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")-->
-                <!--span.icon-add-circle-->
-                <!--span.text {{ $i18n.t('common.withdraw') }}-->
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        <!--button.btn.success(v-if="purses.data.length < purseLimit" @click="visibleCreatePurse = true")-->
+        <!--span.icon-add-circle-->
+        <!--span.text {{ $i18n.t('common.withdraw') }}-->
 
+    div.nav-top-buttons.row
+      div.col-lg-9.col-md-9.col-sm-12.col-xs-12.xs-ta-center.sm-ta-center
+        button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
+          i.btn-icon.withdraw
+          span.btn-label {{ $i18n.t('common.withdraw') }}
 
-        div.nav-top-buttons.row
-            div.col-lg-9.col-md-9.col-sm-12.col-xs-12.xs-ta-center.sm-ta-center
-                button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visibleWithdraw = !visibleWithdraw")
-                    i.btn-icon.withdraw
-                    span.btn-label {{ $i18n.t('common.withdraw') }}
+        router-link.btn-gradient-radius(v-if="userHasAccess([1, 2, 3]) >= 0" v-ripple="" tag="button" v-bind:to="{ name: 'requestMoney.index'}")
+          i.btn-icon.request-money
+          span.btn-label {{ $i18n.t('common.dangiDongi') }}
 
-                router-link.btn-gradient-radius(v-if="userHasAccess([1, 2, 3]) >= 0" v-ripple="" tag="button" v-bind:to="{ name: 'requestMoney.index'}")
-                    i.btn-icon.request-money
-                    span.btn-label {{ $i18n.t('common.dangiDongi') }}
+        button.btn-gradient-radius(v-if="userHasAccess([-1, 1, 2, 3]) >= 0" v-ripple="" @click="visibleAddFund = !visibleAddFund")
+          i.btn-icon.add-fund
+          span.btn-label {{ $i18n.t('purse.addFund') }}
 
-                button.btn-gradient-radius(v-if="userHasAccess([-1, 1, 2, 3]) >= 0" v-ripple="" @click="visibleAddFund = !visibleAddFund")
-                    i.btn-icon.add-fund
-                    span.btn-label {{ $i18n.t('purse.addFund') }}
+        button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visiblePtop = !visiblePtop")
+          i.btn-icon.ptop
+          span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
 
-                button.btn-gradient-radius(v-if="userHasAccess([2, 3]) >= 0" v-ripple="" @click="visiblePtop = !visiblePtop")
-                    i.btn-icon.ptop
-                    span.btn-label {{ $i18n.t('purse.moneyTransfer') }}
+        button.btn-gradient-radius.zarin-card(v-if="!haveZarinCard && this.$store.state.auth.user.level >=2" v-ripple="" @click="visibleRequestZarinCard = !visibleRequestZarinCard")
+          i.btn-icon
+          span.btn-label {{ $i18n.t('card.requestZarinCardTitle') }}
 
-                button.btn-gradient-radius.zarin-card(v-if="!haveZarinCard && this.$store.state.auth.user.level >=2" v-ripple="" @click="visibleRequestZarinCard = !visibleRequestZarinCard")
-                    i.btn-icon
-                    span.btn-label {{ $i18n.t('card.requestZarinCardTitle') }}
+      div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
+        button.btn.success(v-if="userHasAccess([1, 2, 3]) >= 0 && purses.data.length < purseLimit" @click="visibleCreatePurse = true")
+          span.icon-add-circle
+          span.text {{ $i18n.t('common.createPurse') }}
 
-            div.col-lg-3.col-md-3.col-sm-12.col-xs-12.ta-left.xs-ta-center.sm-ta-center
-                button.btn.success(v-if="userHasAccess([1, 2, 3]) >= 0 && purses.data.length < purseLimit" @click="visibleCreatePurse = true")
-                    span.icon-add-circle
-                    span.text {{ $i18n.t('common.createPurse') }}
+    div.row
+      singlePurse(v-if="purse.visible" v-for="purse in purses.data" v-bind:balance="purse.balance" v-bind:key="purse.purse" v-bind:update="purses.update" v-bind:purse="purse" v-bind:showMore="showMore")
 
-        div.row
-            singlePurse(v-if="purse.visible" v-for="purse in purses.data" v-bind:balance="purse.balance" v-bind:key="purse.purse" v-bind:update="purses.update" v-bind:purse="purse" v-bind:showMore="showMore")
+    createPurse(v-if="visibleCreatePurse" v-on:closeModal="closeModal()")
+    addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()")
+    pTop(v-if="visiblePtop" v-on:closeModal="closeModal()")
+    withdraw(v-if="visibleWithdraw" v-on:closeModal="closeModal()")
+    zarin-card(v-if="visibleRequestZarinCard" v-on:closeModal="closeModal()")
 
-        createPurse(v-if="visibleCreatePurse" v-on:closeModal="closeModal()")
-        addFund(v-if="visibleAddFund" v-on:closeModal="closeModal()")
-        pTop(v-if="visiblePtop" v-on:closeModal="closeModal()")
-        withdraw(v-if="visibleWithdraw" v-on:closeModal="closeModal()")
-        zarin-card(v-if="visibleRequestZarinCard" v-on:closeModal="closeModal()")
-
-        <!--Show modal to say user dont have access to this page-->
-        access-level(v-if="visibleUserAccessModal" v-on:closeModal="closeModal()")
+    <!--Show modal to say user dont have access to this page-->
+    access-level(v-if="visibleUserAccessModal" v-on:closeModal="closeModal()")
 </template>
 
 <script>

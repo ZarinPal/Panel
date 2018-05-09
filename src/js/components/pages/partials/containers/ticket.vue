@@ -1,6 +1,6 @@
 <template lang="pug">
-    div.col-xs.ticket-main-content
-        router-view
+  div.col-xs.ticket-main-content
+    router-view
 </template>
 
 <script>

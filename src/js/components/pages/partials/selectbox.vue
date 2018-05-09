@@ -1,15 +1,15 @@
 <template lang="pug">
-    ul.dropdown#dropDown(v-click-outside="closeDropDown")
-        li.title(@focus="isActive = true" @click="openDropDown")
-            div.row.no-margin(v-html="selectBoxTitle")
-            span.arrow
-        ul#itemSection(v-show="isOpen && data")
-            span(v-for="item in data")
-                li.row.dropdown-item-row.disable(v-if="item && item.disable == 1" v-html="item.title")
-                li.row.dropdown-item-row(v-else-if="item && item.disable !== 1" @click="selectItem(item)" v-ripple="" v-html="item.title")
+  ul.dropdown#dropDown(v-click-outside="closeDropDown")
+    li.title(@focus="isActive = true" @click="openDropDown")
+      div.row.no-margin(v-html="selectBoxTitle")
+      span.arrow
+    ul#itemSection(v-show="isOpen && data")
+      span(v-for="item in data")
+        li.row.dropdown-item-row.disable(v-if="item && item.disable == 1" v-html="item.title")
+        li.row.dropdown-item-row(v-else-if="item && item.disable !== 1" @click="selectItem(item)" v-ripple="" v-html="item.title")
 
-            div.ta-center.loading
-                loading(v-if="moreDataDetails.status" v-bind:width="20" v-bind:height="20")
+      div.ta-center.loading
+        loading(v-if="moreDataDetails.status" v-bind:width="20" v-bind:height="20")
 </template>
 
 <script>
@@ -69,7 +69,8 @@
       if (this.loadMore) {
         let selectBoxItems = this.$el.querySelector('#itemSection');
         selectBoxItems.addEventListener("scroll", function(e) {
-          if (selectBoxItems.scrollHeight - selectBoxItems.scrollTop === selectBoxItems.clientHeight) {
+          if (selectBoxItems.scrollHeight - selectBoxItems.scrollTop ===
+              selectBoxItems.clientHeight) {
             vm.$store.dispatch(
                 'paginator/next',
                 {

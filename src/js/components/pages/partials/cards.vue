@@ -1,5 +1,5 @@
 <template lang="pug">
-    selectbox.cards.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedCard" v-bind:data="cards" :placeholder="$i18n.t('transaction.selectCard')")
+  selectbox.cards.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-on:select="selectedCard" v-bind:data="cards" :placeholder="$i18n.t('transaction.selectCard')")
 </template>
 
 <script>
@@ -28,7 +28,9 @@
                 cardPan = Vue.options.filters.cardNumber(card.pan);
               activeCards.unshift({
                 'title': '<div class="col-xs ta-right"><span class="card-logo bank-logo logo-' +
-                card.issuer.slug.toLowerCase() + '"></span> <span class="nav-card-item-bank-name">' + card.issuer.name +
+                card.issuer.slug.toLowerCase() +
+                '"></span> <span class="nav-card-item-bank-name">' +
+                card.issuer.name +
                 '</span></div><div class="col-xs"><span class="nav-card-item-bank-card-id pull-left persian-num">' +
                 cardPan + '</span></div>',
                 'value': card.entity_id

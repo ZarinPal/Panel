@@ -1,88 +1,86 @@
 <template lang="pug">
-    div.inner-content
-        div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-                p.page-title ٖ{{ $i18n.t('webservice.editTitle') }}
-                p.page-description ٖ{{ $i18n.t('webservice.editWebserviceDescription') }}
-        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice(v-if="isLoadedData")
-            div.box
-                form(autocomplete="on" onsubmit="event.preventDefault();")
-                    div.body
-                        div.row
-                            div.col-lg-6.col-md-8.col-sm-12.col-xs-12
-                                div.row
-                                    div.col-xs.ta-right
-                                        input(v-model="visibleIp" name="ipOptional" value="yes" type="radio" id="rdoWithIp")
-                                        label(for="rdoWithIp")
-                                            span
-                                            | {{ $i18n.t('webservice.withIpLimit')}}
+  div.inner-content
+    div.row.nav-page-header
+      div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+        p.page-title ٖ{{ $i18n.t('webservice.editTitle') }}
+        p.page-description ٖ{{ $i18n.t('webservice.editWebserviceDescription') }}
+    div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice(v-if="isLoadedData")
+      div.box
+        form(autocomplete="on" onsubmit="event.preventDefault();")
+          div.body
+            div.row
+              div.col-lg-6.col-md-8.col-sm-12.col-xs-12
+                div.row
+                  div.col-xs.ta-right
+                    input(v-model="visibleIp" name="ipOptional" value="yes" type="radio" id="rdoWithIp")
+                    label(for="rdoWithIp")
+                      span
+                      | {{ $i18n.t('webservice.withIpLimit')}}
 
-                                    div.col-xs.ta-right
-                                        input(v-model="visibleIp" name="ipOptional" value="no" type="radio" id="rdoWithoutIp")
-                                        label(for="rdoWithoutIp")
-                                            span
-                                            | {{ $i18n.t('webservice.withoutIpLimit')}}
+                  div.col-xs.ta-right
+                    input(v-model="visibleIp" name="ipOptional" value="no" type="radio" id="rdoWithoutIp")
+                    label(for="rdoWithoutIp")
+                      span
+                      | {{ $i18n.t('webservice.withoutIpLimit')}}
 
+              div.col-lg-7.col-md-7.col-sm-12.col-xs-12
+                div.row.no-margin(v-if="visibleIp == 'yes'")
+                  span.input-icon.ip-icon
+                  input.ltr-input(v-validate="'ip'" :class="{'input-danger': errors.has('site_ip')}"  v-bind:data-vv-as="$i18n.t('webservice.ipServer')" type="text" v-model="site_ip" name="site_ip"  id="site_ip" placeholder= "IP" autofocus tabindex="1")
+                  span.text-help {{ $i18n.t('webservice.ipServerHelp') }}
+                  div.ta-right(v-if="validation('site_ip')")
+                    span.text-danger {{ errors.first('site_ip') }}
 
-                            div.col-lg-7.col-md-7.col-sm-12.col-xs-12
-                                div.row.no-margin(v-if="visibleIp == 'yes'")
-                                    span.input-icon.ip-icon
-                                    input.ltr-input(v-validate="'ip'" :class="{'input-danger': errors.has('site_ip')}"  v-bind:data-vv-as="$i18n.t('webservice.ipServer')" type="text" v-model="site_ip" name="site_ip"  id="site_ip" placeholder= "IP" autofocus tabindex="1")
-                                    span.text-help {{ $i18n.t('webservice.ipServerHelp') }}
-                                    div.ta-right(v-if="validation('site_ip')")
-                                        span.text-danger {{ errors.first('site_ip') }}
+                div.row.no-margin
+                  purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" v-if="purse" v-bind:selected="purse" :placeholder="$i18n.t('easypay.selectPurse')" :class="{'input-danger': errors.has('purse')}" tabindex="5")
+                  div.ta-right(v-if="validation('purse')")
+                    span.text-danger {{ errors.first('purse') }}
 
-                                div.row.no-margin
-                                    purse.purses.col-lg-12.col-md-12.col-sm-12.col-xs-12(@click.native="removeErrors('purse')" v-validate="{ rules: {required: true}}" name="purse" v-bind:data-vv-as="$i18n.t('user.purse')" v-on:select="selectedPurse" v-if="purse" v-bind:selected="purse" :placeholder="$i18n.t('easypay.selectPurse')" :class="{'input-danger': errors.has('purse')}" tabindex="5")
-                                    div.ta-right(v-if="validation('purse')")
-                                        span.text-danger {{ errors.first('purse') }}
+                div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
+                  webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
+                  div.ta-right(v-if="validation('webservice_category_id')")
+                    span.text-danger {{ errors.first('webservice_category_id') }}
+                div.break
+                div.row.no-margin
+                  input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
+                  label(for="activeCoupon")
+                    span
+                    | {{$i18n.t('webservice.activeCouponInPg')}}
+                div.break
+                div.row
+                  div.nav-picker
+                    span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
 
-                                div.row.no-margin(v-if="this.$store.state.app.webserviceCategories.length" )
-                                    webserviceCategories.webservice-categories(@click.native="removeErrors('webservice_category_id')" v-validate="{ rules: {required: true}}" name="webservice_category_id" v-bind:data-vv-as="$i18n.t('webservice.webserviceCategoryId')" v-on:select="selectedWebserviceCat" v-bind:selected="webservice_category_id" :class="{'input-danger': errors.has('webservice_category_id')}" tabindex="6" )
-                                    div.ta-right(v-if="validation('webservice_category_id')")
-                                        span.text-danger {{ errors.first('webservice_category_id') }}
-                                div.break
-                                div.row.no-margin
-                                    input(name= "activeCoupon" type="checkbox"  value='true' id= "activeCoupon" v-model="is_coupon_active" )
-                                    label(for="activeCoupon")
-                                        span
-                                        | {{$i18n.t('webservice.activeCouponInPg')}}
-                                div.break
-                                div.row
-                                    div.nav-picker
-                                        span.picker.pull-right {{$i18n.t('webservice.uploadLogo')}}
+                div.col-lg-12.col-md-12.col-sm-12.col-xs-12.ta-center
+                  img.webservice-logo(:src="selectedLogo")
 
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12.ta-center
-                                    img.webservice-logo(:src="selectedLogo")
-
-
-                                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
-                                    span {{$i18n.t('webservice.uploadLogoNote')}}
-                                    div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
-                                        div.row
-                                            div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                                span.upload-icon(v-if="!uploading")
-                                                loading.upload-loading(v-if="uploading")
-
-                                            div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
-                                                p.attachment-text(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{$i18n.t('ticket.putLogoFile')}}
-                                                div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
-                                                    span(@dragenter="fileHover = true" @dragleave="fileHover = false") {{$i18n.t('ticket.orFromPc')}}
-
-                                                    label.attach
-                                                        span.select-text {{$i18n.t('common.select')}}
-                                                        input(type="file" name="file" @change="onLogoChange" tabindex="4")
-
-                                                    div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
-
-                                div.ta-right(v-if="validationErrors.site_logo")
-                                    span.text-danger {{ $i18n.t(validationErrors.attachment) }}
-
+                div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+                  span {{$i18n.t('webservice.uploadLogoNote')}}
+                  div.file-zone(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" v-bind:class="{'file-zone-hover': fileHover}")
                     div.row
-                        div.col-xs.nav-buttons
-                            button.btn.success.pull-left(v-ripple="" @click="validateForm" :class="{'disable': uploading}" tabindex="5") {{$i18n.t('webservice.edit')}}
-                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+                      div.col-lg-2.col-md-2.col-sm-12.col-xs-12.ta-center.ta-center(@dragenter="fileHover = true" @dragleave="fileHover = false")
+                        span.upload-icon(v-if="!uploading")
+                        loading.upload-loading(v-if="uploading")
+
+                      div.col-lg-10.col-md-10.col-sm-12.col-xs-12.ta-center.nav-texts(@dragenter="fileHover = true" @dragleave="fileHover = false")
+                        p.attachment-text(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{$i18n.t('ticket.putLogoFile')}}
+                        div.nav-file-input(@dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false")
+                          span(@dragenter="fileHover = true" @dragleave="fileHover = false") {{$i18n.t('ticket.orFromPc')}}
+
+                          label.attach
+                            span.select-text {{$i18n.t('common.select')}}
+                            input(type="file" name="file" @change="onLogoChange" tabindex="4")
+
+                          div.file-name(v-if="fileName" @dragover="dragOver" @drop="onDrop" @dragleave="fileHover = false" ) {{fileName}}
+
+                div.ta-right(v-if="validationErrors.site_logo")
+                  span.text-danger {{ $i18n.t(validationErrors.attachment) }}
+
+          div.row
+            div.col-xs.nav-buttons
+              button.btn.success.pull-left(v-ripple="" @click="validateForm" :class="{'disable': uploading}" tabindex="5") {{$i18n.t('webservice.edit')}}
+                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                  circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 </template>
 
 <script>
@@ -139,13 +137,15 @@
     },
     computed: {
       webservice(){
-        return _.find(this.$store.state.auth.user.webservices, {'entity_id': this.$route.params.merchantCode});
+        return _.find(this.$store.state.auth.user.webservices,
+            {'entity_id': this.$route.params.merchantCode});
       },
       pursesSelection() {
         if (this.$store.state.auth.user.purses) {
           return this.$store.state.auth.user.purses.map(function(purse) {
             return {
-              'title': '<span class="wallet-color color-' + purse.purse + '"></span>' + purse.name,
+              'title': '<span class="wallet-color color-' + purse.purse +
+              '"></span>' + purse.name,
               'value': purse.purse
             }
           });
@@ -153,12 +153,13 @@
       },
       webserviceCatSelection() {
         if (this.$store.state.app.webserviceCategories) {
-          return this.$store.state.app.webserviceCategories.map(function(value) {
-            return {
-              'title': value.title,
-              'value': value.public_id
-            }
-          });
+          return this.$store.state.app.webserviceCategories.map(
+              function(value) {
+                return {
+                  'title': value.title,
+                  'value': value.public_id
+                }
+              });
         }
       },
       validationErrors() {
@@ -205,7 +206,8 @@
           webservice_id: this.$route.params.merchantCode
         };
 
-        this.$store.state.http.requests['webservice.postEdit'].update(params, webserviceData).then(
+        this.$store.state.http.requests['webservice.postEdit'].update(params,
+            webserviceData).then(
             () => {
               this.changeWebserviceState();
               store.commit('flashMessage', {
@@ -216,7 +218,8 @@
             },
             (response) => {
               this.loading = false;
-              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
               store.commit('flashMessage', {
                 text: response.data.meta.error_type,
                 type: 'danger'
@@ -226,9 +229,10 @@
       },
       changeWebserviceState(){
         let vm = this;
-        let webserviceIndex = _.findIndex(this.$store.state.auth.user.webservices, function(webservice) {
-          return webservice.entity_id === vm.$route.params.merchantCode;
-        });
+        let webserviceIndex = _.findIndex(
+            this.$store.state.auth.user.webservices, function(webservice) {
+              return webservice.entity_id === vm.$route.params.merchantCode;
+            });
 
         this.$store.state.auth.user.webservices[webserviceIndex].ip = this.site_ip;
         this.$store.state.auth.user.webservices[webserviceIndex].purse = this.purse;
@@ -281,7 +285,8 @@
         formData.append('type', 'logo');
         formData.append('file', file);
 
-        this.$http.post('https://uploads.zarinpal.com/', formData, {emulateHTTP: true}).then((response) => {
+        this.$http.post('https://uploads.zarinpal.com/', formData,
+            {emulateHTTP: true}).then((response) => {
           this.site_logo = response.data.meta.file_id;
           this.uploading = false;
         }, (response) => {

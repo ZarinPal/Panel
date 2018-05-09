@@ -1,34 +1,33 @@
 <template lang="pug">
-    div.inner-content
-        div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                p.page-title {{ $i18n.t('user.addNewAddress') }}
-                p.page-description {{ $i18n.t('user.addNewAddressDescription') }}
+  div.inner-content
+    div.row.nav-page-header
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('user.addNewAddress') }}
+        p.page-description {{ $i18n.t('user.addNewAddressDescription') }}
 
-        form(autocomplete="on" onsubmit="event.preventDefault();")
-            div.row.section.nav-add-address
-                div.box.full-width
-                    div.address-box(id="addressBox" v-if="isLoadedAddress")
-                        span(v-for="(address,key) in addresses")
-                            address-book.address-book(v-bind:singleAddress="address" v-bind:id="address.id" v-on:getAddresses="getAddresses" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+    form(autocomplete="on" onsubmit="event.preventDefault();")
+      div.row.section.nav-add-address
+        div.box.full-width
+          div.address-box(id="addressBox" v-if="isLoadedAddress")
+            span(v-for="(address,key) in addresses")
+              address-book.address-book(v-bind:singleAddress="address" v-bind:id="address.id" v-on:getAddresses="getAddresses" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
 
-                    div.ta-center(v-else)
-                        loading
-                    <!--Button add new address-->
-                    div.row
-                        div.col-xs.ta-center
-                            span.btn-add-new-address(@click="addNewAddress()")
-                                span.icon-add
-                                span {{$i18n.t('user.addNewAddress')}}
+          div.ta-center(v-else)
+            loading
+          <!--Button add new address-->
+          div.row
+            div.col-xs.ta-center
+              span.btn-add-new-address(@click="addNewAddress()")
+                span.icon-add
+                span {{$i18n.t('user.addNewAddress')}}
 
-                    div.row.nav-button
-                        div.col-xs
-                            button.btn.success.pull-left(v-ripple="" @click="postUserAddress" tabindex="9") {{$i18n.t('user.updateSetting')}}
-                                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                    circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+          div.row.nav-button
+            div.col-xs
+              button.btn.success.pull-left(v-ripple="" @click="postUserAddress" tabindex="9") {{$i18n.t('user.updateSetting')}}
+                svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                  circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
-
 
 <script>
   import addressBook from './single_address.vue';
@@ -103,7 +102,8 @@
       },
       deleteAddress(address) {
         if (address.entity_id) {
-          this.$store.state.http.requests['user.getAddress'].delete({id: address.entity_id}).then(
+          this.$store.state.http.requests['user.getAddress'].delete(
+              {id: address.entity_id}).then(
               () => {
                 let elem = document.getElementById(address.id);
                 elem.parentNode.removeChild(elem);
@@ -135,7 +135,8 @@
         //     delete address.id;
         // });
 
-        this.$store.state.http.requests['user.postAddress'].save({'addresses': addresses}).then(
+        this.$store.state.http.requests['user.postAddress'].save(
+            {'addresses': addresses}).then(
             () => {
               store.commit('flashMessage', {
                 text: 'UserAddressAddedSuccessLocal',
@@ -150,7 +151,8 @@
               // this.$router.push({name: 'home.index'})
             },
             (response) => {
-              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
               store.commit('flashMessage', {
                 text: response.data.meta.error_type,
                 important: false,
