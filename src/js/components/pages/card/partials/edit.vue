@@ -1,55 +1,55 @@
 <template lang="pug">
-    modal.card(v-on:closeModal="closeModal()")
-        span(slot="title") {{ $i18n.t('card.editAccountTitle') }}
-        div(slot="content")
-            form(autocomplete="on" onsubmit="event.preventDefault();")
-                div.row
-                    div.col-xs.ta-right
-                        div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
-                        span.label.bank-name {{card.issuer.name}}
+  modal.card(v-on:closeModal="closeModal()")
+    span(slot="title") {{ $i18n.t('card.editAccountTitle') }}
+    div(slot="content")
+      form(autocomplete="on" onsubmit="event.preventDefault();")
+        div.row
+          div.col-xs.ta-right
+            div.card-logo(:class="'logo-' + card.issuer.slug.toLowerCase()")
+            span.label.bank-name {{card.issuer.name}}
 
-                div.row
-                    div.col-xs.ta-right
-                        span.label.persian-num {{$i18n.t('card.iban')}}:
-                    div.col-xs.ta-left
-                        span.label {{card.iban}}
+        div.row
+          div.col-xs.ta-right
+            span.label.persian-num {{$i18n.t('card.iban')}}:
+          div.col-xs.ta-left
+            span.label {{card.iban}}
 
-                div.row
-                    div.col-xs.ta-right
-                        span.label.card-pan-label {{$i18n.t('card.pan')}}:
-                    div.col-xs.ta-left
-                        div.row.label-group.pull-left
-                            div.col-xs.text
-                                input(v-if="card.pan" v-bind:value="$options.filters.cardNumber(card.pan)" readonly="readonly")
-                            div.icon.edit(@click="editPan = !editPan")
+        div.row
+          div.col-xs.ta-right
+            span.label.card-pan-label {{$i18n.t('card.pan')}}:
+          div.col-xs.ta-left
+            div.row.label-group.pull-left
+              div.col-xs.text
+                input(v-if="card.pan" v-bind:value="$options.filters.cardNumber(card.pan)" readonly="readonly")
+              div.icon.edit(@click="editPan = !editPan")
 
-                div.row(v-if="editPan")
-                    div.col-xs-12
-                        input.ta-left.dir-ltr(v-focus="" v-validate="{ rules: {max: 19}}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder="$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat()")
-                    div.ta-right(v-if="validation('pan')")
-                        span.text-danger {{ errors.first('pan') }}
+        div.row(v-if="editPan")
+          div.col-xs-12
+            input.ta-left.dir-ltr(v-focus="" v-validate="{ rules: {max: 19}}" maxlength="19" v-bind:data-vv-as="$i18n.t('card.pan')" :class="{'input-danger': errors.has('pan')}" type="text" v-model="pan" name="pan" :placeholder="$i18n.t('card.pan')" id="pan" @keyup="cardNumberFormat()")
+          div.ta-right(v-if="validation('pan')")
+            span.text-danger {{ errors.first('pan') }}
 
-                div.row.no-margin
-                    div.col-lg-4.col-md-4.col-xs-12.ta-right.nav-expiration-label
-                        span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
-                    div.col-lg-8.col-md-8.col-xs-12.no-margin
-                        div.row.nav-expiration-input
-                            div.col-xs.no-margin
-                                span.label {{$i18n.t('card.month')}}:
-                                input#month(v-validate="{ rules: {required: true, numeric: true, max_value: 12}}" v-bind:data-vv-as="$i18n.t('card.month')" :class="{'input-danger': errors.has('month')}" type="text" v-model="month" name="month" :placeholder= "$i18n.t('card.month')" maxlength="2")
-                            div.col-xs.no-margin
-                                span.label {{$i18n.t('card.year')}}:
-                                input#year(v-validate="{ rules: {required: true, numeric: true}}" v-bind:data-vv-as="$i18n.t('card.year')" :class="{'input-danger': errors.has('year')}" type="text" v-model="year" name="year" :placeholder= "$i18n.t('card.year')"  maxlength="4")
+        div.row.no-margin
+          div.col-lg-4.col-md-4.col-xs-12.ta-right.nav-expiration-label
+            span.label.expiration-label {{ $i18n.t('card.expiredDate') }}:
+          div.col-lg-8.col-md-8.col-xs-12.no-margin
+            div.row.nav-expiration-input
+              div.col-xs.no-margin
+                div
+                  span.label {{$i18n.t('card.month')}}:
+                  input#month.dir-left(v-validate="{ rules: {required: true, numeric: true, max_value: 12}}" v-bind:data-vv-as="$i18n.t('card.month')" :class="{'input-danger': errors.has('month')}" type="text" v-model="month" name="month" :placeholder= "$i18n.t('card.month')" maxlength="2")
+                div.text-danger(v-if="validation('month')") {{ errors.first('month') }}
+              div.col-xs.no-margin
+                div
+                  span.label {{$i18n.t('card.year')}}:
+                  input#year(v-validate="{ rules: {required: true, numeric: true,max_value:this.nextSixYears }}" v-bind:data-vv-as="$i18n.t('card.year')" :class="{'input-danger': errors.has('year')}" type="text" v-model="year" name="year" :placeholder= "$i18n.t('card.year')"  maxlength="4")
+                div.text-danger(v-if="validation('year')") {{ errors.first('year') }}
 
-                        div.ta-right
-                            div.text-danger(v-if="validation('year')") {{ errors.first('year') }}
-                            div.text-danger(v-if="validation('month')") {{ errors.first('month') }}
-
-                div.row
-                    div.col-xs.no-margin
-                        button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('common.save')}}
-                            svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
+        div.row
+          div.col-xs.no-margin
+            button.btn.success.pull-left(v-ripple="" @click="validateForm") {{$i18n.t('common.save')}}
+              svg.material-spinner(v-if="loading" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
 
@@ -67,6 +67,7 @@
         pan: '',
         month: null,
         year: null,
+        nextSixYears: null,
       }
     },
     props: ['card'],
@@ -81,7 +82,9 @@
     created(){
 //            this.pan = this.card.pan;
       store.commit('clearValidationErrors');
-      let jalaliExpiredDate = moment(this.card.expired_at, 'YYYY-MM-DD').format('jYYYY-jMM-jDD');
+      let jalaliExpiredDate = moment(this.card.expired_at, 'YYYY-MM-DD').
+          format('jYYYY-jMM-jDD');
+      this.nextSixYears = moment().add(6, 'years').format('jYYYY');
       this.year = moment(jalaliExpiredDate).year();
       this.month = jalaliExpiredDate.substr(5, 2);
     },
@@ -135,7 +138,8 @@
           expired_at: expiredAt,
         };
 
-        this.$store.state.http.requests['card.getShow'].update(params, cardData).then(
+        this.$store.state.http.requests['card.getShow'].update(params,
+            cardData).then(
             () => {
               this.changeCardState();
               this.loading = false;
@@ -143,7 +147,8 @@
             },
             (response) => {
               this.loading = false;
-              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
               store.commit('flashMessage', {
                 text: response.data.meta.error_type,
                 type: 'danger'
@@ -153,9 +158,10 @@
       },
       changeCardState(){
         let vm = this;
-        let cardIndex = _.findIndex(this.$store.state.auth.user.cards, function(card) {
-          return card.entity_id === vm.card.entity_id;
-        });
+        let cardIndex = _.findIndex(this.$store.state.auth.user.cards,
+            function(card) {
+              return card.entity_id === vm.card.entity_id;
+            });
 
         let expiredAt = this.jalaliToGregorian(this.year, this.month);
         this.$store.state.paginator.paginator.CardList.data[cardIndex].expired_at = expiredAt;
