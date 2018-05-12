@@ -1,29 +1,29 @@
 <template lang="pug">
-    div.inner-content
-        div.row.nav-page-header
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                p.page-title {{ $i18n.t('common.coupons') }}
-                p.page-description {{$i18n.t('coupon.couponsDescription')}}
+  div.inner-content
+    div.row.nav-page-header
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('common.coupons') }}
+        p.page-description {{$i18n.t('coupon.couponsDescription')}}
 
-            div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-                router-link.btn.success(tag="button" v-bind:to="{ name: 'coupon.create'}")
-                    span.icon-add-circle
-                    span.text {{ $i18n.t('coupon.createCoupon') }}
+      div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        router-link.btn.success(tag="button" v-bind:to="{ name: 'coupon.create'}")
+          span.icon-add-circle
+          span.text {{ $i18n.t('coupon.createCoupon') }}
 
-        div.row
-            singleCoupon(v-for="coupon in coupons.data" v-bind:key="coupon.entity_id" v-bind:coupon="coupon")
+    div.row
+      singleCoupon(v-for="coupon in coupons.data" v-bind:key="coupon.entity_id" v-bind:coupon="coupon")
 
-        div.row
-            div.col-xs
-                div.ta-center(v-if="coupons.status")
-                    loading
+    div.row
+      div.col-xs
+        div.ta-center(v-if="coupons.status")
+          loading
 
-                div.row(v-if="!coupons.status && !coupons.data.length")
-                    div.col-xs.ta-center
-                        span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
+        div.row(v-if="!coupons.status && !coupons.data.length")
+          div.col-xs.ta-center
+            span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
 
-                div.ta-center(v-if="!this.$store.state.paginator.paginator.CouponList.resource.resource && coupons.data.length")
-                    span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
+        div.ta-center(v-if="!this.$store.state.paginator.paginator.CouponList.resource.resource && coupons.data.length")
+          span.nothing-to-show-text {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
 
 </template>
 

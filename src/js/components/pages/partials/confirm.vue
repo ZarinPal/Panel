@@ -1,16 +1,15 @@
 <template lang="pug">
-    modal.confirm(v-on:closeModal="closeModal()")
-        span(slot="title")
-            slot(name="title")
-        div.content(slot="content")
-            slot(name="message")
-            div.ta-left.buttons.xs-ta-center
-                button.btn(v-if="hasMessageDanger" v-ripple="" @click="closeModal()")
-                    slot(name="messageDanger")
-                button.btn.success(v-if="hasMessageSuccess" v-ripple="" @click="confirmed()")
-                    slot(name="messageSuccess")
+  modal.confirm(v-on:closeModal="closeModal()")
+    span(slot="title")
+      slot(name="title")
+    div.content(slot="content")
+      slot(name="message")
+      div.ta-left.buttons.xs-ta-center
+        button.btn(v-if="hasMessageDanger" v-ripple="" @click="closeModal()")
+          slot(name="messageDanger")
+        button.btn.success(v-if="hasMessageSuccess" v-ripple="" @click="confirmed()")
+          slot(name="messageSuccess")
 </template>
-
 
 <script>
   import modal from './modal.vue';

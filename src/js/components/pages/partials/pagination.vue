@@ -3,8 +3,8 @@
 </style>
 
 <template lang="pug">
-    nav(v-if="paginateResource.meta")
-        button(@click="loadMore" v-bind:disabled="is_loading" v-if="paginateResource.meta.pagination.links.next") load more
+  nav(v-if="paginateResource.meta")
+    button(@click="loadMore" v-bind:disabled="is_loading" v-if="paginateResource.meta.pagination.links.next") load more
 </template>
 
 <script>

@@ -1,164 +1,154 @@
 <template lang="pug">
-    modal.new-request-money(v-on:closeModal="closeModal()")
-        span(slot="title") {{ $i18n.t('requestMoney.' + pageTitle) }}
-        div(slot="content")
-            <!--Step 1-->
-            div.nav-select-user(v-if="step == 1 && phoneBook.data.length")
-                div.row.search-box
-                    span.icon-search
-                    input(type="text" v-model="searchString" :placeholder="$i18n.t('user.searchBtn')" )
+  modal.new-request-money(v-on:closeModal="closeModal()")
+    span(slot="title") {{ $i18n.t('requestMoney.' + pageTitle) }}
+    div(slot="content")
+      <!--Step 1-->
+      div.nav-select-user(v-if="step == 1 && phoneBook.data.length")
+        div.row.search-box
+          span.icon-search
+          input(type="text" v-model="searchString" :placeholder="$i18n.t('user.searchBtn')" )
 
-                div.users(v-if="!phoneBook.status")
-                    div.row.user-row(v-for="user in phoneBook.data")
-                        label.row(:for="user.public_id")
-                            div.col-lg-2.col-md-2.col-xs-3.no-margin.ta-center
-                                img.avatar(:src="user.avatar")
-                            div.col-lg-8.col-md-8.col-xs-8.no-margin.ta-right
-                                div.user-name {{user.name}}
-                                div.user-zp {{'ZP.'+ user.public_id}}
-                            div.col-lg-2.col-md-2.col-xs-2.no-margin.ta-left
-                                input.circle-checkbox(type="checkbox" :value="user.public_id" v-model="checkUsers" :id="user.public_id")
-                                label.checkbox-label(:for="user.public_id")
-                                    span.circle-checkbox
+        div.users(v-if="!phoneBook.status")
+          div.row.user-row(v-for="user in phoneBook.data")
+            label.row(:for="user.public_id")
+              div.col-lg-2.col-md-2.col-xs-3.no-margin.ta-center
+                img.avatar(:src="user.avatar")
+              div.col-lg-8.col-md-8.col-xs-8.no-margin.ta-right
+                div.user-name {{user.name}}
+                div.user-zp {{'ZP.'+ user.public_id}}
+              div.col-lg-2.col-md-2.col-xs-2.no-margin.ta-left
+                input.circle-checkbox(type="checkbox" :value="user.public_id" v-model="checkUsers" :id="user.public_id")
+                label.checkbox-label(:for="user.public_id")
+                  span.circle-checkbox
 
-            div.ta-center(v-if="phoneBook.status")
-                loading
-            div(v-if="!phoneBook.status && !phoneBook.data.length")
-                div.col-xs.ta-center
-                    span.txt-help {{ $i18n.t('requestMoney.comingSoon') }}
-                div.col-xs.ta-center
-                    a.btn.success(href="http://www.zarinpal.mobi" target="blank")
-                        span.btn-label {{$i18n.t('user.downloadMobileApp')}}
+      div.ta-center(v-if="phoneBook.status")
+        loading
+      div(v-if="!phoneBook.status && !phoneBook.data.length")
+        div.col-xs.ta-center
+          span.txt-help {{ $i18n.t('requestMoney.comingSoon') }}
+        div.col-xs.ta-center
+          a.btn.success(href="http://www.zarinpal.mobi" target="blank")
+            span.btn-label {{$i18n.t('user.downloadMobileApp')}}
 
-            <!--Step 2-->
-            div.nav-request-type.ta-right(v-else-if="step == 2")
-                div.nav-selected-avatars
-                    img.avatar(v-for="(user, index) in selectedUsers" v-if="index <= 4" :src="user.avatar")
-                    span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5 }}+
+      <!--Step 2-->
+      div.nav-request-type.ta-right(v-else-if="step == 2")
+        div.nav-selected-avatars
+          img.avatar(v-for="(user, index) in selectedUsers" v-if="index <= 4" :src="user.avatar")
+          span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5 }}+
 
-                div.top-text {{ $i18n.t('requestMoney.chooseOneOfTheFollowingMethods') }}
+        div.top-text {{ $i18n.t('requestMoney.chooseOneOfTheFollowingMethods') }}
 
-                div.method-box(:class="{'active' : requestType == 'Auto'}")
-                    label.row(for="requestTypeAuto")
-                        div.col-xs
-                            div.title  {{ $i18n.t('requestMoney.equalDivide') }}
-                            div.description  {{ $i18n.t('requestMoney.equalDivideDescription') }}
-                        div
-                            input(type="radio" name="requestType" id="requestTypeAuto" value="Auto" v-model="requestType" )
-                            label(for="requestTypeAuto")
-                                span.circle-checkbox
+        div.method-box(:class="{'active' : requestType == 'Auto'}")
+          label.row(for="requestTypeAuto")
+            div.col-xs
+              div.title  {{ $i18n.t('requestMoney.equalDivide') }}
+              div.description  {{ $i18n.t('requestMoney.equalDivideDescription') }}
+            div
+              input(type="radio" name="requestType" id="requestTypeAuto" value="Auto" v-model="requestType" )
+              label(for="requestTypeAuto")
+                span.circle-checkbox
 
+        div.method-box(:class="{'active' : requestType == 'Manually'}")
+          label.row(for="requestTypeManually")
+            div.col-xs
+              div.title  {{ $i18n.t('requestMoney.enterTheAmountManually') }}
+              div.description  {{ $i18n.t('requestMoney.enterTheAmountManuallyDescription') }}
+            div
+              input(type="radio" name="requestType" id="requestTypeManually" value="Manually" v-model="requestType")
+              label(for="requestTypeManually")
+                span.circle-checkbox
 
-                div.method-box(:class="{'active' : requestType == 'Manually'}")
-                    label.row(for="requestTypeManually")
-                        div.col-xs
-                            div.title  {{ $i18n.t('requestMoney.enterTheAmountManually') }}
-                            div.description  {{ $i18n.t('requestMoney.enterTheAmountManuallyDescription') }}
-                        div
-                            input(type="radio" name="requestType" id="requestTypeManually" value="Manually" v-model="requestType")
-                            label(for="requestTypeManually")
-                                span.circle-checkbox
+      <!--Step 3 Auto Division-->
+      div.auto-division(v-else-if="step == 3 && requestType == 'Auto'")
+        div.selected-users-avatar
+          div.avatar-container
+            img.avatar(v-for="(user, index) in selectedUsers" v-if="index <= 4" :src="user.avatar")
+            span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5}}+
 
+          div.arrow
 
-            <!--Step 3 Auto Division-->
-            div.auto-division(v-else-if="step == 3 && requestType == 'Auto'")
-                div.selected-users-avatar
-                    div.avatar-container
-                        img.avatar(v-for="(user, index) in selectedUsers" v-if="index <= 4" :src="user.avatar")
-                        span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5}}+
+        div.nav-request-amount
+          span.amount-text {{ $i18n.t('requestMoney.amountPerPerson') }}
+          span.sum-amount.persian-num {{ autoPersonAmount | numberFormat }}
+          span.amount-text {{ $i18n.t('transaction.toman') }}
 
-                    div.arrow
+        div.row
+          input.amount-input(v-validate="'numeric'" maxlength="8" type="text" v-model="requestAmount" :placeholder="$i18n.t('user.amount')" @keyup="calcAutoRequestAmount" autofocus)
 
-                div.nav-request-amount
-                    span.amount-text {{ $i18n.t('requestMoney.amountPerPerson') }}
-                    span.sum-amount.persian-num {{ autoPersonAmount | numberFormat }}
-                    span.amount-text {{ $i18n.t('transaction.toman') }}
+        div.row.share-in-request-text
+          input(type="checkbox" id="shareRequestChk" v-model="shareRequestWithMe" @change="calcAutoRequestAmount")
+          label(for="shareRequestChk")
+            span
+            | {{ $i18n.t('requestMoney.iAmPartOfThisRequest') }}
 
-                div.row
-                    input.amount-input(v-validate="'numeric'" maxlength="8" type="text" v-model="requestAmount" :placeholder="$i18n.t('user.amount')" @keyup="calcAutoRequestAmount" autofocus)
+      <!--Step 3 Manually Division-->
+      div.nav-manually-division(v-else-if="step == 3 && requestType == 'Manually'")
+        div.selected-users-avatar.manually-selected-users-avatar
+          div.avatar-container
+            div.slider
+              div(v-for="(user, index) in selectedUsers")
+                img.avatar(:src="user.avatar")
 
-                div.row.share-in-request-text
-                    input(type="checkbox" id="shareRequestChk" v-model="shareRequestWithMe" @change="calcAutoRequestAmount")
-                    label(for="shareRequestChk")
-                        span
-                        | {{ $i18n.t('requestMoney.iAmPartOfThisRequest') }}
+            span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" :title="$i18n.t('user.back')")
+            span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" :title="$i18n.t('user.next')")
 
-            <!--Step 3 Manually Division-->
-            div.nav-manually-division(v-else-if="step == 3 && requestType == 'Manually'")
-                div.selected-users-avatar.manually-selected-users-avatar
-                    div.avatar-container
-                        div.slider
-                            div(v-for="(user, index) in selectedUsers")
-                                img.avatar(:src="user.avatar")
+        span.user-name {{selectedUsers[manuallyUserCounter].name}}
 
-                        span.icon-prev(v-if="manuallyUserCounter > 0" @click="descManuallyUserCounter" :title="$i18n.t('user.back')")
-                        span.icon-next(v-if="manuallyUserCounter < selectedUsers.length -1" @click="incManuallyUserCounter" :title="$i18n.t('user.next')")
+        <!--div.row-->
+        <!--div.col-xs.ta-center-->
+        <!--span.user-name {{selectedUsers[manuallyUserCounter].name}}-->
 
+        div.row.nav-request-amount
+          div.col-xs.ta-center
+            span.amount-text {{ $i18n.t('requestMoney.sum') }}
+            span.sum-amount.persian-num {{ manuallyTotalAmount | numberFormat }}
+            span.amount-text {{ $i18n.t('transaction.toman') }}
 
+        input.amount-input(id="txtManuallyAmount" v-validate="'numeric'" maxlength="8" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
 
-                span.user-name {{selectedUsers[manuallyUserCounter].name}}
+      <!--Step 4 description and details-->
+      div.nav-final-step(v-else-if="step === 4")
+        div.selected-users-static
+          span(v-for="(user, index) in selectedUsers")
+            img(v-if="index <= 4" :src="user.avatar")
+          span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5 }}+
 
-                <!--div.row-->
-                <!--div.col-xs.ta-center-->
-                <!--span.user-name {{selectedUsers[manuallyUserCounter].name}}-->
+        div.nav-description
+          div.row.description-title {{$i18n.t('requestMoney.fillDescriptionToContinue')}}
+          div.row
+            input.description-input(:class="{'input-danger': validationErrors.description}" type="text" v-model="description" placeholder="توضیحات")
+            div.ta-right(v-if="validationErrors.description")
+              span.text-danger {{ $i18n.t(validationErrors.description) }}
 
-                div.row.nav-request-amount
-                    div.col-xs.ta-center
-                        span.amount-text {{ $i18n.t('requestMoney.sum') }}
-                        span.sum-amount.persian-num {{ manuallyTotalAmount | numberFormat }}
-                        span.amount-text {{ $i18n.t('transaction.toman') }}
+          div.detail-bar.ta-right
+            span {{$i18n.t('requestMoney.details')}}
 
-                input.amount-input(id="txtManuallyAmount" v-validate="'numeric'" maxlength="8" type="text" placeholder="مبلغ" v-model="selectedUsers[manuallyUserCounter].amount" @keyup="calcManuallyTotalAmount" autofocus)
+          div.row
+            div.col-xs.ta-center
+              span.total-amount.persian-num(v-if="requestType == 'Auto'") {{requestAmount | numberFormat }}
+              span.total-amount.persian-num(v-else) {{manuallyTotalAmount | numberFormat}}
+              span.total-toman {{$i18n.t('transaction.toman')}}
 
+          div.line
+          div.row
+            div.col-xs.ta-right
+              span.multi-person {{ $i18n.t('requestMoney.count') }}
+            div.col-xs.ta-left
+              span.multi-person.persian-num {{ selectedUsers.length + ' ' + $i18n.t('requestMoney.person')}}
 
+      div.footer(v-if="phoneBook.data.length")
+        div.row
+          div.col-xs.ta-right.no-margin
+            span.prev-link-text(v-if="step > 1" @click="prevStep") {{$i18n.t('requestMoney.prevStep')}}
+            span.user-counter.persian-num(v-if="step === 1") {{checkUsers.length + ' ' + $i18n.t('requestMoney.personSelected')}}
 
-            <!--Step 4 description and details-->
-            div.nav-final-step(v-else-if="step === 4")
-                div.selected-users-static
-                    span(v-for="(user, index) in selectedUsers")
-                        img(v-if="index <= 4" :src="user.avatar")
-                    span.remain-user-number.persian-num(v-if="checkUsers.length > 5") {{checkUsers.length - 5 }}+
-
-                div.nav-description
-                    div.row.description-title {{$i18n.t('requestMoney.fillDescriptionToContinue')}}
-                    div.row
-                        input.description-input(:class="{'input-danger': validationErrors.description}" type="text" v-model="description" placeholder="توضیحات")
-                        div.ta-right(v-if="validationErrors.description")
-                            span.text-danger {{ $i18n.t(validationErrors.description) }}
-
-
-                    div.detail-bar.ta-right
-                        span {{$i18n.t('requestMoney.details')}}
-
-                    div.row
-                        div.col-xs.ta-center
-                            span.total-amount.persian-num(v-if="requestType == 'Auto'") {{requestAmount | numberFormat }}
-                            span.total-amount.persian-num(v-else) {{manuallyTotalAmount | numberFormat}}
-                            span.total-toman {{$i18n.t('transaction.toman')}}
-
-                    div.line
-                    div.row
-                        div.col-xs.ta-right
-                            span.multi-person {{ $i18n.t('requestMoney.count') }}
-                        div.col-xs.ta-left
-                            span.multi-person.persian-num {{ selectedUsers.length + ' ' + $i18n.t('requestMoney.person')}}
-
-
-            div.footer(v-if="phoneBook.data.length")
-                div.row
-                    div.col-xs.ta-right.no-margin
-                        span.prev-link-text(v-if="step > 1" @click="prevStep") {{$i18n.t('requestMoney.prevStep')}}
-                        span.user-counter.persian-num(v-if="step === 1") {{checkUsers.length + ' ' + $i18n.t('requestMoney.personSelected')}}
-
-                    div.col-xs.no-margin
-                        button.btn.success.pull-left(v-ripple="" @click="nextStep" v-if="step <= 3") {{$i18n.t('requestMoney.nextStep')}}
-                        button.btn.success.pull-left(v-ripple="" @click="postRequestMoney" v-if="step == 4") {{$i18n.t('requestMoney.request')}}
-                            svg.material-spinner(v-if="requesting" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
-                                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
-
+          div.col-xs.no-margin
+            button.btn.success.pull-left(v-ripple="" @click="nextStep" v-if="step <= 3") {{$i18n.t('requestMoney.nextStep')}}
+            button.btn.success.pull-left(v-ripple="" @click="postRequestMoney" v-if="step == 4") {{$i18n.t('requestMoney.request')}}
+              svg.material-spinner(v-if="requesting" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
+                circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
 
 </template>
-
 
 <script>
   import modal from '../../partials/modal.vue';
@@ -194,10 +184,12 @@
     computed: {
       phoneBook() {
         let vm = this;
-        let findedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
-          let userRegex = new RegExp('\\.*' + vm.searchString + '.*\\i');
-          return userRegex.test(JSON.stringify(user));
-        });
+        let findedUsers = _.filter(
+            this.$store.state.paginator.paginator.PhoneBook.data,
+            function(user) {
+              let userRegex = new RegExp('\\.*' + vm.searchString + '.*\\i');
+              return userRegex.test(JSON.stringify(user));
+            });
 
         return {
           data: findedUsers,
@@ -321,15 +313,18 @@
       /*** Get selected users data ***/
       getSelectedUsers() {
         let vm = this;
-        this.selectedUsers = _.filter(this.$store.state.paginator.paginator.PhoneBook.data, function(user) {
-          return vm.checkUsers.indexOf(user.public_id) !== -1;
-        });
+        this.selectedUsers = _.filter(
+            this.$store.state.paginator.paginator.PhoneBook.data,
+            function(user) {
+              return vm.checkUsers.indexOf(user.public_id) !== -1;
+            });
       },
       /*** Calculate total amount and dealing between users auto ***/
       calcAutoRequestAmount() {
         let usersCount = this.selectedUsers.length;
         if (this.shareRequestWithMe) {
-          this.autoPersonAmount = (this.requestAmount / (usersCount + 1)).toFixed(0);
+          this.autoPersonAmount = (this.requestAmount /
+          (usersCount + 1)).toFixed(0);
         } else {
           this.autoPersonAmount = (this.requestAmount / usersCount).toFixed(0);
         }
@@ -340,7 +335,8 @@
         this.manuallyTotalAmount = 0;
         this.selectedUsers.forEach(function(user) {
           if (user.amount) {
-            vm.manuallyTotalAmount = parseInt(vm.manuallyTotalAmount) + parseInt(user.amount);
+            vm.manuallyTotalAmount = parseInt(vm.manuallyTotalAmount) +
+                parseInt(user.amount);
           }
         });
       },
@@ -366,7 +362,8 @@
 
         /*** Check Amount***/
         if (this.requestType === 'Auto') {
-          if (this.requestAmount <= 100 || this.requestAmount > this.maxAmountLimit) {
+          if (this.requestAmount <= 100 ||
+              this.requestAmount > this.maxAmountLimit) {
             store.commit('flashMessage', {
               text: 'RequestMoneyAmountLimitLocal',
               type: 'danger'
@@ -374,7 +371,8 @@
             return;
           }
         } else if (this.requestType === 'Manually') {
-          if (this.manuallyTotalAmount <= 100 || this.manuallyTotalAmount > this.maxAmountLimit) {
+          if (this.manuallyTotalAmount <= 100 ||
+              this.manuallyTotalAmount > this.maxAmountLimit) {
             store.commit('flashMessage', {
               text: 'RequestMoneyAmountLimitLocal',
               type: 'danger'
@@ -409,7 +407,8 @@
           'description': this.description
         };
 
-        this.$store.state.http.requests['requestMoney.postRequestMoney'].save(requestMoneyData).then(
+        this.$store.state.http.requests['requestMoney.postRequestMoney'].save(
+            requestMoneyData).then(
             () => {
               this.$router.push({name: 'requestMoney.index'});
               this.closeModal();
@@ -418,7 +417,8 @@
               this.requesting = false;
             },
             (response) => {
-              store.commit('setValidationErrors', response.data.validation_errors);
+              store.commit('setValidationErrors',
+                  response.data.validation_errors);
               store.commit('flashMessage', {
                 text: response.data.meta.error_type,
                 important: false,
