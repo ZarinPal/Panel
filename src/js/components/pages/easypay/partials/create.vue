@@ -91,7 +91,7 @@
                             span
                             | {{ $i18n.t('common.email')}}
 
-                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.email.checkbox")
+                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-if="requiredFields.email.checkbox")
                         div.row
                           div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                             input(name="email-optional" v-model="requiredFields.email.status" value="optional" type="radio" id="rdoEmailOptional")
@@ -106,7 +106,9 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="emailPlaceholder" v-model="requiredFields.email.placeholder" v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('emailPlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            div.ta-right(v-if="validation('emailPlaceholder')")
+                              span.text-danger {{ errors.first('emailPlaceholder') }}
 
                     <!--2-2-->
                     div.row.f-row(v-bind:class="{'inactive-step' : step > 3}")
@@ -117,7 +119,7 @@
                             span
                             | {{ $i18n.t('easypay.username')}}
 
-                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.name.checkbox")
+                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-if="requiredFields.name.checkbox")
                         div.row
                           div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                             input(name="usernameOptional" v-model="requiredFields.name.status" value="optional" type="radio" id="rdoUsernameOptional")
@@ -132,8 +134,9 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
-
+                            input(name="usernamePlaceholder" v-model="requiredFields.name.placeholder"  v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('usernamePlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            div.ta-right(v-if="validation('usernamePlaceholder')")
+                              span.text-danger {{ errors.first('usernamePlaceholder') }}
                     <!--2-3-->
                     div.row.f-row
                       div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
@@ -143,7 +146,7 @@
                             span
                             | {{ $i18n.t('easypay.mobile') }}
 
-                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.mobile.checkbox")
+                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-if="requiredFields.mobile.checkbox")
                         div.row
                           div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                             input(name="mobileOptional" v-model="requiredFields.mobile.status" value="optional" type="radio" id="rdoMobileOptional")
@@ -158,7 +161,9 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="mobilePlaceholder" v-model="requiredFields.mobile.placeholder"   v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('mobilePlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            div.ta-right(v-if="validation('mobilePlaceholder')")
+                              span.text-danger {{ errors.first('mobilePlaceholder') }}
 
                     <!--2-4-->
                     div.row.f-row
@@ -169,7 +174,7 @@
                             span
                             | {{ $i18n.t('easypay.description') }}
 
-                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.description.checkbox")
+                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-if="requiredFields.description.checkbox")
                         div.row
                           div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                             input(name="descriptionOptional" v-model="requiredFields.description.status" value="optional" type="radio" id="rdoDescriptionOptional")
@@ -184,11 +189,13 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="descriptionPlaceholder" v-model="requiredFields.description.placeholder"  v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('descriptionPlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            div.ta-right(v-if="validation('descriptionPlaceholder')")
+                              span.text-danger {{ errors.first('descriptionPlaceholder') }}
 
                     div.row
                       div.col-xs.nav-buttons
-                        button.btn.success.pull-right(v-ripple=""  @click="stepThree") {{$i18n.t('purse.nextStep')}}
+                        button.btn.success.pull-right(v-ripple=""  @click="validateFormStepTwo") {{$i18n.t('purse.nextStep')}}
 
           div.body
             <!--3-->
@@ -330,10 +337,23 @@
         this.$validator.validateAll({
           title: this.title,
           price: this.price,
+          usernamePlaceholder: this.usernamePlaceholder,
           description: this.description
         }).then((result) => {
           if (result) {
             this.stepTwo();
+          }
+        });
+      },
+      validateFormStepTwo() {
+        this.$validator.validateAll({
+          emailPlaceholder: this.emailPlaceholder,
+          usernamePlaceholder: this.usernamePlaceholder,
+          mobilePlaceholder: this.mobilePlaceholder,
+          descriptionPlaceholder: this.descriptionPlaceholder,
+        }).then((result) => {
+          if (result) {
+            this.stepThree();
           }
         });
       },
