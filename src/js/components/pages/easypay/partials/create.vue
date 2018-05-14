@@ -571,6 +571,10 @@
       },
       handleOrderOptionsSave(requireFieldName) {
         if (this.requiredFields[requireFieldName].checkbox) {
+          this.requiredFields['email'].placeholder = this.emailPlaceholder;
+          this.requiredFields['mobile'].placeholder = this.mobilePlaceholder;
+          this.requiredFields['name'].placeholder = this.usernamePlaceholder;
+          this.requiredFields['description'].placeholder = this.descriptionPlaceholder;
           return {
             status: this.requiredFields[requireFieldName].status,
             placeholder: this.requiredFields[requireFieldName].placeholder,
