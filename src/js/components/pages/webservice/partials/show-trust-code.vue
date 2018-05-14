@@ -58,5 +58,6 @@
   textarea#TrustLogoCode {
     direction: ltr;
     text-align: left;
+    height: 90px;
   }
 </style>
