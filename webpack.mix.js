@@ -62,7 +62,7 @@ plugins.push(
     })
 );
 
-if ('production' === process.env.NODE_ENV) {
+if ('production' === process.env.NODE_ENV && !process.env.ELECTRONAPP) {
     let SentryPlugin = require('webpack-sentry-plugin');
     plugins.push(new SentryPlugin({
         // Sentry options are required
@@ -80,11 +80,13 @@ if ('production' === process.env.NODE_ENV) {
 }
 let siteConfigs = {
     baseUrl: 'https://my.zarinpal.com',
+    routerMode: 'history',
 };
 if ('production' !== process.env.NODE_ENV) {
-    siteConfigs = {
-        baseUrl: 'http://localhost:8000',
-    };
+    siteConfigs.baseUrl = 'http://localhost:8000';
+}
+if (process.env.ELECTRONAPP) {
+    siteConfigs.routerMode = 'hash';
 }
 plugins.push(
     new webpack.DefinePlugin({

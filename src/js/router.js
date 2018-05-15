@@ -1,5 +1,5 @@
 export default new VueRouter({
-  mode: 'history',
+  mode: siteConfigs.routerMode,
   // base:'panel',
   routes: [
     {
