@@ -23,6 +23,15 @@ let historyApiFallback = require('connect-history-api-fallback');
 
 
 mix.js('src/js/app.js', 'assets/js')
+    .options({
+        uglify: {
+            uglifyOptions: {
+                compress: {
+                    drop_console: true
+                }
+            }
+        }
+    })
     .sass('src/sass/app.scss', 'assets/css')
     .sass('src/sass/oauth/app.scss', 'assets/css/oauth.css')
     .setPublicPath('assets')
