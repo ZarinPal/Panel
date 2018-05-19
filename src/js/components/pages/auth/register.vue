@@ -85,6 +85,7 @@
       //Load google map script tag
       let tag = document.createElement("script");
       tag.src = "https://www.google.com/recaptcha/api.js";
+      tag.defer = true;
       document.getElementsByTagName("head")[0].appendChild(tag);
     },
     methods: {
