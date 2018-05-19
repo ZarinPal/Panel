@@ -23,6 +23,15 @@ let historyApiFallback = require('connect-history-api-fallback');
 
 
 mix.js('src/js/app.js', 'assets/js')
+    .options({
+        uglify: {
+            uglifyOptions: {
+                compress: {
+                    drop_console: true
+                }
+            }
+        }
+    })
     .sass('src/sass/app.scss', 'assets/css')
     .sass('src/sass/oauth/app.scss', 'assets/css/oauth.css')
     .setPublicPath('assets')
@@ -62,7 +71,7 @@ plugins.push(
     })
 );
 
-if ('production' === process.env.NODE_ENV) {
+if ('production' === process.env.NODE_ENV && !process.env.ELECTRONAPP) {
     let SentryPlugin = require('webpack-sentry-plugin');
     plugins.push(new SentryPlugin({
         // Sentry options are required
@@ -80,11 +89,13 @@ if ('production' === process.env.NODE_ENV) {
 }
 let siteConfigs = {
     baseUrl: 'https://my.zarinpal.com',
+    routerMode: 'history',
 };
 if ('production' !== process.env.NODE_ENV) {
-    siteConfigs = {
-        baseUrl: 'http://localhost:8000',
-    };
+    siteConfigs.baseUrl = 'http://localhost:8000';
+}
+if (process.env.ELECTRONAPP) {
+    siteConfigs.routerMode = 'hash';
 }
 plugins.push(
     new webpack.DefinePlugin({

@@ -52,20 +52,26 @@
                         span.text-danger {{ errors.first('toDate') }}
 
     div.row.filter-row
-      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
+      div.col-lg-4.col-xs-12
         span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
+        span.text(v-if="this.$route.params.type == 'webservice'") {{$i18n.t('webservice.webserviceTransactionList')}}
+        span.text(v-if="this.$route.params.type == 'easypay'") {{$i18n.t('easypay.easypayTransactionList')}}
         span(v-for="purse in user.purses")
           span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
-      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
-        a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
-          span.icon-zp-excel
-          span {{$i18n.t('transaction.excelExport')}}
-      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
+        span(v-for="webservice in user.webservices")
+          span.purse-name(v-if="webservice.entity_id == $route.params.id") {{webservice.name}}
+        span(v-for="easypay in user.easypays")
+          span.purse-name(v-if="easypay.entity_id == $route.params.id") {{easypay.title}}
+      div(v-if="this.$route.params.type == 'purse'").col-lg-5.col-xs-8.pull-left
         ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
           li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
           li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
           li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
           li(v-ripple="" @click="applyGeneralFilter('-2')" v-bind:class="{ active: generalFilter == '-2' }")  {{$i18n.t('transaction.movingOut')}}
+      div.col-xs
+        a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
+          span.icon-zp-excel
+          span {{$i18n.t('transaction.excelExport')}}
 
     div.transaction-header-container
       div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")

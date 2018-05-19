@@ -106,7 +106,7 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="emailPlaceholder" id="emailPlaceholder" v-model="emailPlaceholder" v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="'required|max:25'" :class="{'input-danger': errors.has('emailPlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="emailPlaceholder" id="emailPlaceholder" v-model="emailPlaceholder" v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="'max:40'" :class="{'input-danger': errors.has('emailPlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
                             div.ta-right(v-if="validation('emailPlaceholder')")
                               span.text-danger {{ errors.first('emailPlaceholder') }}
 
@@ -134,7 +134,7 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="usernamePlaceholder" id="usernamePlaceholder" v-model="usernamePlaceholder"  v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('usernamePlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="usernamePlaceholder" id="usernamePlaceholder" v-model="usernamePlaceholder"  v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="'max:40'" :class="{'input-danger': errors.has('usernamePlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
                             div.ta-right(v-if="validation('usernamePlaceholder')")
                               span.text-danger {{ errors.first('usernamePlaceholder') }}
                     <!--2-3-->
@@ -161,7 +161,7 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="mobilePlaceholder" id="mobilePlaceholder"  v-model="mobilePlaceholder"   v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('mobilePlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="mobilePlaceholder" id="mobilePlaceholder" v-model="mobilePlaceholder" v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="'max:40'" :class="{'input-danger': errors.has('mobilePlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
                             div.ta-right(v-if="validation('mobilePlaceholder')")
                               span.text-danger {{ errors.first('mobilePlaceholder') }}
 
@@ -189,7 +189,7 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="descriptionPlaceholder" id="descriptionPlaceholder" v-model="descriptionPlaceholder"  v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('descriptionPlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="descriptionPlaceholder" id="descriptionPlaceholder" v-model="descriptionPlaceholder"  v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="'max:40'" :class="{'input-danger': errors.has('descriptionPlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
                             div.ta-right(v-if="validation('descriptionPlaceholder')")
                               span.text-danger {{ errors.first('descriptionPlaceholder') }}
 
