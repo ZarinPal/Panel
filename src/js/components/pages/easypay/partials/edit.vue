@@ -98,7 +98,7 @@
                             span
                             | {{ $i18n.t('common.email')}}
 
-                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.email.checkbox")
+                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-if="requiredFields.email.checkbox")
                         div.row
                           div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                             input(name="email-optional" v-model="requiredFields.email.status" value="optional" type="radio" id="rdoEmailOptional")
@@ -113,7 +113,9 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="email-placeholder" v-model="requiredFields.email.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="emailPlaceholder" id="emailPlaceholder" v-model="emailPlaceholder" v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('emailPlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            div.ta-right(v-if="validation('emailPlaceholder')")
+                              span.text-danger {{ errors.first('emailPlaceholder') }}
                     <!--2-2-->
                     div.row.f-row
                       div.col-lg-3.col-md-3.col-sm-3.col-xs-12.nav-required-fields.m-t-15
@@ -123,7 +125,7 @@
                             span
                             | {{ $i18n.t('easypay.username')}}
 
-                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.name.checkbox")
+                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-if="requiredFields.name.checkbox")
                         div.row
                           div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                             input(name="usernameOptional" v-model="requiredFields.name.status" value="optional" type="radio" id="rdoUsernameOptional")
@@ -138,7 +140,9 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="name-placeholder" v-model="requiredFields.name.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="usernamePlaceholder" id="mobilePlaceholder" v-model="usernamePlaceholder" v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('usernamePlaceholder')}"  type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            div.ta-right(v-if="validation('usernamePlaceholder')")
+                              span.text-danger {{ errors.first('usernamePlaceholder') }}
 
                     <!--2-3-->
                     div.row.f-row
@@ -149,7 +153,7 @@
                             span
                             | {{ $i18n.t('easypay.mobile') }}
 
-                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.mobile.checkbox")
+                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-if="requiredFields.mobile.checkbox")
                         div.row
                           div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                             input(name="mobileOptional" v-model="requiredFields.mobile.status" value="optional" type="radio" id="rdoMobileOptional")
@@ -164,7 +168,9 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="mobile-placeholder" v-model="requiredFields.mobile.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="mobilePlaceholder" id="mobilePlaceholder" v-model="mobilePlaceholder"   v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('mobilePlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            div.ta-right(v-if="validation('mobilePlaceholder')")
+                              span.text-danger {{ errors.first('mobilePlaceholder') }}
 
                     <!--2-4-->
                     div.row.f-row
@@ -175,7 +181,7 @@
                             span
                             | {{ $i18n.t('easypay.description') }}
 
-                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-show="requiredFields.description.checkbox")
+                      div.nav-optional-radios.col-lg-9.col-md-9.col-sm-9.col-xs-12(v-if="requiredFields.description.checkbox")
                         div.row
                           div.col-lg-4.col-md-4.col-sm-6.col-xs-6.ta-right.m-t-15
                             input(name="descriptionOptional" v-model="requiredFields.description.status" value="optional" type="radio" id="rdoDescriptionOptional")
@@ -190,7 +196,9 @@
                               | {{ $i18n.t('easypay.mandatory')}}
 
                           div.col-lg-4.col-md-4.col-sm-12.col-xs-12
-                            input(name="description-placeholder" v-model="requiredFields.description.placeholder" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            input(name="descriptionPlaceholder" id="descriptionPlaceholder" v-model="descriptionPlaceholder"  v-bind:data-vv-as="$i18n.t('webservice.description')" v-validate="{ rules: {required: true}}" :class="{'input-danger': errors.has('descriptionPlaceholder')}" type="text" :placeholder="$i18n.t('easypay.descriptionInHere')" )
+                            div.ta-right(v-if="validation('descriptionPlaceholder')")
+                              span.text-danger {{ errors.first('descriptionPlaceholder') }}
 
                     div.row
                       div.col-xs.nav-buttons
@@ -228,7 +236,7 @@
                                   | {{ $i18n.t('easypay.showEasypayReceipt')}}
 
                             div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
-                              input(:class="{'input-danger': errors.has('limit')}" v-validate="'numeric'" v-show="limited" type="number" v-model="limit" :placeholder="$i18n.t('common.count')")
+                              input(:class="{'input-danger': errors.has('limit')}" v-validate="'numeric'" v-if="limited" type="number" v-model="limit" :placeholder="$i18n.t('common.count')")
                               div.ta-right(v-if="validation('limit')")
                                 span.text-danger {{  errors.first('limit') }}
 
@@ -258,7 +266,6 @@
   import purse from '../../partials/purses.vue';
   import loading from '../../partials/loading.vue';
   import VueNumeric from 'vue-numeric';
-
   export default {
     name: 'pages-easypay-partials-edit',
     data() {
@@ -273,6 +280,10 @@
         title: null,
         description: null,
         price: '',
+        emailPlaceholder: '',
+        usernamePlaceholder: '',
+        mobilePlaceholder: '',
+        descriptionPlaceholder: '',
         payTo: null,
         webservice_id: null,
         purse: null,
@@ -344,7 +355,11 @@
       validateForm() {
         this.$validator.validateAll({
           title: this.title,
-          price: this.price
+          price: this.price,
+          emailPlaceholder: this.emailPlaceholder,
+          usernamePlaceholder: this.usernamePlaceholder,
+          mobilePlaceholder: this.mobilePlaceholder,
+          descriptionPlaceholder: this.descriptionPlaceholder,
         }).then((result) => {
           if (result) {
             this.editEasypay();
@@ -378,8 +393,11 @@
               this.title = response.data.data.title;
               this.price = response.data.data.price;
               this.description = response.data.data.description;
+              this.emailPlaceholder = response.data.data.required_fields.email.placeholder;
+              this.usernamePlaceholder = response.data.data.required_fields.name.placeholder;
+              this.mobilePlaceholder = response.data.data.required_fields.mobile.placeholder;
+              this.descriptionPlaceholder = response.data.data.required_fields.description.placeholder;
               this.is_coupon_active = response.data.data.is_coupon_active;
-
               if (response.data.data.purse &&
                   !response.data.data.webservice_id) {
                 this.payTo = 'purse';
@@ -389,13 +407,11 @@
                 this.webservice_id = response.data.data.webservice_id;
               }
               this.limit = response.data.data.limit;
-
               this.handleOrderOptions('email');
               this.handleOrderOptions('mobile');
               this.handleOrderOptions('name');
               this.handleOrderOptions('description');
               this.handleShowReceipt();
-
               this.failedRedirectUrl = response.data.data.failed_redirect_url;
               this.successfulRedirectUrl = response.data.data.successful_redirect_url;
               this.isLoadedEasypay = true;
@@ -414,10 +430,8 @@
           );
           return;
         }
-
         this.loading = true;
         this.handleShowReceiptSave();
-
         let easyPayData = {
           title: this.title,
           description: this.description,
@@ -437,7 +451,6 @@
           limited: this.limited,
           limit: this.limit,
         };
-
         this.$store.state.http.requests['easypay.getShow'].update(
             {easypay_id: this.$route.params.public_id},
             easyPayData).then(
@@ -477,18 +490,20 @@
             placeholder: this.easypay.required_fields[requireFieldName].placeholder
           },
         };
-
         return this.requiredFields[requireFieldName] =
             orderStates[this.easypay.required_fields[requireFieldName].status];
       },
       handleOrderOptionsSave(requireFieldName) {
         if (this.requiredFields[requireFieldName].checkbox) {
+          this.requiredFields['email'].placeholder = this.emailPlaceholder;
+          this.requiredFields['mobile'].placeholder = this.mobilePlaceholder;
+          this.requiredFields['name'].placeholder = this.usernamePlaceholder;
+          this.requiredFields['description'].placeholder = this.descriptionPlaceholder;
           return {
             status: this.requiredFields[requireFieldName].status,
             placeholder: this.requiredFields[requireFieldName].placeholder,
           }
         }
-
         return {
           status: 'hidden',
           placeholder: null,
@@ -501,7 +516,6 @@
         } else {
           this.showReceipt = false;
         }
-
         if (this.easypay.limit && this.easypay.limit > 0) {
           this.limited = true;
         } else {
@@ -515,7 +529,6 @@
         } else {
           this.showReceipt = 1;
         }
-
         if (!this.limited) {
           this.limit = 0;
         }
@@ -526,11 +539,9 @@
             function(easypay) {
               return easypay.entity_id === vm.$route.params.public_id;
             });
-
         if (this.title) {
           this.$store.state.auth.user.easypays[easypayIndex].title = this.title;
         }
-
         this.$store.state.auth.user.easypays[easypayIndex].description = this.description;
         this.$store.state.auth.user.easypays[easypayIndex].price = this.price;
         this.$store.state.auth.user.easypays[easypayIndex].is_coupon_active = this.is_coupon_active;
@@ -554,5 +565,4 @@
       VueNumeric
     }
   }
-
 </script>
