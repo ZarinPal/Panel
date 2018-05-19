@@ -34,7 +34,6 @@
               span عضو زرین‌پال هستید ؟
               router-link.link(v-bind:to="{ name: 'auth.login',params:{referrerId:this.$route.params.referrerId}}") {{ $i18n.t('user.enter') }}
             div.col-xs.no-margin
-              div#recaptcha.g-recaptcha(data-sitekey="6LcDpDcUAAAAAMiXOz1gA3By9oEJ4-PYqct1Ihn5", data-size="invisible")
               button.gold.pull-left(id="register" @click="validateForm"  tabindex="4") {{$i18n.t('user.register')}}
                 svg.material-spinner(v-if="requesting" width="25px" height="25px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg")
                   circle.path(fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30")
@@ -81,10 +80,14 @@
       }
     },
     mounted(){
-      let vm = this;
-      //Load google map script tag
+      let div = document.createElement("div");
+      div.setAttribute('class', "g-recaptcha");
+      div.setAttribute('data-sitekey', "6LcDpDcUAAAAAMiXOz1gA3By9oEJ4-PYqct1Ihn5");
+      div.setAttribute('data-size', "invisible");
+      document.getElementsByTagName("body")[0].appendChild(div);
       let tag = document.createElement("script");
       tag.src = "https://www.google.com/recaptcha/api.js";
+      tag.async = true;
       tag.defer = true;
       document.getElementsByTagName("head")[0].appendChild(tag);
     },
