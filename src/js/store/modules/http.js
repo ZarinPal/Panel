@@ -84,6 +84,14 @@ export default {
         url: 'oauth/otpAuthorization.json',
       },
       {
+        name: 'oauth.userTokens',
+        url: 'oauth/userTokens.json',
+      },
+      {
+        name: 'oauth.revokeAccessToken',
+        url: 'oauth/revokeAccessToken.json',
+      },
+      {
         name: 'app.postPreInit',
         url: 'app/preInit.json',
       },

@@ -217,6 +217,15 @@ export default new VueRouter({
               },
             },
             {
+              path: 'user/tokens',
+              name: 'user.tokens',
+              component: require(
+                  './components/pages/user/partials/tokens.vue'),
+              meta: {
+                accessLevel: ['basic', 'silver', 'gold'],
+              },
+            },
+            {
               path: 'user/levelUp',
               name: 'user.levelUp',
               component: require('./components/pages/user/partials/level_up'),
