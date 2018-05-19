@@ -15,7 +15,7 @@
 
             div.buttons
               router-link.btn.gold(type="button" v-bind:to="{ name: 'home.index'}") {{$i18n.t('common.returnToDashboard')}}
-              router-link.btn(type="button" v-bind:to="{ name: 'home.index'}") {{$i18n.t('user.backToHomePage')}
+              router-link.btn(type="button" v-bind:to="{ name: 'home.index'}") {{$i18n.t('user.backToHomePage')}}
 
         div.col-lg-7.col-md-6.col-xs-12.left-box
           div.img-404
@@ -27,7 +27,7 @@
           span.copy-right {{$i18n.t('common.copyRightYear')}}
           span.copy-right-type {{$i18n.t('common.zarinPal')}}
         div.links.col-lg-9.col-md-9.col-sm-12.col-xs-12
-          ul
+          ul.pull-left
             a(href="https://www.zarinpal.com/app.html") {{$i18n.t('common.application')}}
             a(href="https://www.zarinpal.com/contact.html") {{$i18n.t('common.contactUs')}}
             a(href="https://www.zarinpal.com/lab/") {{$i18n.t('common.lab')}}

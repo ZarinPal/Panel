@@ -104,7 +104,6 @@ $minWidth404: 100%;
 
     .links {
       ul {
-        text-align: left;
         a {
           display: inline-block;
           margin: 0px 10px;
@@ -142,7 +141,7 @@ $minWidth404: 100%;
         }
 
         .buttons {
-          width: 260px;
+          width: max-content;
           margin: 30px auto;
 
           .btn {
