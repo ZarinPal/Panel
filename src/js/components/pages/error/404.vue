@@ -15,7 +15,7 @@
 
             div.buttons
               router-link.btn.gold(type="button" v-bind:to="{ name: 'home.index'}") {{$i18n.t('common.returnToDashboard')}}
-              router-link.btn(type="button" v-bind:to="{ name: 'home.index'}") {{$i18n.t('user.backToHomePage')}}
+              a.btn(href="https://www.zarinpal.com") {{$i18n.t('user.backToHomePage')}}
 
         div.col-lg-7.col-md-6.col-xs-12.left-box
           div.img-404
