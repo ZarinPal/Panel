@@ -33,7 +33,9 @@ $transactionInternalColor: #656565;
   margin: 20px 0;
   border-bottom: 1px solid #cbcbcb;
   padding-bottom: 20px;
-
+  .btn-export-exel{
+    padding: 5px 12px;
+  }
   .text {
     font-size: 13px;
     margin: 0 10px;
@@ -369,6 +371,12 @@ $transactionInternalColor: #656565;
 }
 
 @media (max-width: $mobileSize) {
+  .filter-row{
+    .btn-export-exel{
+      margin: 1em auto;
+    }
+
+  }
   .search-box-buttons {
     .info {
       margin: 10px 0;
@@ -455,6 +463,11 @@ $transactionInternalColor: #656565;
 }
 
 @media (max-width: $smallWidth) {
+  .filter-row{
+    .btn-export-exel{
+      margin: 1em auto;
+    }
+  }
   .hidden-sm {
     display: none !important;
   }
@@ -463,5 +476,12 @@ $transactionInternalColor: #656565;
 @media (max-width: $mediumWidth) {
   .hidden-md {
     display: none !important;
+  }
+}
+@media (min-width: $largeWidth) {
+  .filter-row{
+    .btn-export-exel{
+      float: left !important;
+    }
   }
 }

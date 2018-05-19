@@ -52,16 +52,16 @@
                         span.text-danger {{ errors.first('toDate') }}
 
     div.row.filter-row
-      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
+      div.col-lg-4.col-md-12.col-sm-12.col-xs-12
         span.text(v-if="this.$route.params.type == 'purse'") {{$i18n.t('transaction.purseTransactionList')}}
         span(v-for="purse in user.purses")
           span.purse-name(v-if="purse.purse == $route.params.id") {{purse.name}}
-      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
-        a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
+      div.col-lg-3.col-md-3.col-sm-4.col-xs-12
+        a.btn.simple.pull-right.btn-export-exel(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
           span.icon-zp-excel
           span {{$i18n.t('transaction.excelExport')}}
-      div.col-lg-4.col-md-3.col-sm-6.col-xs-6
-        ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
+      div.col-lg-5.col-md-9.col-sm-8.col-xs-12
+        ul.select_item.pull-right(:class="{'disable-filter': loadingState.status}")
           li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
           li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
           li(v-ripple="" @click="applyGeneralFilter('-1')" v-bind:class="{ active: generalFilter == '-1' }")  {{$i18n.t('transaction.removal')}}
