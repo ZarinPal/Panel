@@ -327,7 +327,8 @@
     "title": "عنوان محصول یا خدمات",
     "username": "نام کاربر",
     "yesDeleteIt": "بله، حذف کن",
-    "easypay": "زرین‌لینک"
+    "easypay": "زرین‌لینک",
+    "easypayTransactionList": "لیست تراکنش های زرین‌لینک"
   },
   "error": {
     "404": "۴۰۴",
@@ -1375,6 +1376,7 @@
     "webserviceStatus-1": "معلق",
     "webserviceStatus0": "در دست بررسی",
     "webserviceStatus1": "فعال",
+    "webserviceTransactionList": "لیست تراکنش های درگاه پرداخت ",
     "webserviceSuccess": "درگاه پرداخت جدید با موفقیت افزوده‌شد.",
     "webserviceUpdateFail": "مشکلی در زمان به‌روزرسانی اطلاعات رخ‌داده است.",
     "webserviceUpdateSuccess": "اطلاعات درگاه پرداخت با موفقیت به‌روز‌شد.",
