@@ -62,6 +62,8 @@ export default new VueRouter({
               component: require('./components/pages/home/home.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: ['پیشخوان'],
+
               },
             },
             {
@@ -70,6 +72,7 @@ export default new VueRouter({
               component: require('./components/pages/webservice/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'silver', 'gold'],
+                breadcrumb: ['درگاه‌های پرداخت'],
               },
             },
             {
@@ -79,6 +82,14 @@ export default new VueRouter({
                   './components/pages/webservice/partials/create.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'درگاه پرداخت',
+                    routeName:'webservice.index'
+                  },
+                  'ایجاد درگاه پرداخت'],
+
+
               },
             },
             {
@@ -88,6 +99,7 @@ export default new VueRouter({
                   './components/pages/webservice/partials/edit.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
+                breadcrumb: [' ٖویرایش درگاه پرداخت'],
               },
             },
             {
@@ -96,6 +108,8 @@ export default new VueRouter({
               component: require('./components/pages/card/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: ['کارت ها'],
+
               },
             },
             {
@@ -105,6 +119,7 @@ export default new VueRouter({
                   './components/pages/card/partials/zarinCardStatement.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+
               },
             },
             {
@@ -114,6 +129,12 @@ export default new VueRouter({
                   './components/pages/easypay/partials/create.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'زرین‌لینک',
+                    routeName:'easypay.index'
+                  },
+                  'ایجاد زرین‌لینک'],
               },
             },
             {
@@ -122,6 +143,8 @@ export default new VueRouter({
               component: require('./components/pages/easypay/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'silver', 'gold'],
+                breadcrumb: [' زرین‌لینک'],
+
               },
             },
             {
@@ -131,6 +154,8 @@ export default new VueRouter({
                   './components/pages/easypay/partials/edit.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+                breadcrumb:['ویرایش زرین‌لینک'],
+
               },
             },
             {
@@ -147,6 +172,8 @@ export default new VueRouter({
               component: require('./components/pages/coupon/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'silver', 'gold'],
+                breadcrumb: ['کد تخفیف'],
+
               },
             },
             {
@@ -156,6 +183,13 @@ export default new VueRouter({
                   './components/pages/coupon/partials/create.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'کد تخفیف',
+                    routeName:'coupon.index'
+                  },
+                  'ایجاد کد تخفیف'],
+
               },
             },
             {
@@ -164,6 +198,8 @@ export default new VueRouter({
               component: require('./components/pages/coupon/partials/edit.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
+                breadcrumb: ['ویرایش کد تخفیف'],
+
               },
             },
             {
@@ -172,6 +208,14 @@ export default new VueRouter({
               component: require('./components/pages/ticket/create.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'تیکت ها',
+                    routeName:'ticket.index'
+                  },
+
+                  'افزودن تیکت جدید'],
+
               },
             },
             {
@@ -181,6 +225,8 @@ export default new VueRouter({
                   './components/pages/transaction_sessions/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: ['تراکنش‌ها'],
+
               },
             },
             {
@@ -189,6 +235,8 @@ export default new VueRouter({
               component: require('./components/pages/transaction/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb:[ 'تراکنش‌ها'],
+
               },
             },
             {
@@ -197,6 +245,7 @@ export default new VueRouter({
               component: require('./components/pages/report/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb:['روز شمار'],
               },
             },
             {
@@ -205,6 +254,14 @@ export default new VueRouter({
               component: require('./components/pages/requestـmoney/index.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'پیشخوان',
+                    routeName:'home.index'
+                  },
+                  'دنگی دُنگی'],
+
+
               },
             },
             {
@@ -214,6 +271,8 @@ export default new VueRouter({
                   './components/pages/user/partials/add_address.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+                breadcrumb: [' افزودن آدرس جدید'],
+
               },
             },
             {
@@ -231,6 +290,8 @@ export default new VueRouter({
                   './components/pages/user/partials/notification_setting.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: [' تنظیمات اطلاع رسانی'],
+
               },
             },
             {
@@ -239,6 +300,8 @@ export default new VueRouter({
               component: require('./components/pages/user/user_progress.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb:[' مشاهده وضعیت حساب کاربری'] ,
+
               },
             },
           ],
@@ -247,7 +310,8 @@ export default new VueRouter({
           path: '',
           component: require(
               './components/pages/partials/containers/ticket.vue'),
-          children: [
+
+            children: [
             {
               path: '/panel/ticket',
               component: require('./components/pages/ticket/index.vue'),
@@ -259,6 +323,7 @@ export default new VueRouter({
                       './components/pages/ticket/pages/empty.vue'),
                   meta: {
                     accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                    breadcrumb: ['تیکت ها'],
                   },
                 },
                 {
@@ -268,6 +333,13 @@ export default new VueRouter({
                       './components/pages/ticket/pages/show.vue'),
                   meta: {
                     accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                    breadcrumb: [
+                      {
+                        crumbName:'تیکت ها',
+                        routeName:'ticket.index'
+                      },
+
+                      'نمایش تیکت'],
                   },
                 },
               ],
