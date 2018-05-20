@@ -192,12 +192,22 @@ body {
     position: relative;
     top: -11px;
     font-weight: 300;
-    border-radius: 5px;
-    background-color: #f2f3f5bd;
-    padding: 18px 10px 18px 10px;
     width: max-content;
+    margin-left: 1em;
+    &:after {
+      content: $icon-zp-arrow-left;
+      font-family: ZarinPal;
+      position: absolute;
+      color: #757575;
+    }
+    &:last-child {
+      &:after {
+        content: '';
+
+      }
+    }
   }
-  .pointer{
+  .pointer {
     cursor: pointer
   }
   .navbar-title-cu {

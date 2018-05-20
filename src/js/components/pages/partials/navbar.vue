@@ -4,7 +4,7 @@
             span.normal-sidebar-collapse.hidden-xs(@click="toggleSidebar()" v-ripple="")
             span.mobile-sidebar-collapse(@click="toggleMobileSidebar()")
             p.hidden-xs.breadcrumb-title.pointer(v-for="breadcrumb in readBreadcrumb")
-                router-link.breadcrumb-separator( tag="span" v-bind:to="breadcrumb.route") {{breadcrumb.name}}
+                router-link.breadcrumb-separator( tag="span" v-bind:to="breadcrumb.route")  {{breadcrumb.name}}
 
         router-link.navigation-logo.col.col-lg-2.col-sm-2.col-xs-2(tag="div" v-bind:to="{name: 'home.index'}")
             div.logo.hand
