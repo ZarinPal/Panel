@@ -272,10 +272,10 @@
         title: '',
         description: '',
         price: '',
-        emailPlaceholder: '',
-        usernamePlaceholder: '',
-        mobilePlaceholder: '',
-        descriptionPlaceholder: '',
+        emailPlaceholder: 'ایمیل',
+        usernamePlaceholder: 'نام و نام خانوادگی',
+        mobilePlaceholder: 'موبایل',
+        descriptionPlaceholder: 'توضیحات',
         payTo: 'purse',
         purse: null,
         webservice_id: null,
@@ -284,22 +284,22 @@
           email: {
             checkbox: false,
             status: 'optional',
-            placeholder: null
+            placeholder: 'ایمیل'
           },
           name: {
             checkbox: false,
             status: 'optional',
-            placeholder: null
+            placeholder: 'نام و نام خانوادگی'
           },
           mobile: {
             checkbox: false,
             status: 'optional',
-            placeholder: null
+            placeholder: 'موبایل'
           },
           description: {
             checkbox: false,
             status: 'optional',
-            placeholder: null
+            placeholder: 'توضیحات'
           },
         },
         showReceipt: false,
@@ -348,7 +348,6 @@
         });
       },
       validateFormStepTwo() {
-        console.log(this.emailPlaceholder);
         this.$validator.validateAll({
           emailPlaceholder: this.emailPlaceholder,
           usernamePlaceholder: this.usernamePlaceholder,
@@ -421,6 +420,7 @@
         if (this.purse_name) {
           purseName = this.purse_name.name
         }
+
         let easyPayData = {
           title: this.title,
           description: this.description,
@@ -435,19 +435,19 @@
           requiredFields: {
             email: {
               status: 'hidden',
-              placeholder: null
+              placeholder: 'ایمیل',
             },
             name: {
               status: 'hidden',
-              placeholder: null
+              placeholder: 'نام و نام خانوادگی',
             },
             mobile: {
               status: 'hidden',
-              placeholder: null
+              placeholder: 'موبایل',
             },
             description: {
               status: 'hidden',
-              placeholder: null
+              placeholder: 'توضیحات',
             },
           },
         };
