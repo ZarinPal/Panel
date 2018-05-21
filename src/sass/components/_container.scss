@@ -67,6 +67,7 @@ body {
       }
 
       &:last-child {
+        cursor: default;
         &:after {
           content: '';
         }
