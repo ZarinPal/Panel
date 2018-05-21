@@ -36,49 +36,6 @@ body {
     padding-right: 0;
   }
 
-  .ticket-breadcrumb-title{
-    color: #b4b7b8 !important;
-    margin-right: 15px !important;
-  }
-
-  .breadcrumb {
-    position: absolute;
-    margin-right: 5em;
-    z-index: 9;
-    margin-top: 1em;
-    margin-bottom: -3em;
-
-    .breadcrumb-title {
-      font-size: 16px;
-      color: #424242;
-      display: inline-block;
-      margin-right: 5px;
-      position: relative;
-      top: -11px;
-      width: max-content;
-      margin-left: 1em;
-
-      &:after {
-        content: "\E90A";
-        font-family: 'zarinpal';
-        position: absolute;
-        top: 1px;
-        color: #c6c6c6;
-        font-size: 24px;
-      }
-
-      &:last-child {
-        &:after {
-          content: '';
-        }
-      }
-    }
-
-    .pointer {
-      cursor: pointer
-    }
-  }
-
   .inner-content {
     width: $innerContentWidth;
     max-width: $innerContentMaxWidth;
@@ -216,7 +173,6 @@ body {
       transition: $animateTime;
     }
   }
-
   .navbar-title {
     font-size: 16px;
     color: $labelColor;
@@ -225,6 +181,42 @@ body {
     margin-right: 21px;
     position: relative;
     top: -11px;
+  }
+
+  .breadcrumb {
+    margin-right: 3em;
+    margin-top: -19px;
+    .breadcrumb-title {
+      font-size: 13px;
+      color: #424242;
+      display: inline-block;
+      margin-right: 5px;
+      position: relative;
+      top: -8px;
+      width: max-content;
+      margin-left: 1em;
+      .breadcrumb-separator{
+        margin-left: 3px;
+      }
+      &:after {
+        content: "/";
+        font-family: 'zarinpal';
+        position: absolute;
+        color: #424242;
+        padding-right: 4px;
+      }
+
+      &:last-child {
+        cursor: default;
+        &:after {
+          content: '';
+        }
+      }
+    }
+
+    .pointer {
+      cursor: pointer
+    }
   }
 
   .navbar-title-cu {

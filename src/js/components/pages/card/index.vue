@@ -2,6 +2,7 @@
   div.inner-content
     div.row.nav-page-header
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('common.cards') }}
         p.page-description {{$i18n.t('card.cardsDescription')}}
 
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12
