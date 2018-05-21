@@ -8,7 +8,7 @@
       div.col-xs.main-content
         div.breadcrumb(:class="$route.meta.additionalClass")
           p.hidden-xs.breadcrumb-title.pointer(v-for="breadcrumb in readBreadcrumb" :class="$route.meta.additionalClass")
-            router-link.breadcrumb-separator( tag="span" v-bind:to="breadcrumb.route" )  {{breadcrumb.name}}
+            router-link.breadcrumb-separator( tag="span" v-bind:to="breadcrumb.route" )  {{$i18n.t(breadcrumb.name)}}
 
         <!--button.success.pull-left(v-back="") back-->
         router-view(v-if="$store.state.auth.check")
