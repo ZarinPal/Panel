@@ -99,8 +99,8 @@ header .logos .img-zarinpal {
   background: #ffd600;
   background-image: url("../../img/oauth/zarinpal.png");
   background-repeat: no-repeat;
-  background-size: 75%;
-  background-position: 10px;
+  background-size: 50%;
+  background-position: center;
 }
 
 header .logos .img-application {
