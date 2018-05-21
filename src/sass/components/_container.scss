@@ -42,19 +42,12 @@ body {
     background: #444a4d;
     position: unset !important;
     width: 39%;
-    height: 84px;
     margin-top: 0px !important;
-    padding-top: 13px;
+    padding-top: 5px;
     padding-right: 10px;
   }
 
   .breadcrumb {
-    position: absolute;
-    margin-right: 5em;
-    z-index: 9;
-    margin-top: 1em;
-    margin-bottom: -3em;
-
     .breadcrumb-title {
       font-size: 16px;
       color: #424242;
@@ -69,7 +62,6 @@ body {
         content: "\E90A";
         font-family: 'zarinpal';
         position: absolute;
-        top: 1px;
         color: #c6c6c6;
         font-size: 24px;
       }

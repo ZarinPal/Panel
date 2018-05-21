@@ -2,6 +2,7 @@
   div.inner-content
     div.row.nav-page-header
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('common.purses') }}
         p.page-description {{ $i18n.t('common.pursesDescription') }}
 
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12

@@ -2,6 +2,7 @@
   div.inner-content
     div.row.nav-page-header
       div.col-lg-6.col-md-6.col-sm-6.col-xs-6
+        p.page-title ٖ{{ $i18n.t('webservice.editTitle') }}
         p.page-description ٖ{{ $i18n.t('webservice.editWebserviceDescription') }}
     div.col-xs-12.col-sm-12.col-md-12.col-lg-12.section.create-webservice(v-if="isLoadedData")
       div.box

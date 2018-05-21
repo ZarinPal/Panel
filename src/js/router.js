@@ -47,8 +47,16 @@ export default new VueRouter({
       },
     },
     {
-      path: '/panel',
+      path: '/panel/',
       component: require('./components/pages/panel.vue'),
+      meta:{
+        breadcrumb: [
+          {
+            crumbName:'panel.home',
+            routeName:'home.index'
+          }
+        ]
+      },
       children: [
         {path: '/', redirect: '/panel/home'},
         {
@@ -62,9 +70,6 @@ export default new VueRouter({
               component: require('./components/pages/home/home.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
-                breadcrumb: [
-                    'panel.home'
-                ],
               },
             },
             {
@@ -255,14 +260,7 @@ export default new VueRouter({
               component: require('./components/pages/requestـmoney/index.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
-                breadcrumb: [
-                  {
-                    crumbName:'panel.home',
-                    routeName:'home.index'
-                  },
-                  'common.dangiDongi'],
-
-
+                breadcrumb: ['common.dangiDongi'],
               },
             },
             {
