@@ -173,7 +173,6 @@ body {
       transition: $animateTime;
     }
   }
-
   .navbar-title {
     font-size: 16px;
     color: $labelColor;
@@ -186,23 +185,23 @@ body {
 
   .breadcrumb {
     margin-right: 3em;
-    margin-top: -20px;
+    margin-top: -19px;
     .breadcrumb-title {
-      font-size: 16px;
+      font-size: 13px;
       color: #424242;
       display: inline-block;
       margin-right: 5px;
       position: relative;
-      top: -11px;
+      top: -8px;
       width: max-content;
       margin-left: 1em;
 
       &:after {
-        content: "\E90A";
+        content: "/";
         font-family: 'zarinpal';
         position: absolute;
-        color: #c6c6c6;
-        font-size: 24px;
+        color: #424242;
+        right: 53px;
       }
 
       &:last-child {

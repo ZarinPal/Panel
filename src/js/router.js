@@ -107,7 +107,13 @@ export default new VueRouter({
                   './components/pages/webservice/partials/edit.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
-                breadcrumb: ['webservice.editWebservice'],
+                breadcrumb: [
+                  {
+                    crumbName:'panel.webservice',
+                    routeName:'webservice.index'
+                  },
+                    'webservice.editWebservice'
+                ],
               },
             },
             {
@@ -205,7 +211,13 @@ export default new VueRouter({
               component: require('./components/pages/coupon/partials/edit.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
-                breadcrumb: ['coupon.editCoupon'],
+                breadcrumb: [
+                  {
+                    crumbName:'panel.coupon',
+                    routeName:'coupon.index'
+                  },
+                    'coupon.editCoupon'
+                ],
               },
             },
             {
@@ -231,7 +243,14 @@ export default new VueRouter({
                   './components/pages/transaction_sessions/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
-                breadcrumb: ['panel.transaction'],
+                breadcrumb: [
+                  {
+                    crumbName:'panel.webservice',
+                    routeName:'webservice.index'
+                  },
+                    'panel.transactionsession'
+                ],
+
 
               },
             },
@@ -241,7 +260,13 @@ export default new VueRouter({
               component: require('./components/pages/transaction/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
-                breadcrumb:[ 'panel.transaction'],
+                breadcrumb:[
+                  {
+                    crumbName:'panel.webservice',
+                    routeName:'webservice.index'
+                  },
+                    'panel.transaction'
+                ],
 
               },
             },
@@ -251,7 +276,13 @@ export default new VueRouter({
               component: require('./components/pages/report/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
-                breadcrumb:['report.title'],
+                breadcrumb:[
+                  {
+                    crumbName:'panel.webservice',
+                    routeName:'webservice.index'
+                  },
+                    'report.title'
+                ],
               },
             },
             {
