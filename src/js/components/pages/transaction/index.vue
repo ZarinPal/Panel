@@ -4,7 +4,6 @@
     div.row.nav-page-header
 
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-        p.page-title {{ $i18n.t('common.transactions') }}
         p.page-description {{ $i18n.t('transaction.description') }}
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12
         router-link.btn.default.pull-left(tag="button" v-bind:to="{ name: 'home.index'} ") {{ $i18n.t('common.returnToDashboard') }}

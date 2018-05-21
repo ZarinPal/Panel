@@ -38,7 +38,14 @@ body {
 
   .ticket-breadcrumb-title{
     color: #b4b7b8 !important;
-    margin-right: 15px !important;
+    margin-right: 0 !important;
+    background: #444a4d;
+    position: unset !important;
+    width: 39%;
+    height: 84px;
+    margin-top: 0px !important;
+    padding-top: 13px;
+    padding-right: 10px;
   }
 
   .breadcrumb {

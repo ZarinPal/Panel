@@ -62,7 +62,7 @@ $plusIcon: $icon-zp-add;
       //position: -webkit-sticky;
       //position: sticky;
       top: 10px;
-      padding: 40px 20px 20px 20px;
+      padding: 10px;
 
       .row {
         margin: 10px 0;
@@ -434,6 +434,9 @@ $plusIcon: $icon-zp-add;
 
 //Query Sm
 @media (max-width: $smallWidth) {
+  .breadcrumb{
+    width: 100% !important;
+  }
   .nav-ticket-list {
     width: 100% !important;
   }
