@@ -928,6 +928,7 @@
     "day": "روز",
     "decreaseUserLevel": "درجه کاربری یک سطح کاهش یافت.",
     "deleteAddress": "حذف آدرس",
+    "deleteTokens": "حذف نشست",
     "deleteAssigned": "حذف ارجاع",
     "deleteDepartment": "حذف دپارتمان",
     "deleteDepartmentSuccess": "دپارتمان با موفقیت حذف گردید.",
