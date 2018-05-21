@@ -3,7 +3,9 @@
         div.col-lg-5.col-sm-5.col-xs-2
             span.normal-sidebar-collapse.hidden-xs(@click="toggleSidebar()" v-ripple="")
             span.mobile-sidebar-collapse(@click="toggleMobileSidebar()")
-            h4.hidden-xs.navbar-title {{ $i18n.t('common.zarinPal')}}
+            div.breadcrumb(:class="$route.meta.additionalClass")
+              p.hidden-xs.breadcrumb-title.pointer(v-for="breadcrumb in readBreadcrumb" :class="$route.meta.additionalClass")
+                router-link.breadcrumb-separator( tag="span" v-bind:to="breadcrumb.route" )  {{$i18n.t(breadcrumb.name)}}
         router-link.navigation-logo.col.col-lg-2.col-sm-2.col-xs-2(tag="div" v-bind:to="{name: 'home.index'}")
             div.logo.hand
 
@@ -61,6 +63,23 @@
       };
     },
     computed: {
+      readBreadcrumb() {
+        let crumbs = [];
+        for (let i = 0; i < this.$route.matched.length; i++) {
+          if (this.$route.matched[i].meta && this.$route.matched[i].meta.breadcrumb) {
+            for (let j = 0; j < this.$route.matched[i].meta.breadcrumb.length; j++) {
+              let breadcrumb = this.$route.matched[i].meta.breadcrumb[j];
+              crumbs.push(
+                  {
+                    name: breadcrumb.crumbName?breadcrumb.crumbName:breadcrumb,
+                    route: this.routerLinkHandler(this.$route.matched[i],breadcrumb),
+                  },
+              );
+            }
+          }
+        }
+        return crumbs;
+      },
       notifications() {
         return {
           count: this.$store.state.alert.notifications.length,
@@ -70,6 +89,21 @@
       },
     },
     methods: {
+      routerLinkHandler(route,breadcrumb) {
+        if (breadcrumb.routeName) {
+          return {
+            name: breadcrumb.routeName,
+            params: {},
+          };
+        }else if (route.instances.default) {
+          return {
+            name: route.instances.default.$route.name,
+            params: route.instances.default.$route.params,
+          };
+        }
+        return {};
+      },
+
       closeModal() {
         this.confirmVisible = false;
       },
