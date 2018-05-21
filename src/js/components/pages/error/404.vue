@@ -28,11 +28,11 @@
           span.copy-right-type {{$i18n.t('common.zarinPal')}}
         div.links.col-lg-9.col-md-9.col-sm-12.col-xs-12
           ul.pull-left
-            a(href="https://www.zarinpal.com/app.html") {{$i18n.t('common.application')}}
+            a(href="https://www.zarinpal.com/application.html") {{$i18n.t('common.application')}}
             a(href="https://www.zarinpal.com/contact.html") {{$i18n.t('common.contactUs')}}
             a(href="https://www.zarinpal.com/lab/") {{$i18n.t('common.lab')}}
             a(href="https://www.zarinpal.com/faq.html") {{$i18n.t('common.faq')}}
-            a(href="https://www.zarinpal.com/about.html") {{$i18n.t('common.aboutUs')}}
+            a(href="https://www.zarinpal.com/aboutus.html") {{$i18n.t('common.aboutUs')}}
 </template>
 
 <script>
