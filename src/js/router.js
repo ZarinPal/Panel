@@ -324,6 +324,7 @@ export default new VueRouter({
                   meta: {
                     accessLevel: ['suspend', 'basic', 'silver', 'gold'],
                     breadcrumb: ['تیکت ها'],
+                    additionalClass: "ticket-breadcrumb-title"
                   },
                 },
                 {
@@ -333,6 +334,7 @@ export default new VueRouter({
                       './components/pages/ticket/pages/show.vue'),
                   meta: {
                     accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                    additionalClass: "ticket-breadcrumb-title",
                     breadcrumb: [
                       {
                         crumbName:'تیکت ها',

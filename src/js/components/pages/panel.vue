@@ -6,6 +6,10 @@
       sidebar
 
       div.col-xs.main-content
+        div.breadcrumb(:class="$route.meta.additionalClass")
+          p.hidden-xs.breadcrumb-title.pointer(v-for="breadcrumb in readBreadcrumb" :class="$route.meta.additionalClass")
+            router-link.breadcrumb-separator( tag="span" v-bind:to="breadcrumb.route" )  {{breadcrumb.name}}
+
         <!--button.success.pull-left(v-back="") back-->
         router-view(v-if="$store.state.auth.check")
 
@@ -28,6 +32,23 @@
       next();
     },
     computed: {
+      readBreadcrumb() {
+        let crumbs = [];
+        for (let i = 0; i < this.$route.matched.length; i++) {
+          if (this.$route.matched[i].meta && this.$route.matched[i].meta.breadcrumb) {
+            for (let j = 0; j < this.$route.matched[i].meta.breadcrumb.length; j++) {
+              let breadcrumb = this.$route.matched[i].meta.breadcrumb[j];
+              crumbs.push(
+                  {
+                    name: breadcrumb.crumbName?breadcrumb.crumbName:breadcrumb,
+                    route: this.routerLinkHandler(this.$route.matched[i],breadcrumb),
+                  },
+              );
+            }
+          }
+        }
+        return crumbs;
+      },
       refererId() {
         return this.$store.state.app.refererId;
       }
@@ -56,6 +77,20 @@
 //            }
     },
     methods: {
+      routerLinkHandler(route,breadcrumb) {
+        if (breadcrumb.routeName) {
+          return {
+            name: breadcrumb.routeName,
+            params: {},
+          };
+        }else if (route.instances.default) {
+          return {
+            name: route.instances.default.$route.name,
+            params: route.instances.default.$route.params,
+          };
+        }
+        return {};
+      },
       checkUserLevel(acceptedLevels, vm) {
         let levels = {
           '0': 'suspend',

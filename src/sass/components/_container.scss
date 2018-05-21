@@ -36,6 +36,49 @@ body {
     padding-right: 0;
   }
 
+  .ticket-breadcrumb-title{
+    color: #b4b7b8 !important;
+    margin-right: 15px !important;
+  }
+
+  .breadcrumb {
+    position: absolute;
+    margin-right: 5em;
+    z-index: 9;
+    margin-top: 1em;
+    margin-bottom: -3em;
+
+    .breadcrumb-title {
+      font-size: 16px;
+      color: #424242;
+      display: inline-block;
+      margin-right: 5px;
+      position: relative;
+      top: -11px;
+      width: max-content;
+      margin-left: 1em;
+
+      &:after {
+        content: "\E90A";
+        font-family: 'zarinpal';
+        position: absolute;
+        top: 1px;
+        color: #c6c6c6;
+        font-size: 24px;
+      }
+
+      &:last-child {
+        &:after {
+          content: '';
+        }
+      }
+    }
+
+    .pointer {
+      cursor: pointer
+    }
+  }
+
   .inner-content {
     width: $innerContentWidth;
     max-width: $innerContentMaxWidth;
@@ -183,33 +226,7 @@ body {
     position: relative;
     top: -11px;
   }
-  .breadcrumb-title {
-    font-size: 14px;
-    color: #424242;
-    font-weight: 300;
-    display: inline-block;
-    margin-right: 5px;
-    position: relative;
-    top: -11px;
-    font-weight: 300;
-    width: max-content;
-    margin-left: 1em;
-    &:after {
-      content: $icon-zp-arrow-left;
-      font-family: ZarinPal;
-      position: absolute;
-      color: #757575;
-    }
-    &:last-child {
-      &:after {
-        content: '';
 
-      }
-    }
-  }
-  .pointer {
-    cursor: pointer
-  }
   .navbar-title-cu {
     font-size: 16px;
     font-weight: 300;
