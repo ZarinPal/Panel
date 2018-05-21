@@ -107,7 +107,7 @@ mix.webpackConfig({
     plugins: plugins
 })
 
-.copy('src/img/zarinpal.png', 'assets/img');
+.copy('src/img/zarinpal.png', 'assets/images');
 
 // Full API
 // mix.js(src, output);
