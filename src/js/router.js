@@ -62,6 +62,9 @@ export default new VueRouter({
               component: require('./components/pages/home/home.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: [
+                    'panel.home'
+                ],
               },
             },
             {
@@ -70,6 +73,9 @@ export default new VueRouter({
               component: require('./components/pages/webservice/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'silver', 'gold'],
+                breadcrumb: [
+                    'panel.webservice'
+                ],
               },
             },
             {
@@ -79,6 +85,14 @@ export default new VueRouter({
                   './components/pages/webservice/partials/create.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'panel.webservice',
+                    routeName:'webservice.index'
+                  },
+                  'webservice.create'],
+
+
               },
             },
             {
@@ -88,6 +102,7 @@ export default new VueRouter({
                   './components/pages/webservice/partials/edit.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
+                breadcrumb: ['webservice.editWebservice'],
               },
             },
             {
@@ -96,6 +111,7 @@ export default new VueRouter({
               component: require('./components/pages/card/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: ['panel.card'],
               },
             },
             {
@@ -105,6 +121,7 @@ export default new VueRouter({
                   './components/pages/card/partials/zarinCardStatement.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+
               },
             },
             {
@@ -114,6 +131,12 @@ export default new VueRouter({
                   './components/pages/easypay/partials/create.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'panel.easypay',
+                    routeName:'easypay.index'
+                  },
+                  'easypay.createEasypay'],
               },
             },
             {
@@ -122,6 +145,8 @@ export default new VueRouter({
               component: require('./components/pages/easypay/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'silver', 'gold'],
+                breadcrumb: [' panel.easypay'],
+
               },
             },
             {
@@ -131,6 +156,8 @@ export default new VueRouter({
                   './components/pages/easypay/partials/edit.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+                breadcrumb:['easypay.editEasyPay'],
+
               },
             },
             {
@@ -147,6 +174,8 @@ export default new VueRouter({
               component: require('./components/pages/coupon/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'silver', 'gold'],
+                breadcrumb: ['panel.coupon'],
+
               },
             },
             {
@@ -156,6 +185,13 @@ export default new VueRouter({
                   './components/pages/coupon/partials/create.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'panel.coupon',
+                    routeName:'coupon.index'
+                  },
+                  'coupon.createCoupon'],
+
               },
             },
             {
@@ -164,6 +200,7 @@ export default new VueRouter({
               component: require('./components/pages/coupon/partials/edit.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
+                breadcrumb: ['coupon.editCoupon'],
               },
             },
             {
@@ -172,6 +209,14 @@ export default new VueRouter({
               component: require('./components/pages/ticket/create.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'panel.ticket',
+                    routeName:'ticket.index'
+                  },
+
+                  'ticket.addTicket'],
+
               },
             },
             {
@@ -181,6 +226,8 @@ export default new VueRouter({
                   './components/pages/transaction_sessions/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: ['panel.transaction'],
+
               },
             },
             {
@@ -189,6 +236,8 @@ export default new VueRouter({
               component: require('./components/pages/transaction/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb:[ 'panel.transaction'],
+
               },
             },
             {
@@ -197,6 +246,7 @@ export default new VueRouter({
               component: require('./components/pages/report/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb:['report.title'],
               },
             },
             {
@@ -205,6 +255,14 @@ export default new VueRouter({
               component: require('./components/pages/requestـmoney/index.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+                breadcrumb: [
+                  {
+                    crumbName:'panel.home',
+                    routeName:'home.index'
+                  },
+                  'common.dangiDongi'],
+
+
               },
             },
             {
@@ -214,6 +272,8 @@ export default new VueRouter({
                   './components/pages/user/partials/add_address.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
+                breadcrumb: [' user.addNewAddress'],
+
               },
             },
             {
@@ -231,6 +291,8 @@ export default new VueRouter({
                   './components/pages/user/partials/notification_setting.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb: ['user.notificationSetting'],
+
               },
             },
             {
@@ -239,6 +301,8 @@ export default new VueRouter({
               component: require('./components/pages/user/user_progress.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                breadcrumb:[' user.userProgress'] ,
+
               },
             },
           ],
@@ -247,7 +311,8 @@ export default new VueRouter({
           path: '',
           component: require(
               './components/pages/partials/containers/ticket.vue'),
-          children: [
+
+            children: [
             {
               path: '/panel/ticket',
               component: require('./components/pages/ticket/index.vue'),
@@ -259,6 +324,8 @@ export default new VueRouter({
                       './components/pages/ticket/pages/empty.vue'),
                   meta: {
                     accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                    breadcrumb: ['panel.ticket'],
+                    additionalClass: "ticket-breadcrumb-title"
                   },
                 },
                 {
@@ -268,6 +335,15 @@ export default new VueRouter({
                       './components/pages/ticket/pages/show.vue'),
                   meta: {
                     accessLevel: ['suspend', 'basic', 'silver', 'gold'],
+                    additionalClass: "ticket-breadcrumb-title",
+                    breadcrumb: [
+                      {
+                        crumbName:'panel.ticket',
+                        routeName:'ticket.index'
+                      },
+
+                      'ticket.showTicket'
+                    ],
                   },
                 },
               ],

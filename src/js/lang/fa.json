@@ -651,6 +651,7 @@
     "turnover": "۱۰ گردش اخر"
   },
   "ticket": {
+    "showTicket": "نمایش تیکت",
     "InternalError": "خطای داخلی در زمان آپلود فایل رخ داد.",
     "InvalidFile": "نوع فایل ارسالی صحیح نیست.",
     "InvalidFileDimen": "طول و عرض لوگو باید 500*500 پیکسل باشد",
@@ -1224,6 +1225,7 @@
 
   },
   "webservice": {
+    "editWebservice": "ٖویرایش درگاه پرداخت",
     "activation": "فعالسازی",
     "active": "فعال",
     "activeCouponInPg": "نمایش آیتم کد تخفیف در صفحه درگاه پرداخت",
