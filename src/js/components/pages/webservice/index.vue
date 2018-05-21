@@ -2,7 +2,6 @@
   div.inner-content
     div.row.nav-page-header
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12
-        p.page-title {{ $i18n.t('common.webservices') }}
         p.page-description {{ $i18n.t('webservice.webserviceDescription') }}
 
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12.xs-ta-center

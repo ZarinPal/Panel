@@ -2,7 +2,6 @@
   div.inner-content
     div.row.nav-page-header
       div.col-lg-6.col-md-6.col-sm-6.col-xs-6
-        p.page-title {{ $i18n.t('coupon.createCoupon') }}
         p.page-description {{ $i18n.t('coupon.createCouponDescription') }}
 
     form(autocomplete="on" onsubmit="event.preventDefault();")
