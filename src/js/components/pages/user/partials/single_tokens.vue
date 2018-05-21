@@ -3,8 +3,8 @@
   enter-active-class="fade-in"
   leave-active-class="fade-out")
 
-    div.nav-address(@mouseover="visibleCloseIcon = true" @mouseleave="visibleCloseIcon = false")
-      div.nav-address-title
+    div.nav-tokens(@mouseover="visibleCloseIcon = true" @mouseleave="visibleCloseIcon = false")
+      div.nav-tokens-title
         transition(name="fade"
         enter-active-class="fade-in"
         leave-active-class="fade-out")
@@ -13,22 +13,22 @@
       div.row.transaction-row.ta-center
 
         div.col-xs-1
-          span {{ this.address.id }}
+          span {{ this.tokens.id }}
         div.col-xs
-          span {{ this.address.client }}
-          span(v-if="this.address.is_current_session") (نشست فعلی)
+          span {{ this.tokens.client }}
         div.col-xs
-          span {{ this.address.ip }}
+          span {{ this.tokens.ip }}
         div.col-xs
-          span {{ this.address.last_seen | fromNow }}
+          span {{ this.tokens.last_seen | fromNow }}
         div.col-xs-1
-          span حذف
+          span(:title="$i18n.t('user.deleteTokens')" @click="confirmVisible = true" v-if="!this.tokens.is_current_session" ).close-tokens
+          span(v-if="this.tokens.is_current_session" ) ({{$i18n.t('user.currentSession')}})
 
 
 
       <!--Delete confirm-->
-      confirm.row(v-if="confirmVisible" v-on:confirmed="deleteAddress()" v-on:closeModal="closeModal")
-        span(slot="title") {{$i18n.t('user.deleteAddress')}}
+      confirm.row(v-if="confirmVisible" v-on:confirmed="deletetokens()" v-on:closeModal="closeModal")
+        span(slot="title") {{$i18n.t('user.deleteTokens')}}
         div.ta-right(slot="message")
           div {{$i18n.t('common.doYouDelete')}}
 
@@ -42,39 +42,41 @@
   import selectbox from '../../partials/selectbox.vue';
 
   export default {
-    name: 'single-address',
+    name: 'single-tokens',
     data() {
       return {
-        address: {
+        tokens: {
           title: null,
         },
         confirmVisible: false,
         confirm: false,
       }
     },
-    props: ['singleAddress'],
+    props: ['singleTokens'],
     created() {
-      this.initAddress();
+      this.inittokens();
     },
     methods: {
-      initAddress() {
-        if (this.singleAddress) {
-          this.address.id = this.singleAddress.id;
-          this.address.ip = this.singleAddress.ip;
-          this.address.client = this.singleAddress.client;
-          this.address.is_current_session = this.singleAddress.is_current_session;
-          this.address.last_seen = this.singleAddress.last_seen;
-          this.address.user_agent = this.singleAddress.user_agent;
+      inittokens() {
+        if (this.singleTokens) {
+          this.tokens.id = this.singleTokens.id;
+          this.tokens.ip = this.singleTokens.ip;
+          this.tokens.client = this.singleTokens.client;
+          this.tokens.is_current_session = this.singleTokens.is_current_session;
+          this.tokens.last_seen = this.singleTokens.last_seen;
+          this.tokens.user_agent = this.singleTokens.user_agent;
+          this.tokens.entity_id = this.singleTokens.entity_id;
         }
       },
       /*** Send data to parent ***/
-      deleteAddress() {
-        this.address.id = this.singleAddress.id;
-        this.$emit('deleteAddress', this.address);
+      deletetokens() {
+        this.tokens.id = this.singleTokens.id;
+        console.log(this.tokens);
+        this.$emit('deletetokens', this.tokens);
       },
       closeModal() {
-        this.updateAddress();
-        this.visibleMap = false;
+        //this.updatetokens();
+        //this.visibleMap = false;
         this.confirmVisible = false;
         let body = document.getElementById('body');
         body.classList.remove("no-scroll");

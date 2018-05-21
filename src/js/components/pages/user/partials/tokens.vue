@@ -5,9 +5,9 @@
         p.page-title {{ $i18n.t('user.showTokens') }}
         p.page-description {{ $i18n.t('user.showTokensDescription') }}
 
-    div.row.section.nav-add-address
+    div.row.section.nav-tokens-box
       div.box.full-width
-        div.address-box(id="addressBox" v-if="isLoadedAddress")
+        div.tokens-box(id="tokensBox" v-if="isLoadedtokens")
           div.row.transaction-fields-title
             div.col-xs-1
               span #
@@ -19,8 +19,8 @@
               span اخرین مشاهده
             div.col-xs-1
               span حذف
-          span(v-for="(address,key) in addresses")
-            singleToken.address-book(v-bind:singleAddress="address" v-bind:id="address.id" v-on:getAddresses="getAddresses" v-on:updateAddress="updateAddress" v-on:deleteAddress="deleteAddress")
+          span(v-for="(tokens,key) in tokens")
+            singleToken.tokens-book(v-bind:singleTokens="tokens" v-bind:id="tokens.id" v-on:gettokens="gettokens" v-on:deletetokens="deletetokens")
 
         div.ta-center(v-else)
           loading
@@ -33,14 +33,14 @@
   import loading from '../../partials/loading.vue';
 
   export default {
-    name: 'addAddress',
+    name: 'tokens',
     data() {
       return {
         loading: false,
-        getAddressesData: null,
-        addressCount: 1,
-        addresses: [],
-        isLoadedAddress: false,
+        gettokensData: null,
+        tokensCount: 1,
+        tokens: [],
+        isLoadedtokens: false,
       }
     },
     computed: {
@@ -50,23 +50,20 @@
     },
     created() {
       store.commit('clearValidationErrors');
-      this.getAddresses();
+      this.gettokens();
     },
     methods: {
-      getAddresses() {
+      gettokens() {
         this.$store.state.http.requests['oauth.userTokens'].get().then(
             (response) => {
               if (response.data.data.length) {
-                this.addresses = response.data.data;
-                let addressCounter = 1;
-                _.forEach(this.addresses, function(address) {
-                  address.id = addressCounter++;
+                this.tokens = response.data.data;
+                let tokensCounter = 1;
+                _.forEach(this.tokens, function(tokens) {
+                  tokens.id = tokensCounter++;
                 });
               }
-              if (!this.addresses.length) {
-                this.addNewAddress();
-              }
-              this.isLoadedAddress = true;
+              this.isLoadedtokens = true;
             },
             (response) => {
               store.commit('flashMessage', {
@@ -77,37 +74,17 @@
             }
         );
       },
-      addNewAddress() {
-        this.addresses.push({
-          id: this.addresses.length + 1001,
-          data: {
-            address: null,
-            landline: null,
-            postal_code: null,
-            geo_location: null,
-            title: null
-          }
-        });
-      },
-      //update from address child on input change not request to api
-      updateAddress(address) {
-        let addressIndex = _.findIndex(
-            this.addresses,
-            function(originalsAddress) {
-              return originalsAddress.id === address.id;
-            }
-        );
-        this.addresses[addressIndex] = address;
-      },
-      deleteAddress(address) {
-        if (address.entity_id) {
-          this.$store.state.http.requests['user.getAddress'].delete(
-              {id: address.entity_id}).then(
+
+      deletetokens(tokens) {
+        console.log('aaa');
+        if (tokens.entity_id) {
+          this.$store.state.http.requests['oauth.revokeAccessToken'].delete(
+              {token_id: tokens.entity_id}).then(
               () => {
-                let elem = document.getElementById(address.id);
+                let elem = document.getElementById(tokens.id);
                 elem.parentNode.removeChild(elem);
-                _.remove(this.addresses, function(singleAddress) {
-                  return singleAddress.id == address.id;
+                _.remove(this.tokens, function(singleTokens) {
+                  return singleTokens.id == tokens.id;
                 });
               },
               (response) => {
@@ -119,47 +96,12 @@
               }
           );
         } else {
-          let elem = document.getElementById(address.id);
+          let elem = document.getElementById(tokens.id);
           elem.parentNode.removeChild(elem);
-
-          _.remove(this.addresses, function(singleAddress) {
-            return singleAddress.id == address.id;
+          _.remove(this.tokens, function(singleTokens) {
+            return singleTokens.id == tokens.id;
           });
         }
-      },
-      postUserAddress() {
-        this.loading = true;
-        let addresses = this.addresses;
-        // _.forEach(addresses, function(address) {
-        //     delete address.id;
-        // });
-
-        this.$store.state.http.requests['user.postAddress'].save(
-            {'addresses': addresses}).then(
-            () => {
-              store.commit('flashMessage', {
-                text: 'UserAddressAddedSuccessLocal',
-                important: false,
-                type: 'success'
-              });
-              this.loading = false;
-
-              //this run in user level up
-              this.$emit('incrementUserLevelUpStep');
-
-              // this.$router.push({name: 'home.index'})
-            },
-            (response) => {
-              store.commit('setValidationErrors',
-                  response.data.validation_errors);
-              store.commit('flashMessage', {
-                text: response.data.meta.error_type,
-                important: false,
-                type: 'danger'
-              });
-              this.loading = false;
-            }
-        );
       },
     },
     components: {
