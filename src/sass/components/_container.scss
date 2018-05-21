@@ -195,13 +195,15 @@ body {
       top: -8px;
       width: max-content;
       margin-left: 1em;
-
+      .breadcrumb-separator{
+        margin-left: 3px;
+      }
       &:after {
         content: "/";
         font-family: 'zarinpal';
         position: absolute;
         color: #424242;
-        right: 53px;
+        padding-right: 4px;
       }
 
       &:last-child {
