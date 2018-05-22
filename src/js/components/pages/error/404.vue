@@ -6,8 +6,6 @@
         div.col-lg-5.col-md-6.col-xs-12
           div.logo-section
             span.zarin-logo
-            span.zarin-type {{$i18n.t('common.zarinPal')}}
-
           div.description
             h2.iransans-light.text-404 {{$i18n.t('error.404')}}
             h3 {{$i18n.t('error.notFound')}}
@@ -16,7 +14,6 @@
             div.buttons
               router-link.btn.gold(type="button" v-bind:to="{ name: 'home.index'}") {{$i18n.t('common.returnToDashboard')}}
               a.btn(href="https://www.zarinpal.com") {{$i18n.t('user.backToHomePage')}}
-
         div.col-lg-7.col-md-6.col-xs-12.left-box
           div.img-404
 
