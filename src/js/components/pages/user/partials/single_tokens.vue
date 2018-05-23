@@ -65,7 +65,6 @@
           this.tokens.id = this.singleTokens.id;
           this.tokens.ip = this.singleTokens.ip;
           this.findFlag(this.singleTokens.ip);
-          this.tokens.ipFlag = '1';
           this.tokens.client = this.singleTokens.client;
           this.tokens.is_current_session = this.singleTokens.is_current_session;
           this.tokens.last_seen = this.singleTokens.last_seen;
