@@ -17,6 +17,7 @@
         div.col-xs
           span {{ this.tokens.client }}
         div.col-xs
+          img.p-l-5.flag-icon(:src="flagUrl" :title="flagCountryName")
           span {{ this.tokens.ip }}
         div.col-xs
           span {{ this.tokens.last_seen | fromNow }}
@@ -45,27 +46,31 @@
     name: 'single-tokens',
     data() {
       return {
-        tokens: {
-          title: null,
-        },
+        tokens: {},
+        flagUrl: null,
+        flagCountryName: null,
         confirmVisible: false,
         confirm: false,
       }
     },
     props: ['singleTokens'],
     created() {
-      this.inittokens();
+      this.initTokens();
+    },
+    mounted() {
     },
     methods: {
-      inittokens() {
+      initTokens() {
         if (this.singleTokens) {
           this.tokens.id = this.singleTokens.id;
           this.tokens.ip = this.singleTokens.ip;
+          this.findFlag(this.singleTokens.ip);
           this.tokens.client = this.singleTokens.client;
           this.tokens.is_current_session = this.singleTokens.is_current_session;
           this.tokens.last_seen = this.singleTokens.last_seen;
           this.tokens.user_agent = this.singleTokens.user_agent;
           this.tokens.entity_id = this.singleTokens.entity_id;
+          this.counter++;
         }
       },
       /*** Send data to parent ***/
@@ -80,6 +85,13 @@
         this.confirmVisible = false;
         let body = document.getElementById('body');
         body.classList.remove("no-scroll");
+      },
+      findFlag(ip){
+        this.$http.get('https://api.ipdata.co/' + ip).then(response => {
+          this.flagUrl = response.body.flag;
+          this.flagCountryName = response.body.country_name + ' ' + response.body.city;
+        }, response => {
+        });
       },
     },
     components: {
