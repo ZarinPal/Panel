@@ -3,27 +3,24 @@
   enter-active-class="fade-in"
   leave-active-class="fade-out")
 
-    div.nav-tokens(@mouseover="visibleCloseIcon = true" @mouseleave="visibleCloseIcon = false")
-      div.nav-tokens-title
-        transition(name="fade"
-        enter-active-class="fade-in"
-        leave-active-class="fade-out")
-
-
-      div.row.transaction-row.ta-center
-
-        div.col-xs-1
-          span {{ this.tokens.id }}
+    div(@mouseover="visibleCloseIcon = true" @mouseleave="visibleCloseIcon = false")
+      div.row.ta-center
+        div.logo-width
+          div(v-bind:class="{'device-logo-active': this.tokens.is_current_session}").device-logo
         div.col-xs
-          span {{ this.tokens.client }}
-        div.col-xs
-          img.p-l-5.flag-icon(:src="flagUrl" :title="flagCountryName")
-          span {{ this.tokens.ip }}
-        div.col-xs
-          span {{ this.tokens.last_seen | fromNow }}
-        div.col-xs-1
-          span(:title="$i18n.t('user.deleteTokens')" @click="confirmVisible = true" v-if="!this.tokens.is_current_session" ).close-tokens
-          span(v-if="this.tokens.is_current_session" ) ({{$i18n.t('user.currentSession')}})
+          div.ta-right
+            span.device-name {{ this.tokens.client }}
+            img.p-l-5.flag-icon(:src="flagUrl" :title="flagCountryName")
+          div.ta-right
+            span.row.token-detail.p-t-10 {{ this.tokens.ip }}
+              span.hidden-xs(v-if="this.tokens.is_current_session" ) ({{$i18n.t('user.currentSession')}})
+        div.col-xs.p-l-10
+          div.ta-left
+            span.token-detail {{ this.tokens.last_seen | fromNow }}
+          div.ta-left
+            span.hand.close(:title="$i18n.t('user.deleteTokens')" @click="confirmVisible = true" v-if="!this.tokens.is_current_session" ) {{$i18n.t('common.delete')}}
+            span.token-detail.show-xs.hidden-md.hidden-lg.hidden-sm(v-if="this.tokens.is_current_session && this.tokens.is_current_session" ) ({{$i18n.t('user.currentSession')}})
+
 
 
 
@@ -89,7 +86,8 @@
       findFlag(ip){
         this.$http.get('https://api.ipdata.co/' + ip).then(response => {
           this.flagUrl = response.body.flag;
-          this.flagCountryName = response.body.country_name + ' ' + response.body.city;
+          this.flagCountryName = response.body.country_name + ' ' +
+              response.body.city;
         }, response => {
         });
       },

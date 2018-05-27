@@ -7,20 +7,9 @@
 
     div.row.section.nav-tokens-box
       div.box.full-width
-        div.tokens-box(id="tokensBox" v-if="isLoadedtokens")
-          div.row.transaction-fields-title
-            div.col-xs-1
-              span #
-            div.col-xs
-              span محل
-            div.col-xs
-              span آی پی
-            div.col-xs
-              span اخرین مشاهده
-            div.col-xs-1
-              span حذف
-          span(v-for="(tokens,key) in tokens")
-            singleToken.tokens-book(v-bind:singleTokens="tokens" v-bind:id="tokens.id" v-on:gettokens="gettokens" v-on:deletetokens="deletetokens")
+        div.nav-tokens.tokens-box(id="tokensBox" v-if="isLoadedtokens")
+          div.token-row(v-for="(tokens,key) in tokens")
+            singleToken(v-bind:singleTokens="tokens" v-bind:id="tokens.id" v-on:gettokens="gettokens" v-on:deletetokens="deletetokens")
 
         div.ta-center(v-else)
           loading
@@ -58,6 +47,8 @@
             (response) => {
               if (response.data.data.length) {
                 this.tokens = response.data.data;
+                this.tokens = _.orderBy(this.tokens, ['is_current_session', 'last_seen'], ['desc', 'desc']);
+                console.dir(this.tokens);
                 let tokensCounter = 1;
                 _.forEach(this.tokens, function(tokens) {
                   tokens.id = tokensCounter++;
