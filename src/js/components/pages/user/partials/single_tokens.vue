@@ -7,6 +7,7 @@
       div.row.ta-center
         div.logo-width
           div(v-bind:class="{'device-logo-active': this.tokens.is_current_session}").device-logo
+            div.device-logo-inside
         div.col-xs
           div.ta-right
             span.device-name {{ this.tokens.client }}
