@@ -32,7 +32,7 @@
       confirm.row(v-if="confirmVisible" v-on:confirmed="deletetokens()" v-on:closeModal="closeModal")
         span(slot="title") {{$i18n.t('user.deleteToken')}}
         div.ta-right(slot="message")
-          div {{$i18n.t('common.doYouDelete')}}
+          div {{$i18n.t('common.doYouDeleteToken')}}
 
         span(slot="messageDanger") {{$i18n.t('common.cancel')}}
         span(slot="messageSuccess") {{$i18n.t('easypay.yesDeleteIt')}}

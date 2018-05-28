@@ -107,6 +107,7 @@
     "description": "توضیحات",
     "destinationPan": "شماره‌کارت مقصد",
     "doYouDelete": "حذف می‌کنید؟",
+    "doYouDeleteToken": "ایا نسبت به پایان دادن به این نشست کاربری اطمینان دارید ؟",
     "docNo": "شماره سند",
     "domain": "دامنه",
     "easypay": "زرین‌لینک",
