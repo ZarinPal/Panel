@@ -61,8 +61,7 @@ export default new VueRouter({
         {path: '/', redirect: '/panel/home'},
         {
           path: '',
-          component: require(
-              './components/pages/partials/containers/standard.vue'),
+          component: require('./components/pages/partials/containers/standard.vue'),
           children: [
             {
               path: 'home/:createPurse?',
@@ -86,25 +85,22 @@ export default new VueRouter({
             {
               path: 'webservice/create',
               name: 'webservice.create',
-              component: require(
-                  './components/pages/webservice/partials/create.vue'),
+              component: require('./components/pages/webservice/partials/create.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
                 breadcrumb: [
                   {
-                    crumbName:'panel.webservice',
-                    routeName:'webservice.index'
+                    crumbName: 'panel.webservice',
+                    routeName: 'webservice.index'
                   },
-                  'webservice.create'],
-
-
+                  'webservice.create'
+                ],
               },
             },
             {
               path: 'webservice/edit/:merchantCode',
               name: 'webservice.edit',
-              component: require(
-                  './components/pages/webservice/partials/edit.vue'),
+              component: require('./components/pages/webservice/partials/edit.vue'),
               meta: {
                 accessLevel: ['silver', 'gold'],
                 breadcrumb: [
@@ -128,26 +124,24 @@ export default new VueRouter({
             {
               path: 'card/statement',
               name: 'card.statement',
-              component: require(
-                  './components/pages/card/partials/zarinCardStatement.vue'),
+              component: require('./components/pages/card/partials/zarinCardStatement.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
-
               },
             },
             {
               path: 'easypay/create',
               name: 'easypay.create',
-              component: require(
-                  './components/pages/easypay/partials/create.vue'),
+              component: require('./components/pages/easypay/partials/create.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
                 breadcrumb: [
                   {
-                    crumbName:'panel.easypay',
-                    routeName:'easypay.index'
+                    crumbName: 'panel.easypay',
+                    routeName: 'easypay.index'
                   },
-                  'easypay.createEasypay'],
+                  'easypay.createEasypay'
+                ],
               },
             },
             {
@@ -156,19 +150,22 @@ export default new VueRouter({
               component: require('./components/pages/easypay/index.vue'),
               meta: {
                 accessLevel: ['suspend', 'silver', 'gold'],
-                breadcrumb: [' panel.easypay'],
-
+                breadcrumb: ['panel.easypay'],
               },
             },
             {
               path: 'easypay/edit/:public_id',
               name: 'easypay.edit',
-              component: require(
-                  './components/pages/easypay/partials/edit.vue'),
+              component: require('./components/pages/easypay/partials/edit.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
-                breadcrumb:['easypay.editEasyPay'],
-
+                breadcrumb: [
+                  {
+                    crumbName: 'panel.easypay',
+                    routeName: 'easypay.index'
+                  },
+                  'easypay.editEasyPay'
+                ],
               },
             },
             {
@@ -186,7 +183,6 @@ export default new VueRouter({
               meta: {
                 accessLevel: ['suspend', 'silver', 'gold'],
                 breadcrumb: ['panel.coupon'],
-
               },
             },
             {
@@ -198,11 +194,11 @@ export default new VueRouter({
                 accessLevel: ['silver', 'gold'],
                 breadcrumb: [
                   {
-                    crumbName:'panel.coupon',
-                    routeName:'coupon.index'
+                    crumbName: 'panel.coupon',
+                    routeName: 'coupon.index'
                   },
-                  'coupon.createCoupon'],
-
+                  'coupon.createCoupon'
+                ],
               },
             },
             {
@@ -228,12 +224,11 @@ export default new VueRouter({
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
                 breadcrumb: [
                   {
-                    crumbName:'panel.ticket',
-                    routeName:'ticket.index'
+                    crumbName: 'panel.ticket',
+                    routeName: 'ticket.index'
                   },
-
-                  'ticket.addTicket'],
-
+                  'ticket.addTicket'
+                ],
               },
             },
             {
@@ -245,13 +240,11 @@ export default new VueRouter({
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
                 breadcrumb: [
                   {
-                    crumbName:'panel.webservice',
-                    routeName:'webservice.index'
+                    crumbName: 'panel.webservice',
+                    routeName: 'webservice.index'
                   },
-                    'panel.transactionsession'
+                  'panel.transactionsession'
                 ],
-
-
               },
             },
             {
@@ -267,7 +260,6 @@ export default new VueRouter({
                   },
                     'panel.transaction'
                 ],
-
               },
             },
             {
@@ -297,19 +289,16 @@ export default new VueRouter({
             {
               path: 'user/addAddress',
               name: 'user.addAddress',
-              component: require(
-                  './components/pages/user/partials/add_address.vue'),
+              component: require('./components/pages/user/partials/add_address.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
-                breadcrumb: [' user.addNewAddress'],
-
+                breadcrumb: ['user.addNewAddress'],
               },
             },
             {
               path: 'user/tokens',
               name: 'user.tokens',
-              component: require(
-                  './components/pages/user/partials/tokens.vue'),
+              component: require('./components/pages/user/partials/tokens.vue'),
               meta: {
                 accessLevel: ['basic', 'silver', 'gold'],
               },
@@ -325,12 +314,10 @@ export default new VueRouter({
             {
               path: 'user/notificationSetting',
               name: 'user.notificationSetting',
-              component: require(
-                  './components/pages/user/partials/notification_setting.vue'),
+              component: require('./components/pages/user/partials/notification_setting.vue'),
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
                 breadcrumb: ['user.notificationSetting'],
-
               },
             },
             {
@@ -340,16 +327,13 @@ export default new VueRouter({
               meta: {
                 accessLevel: ['suspend', 'basic', 'silver', 'gold'],
                 breadcrumb:[' user.userProgress'] ,
-
               },
             },
           ],
         },
         {
           path: '',
-          component: require(
-              './components/pages/partials/containers/ticket.vue'),
-
+          component: require('./components/pages/partials/containers/ticket.vue'),
             children: [
             {
               path: '/panel/ticket',
@@ -358,8 +342,7 @@ export default new VueRouter({
                 {
                   path: '',
                   name: 'ticket.index',
-                  component: require(
-                      './components/pages/ticket/pages/empty.vue'),
+                  component: require('./components/pages/ticket/pages/empty.vue'),
                   meta: {
                     accessLevel: ['suspend', 'basic', 'silver', 'gold'],
                     breadcrumb: ['panel.ticket'],
@@ -369,17 +352,15 @@ export default new VueRouter({
                 {
                   path: 'show/:id',
                   name: 'ticket.show',
-                  component: require(
-                      './components/pages/ticket/pages/show.vue'),
+                  component: require('./components/pages/ticket/pages/show.vue'),
                   meta: {
                     accessLevel: ['suspend', 'basic', 'silver', 'gold'],
                     additionalClass: "ticket-breadcrumb-title",
                     breadcrumb: [
                       {
-                        crumbName:'panel.ticket',
-                        routeName:'ticket.index'
+                        crumbName: 'panel.ticket',
+                        routeName: 'ticket.index'
                       },
-
                       'ticket.showTicket'
                     ],
                   },
