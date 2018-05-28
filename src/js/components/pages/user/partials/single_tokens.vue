@@ -3,7 +3,7 @@
   enter-active-class="fade-in"
   leave-active-class="fade-out")
 
-    div(@mouseover="visibleCloseIcon = true" @mouseleave="visibleCloseIcon = false")
+    div.token-row(@mouseover="visibleCloseIcon = true" @mouseleave="visibleCloseIcon = false")
       div.row.ta-center
         div.logo-width
           div(v-bind:class="{'device-logo-active': this.tokens.is_current_session}").device-logo
@@ -11,16 +11,16 @@
         div.col-xs
           div.ta-right
             span.device-name {{ this.tokens.client }}
-            img.p-l-5.flag-icon(:src="flagUrl" :title="flagCountryName")
           div.ta-right
+            img.p-l-5.flag-icon.pull-right.nav-flag(:src="flagUrl" :title="flagCountryName")
             span.row.token-detail.p-t-10 {{ this.tokens.ip }}
-              span.hidden-xs(v-if="this.tokens.is_current_session" ) ({{$i18n.t('user.currentSession')}})
+              span.hidden-xs.token-detail(v-if="this.tokens.is_current_session" ) ({{$i18n.t('user.currentSession')}})
         div.col-xs.p-l-10
           div.ta-left
             span.token-detail {{ this.tokens.last_seen | fromNow }}
           div.ta-left
-            span.hand.close(:title="$i18n.t('user.deleteTokens')" @click="confirmVisible = true" v-if="!this.tokens.is_current_session" ) {{$i18n.t('common.delete')}}
-            span.token-detail.show-xs.hidden-md.hidden-lg.hidden-sm(v-if="this.tokens.is_current_session && this.tokens.is_current_session" ) ({{$i18n.t('user.currentSession')}})
+            span.hand.close.p-t-10(:title="$i18n.t('user.deleteToken')" @click="confirmVisible = true" v-if="!this.tokens.is_current_session" ) {{$i18n.t('user.deleteToken')}}
+            span.hand.close.p-t-10(:title="$i18n.t('user.deleteAllTokens')" @click="confirmVisibleDeleteAll = true" v-if="this.tokens.is_current_session" ) {{$i18n.t('user.deleteAllTokens')}}
 
 
 
@@ -36,9 +36,7 @@
 </template>
 
 <script>
-  import map from './map.vue';
   import confirm from '../../partials/confirm.vue';
-  import selectbox from '../../partials/selectbox.vue';
 
   export default {
     name: 'single-tokens',
@@ -85,12 +83,20 @@
         body.classList.remove("no-scroll");
       },
       findFlag(ip){
-        this.$http.get('https://api.ipdata.co/' + ip).then(response => {
-          this.flagUrl = response.body.flag;
-          this.flagCountryName = response.body.country_name + ' ' +
-              response.body.city;
+        this.$http.get(
+            'https://geoipify.whoisxmlapi.com/api/v1?apiKey=at_i9LZCKmwaYczF6fnkigI456MtwfeZ&ipAddress=' +
+            ip).then(response => {
+              console.log( response);
+          this.$http.get('https://restcountries.eu/rest/v2/alpha/' +
+              response.body.location.country).then(secendresponse => {
+            this.flagUrl = secendresponse.body.flag;
+            this.flagCountryName = secendresponse.body.country + ' ' +
+                secendresponse.body.city;
+          }, response => {
+          });
         }, response => {
         });
+
       },
     },
     components: {
