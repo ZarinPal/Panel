@@ -87,7 +87,7 @@
       },
       findFlag(ip){
         this.$http.get(
-            'http://geoip.nekudo.com/api/' +
+            'https://geoip.nekudo.com/api/' +
             ip).then(response => {
           this.$http.get('https://restcountries.eu/rest/v2/alpha/' +
               response.body.country.code).then(secendresponse => {
