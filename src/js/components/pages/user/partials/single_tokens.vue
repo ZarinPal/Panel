@@ -84,14 +84,13 @@
       },
       findFlag(ip){
         this.$http.get(
-            'https://geoipify.whoisxmlapi.com/api/v1?apiKey=at_i9LZCKmwaYczF6fnkigI456MtwfeZ&ipAddress=' +
+            'http://geoip.nekudo.com/api/' +
             ip).then(response => {
               console.log( response);
           this.$http.get('https://restcountries.eu/rest/v2/alpha/' +
-              response.body.location.country).then(secendresponse => {
+              response.body.country.code).then(secendresponse => {
             this.flagUrl = secendresponse.body.flag;
-            this.flagCountryName = secendresponse.body.country + ' ' +
-                secendresponse.body.city;
+            this.flagCountryName = secendresponse.body.translations.fa;
           }, response => {
           });
         }, response => {
