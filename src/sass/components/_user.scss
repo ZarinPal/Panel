@@ -228,16 +228,67 @@
           font-size: 12px;
           color: #FF1744;
         }
-        .nav-flag{
+        .nav-flag {
           padding-top: 3px;
+        }
+        .clock-logo {
+          background-image: url("../../img/user/tokens/clock.svg");
+          width: 14px;
+          height: 14px;
+          display: inline-block;
+          background-repeat: no-repeat;
+          margin-left: 5px;
+          top: 5px;
+          position: relative;
+        }
+        .panel-logo {
+          background-image: url("../../img/user/tokens/panel.svg");
+          width: 20px;
+          height: 16px;
+          display: inline-block;
+          background-repeat: no-repeat;
+          top: 12px;
+          position: relative;
+        }
+        .panel-logo-active {
+          background-image: url("../../img/user/tokens/panel-active.svg");
+          width: 20px;
+          height: 16px;
+          display: inline-block;
+          background-repeat: no-repeat;
+          top: 12px;
+          position: relative;
+        }
+        .ios-logo {
+          background-image: url("../../img/user/tokens/apple.svg");
+          width: 20px;
+          height: 23px;
+          display: inline-block;
+          background-repeat: no-repeat;
+          top: 7px;
+          position: relative;
+        }
+        .android-logo {
+          background-image: url("../../img/user/tokens/android.svg");
+          width: 20px;
+          height: 23px;
+          display: inline-block;
+          background-repeat: no-repeat;
+          top: 8px;
+          position: relative;
+        }
+        .web-logo {
+          background-image: url("../../img/user/tokens/web.svg");
+          width: 20px;
+          height: 23px;
+          display: inline-block;
+          background-repeat: no-repeat;
+          top: 10px;
+          position: relative;
         }
       }
 
-      div:last-of-type {
-        border-bottom: none !important;
-      }
     }
-
   }
 
   /*** Modal fix ***/

@@ -195,7 +195,7 @@ body {
       top: -8px;
       width: max-content;
       margin-left: 1em;
-      .breadcrumb-separator{
+      .breadcrumb-separator {
         margin-left: 3px;
       }
       &:after {
@@ -424,6 +424,18 @@ body {
           content: $iconLocation;
         }
       }
+      .tokens {
+        background-image: url("../../img/user/tokens/history.svg");
+        width: 18px;
+        height: 17px;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: 18px;
+        top: 3px;
+        position: relative;
+        margin-left: 13px;
+      }
+
 
       .divider {
         margin: 5px 0;
