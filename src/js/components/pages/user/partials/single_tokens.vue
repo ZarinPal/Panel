@@ -7,7 +7,7 @@
       div.row.ta-center
         div.logo-width
           div(v-bind:class="{'device-logo-active': this.tokens.is_current_session}").device-logo
-            div.device-logo-inside
+            div(v-bind:class="{'panel-logo-active': this.tokens.is_current_session ,'panel-logo': this.tokens.client_identifier == 'panel-client' ||  this.tokens.client_identifier == 'payment-gateway-client','ios-logo': this.tokens.client_identifier == 'ios-client','android-logo': this.tokens.client_identifier == 'android-client','web-logo': this.tokens.client_identifier != 'android-client' && this.tokens.client_identifier != 'ios-client' && this.tokens.client_identifier != 'panel-client' &&  this.tokens.client_identifier != 'payment-gateway-client' }")
         div.col-xs
           div.ta-right
             span.device-name {{ this.tokens.client }}
@@ -17,17 +17,20 @@
               span.hidden-xs.token-detail(v-if="this.tokens.is_current_session" ) ({{$i18n.t('user.currentSession')}})
         div.col-xs.p-l-10
           div.ta-left
-            span.token-detail {{ this.tokens.last_seen | fromNow }}
+            span.clock-logo
+            span.token-detail.hidden-xs {{$i18n.t('user.lastSeen')}}:
+            span.token-detail  {{  this.tokens.last_seen | fromNow }}
+
           div.ta-left
             span.hand.close.p-t-10(:title="$i18n.t('user.deleteToken')" @click="confirmVisible = true" v-if="!this.tokens.is_current_session" ) {{$i18n.t('user.deleteToken')}}
-            span.hand.close.p-t-10(:title="$i18n.t('user.deleteAllTokens')" @click="confirmVisibleDeleteAll = true" v-if="this.tokens.is_current_session" ) {{$i18n.t('user.deleteAllTokens')}}
+            <!--span.hand.close.p-t-10(:title="$i18n.t('user.deleteAllTokens')" @click="confirmVisibleDeleteAll = true" v-if="this.tokens.is_current_session" ) {{$i18n.t('user.deleteAllTokens')}}-->
 
 
 
 
       <!--Delete confirm-->
       confirm.row(v-if="confirmVisible" v-on:confirmed="deletetokens()" v-on:closeModal="closeModal")
-        span(slot="title") {{$i18n.t('user.deleteTokens')}}
+        span(slot="title") {{$i18n.t('user.deleteToken')}}
         div.ta-right(slot="message")
           div {{$i18n.t('common.doYouDelete')}}
 
@@ -63,6 +66,7 @@
           this.findFlag(this.singleTokens.ip);
           this.tokens.client = this.singleTokens.client;
           this.tokens.is_current_session = this.singleTokens.is_current_session;
+          this.tokens.client_identifier = this.singleTokens.client_identifier;
           this.tokens.last_seen = this.singleTokens.last_seen;
           this.tokens.user_agent = this.singleTokens.user_agent;
           this.tokens.entity_id = this.singleTokens.entity_id;
@@ -72,7 +76,6 @@
       /*** Send data to parent ***/
       deletetokens() {
         this.tokens.id = this.singleTokens.id;
-        console.log(this.tokens);
         this.$emit('deletetokens', this.tokens);
       },
       closeModal() {
@@ -86,7 +89,6 @@
         this.$http.get(
             'http://geoip.nekudo.com/api/' +
             ip).then(response => {
-              console.log( response);
           this.$http.get('https://restcountries.eu/rest/v2/alpha/' +
               response.body.country.code).then(secendresponse => {
             this.flagUrl = secendresponse.body.flag;
