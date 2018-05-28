@@ -8,7 +8,7 @@
     div.row.section.nav-tokens-box
       div.box.full-width
         div.nav-tokens.tokens-box(id="tokensBox" v-if="isLoadedtokens")
-          div.token-row(v-for="(tokens,key) in tokens")
+          div(v-for="(tokens,key) in tokens")
             singleToken(v-bind:singleTokens="tokens" v-bind:id="tokens.id" v-on:gettokens="gettokens" v-on:deletetokens="deletetokens")
 
         div.ta-center(v-else)
@@ -67,18 +67,20 @@
       },
 
       deletetokens(tokens) {
-        console.log('aaa');
         if (tokens.entity_id) {
+          let elem = document.getElementById(tokens.id);
+          elem.parentNode.classList.add('inactive-step');
           this.$store.state.http.requests['oauth.revokeAccessToken'].delete(
               {token_id: tokens.entity_id}).then(
               () => {
-                let elem = document.getElementById(tokens.id);
+
                 elem.parentNode.removeChild(elem);
                 _.remove(this.tokens, function(singleTokens) {
                   return singleTokens.id == tokens.id;
                 });
               },
               (response) => {
+                elem.parentNode.classList.remove('inactive-step');
                 store.commit('flashMessage', {
                   text: response.data.meta.error_type,
                   important: false,
