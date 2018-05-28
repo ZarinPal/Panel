@@ -108,7 +108,7 @@ mix.webpackConfig({
 })
 
 .copy('src/img/zarinpal.png', 'assets/images')
-  .copy('src/img/ZarinCard.png', 'assets/images');
+  .copy('src/img/banks/ZarinCard.png', 'assets/images');
 
 // Full API
 // mix.js(src, output);
