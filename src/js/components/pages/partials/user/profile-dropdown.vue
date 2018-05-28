@@ -11,8 +11,9 @@
       div.body
         router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.addAddress'}")
           span.icon.location {{$i18n.t('user.addNewAddress')}}
-        <!--router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.tokens'}")-->
-          <!--span.icon {{$i18n.t('user.tokens')}}-->
+        router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.tokens'}")
+          span.icon.tokens
+          span {{$i18n.t('user.tokens')}}
         router-link.items(v-ripple="" tag='div' v-bind:to="{ name: 'user.notificationSetting'}")
           span.icon.notif {{$i18n.t('user.notificationSetting')}}
 
