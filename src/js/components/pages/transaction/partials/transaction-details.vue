@@ -186,21 +186,17 @@
         this.isEditingNote = true;
       },
       findFlag(ip){
-        let request = new XMLHttpRequest();
-        let vm = this;
-        request.open('GET', 'https://api.ipdata.co/' + ip);
-        request.setRequestHeader('Accept', 'application/json');
-        request.onreadystatechange = function() {
-          if (this.readyState === 4) {
-            vm.flagUrl = JSON.parse(this.responseText).flag;
-            vm.flagCountryName = JSON.parse(this.responseText).country_name +
-                ' ' + JSON.parse(this.responseText).city;
-
-          }
-        };
-
-        request.send();
-
+        this.$http.get(
+            'https://geoip.nekudo.com/api/' +
+            ip).then(response => {
+          this.$http.get('https://restcountries.eu/rest/v2/alpha/' +
+              response.body.country.code).then(scenedResponse => {
+            this.flagUrl = scenedResponse.body.flag;
+            this.flagCountryName = scenedResponse.body.translations.fa;
+          }, scenedResponse => {
+          });
+        }, response => {
+        });
       },
       saveNote() {
         let sendContent = {
