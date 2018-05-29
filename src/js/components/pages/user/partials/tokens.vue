@@ -45,7 +45,8 @@
             (response) => {
               if (response.data.data.length) {
                 this.tokens = response.data.data;
-                this.tokens = _.orderBy(this.tokens, ['is_current_session', 'last_seen'], ['desc', 'desc']);
+                this.tokens = _.orderBy(this.tokens,
+                    ['is_current_session', 'last_seen'], ['desc', 'desc']);
                 let tokensCounter = 1;
                 _.forEach(this.tokens, function(tokens) {
                   tokens.id = tokensCounter++;

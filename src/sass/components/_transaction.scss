@@ -33,7 +33,7 @@ $transactionInternalColor: #656565;
   margin: 20px 0;
   border-bottom: 1px solid #cbcbcb;
   padding-bottom: 20px;
-  .btn-export-exel{
+  .btn-export-exel {
     padding: 5px 12px;
   }
   .text {
@@ -371,8 +371,8 @@ $transactionInternalColor: #656565;
 }
 
 @media (max-width: $mobileSize) {
-  .filter-row{
-    .btn-export-exel{
+  .filter-row {
+    .btn-export-exel {
       margin: 1em auto;
     }
 
@@ -463,8 +463,8 @@ $transactionInternalColor: #656565;
 }
 
 @media (max-width: $smallWidth) {
-  .filter-row{
-    .btn-export-exel{
+  .filter-row {
+    .btn-export-exel {
       margin: 1em auto;
     }
   }
@@ -478,9 +478,10 @@ $transactionInternalColor: #656565;
     display: none !important;
   }
 }
+
 @media (min-width: $largeWidth) {
-  .filter-row{
-    .btn-export-exel{
+  .filter-row {
+    .btn-export-exel {
       float: left !important;
     }
   }
