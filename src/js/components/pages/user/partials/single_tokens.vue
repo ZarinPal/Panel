@@ -20,20 +20,16 @@
             span.clock-logo
             span.token-detail.hidden-xs {{$i18n.t('user.lastSeen')}}:
             span.token-detail  {{  this.tokens.last_seen | fromNow }}
-
           div.ta-left
             span.hand.close.p-t-10(:title="$i18n.t('user.deleteToken')" @click="confirmVisible = true" v-if="!this.tokens.is_current_session" ) {{$i18n.t('user.deleteToken')}}
             <!--span.hand.close.p-t-10(:title="$i18n.t('user.deleteAllTokens')" @click="confirmVisibleDeleteAll = true" v-if="this.tokens.is_current_session" ) {{$i18n.t('user.deleteAllTokens')}}-->
 
-
-
-
       <!--Delete confirm-->
-      confirm.row(v-if="confirmVisible" v-on:confirmed="deletetokens()" v-on:closeModal="closeModal")
+      confirm.row(v-if="confirmVisible" v-on:confirmed="deleteTokens()" v-on:closeModal="closeModal")
         span(slot="title") {{$i18n.t('user.deleteToken')}}
         div.ta-right(slot="message")
           div {{$i18n.t('common.doYouDeleteToken')}}
-
+          div.clear
         span(slot="messageDanger") {{$i18n.t('common.cancel')}}
         span(slot="messageSuccess") {{$i18n.t('easypay.yesDeleteIt')}}
 </template>
@@ -74,13 +70,11 @@
         }
       },
       /*** Send data to parent ***/
-      deletetokens() {
+      deleteTokens() {
         this.tokens.id = this.singleTokens.id;
-        this.$emit('deletetokens', this.tokens);
+        this.$emit('deleteTokens', this.tokens);
       },
       closeModal() {
-        //this.updatetokens();
-        //this.visibleMap = false;
         this.confirmVisible = false;
         let body = document.getElementById('body');
         body.classList.remove("no-scroll");
@@ -90,10 +84,10 @@
             'https://geoip.nekudo.com/api/' +
             ip).then(response => {
           this.$http.get('https://restcountries.eu/rest/v2/alpha/' +
-              response.body.country.code).then(secendresponse => {
-            this.flagUrl = secendresponse.body.flag;
-            this.flagCountryName = secendresponse.body.translations.fa;
-          }, response => {
+              response.body.country.code).then(scenedResponse => {
+            this.flagUrl = scenedResponse.body.flag;
+            this.flagCountryName = scenedResponse.body.translations.fa;
+          }, scenedResponse => {
           });
         }, response => {
         });
