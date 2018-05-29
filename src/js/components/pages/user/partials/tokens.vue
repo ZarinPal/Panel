@@ -9,7 +9,7 @@
       div.box.full-width
         div.nav-tokens.tokens-box(id="tokensBox" v-if="isLoadedtokens")
           div(v-for="(tokens,key) in tokens")
-            singleToken(v-bind:singleTokens="tokens" v-bind:id="tokens.id" v-on:gettokens="gettokens" v-on:deletetokens="deletetokens")
+            singleToken(v-bind:singleTokens="tokens" v-bind:id="tokens.id" v-on:gettokens="gettokens" v-on:deleteTokens="deleteTokens")
 
         div.ta-center(v-else)
           loading
@@ -26,8 +26,6 @@
     data() {
       return {
         loading: false,
-        gettokensData: null,
-        tokensCount: 1,
         tokens: [],
         isLoadedtokens: false,
       }
@@ -47,8 +45,8 @@
             (response) => {
               if (response.data.data.length) {
                 this.tokens = response.data.data;
-                this.tokens = _.orderBy(this.tokens, ['is_current_session', 'last_seen'], ['desc', 'desc']);
-                console.dir(this.tokens);
+                this.tokens = _.orderBy(this.tokens,
+                    ['is_current_session', 'last_seen'], ['desc', 'desc']);
                 let tokensCounter = 1;
                 _.forEach(this.tokens, function(tokens) {
                   tokens.id = tokensCounter++;
@@ -66,7 +64,7 @@
         );
       },
 
-      deletetokens(tokens) {
+      deleteTokens(tokens) {
         if (tokens.entity_id) {
           let elem = document.getElementById(tokens.id);
           elem.parentNode.classList.add('inactive-step');

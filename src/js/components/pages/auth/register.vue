@@ -82,7 +82,8 @@
     mounted(){
       let div = document.createElement("div");
       div.setAttribute('class', "g-recaptcha");
-      div.setAttribute('data-sitekey', "6LcDpDcUAAAAAMiXOz1gA3By9oEJ4-PYqct1Ihn5");
+      div.setAttribute('data-sitekey',
+          "6LcDpDcUAAAAAMiXOz1gA3By9oEJ4-PYqct1Ihn5");
       div.setAttribute('data-size', "invisible");
       document.getElementsByTagName("body")[0].appendChild(div);
       let tag = document.createElement("script");
