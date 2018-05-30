@@ -241,7 +241,7 @@
       getFeeWithdrawMethod() {
         let cardType = 'default';
         if (this.card.slug === 'ZarinCard') {
-          cardType = 'zarincard';
+          cardType = 'ZarinCard';
         }
 
         let feeSlugIndex = _.findIndex(this.selectedFee.withdraw_method,
