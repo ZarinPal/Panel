@@ -84,7 +84,7 @@
             'https://geoip.nekudo.com/api/' +
             ip).then(response => {
           this.$http.get('https://restcountries.eu/rest/v2/alpha/' +
-              response.body.country.code).then(scenedResponse => {
+              response.body.country.code +'?fields=flag;translations').then(scenedResponse => {
             this.flagUrl = scenedResponse.body.flag;
             this.flagCountryName = scenedResponse.body.translations.fa;
           }, scenedResponse => {
