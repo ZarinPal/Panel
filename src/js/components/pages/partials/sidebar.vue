@@ -25,7 +25,14 @@
                 span.item-label {{ $i18n.t(tab.titleTransKey) }}
                 span.notification-lamp(v-if="tab.link =='ticket.index' && unreadTicket > 0") {{unreadTicket}}
 
-        div.clear-both
+
+          li
+            a(href="https://help.zarinpal.com" v-ripple="")
+              div
+                i.icon-zp-help
+                span.item-label {{ $i18n.t('panel.help') }}
+
+          div.clear-both
 </template>
 
 <script>
@@ -75,12 +82,6 @@
             titleTransKey: 'panel.ticket',
             accessLevel: [-1, 0, 1, 2, 3]
           },
-          help: {
-            link: 'help.index',
-            icon: 'icon-zp-help',
-            titleTransKey: 'panel.help',
-            accessLevel: [-1, 0, 1, 2, 3]
-          }
         },
       }
     },
