@@ -570,7 +570,8 @@
     "transaction": "تراکنش‌ها",
     "transactionsession": "سشن‌های پرداخت",
     "user": "کاربر",
-    "webservice": "درگاه‌های پرداخت"
+    "webservice": "درگاه‌های پرداخت",
+    "help": "راهنمای پنل زرین‌پال"
   },
   "purse": {
     "acceptTransfer": "ثبت نهایی",

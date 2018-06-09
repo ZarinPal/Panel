@@ -74,6 +74,12 @@
             icon: 'icon-zp-tickets',
             titleTransKey: 'panel.ticket',
             accessLevel: [-1, 0, 1, 2, 3]
+          },
+          help: {
+            link: 'help.index',
+            icon: 'icon-zp-help',
+            titleTransKey: 'panel.help',
+            accessLevel: [-1, 0, 1, 2, 3]
           }
         },
       }
