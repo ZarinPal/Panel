@@ -383,6 +383,10 @@ export default new VueRouter({
       ],
     },
     {path: '/*', redirect: '/panel/error/404'},
+    {
+      path: 'https://help.zarinpal.com/',
+      name: 'help.index',
+    }
   ],
   scrollBehavior (to, from, savedPosition) {
     return {x: 0, y: 0};

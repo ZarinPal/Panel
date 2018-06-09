@@ -144,3 +144,9 @@ span[class^="icon-"], span[class*=" icon-"] {
     content: $icon-zp-arrow-right;
   }
 }
+
+.icon-zp-help {
+  &:before {
+    content: $icon-zp-help;
+  }
+}
