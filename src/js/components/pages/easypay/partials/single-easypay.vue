@@ -5,7 +5,7 @@
         div.row
           div.right-box.overflow-hidden
             p(v-if="this.$store.state.app.singleEasypayMoreTrigger != easypay.entity_id")
-              span.green-small-circle(@click="confirmVisible = true")
+              span.green-small-circle
               a.header-title(:href="'https://Zarinp.al/' +  easypay.public_id" target='_blank') {{easypay.title}}
 
           div.col-xs.ta-left-box.left-box
