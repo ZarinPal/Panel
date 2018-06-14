@@ -2,6 +2,7 @@
   div.inner-content
     div.row.nav-page-header
       div.col-lg-4.col-md-6.col-sm-12.col-xs-12
+        p.page-title {{ $i18n.t('common.easypay') }}
         p.page-description {{ $i18n.t('common.easypayDescription') }}
 
       div.col-lg-8.col-md-6.col-sm-12.col-xs-12

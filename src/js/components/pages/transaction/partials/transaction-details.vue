@@ -80,23 +80,23 @@
               span.value(v-else)  {{ transaction.to_user.name }}
 
           <!--span(v-if="transaction.to_merchant")-->
-          div.row(v-if="transaction.payer.name && transaction.payer.name != ' '")
+          div.row(v-if="transaction.payer_info.name && transaction.payer_info.name != ' '")
             div.col-xs.ta-right
-              span.title(v-if="transaction.payer.name") {{$i18n.t('transaction.payerName')}}
+              span.title(v-if="transaction.payer_info.name") {{$i18n.t('transaction.payerName')}}
             div.col-xs.ta-left
-              span.value.persian-num(v-if="transaction.payer.name") {{ transaction.payer.name}}
+              span.value.persian-num(v-if="transaction.payer_info.name") {{ transaction.payer.name}}
 
-          div.row(v-if="transaction.payer.mobile")
+          div.row(v-if="transaction.payer_info.mobile")
             div.col-xs.ta-right
-              span.title(v-if="transaction.payer.mobile")  {{$i18n.t('transaction.payerMobile')}}
+              span.title(v-if="transaction.payer_info.mobile")  {{$i18n.t('transaction.payerMobile')}}
             div.col-xs.ta-left
-              span.value.persian-num(v-if="transaction.payer.mobile")  {{ transaction.payer.mobile}}
+              span.value.persian-num(v-if="transaction.payer_info.mobile")  {{ transaction.payer.mobile}}
 
-          div.row(v-if="transaction.payer.email")
+          div.row(v-if="transaction.payer_info.email")
             div.col-xs.ta-right
-              span.title(v-if="transaction.payer.email")  {{$i18n.t('transaction.payerEmail')}}
+              span.title(v-if="transaction.payer_info.email")  {{$i18n.t('transaction.payerEmail')}}
             div.col-xs.ta-left
-              span.value(v-if="transaction.payer.email")  {{ transaction.payer.email }}
+              span.value(v-if="transaction.payer_info.email")  {{ transaction.payer.email }}
 
           div.row(v-if="transaction.authority_info.id")
             div.col-xs.ta-right
