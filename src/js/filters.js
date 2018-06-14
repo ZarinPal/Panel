@@ -8,7 +8,9 @@ Vue.filter('persianNumbers', function(value) {
   });
 });
 Vue.filter('jalali', function(date, format) {
-  return moment(date, 'YYYY-MM-DD HH:mm:ss').format(format);
+  if (date) {
+    return moment(date, 'YYYY-MM-DD HH:mm:ss').format(format);
+  }
 });
 
 Vue.filter('fromNow', function(date) {

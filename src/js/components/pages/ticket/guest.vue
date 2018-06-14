@@ -44,7 +44,6 @@
             div.col-lg-3.col-md-4.col-sm-4.col-xs-12
               span.status.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.status)) }}
               span.priority.pull-left {{ $i18n.t('ticket.' + kebabCase(ticket.priority)) }}
-              button.btn.success.hidden-lg(v-on:click="closeReplies()") {{ $i18n.t('common.return') }}
 
         div.replies
           span(v-for="reply in ticket.replies")
