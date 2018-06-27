@@ -60,6 +60,13 @@
         return this.$store.state.auth.user;
       }
     },
+    created() {
+      this.$store.state.http.requests['app.getBasicInfo'].get().then(
+        (response) => {
+          this.$store.commit('auth/fill', response.data.data);
+        }, () => {}
+      )
+    },
     methods: {
       closeModal() {
         this.visibleReferrer = false;
@@ -96,7 +103,6 @@
     components: {
       referrer,
       getEmail
-
     }
   }
 </script>
