@@ -31,16 +31,19 @@
           p.user-information-description.ta-right {{ $i18n.t('card.requestZarinCardDescriptionOfUserInformation') }}
 
           loading(v-if="!isLoadedAddress")
-          selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else v-validate="{ rules: {required: true}}" name="address_id" v-model="address_id" v-bind:data-vv-as="$i18n.t('user.userAddress')" :class="{'input-danger': errors.has('address_id')}" v-on:select="selectAddress" v-bind:data="addresses" :placeholder="$i18n.t('user.userAddress')")
-          div.ta-right(v-if="validation('address_id')")
-            span.text-danger {{ errors.first('address_id') }}
+          div(v-else)
+              router-link.btn.success(v-if="!user.addresses[0]" tag="button" v-bind:to="{name: 'user.addAddress'}") {{$i18n.t('user.addNewAddress')}}
+              selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12(v-else v-validate="{ rules: {required: true}}" name="address_id" v-model="address_id" v-bind:data-vv-as="$i18n.t('user.userAddress')" :class="{'input-danger': errors.has('address_id')}" v-on:select="selectAddress" v-bind:data="addresses" :placeholder="$i18n.t('user.userAddress')")
+              div.ta-right(v-if="validation('address_id')")
+                span.text-danger {{ errors.first('address_id') }}
 
           div.user-information-box.ta-right
             div {{ $i18n.t('user.firstName') }} : {{ user.name }}
             div {{ $i18n.t('user.userAddress') }} : {{ addressTitle }}
             div.persian-num {{ $i18n.t('user.postal') }} : {{ addressPostalCode }}
-            div.text-danger(v-if="!user.addresses[0].address" @click="goAddAddress") {{ $i18n.t('user.userAddress') }} : {{ $i18n.t('user.addressEmpty') }}
-            div.text-danger(v-if="!user.addresses[0].postal_code" @click="goAddAddress") {{ $i18n.t('user.postal') }} : {{ $i18n.t('user.postalCodeEmpty') }}
+            div(v-if="user.addresses[0]")
+                div.text-danger(v-if="!user.addresses[0].address" @click="goAddAddress") {{ $i18n.t('user.userAddress') }} : {{ $i18n.t('user.addressEmpty') }}
+                div.text-danger(v-if="!user.addresses[0].postal_code" @click="goAddAddress") {{ $i18n.t('user.postal') }} : {{ $i18n.t('user.postalCodeEmpty') }}
 
           div.row.zarin-card-request-box
             div.col-xs.right-box
@@ -134,10 +137,10 @@
               if (response.data.data.length) {
                 vm.fullAddresses = response.data.data;
                 vm.addresses = response.data.data.map(function(address) {
-                  return {
-                    'title': address.address,
-                    'value': address.entity_id
-                  }
+                    return {
+                      'title': address.address,
+                      'value': address.entity_id
+                    }
                 });
               }
               vm.isLoadedAddress = true;
