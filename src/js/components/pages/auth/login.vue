@@ -193,7 +193,7 @@
           });
     },
     methods: {
-      sendOtp(channel){
+      sendOtp(channel) {
         if (!this.username) {
           store.commit('flashMessage', {
             text: 'MobileOrEmailNull',
@@ -333,6 +333,7 @@
         this.visibleOtpTimer = false;
         this.visibleSendSms = false;
         this.channel = 'ussd';
+        this.step = 1;
       },
       otpMaxLength() {
         setTimeout(function() {
