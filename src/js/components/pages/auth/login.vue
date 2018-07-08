@@ -10,7 +10,7 @@
 
         <!--Body-->
         <!--First step enter mobile-->
-        form(method="post" @submit.prevent="sendOtp('ussd')" v-if="step == 1 && !loginByMobileApp" action="#" onsubmit="event.preventDefault();" autocomplete)
+        form(method="post" @submit.prevent="sendOtp('sms')" v-if="step == 1 && !loginByMobileApp" action="#" onsubmit="event.preventDefault();" autocomplete)
           div.row.middle-xs
             div.col-xs-12.no-margin.body-messages
               div.col-lg-12.ta-right
@@ -277,7 +277,6 @@
         });
       },
       login(){
-
         this.loginLoading = true;
         if (!this.otp || (this.otp && this.otp.length < 6)) {
           store.commit('flashMessage', {
@@ -368,7 +367,6 @@
         this.lockLogin = false;
       },
       clipboardMessage(event) {
-
         store.commit('flashMessage', {
           text: 'Copied',
           type: 'success',
@@ -394,7 +392,6 @@
           this.getOtpAuthorization((sessionId) => {
             this.startWebPushSocket(sessionId);
           });
-
         }
         this.loginByMobileApp = !this.loginByMobileApp;
       },
