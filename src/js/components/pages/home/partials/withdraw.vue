@@ -20,6 +20,9 @@
             div.ta-right(v-if="validation('purse')")
               span.text-danger {{ errors.first('purse') }}
 
+
+            div.row
+                span.text-danger.ta-right {{ $i18n.t('transaction.transactionReconcileDailyLimitMessage') }}
             div.row
               vue-numeric.ltr-input(v-validate="{ rules: {required: true}}" v-bind:data-vv-as="$i18n.t('transaction.amount')" :class="{'input-danger': errors.has('amount')}" :currency="$i18n.t('webservice.toman')" separator="," v-model="amount" name="amount" id="amount" :placeholder="$i18n.t('card.transferAmountTitle')")
               div.ta-right(v-if="validation('amount')")
