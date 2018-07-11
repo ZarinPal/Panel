@@ -437,6 +437,7 @@
     "TransactionTransactionNotExists": "تراکنش وجود ندارد.",
     "TransactionTransactionToThisAccountIsNotPossible": "انتقال وجه به این حساب کاربری امکان پذیر نیست.",
     "TransactionTransferToThisAccountIsNotPossible": "انتقال وجه به این حساب کاربری امکان پذیر نیست.",
+    "TransactionReconcileDailyLimit": "محدودیت در تسویه حساب",
     "UserAddFundFailLocal": "افزایش اعتبار با خطا مواجه شد.",
     "UserAddFundSuccessLocal": "افزایش اعتبار با موفقیت انجام‌شد.",
     "UserAddressAddedSuccessLocal": "تمامی‌آدرس‌های شما با موفقیت اضافه‌شد",
@@ -822,7 +823,8 @@
     "toman": "تومان",
     "type": "نوع تراکنش",
     "withdraw": "درخواست واریز وجه",
-    "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید."
+    "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید.",
+    "transactionReconcileDailyLimitMessage": "با توجه به اعمال محدوديت توسط بانک مرکزی، امکان ثبت تراکنش بيش از 3 میليون تومان در هر روز، برای زرين کارت مقدور نيست."
   },
   "transactionSession": {
     "amount": "مبلغ",
