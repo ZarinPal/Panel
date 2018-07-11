@@ -33,7 +33,7 @@ export default {
     },
     check: false,
     isRequested: false,
-    otpTime: 30, //As seconds
+    otpTime: 180, //As seconds
     purseLoadedCount: 0,
     getPurseLimit: 3,
     updatePurseListener: 0,
