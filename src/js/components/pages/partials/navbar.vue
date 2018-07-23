@@ -10,7 +10,7 @@
       div.logo.hand
 
     div.col-lg-5.col-sm-5.col-xs-5.left-box
-      a.hidden-xs.navbar-title-cu(href='tel:+982141239') {{ $i18n.t('common.supportTel')}}
+      a.hidden-xs.navbar-title-cu(href='tel:+982188636000') {{ $i18n.t('common.supportTel')}}
       img.profile-dropdown-avatar(@click="visibleProfileDropdown = !visibleProfileDropdown" id="btnProfileDropdown" :src="this.$store.state.auth.user.avatar")
       a.notification.notification-fill(v-if="notifications.data.length >= 1" v-ripple="" id="btnNotification" @click="toggleNotification()" :title="$i18n.t('common.notification')")
       a.notification.notification-empty(v-else v-ripple="" id="btnNotification" @click="toggleNotification()" :title="$i18n.t('common.notification')")
