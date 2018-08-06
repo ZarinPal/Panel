@@ -87,14 +87,14 @@
     },
     mounted(){
       this.detectWidth();
-      this.getTicketSummry();
+      // this.getTicketSummry();
       window.addEventListener("resize", this.detectWidth());
 
       //update unread tickets count
       let vm = this;
-      this.ticketSummeryInterval = setInterval(() => {
-        vm.getTicketSummry();
-      }, 60000);
+      // this.ticketSummeryInterval = setInterval(() => {
+      //   vm.getTicketSummry();
+      // }, 60000);
     },
     beforeDestroy(){
       clearInterval(this.ticketSummeryInterval);
