@@ -825,7 +825,7 @@
     "withdraw": "درخواست واریز وجه",
     "youDontHaveAnyActiveCardMakeNewDescription": "شما هیچ کارت بانکی فعالی ندارید.",
     "transactionReconcileDailyLimitMessage": "با توجه به اعمال محدوديت توسط بانک مرکزی، امکان ثبت تراکنش بيش از 3 میليون تومان در هر روز، برای زرين کارت مقدور نيست.",
-    "transactionReconcileDailyWithdrawSwitchProblemMessage": "با توجه به قعطی سوئیچ تسویه بانک آینده همه روزه از ساعت ۱۲ شب تا ۵ صبح، تسویه حساب‌های آنی ثبت شده به زرین‌کارت در این بازه زمانی، حداکثر تا ساعت ۱۶:۳۰ اولین روز کاری تسویه می‌گردد."
+    "transactionReconcileDailyWithdrawSwitchProblemMessage": "با توجه به قطعی سوئیچ تسویه بانک آینده همه روزه از ساعت ۱۲ شب تا ۵ صبح، تسویه حساب‌های آنی ثبت شده به زرین‌کارت در این بازه زمانی، حداکثر تا ساعت ۱۶:۳۰ اولین روز کاری تسویه می‌گردد."
   },
   "transactionSession": {
     "amount": "مبلغ",
