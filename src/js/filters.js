@@ -11,10 +11,11 @@ Vue.filter('persianNumbers', function(value) {
 });
 Vue.filter('jalali', function(date, format) {
   if (date) {
-    return moment(date, 'YYYY-MM-DD HH:mm:ss').format(format);
+    date = moment(date, 'YYYY-MM-DD HH:mm:ss', true);
+    if (date.isValid())
+      return date.format(format);
   }
 });
-
 Vue.filter('fromNow', function(date) {
   return moment(date, 'YYYY-MM-DD HH:mm:ss').fromNow();
 });

@@ -21,5 +21,19 @@ Vue.mixin({
     removeErrors(field) {
       !!this[field] && this.errors.remove(field);
     },
+
+    /**
+     * check is date is valid or no
+     * @param date
+     * @returns {boolean}
+     */
+    isValidDate(date) {
+      if (date) {
+        date = moment(date, 'YYYY-MM-DD HH:mm:ss', true);
+        if (date.isValid())
+          return true;
+        return false;
+      }
+    }
   },
 });

@@ -27,9 +27,9 @@
             span.account-id.persian-num(v-if="card.account_id") {{ card.account_id}}
             span(v-else) -
 
-          div.col-xs.ta-left(v-if="card.pan")
+          div.col-xs.ta-left(v-if="card.pan && isValidDate(card.expired_at)")
             span {{ $i18n.t('card.expiration') }}:
-            span.text-value.persian-num {{card.expired_at| jalali("jYYYY/jM")}}
+            span.text-value.persian-num {{card.expired_at | jalali("jYYYY/jM")}}
 
       <!--InActive OR Pending Card-->
       div.middle-xs.body.bank-card.disable-card(v-else-if="card.status == 'InActive' || card.status == 'Pending' || card.status == 'Expired'")

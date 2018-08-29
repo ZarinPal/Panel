@@ -80,11 +80,13 @@
     },
     created(){
       store.commit('clearValidationErrors');
-      let jalaliExpiredDate = moment(this.card.expired_at, 'YYYY-MM-DD').
-          format('jYYYY-jMM-jDD');
-      this.nextSixYears = moment().add(6, 'years').format('jYYYY');
-      this.year = moment(jalaliExpiredDate).year();
-      this.month = jalaliExpiredDate.substr(5, 2);
+      if (this.isValidDate(this.card.expired_at)) {
+        let jalaliExpiredDate = moment(this.card.expired_at, 'YYYY-MM-DD').
+            format('jYYYY-jMM-jDD');
+        this.nextSixYears = moment().add(6, 'years').format('jYYYY');
+        this.year = moment(jalaliExpiredDate).year();
+        this.month = jalaliExpiredDate.substr(5, 2);
+      }
     },
     methods: {
       validateForm() {
