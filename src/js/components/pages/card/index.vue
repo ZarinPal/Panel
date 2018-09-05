@@ -4,25 +4,19 @@
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12
         p.page-title {{ $i18n.t('common.cards') }}
         p.page-description {{$i18n.t('card.cardsDescription')}}
-
       div.col-lg-6.col-md-6.col-sm-12.col-xs-12
         button.btn.success(v-if="userHasAccess([0, 1, 2, 3]) >= 0" @click="visibleCreateCard = true")
           span.icon-add-circle
           span.text {{ $i18n.t('card.createCard') }}
-
     div.row.nav-cards
       singleCard(v-for="card in cards.data" v-bind:key="card.entity_id" v-bind:card="card")
-
     <!--Components-->
     createCard(v-if="visibleCreateCard" v-on:closeModal="closeModal()")
-
     <!--Loading data -->
     div.ta-center(v-if="cards.status")
       loading
-
     div.ta-center(v-if="!this.$store.state.paginator.paginator.CardList.resource.resource && cards.data.length")
       span.txt-nothing-to-show {{ $i18n.t('common.thereIsNoOtherItemToDisplay') }}
-
     div.row(v-if="!cards.status && !cards.data.length")
       div.col-xs.ta-center
         span.txt-nothing-to-show  {{ $i18n.t('common.nothingToShow') }}
