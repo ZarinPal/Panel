@@ -126,6 +126,63 @@ body {
 }
 
 /*-------Navbar (Header)-------*/
+.notification-bar {
+  background-color: #21254E;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  -webkit-box-shadow: 0 7px 19px #aaa;
+  box-shadow: 0 7px 19px #aaa;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  margin-right: 0;
+  bottom:-70px;
+
+  .message {
+    color: #ffffff !important;
+    font-size: 16px;
+    margin-left: -160px;
+  }
+
+  .close {
+    padding: 1px 10px;
+    display: inline-block;
+    border-radius: 80px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 400ms;
+    border: 1px solid #fff;
+    float: left;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      transition: 400ms;
+    }
+  }
+}
+
+.snack-animated {
+  animation-name: snackbar-show;
+  animation-duration: 1s;
+  animation-direction: forwards;
+  animation-timing-function: ease-in-out;
+  animation-delay:1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes snackbar-show {
+  0%{ bottom:-70px; }
+  90%, 95% {bottom:0; }
+  92.5%, 100% {bottom:0; }
+}
+
+@keyframes snackbar-hide {
+  0%, 7.5% {bottom:0; }
+  5%,10% {bottom:0; }
+  100% {bottom:-70px; }
+}
+
 .navbar {
   width: 100%;
   background: #fff;
@@ -1043,6 +1100,18 @@ body {
   .hidden-xs {
     display: none !important;
   }
+
+  /*-------Navbar (Header)-------*/
+  .notification-bar {
+    .message {
+      margin-left: 0;
+    }
+
+    .close {
+      float: none;
+    }
+  }
+
 
   /*------Navbar------*/
   .navbar {
