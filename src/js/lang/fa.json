@@ -558,7 +558,8 @@
     "your-address-added-success": "تمامی‌آدرس‌های شما با موفقیت اضافه‌شد",
     "zarin-card-request-success": "درخواست زرین‌کارت شما با موفقیت ثبت شد. کارت شما حداکثر تا دو هفته آینده از طریق پست به آدرس پستی انتخاب شده ارسال خواهد شد.",
     "zarin-gate-activated": "زرین‌گیت فعال شد",
-    "the-input-parameters-are-not-sufficient": "پارامترهای ارسالی کامل نیستند"
+    "select-easypay": "یک درگاه پرداخت را انتخاب کنید",
+    "select-webservice": "یک زرین‌لینک را انتخاب کنید"
   },
   "panel": {
     "card": "کارت‌ها",

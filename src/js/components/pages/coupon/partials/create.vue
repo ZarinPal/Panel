@@ -176,8 +176,25 @@
         this.webservice_id = '';
       },
       createCoupon() {
-        this.loading = true;
+        if (this.type === 'webservice' && !this.easypay_id) {
+          store.commit('flashMessage', {
+            text: 'select-easypay',
+            type: 'danger'
+          });
 
+          return;
+        }
+
+        if (this.type === 'easypay' && !this.webservice_id) {
+          store.commit('flashMessage', {
+            text: 'select-webservice',
+            type: 'danger'
+          });
+
+          return;
+        }
+
+        this.loading = true;
         let couponData = {
           code: this.code,
           discount: {
@@ -194,12 +211,10 @@
         };
 
         this.$store.state.http.requests['coupon.getIndex'].save(couponData).
-            then(
-                () => {
+            then(() => {
                   this.loading = false;
                   this.$router.push({name: 'coupon.index'})
-                },
-                (response) => {
+                }, (response) => {
                   this.loading = false;
                   store.commit('setValidationErrors',
                       response.data.validation_errors);
@@ -207,8 +222,10 @@
                     text: response.data.meta.error_type,
                     type: 'danger'
                   });
-                }
-            )
+                }).catch((err)=> {
+                  console.log(err);
+                  this.loading = false;
+                })
       }
     },
     components: {
