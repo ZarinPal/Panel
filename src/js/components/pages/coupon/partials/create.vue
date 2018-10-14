@@ -176,7 +176,7 @@
         this.webservice_id = '';
       },
       createCoupon() {
-        if (this.type === 'webservice' && !this.easypay_id) {
+        if (this.type === 'easypay' && (this.easypay_id === '' || this.easypay_id === 'undefined')) {
           store.commit('flashMessage', {
             text: 'select-easypay',
             type: 'danger'
@@ -185,7 +185,7 @@
           return;
         }
 
-        if (this.type === 'easypay' && !this.webservice_id) {
+        if (this.type === 'webservice' && (this.webservice_id === '' ||  this.webservice_id === 'undefined')) {
           store.commit('flashMessage', {
             text: 'select-webservice',
             type: 'danger'
