@@ -126,8 +126,8 @@ body {
 }
 
 /*-------Navbar (Header)-------*/
-.notification-bar {
-  background-color: #21254E;
+.notification-container {
+  background-color: #ffef5c;
   color: #fff;
   font-size: 16px;
   padding: 10px;
@@ -139,21 +139,30 @@ body {
   margin-right: 0;
   bottom:-70px;
 
-  .message {
-    color: #ffffff !important;
-    font-size: 16px;
-    margin-left: -160px;
+  .notification-bar {
+    .message {
+      font-family: Lalezar;
+      margin-left: -160px;
+      font-style: normal;
+      font-weight: 500;
+      color: #375d94;
+      font-size: 30px;
+    }
   }
 
-  .close {
+  .notification-bar-close {
+    color: #375d94;
     padding: 1px 10px;
     display: inline-block;
     border-radius: 80px;
     cursor: pointer;
-    margin-left: 10px;
+    -webkit-transition: 400ms;
     transition: 400ms;
     border: 1px solid #fff;
     float: left;
+    display: inline-block;
+    margin-top: -40px;
+    margin-left: 20px;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.2);
@@ -161,6 +170,7 @@ body {
     }
   }
 }
+
 
 .snack-animated {
   animation-name: snackbar-show;
@@ -1088,6 +1098,14 @@ body {
   }
 }
 
+.progress .progress_step {
+  stroke-dasharray: 257.6106;
+  -webkit-transition: stroke-dashoffset 600ms ease-in-out;
+  transition: stroke-dashoffset 600ms ease-in-out;
+  transform: rotate(-90deg);
+  transform-origin: 45px 45px;
+}
+
 @media (max-width: $mobileSize) {
   .main-content {
     padding-right: 10px !important;
@@ -1100,18 +1118,6 @@ body {
   .hidden-xs {
     display: none !important;
   }
-
-  /*-------Navbar (Header)-------*/
-  .notification-bar {
-    .message {
-      margin-left: 0;
-    }
-
-    .close {
-      float: none;
-    }
-  }
-
 
   /*------Navbar------*/
   .navbar {
@@ -1278,10 +1284,18 @@ body {
   }
 }
 
-.progress .progress_step {
-  stroke-dasharray: 257.6106;
-  -webkit-transition: stroke-dashoffset 600ms ease-in-out;
-  transition: stroke-dashoffset 600ms ease-in-out;
-  transform: rotate(-90deg);
-  transform-origin: 45px 45px;
+@media (max-width: 575px) {
+  .notification-container {
+    .message {
+      margin-left: 0 !important;
+    }
+
+    .notification-bar-close {
+      position: relative !important;
+      top: -40px !important;
+      background-color: rgba(0, 0, 0, 0.4) !important;
+      color: #fff !important;
+      margin-left: 11px !important;
+    }
+  }
 }

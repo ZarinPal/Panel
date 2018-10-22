@@ -9,7 +9,7 @@
         <!--button.success.pull-left(v-back="") back-->
         router-view(v-if="$store.state.auth.check")
 
-      <!--notification-bar-->
+      notification-bar
         div.clear-both
 </template>
 
