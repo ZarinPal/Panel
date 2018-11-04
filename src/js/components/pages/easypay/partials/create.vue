@@ -222,11 +222,11 @@
                               span
                               | {{ $i18n.t('easypay.limitInNumber')}}
 
-                          div.ta-right
-                            input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")
-                            label(for="chkEasypayReceipt")
-                              span
-                              | {{ $i18n.t('easypay.showEasypayReceipt')}}
+                          <!--div.ta-right-->
+                            <!--input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")-->
+                            <!--label(for="chkEasypayReceipt")-->
+                              <!--span-->
+                              <!--| {{ $i18n.t('easypay.showEasypayReceipt')}}-->
 
                         div.no-margin.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
                           input(v-validate="'numeric'" v-show="limited" type="text" v-model="limit" :placeholder="$i18n.t('common.count')")
@@ -302,7 +302,7 @@
             placeholder: 'توضیحات'
           },
         },
-        showReceipt: false,
+        showReceipt: true,
         successfulRedirectUrl: null,
         failedRedirectUrl: null,
         limited: false,
