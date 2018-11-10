@@ -798,6 +798,7 @@
     "destination": "مقصد",
     "editNote": "ویرایش یادداشت",
     "excelExport": "خروجی اکسل",
+    "csvExport": "خروجی CSV",
     "fromDate": "از تاریخ",
     "id": "شماره‌تراکنش",
     "listPurse": "لیست تراکنش‌های کیف‌پول",
