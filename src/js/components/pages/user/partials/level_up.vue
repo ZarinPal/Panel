@@ -237,7 +237,7 @@
                 () => {
                   this.isSavingInformation = false;
                   //increase step to show upload documents
-                  this.pageTitle = 'uploadDocumentTitle';
+                  this.pageTitle = 'editInformationTitle';
                   this.step = 2;
                 },
                 (response) => {
