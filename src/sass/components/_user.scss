@@ -328,6 +328,42 @@
     padding: 0 0 10px 0;
     color: #ff1744;
   }
+  .link{
+    cursor: pointer;
+    color: #0a66ff !important;
+  }
+  .label-red-notif{
+    color: #ff1744;
+  }
+  .verify-img{
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .label-national{
+  position: relative;
+  right: 10px;
+  color: #424242;
+  font-size: 13px;
+}
+  .verify-text{
+    margin-bottom: 27px;
+  }
+
+  .verify-txt {
+    line-height: 2.7em;
+    text-align: justify;
+    font-weight: bold;
+
+  }
+  .verify-text{
+    p{
+    line-height: 2.7em;
+    text-align: justify;
+
+  }
+}
   .attach {
     cursor: pointer;
     margin-right: 10px;
@@ -523,5 +559,50 @@
   .buttons {
     margin: 20px 0 0 0;
     padding: 0 !important;
+  }
+}
+
+
+@media only screen and (max-width: 575px) {
+  .level-up .verify-img {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+  @media only screen and (min-width: 575px) and (max-width: 767px) {
+  .level-up .verify-img {
+    img {
+      width: 50%;
+      height: 50%;
+    }
+  }
+
+}
+@media only screen and (min-width: 767px) and (max-width: 992px) {
+  .level-up .verify-img {
+    img {
+      width: 70%;
+      height: 70%;
+    }
+  }
+}
+
+@media only screen and (min-width: 992px){
+  .verify-box{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+
+  .level-up .verify-txt {
+    padding-right: unset;
+    padding-left: unset;
+  }
+  .level-up .label-national {
+    top: -21px;
   }
 }

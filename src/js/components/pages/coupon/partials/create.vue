@@ -4,7 +4,6 @@
       div.col-lg-6.col-md-6.col-sm-6.col-xs-6
         p.page-title {{ $i18n.t('coupon.createCoupon') }}
         p.page-description {{ $i18n.t('coupon.createCouponDescription') }}
-
     form(autocomplete="on" onsubmit="event.preventDefault();")
       div.row.section.nav-create-coupon
         div.row.box
@@ -17,7 +16,6 @@
                 input(v-focus="" v-validate="'required'" :class="{'input-danger': errors.has('code')}" v-bind:data-vv-as="$i18n.t('coupon.offCode')" type="text"  id="code" v-model="code" name="code"  :placeholder="$i18n.t('coupon.sampleCode')" autofocus tabindex="1"  )
                 div.ta-right(v-if="validation('code')")
                   span.text-danger {{ errors.first('code') }}
-
             div.row
               div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                 input(name="coupon-type" v-model="type" value="webservice" type="radio" id="rdoWebservice")
@@ -28,7 +26,6 @@
                 selectbox.selectbox.col-lg-12.col-md-12.col-sm-12.col-xs-12.no-margin(v-on:select="selectedWebservice" id="webservice_id" name="webservice_id" v-bind:data="webserviceSelection" v-bind:class="{'disable' : type == 'easypay', 'input-danger': errors.has('webservice_id')}" :placeholder="$i18n.t('webservice.selectWebservice')" tabindex="2" )
                 div.ta-right(v-if="validation('webservice_id')")
                   span.text-danger {{ errors.first('webservice_id') }}
-
             div.row
               div.col-lg-4.col-md-4.col-sm-12.col-xs-12
                 input(name="coupon-type" v-model="type" value="easypay" type="radio" id="rdoEasypay")

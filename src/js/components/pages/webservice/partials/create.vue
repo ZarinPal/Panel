@@ -24,7 +24,6 @@
                       input.input.ltr-input(v-validate="'required|url'"  v-bind:data-vv-as="$i18n.t('webservice.domain')"   type="text" v-model="domain"  name="domain"  :placeholder= "$i18n.t('webservice.domainPlaceholder')" tabindex="2" )
                     div.no-margin.first-label
                       span http://www.
-
                   div.ta-right(v-if="validation('domain')")
                     span.text-danger {{ errors.first('domain') }}
 
@@ -142,7 +141,6 @@
             return;
           }
         }
-
         this.loading = true;
         let webserviceData = {
           domain: this.domain.toLowerCase(),
@@ -207,12 +205,10 @@
           });
           return;
         }
-
         let image = new Image();
         let reader = new FileReader();
         let vm = this;
         this.fileName = file.name;
-
         reader.onload = (e) => {
           vm.image = e.target.result;
         };

@@ -4,7 +4,30 @@ body {
   margin: 0 !important;
   //height: 100vh !important;
   direction: rtl;
+  .landing-title{
+    background-color: #ffef5c;
+    font-family: Lalezar !important;
+    text-align: center;
+    color: #375d94;
+    font-size: 30px;
 
+  }
+  @media (min-width: 1200px){
+    .landing-title{
+      margin-left: -5%;
+      margin-right: -5%;
+      padding: 3px 100px 0 100px;
+
+    }
+  }
+  @media (max-width: 1199px) and (min-width: 992px){
+    .landing-title{
+      margin-left: -5%;
+      margin-right: -5%;
+      padding: 3px 100px 0 100px;
+
+    }
+  }
   .font {
     font-family: $fontName;
   }

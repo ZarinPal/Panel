@@ -72,7 +72,6 @@
         a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
           span.icon-zp-excel
           span {{$i18n.t('transaction.excelExport')}}
-
     div.transaction-header-container
       div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
         div.col-lg-2.col-md.col-sm.hidden-xs
@@ -265,7 +264,6 @@
           this.searchOptions.toDate = moment(this.toDate,
               'jYYYY/jMM/jDD HH:mm:ss').format();
         }
-
         let vm = this;
         this.$store.dispatch(
             'paginator/make',
@@ -276,7 +274,6 @@
               requestName: "TransactionList"
             }
         );
-
         this.makeExcelQueryString();
       },
       selectFilter(value){
@@ -339,4 +336,5 @@
       datePicker: VuePersianDatetimePicker
     }
   }
+
 </script>
