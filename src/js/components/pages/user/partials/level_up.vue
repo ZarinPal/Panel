@@ -161,7 +161,7 @@
     data() {
       return {
         pageTitle: 'editInformationTitle',
-        step: 3, // [1=> user information, 2=> add address, 3=>user documents]
+        step: 1, // [1=> user information, 2=> add address, 3=>user documents]
         isSavingInformation: false,
         visible_introduction: false,
 
