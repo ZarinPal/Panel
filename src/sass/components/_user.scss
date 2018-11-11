@@ -336,9 +336,14 @@
     color: #ff1744;
   }
   .verify-img{
-    img{
+    width: 100%;
+    height: 100%;
+    .img{
+      background-image: url("../../img/user/verify.svg");
       width: 100%;
       height: 100%;
+      background-size: 100%;
+      background-repeat: no-repeat;
     }
   }
   .label-national{
@@ -573,21 +578,21 @@
 }
 
   @media only screen and (min-width: 575px) and (max-width: 767px) {
-  .level-up .verify-img {
-    img {
-      width: 50%;
-      height: 50%;
-    }
-  }
+  //.level-up .verify-img {
+  //  img {
+  //    width: 50%;
+  //    height: 50%;
+  //  }
+  //}
 
 }
 @media only screen and (min-width: 767px) and (max-width: 992px) {
-  .level-up .verify-img {
-    img {
-      width: 70%;
-      height: 70%;
-    }
-  }
+  //.level-up .verify-img {
+  //  img {
+  //    width: 70%;
+  //    height: 70%;
+  //  }
+  //}
 }
 
 @media only screen and (min-width: 992px){

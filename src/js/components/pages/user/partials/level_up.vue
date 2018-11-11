@@ -72,7 +72,7 @@
                   div.row.nav-rows
                     div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
                       div.verify-img
-                        img(src="/assets/images/verify.svg")
+                          div.img
                     div.col-lg-8.col-md-8.col-sm-12.col-xs-12.verify-box
                       div.row
                         div.col-lg-12.col-md-12.col-xs-12.col-sm-12.verify-text
