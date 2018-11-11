@@ -484,7 +484,7 @@
     "ZarinCardAmountAboveLimits": "مبلغ تراکنش بیش‌ازحد مجاز است.",
     "ZarinCardAmountTooSmall": "مبلغ واردشده کمتر از حد مجاز است.",
     "ZarinCardCutOffTime": "امکان انجام عملیات بانکی در این ساعت وجود ندارد، دقایقی دیگر مجدداً تست کنید.",
-    "ZarinCardHasNoCard": "برای ارسال این درخواست شما باید زرین‌کارت داشته باشید.",
+    "ZarinCardHasNoCard": "برای ارسال این درخواست شما باید یک حساب‌بانکی ثبت کرده باشید.",
     "ZarinCardInsufficientBalance": "موجودی زرین‌کارت شما کمتر از حد مجاز است.",
     "ZarinCardInternalError": "خطای داخلی سرور روی داد.",
     "ZarinCardInvalidDestinationPan": "شماره کارت مقصد صحیح نیست.",
