@@ -149,6 +149,73 @@ body {
 }
 
 /*-------Navbar (Header)-------*/
+.notification-container {
+  background-color: #ffef5c;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  -webkit-box-shadow: 0 7px 19px #aaa;
+  box-shadow: 0 7px 19px #aaa;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  margin-right: 0;
+  bottom:-70px;
+
+  .notification-bar {
+    .message {
+      font-family: Lalezar;
+      margin-left: -160px;
+      font-style: normal;
+      font-weight: 500;
+      color: #375d94;
+      font-size: 30px;
+    }
+  }
+
+  .notification-bar-close {
+    color: #375d94;
+    padding: 1px 10px;
+    display: inline-block;
+    border-radius: 80px;
+    cursor: pointer;
+    -webkit-transition: 400ms;
+    transition: 400ms;
+    border: 1px solid #fff;
+    float: left;
+    display: inline-block;
+    margin-top: -40px;
+    margin-left: 20px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      transition: 400ms;
+    }
+  }
+}
+
+
+.snack-animated {
+  animation-name: snackbar-show;
+  animation-duration: 1s;
+  animation-direction: forwards;
+  animation-timing-function: ease-in-out;
+  animation-delay:1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes snackbar-show {
+  0%{ bottom:-70px; }
+  90%, 95% {bottom:0; }
+  92.5%, 100% {bottom:0; }
+}
+
+@keyframes snackbar-hide {
+  0%, 7.5% {bottom:0; }
+  5%,10% {bottom:0; }
+  100% {bottom:-70px; }
+}
+
 .navbar {
   width: 100%;
   background: #fff;
@@ -1054,6 +1121,14 @@ body {
   }
 }
 
+.progress .progress_step {
+  stroke-dasharray: 257.6106;
+  -webkit-transition: stroke-dashoffset 600ms ease-in-out;
+  transition: stroke-dashoffset 600ms ease-in-out;
+  transform: rotate(-90deg);
+  transform-origin: 45px 45px;
+}
+
 @media (max-width: $mobileSize) {
   .main-content {
     padding-right: 10px !important;
@@ -1232,10 +1307,18 @@ body {
   }
 }
 
-.progress .progress_step {
-  stroke-dasharray: 257.6106;
-  -webkit-transition: stroke-dashoffset 600ms ease-in-out;
-  transition: stroke-dashoffset 600ms ease-in-out;
-  transform: rotate(-90deg);
-  transform-origin: 45px 45px;
+@media (max-width: 575px) {
+  .notification-container {
+    .message {
+      margin-left: 0 !important;
+    }
+
+    .notification-bar-close {
+      position: relative !important;
+      top: -40px !important;
+      background-color: rgba(0, 0, 0, 0.4) !important;
+      color: #fff !important;
+      margin-left: 11px !important;
+    }
+  }
 }

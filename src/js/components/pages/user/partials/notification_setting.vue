@@ -161,10 +161,10 @@
             pusher: this.$store.state.auth.user.setting.income_transaction.pusher
           },
           outgo_transaction: {
-            email: this.$store.state.auth.user.setting.new_login.email,
-            sms: this.$store.state.auth.user.setting.new_login.sms,
-            telegram: this.$store.state.auth.user.setting.new_login.telegram,
-            pusher: this.$store.state.auth.user.setting.new_login.pusher
+            email: this.$store.state.auth.user.setting.outgo_transaction.email,
+            sms: this.$store.state.auth.user.setting.outgo_transaction.sms,
+            telegram: this.$store.state.auth.user.setting.outgo_transaction.telegram,
+            pusher: this.$store.state.auth.user.setting.outgo_transaction.pusher
           },
           new_ticket: {
             email: this.$store.state.auth.user.setting.new_ticket.email,

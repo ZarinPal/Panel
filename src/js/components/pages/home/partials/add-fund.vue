@@ -42,8 +42,8 @@
       }
     },
     mounted() {
-      this.redirect_url = this.$root.baseUrl +
-          this.$router.resolve({name: 'home.finishAddFund'}).href;
+      this.redirect_url = this.$root.baseUrl + '/panel/home';
+
       this.closeModalContent = false;
     },
     computed: {

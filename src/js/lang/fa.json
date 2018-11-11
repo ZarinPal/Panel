@@ -485,7 +485,7 @@
     "ZarinCardAmountAboveLimits": "مبلغ تراکنش بیش‌ازحد مجاز است.",
     "ZarinCardAmountTooSmall": "مبلغ واردشده کمتر از حد مجاز است.",
     "ZarinCardCutOffTime": "امکان انجام عملیات بانکی در این ساعت وجود ندارد، دقایقی دیگر مجدداً تست کنید.",
-    "ZarinCardHasNoCard": "برای ارسال این درخواست شما باید زرین‌کارت داشته باشید.",
+    "ZarinCardHasNoCard": "برای ارسال این درخواست شما باید یک حساب‌بانکی ثبت کرده باشید.",
     "ZarinCardInsufficientBalance": "موجودی زرین‌کارت شما کمتر از حد مجاز است.",
     "ZarinCardInternalError": "خطای داخلی سرور روی داد.",
     "ZarinCardInvalidDestinationPan": "شماره کارت مقصد صحیح نیست.",
@@ -559,7 +559,8 @@
     "your-address-added-success": "تمامی‌آدرس‌های شما با موفقیت اضافه‌شد",
     "zarin-card-request-success": "درخواست زرین‌کارت شما با موفقیت ثبت شد. کارت شما حداکثر تا دو هفته آینده از طریق پست به آدرس پستی انتخاب شده ارسال خواهد شد.",
     "zarin-gate-activated": "زرین‌گیت فعال شد",
-    "the-input-parameters-are-not-sufficient": "پارامترهای ارسالی کامل نیستند"
+    "select-easypay": "یک زرین‌لینک را انتخاب کنید",
+    "select-webservice": "یک درگاه پرداخت را انتخاب کنید"
   },
   "panel": {
     "card": "کارت‌ها",
@@ -798,6 +799,7 @@
     "destination": "مقصد",
     "editNote": "ویرایش یادداشت",
     "excelExport": "خروجی اکسل",
+    "csvExport": "خروجی CSV",
     "fromDate": "از تاریخ",
     "id": "شماره‌تراکنش",
     "listPurse": "لیست تراکنش‌های کیف‌پول",

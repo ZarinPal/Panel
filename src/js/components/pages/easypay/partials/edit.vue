@@ -229,11 +229,11 @@
                                   span
                                   | {{ $i18n.t('easypay.limitInNumber')}}
 
-                              div.ta-right
-                                input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")
-                                label(for="chkEasypayReceipt")
-                                  span
-                                  | {{ $i18n.t('easypay.showEasypayReceipt')}}
+                              <!--div.ta-right-->
+                                <!--input(name="optional" v-model="showReceipt" type="checkbox" id="chkEasypayReceipt")-->
+                                <!--label(for="chkEasypayReceipt")-->
+                                  <!--span-->
+                                  <!--| {{ $i18n.t('easypay.showEasypayReceipt')}}-->
 
                             div.nav-optional-radios.col-lg-5.col-md-5.col-sm-12.col-xs-12
                               input(:class="{'input-danger': errors.has('limit')}" v-validate="'numeric'" v-if="limited" type="number" v-model="limit" :placeholder="$i18n.t('common.count')")
@@ -309,7 +309,7 @@
             placeholder: null
           },
         },
-        showReceipt: '',
+        showReceipt: true,
         successfulRedirectUrl: '',
         failedRedirectUrl: '',
         limited: false,

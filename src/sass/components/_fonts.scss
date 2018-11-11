@@ -74,16 +74,12 @@
   font-weight: normal;
 }
 
-
 @font-face {
   font-family: Lalezar;
   font-style: normal;
   font-weight: 500;
-  src: url('../fonts/woff2/Lalezar.woff2') format('woff2'); /* FF39+,Chrome36+, Opera24+*/
+  src: url('../fonts/woff2/Lalezar.woff2') format('woff2');
 }
-
-
-
 
 i[class^="icon-"], i[class*=" icon-"],
 span[class^="icon-"], span[class*=" icon-"] {

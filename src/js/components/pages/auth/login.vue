@@ -10,7 +10,7 @@
 
         <!--Body-->
         <!--First step enter mobile-->
-        form(method="post" @submit.prevent="sendOtp('sms')" v-if="step == 1 && !loginByMobileApp" action="#" onsubmit="event.preventDefault();" autocomplete)
+        form(method="post" @submit.prevent="sendOtp('ussd')" v-if="step == 1 && !loginByMobileApp" action="#" onsubmit="event.preventDefault();" autocomplete)
           div.row.middle-xs
             div.col-xs-12.no-margin.body-messages
               div.col-lg-12.ta-right
@@ -333,7 +333,6 @@
         this.visibleOtpTimer = false;
         this.visibleSendSms = false;
         this.channel = 'ussd';
-        this.step = 1;
       },
       otpMaxLength() {
         setTimeout(function() {

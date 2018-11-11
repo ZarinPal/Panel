@@ -9,13 +9,15 @@
         <!--button.success.pull-left(v-back="") back-->
         router-view(v-if="$store.state.auth.check")
 
-    div.clear-both
+      notification-bar
+        div.clear-both
 </template>
 
 <script>
   import navbar from '../pages/partials/navbar.vue';
   import sidebar from '../pages/partials/sidebar.vue';
   import loading from '../pages/partials/loading.vue';
+  import NotificationBar from "./partials/notification-bar";
 
   export default {
     name: 'panel',
@@ -72,6 +74,7 @@
       },
     },
     components: {
+      NotificationBar,
       navbar,
       sidebar,
       loading,

@@ -62,7 +62,7 @@
           span.purse-name(v-if="webservice.entity_id == $route.params.id") {{webservice.name}}
         span(v-for="easypay in user.easypays")
           span.purse-name(v-if="easypay.entity_id == $route.params.id") {{easypay.title}}
-      div(v-if="this.$route.params.type == 'purse'").col-lg-5.col-xs-8.pull-left
+      div(v-if="this.$route.params.type == 'purse'").col-lg-4.col-xs-8.pull-left
         ul.select_item.pull-left(:class="{'disable-filter': loadingState.status}")
           li(v-ripple="" @click="applyGeneralFilter('all')" v-bind:class="{ active: generalFilter == 'all' }" ) {{$i18n.t('transaction.all')}}
           li(v-ripple="" @click="applyGeneralFilter('1')" v-bind:class="{ active: generalFilter == '1' }")  {{$i18n.t('transaction.deposit')}}
@@ -72,6 +72,9 @@
         a.btn.simple.pull-left(:href="'/rest/v3/transaction/excel.json?' + excelUrl")
           span.icon-zp-excel
           span {{$i18n.t('transaction.excelExport')}}
+        a.btn.simple.pull-left(:href="'/rest/v3/transaction/csv.json?' + excelUrl" target="blank")
+          span {{$i18n.t('transaction.csvExport')}}
+
     div.transaction-header-container
       div.row.transaction-fields-title#transactionsHeader(v-if="transactions.data.length")
         div.col-lg-2.col-md.col-sm.hidden-xs
