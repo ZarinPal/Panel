@@ -22,6 +22,7 @@
                 div.ta-right(v-if="validation('ticket_department_id')")
                   span.text-danger {{ errors.first('ticket_department_id') }}
 
+
             div.row.no-margin
               textarea(v-validate="{ rules: {required: true, min: 10, max:10000}}" v-bind:data-vv-as="$i18n.t('common.description')" :class="{'input-danger': errors.has('content')}" v-model="content" name="content" :placeholder="$i18n.t('common.description')" tabindex="3")
               div.ta-right(v-if="validation('content')")
