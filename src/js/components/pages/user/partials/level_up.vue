@@ -70,10 +70,10 @@
                   div.row.nav-rows
                   <!--id_card_file-->
                   div.row.nav-rows
-                    div.col-lg-4.col-md-4.col-sm-12.col-xs-12.no-margin
+                    div.col-lg-4.col-md-5.col-sm-12.col-xs-12.no-margin
                       div.verify-img
                           div.img
-                    div.col-lg-8.col-md-8.col-sm-12.col-xs-12.verify-box
+                    div.col-lg-8.col-md-7.col-sm-12.col-xs-12.verify-box
                       div.row
                         div.col-lg-12.col-md-12.col-xs-12.col-sm-12.verify-text
                           p.verify-txt {{ $i18n.t('user.authenticate') }}
@@ -87,6 +87,7 @@
                               a.link(href="https://cdn.zarinpal.com/files/auth-sample.jpg" target="_blank") {{ $i18n.t('user.clike') }}
                               span {{ $i18n.t('user.authenticateDescribe2-2') }}
                             p {{ $i18n.t('user.authenticateDescribe3') }}
+                            p {{ $i18n.t('user.authenticateDescribe4') }}
                       div.row
                         div.col-lg-3.col-md-3.col-sm-3.col-xs-12.no-margin
                           span.label-national {{ $i18n.t('user.nationalIdFile') }}
@@ -96,6 +97,17 @@
                               span(v-if="documentFiles.id_card_file") {{ $i18n.t('user.fileSelected') }}
                               span(v-else) {{ $i18n.t('user.clickToSelectFile') }}
                             input(type="file" name="file" @change="createFile($event, 'id_card_file')")
+                      div.row.m-t-15
+                        div.col-lg-3.col-md-3.col-sm-3.col-xs-12.no-margin
+                          span.label-national {{ $i18n.t('user.nationalCardFilee') }}
+                        div.col-lg-9.col-md-9.col-sm-9.col-xs-12.no-margin
+                          label.attach
+                            span.select-text(:class="{'uploaded' : documentFiles.id_card_file}")
+                              span(v-if="documentFiles.national_card_file") {{ $i18n.t('user.fileSelected') }}
+                              span(v-else) {{ $i18n.t('user.clickToSelectFile') }}
+                            input(type="file" name="file" @change="createFile($event, 'id_card_file')")
+
+
                       div.row.nav-rows
                         div.col-xs-12.label-red
                           span {{ $i18n.t('user.uploadDocumentNotice') }}
@@ -161,7 +173,7 @@
     data() {
       return {
         pageTitle: 'editInformationTitle',
-        step: 1, // [1=> user information, 2=> add address, 3=>user documents]
+        step: 3, // [1=> user information, 2=> add address, 3=>user documents]
         isSavingInformation: false,
         visible_introduction: false,
 

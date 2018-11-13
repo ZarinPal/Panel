@@ -846,9 +846,11 @@
     "withoutPhone": "بدون شماره"
   },
   "user": {
+    "nationalCardFilee": " فایل عکس کارت ملی",
     "selfiImg": " عکس سلفی",
     "authenticate": " لطفا برای احراز هویت، مراحل زیر را انجام دهید:",
-    "authenticateDescribe3": "۳. عکس گرفته شده را از طریق فیلد زیر برای زرین‌پال ارسال نمایید.",
+    "authenticateDescribe4": "۴. عکس های گرفته شده را از طریق فیلدهای زیر برای زرین‌پال ارسال نمایید.",
+    "authenticateDescribe3": "۳. به صورت جدا از کارت ملی خود نیز با وضوحیت کامل عکس بگیرید.",
     "authenticateDescribe1-1": " ۱. فایل مورد نظر را از این ",
     "authenticateDescribe1-2": "دانلود کنید، آن را پرینت بگیرید و بعد از مطالعه امضا کنید.",
     "clike": "اینجا کلیک کنید",
@@ -1047,7 +1049,7 @@
     "name": "نام کاربر",
     "nationalCardFile": "فایل اسکن شناسنامه",
     "nationalId": "کد ملی",
-    "nationalIdFile": "فایل عکس",
+    "nationalIdFile": "فایل عکس شخصی",
     "national_card_file": "کارت ملی",
     "newLogin": "ورود به زرین‌پال",
     "newPass": "رمز‌عبور جدید",
