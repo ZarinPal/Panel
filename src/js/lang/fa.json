@@ -846,7 +846,6 @@
     "withoutPhone": "بدون شماره"
   },
   "user": {
-    "nationalCardFilee": " فایل عکس کارت ملی",
     "selfiImg": " عکس سلفی",
     "authenticate": " لطفا برای احراز هویت، مراحل زیر را انجام دهید:",
     "authenticateDescribe4": "۴. عکس های گرفته شده را از طریق فیلدهای زیر برای زرین‌پال ارسال نمایید.",
@@ -1047,7 +1046,7 @@
     "multiAccountLogin1": "ورود با حساب ",
     "multiAccountLogin2": "با موفقیت انجام‌شد",
     "name": "نام کاربر",
-    "nationalCardFile": "فایل اسکن شناسنامه",
+    "nationalCardFile": "فایل عکس کارت ملی",
     "nationalId": "کد ملی",
     "nationalIdFile": "فایل عکس شخصی",
     "national_card_file": "کارت ملی",

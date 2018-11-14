@@ -99,14 +99,13 @@
                             input(type="file" name="file" @change="createFile($event, 'id_card_file')")
                       div.row.m-t-15
                         div.col-lg-3.col-md-3.col-sm-3.col-xs-12.no-margin
-                          span.label-national {{ $i18n.t('user.nationalCardFilee') }}
+                          span.label-national {{ $i18n.t('user.nationalCardFile') }}
                         div.col-lg-9.col-md-9.col-sm-9.col-xs-12.no-margin
                           label.attach
-                            span.select-text(:class="{'uploaded' : documentFiles.id_card_file}")
+                            span.select-text(:class="{'uploaded' : documentFiles.national_card_file}")
                               span(v-if="documentFiles.national_card_file") {{ $i18n.t('user.fileSelected') }}
                               span(v-else) {{ $i18n.t('user.clickToSelectFile') }}
-                            input(type="file" name="file" @change="createFile($event, 'id_card_file')")
-
+                            input(type="file" name="file" @change="createFile($event, 'national_card_file')")
 
                       div.row.nav-rows
                         div.col-xs-12.label-red
@@ -134,10 +133,6 @@
                             span(v-if="documentFiles.national_card_file") {{ $i18n.t('user.fileSelected') }}
                             span(v-else) {{ $i18n.t('user.clickToSelectFile') }}
                           input(type="file" name="file" @change="createFile($event, 'national_card_file')")
-
-
-
-
 
                   div(v-if="!isSaving")
                     span(v-if="isUploading && isUploading != 'Failed'") {{ $i18n.t('user.uploading') }}
