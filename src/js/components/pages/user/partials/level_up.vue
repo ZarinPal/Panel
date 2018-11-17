@@ -129,10 +129,10 @@
                         | {{ $i18n.t('user.idCardFile') }}
                       div.col-lg-4.col-md-4.col-sm-4.col-xs-12.no-margin
                         label.attach
-                          span.select-text(:class="{'uploaded' : documentFiles.national_card_file}")
-                            span(v-if="documentFiles.national_card_file") {{ $i18n.t('user.fileSelected') }}
+                          span.select-text(:class="{'uploaded': documentFiles.introduction_file}")
+                            span(v-if="documentFiles.introduction_file") {{ $i18n.t('user.fileSelected') }}
                             span(v-else) {{ $i18n.t('user.clickToSelectFile') }}
-                          input(type="file" name="file" @change="createFile($event, 'national_card_file')")
+                          input(type="file" name="file" @change="createFile($event, 'introduction_file')")
 
                   div(v-if="!isSaving")
                     span(v-if="isUploading && isUploading != 'Failed'") {{ $i18n.t('user.uploading') }}
