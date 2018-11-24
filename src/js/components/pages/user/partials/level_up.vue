@@ -83,11 +83,15 @@
                               span {{ $i18n.t('user.authenticateDescribe1-2') }}
                             p.label-red-notif {{ $i18n.t('user.attention') }}
                             p
-                              span {{ $i18n.t('user.authenticateDescribe2-1') }}
-                              a.link(href="https://cdn.zarinpal.com/files/auth-sample.jpg" target="_blank") {{ $i18n.t('user.clike') }}
-                              span {{ $i18n.t('user.authenticateDescribe2-2') }}
+                              span {{ $i18n.t('user.authenticateDescribe5') }}
+
+                            p
+                              span.label-red-notif {{ $i18n.t('user.attention5') }}
+                              a.link(href="https://cdn.zarinpal.com/files/auth-sample.jpg" target="_blank") {{ $i18n.t('user.attention5-1') }}
                             p {{ $i18n.t('user.authenticateDescribe3') }}
                             p {{ $i18n.t('user.authenticateDescribe4') }}
+                            a.aparat-video(href="https://www.aparat.com/v/KiWat" target="_blank")
+                               p.aparat {{ $i18n.t('user.videoAparat') }}
                       div.row
                         div.col-lg-3.col-md-3.col-sm-3.col-xs-12.no-margin
                           span.label-national {{ $i18n.t('user.nationalIdFile') }}

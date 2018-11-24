@@ -323,6 +323,25 @@
     padding: 0 0 10px 0;
     border-bottom: 1px solid #eee;
   }
+  .aparat{
+    margin-top: 12px;
+    width: max-content;
+    /* color: #333 !important; */
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 100px;
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+    padding: 8px 18px;
+    background-image: linear-gradient(-222deg, #E8EBED 0%, #DADEE0 73%, #D5D9DB 100%);
+    -webkit-box-shadow: 0 3px 9px 0 rgba(216, 220, 222, 0.3);
+    box-shadow: 0 3px 9px 0 rgba(216, 220, 222, 0.3);
+  }
+  .aparat-video{
+
+  }
+
   .label-red {
     margin: 10px 0 25px 0;
     padding: 0 0 10px 0;
@@ -347,11 +366,11 @@
     }
   }
   .label-national{
-  position: relative;
-  right: 10px;
-  color: #424242;
-  font-size: 13px;
-}
+    position: relative;
+    right: 10px;
+    color: #424242;
+    font-size: 13px;
+  }
   .verify-text{
     margin-bottom: 27px;
   }
@@ -364,11 +383,11 @@
   }
   .verify-text{
     p{
-    line-height: 2.7em;
-    text-align: justify;
+      line-height: 2.7em;
+      text-align: justify;
 
+    }
   }
-}
   .attach {
     cursor: pointer;
     margin-right: 10px;
@@ -579,6 +598,14 @@
     }
   }
 }
+@media only screen and (max-width: 387px) {
+  .level-up{
+   .aparat{
+     font-size: 11px;
+     max-width: -webkit-fill-available !important;
+   }
+  }
+}
 
 @media only screen and (min-width: 346px) and (max-width: 500px) {
   .level-up{
@@ -603,18 +630,18 @@
   }
 }
 
-  @media only screen and (min-width: 575px) and (max-width: 767px) {
-    .level-up {
-      .verify-img {
-        .img {
-          width: 68%;
-          height: 373px;
-          background-position: center center;
-          margin: auto;
-        }
+@media only screen and (min-width: 575px) and (max-width: 767px) {
+  .level-up {
+    .verify-img {
+      .img {
+        width: 68%;
+        height: 373px;
+        background-position: center center;
+        margin: auto;
       }
     }
   }
+}
 @media only screen and (min-width: 767px) and (max-width: 992px) {
   .level-up {
     .verify-img {
