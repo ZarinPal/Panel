@@ -108,7 +108,6 @@ mix.webpackConfig({
 })
 
 .copy('src/img/zarinpal.png', 'assets/images')
-.copy('src/img/user/verify.svg', 'assets/images')
 .copy('src/img/banks/ZarinCard.png', 'assets/images');
 
 // Full API
