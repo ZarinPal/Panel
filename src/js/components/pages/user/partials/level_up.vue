@@ -105,7 +105,7 @@
                             input(type="file" name="file" @change="createFile($event, 'id_card_file')")
                       div.row.m-t-15
                         div.col-lg-3.col-md-3.col-sm-3.col-xs-12.no-margin
-                          span.label-national {{ $i18n.t('user.nationalCardFile') }}
+                          span.label-national {{ $i18n.t('user.nationalCardFile1') }}
                         div.col-lg-9.col-md-9.col-sm-9.col-xs-12.no-margin
                           label.attach
                             span.select-text(:class="{'uploaded' : documentFiles.national_card_file}")
