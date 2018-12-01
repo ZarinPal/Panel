@@ -87,7 +87,9 @@
 
                             p
                               span.label-red-notif {{ $i18n.t('user.attention5') }}
+                              span (
                               a.link(href="https://cdn.zarinpal.com/files/auth-sample.jpg" target="_blank") {{ $i18n.t('user.attention5-1') }}
+                              span )
                             p {{ $i18n.t('user.authenticateDescribe3') }}
                             p {{ $i18n.t('user.authenticateDescribe4') }}
                             a.aparat-video(href="https://www.aparat.com/v/KiWat" target="_blank")
