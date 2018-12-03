@@ -65,15 +65,8 @@
 
                     <!--Step 2-->
                 div(v-if="step == 3")
-
-                  <!--national_card_file-->
-                  div.row.nav-rows
-                  <!--id_card_file-->
-                  div.row.nav-rows
-                    div.col-lg-4.col-md-5.col-sm-12.col-xs-12.no-margin
-                      div.verify-img
-                          div.img
-                    div.col-lg-8.col-md-7.col-sm-12.col-xs-12.verify-box
+                  div.row
+                    div.col-lg-7.col-md-7.col-sm-12.col-xs-12.box-content-verify
                       div.row
                         div.col-lg-12.col-md-12.col-xs-12.col-sm-12.verify-text
                           p.verify-txt {{ $i18n.t('user.authenticate') }}
@@ -81,19 +74,17 @@
                               span {{ $i18n.t('user.authenticateDescribe1-1') }}
                               a.link(href="https://cdn.zarinpal.com/files/auth.pdf" target="_blank") {{ $i18n.t('common.link') }}
                               span {{ $i18n.t('user.authenticateDescribe1-2') }}
-                            p.label-red-notif {{ $i18n.t('user.attention') }}
                             p
                               span {{ $i18n.t('user.authenticateDescribe5') }}
 
-                            p
-                              span.label-red-notif {{ $i18n.t('user.attention5') }}
-                              span (
-                              a.link(href="https://cdn.zarinpal.com/files/auth-sample.jpg" target="_blank") {{ $i18n.t('user.attention5-1') }}
-                              span )
                             p {{ $i18n.t('user.authenticateDescribe3') }}
                             p {{ $i18n.t('user.authenticateDescribe4') }}
-                            a.aparat-video(href="https://www.aparat.com/v/KiWat" target="_blank")
-                               p.aparat {{ $i18n.t('user.videoAparat') }}
+                            p
+                              strong {{ $i18n.t('user.note') }}
+                              span.label-notif {{ $i18n.t('user.attention') }}
+                            p
+                               strong {{ $i18n.t('user.note') }}
+                               span.label-notif {{ $i18n.t('user.attention5') }}
                       div.row
                         div.col-lg-3.col-md-3.col-sm-3.col-xs-12.no-margin
                           span.label-national {{ $i18n.t('user.nationalIdFile') }}
@@ -112,10 +103,78 @@
                               span(v-if="documentFiles.national_card_file") {{ $i18n.t('user.fileSelected') }}
                               span(v-else) {{ $i18n.t('user.clickToSelectFile') }}
                             input(type="file" name="file" @change="createFile($event, 'national_card_file')")
-
                       div.row.nav-rows
                         div.col-xs-12.label-red
                           span {{ $i18n.t('user.uploadDocumentNotice') }}
+                    div.col-lg-5.col-md-5.col-sm-12.col-xs-12.box-img-verify
+                      div.verify-img
+                        div.img
+                      div
+                        a.aparat-video(href="https://www.aparat.com/v/KiWat" target="_blank")
+                          p.aparat-camera {{ $i18n.t('user.videoAparat') }}
+                      div
+                        a.link(href="https://cdn.zarinpal.com/files/auth-sample.jpg" target="_blank")
+                          p.aparat-play  {{ $i18n.t('user.attention5-1') }}
+
+
+
+
+
+
+
+
+
+
+
+                  <!--&lt;!&ndash;national_card_file&ndash;&gt;-->
+                  <!--div.row.nav-rows-->
+                  <!--&lt;!&ndash;id_card_file&ndash;&gt;-->
+                  <!--div.row.nav-rows-->
+                    <!--div.col-lg-4.col-md-5.col-sm-12.col-xs-12.no-margin-->
+                      <!--div.verify-img-->
+                          <!--div.img-->
+                    <!--div.col-lg-8.col-md-7.col-sm-12.col-xs-12.verify-box-->
+                      <!--div.row-->
+                        <!--div.col-lg-12.col-md-12.col-xs-12.col-sm-12.verify-text-->
+                          <!--p.verify-txt {{ $i18n.t('user.authenticate') }}-->
+                            <!--p-->
+                              <!--span {{ $i18n.t('user.authenticateDescribe1-1') }}-->
+                              <!--a.link(href="https://cdn.zarinpal.com/files/auth.pdf" target="_blank") {{ $i18n.t('common.link') }}-->
+                              <!--span {{ $i18n.t('user.authenticateDescribe1-2') }}-->
+                            <!--p.label-red-notif {{ $i18n.t('user.attention') }}-->
+                            <!--p-->
+                              <!--span {{ $i18n.t('user.authenticateDescribe5') }}-->
+
+                            <!--p-->
+                              <!--span.label-red-notif {{ $i18n.t('user.attention5') }}-->
+                              <!--span (-->
+                              <!--a.link(href="https://cdn.zarinpal.com/files/auth-sample.jpg" target="_blank") {{ $i18n.t('user.attention5-1') }}-->
+                              <!--span )-->
+                            <!--p {{ $i18n.t('user.authenticateDescribe3') }}-->
+                            <!--p {{ $i18n.t('user.authenticateDescribe4') }}-->
+                            <!--a.aparat-video(href="https://www.aparat.com/v/KiWat" target="_blank")-->
+                               <!--p.aparat {{ $i18n.t('user.videoAparat') }}-->
+                      <!--div.row-->
+                        <!--div.col-lg-3.col-md-3.col-sm-3.col-xs-12.no-margin-->
+                          <!--span.label-national {{ $i18n.t('user.nationalIdFile') }}-->
+                        <!--div.col-lg-9.col-md-9.col-sm-9.col-xs-12.no-margin-->
+                          <!--label.attach-->
+                            <!--span.select-text(:class="{'uploaded' : documentFiles.id_card_file}")-->
+                              <!--span(v-if="documentFiles.id_card_file") {{ $i18n.t('user.fileSelected') }}-->
+                              <!--span(v-else) {{ $i18n.t('user.clickToSelectFile') }}-->
+                            <!--input(type="file" name="file" @change="createFile($event, 'id_card_file')")-->
+                      <!--div.row.m-t-15-->
+                        <!--div.col-lg-3.col-md-3.col-sm-3.col-xs-12.no-margin-->
+                          <!--span.label-national {{ $i18n.t('user.nationalCardFile1') }}-->
+                        <!--div.col-lg-9.col-md-9.col-sm-9.col-xs-12.no-margin-->
+                          <!--label.attach-->
+                            <!--span.select-text(:class="{'uploaded' : documentFiles.national_card_file}")-->
+                              <!--span(v-if="documentFiles.national_card_file") {{ $i18n.t('user.fileSelected') }}-->
+                              <!--span(v-else) {{ $i18n.t('user.clickToSelectFile') }}-->
+                            <!--input(type="file" name="file" @change="createFile($event, 'national_card_file')")-->
+                      <!--div.row.nav-rows-->
+                        <!--div.col-xs-12.label-red-->
+                          <!--span {{ $i18n.t('user.uploadDocumentNotice') }}-->
                   <!--introduction_file-->
                   div.row.nav-rows
                     div.col-xs-12
@@ -174,7 +233,7 @@
     data() {
       return {
         pageTitle: 'editInformationTitle',
-        step: 1, // [1=> user information, 2=> add address, 3=>user documents]
+        step:1, // [1=> user information, 2=> add address, 3=>user documents]
         isSavingInformation: false,
         visible_introduction: false,
 
