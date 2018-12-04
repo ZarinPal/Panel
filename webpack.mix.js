@@ -71,22 +71,22 @@ plugins.push(
     })
 );
 
-if ('production' === process.env.NODE_ENV && !process.env.ELECTRONAPP) {
-    let SentryPlugin = require('webpack-sentry-plugin');
-    plugins.push(new SentryPlugin({
-        // Sentry options are required
-        organization: 'sentry',
-        project: 'panel',
-        apiKey: '2f7d2e3c06a24d9c9642ff51c44269a13d3935075f194a91982386667b4cf730',
-        filenameTransform: function (filename) {
-            return '~/panel/v1/assets' + filename
-        },
-        // Release version name/hash is required
-        release: process.env.GIT_SHA,
-        baseSentryURL: 'https://sentry.zarinpal.com/api/0'
-    }));
-
-}
+// if ('production' === process.env.NODE_ENV && !process.env.ELECTRONAPP) {
+//     let SentryPlugin = require('webpack-sentry-plugin');
+//     plugins.push(new SentryPlugin({
+//         // Sentry options are required
+//         organization: 'sentry',
+//         project: 'panel',
+//         apiKey: '2f7d2e3c06a24d9c9642ff51c44269a13d3935075f194a91982386667b4cf730',
+//         filenameTransform: function (filename) {
+//             return '~/panel/v1/assets' + filename
+//         },
+//         // Release version name/hash is required
+//         release: process.env.GIT_SHA,
+//         baseSentryURL: 'https://sentry.zarinpal.com/api/0'
+//     }));
+//
+// }
 let siteConfigs = {
     baseUrl: 'https://my.zarinpal.com',
     routerMode: 'history',
