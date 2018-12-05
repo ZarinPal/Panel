@@ -111,10 +111,10 @@
                         div.img
                       div
                         a.aparat-video(href="https://www.aparat.com/v/KiWat" target="_blank")
-                          p.aparat-camera {{ $i18n.t('user.videoAparat') }}
+                          p.aparat-play {{ $i18n.t('user.videoAparat') }}
                       div
                         a.link(href="https://cdn.zarinpal.com/files/auth-sample.jpg" target="_blank")
-                          p.aparat-play  {{ $i18n.t('user.attention5-1') }}
+                          p.aparat-camera {{ $i18n.t('user.attention5-1') }}
 
 
 
