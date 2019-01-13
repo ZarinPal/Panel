@@ -375,7 +375,7 @@
     "EasypayUsernameCreated": "نام کاربری ذخیره شد",
     "InsufficientBalance": "موجودی کیف‌پول شما برای انجام این عملیات کافی نیست.",
     "InternalError": "خطای 500 : خطای داخلی سامانه رخ داد - با پشتیبانی تماس بگیرید",
-    "InvalidAttachment": "فایل پیوست شده نا معتر است",
+    "InvalidAttachment": "فایل پیوست شده نا معتبر است",
     "InvalidFileDimen": "سایز عکس بایدحتما 500x500 پیکسل باشد",
     "InvalidFileExt": "تصویر دارای فرمت صحیح نیست.",
     "InvalidFromPurseId": "کیف‌پول مبدأ صحیح نیست",
