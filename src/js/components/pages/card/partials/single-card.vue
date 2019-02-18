@@ -25,6 +25,7 @@
           div.ta-right
             span.label {{$i18n.t('card.accountId')}}:
             span.account-id.persian-num(v-if="card.account_id") {{ card.account_id}}
+            span(v-else-if="card.issuer.slug === 'ZarinCard'") بدون شماره حساب
             span(v-else) -
 
           div.col-xs.ta-left(v-if="card.pan && isValidDate(card.expired_at)")
