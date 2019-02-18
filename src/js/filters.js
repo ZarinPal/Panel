@@ -28,7 +28,11 @@ Vue.filter('numberFormat', function(num) {
   if (/,/g.test(num))
     number = num.replace(/,/g, '');
 
-  return number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + ',');
+  if (number) {
+    return number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + ',');
+  }
+
+  return number;
 });
 Vue.filter('less', function(value, length = 20) {
   if (value.length < length) {
