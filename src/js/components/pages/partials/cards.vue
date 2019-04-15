@@ -22,7 +22,7 @@
           }
 
           _.forEach(this.$store.state.auth.user.cards, function(card) {
-            if (card.status === "Active" && card.iban) {
+            if (card.status === "Active" && (card.iban || card.issuer.slug === 'ZarinCard')) {
               let cardPan = card.account_id;
               if (card.issuer.slug === 'ZarinCard')
                 cardPan = Vue.options.filters.cardNumber(card.pan);
