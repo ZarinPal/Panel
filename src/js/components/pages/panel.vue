@@ -8,9 +8,9 @@
       div.col-xs.main-content
         <!--button.success.pull-left(v-back="") back-->
         router-view(v-if="$store.state.auth.check")
-
-      notification-bar
-        div.clear-both
+      //
+      //notification-bar
+      //  div.clear-both
 </template>
 
 <script>
