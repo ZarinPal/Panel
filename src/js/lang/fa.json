@@ -250,7 +250,9 @@
     "yourAccountLevelIsNotSufficientToDoThisAction": "سطح کاربری شما برای انجام این تراکنش کافی نیست",
     "zarinCard": "زرین‌کارت",
     "zarinPal": "زرین‌پال",
-    "zarinpalId": "شماره‌حساب زرین‌پال"
+    "zarinpalId": "شماره‌حساب زرین‌پال",
+    "migratedUserTitle": "حساب کاربری شما منتقل شده است.",
+    "goToNewPanel": "ورود به پنل Next"
   },
   "coupon": {
     "all": "همه",
@@ -1251,7 +1253,6 @@
       "ssn": "تأیید کد ملی",
       "username": "ایجاد لینک شخصی"
     }
-
   },
   "webservice": {
     "editWebservice": "ویرایش درگاه پرداخت",

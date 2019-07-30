@@ -48,139 +48,153 @@
 
     <!--Show modal to say user dont have access to this page-->
     access-level(v-if="visibleUserAccessModal" v-on:closeModal="closeModal()")
+    migrated-user(v-if="visibleUserMigratedModal" v-on:closeModal="closeModal()")
 </template>
 
 <script>
-  import singlePurse from './partials/single-purse.vue';
-  import createPurse from './partials/create.vue';
-  import modal from '../partials/modal.vue';
-  import addFund from './partials/add-fund.vue';
-  import pTop from './partials/ptop.vue';
-  import withdraw from './partials/withdraw.vue';
-  import accessLevel from '../partials/access_level_modal';
-  import zarinCard from './zarin_card/request';
+    import singlePurse from './partials/single-purse.vue';
+    import createPurse from './partials/create.vue';
+    import modal from '../partials/modal.vue';
+    import addFund from './partials/add-fund.vue';
+    import pTop from './partials/ptop.vue';
+    import withdraw from './partials/withdraw.vue';
+    import accessLevel from '../partials/access_level_modal';
+    import zarinCard from './zarin_card/request';
+    import migrated_user_modal from "../partials/migrated_user_modal";
 
-  export default {
-    name: 'pages-home',
-    data(){
-      return {
-        visibleCreatePurse: false,
-        visibleShowMore: false,
-        visibleAddFund: false,
-        visiblePtop: false,
-        visibleWithdraw: false,
-        visibleUserAccessModal: false,
-        visibleRequestZarinCard: false,
+    export default {
+        name: 'pages-home',
+        data() {
+            return {
+                visibleCreatePurse: false,
+                visibleShowMore: false,
+                visibleAddFund: false,
+                visiblePtop: false,
+                visibleWithdraw: false,
+                visibleUserAccessModal: false,
+                visibleUserMigratedModal: false,
+                visibleRequestZarinCard: false,
 
-        message: [],
-        purseLimit: 10,
-      }
-    },
-    props: ['more', 'showMore'],
-    watch: {
-      '$route' () {
-        this.showAccessLevelModal();
-      }
-    },
-    computed: {
-      purses(){
-        // if (!!this.$store.state.auth.user.purses) {
-        //     return {
-        //         data: [],
-        //         update: 1
-        //     }
-        // }
+                message: [],
+                purseLimit: 10,
+            }
+        },
+        props: ['more', 'showMore'],
+        watch: {
+            '$route'() {
+                this.showAccessLevelModal();
+                this.showAccessMigratedModal();
+            }
+        },
+        computed: {
+            purses() {
+                // if (!!this.$store.state.auth.user.purses) {
+                //     return {
+                //         data: [],
+                //         update: 1
+                //     }
+                // }
 
-        return {
-          data: this.$store.state.auth.user.purses,
-          update: this.$store.state.auth.updatePurseListener
+                return {
+                    data: this.$store.state.auth.user.purses,
+                    update: this.$store.state.auth.updatePurseListener
+                }
+            },
+            haveZarinCard() {
+                let zarinCards = {};
+                zarinCards = _.find(this.$store.state.auth.user.cards, function (card) {
+                    return card.issuer.slug === 'ZarinCard';
+                });
+                return typeof zarinCards !== 'undefined';
+            }
+        },
+        created() {
+            this.showAccessLevelModal();
+            this.showAccessMigratedModal();
+
+            //Check if add fund authority is exists, show message
+            this.checkAddFund();
+            if (this.$route.params.createPurse === 'Yes') {
+                this.visibleCreatePurse = true;
+            }
+        },
+        methods: {
+            userHasAccess(validLevels) {
+                return _.indexOf(validLevels, this.$store.state.auth.user.level);
+            },
+            closeModal() {
+                this.visibleCreatePurse = false;
+                this.visibleAddFund = false;
+                this.visiblePtop = false;
+                this.visibleWithdraw = false;
+                this.visibleRequestZarinCard = false;
+
+                if (this.$route.query.error === 'suspend') {
+                    this.visibleUserAccessModal = false;
+                }
+                if (this.$route.query.error === 'migrated') {
+                    this.visibleUserMigratedModal = false;
+                }
+
+                store.commit('clearValidationErrors');
+            },
+            showAccessLevelModal() {
+                if (this.$route.query.error === 'suspend') {
+                    this.visibleUserAccessModal = true;
+                }
+            },
+            showAccessMigratedModal() {
+                if (this.$route.query.error === 'migrated') {
+                    this.visibleUserMigratedModal = true;
+                }
+            },
+            getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            },
+            checkAddFund() {
+                let status = this.getParameterByName('Status');
+                let authority = parseInt(this.getParameterByName('Authority'));
+                if (status || authority) {
+                    if (status === 'OK') {
+                        this.message = 'UserAddFundSuccessLocal';
+
+                        store.commit('flashMessage', {
+                            text: this.message,
+                            type: 'success',
+                            important: true
+                        });
+                        this.$router.push({
+                            name: 'transaction.index',
+                            params: {id: '1', type: 'purse', transactionId: authority}
+                        });
+                    } else {
+                        this.message = 'UserAddFundFailLocal';
+                        store.commit('flashMessage', {
+                            text: this.message,
+                            type: 'danger',
+                            important: true
+                        });
+                        this.$router.push({name: 'home.index'});
+                    }
+                }
+            },
+        },
+        components: {
+            singlePurse,
+            createPurse,
+            addFund,
+            pTop,
+            withdraw,
+            modal,
+            'access-level': accessLevel,
+            'migrated-user': migrated_user_modal,
+            'zarin-card': zarinCard
         }
-      },
-      haveZarinCard() {
-        let zarinCards = {};
-        zarinCards = _.find(this.$store.state.auth.user.cards, function(card) {
-          return card.issuer.slug === 'ZarinCard';
-        });
-        return typeof zarinCards !== 'undefined';
-      }
-    },
-    created(){
-      this.showAccessLevelModal();
-
-      //Check if add fund authority is exists, show message
-      this.checkAddFund();
-      if (this.$route.params.createPurse === 'Yes') {
-        this.visibleCreatePurse = true;
-      }
-    },
-    methods: {
-      userHasAccess(validLevels) {
-        return _.indexOf(validLevels, this.$store.state.auth.user.level);
-      },
-      closeModal(){
-        this.visibleCreatePurse = false;
-        this.visibleAddFund = false;
-        this.visiblePtop = false;
-        this.visibleWithdraw = false;
-        this.visibleRequestZarinCard = false;
-
-        if (this.$route.query.error === 'suspend') {
-          this.visibleUserAccessModal = false;
-        }
-
-        store.commit('clearValidationErrors');
-      },
-      showAccessLevelModal() {
-        if (this.$route.query.error === 'suspend') {
-          this.visibleUserAccessModal = true;
-        }
-      },
-      getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-      },
-      checkAddFund() {
-        let status = this.getParameterByName('Status');
-        let authority = parseInt(this.getParameterByName('Authority'));
-        if (status || authority) {
-          if (status === 'OK') {
-            this.message = 'UserAddFundSuccessLocal';
-
-            store.commit('flashMessage', {
-              text: this.message,
-              type: 'success',
-              important: true
-            });
-            this.$router.push({
-              name: 'transaction.index',
-              params: {id: '1', type: 'purse', transactionId: authority}
-            });
-          } else {
-            this.message = 'UserAddFundFailLocal';
-            store.commit('flashMessage', {
-              text: this.message,
-              type: 'danger',
-              important: true
-            });
-            this.$router.push({name: 'home.index'});
-          }
-        }
-      },
-    },
-    components: {
-      singlePurse,
-      createPurse,
-      addFund,
-      pTop,
-      withdraw,
-      modal,
-      'access-level': accessLevel,
-      'zarin-card': zarinCard
     }
-  }
 </script>
