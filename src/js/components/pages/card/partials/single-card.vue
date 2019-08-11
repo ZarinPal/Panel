@@ -84,25 +84,25 @@
             <!--Active-->
             span(v-if="card.status == 'Active'")
               span.option.statement-icon(v-if="card.is_cs_supported && $store.state.auth.user.level !== -1" @click="showZarinCardStatement = true" ) {{ $i18n.t('common.getBalance')}}
-              span.option.shetab-icon(v-if="card.is_cs_supported" @click="showTransferShetab = true" ) {{ $i18n.t('purse.shetabMoneyTransfer')}}
+              <!--span.option.shetab-icon(v-if="card.is_cs_supported" @click="showTransferShetab = true" ) {{ $i18n.t('purse.shetabMoneyTransfer')}}-->
               span.option.edit-bank-account(v-if="!card.is_legal && card.issuer.slug !== 'ZarinCard'" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
 
             <!--Expired-->
             span(v-else-if="card.status == 'Expired'")
               span.option.statement-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") {{ $i18n.t('common.getBalance')}}
-              span.option.shetab-icon.not-allowed {{ $i18n.t('purse.shetabMoneyTransfer')}}
+              <!--span.option.shetab-icon.not-allowed {{ $i18n.t('purse.shetabMoneyTransfer')}}-->
               span.option.edit-bank-account(v-if="!card.is_legal && card.account_id && card.issuer.slug !== 'ZarinCard'" @click="showEditCard = true" ) {{ $i18n.t('card.editBankAccount')}}
 
             <!--InActive-->
             span(v-else-if="card.status == 'InActive'")
               span.option.statement-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") {{ $i18n.t('common.getBalance')}}
-              span.option.shetab-icon.not-allowed {{ $i18n.t('purse.shetabMoneyTransfer')}}
+              <!--span.option.shetab-icon.not-allowed {{ $i18n.t('purse.shetabMoneyTransfer')}}-->
               span.option.edit-bank-account.not-allowed(v-if="!card.is_legal && card.account_id && card.issuer.slug !== 'ZarinCard'") {{ $i18n.t('card.editBankAccount')}}
 
             <!--Pending-->
             span(v-else-if="card.status == 'Pending'")
               span.option.statement-icon.not-allowed(v-if="card.issuer.slug == 'ZarinCard'") {{ $i18n.t('common.getBalance')}}
-              span.option.shetab-icon.not-allowed {{ $i18n.t('purse.shetabMoneyTransfer')}}
+              <!--span.option.shetab-icon.not-allowed {{ $i18n.t('purse.shetabMoneyTransfer')}}-->
               span.option.edit-bank-account.not-allowed(v-if="!card.is_legal && card.account_id && card.issuer.slug !== 'ZarinCard'") {{ $i18n.t('card.editBankAccount')}}
 
     <!--Modals-->
