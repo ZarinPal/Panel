@@ -47,7 +47,7 @@
     "file-loader": "^0.11.1",
     "laravel-mix": "^2",
     "path": "^0.12.7",
-    "pug": "^2.0.0-beta11",
+    "pug": "^3.0.1",
     "resolve-url-loader": "^2.0.2",
     "url": "^0.11.0"
   }
